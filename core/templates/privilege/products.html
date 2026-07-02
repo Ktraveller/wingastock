@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winga Platform | Products</title>
+
+  <!-- SAME CSS FILE -->
+  <link rel="stylesheet" href="{% static 'admin_css/user.css' %}">
+  <style>
+    .messages {
+      margin: 20px 0;
+    }
+
+    .alert {
+      padding: 12px 18px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .success {
+      background: #28a745;
+    }
+
+    .error {
+      background: #dc3545;
+    }
+
+    .warning {
+      background: #ffc107;
+      color: #000;
+    }
+
+    .info {
+      background: #17a2b8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SIDEBAR (same style as users page) -->
+  <aside class="sidebar" id="sidebar">
+    <h2>Winga Platform</h2>
+
+    <a href="{% url 'admin_home' %}">Dashboard</a>
+    <a href="{% url 'admin_products' %}" class="active-link">Products</a>
+    <a href="{% url 'logout_admin' %}">Logout</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+      <h2>Products Management</h2>
+
+      <div class="nav-right">
+        <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()" />
+
+        <button class="add-btn" onclick="window.location.href=`{% url 'add_product' %}`">+ Add Product</button>
+
+        <div class="admin-badge">Admin</div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS TABLE -->
+    <div class="table-container">
+      {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+        <div class="alert {{ message.tags }}">
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Seller</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody id="productTable">
+
+          {% for product_data in products %}
+
+          <tr>
+            <td>{{ product_data.id }}</td>
+            <td>{{ product_data.title }}</td>
+            <td>Phone: {{ product_data.phone }} <br> Location: {{ product_data.location }}</td>
+            <td>{{ product_data.price }} Tsh</td>
+            <td style="text-align: center;"><span class="active">{{ product_data.status }}</span></td>
+            <td style="text-align: center;">
+              <button class="btn edit"
+                onclick="window.location.href=`{% url 'edit_product' product_data.id %}`">Edit</button>
+              <button class="btn delete"
+                onclick="window.location.href=`{% url 'delete_product' product_data.id %}`">Delete</button>
+            </td>
+          </tr>
+
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <script>
+    document.getElementById("searchInput").addEventListener("input", function () {
+      const filter = this.value.toLowerCase();
+      const rows = document.querySelectorAll("#productTable tr");
+
+      rows.forEach(row => {
+        const id = row.cells[0].textContent.toLowerCase();
+        const product = row.cells[1].textContent.toLowerCase();
+        const seller = row.cells[2].textContent.toLowerCase();
+        const status = row.cells[4].textContent.toLowerCase();
+
+        const match =
+          id.includes(filter) ||
+          product.includes(filter) ||
+          seller.includes(filter) ||
+          status.includes(filter);
+
+        row.style.display = match ? "" : "none";
+      });
+    });
+  </script>
+  <script>
+    setTimeout(function () {
+      document.querySelectorAll(".alert").forEach(function (alert) {
+        alert.style.transition = "opacity 0.5s";
+        alert.style.opacity = "0";
+        setTimeout(() => alert.remove(), 500);
+      });
+    }, 4000);
+  </script>
+</body>
+
+</html>

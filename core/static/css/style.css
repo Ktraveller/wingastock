@@ -1,0 +1,323 @@
+/* =========================================
+   PRODUCT DETAILS PAGE - WINGA PLATFORM
+========================================= */
+
+.container-h {
+    width: 90%;
+    max-width: 1400px;
+    margin: auto;
+}
+
+:root {
+    --primary: #0F62FE;
+    --secondary: #00C853;
+    --dark: #111827;
+    --gray: #6B7280;
+    --light: #F9FAFB;
+    --white: #ffffff;
+    --border: #E5E7EB;
+
+    --radius: 16px;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .08);
+}
+
+/* ================= BASE ================= */
+
+.product-details {
+    width: 100%;
+    height: auto;
+}
+
+/* ================= LAYOUT ================= */
+
+.container {
+    width: 100%;
+    height: auto;
+}
+
+.container>div {
+    float: left;
+    padding: 10px;
+    width: 100%;
+}
+
+
+.container4 {
+    width: 100%;
+    float: left;
+    height: auto;
+    margin-top: 100px;
+}
+
+@media only screen and (min-width: 768px) {
+    .container>div {
+        width: 50%;
+    }
+}
+
+/* ================= GALLERY ================= */
+
+.product-gallery {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: 0.3s ease;
+    background: white;
+    padding: 10px;
+}
+
+.product-gallery img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* thumbnails */
+
+.thumbnails {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.thumbnails img {
+    width: 85px;
+    height: 85px;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: 0.3s;
+}
+
+.thumbnails img:hover {
+    border: 2px solid var(--primary);
+    transform: scale(1.05);
+}
+
+/* ================= INFO BOX ================= */
+
+.product-info-box {
+    background: var(--white);
+    padding: 25px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.badge {
+    display: inline-block;
+    background: #e7f5ff;
+    color: var(--primary);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.product-info-box h1 {
+    font-size: 2.2rem;
+    color: var(--dark);
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.location {
+    color: var(--gray);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--secondary);
+    margin: 15px 0;
+}
+
+.desc {
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+/* ================= ACTION BUTTONS ================= */
+
+.actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.actions button {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+/* primary button */
+.primary {
+    background: var(--primary);
+    color: white;
+}
+
+.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(15, 98, 254, .3);
+}
+
+/* whatsapp button */
+.whatsapp {
+    background: #25D366;
+    color: white;
+}
+
+.whatsapp:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, .3);
+}
+
+/* ================= SELLER SECTION ================= */
+
+.seller-section {
+    padding: 50px 0;
+    background: #fff;
+}
+
+.seller-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    max-width: 700px;
+    margin: auto;
+}
+
+.seller-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.seller-card h3 {
+    margin-bottom: 5px;
+}
+
+.seller-card p {
+    color: var(--gray);
+}
+
+.seller-card button {
+    margin-left: auto;
+    padding: 10px 15px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* TABLET */
+@media (max-width: 991px) {
+
+    .product-info-box h1 {
+        font-size: 1.8rem;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .seller-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .seller-card button {
+        margin-left: 0;
+        width: 100%;
+    }
+
+
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+    .product-details {
+        padding: 30px 0;
+    }
+
+    .product-info-box {
+        padding: 18px;
+    }
+
+    .product-info-box h1 {
+        font-size: 1.5rem;
+    }
+
+    .price {
+        font-size: 1.5rem;
+    }
+
+    .thumbnails {
+        justify-content: center;
+    }
+
+    .thumbnails img {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+
+    .product-info-box h1 {
+        font-size: 1.3rem;
+    }
+
+    .price {
+        font-size: 1.3rem;
+    }
+
+    .thumbnails img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .seller-card img {
+        width: 60px;
+        height: 60px;
+        height: 60px;
+    }
+}
+
+/* ================= OPTIONAL DARK MODE ================= */
+
+.dark-mode .product-details {
+    background: #111827;
+}
+
+.dark-mode .product-info-box,
+.dark-mode .seller-card,
+.dark-mode .product-card {
+    background: #1f2937;
+    color: white;
+}
+
+.dark-mode .desc,
+.dark-mode .location {
+    color: #d1d5db;
+}

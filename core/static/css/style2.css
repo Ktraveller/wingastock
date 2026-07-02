@@ -1,0 +1,230 @@
+.center-content-holder-002 {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.content-decor-002 {
+    width: 100%;
+    height: 100vh;
+}
+
+.content-decor-002>div {
+    float: left;
+    height: auto;
+}
+
+.left-content-holder-003 {
+    width: 100%;
+}
+
+.right-content-holder-003 {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.products-holder-004 {
+    width: 100%;
+    height: 4000px;
+    padding: 10px;
+    background: transparent;
+}
+
+.left-content-003 {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+.buttons-holder-004 {
+    width: 100%;
+    height: 100%;
+}
+
+.buttons-holder-004>div {
+    float: left;
+    min-width: 150px;
+}
+
+.buttons-004 {
+    height: 50px;
+    padding: 5px;
+}
+
+.buttons-004>button {
+    width: 100%;
+    height: 100%;
+    border-style: none;
+    background: transparent;
+    border: 1px solid dodgerblue;
+    color: dodgerblue;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttons-004>button:hover {
+    background: dodgerblue;
+    color: white;
+    transition: 0.3s;
+}
+
+.category-holder-003 {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    overflow-x: scroll;
+}
+
+.category-003 {
+    width: 1000px;
+    height: 100%;
+}
+
+.category-003>div {
+    float: left;
+    width: auto;
+}
+
+
+.products-holder-005 {
+    width: 100%;
+    height: auto;
+}
+
+/* Product card */
+.products-grid {
+    width: 100%;
+    height: auto;
+}
+
+.products-grid>div {
+    float: left;
+    width: 50%;
+    height: 250px;
+    padding: 10px;
+    background: transparent;
+}
+
+.product-card {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background: transparent;
+}
+
+
+.product-image-20 {
+    width: 100%;
+    height: 100%;
+}
+
+.product-image-20>button {
+    background: transparent;
+    outline: none;
+    border-style: none;
+    outline: none;
+}
+
+.button201 {
+    width: 100%;
+    height: 70%;
+    text-align: center;
+}
+
+.button201>img {
+    width: 95%;
+    height: 95%;
+    margin: auto;
+    border-radius: 5px
+}
+
+.button201>img:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+    width: 100%;
+    height: 100%;
+}
+
+.button202 {
+    width: 100%;
+    height: 30%;
+    padding-left: 10px;
+    border-style: none;
+    text-align: center;
+}
+
+
+
+.nav-actions {
+    margin-bottom: 50px;
+}
+
+.price40 {
+    color: dodgerblue;
+    font-weight: bolder;
+    font-size: 15px;
+}
+
+@media only screen and (min-width: 768px) {
+    .products-grid>div {
+        float: left;
+        width: 20%;
+
+    }
+}
+
+
+@media only screen and (min-width: 768px) {
+
+    .left-content-holder-003 {
+        width: 20%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+    }
+
+    .left-content-003 {
+        margin-top: 50px;
+    }
+
+    .right-content-holder-003 {
+        width: 80%;
+        margin-left: 20%;
+    }
+
+    .category-holder-003 {
+        width: 100%;
+        height: auto;
+        background: transparent;
+        overflow: unset;
+    }
+
+    .category-003 {
+        width: 100%;
+        height: auto;
+        background: transparent;
+    }
+
+    .category-003>div {
+        float: left;
+        width: 50%;
+    }
+
+    .buttons-holder-004 {
+        background: transparent;
+    }
+
+    .buttons-holder-004>div {
+        float: left;
+        min-width: unset;
+    }
+
+    .buttons-004 {
+        background: transparent;
+        height: 50px;
+        width: 100%;
+    }
+}

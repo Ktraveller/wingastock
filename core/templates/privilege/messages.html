@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winga Platform | Product Approvals</title>
+
+  <!-- Reuse same CSS -->
+  <link rel="stylesheet" href="{% static 'admin_css/user.css' %}">
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <h2>Winga Platform</h2>
+
+    <a href="{% url 'admin_home' %}">Dashboard</a>
+    <a href="{% url 'admin_products' %}">Products</a>
+    <a href="{% url 'logout_admin' %}">Logout</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+      <h2>Logs</h2>
+
+      <div class="nav-right">
+        <input type="text" id="searchInput" placeholder="Search pending products..." onkeyup="searchApprovals()" />
+
+        <div class="admin-badge">Admin</div>
+      </div>
+    </div>
+
+    <!-- APPROVAL TABLE -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Seller</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody id="approvalTable">
+
+          <tr>
+            <td>201</td>
+            <td>Wireless Headphones</td>
+            <td>John Seller</td>
+            <td>Electronics</td>
+            <td>$120</td>
+            <td><span class="pending">Pending</span></td>
+            <td>
+              <button class="btn approve" onclick="approveProduct(this)">Approve</button>
+              <button class="btn reject" onclick="rejectProduct(this)">Reject</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>202</td>
+            <td>Gaming Chair</td>
+            <td>Jane Seller</td>
+            <td>Furniture</td>
+            <td>$300</td>
+            <td><span class="pending">Pending</span></td>
+            <td>
+              <button class="btn approve" onclick="approveProduct(this)">Approve</button>
+              <button class="btn reject" onclick="rejectProduct(this)">Reject</button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <script src="{% static 'admin_js/approval.js' %}"></script>
+</body>
+
+</html>

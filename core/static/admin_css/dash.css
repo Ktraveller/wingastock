@@ -1,0 +1,152 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  display: flex;
+  background: #0f172a;
+  color: white;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background: #111827;
+  padding: 20px;
+  position: fixed;
+  transition: 0.3s;
+}
+
+.sidebar h2 {
+  margin-bottom: 30px;
+  color: #38bdf8;
+}
+
+.sidebar a {
+  display: block;
+  padding: 12px;
+  color: #cbd5e1;
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.sidebar a:hover {
+  background: #1e293b;
+  color: white;
+}
+
+/* MAIN */
+.main {
+  margin-left: 260px;
+  width: 100%;
+  padding: 20px;
+}
+
+/* TOPBAR */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111827;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.menu-btn {
+  display: none;
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.profile {
+  background: #38bdf8;
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: black;
+  font-weight: bold;
+}
+
+/* CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #111827;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #1f2937;
+}
+
+.card h3 {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.card p {
+  font-size: 22px;
+  margin-top: 10px;
+  color: #38bdf8;
+}
+
+/* CHARTS */
+.charts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.chart-box {
+  background: #111827;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #1f2937;
+}
+
+.chart-box h3 {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .charts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    left: -260px;
+    position: fixed;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .main {
+    margin-left: 0;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+}

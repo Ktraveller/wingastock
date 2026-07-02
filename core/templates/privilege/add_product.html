@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Winga Platform | Products</title>
+
+    <!-- SAME CSS FILE -->
+    <link rel="stylesheet" href="{% static 'admin_css/user.css' %}">
+
+    <style>
+        .messages {
+            margin: 20px 0;
+        }
+
+        .alert {
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .success {
+            background: #28a745;
+        }
+
+        .error {
+            background: #dc3545;
+        }
+
+        .warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .info {
+            background: #17a2b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR (same style as users page) -->
+    <aside class="sidebar" id="sidebar">
+        <h2>Winga Platform</h2>
+
+    <a href="{% url 'admin_home' %}">Dashboard</a>
+    <a href="{% url 'admin_products' %}" class="active-link">Products</a>
+    <a href="{% url 'logout_admin' %}">Logout</a>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- NAVBAR -->
+        <div class="navbar">
+            <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+            <h2>Add Product</h2>
+
+            <div class="nav-right">
+
+                <div class="admin-badge">Admin</div>
+            </div>
+        </div>
+
+        <!-- PRODUCTS TABLE -->
+        <div class="table-container">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert {{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Add product form will go here -->
+            <form method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+
+                {% csrf_token %}
+                <div class="inputs-holder">
+                    <div>
+                        <label for="title">Product Name:</label>
+                        <div class="input">
+                            <input type="text" name="title" placeholder="e.g iPhone 12" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="description">Description:</label>
+                        <div class="input" style="height: 100px;">
+                            <textarea name="description" required placeholder="e.g Quality product from ..."></textarea>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="price">Price:</label>
+                        <div class="input">
+                            <input type="number" name="price" min="1" step="0.01" placeholder="e.g 1000.00" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="category">Category:</label>
+                        <div class="input">
+                            <select name="category" required>
+                                <option value="">Choose category</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="food">Food</option>
+                                <option value="clothes">Clothes</option>
+                                <option value="furniture">Furniture</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="phone">Phone Number:</label>
+                        <div class="input">
+                            <input type="number" name="phone" maxlength="20" placeholder="e.g 745" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="location">Location:</label>
+                        <div class="input">
+                            <select name="location" id="location" required>
+                                <option value="">Select location</option>
+                                <option value="Arusha">Arusha</option>
+                                <option value="Dar es Salaam">Dar es Salaam</option>
+                                <option value="Dodoma">Dodoma</option>
+                                <option value="Geita">Geita</option>
+                                <option value="Iringa">Iringa</option>
+                                <option value="Kagera">Kagera</option>
+                                <option value="Katavi">Katavi</option>
+                                <option value="Kigoma">Kigoma</option>
+                                <option value="Kilimanjaro">Kilimanjaro</option>
+                                <option value="Lindi">Lindi</option>
+                                <option value="Manyara">Manyara</option>
+                                <option value="Mara">Mara</option>
+                                <option value="Mbeya">Mbeya</option>
+                                <option value="Morogoro">Morogoro</option>
+                                <option value="Mtwara">Mtwara</option>
+                                <option value="Mwanza">Mwanza</option>
+                                <option value="Njombe">Njombe</option>
+                                <option value="Pemba North">Pemba North</option>
+                                <option value="Pemba South">Pemba South</option>
+                                <option value="Pwani">Pwani</option>
+                                <option value="Rukwa">Rukwa</option>
+                                <option value="Ruvuma">Ruvuma</option>
+                                <option value="Shinyanga">Shinyanga</option>
+                                <option value="Simiyu">Simiyu</option>
+                                <option value="Singida">Singida</option>
+                                <option value="Songwe">Songwe</option>
+                                <option value="Tabora">Tabora</option>
+                                <option value="Tanga">Tanga</option>
+                                <option value="Zanzibar North">Zanzibar North</option>
+                                <option value="Zanzibar South and Central">Zanzibar South and Central</option>
+                                <option value="Zanzibar West">Zanzibar West</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="images">Product Images:</label>
+                        <div class="input">
+                            <input type="file" name="images" accept="image/*" multiple required style="padding: 8px;">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="status">Status:</label>
+                        <div class="input">
+                            <select name="status" required>
+                                <option value="">Choose status</option>
+                                <option value="True">Available</option>
+                                <option value="False">Unavailable</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="submit-inputs" style="width: 100%; text-align: center; padding: 0;">
+                        <button type="submit">Add Product</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+    <script src=""></script>
+    <script>
+        setTimeout(function () {
+            document.querySelectorAll(".alert").forEach(function (alert) {
+                alert.style.transition = "opacity 0.5s";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>

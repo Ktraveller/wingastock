@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winga platform</title>
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Layout -->
+    <div class="row-holder-001">
+        <div class="header-holder-001">
+            <div class="title-002">Winga platform</div>
+            <div class="action-002">
+                <div class="search-003">
+                    <input type="text" placeholder="Search ..." id="search">
+                </div>
+
+                <div class="sub-actions-003">
+                    <button type="button"><i class="fa-solid fa-bars" onclick="menu_bar(1);"></i></button>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div class="content-holder-001">
+            <div class="center-content-holder-002">
+                <div class="content-decor-002">
+
+                    <div class="left-content-holder-003">
+                        <div class="left-content-003">
+                            <p style="font-weight: bold; color: dodgerblue;">Product categories</p>
+
+                            <div class="category-holder-003">
+
+                                <div class="category-003">
+
+                                    <div class="buttons-holder-004">
+                                        <div class="buttons-004">
+                                            <button type="button"
+                                                onclick="window.location.href=`{% url 'filter_products' 'electronics' %}`">
+                                                <i class="fa fa-laptop"></i> Electronics</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="buttons-holder-004">
+                                        <div class="buttons-004">
+                                            <button type="button"
+                                                onclick="window.location.href=`{% url 'filter_products' 'food' %}`">
+                                                <i class="fa fa-utensils"></i> Food</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="buttons-holder-004">
+                                        <div class="buttons-004">
+                                            <button type="button"
+                                                onclick="window.location.href=`{% url 'filter_products' 'houses' %}`">
+                                                <i class="fa fa-home"></i> Houses</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="buttons-holder-004">
+                                        <div class="buttons-004">
+                                            <button type="button"
+                                                onclick="window.location.href=`{% url 'filter_products' 'clothes' %}`">
+                                                <i class="fa fa-home"></i> Clothes</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="buttons-holder-004">
+                                        <div class="buttons-004">
+                                            <button type="button"
+                                                onclick="window.location.href=`{% url 'filter_products' 'furniture' %}`">
+                                                <i class="fa fa-home"></i> Furniture</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="right-content-holder-003">
+                        <div class="products-holder-004">
+                            <p style="font-weight: bold; color: dodgerblue;">Find products</p>
+
+                            <div class="products-holder-005">
+
+                                <div class="products-grid" id="productGrid">
+
+                                    {% for product in products %}
+
+                                    <div>
+                                        <div class="product-card"
+                                            onclick="window.location.href=`{% url 'product_details' product.id %}`">
+                                            <div class="product-image-20">
+                                                <button type="button" class="button201">
+                                                    {% for image in product.images.all %}
+                                                    <img src="{{ image.image.url }}" alt="{{ product.title }}">
+                                                    {% empty %}
+                                                    <p>No images available.</p>
+                                                    {% endfor %}
+                                                </button>
+                                                <button type="button" class="button202">
+                                                    <b>{{ product.title }}</b><br>
+                                                    <span class="price40">{{ product.price }} Tsh</span><br>
+                                                    <span><i class="fa fa-location-dot"></i> {{ product.location }}</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="footer-holder-001">
+            <span> &copy; Winga platform 2026</span>
+            <span style="float: right;">Version: 1</span>
+        </div>
+
+
+        <!-- Other contents -->
+        <div class="chart-icon-001">
+            <button type="button"><i class="fa fa-chart-bar"></i></button>
+        </div>
+
+
+    <!-- menu bar -->
+    <div class="menu-holder-001" id="menu_bar">
+      <div class="menu-content-002">
+        <div class="close-menu-003">
+          <button type="button" onclick="menu_bar(0)">x</button>
+        </div>
+
+        <div class="menu-003">
+          <ul>
+            <a href="{% url 'home' %}">
+              <li><i class="fa fa-home"></i> Back home</li>
+            </a>
+
+            <a href="{% url 'filter_products' 'electonics' %}">
+              <li><i class="fa fa-laptop"></i> Products available</li>
+            </a>
+
+            <a href="{% url 'filter_products' 'electronics' %}">
+              <li><i class="fa fa-laptop"></i> Favorite products</li>
+            </a>
+          </ul>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- javascripts code -->
+    <script>
+        function menu_bar(value) {
+            bar = document.getElementById("menu_bar");
+
+            if (value == 1) {
+                bar.style.display = 'inline-block';
+            }
+            else {
+                bar.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winga Platform | Login</title>
+
+  <link rel="stylesheet" href="{% static 'admin_css/login.css' %}">
+</head>
+
+<body>
+
+  <div class="login-container">
+
+    <!-- LEFT SIDE -->
+    <div class="login-left">
+      <h1>Winga Platform</h1>
+      <p>Admin & Marketplace System</p>
+
+      <ul>
+        <li>✔ Manage users</li>
+        <li>✔ Approve products</li>
+        <li>✔ Track statistics</li>
+        <li>✔ Control marketplace</li>
+      </ul>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="login-right">
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <h2>Admin Login</h2>
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Enter email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter password" required>
+
+        <button type="submit">Login</button>
+
+        {% if error %}
+        <p style="color:red;">{{ error }}</p>
+        {% endif %}
+      </form>
+
+    </div>
+
+  </div>
+
+  <script src="{% static 'admin_js/login.js' %}"></script>
+</body>
+
+</html>

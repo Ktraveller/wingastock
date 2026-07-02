@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winga Platform | Settings</title>
+
+  <link rel="stylesheet" href="{% static 'admin_css/user.css' %}">
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <h2>Winga Platform</h2>
+
+    <a href="{% url 'admin_home' %}">Dashboard</a>
+    <a href="{% url 'admin_users' %}">Users</a>
+    <a href="{% url 'admin_products' %}">Products</a>
+    <a href="{% url 'admin_messages' %}">Messages</a>
+    <a href="{% url 'admin_statistics' %}">Statistics</a>
+    <a href="{% url 'admin_settings' %}" class="active-link">Settings</a>
+    <a href="{% url 'logout_admin' %}">Logout</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+      <h2>Settings</h2>
+
+      <div class="nav-right">
+        <div class="admin-badge">Admin</div>
+      </div>
+    </div>
+
+    <!-- SETTINGS GRID -->
+    <div class="settings-grid">
+
+      <!-- PROFILE SETTINGS -->
+      <div class="settings-card">
+        <h3>Admin Profile</h3>
+
+        <label>Full Name</label>
+        <input type="text" value="Admin User">
+
+        <label>Email</label>
+        <input type="email" value="admin@winga.com">
+
+        <label>Phone</label>
+        <input type="text" value="+255 700 000 000">
+
+        <button onclick="saveSettings()">Save Profile</button>
+      </div>
+
+      <!-- PASSWORD -->
+      <div class="settings-card">
+        <h3>Change Password</h3>
+
+        <label>Current Password</label>
+        <input type="password" placeholder="Enter current password">
+
+        <label>New Password</label>
+        <input type="password" placeholder="Enter new password">
+
+        <label>Confirm Password</label>
+        <input type="password" placeholder="Confirm new password">
+
+        <button onclick="changePassword()">Update Password</button>
+      </div>
+
+      <!-- PLATFORM SETTINGS -->
+      <div class="settings-card">
+        <h3>Platform Settings</h3>
+
+        <div class="toggle">
+          <span>Enable New Registrations</span>
+          <input type="checkbox" checked>
+        </div>
+
+        <div class="toggle">
+          <span>Allow Product Uploads</span>
+          <input type="checkbox" checked>
+        </div>
+
+        <div class="toggle">
+          <span>Email Notifications</span>
+          <input type="checkbox">
+        </div>
+
+        <div class="toggle">
+          <span>Maintenance Mode</span>
+          <input type="checkbox">
+        </div>
+
+        <button onclick="saveSettings()">Save Settings</button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="{% static 'admin_js/settings.js' %}"></script>
+</body>
+
+</html>
