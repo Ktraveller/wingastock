@@ -6,17 +6,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wingastock | Bidhaa zaidi, bidhaa pendwa</title>
 
-  <meta name="description" content="Buy and sell electronics, furniture, food, houses and more on Winga Platform.">
+  <meta name="description" content="Nunua na uza bidhaa za electoniki kama simu, laptops, TV, 
+    pia tunauza Thamani za ndani (furniture), vyumba, nyumba na bidhaa mbalimbali kupitia jukwaa letu wingastock ">
 
   <meta name="robots" content="index, follow">
 
-  <link rel="canonical" href="https://winga-platform.onrender.com/">
+  <link rel="canonical" href="https://wingastock.onrender.com/">
 
-  <meta property="og:title" content="Winga Platform">
+  <meta property="og:title" content="Wingastock">
 
-  <meta property="og:description" content="Tanzania Online Marketplace">
+  <meta property="og:description" content="Soko mtandao Tanzania">
 
   <meta property="og:type" content="website">
 
@@ -40,8 +41,8 @@
 
         <div class="sub-actions-003">
           <button type="button"
-            onclick="window.location.href=`https://wa.me/255711319475?text=Hellow, i want to sell my products`">Sell
-            products</button>
+            onclick="window.location.href=`https://wa.me/255711319475?text=Habari, nataka kuuza bidhaa yangu.`">Uza
+            bidhaa</button>
         </div>
 
 
@@ -65,8 +66,8 @@
             <div class="products-holder-004">
 
               <!-- Favorite products -->
-              <h1 style="margin-top: 100px; font-size: 15px;">Favorite products
-                <span style="float: right;">More products</span>
+              <h1 style="margin-top: 100px; font-size: 15px;">Bidhaa pendwa
+                <span style="float: right;">Tazama zaidi</span>
               </h1>
 
 
@@ -96,8 +97,9 @@
               </div>
 
               <!-- Product category -->
-              <h1 style="margin-top: 100px; font-size: 15px;" id="category">Product categories
+              <h1 style="margin-top: 100px; font-size: 15px;" id="category">Makundi ya bidhaa
               </h1>
+
 
 
 
@@ -105,16 +107,16 @@
               <div class="category-product-holder">
                 <div class="category-holder">
                   <div><button type="button"
-                      onclick="window.location.href=`{% url 'filter_products' 'electronics' %}`">Electronics</button>
+                      onclick="window.location.href=`{% url 'filter_products' 'electronics' %}`">Electroniki</button>
                   </div>
                   <div><button type="button"
-                      onclick="window.location.href=`{% url 'filter_products' 'furniture' %}`">Furniture</button>
+                      onclick="window.location.href=`{% url 'filter_products' 'furniture' %}`">Thamani za ndani</button>
                   </div>
                   <div><button type="button"
-                      onclick="window.location.href=`{% url 'filter_products' 'clothes' %}`">Clothes</button>
+                      onclick="window.location.href=`{% url 'filter_products' 'clothes' %}`">Mavazi</button>
                   </div>
                   <div><button type="button"
-                      onclick="window.location.href=`{% url 'filter_products' 'food' %}`">Food</button>
+                      onclick="window.location.href=`{% url 'filter_products' 'food' %}`">Vyakula</button>
                   </div>
                 </div>
               </div>
@@ -122,11 +124,11 @@
 
 
 
-              <h1 style="margin-top: 100px; font-size: 15px;">Featured products</h1>
+              <h1 style="margin-top: 100px; font-size: 15px;">Bidhaa mbalimbali</h1>
 
               <!-- Search module -->
               <div class="search-filter-filter">
-                <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+                <input type="text" id="searchInput" placeholder="Tafuta bidhaa ..." onkeyup="filterProducts()">
 
                 <button type="button" onclick="window.location.href=`{% url 'filter_products' 'filter' %}`"><i
                     class="fa fa-filter"></i></button>
@@ -162,7 +164,7 @@
 
               <!-- Filter products -->
               <div class="view-more-holder">
-                <button type="button">View more products</button>
+                <button type="button">Tazama bidhaa zaidi</button>
               </div>
             </div>
 
@@ -184,7 +186,7 @@
         <div class="right-content-holder-003">
           <div class="products-holder-004" style="border-top-left-radius: 20px;">
 
-            <h1 style="margin-top: 100px; font-size: 15px;">Other products</h1>
+            <h1 style="margin-top: 100px; font-size: 15px;">Bidhaa nyingine</h1>
 
 
             <div class="products-holder-005">
@@ -215,8 +217,8 @@
 
             <!-- Other product scroll -->
             <div class="scroll-products-holder" style="margin-top: 100px; float: left;">
-              <h1 style="font-size: 15px;">Also you may like
-                <span style="float: right;">More products</span>
+              <h1 style="font-size: 15px;">Pia unaweza ukapenda
+                <span style="float: right;">Tazama zaidi</span>
               </h1>
               <div class="scroll-left-holder">
 
@@ -253,33 +255,34 @@
   <!-- Footer content -->
   <div class="footer-content-holder">
     <div class="footer-content">
-      <h1 style="font-size: 15px; text-align: center; margin-bottom: 50px;">Welcome to our platform</h1>
+      <h1 style="font-size: 15px; text-align: center; margin-bottom: 50px;">Karibu kwenye tovuti yetu 'Wingastock'</h1>
 
       <div class="foot-content">
 
         <div class="foot-declaration" style="border-right: 1px solid rgba(255, 255, 255, 0.522);">
-          <p><b>Winga platform</b>, is a platform that connect customer and seller, <br>
-            help customer to get seller contacts that use to communicate with seller for buying
-            products.</p>
+          <p><b>Wingastock</b>, ni jukwaa linalounganisha wateja na wauzaji wa bidhaa,<br>
+            Inasaidia wateja kupata mawasiliano ya wauza bidhaa kwa urahisi ili wafanye biashara kuuza au kununua
+            bidhaa.
+          </p>
         </div>
 
         <div class="foot-category" style="border-right: 1px solid rgba(255, 255, 255, 0.522);">
-          <p style="text-align: center;"><b>Products available based on categories</b></p>
+          <p style="text-align: center;"><b>Bidhaa zilizopo kutokana na makundi</b></p>
           <ul>
-            <li><a href="#category">Electronics</a></li>
-            <li><a href="#category">Furniture</a></li>
-            <li><a href="#category">Clothes</a></li>
-            <li><a href="#category">Food</a></li>
-            <li><a href="#category">Residents</a></li>
-            <li><a href="#category">And more ...</a></li>
+            <li><a href="#category">Electroniki</a></li>
+            <li><a href="#category">Thamani za ndani</a></li>
+            <li><a href="#category">Mavazi</a></li>
+            <li><a href="#category">Vyakula</a></li>
+            <li><a href="#category">Makazi</a></li>
+            <li><a href="#category">N.K ...</a></li>
           </ul>
         </div>
 
         <div class="foot-contact">
-          <p style="text-align: center;"><b>Contacts</b></p>
-          <p><b>Phone:</b> 255711319475</p>
-          <p><b>Email:</b> serviceshomelibrary@gmail.com</p>
-          <p><b>Location: </b>Mabibo, Dar es salaam</p>
+          <p style="text-align: center;"><b>Mawasiliano</b></p>
+          <p><b>Simu:</b> 255711319475</p>
+          <p><b>Barua pepe:</b> serviceshomelibrary@gmail.com</p>
+          <p><b>Anuani: </b>Mabibo, Dar es salaam</p>
         </div>
       </div>
     </div>

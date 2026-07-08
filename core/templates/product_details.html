@@ -6,17 +6,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wingastock | Bidhaa uliochagua, bidhaa zaidi</title>
 
-  <meta name="description" content="Buy and sell electronics, furniture, food, houses and more on Winga Platform.">
+  <meta name="description" content="Nunua na uza bidhaa za electoniki kama simu, laptops, TV, 
+    pia tunauza Thamani za ndani (furniture), vyumba, nyumba na bidhaa mbalimbali kupitia jukwaa letu wingastock ">
 
   <meta name="robots" content="index, follow">
 
-  <link rel="canonical" href="https://winga-platform.onrender.com/">
+  <link rel="canonical" href="https://wingastock.onrender.com/">
 
-  <meta property="og:title" content="Winga Platform">
+  <meta property="og:title" content="Wingastock">
 
-  <meta property="og:description" content="Tanzania Online Marketplace">
+  <meta property="og:description" content="Soko mtandao Tanzania">
+
 
   <meta property="og:type" content="website">
 
@@ -35,13 +37,14 @@
   <!-- Layout -->
   <div class="row-holder-001">
     <div class="header-holder-001">
-      <div class="title-002" onclick="window.location.href=`{% url 'home' %}`">Winga platform</div>
+      <div class="title-002" onclick="window.location.href=`{% url 'home' %}`">Wingastock</div>
       <div class="action-002">
 
         <div class="sub-actions-003">
           <button type="button"
-            onclick="window.location.href=`https://wa.me/255711319475?text=Hellow, i want to sell my products`">Sell
-            products</button>
+            onclick="window.location.href=`https://wa.me/255711319475?text=Habari, nataka kuuza bidhaa yangu.`">Uza
+            bidhaa</button>
+
         </div>
 
 
@@ -69,36 +72,35 @@
                 <div class="selected-product-005">
                   <div class="product-details-004">
                     <h1 style="font-size: 18px;">{{ product.title }}</h1>
-                    <p><b>Descriptions: </b> {{ product.description }}</p>
-                    <p><b>Price: </b>{{ product.price }} Tsh</p>
+                    <p><b>Maelezo: </b> {{ product.description }}</p>
+                    <p><b>Bei: </b>{{ product.price }} Tsh</p>
                     <br>
-                    <p><b>Location: </b>{{ product.location }}</p>
+                    <p><b>Anuani: </b>{{ product.location }}</p>
                   </div>
                 </div>
 
                 <div class="product-actions-004">
                   <div class="request-contacts">
-                    <button type="button" onclick="document.getElementById('contact').style.display = 'inline'">Get
-                      seller contacts</button>
+                    <button type="button" 
+                      onclick="window.location.href=`tel:+255711319475`"><i class="fa-solid fa-phone"></i> Ongea na muuzaji</button>
                     <button type="button" style="background: green;"
-                      onclick="window.location.href=`https://wa.me/255711319475?text=Hellow, i want {{ product.title }}`">Whatsapp
-                      seller</button>
+                      onclick="window.location.href=`https://wa.me/255711319475?text=Habari, naulizia {{ product.title }}`">
+                      <i class="fa-brands fa-whatsapp"></i> Tuma meseji whatsapp</button>
 
                     <br>
                     <h1 style="display: none; float: left;" id="contact">Seller contact: <u>255711319475</u></h1>
                     <br><br>
-                    <p style="float: left;"><i>~ Click <b>Get seller contacts</b> to get seller contacts or whatsapp
-                        seller directly by click <b>Whatsapp seller</b></i></p>
                   </div>
 
                 </div>
+
               </div>
 
               <hr style="color: rgba(220, 20, 60, 0.193); margin-top: 100px;">
 
               <!-- Search module -->
               <div class="search-filter-filter" style="margin-top: 100px;">
-                <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+                <input type="text" id="searchInput" placeholder="Tafuta bidhaa ..." onkeyup="filterProducts()">
 
                 <button type="button" onclick="window.location.href=`{% url 'filter_products' 'filter' %}`"><i
                     class="fa fa-filter"></i></button>
@@ -106,7 +108,7 @@
                     class="fa fa-sort"></i></button>
               </div>
 
-              <h1 style="margin-top: 50px; font-size: 15px;">Related products</h1>
+              <h1 style="margin-top: 50px; font-size: 15px;">Bidhaa nyingine</h1>
 
 
               <div class="products-holder-005">
@@ -136,8 +138,7 @@
 
               <!-- Filter products -->
               <div class="view-more-holder">
-                <button type="button" onclick="window.location.href=`{% url 'filter_products' product.category %}`">View
-                  more related products</button>
+                <button type="button" onclick="window.location.href=`{% url 'filter_products' product.category %}`">Tazama bidhaa zaidi</button>
               </div>
             </div>
 
@@ -159,7 +160,7 @@
         <div class="right-content-holder-003">
           <div class="products-holder-004" style="border-top-left-radius: 20px;">
 
-            <h1 style="margin-top: 100px; font-size: 15px;">Other products</h1>
+            <h1 style="margin-top: 100px; font-size: 15px;">Bidhaa zaidi</h1>
 
             <div class="products-holder-005">
               <div class="products-grid" id="productGrid">
@@ -201,39 +202,39 @@
 
 
   <!-- Footer content -->
-  <div class="footer-content-holder">
-    <div class="footer-content">
-      <h1 style="font-size: 15px; text-align: center; margin-bottom: 50px;">Welcome to our platform</h1>
+    <div class="footer-content-holder">
+        <div class="footer-content">
+            <h1 style="font-size: 15px; text-align: center; margin-bottom: 50px;">Karibu kwenye tovuti yetu 'Wingastock'</h1>
 
-      <div class="foot-content">
+            <div class="foot-content">
 
-        <div class="foot-declaration" style="border-right: 1px solid rgba(255, 255, 255, 0.522);">
-          <p><b>Winga platform</b>, is a platform that connect customer and seller, <br>
-            help customer to get seller contacts that use to communicate with seller for buying
-            products.</p>
+                <div class="foot-declaration" style="border-right: 1px solid rgba(255, 255, 255, 0.522);">
+                    <p><b>Wingastock</b>, ni jukwaa linalounganisha wateja na wauzaji wa bidhaa,<br>
+                        Inasaidia wateja kupata mawasiliano ya wauza bidhaa kwa urahisi ili wafanye biashara kuuza au kununua bidhaa.
+                    </p>
+                </div>
+
+                <div class="foot-category" style="border-right: 1px solid rgba(255, 255, 255, 0.522);">
+                    <p style="text-align: center;"><b>Bidhaa zilizopo kutokana na makundi</b></p>
+                    <ul>
+                        <li><a href="#category">Electroniki</a></li>
+                        <li><a href="#category">Thamani za ndani</a></li>
+                        <li><a href="#category">Mavazi</a></li>
+                        <li><a href="#category">Vyakula</a></li>
+                        <li><a href="#category">Makazi</a></li>
+                        <li><a href="#category">N.K ...</a></li>
+                    </ul>
+                </div>
+
+                <div class="foot-contact">
+                    <p style="text-align: center;"><b>Mawasiliano</b></p>
+                    <p><b>Simu:</b> 255711319475</p>
+                    <p><b>Barua pepe:</b> serviceshomelibrary@gmail.com</p>
+                    <p><b>Anuani: </b>Mabibo, Dar es salaam</p>
+                </div>
+            </div>
         </div>
-
-        <div class="foot-category" style="border-right: 1px solid rgba(255, 255, 255, 0.522);">
-          <p style="text-align: center;"><b>Products available based on categories</b></p>
-          <ul>
-            <li><a href="#category">Electronics</a></li>
-            <li><a href="#category">Furniture</a></li>
-            <li><a href="#category">Clothes</a></li>
-            <li><a href="#category">Food</a></li>
-            <li><a href="#category">Residents</a></li>
-            <li><a href="#category">And more ...</a></li>
-          </ul>
-        </div>
-
-        <div class="foot-contact">
-          <p style="text-align: center;"><b>Contacts</b></p>
-          <p><b>Phone:</b> 255711319475</p>
-          <p><b>Email:</b> serviceshomelibrary@gmail.com</p>
-          <p><b>Location: </b>Mabibo, Dar es salaam</p>
-        </div>
-      </div>
     </div>
-  </div>
 
   <!-- javascripts code -->
   <script>
