@@ -31,7 +31,6 @@ def add_product(request):
         phone = request.POST.get("phone", "").strip()
         location = request.POST.get("location", "")
         price = request.POST.get("price", "")
-        status = request.POST.get("status", "")
 
         # Get uploaded image
         image = request.FILES.get("image")
@@ -77,7 +76,6 @@ def add_product(request):
             price=price,
             phone=phone,
             location=location,
-            status=status,
             image=image,  # Uploaded to Cloudinary automatically
             owner=request.user,
         )
@@ -103,7 +101,6 @@ def edit_product(request, id):
         phone = request.POST.get("phone", "").strip()
         location = request.POST.get("location", "")
         price = request.POST.get("price", "")
-        status = request.POST.get("status", "")
 
         # Get uploaded image
         image = request.FILES.get("image")
@@ -143,7 +140,6 @@ def edit_product(request, id):
         product.category = category
         product.price = price
         product.phone = phone
-        product.status = status
         product.location = location
 
         # Update image only if a new one was uploaded
@@ -163,6 +159,14 @@ def edit_product(request, id):
         },
     )
 
+
+# Preview product
+@login_required(login_url="login_admin")
+def preview_p(request, id):
+    product = get_object_or_404(Product, id=id)
+    return render(request, 'privilege/preview.html', {
+            'product': product,
+        })
 
 
 # Delete product

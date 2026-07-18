@@ -3,12 +3,10 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Winga Platform | Products</title>
-
-    <!-- SAME CSS FILE -->
-    <link rel="stylesheet" href="{% static 'admin_css/user.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wingastock | Edit product</title>
+    <link rel="stylesheet" href="{% static 'admin_css/admin_style.css' %}">
 
     <style>
         .messages {
@@ -44,158 +42,200 @@
 
 <body>
 
-    <!-- SIDEBAR (same style as users page) -->
-    <aside class="sidebar" id="sidebar">
-        <h2>Winga Platform</h2>
+    <div class="row-holder">
 
-    <a href="{% url 'admin_home' %}">Dashboard</a>
-    <a href="{% url 'admin_products' %}" class="active-link">Products</a>
-    <a href="{% url 'logout_admin' %}">Logout</a>
-    </aside>
-
-    <!-- MAIN -->
-    <main class="main">
-
-        <!-- NAVBAR -->
-        <div class="navbar">
-            <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-
-            <h2>Edit Product</h2>
-
-            <div class="nav-right">
-
-                <div class="admin-badge">Admin</div>
+        <!-- Header -->
+        <div class="header-holder-100">
+            <div class="header-100">
+                <div class="action-holder-101">
+                    <button type="button" id="menu1" onclick="open_menu('open')">m</button>
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')">c</button>
+                </div>
+                <div class="title-holder-101">
+                    <button type="button">Wingastock | Admin</button>
+                </div>
+                <div class="title-holder-101" style="float: right;">
+                    <button type="button">{{ user.username }}</button>
+                </div>
             </div>
         </div>
 
-        <!-- PRODUCTS TABLE -->
-        <div class="table-container">
-            {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                <div class="alert {{ message.tags }}">
-                    {{ message }}
+
+        <!-- center content -->
+        <div class="center-content-200">
+
+            <div class="left-holder-201" id="nav">
+                <div class="nav-bar-holder-202">
+                    <p style="text-align: center; font-weight: bold;">Options</p>
+
+                    <ul>
+                        <a href="{% url 'admin_home' %}">
+                            <li>Dashboard</li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'admin_products' %}">
+                            <li class="active-0">Products</li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'admin_sellers' %}">
+                            <li>Sellers</li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'logout_admin' %}">
+                            <li>Exit</li>
+                        </a>
+                    </ul>
                 </div>
-                {% endfor %}
             </div>
-            {% endif %}
 
-            <!-- Add product form will go here -->
-            <form method="POST" action="{% url 'edit_product' selected.id %}" enctype="multipart/form-data">
+            <div class="right-holder-201">
+                <div class="products-202">
 
-                {% csrf_token %}
-                <div class="inputs-holder">
+                    <p style="font-weight: bold;">Edit product</p>
 
-                    <div>
-                        <label for="title">Product Name:</label>
-                        <div class="input">
-                            <input type="text" name="title" placeholder="Product name" value="{{ selected.title }}">
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="alert {{ message.tags }}">
+                            {{ message }}
                         </div>
+                        {% endfor %}
                     </div>
+                    {% endif %}
 
-                    <div>
-                        <label for="description">Description:</label>
-                        <div class="input" style="height: 100px;">
-                            <textarea name="description">{{ selected.description }}</textarea>
+                    <form action="{% url 'edit_product' selected.id %}" enctype="multipart/form-data" method="post">
+                        {% csrf_token %}
+
+                        <div class="input-holder-203">
+                            <p>Product title</p>
+                            <div>
+                                <input type="text" name="title" placeholder="Product name" value="{{ selected.title }}">
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <label for="price">Price:</label>
-                        <div class="input">
-                            <input type="number" name="price" min="1" step="0.01" value="{{ selected.price }}">
+                        <div class="input-holder-203" style="height: 250px;">
+                            <p>Descriptions</p>
+                            <div style="height: 200px;">
+                                <textarea name="description">{{ selected.description }}</textarea>
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <label for="category">Category:</label>
-                        <div class="input">
-                            <select name="category">
-                                <option value="{{ selected.category }}">{{ selected.category}}</option>
-                                <option value="electronics">Electronics</option>
-                                <option value="food">Food</option>
-                                <option value="clothes">Clothes</option>
-                                <option value="furniture">Furniture</option>
-                            </select>
+                        <div class="input-holder-203">
+                            <p>Category</p>
+                            <div>
+                                <select name="category">
+                                    <option value="{{ selected.category }}">{{ selected.category}}</option>
+                                    <option value="electronics">Electronics</option>
+                                    <option value="food">Food</option>
+                                    <option value="clothes">Clothes</option>
+                                    <option value="furniture">Furniture</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <label for="phone">Phone Number:</label>
-                        <div class="input">
-                            <input type="number" name="phone" maxlength="20" value="{{ selected.phone}}">
+                        <div class="input-holder-203">
+                            <p>Image</p>
+                            <div>
+                                <input type="file" style="padding: 7px;" name="image" accept="image/*">
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <label for="location">Location:</label>
-                        <div class="input">
-                            <select name="location" id="location">
-                                <option value="{{ selected.location }}">{{ selected.location }}</option>
-                                <option value="Arusha">Arusha</option>
-                                <option value="Dar es Salaam">Dar es Salaam</option>
-                                <option value="Dodoma">Dodoma</option>
-                                <option value="Geita">Geita</option>
-                                <option value="Iringa">Iringa</option>
-                                <option value="Kagera">Kagera</option>
-                                <option value="Katavi">Katavi</option>
-                                <option value="Kigoma">Kigoma</option>
-                                <option value="Kilimanjaro">Kilimanjaro</option>
-                                <option value="Lindi">Lindi</option>
-                                <option value="Manyara">Manyara</option>
-                                <option value="Mara">Mara</option>
-                                <option value="Mbeya">Mbeya</option>
-                                <option value="Morogoro">Morogoro</option>
-                                <option value="Mtwara">Mtwara</option>
-                                <option value="Mwanza">Mwanza</option>
-                                <option value="Njombe">Njombe</option>
-                                <option value="Pemba North">Pemba North</option>
-                                <option value="Pemba South">Pemba South</option>
-                                <option value="Pwani">Pwani</option>
-                                <option value="Rukwa">Rukwa</option>
-                                <option value="Ruvuma">Ruvuma</option>
-                                <option value="Shinyanga">Shinyanga</option>
-                                <option value="Simiyu">Simiyu</option>
-                                <option value="Singida">Singida</option>
-                                <option value="Songwe">Songwe</option>
-                                <option value="Tabora">Tabora</option>
-                                <option value="Tanga">Tanga</option>
-                                <option value="Zanzibar North">Zanzibar North</option>
-                                <option value="Zanzibar South and Central">Zanzibar South and Central</option>
-                                <option value="Zanzibar West">Zanzibar West</option>
-                            </select>
+
+                        <div class="input-holder-203">
+                            <p>Price</p>
+                            <div>
+                                <input type="number" name="price" min="1" step="0.01" value="{{ selected.price }}">
+                            </div>
                         </div>
-                    </div>
 
-                     <div>
-                        <label for="status">Image:</label>
-                        <div class="input">
-                            <input type="file" name="image" accept="image/*">
+                        <div class="input-holder-203">
+                            <p>Phone</p>
+                            <div>
+                                <input type="number" name="phone" maxlength="20" value="{{ selected.phone}}">
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <label for="status">Status:</label>
-                        <div class="input">
-                            <select name="status">
-                                <option value="{{ selected.status}}">{{ selected.status }}</option>
-                                <option value="True">Available</option>
-                                <option value="False">Unavailable</option>
-                            </select>
+                        <div class="input-holder-203">
+                            <p>Location</p>
+                            <div>
+                                <select name="location" id="location">
+                                    <option value="{{ selected.location }}">{{ selected.location }}</option>
+                                    <option value="Arusha">Arusha</option>
+                                    <option value="Dar es Salaam">Dar es Salaam</option>
+                                    <option value="Dodoma">Dodoma</option>
+                                    <option value="Geita">Geita</option>
+                                    <option value="Iringa">Iringa</option>
+                                    <option value="Kagera">Kagera</option>
+                                    <option value="Katavi">Katavi</option>
+                                    <option value="Kigoma">Kigoma</option>
+                                    <option value="Kilimanjaro">Kilimanjaro</option>
+                                    <option value="Lindi">Lindi</option>
+                                    <option value="Manyara">Manyara</option>
+                                    <option value="Mara">Mara</option>
+                                    <option value="Mbeya">Mbeya</option>
+                                    <option value="Morogoro">Morogoro</option>
+                                    <option value="Mtwara">Mtwara</option>
+                                    <option value="Mwanza">Mwanza</option>
+                                    <option value="Njombe">Njombe</option>
+                                    <option value="Pemba North">Pemba North</option>
+                                    <option value="Pemba South">Pemba South</option>
+                                    <option value="Pwani">Pwani</option>
+                                    <option value="Rukwa">Rukwa</option>
+                                    <option value="Ruvuma">Ruvuma</option>
+                                    <option value="Shinyanga">Shinyanga</option>
+                                    <option value="Simiyu">Simiyu</option>
+                                    <option value="Singida">Singida</option>
+                                    <option value="Songwe">Songwe</option>
+                                    <option value="Tabora">Tabora</option>
+                                    <option value="Tanga">Tanga</option>
+                                    <option value="Zanzibar North">Zanzibar North</option>
+                                    <option value="Zanzibar South and Central">Zanzibar South and Central</option>
+                                    <option value="Zanzibar West">Zanzibar West</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
 
-                    <br>
-                    <div class="submit-inputs" style="width: 100%; text-align: center; padding: 0;">
-                        <button type="submit">Save updates</button>
-                    </div>
+                        <div class="input-holder-203 submit-203">
+                            <div>
+                                <input type="submit" value="Save updates">
+                            </div>
+                        </div>
+                    </form>
+
+
                 </div>
-            </form>
+            </div>
+
         </div>
 
-    </main>
+    </div>
 
-    <script src=""></script>
+
+
+    <script>
+        function open_menu(click) {
+            let menu1 = document.getElementById('menu1');
+            let menu2 = document.getElementById('menu2');
+            let nav = document.getElementById('nav');
+
+            if (click == 'open') {
+                menu1.style.display = 'none';
+                menu2.style.display = 'inline-block';
+                nav.style.display = 'inline-block';
+            }
+            else {
+                menu1.style.display = 'inline-block';
+                menu2.style.display = 'none';
+                nav.style.display = 'none';
+            }
+        }
+    </script>
     <script>
         setTimeout(function () {
             document.querySelectorAll(".alert").forEach(function (alert) {

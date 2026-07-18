@@ -72,14 +72,41 @@
 
                 <div class="search-holder-002">
                     <button type="button" class="input-b-003">
-                        <input type="text" placeholder="Search ...">
+                        <input type="text" placeholder="Search ..." id="searchInput"
+                            onclick="document.getElementById('search').style.display = 'inline-block'">
                     </button>
-                    <button type="button" class="sb-003"><i class="fas fa-search"></i></button>
+                    <button type="button" class="sb-003"><i class="fas fa-sort"></i></button>
                     <button type="button" class="sb-003"><i class="fas fa-filter"></i></button>
                 </div>
             </div>
         </div>
         <!-- End heading -->
+
+
+        <!-- Search contents -->
+        <div class="search-content-003" id="search">
+            <div class="search-content-004">
+
+                <h1 style="padding: 15px; text-align: center;">Matokeo ya utafutaji</h1>
+
+                <div id="buttonContainer">
+                    {% for product in left1_products %}
+                    <div class="product-left-003"
+                        onclick="window.location.href=`{% url 'product_details' product.id %}`">
+                        <div>
+                            <button type="button" class="details-pic-006">
+                                <p>
+                                    <b>{{ product.title }}</b> <br>
+                                    <span class="title-p-005">{{ product.price }} Tsh</span><br>
+                                </p>
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
 
 
         <!-- Center content -->
@@ -325,35 +352,34 @@
                 </div>
                 {% endfor %}
 
-                <div class="scroll-products-holder">
-                    <div class="scroll-left-holder">
+            </div>
+            <!-- end product left -->
 
-                        {% for product in scroll1_products %}
 
-                        <div>
-                            <div class="product-card" style="background: rgba(220, 20, 60, 0.12);"
-                                onclick="window.location.href=`{% url 'product_details' product.id %}`">
-                                <div class="product-image-20 fav-20">
-                                    <button type="button" class="button202 button202-2">
-                                        <b class="p-title-20">{{ product.title }}</b><br>
-                                        <span class="price40">{{ product.price }} Tsh</span>
-                                        <br><br><br>
-                                        <span class="locate-20"><i class="fa fa-location-dot"></i>
-                                            {{ product.location }}</span>
-                                    </button>
-                                    <button type="button" class="button203">
-                                        {% if product.image %}
-                                        <img src="{{ product.image.url }}" alt="{{ product.title }}">
-                                        {% endif %}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+            <!-- product left -->
+            <div class="product-left-holder-002">
 
-                        {% endfor %}
-
+                {% for product in left3_products %}
+                <div class="product-left-003" onclick="window.location.href=`{% url 'product_details' product.id %}`">
+                    <div>
+                        <button type="button" class="product-pic-006">
+                            {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                            {% endif %}
+                        </button>
+                        <button type="button" class="details-pic-006">
+                            <p>
+                                <b>{{ product.title }}</b> <br>
+                                <span class="title-p-005">{{ product.price }} Tsh</span><br><br>
+                                <span class="locate-005">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    {{ product.location }}
+                                </span><br><br>
+                            </p>
+                        </button>
                     </div>
                 </div>
+                {% endfor %}
 
             </div>
             <!-- end product left -->
@@ -386,36 +412,6 @@
 
             </div>
             <!-- end product left -->
-
-            <!-- product left -->
-            <div class="product-left-holder-002">
-
-                {% for product in left3_products %}
-                <div class="product-left-003" onclick="window.location.href=`{% url 'product_details' product.id %}`">
-                    <div>
-                        <button type="button" class="product-pic-006">
-                            {% if product.image %}
-                            <img src="{{ product.image.url }}" alt="{{ product.title }}">
-                            {% endif %}
-                        </button>
-                        <button type="button" class="details-pic-006">
-                            <p>
-                                <b>{{ product.title }}</b> <br>
-                                <span class="title-p-005">{{ product.price }} Tsh</span><br><br>
-                                <span class="locate-005">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    {{ product.location }}
-                                </span><br><br>
-                            </p>
-                        </button>
-                    </div>
-                </div>
-                {% endfor %}
-
-            </div>
-            <!-- end product left -->
-
-
 
 
         </div>
@@ -458,6 +454,25 @@
             </div>
 
         </div>
+
+        <script>
+            const searchInput = document.getElementById("searchInput");
+            const buttons = document.querySelectorAll("#buttonContainer div");
+
+            searchInput.addEventListener("input", function () {
+                const searchText = this.value.toLowerCase().trim();
+
+                buttons.forEach(button => {
+                    const buttonText = button.textContent.toLowerCase();
+
+                    if (buttonText.includes(searchText)) {
+                        button.style.display = "";
+                    } else {
+                        button.style.display = "none";
+                    }
+                });
+            });
+        </script>
 </body>
 
 </html>

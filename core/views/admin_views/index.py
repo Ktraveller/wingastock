@@ -13,9 +13,7 @@ def admin_home(request):
     seller =  Product.objects.aggregate(
         total=Count('phone', distinct=True),
     )
-    
-    print(seller)
-    
+        
     return render(request, 'privilege/index.html', {
         'total_products': product_t,
         'total_seller': seller

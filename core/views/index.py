@@ -12,6 +12,8 @@ def home(request):
     left3_products = Product.objects.order_by('?')[:25]
     right_products = Product.objects.order_by('?')[:25]
 
+    search_result = Product.objects.order_by('?')[:10]
+
     # group 
     product_l = Product.objects.order_by('?')[:10]
 
@@ -26,6 +28,7 @@ def home(request):
         'right_products': right_products,
 
         'product_l': product_l,
+        'search_result': search_result
     })
 
 

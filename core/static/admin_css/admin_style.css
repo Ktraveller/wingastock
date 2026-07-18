@@ -1,0 +1,307 @@
+* {
+    box-sizing: border-box;
+    font-size: 12px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.row-holder {
+    width: 100%;
+    height: auto;
+}
+
+.header-holder-100 {
+    width: 100%;
+    height: 50px;
+}
+
+.header-100 {
+    width: 100%;
+    height: 100%;
+    background: crimson;
+}
+
+.header-100>div {
+    float: left;
+}
+
+.action-holder-101 {
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+}
+
+.action-holder-101>button {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    outline: none;
+    color: white;
+}
+
+.title-holder-101 {
+    width: auto;
+    padding: 5px;
+    background: transparent;
+    height: 50px;
+}
+
+.title-holder-101>button {
+    width: auto;
+    height: 40px;
+    border-style: none;
+    outline: none;
+    background: transparent;
+    font-weight: bold;
+    color: white;
+}
+
+.center-content-200 {
+    width: 100%;
+    height: auto;
+}
+
+.center-content-200>div {
+    float: left;
+}
+
+.left-holder-201 {
+    width: 100%;
+    height: 100vh;
+    display: none;
+}
+
+.nav-bar-holder-202 {
+    width: 100%;
+    height: 100%;
+    background: rgb(52, 52, 52);
+    padding: 10px;
+    color: white;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul>a {
+    text-decoration: none;
+    color: white;
+}
+
+ul>a>li {
+    width: 100%;
+    height: 45px;
+    padding: 15px;
+}
+
+.active-0 {
+    background: crimson;
+}
+
+ul>a>li:hover {
+    background: crimson;
+}
+
+.right-holder-201 {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.card-holder-201 {
+    width: 100%;
+    height: auto;
+}
+
+.card-holder-201>div {
+    float: left;
+    width: 50%;
+    height: auto;
+    padding: 10px;
+}
+
+.card-holder-201>.full-201 {
+    width: 100%;
+}
+
+.card-holder-201>div>button {
+    width: 100%;
+    height: 100%;
+    border-style: none;
+    background: transparent;
+    text-align: left;
+    padding: 10px;
+    color: white;
+    background: crimson;
+}
+
+table {
+    width: 100%;
+    height: auto;
+    border-collapse: collapse;
+}
+
+.id {
+    width: 40px;
+}
+
+th,
+td {
+    height: 40px;
+    width: auto;
+    padding: 10px;
+    border-bottom: 1px solid rgba(75, 73, 73, 0.093);
+}
+
+.view-103 {
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    background: lightseagreen;
+    float: right;
+}
+
+.view-104 {
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    background: crimson;
+    cursor: pointer;
+}
+
+.view-104:hover {
+    opacity: 0.7;
+}
+
+.filter-holder-202 {
+    width: 100%;
+    height: 50px;
+}
+
+.filter-holder-202>div {
+    width: 50%;
+    float: left;
+    height: 40px;
+}
+
+.filter-holder-202>div>input,
+select {
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
+    border-style: none;
+    outline: none;
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.279);
+}
+
+.products-202 {
+    padding: 10px;
+}
+
+.image-preview-203 {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+.image-preview-203>img {
+    width: 300px;
+    height: 300px;
+}
+
+.details-203 {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+.close-205 {
+    width: 100px;
+    height: 30px;
+    background: crimson;
+    color: white;
+    margin-top: 50px;
+    border-style: none;
+    outline: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.close-205:hover {
+    opacity: 0.7;
+}
+
+.input-holder-203 {
+    width: 100%;
+    height: 85px;
+    padding: 5px;
+    background: transparent;
+}
+
+.input-holder-203>div {
+    width: 100%;
+    height: 35px;
+}
+
+.input-holder-203>div>input, textarea {
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
+    border-style: none;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.267);
+}
+
+.submit-203 {
+    margin-top: 20px;
+}
+
+.submit-203>div>input {
+    background: crimson;
+    color: white;
+    font-weight: bold;
+}
+
+.submit-203>div>input:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+
+@media only screen and (min-width: 768px) {
+    .action-holder-101 {
+        display: none;
+    }
+
+    .left-holder-201 {
+        width: 20%;
+        height: 100vh;
+        display: inline-block;
+    }
+
+    .right-holder-201 {
+        width: 80%;
+        height: 100vh;
+        padding: 10px;
+    }
+
+    .card-holder-201>.full-201 {
+        width: 50%;
+    }
+
+    .filter-holder-202>div {
+        width: 30%;
+    }
+
+}
