@@ -12,13 +12,14 @@
 .preview-product-004>div {
     float: left;
     height: auto;
+    padding: 5px;
 }
 
 
 .preview-pic-005 {
     width: 100%;
-    background: whitesmoke;
     border-radius: 10px;
+    padding: 10px;
 }
 
 .preview-pic-005>img {
@@ -28,37 +29,40 @@
 }
 
 
-.preview-details-005 {
+.pr-005 {
     width: 100%;
     height: auto;
+    margin-top: 50px;
 }
 
-.preview-details-005>div {
-    width: 100%;
-    height: auto;
+.preview-details-005 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 10px;
+    border-radius: 10px;
 }
+
 
 .actions-holder-005 {
     width: 100%;
-    margin-top: 50px;
-    height: 50px;
+    height: auto;
+    margin-top: 20px;
 }
 
 .actions-holder-005>div {
     float: left;
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
     padding: 5px;
 }
 
 .actions-holder-005>div>button {
     outline: none;
-    width: 100%;
-    height: 100%;
+    width: 40px;
+    height: 40px;
     background: white;
     border-radius: 50px;
     cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .b1 {
@@ -71,12 +75,17 @@
     color: white;
 }
 
-.b2 {
-    border: 1px solid green;
-    color: green;
+.actions-holder-005>.w-005 {
+    width: 100%;
 }
 
-.b2:hover {
+.actions-holder-005>div>.b2 {
+    border: 1px solid green;
+    color: green;
+    width: 100%;
+}
+
+.actions-holder-005>div>.b2:hover {
     background: green;
     color: white;
 }
@@ -92,16 +101,48 @@
 }
 
 
+.other-related-product-holder-005 {
+    height: auto;
+    width: 100%;
+    float: left;
+    margin-top: 100px;
+}
+
+.other-related-product-holder-005>div {
+    width: 100%;
+    height: auto;
+}
+
+.other-related-product-holder-005>div>ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.other-related-product-holder-005>div>ul>a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.other-related-product-holder-005>div>ul>a>li {
+    height: 40px;
+    background: whitesmoke;
+    margin-bottom: 2px;
+    padding: 10px;
+}
+
 @media only screen and (min-width: 768px) {
-    .actions-holder-005>div {
-        width: 33.33333333%;
-    }
 
     .preview-pic-005 {
         width: 30%;
     }
 
-    .preview-details-005 {
+    .pr-005 {
         width: 70%;
+        margin-top: 0px;
+    }
+
+    .actions-holder-005>.w-005 {
+        width: 50%;
     }
 }
