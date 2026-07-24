@@ -80,14 +80,16 @@
 }
 
 .actions-holder-005>div>.b2 {
-    border: 1px solid green;
-    color: green;
+    background: green;
+    color: white;
     width: 100%;
+    border-style: none;
+    outline: none;
 }
 
 .actions-holder-005>div>.b2:hover {
-    background: green;
-    color: white;
+    background: white;
+    color: green;
 }
 
 .b3 {
