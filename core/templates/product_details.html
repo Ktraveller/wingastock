@@ -60,43 +60,66 @@
       <div class="preview-product-holder-003">
 
         <div class="preview-product-004">
+
           <div class="preview-pic-005">
             {% if product.image %}
             <img src="{{ product.image.url }}" alt="{{ product.title }}">
             {% endif %}
           </div>
-          <div class="preview-details-005" style="margin-bottom: 100px;">
-            <div>
-              <p style="font-weight: bold;">{{ product.title }}</p>
-              <p>
-              <pre>{{ product.description }}</pre>
-              </p>
-              <p style='font-weight: bold; font-size: 20px;'>{{ product.price }} Tsh</p>
 
-              <div class="actions-holder-005">
-                <div>
-                  <button type="button" class="b1" onclick="window.location.href=`tel:+255711319475`"><i
-                      class="fas fa-phone"></i> Ongea na muuzaji</button>
-                </div>
 
-                <div>
-                  <button type="button" class="b2"
-                    onclick="window.location.href=`https://wa.me/255711319475?text=Habari, naulizia {{ product.title }}`"><i
-                      class="fab fa-whatsapp"></i> Tuma meseji whatsapp</button>
-                </div>
+          <div class="pr-005">
+            <div class="preview-details-005">
+              <div>
+                <p style="font-weight: bold;">{{ product.title }}</p>
+                <p>
+                <pre>{{ product.description }}</pre>
+                </p>
+                <p style='font-weight: bold; font-size: 20px;'>{{ product.price }} Tsh</p>
 
-                <div>
-                  <button type="button" id="shareBtn" class="b3"><i class="fas fa-share-alt"></i> Sambaza
-                    bidhaa</button>
-                </div>
               </div>
             </div>
+
+            <div class="actions-holder-005">
+
+              <div class="w-005">
+                <button type="button" class="b2"
+                  onclick="window.location.href=`https://wa.me/255711319475?text=Habari, naulizia {{ product.title }}`"><i
+                    class="fab fa-whatsapp"></i> Ongea na muuzaji whatsapp</button>
+              </div>
+
+              <div>
+                <button type="button" class="b1" onclick="window.location.href=`tel:+255711319475`"><i
+                    class="fas fa-phone"></i></button>
+              </div>
+
+              <div>
+                <button type="button" id="shareBtn" class="b3"><i class="fas fa-share-alt"></i></button>
+              </div>
+            </div>
+
+            <div class="other-related-product-holder-005">
+              <div>
+                <p style="font-weight: bold;">Bidhaa zaidi</p>
+                <ul>
+                  {% for product in products %}
+                  <a href="{% url 'product_details' product.id %}">
+                    <li>{{ product.title }} 
+                      <span style="float: right; font-weight: bold; color: crimson;">{{ product.price }} Tsh</span></li>
+                  </a>
+                  {% endfor %}
+
+                </ul>
+              </div>
+            </div>
+
           </div>
+
         </div>
 
       </div>
 
-       <div style="width: 100%; height: 100px; float: left;"></div>
+      <div style="width: 100%; height: 100px; float: left;"></div>
 
 
 
