@@ -75,8 +75,22 @@
                 <p>
                 <pre>{{ product.description }}</pre>
                 </p>
-                <p style='font-weight: bold; font-size: 20px;'>{{ product.price }} Tsh</p>
+                <p style='font-weight: bold; font-size: 18px;'>{{ product.price }} Tsh</p>
 
+                <p style="line-height:30px; margin-top: 50px;">
+                  <strong>{{ product.title }}</strong> inapatikana kupitia
+                  <strong>Wingastock</strong>, soko la mtandaoni linalowaunganisha
+                  wanunuzi na wauzaji kutoka maeneo mbalimbali.
+
+                  Kupitia Wingastock unaweza kuona taarifa za bidhaa, kulinganisha bei,
+                  na kupata muuzaji anayekufaa kwa urahisi. Upatikanaji wa bidhaa,
+                  gharama na huduma zinaweza kutofautiana kulingana na muuzaji.<br>
+
+                  <strong>Bei:</strong> {{ product.price }} Tsh<br>
+
+                  Wasiliana na muuzaji kwa maelezo zaidi kuhusu bidhaa, upatikanaji,
+                  njia za malipo na usafirishaji kabla ya kufanya ununuzi.
+                </p>
               </div>
             </div>
 
@@ -104,8 +118,9 @@
                 <ul>
                   {% for product in products %}
                   <a href="{% url 'product_details' product.id %}">
-                    <li>{{ product.title }} 
-                      <span style="float: right; font-weight: bold; color: crimson;">{{ product.price }} Tsh</span></li>
+                    <li>{{ product.title }}
+                      <span style="float: right; font-weight: bold; color: crimson;">{{ product.price }} Tsh</span>
+                    </li>
                   </a>
                   {% endfor %}
 
