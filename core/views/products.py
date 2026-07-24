@@ -11,9 +11,11 @@ def products(request):
 
 def preview_products(request, id):
     product = get_object_or_404(Product, id=id)
+    products = Product.objects.order_by('?').filter(category=product.category)
 
     return render(request, 'product_details.html', {
         'product': product,
+        'products': products,
     })
 
 
