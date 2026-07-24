@@ -54,11 +54,12 @@ body {
     width: 100%;
     height: 100%;
     background: white;
+    border-top: 1px solid rgba(220, 20, 60, 0.149);
 }
 
 .nav-content-003>div {
     float: left;
-    width: 25%;
+    width: 20%;
     height: 100%;
 }
 
