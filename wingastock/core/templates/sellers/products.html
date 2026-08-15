@@ -8,6 +8,7 @@
     <title>Wingastock | Products</title>
     <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
         .messages {
@@ -56,7 +57,7 @@
                     <button type="button">Wingastock | Seller</button>
                 </div>
                 <div class="title-holder-101" style="float: right;">
-                    <button type="button">{{ user.email }}</button>
+                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
                 </div>
             </div>
         </div>
@@ -71,19 +72,19 @@
 
                     <ul>
                         <a href="{% url 'seller_home' %}">
-                            <li>Dashboard</li>
+                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
                         </a>
                     </ul>
 
                     <ul>
                         <a href="{% url 'seller_products' %}">
-                            <li class="active-0">Products</li>
+                            <li class="active-0">Products <i class="fas fa-box"></i></li>
                         </a>
                     </ul>
 
                     <ul>
                         <a href="{% url 'logout_seller' %}">
-                            <li>Exit</li>
+                            <li>Exit <i class="fas fa-sign-out-alt"></i></li>
                         </a>
                     </ul>
                 </div>
@@ -94,8 +95,7 @@
 
 
                     <button type="button" class="close-205"
-                        onclick="window.location.href=`{% url 'seller_add_product' %}`"><b style="font-size: 15px;">+
-                        </b>Add new product</button>
+                        onclick="window.location.href=`{% url 'seller_add_product' %}`"><i class="fas fa-plus"></i> Add new product</button>
 
 
                     {% if messages %}
@@ -118,12 +118,12 @@
                         <table style="text-align: left;">
                             <thead>
                                 <tr>
-                                    <th class="id">ID</th>
-                                    <th>Product Name</th>
-                                    <th>Category</th>
-                                    <th>Price</th>
-                                    <th>Location</th>
-                                    <th style="text-align: right;">Actions</th>
+                                    <th class="id">#ID</th>
+                                    <th><i class="fas fa-box"></i> Product Name</th>
+                                    <th><i class="fas fa-list"></i> Category</th>
+                                    <th><i class="fas fa-coins"></i> Price</th>
+                                    <th><i class="fas fa-map-marker-alt"></i> Location</th>
+                                    <th style="text-align: right;"><i class="fas fa-cogs"></i> Actions</th>
                                 </tr>
                             </thead>
 
@@ -144,9 +144,9 @@
                                     </td>
                                     <td style="text-align: right;">
                                         <button class="btn-edit"
-                                            onclick="window.location.href=`{% url 'seller_edit_product' product_data.id %}`">Edit</button>
+                                            onclick="window.location.href=`{% url 'seller_edit_product' product_data.id %}`"><i class="fas fa-edit"></i> Edit</button>
                                         <button class="btn-delete"
-                                            onclick="window.location.href=`{% url 'seller_delete_product' product_data.id %}`">Delete</button>
+                                            onclick="window.location.href=`{% url 'seller_delete_product' product_data.id %}`"><i class="fas fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
 

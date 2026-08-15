@@ -104,6 +104,10 @@ ul>a>li {
     padding: 15px;
 }
 
+ul>a>li>i {
+    float: right;
+}
+
 .active-0 {
     background: rgba(220, 20, 60, 0.722);
     border: 2px solid crimson;

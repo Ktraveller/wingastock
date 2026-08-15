@@ -8,6 +8,7 @@
     <title>Wingastock | Edit product</title>
     <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
         .messages {
@@ -56,7 +57,7 @@
                     <button type="button">Wingastock | Seller</button>
                 </div>
                 <div class="title-holder-101" style="float: right;">
-                    <button type="button">{{ user.email }}</button>
+                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
                 </div>
             </div>
         </div>
@@ -71,19 +72,19 @@
 
                     <ul>
                         <a href="{% url 'seller_home' %}">
-                            <li>Dashboard</li>
+                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
                         </a>
                     </ul>
 
                     <ul>
                         <a href="{% url 'seller_products' %}">
-                            <li class="active-0">Products</li>
+                            <li class="active-0">Products <i class="fas fa-box"></i></li>
                         </a>
                     </ul>
 
                     <ul>
                         <a href="{% url 'logout_seller' %}">
-                            <li>Exit</li>
+                            <li>Exit <i class="fas fa-sign-out-alt"></i></li>
                         </a>
                     </ul>
                 </div>
