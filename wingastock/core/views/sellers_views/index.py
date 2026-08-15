@@ -6,15 +6,8 @@ from django.db.models import Count
 
 @login_required(login_url="login_seller")
 def seller_home(request):
-    product_t = Product.objects.aggregate(
-        total=Count('id'),
-    )
-
-    seller =  Product.objects.aggregate(
-        total=Count('phone', distinct=True),
-    )
+    product_t = Product.objects.filter(phone=request.user.username).aggregate(total=Count('id'))
         
     return render(request, 'sellers/index.html', {
         'total_products': product_t,
-        'total_seller': seller
     })

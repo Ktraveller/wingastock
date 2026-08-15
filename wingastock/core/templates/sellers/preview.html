@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wingastock | {{ product.title }}</title>
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
 </head>
 
@@ -60,49 +61,57 @@
             <div class="right-holder-201">
                 <div class="products-202">
 
-                    <p style="font-weight: bold;">{{ product.title }}</p>
 
-                    <div class="image-preview-203">
-                        {% if product.image %}
-                        <img src="{{ product.image.url }}" alt="{{ product.title }}">
-                        {% endif %}
-                    </div>
+                    <div class="preview-102">
+                        <div class="image-preview-203">
+                            {% if product.image %}
+                            <!--<img src="{{ product.image.url }}" alt="{{ product.title }}"> -->
+                            <img src="{% static 'phone1.jpeg' %}" alt="{{ product.title }}">
+                            {% endif %}
+                        </div>
 
-                    <div class="details-203">
-                        <table style="width: auto;">
-                            <tr>
-                                <td style="font-weight: bold;">Description: </td>
-                                <td>{{ product.description }}</td>
-                            </tr>
+                        <div class="details-203">
+                            <p style="font-weight: bold;">{{ product.title }}</p>
 
-                            <tr>
-                                <td style="font-weight: bold;">Category: </td>
-                                <td>{{ product.category }}</td>
-                            </tr>
+                            <table style="width: auto;">
+                                <tr>
+                                    <td style="font-weight: bold;">Description: </td>
+                                    <td>{{ product.description }}</td>
+                                </tr>
 
-                            <tr>
-                                <td style="font-weight: bold;">Price: </td>
-                                <td>{{ product.price }}</td>
-                            </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Category: </td>
+                                    <td>{{ product.category }}</td>
+                                </tr>
 
-                            <tr>
-                                <td style="font-weight: bold;">Location: </td>
-                                <td>{{ product.location }}</td>
-                            </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Price: </td>
+                                    <td>{{ product.price }}</td>
+                                </tr>
 
-                            <tr>
-                                <td style="font-weight: bold;">Status: </td>
-                                <td>{{ product.status }}</td>
-                            </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Location: </td>
+                                    <td>{{ product.location }}</td>
+                                </tr>
 
-                        </table>
+                                <tr>
+                                    <td style="font-weight: bold;">Status: </td>
+                                    <td>{{ product.status }}</td>
+                                </tr>
 
-                        <button type="button" id="shareBtn" class="close-205"
-                            style="width: 200px; background: green;">Promote product</button>
+                            </table>
+
+                        </div>
 
 
-                        <button type="button" class="close-205"
-                            onclick="window.location.href=`{% url 'seller_products' %}`">Close</button>
+
+                        <div class="customer-views-1003">
+
+                            <button type="button" id="shareBtn" class="share-206">Promote product to reach more customers</button>
+
+                            <button type="button" class="close-207"
+                                onclick="window.location.href=`{% url 'seller_products' %}`">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>

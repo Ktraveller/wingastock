@@ -105,11 +105,15 @@ ul>a>li {
 }
 
 .active-0 {
-    background: crimson;
+    background: rgba(220, 20, 60, 0.722);
+    border: 2px solid crimson;
+    border-radius: 5px;
+    padding: 12px;
 }
 
 ul>a>li:hover {
     background: crimson;
+    border-radius: 5px;
 }
 
 .right-holder-201 {
@@ -143,6 +147,15 @@ ul>a>li:hover {
     padding: 10px;
     color: white;
     background: crimson;
+    border-radius: 5px;
+}
+
+.table-holder-100 {
+    width: 100%;
+    height: 100vh;
+    overflow-x: scroll;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.233);
+    border-radius: 5px;
 }
 
 table {
@@ -155,12 +168,46 @@ table {
     width: 40px;
 }
 
+th {
+    background: rgba(220, 20, 60, 0.108);
+}
+
 th,
 td {
     height: 40px;
     width: auto;
     padding: 10px;
     border-bottom: 1px solid rgba(75, 73, 73, 0.093);
+}
+
+.btn-edit {
+    background: rgba(0, 128, 0, 0.57);
+    padding: 5px;
+    border-style: none;
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid green;
+    cursor: pointer;
+}
+
+.btn-edit:hover {
+    background: green;
+    border: 2px solid rgba(0, 128, 0, 0.753);
+}
+
+.btn-delete {
+    background: rgba(255, 0, 0, 0.6);
+    padding: 5px;
+    border-style: none;
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid red;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background: red;
+    border: 2px solid rgba(255, 0, 0, 0.707);
 }
 
 .view-103 {
@@ -194,52 +241,113 @@ td {
     height: 40px;
 }
 
-.filter-holder-202>div>input,
-select {
+.filter-holder-202>div>input {
     width: 100%;
     height: 100%;
     padding-left: 10px;
     border-style: none;
     outline: none;
     background: transparent;
-    border: 1px solid rgba(0, 0, 0, 0.279);
+    border-bottom: 2px solid crimson;
+}
+
+.filter-holder-202>div>input:hover {
+    border: 1px solid rgba(0, 0, 0, 0.271);
+    border-radius: 5px;
+    border-bottom: 2px solid crimson;
 }
 
 .products-202 {
     padding: 10px;
 }
 
-.image-preview-203 {
+
+.preview-102 {
     width: 100%;
+    height: auto;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.203);
+    border-radius: 5px;
+    float: left;
+    padding: 10px;
+}
+
+.preview-102>div {
+    float: left;
+}
+
+.image-preview-203 {
+    width: 40%;
     height: auto;
     padding: 10px;
 }
 
 .image-preview-203>img {
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: auto;
 }
 
 .details-203 {
+    width: 60%;
+    height: auto;
+}
+
+
+.customer-views-1003 {
     width: 100%;
     height: auto;
-    margin-top: 20px;
+    float: left;
+}
+
+.customer-views-1003>iframe {
+    width: 100%;
+    max-height: 400px;
+}
+
+.share-206 {
+    width: auto;
+    height: 40px;
+    background: rgba(30, 143, 255, 0.696);
+    border-radius: 50px;
+    border-style: none;
+    outline: none;
+    border: 2px solid dodgerblue;
+    cursor: pointer;
+    display: block;
+    margin-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.close-207 {
+    width: 150px;
+    height: 40px;
+    background: rgba(220, 20, 60, 0.704);
+    border: 2px solid crimson;
+    outline: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.202);
+    display: block;
+    margin-top: 10px;
 }
 
 .close-205 {
-    width: 100px;
-    height: 30px;
-    background: crimson;
-    color: white;
-    margin-top: 50px;
-    border-style: none;
+    width: 150px;
+    height: 40px;
+    background: rgba(220, 20, 60, 0.704);
+    border: 2px solid crimson;
     outline: none;
-    border-radius: 2px;
+    border-radius: 50px;
     cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.202);
+
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
 }
 
 .close-205:hover {
-    opacity: 0.7;
+    background: crimson;
 }
 
 .input-holder-203 {
@@ -254,13 +362,41 @@ select {
     height: 35px;
 }
 
-.input-holder-203>div>input, textarea {
+
+
+.input-holder-203>div>input,
+select,
+textarea {
     width: 100%;
     height: 100%;
     padding-left: 10px;
     border-style: none;
     outline: none;
-    border: 1px solid rgba(0, 0, 0, 0.267);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.267);
+    border-radius: 5px;
+}
+
+.input-holder-203>div>input:hover {
+    border: 1px solid rgba(0, 0, 0, 0.219);
+    border-bottom: 2px solid crimson;
+    border-radius: 5px;
+}
+
+.input-holder-203>div>select:hover {
+    border: 1px solid rgba(0, 0, 0, 0.219);
+    border-bottom: 2px solid crimson;
+    border-radius: 5px;
+}
+
+.input-holder-203>div>textarea {
+    border: 1px solid rgba(0, 0, 0, 0.151);
+    border-radius: 5px;
+}
+
+.input-holder-203>div>textarea:hover {
+    border: 1px solid rgba(0, 0, 0, 0.219);
+    border-bottom: 2px solid crimson;
+    border-radius: 5px;
 }
 
 .submit-203 {
