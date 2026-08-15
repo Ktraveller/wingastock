@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Block Django admin
+Disallow: /admin/
+
+# Block user account pages (optional)
+Disallow: /login/
+Disallow: /logout/
+Disallow: /register/
+Disallow: /accounts/
+
+# Block search results pages (optional)
+Disallow: /search/
+
+# Sitemap
+Sitemap: https://wingastock.onrender.com/sitemap.xml

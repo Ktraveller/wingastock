@@ -1,0 +1,159 @@
+.preview-product-holder-003 {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+.preview-product-004 {
+    width: 100%;
+    height: auto;
+}
+
+.preview-product-004>div {
+    float: left;
+    height: auto;
+    padding: 5px;
+}
+
+
+.preview-pic-005 {
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.preview-pic-005>img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+
+.pr-005 {
+    width: 100%;
+    height: auto;
+    margin-top: 50px;
+}
+
+.preview-details-005 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.155);
+
+    padding: 10px;
+    border-radius: 10px;
+}
+
+
+.actions-holder-005 {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+.actions-holder-005>div {
+    float: left;
+    width: auto;
+    height: auto;
+    padding: 5px;
+}
+
+.actions-holder-005>div>button {
+    outline: none;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.155);
+
+}
+
+.b1 {
+    border: 1px solid crimson;
+    color: crimson;
+}
+
+.b1:hover {
+    background: crimson;
+    color: white;
+}
+
+.actions-holder-005>.w-005 {
+    width: 100%;
+}
+
+.actions-holder-005>div>.b2 {
+    background: green;
+    color: white;
+    width: 100%;
+    height: 50px;
+    border-style: none;
+    outline: none;
+    font-size: 15px;
+}
+
+.actions-holder-005>div>.b2>i {
+    font-size: inherit;
+    margin-right: 10px;
+}
+
+.actions-holder-005>div>.b2:hover {
+    background: white;
+    color: green;
+}
+
+.b3 {
+    border: 1px solid dodgerblue;
+    color: dodgerblue;
+}
+
+.b3:hover {
+    background: dodgerblue;
+    color: white;
+}
+
+
+.other-related-product-holder-005 {
+    height: auto;
+    width: 100%;
+    float: left;
+    margin-top: 100px;
+}
+
+.other-related-product-holder-005>div {
+    width: 100%;
+    height: auto;
+}
+
+.other-related-product-holder-005>div>ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.other-related-product-holder-005>div>ul>a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.other-related-product-holder-005>div>ul>a>li {
+    height: 40px;
+    background: whitesmoke;
+    margin-bottom: 2px;
+    padding: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+
+    .preview-pic-005 {
+        width: 30%;
+    }
+
+    .pr-005 {
+        width: 70%;
+        margin-top: 0px;
+    }
+
+    .actions-holder-005>.w-005 {
+        width: 50%;
+    }
+}

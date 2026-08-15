@@ -1,0 +1,119 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: white;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* MAIN CONTAINER */
+.login-container {
+  width: 900px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: crimson;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* LEFT SIDE */
+.login-left {
+  background: crimson;
+  padding: 40px;
+  color: white;
+}
+
+.login-left h1 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.login-left p {
+  color: white;
+  margin-bottom: 20px;
+}
+
+.login-left ul {
+  list-style: none;
+  line-height: 2;
+  color: white;
+}
+
+/* RIGHT SIDE */
+.login-right {
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  width: 100%;
+}
+
+form h2 {
+  color: white;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 8px;
+  background: white;
+  color: rgba(0, 0, 0, 0.711);
+  outline: none;
+  border: 1px solid crimson;
+}
+
+button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: crimson;
+  color: white;
+  border: 1px solid white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.7;
+}
+
+#error {
+  margin-top: 10px;
+  color: #ef4444;
+  font-size: 13px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .login-container {
+    grid-template-columns: 1fr;
+    width: 95%;
+  }
+
+  .login-left {
+    text-align: center;
+  }
+}

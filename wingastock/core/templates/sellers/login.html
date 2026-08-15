@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winga Platform | Login</title>
+
+  <link rel="stylesheet" href="{% static 'admin_css/login.css' %}">
+</head>
+
+<body>
+
+  <div class="login-container">
+
+    <!-- LEFT SIDE -->
+    <div class="login-left">
+      <h1>Wingastock</h1>
+      <p>Online Marketplace System</p>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="login-right">
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <h2>Seller Login</h2>
+
+        <label>Email or Whatsapp Number</label>
+        <input type="text" name="email" placeholder="Enter email or whatsapp number" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter password" required>
+
+        <button type="submit">Login</button>
+
+        <br><br>
+        {% if error %}
+        <p style="color: white;">{{ error }}</p>
+        {% endif %}
+        <br><br>
+        <p style="color: white;">Don't have an account? <a href="{% url 'signup_seller' %}">Signup</a></p>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <script src="{% static 'admin_js/login.js' %}"></script>
+</body>
+
+</html>

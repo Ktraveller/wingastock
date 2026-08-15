@@ -1,0 +1,21 @@
+{% load static %}
+
+<div class="product-card-holder-1001">
+    <div class="product-card-1002">
+
+        {% for product in products %}
+
+        <div>
+            <div class="product-1002" style="background-image: url('{{ product.image.url }}');">
+                <div class="p-1003"></div>
+                <div class="product-details-1003">
+                    <span style="font-weight: 100;">{{ product.title }}</span><br>
+                    <span>{{ product.price }} Tsh</span>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+</div>

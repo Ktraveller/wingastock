@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <title>Wingastock | Bidhaa</title>
+
+    <meta name="description" content="Nunua na uza bidhaa za electoniki kama simu, laptops, TV, 
+    pia tunauza samani za ndani (furniture), vyumba, nyumba na bidhaa mbalimbali kupitia jukwaa letu wingastock ">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://wingastock.onrender.com/">
+
+    <meta property="og:title" content="Wingastock">
+
+    <meta property="og:description" content="Soko mtandao Tanzania">
+
+
+    <meta property="og:type" content="website">
+
+    <meta property="og:image" content="/static/logo.png">
+
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+
+    <meta name="google-site-verification" content="cBo6MO_R0NHmkbNtZ4TbAd5KcLYgqPdt0XB-BgMYi1o" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-STT2EJ7H54"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-STT2EJ7H54');
+    </script>
+</head>
+
+<body>
+
+    <div class="row-holder-001">
+
+        <!-- Inlude heading -->
+        {% include 'heading.html' with title="Bidhaa" %}
+
+        <div class="content-holder-002">
+
+
+            <!-- Center content -->
+            <div class="product-card-holder-1001">
+                <div class="product-card-1002">
+
+                    {% for product in products %}
+                    <div class="product-card">
+
+                        <div class="loader"></div>
+
+                        <div class="product-1002" data-bg="{{ product.image.url }}"
+                            onclick="window.location.href=`{% url 'product_details' product.id %}`">
+
+                            <div class="p-1003"></div>
+
+                            <div class="product-details-1003">
+                                <span>{{ product.title }}</span><br>
+                                <span class="price-1003">{{ product.price }} Tsh</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <div style="width: 100%; height: 100px; float: left;"></div>
+
+
+        </div>
+
+        <!-- Nav bar -->
+        {% include 'navbar.html' %}
+
+    </div>
+
+    <script>
+        function menu_bar(click) {
+            let menu_div = document.getElementById('menu_div');
+            let button1 = document.getElementById('button1');
+            let button2 = document.getElementById('button2');
+
+            if (click == 'open') {
+                menu_div.style.display = 'inline-block';
+                button1.style.display = 'none';
+                button2.style.display = 'inline-block';
+            }
+            else {
+                menu_div.style.display = 'none';
+                button2.style.display = 'none';
+                button1.style.display = 'inline-block';
+            }
+        }
+    </script>
+
+    <script>
+        document.querySelectorAll(".product-card").forEach(card => {
+
+            const product = card.querySelector(".product-1002");
+            const loader = card.querySelector(".loader");
+
+            const img = new Image();
+
+            img.onload = function () {
+                product.style.backgroundImage = `url('${this.src}')`;
+                loader.remove();
+            };
+
+            img.onerror = function () {
+                // Hide loader but keep the card visible
+                loader.remove();
+
+                // Optional placeholder
+                product.style.background = "#f2f2f2";
+            };
+
+            img.src = product.dataset.bg;
+        });
+    </script>
+</body>
+
+</html>

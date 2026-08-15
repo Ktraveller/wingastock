@@ -1,0 +1,52 @@
+<div class="header-holder-002">
+    <div class="header-content-holder-003">
+        <h1 style="font-size: 15px;">{{ title }}</h1>
+        <div>
+            <button type="button" id="button1" onclick="menu_bar('open')">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <button type="button" id="button2" onclick="menu_bar('close')" style="display: none;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="menu-content-holder-004" id="menu_div">
+        <div>
+            <div class="menu-content-004">
+
+                <ul>
+                    <a href="{% url 'home' %}">
+                        <li><i class="fas fa-home"></i> Nyumbani</li>
+                    </a>
+
+                    <a href="{% url 'products' %}">
+                        <li><i class="fas fa-box-open"></i> Bidhaa zote</li>
+                    </a>
+
+                    <a href="{% url 'categories' %}">
+                        <li><i class="fas fa-th-large"></i> Makundi ya bidhaa</li>
+                    </a>
+
+                    <a href="{% url 'about' %}">
+                        <li><i class="fas fa-info-circle"></i> Kuhusu sisi</li>
+                    </a>
+
+                    <a href="{% url 'communication' %}">
+                        <li><i class="fas fa-phone-alt"></i> Mawasiliano</li>
+                    </a>
+
+                    <a href="{% url 'terms' %}">
+                        <li><i class="fas fa-file-contract"></i> Terms and Policy</li>
+                    </a>
+                </ul>
+
+                <div class="sell-100">
+                    <button type="button" onclick="window.location.href=`{% url 'login_seller' %}`">Uza
+                        bidhaa yako</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <title>Wingastock | Kuhusu sisi</title>
+
+    <meta name="description" content="Nunua na uza bidhaa za electoniki kama simu, laptops, TV, 
+    pia tunauza samani za ndani (furniture), vyumba, nyumba na bidhaa mbalimbali kupitia jukwaa letu wingastock ">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://wingastock.onrender.com/">
+
+    <meta property="og:title" content="Wingastock">
+
+    <meta property="og:description" content="Soko mtandao Tanzania">
+
+
+    <meta property="og:type" content="website">
+
+    <meta property="og:image" content="/static/logo.png">
+
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+
+    <meta name="google-site-verification" content="cBo6MO_R0NHmkbNtZ4TbAd5KcLYgqPdt0XB-BgMYi1o" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-STT2EJ7H54"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-STT2EJ7H54');
+    </script>
+</head>
+
+<body>
+
+    <div class="row-holder-001">
+
+        <!-- Inlude heading -->
+        {% include 'heading.html' with title="Kuhusu sisi" %}
+
+        <div class="content-holder-002" style="padding: 10px; margin-bottom: 300px;">
+
+            <p style="line-height:30px;">
+                <strong>Wingastock</strong> is an online marketplace
+                designed to help customers easily discover available
+                products from sellers in different locations.
+                Our platform connects buyers and sellers by making
+                products easy to search, compare, and locate.
+            </p>
+
+            <br>
+
+            <h3 style="color: crimson;">
+                <i class="fa fa-bullseye"></i>
+                Our Mission
+            </h3>
+
+            <p style="line-height:30px;">
+                To simplify the buying process by providing customers
+                with a fast, reliable, and convenient way to find
+                products from trusted sellers while helping businesses
+                reach more customers.
+            </p>
+
+            <br>
+
+            <h3 style="color: crimson;">
+                <i class="fa fa-eye"></i>
+                Our Vision
+            </h3>
+
+            <p style="line-height:30px;">
+                To become one of the leading digital platforms where
+                customers can easily find products and connect with
+                sellers anytime and anywhere.
+            </p>
+
+            <br>
+
+            <h3 style="color: crimson;">
+                <i class="fa fa-star"></i>
+                Why Choose Winga Platform?
+            </h3>
+
+            <ul style="line-height:35px;">
+                <li>Easy product searching.</li>
+                <li>Find products by category.</li>
+                <li>Locate products available near you.</li>
+                <li>Save time when looking for items.</li>
+                <li>Connect customers with trusted sellers.</li>
+                <li>Simple and user-friendly interface.</li>
+            </ul>
+
+            <br>
+
+            <h3 style="color: crimson;">
+                <i class="fa fa-handshake"></i>
+                Our Commitment
+            </h3>
+
+            <p style="line-height:30px;">
+                We are committed to improving the shopping experience
+                by making product discovery simple, accurate, and
+                accessible. We continue to improve our platform with
+                new features that benefit both customers and sellers.
+            </p>
+
+
+
+        </div>
+
+        <!-- Nav bar -->
+        {% include 'navbar.html' %}
+
+    </div>
+
+    <script>
+        function menu_bar(click) {
+            let menu_div = document.getElementById('menu_div');
+            let button1 = document.getElementById('button1');
+            let button2 = document.getElementById('button2');
+
+            if (click == 'open') {
+                menu_div.style.display = 'inline-block';
+                button1.style.display = 'none';
+                button2.style.display = 'inline-block';
+            }
+            else {
+                menu_div.style.display = 'none';
+                button2.style.display = 'none';
+                button1.style.display = 'inline-block';
+            }
+        }
+    </script>
+
+</body>
+
+</html>

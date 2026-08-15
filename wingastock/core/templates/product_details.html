@@ -1,0 +1,210 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/search.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <title>Wingastock | {{ product.title }}</title>
+
+  <meta name="description" content="Nunua na uza bidhaa za electoniki kama simu, laptops, TV, 
+    pia tunauza samani za ndani (furniture), vyumba, nyumba na bidhaa mbalimbali kupitia jukwaa letu wingastock ">
+
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://wingastock.onrender.com/">
+
+  <meta property="og:title" content="Wingastock">
+
+  <meta property="og:description" content="Soko mtandao Tanzania">
+
+
+  <meta property="og:type" content="website">
+
+  <meta property="og:image" content="/static/logo.png">
+
+  <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+
+  <meta name="google-site-verification" content="cBo6MO_R0NHmkbNtZ4TbAd5KcLYgqPdt0XB-BgMYi1o" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-STT2EJ7H54"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-STT2EJ7H54');
+  </script>
+</head>
+
+<body>
+
+  <div class="row-holder-001">
+
+    <!-- Inlude heading -->
+    {% include 'heading.html' with title="Bidhaa" %}
+
+
+    <div class="content-holder-002">
+
+      <!-- Preview product -->
+      <div class="preview-product-holder-003">
+
+        <div class="preview-product-004">
+
+          <div class="preview-pic-005">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.title }}">
+            {% endif %}
+          </div>
+
+
+          <div class="pr-005">
+            <div class="preview-details-005">
+              <div>
+                <p style="font-weight: bold;">{{ product.title }}</p>
+                <p>
+                <pre>{{ product.description }}</pre>
+                </p>
+                <p style='font-weight: bold; font-size: 18px;'>{{ product.price }} Tsh</p>
+
+                <p style="line-height:30px; margin-top: 50px;">
+                  <strong>{{ product.title }}</strong> inapatikana kupitia
+                  <strong>Wingastock</strong>, soko la mtandaoni linalowaunganisha
+                  wanunuzi na wauzaji kutoka maeneo mbalimbali.
+
+                  Kupitia Wingastock unaweza kuona taarifa za bidhaa, kulinganisha bei,
+                  na kupata muuzaji anayekufaa kwa urahisi. Upatikanaji wa bidhaa,
+                  gharama na huduma zinaweza kutofautiana kulingana na muuzaji.<br>
+
+                  <strong>Bei:</strong> {{ product.price }} Tsh<br>
+
+                  Wasiliana na muuzaji kwa maelezo zaidi kuhusu bidhaa, upatikanaji,
+                  njia za malipo na usafirishaji kabla ya kufanya ununuzi.
+                </p>
+              </div>
+            </div>
+
+            <div class="actions-holder-005">
+
+              <div class="w-005">
+                <button type="button" class="b2"
+                  onclick="window.location.href=`https://wa.me/{{ product.phone }}?text=Habari, naulizia {{ product.title }}`"><i
+                    class="fab fa-whatsapp"></i> Ongea na muuzaji whatsapp</button>
+              </div>
+
+              <div>
+                <button type="button" class="b1" onclick="window.location.href=`tel:+{{ product.phone }}`"><i
+                    class="fas fa-phone"></i></button>
+              </div>
+
+              <div>
+                <button type="button" id="shareBtn" class="b3"><i class="fas fa-share-alt"></i></button>
+              </div>
+            </div>
+
+            <div class="other-related-product-holder-005">
+              <div>
+                <p style="font-weight: bold;">Bidhaa zaidi</p>
+                <ul>
+                  {% for product in products %}
+                  <a href="{% url 'product_details' product.id %}">
+                    <li>{{ product.title }}
+                      <span style="float: right; font-weight: bold; color: crimson;">{{ product.price }} Tsh</span>
+                    </li>
+                  </a>
+                  {% endfor %}
+
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div style="width: 100%; height: 100px; float: left;"></div>
+
+
+
+    </div>
+
+    <!-- Nav bar -->
+    {% include 'navbar.html' %}
+
+  </div>
+
+
+  <script>
+    const shareBtn = document.getElementById("shareBtn");
+
+    shareBtn.addEventListener("click", async () => {
+
+      try {
+
+        const response = await fetch("{{ product.image.url }}");
+        const blob = await response.blob();
+
+        const file = new File(
+          [blob],
+          "product.jpg",
+          { type: blob.type }
+        );
+
+        if (navigator.canShare &&
+          navigator.canShare({ files: [file] })) {
+
+          await navigator.share({
+            title: "{{ product.title|escapejs }}",
+            text: "{{ product.title|escapejs }}\n\n{{ product.description|truncatechars:150|escapejs }}",
+            url: window.location.href,
+            files: [file]
+          });
+
+        } else {
+
+          await navigator.share({
+            title: "{{ product.title|escapejs }}",
+            text: "{{ product.title|escapejs }}\n\n{{ product.description|truncatechars:150|escapejs }}",
+            url: window.location.href
+          });
+
+        }
+
+      } catch (error) {
+        console.error(error);
+      }
+
+    });
+  </script>
+
+  <script>
+    function menu_bar(click) {
+      let menu_div = document.getElementById('menu_div');
+      let button1 = document.getElementById('button1');
+      let button2 = document.getElementById('button2');
+
+      if (click == 'open') {
+        menu_div.style.display = 'inline-block';
+        button1.style.display = 'none';
+        button2.style.display = 'inline-block';
+      }
+      else {
+        menu_div.style.display = 'none';
+        button2.style.display = 'none';
+        button1.style.display = 'inline-block';
+      }
+    }
+  </script>
+</body>
+
+</html>

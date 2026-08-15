@@ -1,0 +1,210 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <title>Wingastock | Terms & Policy</title>
+
+    <meta name="description" content="Wingastock terms and policy. Learn about our marketplace rules, privacy policy, seller and buyer responsibilities.">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://wingastock.onrender.com/terms-policy/">
+
+    <meta property="og:title" content="Wingastock Terms & Policy">
+    <meta property="og:description" content="Terms and policies for using Wingastock marketplace.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/static/logo.png">
+
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+
+</head>
+
+
+<body>
+
+<div class="row-holder-001">
+
+    {% include 'heading.html' with title="Terms & Policy" %}
+
+
+    <div class="content-holder-002" style="padding:10px; margin-bottom: 300px;">
+
+
+        <h3 style="color: crimson;">
+            <i class="fa fa-file-contract"></i>
+            Terms of Use
+        </h3>
+
+        <p style="line-height:30px;">
+            Welcome to Wingastock. By accessing and using our platform,
+            you agree to follow these terms and conditions. Wingastock
+            provides an online marketplace that helps buyers discover
+            products and connect with sellers.
+        </p>
+
+
+        <br>
+
+
+        <h3 style="color: crimson;">
+            <i class="fa fa-users"></i>
+            Buyer Responsibilities
+        </h3>
+
+        <ul style="line-height:35px;">
+            <li>Buyers should verify product details before making purchases.</li>
+            <li>Customers should communicate respectfully with sellers.</li>
+            <li>Buyers are responsible for confirming prices, availability, and delivery arrangements.</li>
+            <li>Users should not use Wingastock for illegal activities.</li>
+        </ul>
+
+
+        <br>
+
+
+        <h3 style="color: crimson;">
+            <i class="fa fa-store"></i>
+            Seller Responsibilities
+        </h3>
+
+        <ul style="line-height:35px;">
+            <li>Sellers must provide accurate product information.</li>
+            <li>Products listed should match their descriptions and images.</li>
+            <li>Sellers should provide honest communication with customers.</li>
+            <li>Fraudulent activities may result in account restrictions.</li>
+        </ul>
+
+
+        <br>
+
+
+        <h3 style="color: crimson;">
+            <i class="fa fa-shield-alt"></i>
+            Privacy Policy
+        </h3>
+
+        <p style="line-height:30px;">
+            Wingastock respects user privacy. We may collect information
+            such as account details, contact information, and usage data
+            to improve our services and provide a better marketplace
+            experience.
+        </p>
+
+
+        <p style="line-height:30px;">
+            We do not sell users' personal information to third parties.
+            Information may only be used to operate, secure, and improve
+            our platform.
+        </p>
+
+
+        <br>
+
+
+        <h3 style="color: crimson;">
+            <i class="fa fa-image"></i>
+            Product Information
+        </h3>
+
+        <p style="line-height:30px;">
+            Wingastock allows sellers to display products on our platform.
+            While we aim to provide a reliable marketplace, buyers should
+            confirm product quality, pricing, and availability directly
+            with sellers before completing transactions.
+        </p>
+
+
+        <br>
+
+
+        <h3 style="color: crimson;">
+            <i class="fa fa-ban"></i>
+            Prohibited Activities
+        </h3>
+
+        <ul style="line-height:35px;">
+            <li>Posting false or misleading product information.</li>
+            <li>Using the platform for illegal goods or services.</li>
+            <li>Attempting to damage or misuse the website.</li>
+            <li>Creating fake accounts or misleading users.</li>
+        </ul>
+
+
+        <br>
+
+
+        <h3 style="color: crimson;">
+            <i class="fa fa-exchange-alt"></i>
+            Transactions and Payments
+        </h3>
+
+        <p style="line-height:30px;">
+            Wingastock connects buyers and sellers but does not directly
+            control agreements between users. Payment methods, delivery,
+            refunds, and transaction arrangements should be agreed upon
+            between the buyer and seller.
+        </p>
+
+
+        <br>
+
+
+        <h3 style="color: crimson;">
+            <i class="fa fa-edit"></i>
+            Policy Updates
+        </h3>
+
+        <p style="line-height:30px;">
+            Wingastock may update these terms and policies from time to
+            time to improve our services and maintain a safe marketplace.
+            Users are encouraged to review this page regularly.
+        </p>
+
+
+
+    </div>
+
+
+    {% include 'navbar.html' %}
+
+
+</div>
+
+
+<script>
+
+function menu_bar(click) {
+
+    let menu_div = document.getElementById('menu_div');
+    let button1 = document.getElementById('button1');
+    let button2 = document.getElementById('button2');
+
+    if(click == 'open') {
+
+        menu_div.style.display = 'inline-block';
+        button1.style.display = 'none';
+        button2.style.display = 'inline-block';
+
+    } else {
+
+        menu_div.style.display = 'none';
+        button2.style.display = 'none';
+        button1.style.display = 'inline-block';
+
+    }
+
+}
+
+</script>
+
+
+</body>
+</html>

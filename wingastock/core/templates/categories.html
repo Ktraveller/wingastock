@@ -1,0 +1,221 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <title>Wingastock | Makundi ya bidhaa</title>
+
+    <meta name="description" content="Nunua na uza bidhaa za electoniki kama simu, laptops, TV, 
+    pia tunauza samani za ndani (furniture), vyumba, nyumba na bidhaa mbalimbali kupitia jukwaa letu wingastock ">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://wingastock.onrender.com/">
+
+    <meta property="og:title" content="Wingastock">
+
+    <meta property="og:description" content="Soko mtandao Tanzania">
+
+
+    <meta property="og:type" content="website">
+
+    <meta property="og:image" content="/static/logo.png">
+
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+
+    <meta name="google-site-verification" content="cBo6MO_R0NHmkbNtZ4TbAd5KcLYgqPdt0XB-BgMYi1o" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-STT2EJ7H54"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-STT2EJ7H54');
+    </script>
+
+    <style>
+        .favorite-product-003>div {
+            float: left;
+            height: 100px;
+            width: 16.666666666666666%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="row-holder-001">
+
+        <!-- Inlude heading -->
+        {% include 'heading.html' with title="Makundi ya bidhaa" %}
+
+
+        <div class="content-holder-002">
+
+            <!-- Favorite product cards -->
+            <div class="favorite-product-holder-003">
+                <div class="favorite-product-003">
+
+                    <div class="product-card-holder-004">
+                        <div>
+                            <button type="button" class="category-0004"
+                                onclick="window.location.href=`{% url 'filter_products' 'furniture' %}`">
+                                <i class="fas fa-couch"></i><br>
+                                <span>Samani za ndani</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card-holder-004">
+                        <div>
+                            <button type="button" class="category-0004"
+                                onclick="window.location.href=`{% url 'filter_products' 'electronics' %}`">
+                                <i class="fas fa-laptop"></i><br>
+                                <span>Electroniki</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card-holder-004">
+                        <div>
+                            <button type="button" class="category-0004"
+                                onclick="window.location.href=`{% url 'filter_products' 'clothes' %}`">
+                                <i class="fas fa-tshirt"></i><br>
+                                <span>Mavazi</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card-holder-004">
+                        <div>
+                            <button type="button" class="category-0004"
+                                onclick="window.location.href=`{% url 'filter_products' 'food' %}`">
+                                <i class="fas fa-utensils"></i><br>
+                                <span>Vyakula</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card-holder-004">
+                        <div>
+                            <button type="button" class="category-0004"
+                                onclick="window.location.href=`{% url 'products' %}`">
+                                <i class="fas fa-ellipsis-h"></i><br>
+                                <span>Bidhaa zaidi</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="list-fav-product-holder-003 search-0003">
+                <div class="list-fav-product-003" id="buttonContainer">
+
+                    {% for product in products %}
+
+                    <div>
+                        <div class="list-fav-003"
+                            onclick="window.location.href=`{% url 'product_details' product.id %}`">
+                            <div class="fav-image-003">
+                                {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                                {% endif %}
+                            </div>
+                            <div class="fav-details-003">
+                                <p style="font-weight: 900;">{{ product.title }}</p>
+                                <p>{{ product.description|truncatechars:50 }}</p>
+                                <span style="font-size: 15px; font-weight: bold;">{{ product.price }} Tsh</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <div style="width: 100%; height: 100px; float: left;"></div>
+
+
+            <!-- In list form 
+            <div class="list-fav-product-holder-003">
+                <div class="list-fav-product-003">
+
+                    <div>
+                        <div class="list-fav-003">
+                            <div class="fav-image-003">
+                                <img src="{% static 'phone1.jpeg' %}" alt="" srcset="">
+                            </div>
+                            <div class="fav-details-003">
+                                <span>Iphone 15</span>
+                                <span>Details dhhdjjds</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="list-fav-003">
+                            <div class="fav-image-003">
+                                <img src="{% static 'phone1.jpeg' %}" alt="" srcset="">
+                            </div>
+                            <div class="fav-details-003">
+                                <span>Iphone 15</span>
+                                <span>Details dhhdjjds</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div class="list-fav-003">
+                            <div class="fav-image-003">
+                                <img src="{% static 'phone1.jpeg' %}" alt="" srcset="">
+                            </div>
+                            <div class="fav-details-003">
+                                <span>Iphone 15</span>
+                                <span>Details dhhdjjds</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div> -->
+
+        </div>
+
+
+        <!-- Nav bar -->
+        {% include 'navbar.html' %}
+
+    </div>
+
+    <script>
+        function menu_bar(click) {
+            let menu_div = document.getElementById('menu_div');
+            let button1 = document.getElementById('button1');
+            let button2 = document.getElementById('button2');
+
+            if (click == 'open') {
+                menu_div.style.display = 'inline-block';
+                button1.style.display = 'none';
+                button2.style.display = 'inline-block';
+            }
+            else {
+                menu_div.style.display = 'none';
+                button2.style.display = 'none';
+                button1.style.display = 'inline-block';
+            }
+        }
+    </script>
+</body>
+
+</html>
