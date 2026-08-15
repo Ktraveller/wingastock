@@ -50,8 +50,8 @@
         <div class="header-holder-100">
             <div class="header-100">
                 <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')">m</button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')">c</button>
+                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i class="fas fa-times"></i></button>
                 </div>
                 <div class="title-holder-101">
                     <button type="button">Wingastock | Seller</button>
@@ -147,6 +147,13 @@
                                             onclick="window.location.href=`{% url 'seller_edit_product' product_data.id %}`"><i class="fas fa-edit"></i> Edit</button>
                                         <button class="btn-delete"
                                             onclick="window.location.href=`{% url 'seller_delete_product' product_data.id %}`"><i class="fas fa-trash"></i> Delete</button>
+                                    </td>
+                                </tr>
+
+                                {% empty %}
+                                <tr>
+                                    <td colspan="6" style="text-align: center; color: crimson; font-weight: bold;">
+                                        No products found.
                                     </td>
                                 </tr>
 

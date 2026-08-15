@@ -12,7 +12,7 @@ from core.models import Product
 # Product list
 @login_required(login_url="login_seller")
 def seller_products(request):
-    products = Product.objects.all().order_by('created_at')
+    products = Product.objects.filter(phone=request.user.username).order_by('created_at')
     return render(request, 'sellers/products.html', {
         'products': products
     })
