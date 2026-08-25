@@ -1,0 +1,308 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wingastock | Mails</title>
+    <link rel="stylesheet" href="{% static 'mail_css/style1.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    {% if m_receiver %}
+    <style>
+        .choose-receiver-holder-102 {
+            display: none;
+        }
+    </style>
+    {% endif %}
+</head>
+
+<body>
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <div class="row-holder-100">
+
+            <div class="left-holder-101" id="left-holder-101">
+                <div class="left-content-holder-102">
+                    <h1 id="head">Wingastock <br> Mails System (WMS)</h1>
+
+
+                    <div class="nav-bar-holder-102">
+                        <div>
+                            <ul>
+                                <a href="{% url 'seller_home' %}">
+                                    <li>Home <i class="fas fa-home"></i></li>
+                                </a>
+
+                                <a href="{% url 'unreaded' %}">
+                                    <li>Unreaded mails <i class="fas fa-envelope"></i></li>
+                                </a>
+
+                                <a href="{% url 'readed' %}">
+                                    <li>Readed mails <i class="fas fa-envelope-open"></i></li>
+                                </a>
+
+                                <a href="{% url 'sent_mails' %}">
+                                    <li>Sent mails <i class="fas fa-paper-plane"></i></li>
+                                </a>
+
+                                <a href="{% url 'mail_settings' %}">
+                                    <li>Settings <i class="fas fa-cog"></i></li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Recent messages -->
+                    <div class="messages-list-holder-102">
+                        <div>
+                            <p><i class="fas fa-clock"></i> Send mail to</p>
+
+                            <!-- Back top -->
+                            <button class="back-102" onclick="window.location.href='#head'">
+                                <i class="fas fa-arrow-up"></i>
+                            </button>
+
+                            <div>
+                                <ul>
+                                    {% for sender in senders %}
+                                    <a href="{% url 'mail_read' sender.sender_id %}">
+                                        <li><i class="fas fa-user"></i> {{ sender.sender_id }} <i
+                                                class="fas fa-clock sender-100"></i></li>
+                                    </a>
+                                    {% empty %}
+                                    <p style="padding: 10px; text-align: center; color: green; font-weight: bold;">
+                                        Sender's list empty! <br> No mail received</p>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-holder-101" id="right-holder-101">
+
+                <div class="center-header-holder-102">
+                    <h1><i class="fas fa-envelope"></i> Wingastock Mail System (WMS)</h1>
+                    <button type="button" onclick="toggleLeftPanel()"><i class="fas fa-bars"></i></button>
+                </div>
+
+                <div class="center-content-holder-102">
+
+                    <!-- Mail content will be displayed here -->
+                    <div class="choose-receiver-holder-102" id="choose-modal">
+                        <div>
+                            <div class="list-102">
+                                <p style="font-weight: bold; text-align: center;">
+                                    Choose mail receiver
+                                </p>
+
+                                <!-- Search -->
+                                <div class="search-list-102">
+                                    <input type="text" id="receiver-search-102" placeholder="Search receiver ..."
+                                        oninput="searchReceivers()">
+                                </div>
+
+                                <!-- Receiver list -->
+                                <div class="div102">
+                                    <ul id="receiver-list-102">
+
+                                        {% for message_receiver in receiver %}
+
+                                        {% if message_receiver.email != user.email %}
+
+                                        <li class="receiver-item-102"
+                                            data-username="{{ message_receiver.username|lower }}"
+                                            data-email="{{ message_receiver.email|lower }}">
+                                            <b>{{ message_receiver.username }}</b>
+                                            <br>
+
+                                            <span style="font-size: 12px; color: crimson;">
+                                                {{ message_receiver.email }}
+                                            </span>
+
+                                            <button type="button"
+                                                onclick="open_chart(`{% url 'compose_m' message_receiver.email %}`)">
+                                                Choose
+                                            </button>
+                                        </li>
+
+                                        {% endif %}
+
+                                        {% empty %}
+
+                                        <p style="text-align: center;">
+                                            Receiver list empty!
+                                        </p>
+
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="close-button-102">
+                                <button type="button" onclick="window.location.href=`{% url 'mail_home' %}`">Close
+                                    search</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mail-display-holder-103">
+                        <div style="overflow-y: scroll; height: 500px;">
+                            <div class="top-message-details-103">
+                                <button type="button"><i class="fas fa-user"></i></button>
+                                <span>{{ m_receiver }}</span>
+                            </div>
+
+                            {% for message in messages %}
+
+
+                            {% if message.sender_id == m_receiver %}
+                            <table>
+                                <tr>
+                                    <td><button type="button" class="received-100">{{ message.message }}</button></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                            {% endif %}
+
+
+                            {% if message.receiver_id == m_receiver %}
+                            <table>
+                                <tr>
+                                    <td></td>
+                                    <td style="text-align: right;"><button type="button" class="sent-100">
+                                            {{ message.message }}</button></td>
+                                </tr>
+                            </table>
+                            {% endif %}
+
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reply box -->
+                <div class="reply-box-104">
+                    <div class="reply-content-104">
+                        <div class="inputs-holder-104">
+                            <textarea name="message" id="" placeholder="Write text ..."></textarea>
+                        </div>
+                        <div class="send-holder-104">
+                            <button type="submit">Send <i class="fas fa-paper-plane"
+                                    style="padding-left: 5px;"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+
+
+    <script>
+        function toggleLeftPanel() {
+            const leftPanel = document.getElementById('left-holder-101');
+            const rightPanel = document.getElementById('right-holder-101');
+
+            if (leftPanel.style.display === 'none') {
+                leftPanel.style.display = 'inline-block';
+                leftPanel.style.width = '100%';
+                rightPanel.style.display = 'none';
+
+            } else {
+                leftPanel.style.display = 'none';
+                rightPanel.style.width = '100%';
+                rightPanel.style.display = 'inline-block';
+            }
+        }
+
+        function open_chart(link) {
+            document.getElementById('choose-modal').style.display = 'none';
+            window.location.href = link;
+        }
+
+    </script>
+
+    <script>
+        function searchReceivers() {
+
+            const searchInput = document.getElementById(
+                "receiver-search-102"
+            );
+
+            const query = searchInput.value
+                .toLowerCase()
+                .trim();
+
+            const receivers = document.querySelectorAll(
+                ".receiver-item-102"
+            );
+
+            let found = false;
+
+            receivers.forEach(function (receiver) {
+
+                const username = receiver.dataset.username;
+                const email = receiver.dataset.email;
+
+                /*
+                 * Search by username OR email
+                 */
+                if (
+                    username.includes(query) ||
+                    email.includes(query)
+                ) {
+                    receiver.style.display = "";
+                    found = true;
+                } else {
+                    receiver.style.display = "none";
+                }
+
+            });
+
+            /*
+             * No results message
+             */
+            let noResults = document.getElementById(
+                "receiver-no-results-102"
+            );
+
+            if (!found && query !== "") {
+
+                if (!noResults) {
+
+                    noResults = document.createElement("li");
+
+                    noResults.id = "receiver-no-results-102";
+
+                    noResults.style.textAlign = "center";
+                    noResults.style.padding = "15px";
+
+                    noResults.textContent = "No receiver found!";
+
+                    document
+                        .getElementById("receiver-list-102")
+                        .appendChild(noResults);
+                }
+
+            } else {
+
+                if (noResults) {
+                    noResults.remove();
+                }
+
+            }
+        }
+    </script>
+</body>
+
+</html>

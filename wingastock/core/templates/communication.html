@@ -9,11 +9,13 @@
 
     <link rel="stylesheet" href="{% static 'css/style1.css' %}">
     <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <link rel="stylesheet" href="{% static 'css/heading.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <title>Wingastock | Communication</title>
 
-    <meta name="description" content="Contact Wingastock customer support for questions, feedback, seller support and marketplace assistance.">
+    <meta name="description"
+        content="Contact Wingastock customer support for questions, feedback, seller support and marketplace assistance.">
 
     <meta name="robots" content="index, follow">
 
@@ -32,162 +34,172 @@
 <body>
 
 
-<div class="row-holder-001">
+    <div class="row-holder-001">
 
 
-    {% include 'heading.html' with title="Communication" %}
+        <!-- Inlude heading -->
+        {% if user.email %}
+        {% include 'header_s.html' %}
+        {% else %}
+        {% include 'heading.html' %}
+        {% endif %}
 
 
-    <div class="content-holder-002" style="padding:10px; margin-bottom: 300px;">
+        <div class="content-holder-002" style="padding:10px; margin-bottom: 300px;">
 
 
-        <p style="line-height:30px;">
-            At <strong>Wingastock</strong>, we value communication with our
-            customers, sellers, and partners. Our goal is to provide a
-            simple and reliable marketplace experience by listening to
-            your questions, suggestions, and feedback.
-        </p>
+            <p style="line-height:30px;">
+                At <strong>Wingastock</strong>, we value communication with our
+                customers, sellers, and partners. Our goal is to provide a
+                simple and reliable marketplace experience by listening to
+                your questions, suggestions, and feedback.
+            </p>
 
 
-        <br>
+            <br>
 
 
-        <h3 style="color: crimson;">
-            <i class="fa fa-headset"></i>
-            Customer Support
-        </h3>
+            <h3 style="color: crimson;">
+                <i class="fa fa-headset"></i>
+                Customer Support
+            </h3>
 
-        <p style="line-height:30px;">
-            If you need help using Wingastock, finding products,
-            contacting sellers, or reporting an issue, our support team
-            is available to assist you.
-        </p>
-
-
-        <br>
+            <p style="line-height:30px;">
+                If you need help using Wingastock, finding products,
+                contacting sellers, or reporting an issue, our support team
+                is available to assist you.
+            </p>
 
 
-        <h3 style="color: crimson;">
-            <i class="fa fa-comments"></i>
-            How We Communicate
-        </h3>
-
-        <ul style="line-height:35px;">
-            <li>We respond to customer questions and feedback.</li>
-            <li>We help users understand how to use our marketplace.</li>
-            <li>We provide updates about important platform improvements.</li>
-            <li>We encourage respectful communication between buyers and sellers.</li>
-        </ul>
+            <br>
 
 
-        <br>
+            <h3 style="color: crimson;">
+                <i class="fa fa-comments"></i>
+                How We Communicate
+            </h3>
+
+            <ul style="line-height:35px;">
+                <li>We respond to customer questions and feedback.</li>
+                <li>We help users understand how to use our marketplace.</li>
+                <li>We provide updates about important platform improvements.</li>
+                <li>We encourage respectful communication between buyers and sellers.</li>
+            </ul>
 
 
-        <h3 style="color: crimson;">
-            <i class="fa fa-user-plus"></i>
-            Seller Communication
-        </h3>
-
-        <p style="line-height:30px;">
-            Sellers can contact us for assistance with product listings,
-            account issues, and improving their visibility on the Wingastock
-            platform.
-        </p>
+            <br>
 
 
-        <br>
+            <h3 style="color: crimson;">
+                <i class="fa fa-user-plus"></i>
+                Seller Communication
+            </h3>
+
+            <p style="line-height:30px;">
+                Sellers can contact us for assistance with product listings,
+                account issues, and improving their visibility on the Wingastock
+                platform.
+            </p>
 
 
-        <h3 style="color: crimson;">
-            <i class="fa fa-lightbulb"></i>
-            Feedback and Suggestions
-        </h3>
-
-        <p style="line-height:30px;">
-            Your feedback helps us improve Wingastock. We welcome ideas,
-            suggestions, and reports that can help us create a better
-            marketplace for everyone.
-        </p>
+            <br>
 
 
-        <br>
+            <h3 style="color: crimson;">
+                <i class="fa fa-lightbulb"></i>
+                Feedback and Suggestions
+            </h3>
+
+            <p style="line-height:30px;">
+                Your feedback helps us improve Wingastock. We welcome ideas,
+                suggestions, and reports that can help us create a better
+                marketplace for everyone.
+            </p>
 
 
-        <h3 style="color: crimson;">
-            <i class="fa fa-envelope"></i>
-            Contact Information
-        </h3>
+            <br>
 
 
-        <p style="line-height:30px;">
-            <strong>Email:</strong> wingastock@gmail.com
-        </p>
+            <h3 style="color: crimson;">
+                <i class="fa fa-envelope"></i>
+                Contact Information
+            </h3>
 
 
-        <p style="line-height:30px;">
-            <strong>Phone:</strong> +255 711 319 475
-        </p>
+            <p style="line-height:30px;">
+                <strong>Email:</strong> wingastock@gmail.com
+            </p>
 
 
-        <p style="line-height:30px;">
-            <strong>Location:</strong> Tanzania
-        </p>
+            <p style="line-height:30px;">
+                <strong>Phone:</strong> +255 711 319 475
+            </p>
 
 
-        <br>
+            <p style="line-height:30px;">
+                <strong>Location:</strong> Tanzania
+            </p>
 
 
-        <h3 style="color: crimson;">
-            <i class="fa fa-clock"></i>
-            Response Time
-        </h3>
+            <br>
 
 
-        <p style="line-height:30px;">
-            We aim to respond to customer inquiries as quickly as possible.
-            Response time may depend on the type of request and the amount
-            of information provided.
-        </p>
+            <h3 style="color: crimson;">
+                <i class="fa fa-clock"></i>
+                Response Time
+            </h3>
+
+
+            <p style="line-height:30px;">
+                We aim to respond to customer inquiries as quickly as possible.
+                Response time may depend on the type of request and the amount
+                of information provided.
+            </p>
+
+
+        </div>
+
+        <div class="footer-holder-1003">
+            <div>
+                <p>Wingastock | Online marketplace</p>
+            </div>
+        </div>
+        
+        {% include 'navbar.html' %}
 
 
     </div>
 
 
-    {% include 'navbar.html' %}
+
+    <script>
+
+        function menu_bar(click) {
+
+            let menu_div = document.getElementById('menu_div');
+            let button1 = document.getElementById('button1');
+            let button2 = document.getElementById('button2');
 
 
-</div>
+            if (click == 'open') {
 
+                menu_div.style.display = 'inline-block';
+                button1.style.display = 'none';
+                button2.style.display = 'inline-block';
 
+            }
 
-<script>
+            else {
 
-function menu_bar(click) {
+                menu_div.style.display = 'none';
+                button2.style.display = 'none';
+                button1.style.display = 'inline-block';
 
-    let menu_div = document.getElementById('menu_div');
-    let button1 = document.getElementById('button1');
-    let button2 = document.getElementById('button2');
+            }
 
+        }
 
-    if(click == 'open') {
-
-        menu_div.style.display = 'inline-block';
-        button1.style.display = 'none';
-        button2.style.display = 'inline-block';
-
-    }
-
-    else {
-
-        menu_div.style.display = 'none';
-        button2.style.display = 'none';
-        button1.style.display = 'inline-block';
-
-    }
-
-}
-
-</script>
+    </script>
 
 
 </body>

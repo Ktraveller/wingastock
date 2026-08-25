@@ -1,0 +1,193 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wingastock | Add product</title>
+  <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    .messages {
+      margin: 20px 0;
+    }
+
+    .alert {
+      padding: 12px 18px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .success {
+      background: #28a745;
+    }
+
+    .error {
+      background: #dc3545;
+    }
+
+    .warning {
+      background: #ffc107;
+      color: #000;
+    }
+
+    .info {
+      background: #17a2b8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="row-holder">
+
+    <!-- Header -->
+    <div class="header-holder-100">
+      <div class="header-100">
+        <div class="action-holder-101">
+          <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+          <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+              class="fas fa-times"></i></button>
+        </div>
+        <div class="title-holder-101">
+          <button type="button"><span>Wingastock | Signup</span></button>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- center content -->
+    <div class="center-content-200">
+
+      <div class="left-holder-201" id="nav">
+        <div class="nav-bar-holder-202">
+
+          <ul>
+            <a href="{% url 'seller_terms' %}">
+              <li>Terms and conditions <i class="fas fa-file-contract"></i></li>
+            </a>
+          </ul>
+
+          <ul>
+            <a href="{% url 'signup_seller' %}">
+              <li class="active-0">Seller informations <i class="fas fa-user"></i></li>
+            </a>
+          </ul>
+
+          <ul>
+            <a href="">
+              <li>Declarations <i class="fas fa-file-signature"></i></li>
+            </a>
+          </ul>
+
+          <ul>
+            <a href="{% url 'login_seller' %}">
+              <li>Login <i class="fas fa-sign-in-alt"></i></li>
+            </a>
+          </ul>
+          
+        </div>
+      </div>
+
+      <div class="right-holder-201">
+        <div class="products-202">
+
+
+          {% if messages %}
+          <div class="messages">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+              {{ message }}
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="input-holder-203">
+              <p><i class="fas fa-user"></i>
+                Seller name</p>
+              <div>
+                <input type="text" name="seller_name" placeholder="e.g Juma" required>
+              </div>
+            </div>
+
+
+            <div class="input-holder-203">
+              <p><i class="fas fa-phone"></i> Phone number</p>
+              <div>
+                <input type="number" name="seller_phone" placeholder="e.g 255622..." required>
+              </div>
+            </div>
+
+            <div class="input-holder-203">
+              <p><i class="fas fa-map-marker-alt"></i> Address</p>
+              <div>
+                <input type="tex" name="seller_address" placeholder="e.g mabibo..." required>
+              </div>
+            </div>
+
+
+            <div class="input-holder-203" style="height: 250px;">
+              <p><i class="fas fa-align-left"></i> Descriptions</p>
+              <div style="height: 200px;">
+                <textarea name="seller_description" required placeholder="e.g I selling quality phones ..."></textarea>
+              </div>
+            </div>
+
+
+            <div class="input-holder-203 submit-203">
+              <div>
+                <button type="submit"><i class="fas fa-save"></i> Save and proceed</button>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <script>
+    function open_menu(click) {
+      let menu1 = document.getElementById('menu1');
+      let menu2 = document.getElementById('menu2');
+      let nav = document.getElementById('nav');
+
+      if (click == 'open') {
+        menu1.style.display = 'none';
+        menu2.style.display = 'inline-block';
+        nav.style.display = 'inline-block';
+      }
+      else {
+        menu1.style.display = 'inline-block';
+        menu2.style.display = 'none';
+        nav.style.display = 'none';
+      }
+    }
+  </script>
+  <script>
+    setTimeout(function () {
+      document.querySelectorAll(".alert").forEach(function (alert) {
+        alert.style.transition = "opacity 0.5s";
+        alert.style.opacity = "0";
+        setTimeout(() => alert.remove(), 2000);
+      });
+    }, 4000);
+  </script>
+</body>
+
+</html>

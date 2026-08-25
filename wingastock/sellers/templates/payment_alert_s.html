@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wingastock | Dashboard</title>
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="row-holder">
+
+        <!-- Header -->
+        <div class="header-holder-100">
+            <div class="header-100">
+                <div class="action-holder-101">
+                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="title-holder-101">
+                    <button type="button"><span>Wingastock | Seller</span></button>
+                </div>
+                <div class="title-holder-101" style="float: right;">
+                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- center content -->
+        <div class="center-content-200">
+
+            <div class="left-holder-201" id="nav">
+                <div class="nav-bar-holder-202">
+
+                    <ul>
+                        <a href="{% url 'seller_home' %}">
+                            <li class="active-0">Dashboard <i class="fas fa-tachometer-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'seller_products' %}">
+                            <li>Products <i class="fas fa-shopping-bag"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'mail_home' %}">
+                            <li>Mails <i class="fas fa-envelope"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'logout_seller' %}">
+                            <li>Exit <i class="fas fa-sign-out-alt"></i></li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="right-holder-201">
+                <div class="card-holder-201">
+
+                    <p><i class="fas fa-money-check-alt" style="font-size: 50px; color: crimson;"></i></p>
+                    <p>You reach maximum products to post in website.</p>
+
+                    <p>Soon we will add more features for you.</p>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+        function open_menu(click) {
+            let menu1 = document.getElementById('menu1');
+            let menu2 = document.getElementById('menu2');
+            let nav = document.getElementById('nav');
+
+            if (click == 'open') {
+                menu1.style.display = 'none';
+                menu2.style.display = 'inline-block';
+                nav.style.display = 'inline-block';
+            }
+            else {
+                menu1.style.display = 'inline-block';
+                menu2.style.display = 'none';
+                nav.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>

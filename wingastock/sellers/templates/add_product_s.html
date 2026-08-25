@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wingastock | Add product</title>
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        .messages {
+            margin: 20px 0;
+        }
+
+        .alert {
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .success {
+            background: #28a745;
+        }
+
+        .error {
+            background: #dc3545;
+        }
+
+        .warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .info {
+            background: #17a2b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="row-holder">
+
+        <!-- Header -->
+        <div class="header-holder-100">
+            <div class="header-100">
+                <div class="action-holder-101">
+                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+                            class="fas fa-times"></i></button>
+                </div>
+                <div class="title-holder-101">
+                    <button type="button"><span>Wingastock | Seller</span></button>
+                </div>
+                <div class="title-holder-101" style="float: right;">
+                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- center content -->
+        <div class="center-content-200">
+
+            <div class="left-holder-201" id="nav">
+                <div class="nav-bar-holder-202">
+
+                    <ul>
+                        <a href="{% url 'seller_home' %}">
+                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'seller_products' %}">
+                            <li class="active-0">Products <i class="fas fa-shopping-bag"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'mail_home' %}">
+                            <li>Mails <i class="fas fa-envelope"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'logout_seller' %}">
+                            <li>Exit <i class="fas fa-sign-out-alt"></i></li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="right-holder-201">
+                <div class="products-202">
+
+                    <p style="font-weight: bold;">Add product <span style="float: right;">Remains: {{ product_remain }}</span></p>
+
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="alert {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="POST" action="{% url 'seller_add_product' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="input-holder-203">
+                            <p><i class="fas fa-heading"></i> Product name</p>
+                            <div>
+                                <input type="text" name="title" placeholder="e.g iPhone 12" required>
+                            </div>
+                        </div>
+
+
+                        <div class="input-holder-203">
+                            <p><i class="fas fa-tags"></i> Category</p>
+                            <div>
+                                <select name="category" required>
+                                    <option value="">Choose category</option>
+                                    <option value="electronics">Electronics</option>
+                                    <option value="food">Food</option>
+                                    <option value="clothes">Clothes</option>
+                                    <option value="furniture">Furniture</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="input-holder-203" style="height: 250px;">
+                            <p><i class="fas fa-align-left"></i> Descriptions</p>
+                            <div style="height: 200px;">
+                                <textarea name="description" required
+                                    placeholder="e.g Quality product from ..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="input-holder-203">
+                            <p> <i class="fas fa-image"></i> Image</p>
+                            <div>
+                                <input type="file" style="padding: 7px;" name="image" accept="image/*">
+                            </div>
+                        </div>
+
+
+                        <div class="input-holder-203">
+                            <p><i class="fas fa-dollar-sign"></i> Price</p>
+                            <div>
+                                <input type="number" name="price" min="1" step="0.01" placeholder="e.g 1000.00"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="input-holder-203 submit-203">
+                            <div>
+                                <button type="submit"><i class="fas fa-save"></i> Save product</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+        function open_menu(click) {
+            let menu1 = document.getElementById('menu1');
+            let menu2 = document.getElementById('menu2');
+            let nav = document.getElementById('nav');
+
+            if (click == 'open') {
+                menu1.style.display = 'none';
+                menu2.style.display = 'inline-block';
+                nav.style.display = 'inline-block';
+            }
+            else {
+                menu1.style.display = 'inline-block';
+                menu2.style.display = 'none';
+                nav.style.display = 'none';
+            }
+        }
+    </script>
+    <script>
+        setTimeout(function () {
+            document.querySelectorAll(".alert").forEach(function (alert) {
+                alert.style.transition = "opacity 0.5s";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>

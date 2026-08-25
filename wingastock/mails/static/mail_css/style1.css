@@ -1,0 +1,718 @@
+* {
+    box-sizing: border-box;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.row-holder-100 {
+    width: 100%;
+    height: auto;
+}
+
+.row-holder-100>div {
+    float: left;
+}
+
+.left-holder-101 {
+    width: 20%;
+    height: 100vh;
+    background: white;
+    overflow-y: scroll;
+    display: none;
+}
+
+.right-holder-101 {
+    width: 100%;
+    height: 100vh;
+}
+
+.left-content-holder-102 {
+    width: 100%;
+    height: auto;
+}
+
+
+.left-content-holder-102>h1 {
+    padding: 10px;
+    font-size: 15px;
+    color: crimson;
+}
+
+.nav-bar-holder-102 {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+.nav-bar-holder-102>div {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    background: white;
+    color: black;
+}
+
+.nav-bar-holder-102>div>ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar-holder-102>div>ul>a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-bar-holder-102>div>ul>a>li {
+    padding: 15px;
+    height: auto;
+}
+
+.nav-bar-holder-102>div>ul>a>li>i {
+    float: right;
+}
+
+.nav-bar-holder-102>div>ul>a>li:hover {
+    background-color: rgba(220, 20, 60, 0.064);
+    border: 1px solid rgba(220, 20, 60, 0.589);
+    color: crimson;
+    border-radius: 50px;
+}
+
+.active-page {
+    background-color: crimson;
+    color: white;
+    border-radius: 50px;
+}
+
+.messages-list-holder-102 {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+.messages-list-holder-102>div {
+    width: 100%;
+    height: auto;
+}
+
+.messages-list-holder-102>div>p {
+    text-align: center;
+    font-weight: bold;
+    color: crimson;
+    padding: 10px;
+}
+
+.messages-list-holder-102>div>div {
+    background: rgba(255, 255, 255, 0.674);
+    border-radius: 10px;
+    width: 100%;
+    height: inherit;
+}
+
+.messages-list-holder-102>div>div>ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.messages-list-holder-102>div>div>ul>a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.messages-list-holder-102>div>div>ul>a>li {
+    padding: 15px;
+    height: auto;
+    text-align: center;
+    border: 1px solid rgba(220, 20, 60, 0.267);
+    border-radius: 50px;
+    margin-bottom: 5px;
+}
+
+.sender-100 {
+    float: right;
+}
+
+.messages-list-holder-102>div>div>ul>a>li:hover {
+    background-color: crimson;
+    color: white;
+    border-radius: 50px;
+}
+
+.active-message {
+    background-color: crimson;
+    color: white;
+    border-radius: 10px;
+}
+
+.back-102 {
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    width: 40px;
+    height: 40px;
+    background: crimson;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.center-content-holder-102 {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+.no-sender-selected-102 {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    padding: 20%;
+    align-items: center;
+}
+
+.compose-message-holder-103 {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.compose-message-holder-103>button {
+    width: 200px;
+    height: 50px;
+    background: crimson;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    border-style: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.compose-message-holder-103>button:hover {
+    opacity: 0.7;
+}
+
+.choose-receiver-holder-102 {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.239);
+    z-index: 999;
+}
+
+.choose-receiver-holder-102>div {
+    width: 90%;
+    height: 800px;
+    margin: auto;
+    background: white;
+    border-radius: 10px;
+    margin-top: 80px;
+}
+
+.list-102 {
+    width: 100%;
+    height: 750px;
+    background: transparent;
+    padding: 10px;
+}
+
+.search-list-102 {
+    width: 100%;
+    height: 50px;
+    padding: 5px;
+}
+
+.search-list-102>input {
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(220, 20, 60, 0.268);
+    border-radius: 5px;
+    padding: 10px;
+    outline: none;
+}
+
+.search-list-102>input:hover {
+    border-bottom: 2px solid crimson;
+}
+
+.list-102>.div102 {
+    width: 100%;
+    height: 650px;
+    padding: 5px;
+    background: transparent;
+    overflow-y: scroll;
+}
+
+.close-button-102 {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    text-align: right;
+    padding: 8px;
+}
+
+.close-button-102>button {
+    width: 100px;
+    height: 100%;
+    border-style: none;
+    outline: none;
+    background: crimson;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.list-102>div>ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-102>div>ul>li {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    float: left;
+    border-radius: 5px;
+}
+
+.list-102>div>ul>li>button {
+    float: right;
+    height: 40px;
+    width: auto;
+    background: rgba(220, 20, 60, 0.429);
+    border: 2px solid crimson;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.list-102>div>ul>li>button:hover {
+    background: crimson;
+    color: white;
+}
+
+.list-102>div>ul>li:hover {
+    background: whitesmoke;
+    border: 1px solid rgba(220, 20, 60, 0.129);
+}
+
+.center-header-holder-102 {
+    width: 100%;
+    height: 55px;
+    padding: 10px;
+    background: crimson;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.center-header-holder-102>h1 {
+    float: left;
+}
+
+.center-header-holder-102>button {
+    width: 35px;
+    height: 35px;
+    background: white;
+    border: none;
+    border-radius: 5px;
+    color: crimson;
+    font-weight: bold;
+    float: right;
+    cursor: pointer;
+}
+
+.search-messages-holder-102 {
+    width: 100%;
+    height: auto;
+    margin-top: 50px;
+}
+
+.search-messages-holder-102>div {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    background: white;
+    padding: 10px;
+}
+
+.search-messages-holder-102>div>input {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.223);
+    padding: 10px;
+    outline: none;
+}
+
+
+.search-messages-holder-102>div>input:focus {
+    border-bottom: 2px solid crimson;
+}
+
+.search-result-holder-103 {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.049);
+    z-index: 999;
+    display: none;
+}
+
+.search-content-103 {
+    width: 80%;
+    margin-left: 20%;
+    margin-top: 50px;
+    height: auto;
+    padding: 10px;
+    background: transparent;
+}
+
+.search-content-103>div {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    background: white;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.223);
+    border-radius: 5px;
+}
+
+
+.mail-display-holder-103 {
+    width: 100%;
+    height: auto;
+    margin-top: 50px;
+}
+
+.mail-display-holder-103>div {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+.top-message-details-103 {
+    width: 100%;
+    height: 37px;
+    background: white;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(220, 20, 60, 0.316);
+}
+
+.top-message-details-103>button {
+    width: 30px;
+    height: 30px;
+    border-style: none;
+    outline: none;
+    background: crimson;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+}
+
+.top-message-details-103>span {
+    color: black;
+    padding-left: 10px;
+}
+
+.top-message-details-103>.read-actions-103 {
+    float: right;
+}
+
+.mail-display-holder-103>div>table {
+    width: 100%;
+    height: auto;
+}
+
+.mail-display-holder-103>div>table>tr>td {
+    padding: 10px;
+    height: 50px;
+    width: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.223);
+    margin: 10px;
+}
+
+#trash {
+    width: 35px;
+    height: 35px;
+    border-style: none;
+    outline: none;
+    color: crimson;
+    background: transparent;
+    cursor: pointer;
+    display: none;
+}
+
+#trash>i:hover {
+    color: rgba(220, 20, 60, 0.458);
+    font-size: 15px;
+}
+
+.received-100 {
+    background: crimson;
+    max-height: 150px;
+    border-style: none;
+    outline: none;
+    border-radius: 10px;
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+.sent-100 {
+    background: dodgerblue;
+    max-height: 150px;
+    border-style: none;
+    outline: none;
+    border-radius: 10px;
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+
+.clear-modal-holder {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.276);
+    display: none;
+    z-index: 999;
+}
+
+.clear-modal-holder>div {
+    width: 300px;
+    height: 100px;
+    margin: auto;
+    background: white;
+    border-radius: 5px;
+    margin-top: 10%;
+    padding: 10px;
+}
+
+.clear-modal-holder>div>button {
+    width: 100px;
+    height: 40px;
+    background: crimson;
+    border-style: none;
+    outline: none;
+    float: right;
+    margin-left: 10px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.clear-modal-holder>div>button:hover {
+    background: rgba(220, 20, 60, 0.646);
+}
+
+.reply-box-104 {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+}
+
+.reply-content-104 {
+    width: 100%;
+    height: 100px;
+    float: right;
+}
+
+.reply-content-104>div {
+    float: left;
+}
+
+.inputs-holder-104 {
+    height: 100%;
+    width: 80%;
+    padding: 10px;
+}
+
+.send-holder-104 {
+    width: 20%;
+    height: auto;
+    padding: 10px;
+}
+
+.inputs-holder-104>textarea {
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.52);
+    border-radius: 5px;
+    padding: 10px;
+    outline: none;
+}
+
+.inputs-holder-104>textarea:hover {
+    border-bottom: 2px solid crimson;
+}
+
+.send-holder-104>button {
+    width: 100%;
+    height: 50px;
+    background: crimson;
+    color: white;
+    font-weight: bold;
+    border-style: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.unreaded-list-102 {
+    width: 100%;
+    height: auto;
+}
+
+.unreaded-list-102>ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.unreaded-list-102>ul>a {
+    text-decoration: none;
+    color: inherit;
+    display: inline;
+}
+
+.unreaded-list-102>ul>a>li {
+    width: 100%;
+    height: 55px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.unreaded-list-102>ul>a>li:hover {
+    background: whitesmoke;
+    border: 1px solid rgba(220, 20, 60, 0.263);
+    border-radius: 5px;
+}
+
+.unreaded-list-102>ul>a>li>span {
+    font-size: 12px;
+}
+
+
+.readed-list-102 {
+    width: 100%;
+    height: auto;
+}
+
+.readed-list-102>ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.readed-list-102>ul>a {
+    text-decoration: none;
+    color: inherit;
+    display: inline;
+}
+
+.readed-list-102>ul>a>li {
+    width: 100%;
+    height: 55px;
+    background: white;
+    padding: 10px;
+    text-overflow: ellipsis;
+}
+
+.readed-list-102>ul>a>li:hover {
+    background: whitesmoke;
+    border: 1px solid rgba(220, 20, 60, 0.263);
+    border-radius: 5px;
+}
+
+.readed-list-102>ul>a>li>span {
+    font-size: 12px;
+}
+
+
+
+.message-icon-100 {
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    float: left;
+    margin-right: 10px;
+    border-style: none;
+    outline: none;
+    background: crimson;
+    color: white;
+}
+
+.message-icon-100>i {
+    font-size: 15px;
+}
+
+@media only screen and (min-width: 768px) {
+    .left-holder-101 {
+        width: 20%;
+        display: inline-block;
+    }
+
+    .right-holder-101 {
+        width: 80%;
+    }
+
+    .center-header-holder-102 {
+        display: none;
+    }
+
+    .search-messages-holder-102 {
+        margin-top: 0;
+    }
+
+    .mail-display-holder-103 {
+        margin-top: 0;
+    }
+
+    .reply-content-104 {
+        width: 80%;
+    }
+
+    .choose-receiver-holder-102>div {
+        width: 50%;
+        height: 500px;
+    }
+
+    .list-102 {
+        width: 100%;
+        height: 450px;
+    }
+
+    .list-102>.div102 {
+        width: 100%;
+        height: 350px;
+    }
+}

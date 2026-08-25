@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from core.models import Product
+from sellers.models import Product
 
 def products(request):
     products = Product.objects.order_by('?')

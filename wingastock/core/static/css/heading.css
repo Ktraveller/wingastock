@@ -1,0 +1,289 @@
+.heading-holder-1002 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+    transition: transform 0.35s ease-in-out;
+}
+
+.heading-holder-1002.hide-header {
+    transform: translateY(-100%);
+}
+
+
+.heading-1002 {
+    width: 100%;
+    height: auto;
+}
+
+.heading-1002>div {
+    float: left;
+    height: 100%;
+}
+
+.title-holder-1003 {
+    width: 100%;
+}
+
+.title-holder-1003>div {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.title-holder-1003>div>h1 {
+    font-size: 20px;
+    color: crimson;
+    cursor: pointer;
+}
+
+.search-holder-1003 {
+    width: 70%;
+}
+
+.search-holder-1003>div {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+.search-holder-1003>div>input {
+    width: 100%;
+    height: 40px;
+    border-radius: 50px;
+    border: 1px solid crimson;
+    outline: none;
+    padding: 10px;
+}
+
+.cart-holder-1003 {
+    width: 10%;
+}
+
+.cart-holder-1003>div {
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+}
+
+.cart-holder-1003>div>button {
+    border-style: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    cursor: pointer;
+}
+
+.cart-holder-1003>div>button:hover {
+    color: crimson;
+}
+
+.signin-holder-1003 {
+    width: 10%;
+}
+
+.signin-holder-1003>div {
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+}
+
+.signin-holder-1003>div>button {
+    border-style: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    cursor: pointer;
+}
+
+.signin-holder-1003>div>button:hover {
+    color: crimson;
+}
+
+.create-account-holder-1003 {
+    width: 10%;
+}
+
+.create-account-holder-1003>div {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    padding-top: 12px;
+}
+
+.create-account-holder-1003>div>button {
+    border-style: none;
+    outline: none;
+    width: 30px;
+    height: 30px;
+    background: crimson;
+    border-radius: 50px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.create-account-holder-1003>div>button:hover {
+    opacity: 0.7;
+}
+
+.s-1003 {
+    display: none;
+}
+
+
+.user-info-holder-1003 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.274);
+    padding: 10px;
+    z-index: 999;
+    display: none;
+}
+
+.user-info-holder-1003>div {
+    width: 80%;
+    height: auto;
+    background: white;
+    border-radius: 10px;
+    float: right;
+    margin-top: 160px;
+    padding: 20px;
+}
+
+.close-1003 {
+    float: right;
+    background: crimson;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-1003 {
+    margin-top: 20px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.user-1003>li {
+    height: 40px;
+}
+
+
+.logout-1003 {
+    background: crimson;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.about-holder-1003 {
+    width: 100%;
+    height: auto;
+    float: left;
+    background: crimson;
+    color: white;
+}
+
+.about-holder-1003>div {
+    width: 100%;
+    height: 100%;
+    text-align: right;
+    padding: 10px;
+}
+
+.about-holder-1003>div>a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+}
+
+@media only screen and (min-width: 768px) {
+    .heading-1002 {
+        width: 100%;
+        height: 80px;
+    }
+
+    .title-holder-1003 {
+        width: 20%;
+    }
+
+    .title-holder-1003>div {
+        padding: 15px;
+    }
+
+    .search-holder-1003 {
+        width: 40%;
+    }
+
+    .search-holder-1003>div {
+        padding: 20px;
+    }
+
+    .cart-holder-1003 {
+        width: 10%;
+    }
+
+    .cart-holder-1003>div {
+        padding-top: unset;
+        padding: 20px;
+    }
+
+    .signin-holder-1003 {
+        width: 10%;
+    }
+
+    .signin-holder-1003>div {
+        padding-top: unset;
+        padding: 20px;
+    }
+
+    .create-account-holder-1003 {
+        width: 20%;
+    }
+
+    .create-account-holder-1003>div {
+        padding-top: unset;
+        padding: 20px;
+    }
+
+    .create-account-holder-1003>div>button {
+        border-style: none;
+        outline: none;
+        width: 100%;
+        height: 40px;
+        background: crimson;
+        border-radius: 50px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+    }
+
+    .s-1003 {
+        display: inline;
+    }
+
+    .user-info-holder-1003>div {
+        width: 40%;
+        height: auto;
+        background: white;
+        border-radius: 10px;
+        float: right;
+        margin-top: 110px;
+        padding: 20px;
+    }
+}

@@ -1,0 +1,168 @@
+<div class="heading-holder-1002">
+    <div class="heading-1002">
+
+        <div class="title-holder-1003">
+            <div>
+                <h1 onclick="window.location.href=`{% url 'home' %}`">
+                    Wingastock
+                </h1>
+            </div>
+        </div>
+
+        <div class="search-holder-1003">
+            <div>
+                {% if search == search %}
+                    <input type="search" placeholder="Search..." id="searchInput">
+                {% else %}
+                    <input type="search" placeholder="Search..." onclick="window.location.href=`{% url 'search' %}`">
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="cart-holder-1003">
+            <div>
+                <button type="button" onclick="open_cart(1)">
+                    <i class="fas fa-shopping-cart"></i> <span class="s-1003">Cart</span></button>
+            </div>
+        </div>
+
+        <div class="signin-holder-1003">
+            <div>
+                <button type="button" onclick="open_notification(1)">
+                    <i class="fas fa-bell"></i> <span class="s-1003">Notification</span></button>
+            </div>
+        </div>
+
+        <div class="create-account-holder-1003">
+            <div>
+                <button type="button" onclick="open_user(1)">
+                    <i class="fas fa-user"></i> <span class="s-1003">{{ user.email }}</span></button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="about-holder-1003">
+        <div>
+            <a href="{% url 'about' %}">About us</a> |
+            <a href="{% url 'terms' %}">Terms and conditions</a>
+        </div>
+    </div>
+</div>
+
+
+<!-- User -->
+<div class="user-info-holder-1003" id="user_info">
+    <div>
+        <span class="close-1003" onclick="open_user(0)"><i class="fas fa-times"></i> Close</span>
+        <p style="font-weight: bold;">Account informations</p>
+
+        <i class="fas fa-user" style="font-size: 30px;"></i>
+
+        <ul class="user-1003">
+            <li><i class="fas fa-envelope"></i> {{ user.email }}</li>
+            <li style="margin-top: 30px;" onclick="window.location.href=`{% url 'customer_logout' %}`">
+                <span class="logout-1003"><i class="fas fa-sign-out-alt"></i> Logout</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<!-- notifications -->
+<div class="user-info-holder-1003" id="user_notifications">
+    <div>
+        <span class="close-1003" onclick="open_notification(0)"><i class="fas fa-times"></i> Close</span>
+        <p style="font-weight: bold;">Notifications</p>
+
+        <i class="fas fa-bell" style="font-size: 30px;"></i>
+
+        <ul class="user-1003">
+            <li>New product arrival</li>
+        </ul>
+    </div>
+</div>
+
+
+<!-- Cart -->
+<div class="user-info-holder-1003" id="user_cart">
+    <div>
+        <span class="close-1003" onclick="open_cart(0)"><i class="fas fa-times"></i> Close</span>
+        <p style="font-weight: bold;">Your cart</p>
+
+        <i class="fas fa-shopping-cart" style="font-size: 30px;"></i>
+
+        <ul class="user-1003">
+            <li>Product 1 </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script>
+    let lastScrollTop = 0;
+    const header = document.querySelector('.heading-holder-1002');
+
+    window.addEventListener('scroll', function () {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+        // Don't hide when we're at the very top
+        if (currentScroll <= 0) {
+            header.classList.remove('hide-header');
+            lastScrollTop = 0;
+            return;
+        }
+
+        // Scrolling down → hide
+        if (currentScroll > lastScrollTop) {
+            header.classList.add('hide-header');
+        }
+
+        // Scrolling up → show
+        else {
+            header.classList.remove('hide-header');
+        }
+
+        lastScrollTop = currentScroll;
+    });
+</script>
+
+<script>
+    function open_user(click) {
+        user = document.getElementById('user_info');
+
+        if (click == 1) {
+            user.style.display = 'inline-block';
+        }
+        else {
+            user.style.display = 'none';
+        }
+    }
+
+    function open_notification(click) {
+        user = document.getElementById('user_notifications');
+
+        if (click == 1) {
+            user.style.display = 'inline-block';
+        }
+        else {
+            user.style.display = 'none';
+        }
+    }
+
+    function open_cart(click) {
+        user = document.getElementById('user_cart');
+
+        if (click == 1) {
+            user.style.display = 'inline-block';
+        }
+        else {
+            user.style.display = 'none';
+        }
+    }
+</script>

@@ -50,6 +50,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("robots.txt", robots_txt),
     path('', include('core.urls')),
+    
+    path('sellers/', include('sellers.urls')),
+    path('administrators/', include('administrators.urls')),
+    path('mails/', include('mails.urls')),
 
     path(
         "sitemap.xml",

@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wingastock | Login</title>
+  <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'css/register.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="login-container">
+
+
+    <!-- RIGHT SIDE -->
+    <div class="login-right">
+
+      <div class="advertise-201">
+        <div class="typing-container">
+          <h1>Wingastock Online platform</h1>
+          <br>
+          <h1>
+            With us, reach <span id="typing"></span><span class="cursor">|</span>
+          </h1>
+        </div>
+
+      </div>
+
+      <div class="login-form-201">
+        <div>
+          <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-divider-201">
+              <h2>Customer Login</h2>
+              <div class="input-holder-201">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Enter email" required>
+              </div>
+
+              <div class="input-holder-201">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter password" required>
+              </div>
+
+              <div class="input-holder-201">
+                <label for=""></label>
+                <button type="submit">Login</button>
+              </div>
+            </div>
+
+            <div class="footer-201">
+              {% if error %}
+              <p style="text-align: center; color: red;">{{ error }}</p>
+              {% endif %}
+              <p>Don't have an account? <a href="{% url 'customer_register' %}"
+                  style="color: crimson; text-decoration: none; font-weight: bold;">Signup</a></p>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+    const words = [
+      "favorite products",
+      "more sellers",
+      "products",
+    ];
+
+    let wordIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    function typeEffect() {
+      const element = document.getElementById("typing");
+      const word = words[wordIndex];
+
+      if (!deleting) {
+        element.textContent = word.substring(0, charIndex + 1);
+        charIndex++;
+
+        if (charIndex === word.length) {
+          deleting = true;
+          setTimeout(typeEffect, 1500);
+          return;
+        }
+      } else {
+        element.textContent = word.substring(0, charIndex - 1);
+        charIndex--;
+
+        if (charIndex === 0) {
+          deleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
+      }
+
+      setTimeout(typeEffect, deleting ? 60 : 100);
+    }
+
+    typeEffect();
+  </script>
+
+</body>
+
+</html>

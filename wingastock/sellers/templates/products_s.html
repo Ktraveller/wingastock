@@ -1,0 +1,261 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wingastock | Products</title>
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        .messages {
+            margin: 20px 0;
+        }
+
+        .alert {
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .success {
+            background: #28a745;
+        }
+
+        .error {
+            background: #dc3545;
+        }
+
+        .warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .info {
+            background: #17a2b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="row-holder">
+
+        <!-- Header -->
+        <div class="header-holder-100">
+            <div class="header-100">
+                <div class="action-holder-101">
+                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+                            class="fas fa-times"></i></button>
+                </div>
+                <div class="title-holder-101">
+                    <button type="button"><span>Wingastock | Seller</span></button>
+                </div>
+                <div class="title-holder-101" style="float: right;">
+                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- center content -->
+        <div class="center-content-200">
+
+            <div class="left-holder-201" id="nav">
+                <div class="nav-bar-holder-202">
+
+                    <ul>
+                        <a href="{% url 'seller_home' %}">
+                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'seller_products' %}">
+                            <li class="active-0">Products <i class="fas fa-shopping-bag"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'mail_home' %}">
+                            <li>Mails <i class="fas fa-envelope"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'logout_seller' %}">
+                            <li>Exit <i class="fas fa-sign-out-alt"></i></li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="right-holder-201">
+                <div class="card-holder-201 products-202">
+
+
+                    <button type="button" class="close-205"
+                        onclick="window.location.href=`{% url 'seller_add_product' %}`"><i class="fas fa-plus"></i> Add
+                        new product</button>
+
+
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="alert {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+
+                    <div class="table-holder-100" style="width: 100%;">
+                        <div class="filter-holder-202">
+                            <div><input type="text" id="searchInput" placeholder="Search products..."
+                                    onkeyup="searchProducts()"></div>
+                        </div>
+
+                        <table style="text-align: left;">
+                            <thead>
+                                <tr>
+                                    <th class="id">#ID</th>
+                                    <th><i class="fas fa-box"></i> Product Name</th>
+                                    <th><i class="fas fa-list"></i> Category</th>
+                                    <th><i class="fas fa-coins"></i> Price</th>
+                                    <th><i class="fas fa-clock"></i> Date & time</th>
+                                    <th><i class="fas fa-info-circle"></i> Status</th>
+                                    <th style="text-align: right;"><i class="fas fa-cogs"></i> Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="productTable">
+
+                                {% for product_data in products %}
+
+                                <tr>
+                                    <td class="id">{{ product_data.id }}</td>
+                                    <td>
+                                        <a href="{% url 'seller_preview_p' product_data.id %}"
+                                            style="text-decoration: none; color: crimson; font-weight: bold;">
+                                            {{ product_data.title }}</a>
+                                    </td>
+                                    <td>{{ product_data.category }}</td>
+                                    <td>{{ product_data.price }} Tsh</td>
+                                    <td style="text-align: left;">
+                                        <span class="active">
+                                            {{ product_data.created_at|date:"d F Y, h:i A" }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {% if product.status == 'saved' %}
+                                        <i class="fas fa-eye-slash"></i> Not visible
+                                        {% else %}
+                                        <i class="fas fa-eye"></i> Visible
+                                        {% endif %}
+                                    </td>
+                                    <td style="text-align: right;">
+                                        <button class="btn-edit"
+                                            onclick="window.location.href=`{% url 'seller_edit_product' product_data.id %}`"><i
+                                                class="fas fa-edit"></i> Edit</button>
+                                        <button class="btn-delete"
+                                            onclick="document.getElementById('delete-modal').style.display='inline-block'"><i
+                                                class="fas fa-trash"></i> Delete</button>
+
+                                        <!-- Delete product modal -->
+                                        <div class="delete-product-modal-106" id="delete-modal">
+                                            <div>
+                                                <p>Sure want to delete <b>{{ product_data.title }}</b></p>
+
+                                                <button type="button" style="background: crimson; color: white;"
+                                                    onclick="window.location.href=`{% url 'seller_delete_product' product_data.id %}`">Yes,
+                                                    delete</button>
+                                                <button type="button"
+                                                    onclick="document.getElementById('delete-modal').style.display='none'">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                {% empty %}
+                                <tr>
+                                    <td colspan="6" style="text-align: center; color: crimson; font-weight: bold;">
+                                        No products found.
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                        <p>Click product name to preview</p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+        function open_menu(click) {
+            let menu1 = document.getElementById('menu1');
+            let menu2 = document.getElementById('menu2');
+            let nav = document.getElementById('nav');
+
+            if (click == 'open') {
+                menu1.style.display = 'none';
+                menu2.style.display = 'inline-block';
+                nav.style.display = 'inline-block';
+            }
+            else {
+                menu1.style.display = 'inline-block';
+                menu2.style.display = 'none';
+                nav.style.display = 'none';
+            }
+        }
+    </script>
+
+    <script>
+        document.getElementById("searchInput").addEventListener("input", function () {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll("#productTable tr");
+
+            rows.forEach(row => {
+                const id = row.cells[0].textContent.toLowerCase();
+                const product = row.cells[1].textContent.toLowerCase();
+                const seller = row.cells[2].textContent.toLowerCase();
+                const status = row.cells[4].textContent.toLowerCase();
+
+                const match =
+                    id.includes(filter) ||
+                    product.includes(filter) ||
+                    seller.includes(filter) ||
+                    status.includes(filter);
+
+                row.style.display = match ? "" : "none";
+            });
+        });
+    </script>
+    <script>
+        setTimeout(function () {
+            document.querySelectorAll(".alert").forEach(function (alert) {
+                alert.style.transition = "opacity 0.5s";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>

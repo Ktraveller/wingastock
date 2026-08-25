@@ -1,171 +1,115 @@
+{% load static %}
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Register | Winga Platform</title>
-
-<link rel="stylesheet" href="css/index.css">
-<link rel="stylesheet" href="css/register.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wingastock | Login</title>
+  <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'seller_css/login.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
 
-<!-- ================= TOP BAR ================= -->
-
-<div class="top-bar">
-  <div class="container">
-    <span>Tanzania Marketplace</span>
-    <div>
-      <a href="login.html">Login</a>
-      <a href="register.html">Register</a>
-    </div>
-  </div>
-</div>
-
-<!-- ================= NAVBAR ================= -->
-
-<header class="navbar">
-  <div class="container nav-wrapper">
+  <div class="login-container">
 
 
-<div class="logo">
-  <a href="index.html"><h2>Winga</h2></a>
-</div>
+    <!-- RIGHT SIDE -->
+    <div class="login-right">
 
-<a href="products.html" class="sell-btn">
-  Browse Products
-</a>
+      <div class="advertise-201">
+        <div class="typing-container">
+          <h1>Wingastock Online platform</h1>
+          <br>
+          <h1>
+            With us, reach <span id="typing"></span><span class="cursor">|</span>
+          </h1>
+        </div>
 
+      </div>
 
-  </div>
-</header>
+      <div class="login-form-201">
+        <div>
+          <form method="POST">
+            {% csrf_token %}
 
-<!-- ================= REGISTER SECTION ================= -->
+            <div class="form-divider-201">
+              <h2>Customer register</h2>
+              <div class="input-holder-201">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Enter email" required>
+              </div>
 
-<section class="auth-section">
+              <div class="input-holder-201">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter password" required>
+              </div>
 
-  <div class="container auth-grid">
+              <div class="input-holder-201">
+                <label for=""></label>
+                <button type="submit">Register</button>
+              </div>
+            </div>
 
+            <div class="footer-201">
+              {% if error %}
+              <p style="text-align: center; color: red;">{{ error }}</p>
+              {% endif %}
+              <p>I have an account? <a href="{% url 'customer_login' %}"
+                  style="color: crimson; text-decoration: none; font-weight: bold;">Login</a></p>
+            </div>
 
-<!-- LEFT INFO -->
-<div class="auth-info">
-
-  <h1>
-    Join Winga Platform
-  </h1>
-
-  <p>
-    Create an account to buy or sell
-    products across Tanzania. Start
-    your online business today.
-  </p>
-
-  <ul>
-    <li><i class="fa fa-check"></i> Free account</li>
-    <li><i class="fa fa-check"></i> Sell products easily</li>
-    <li><i class="fa fa-check"></i> Reach thousands of buyers</li>
-  </ul>
-
-</div>
-
-<!-- REGISTER FORM -->
-<div class="auth-form">
-
-  <h2>Create Account</h2>
-
-  <form>
-
-    <div class="input-group">
-      <label>Full Name</label>
-      <input type="text" placeholder="Enter your name">
-    </div>
-
-    <div class="input-group">
-      <label>Email</label>
-      <input type="email" placeholder="Enter your email">
-    </div>
-
-    <div class="input-group">
-      <label>Phone Number</label>
-      <input type="text" placeholder="e.g. 07XXXXXXXX">
-    </div>
-
-    <div class="input-group">
-      <label>Password</label>
-      <input type="password" placeholder="Create password">
-    </div>
-
-    <!-- ROLE SELECT -->
-    <div class="input-group">
-      <label>Account Type</label>
-
-      <div class="role-select">
-
-        <label>
-          <input type="radio" name="role" checked>
-          Buyer
-        </label>
-
-        <label>
-          <input type="radio" name="role">
-          Seller
-        </label>
-
+          </form>
+        </div>
       </div>
 
     </div>
 
-    <button type="submit">
-      Create Account
-    </button>
-
-    <p class="switch">
-      Already have an account?
-      <a href="login.html">Login</a>
-    </p>
-
-  </form>
-
-</div>
-
-
   </div>
 
-</section>
 
-<!-- ================= FOOTER ================= -->
+  <script>
+    const words = [
+      "favorite products",
+      "more sellers",
+      "products",
+    ];
 
-<footer>
-  <div class="container footer-grid">
+    let wordIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
 
+    function typeEffect() {
+      const element = document.getElementById("typing");
+      const word = words[wordIndex];
 
-<div>
-  <h3>Winga Platform</h3>
-  <p>Buy & Sell anything online.</p>
-</div>
+      if (!deleting) {
+        element.textContent = word.substring(0, charIndex + 1);
+        charIndex++;
 
-<div>
-  <h4>Links</h4>
-  <ul>
-    <li><a href="products.html">Products</a></li>
-    <li><a href="#">Categories</a></li>
-    <li><a href="#">Sellers</a></li>
-  </ul>
-</div>
+        if (charIndex === word.length) {
+          deleting = true;
+          setTimeout(typeEffect, 1500);
+          return;
+        }
+      } else {
+        element.textContent = word.substring(0, charIndex - 1);
+        charIndex--;
 
+        if (charIndex === 0) {
+          deleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
+      }
 
-  </div>
+      setTimeout(typeEffect, deleting ? 60 : 100);
+    }
 
-  <div class="copyright">
-    © 2026 Winga Platform
-  </div>
-</footer>
+    typeEffect();
+  </script>
 
 </body>
+
 </html>

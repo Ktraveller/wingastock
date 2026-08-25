@@ -1,0 +1,282 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wingastock | Add product</title>
+  <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    .messages {
+      margin: 20px 0;
+    }
+
+    .alert {
+      padding: 12px 18px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .success {
+      background: #28a745;
+    }
+
+    .error {
+      background: #dc3545;
+    }
+
+    .warning {
+      background: #ffc107;
+      color: #000;
+    }
+
+    .info {
+      background: #17a2b8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="row-holder">
+
+    <!-- Header -->
+    <div class="header-holder-100">
+      <div class="header-100">
+        <div class="action-holder-101">
+          <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+          <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+              class="fas fa-times"></i></button>
+        </div>
+        <div class="title-holder-101">
+          <button type="button"><span>Wingastock | Signup</span></button>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- center content -->
+    <div class="center-content-200">
+
+      <div class="left-holder-201" id="nav">
+        <div class="nav-bar-holder-202">
+
+          <ul>
+            <a href="{% url 'seller_terms' %}">
+              <li>Terms and conditions <i class="fas fa-file-contract"></i></li>
+            </a>
+          </ul>
+
+          <ul>
+            <a href="{% url 'signup_seller' %}">
+              <li>Seller informations <i class="fas fa-user"></i></li>
+            </a>
+          </ul>
+
+          <ul>
+            <a href="{% url 'seller_declaration' %}">
+              <li class="active-0">Declarations <i class="fas fa-file-signature"></i></li>
+            </a>
+          </ul>
+
+          <ul>
+            <a href="{% url 'login_seller' %}">
+              <li>Login <i class="fas fa-sign-in-alt"></i></li>
+            </a>
+          </ul>
+
+        </div>
+      </div>
+
+      <div class="right-holder-201">
+        <div class="products-202">
+
+          <div class="terms-holder-202">
+            <div>
+
+
+
+              <div class="card-header">
+                <h4>Seller Account Declaration</h4>
+              </div>
+
+
+              <div class="card-body">
+
+                {% if messages %}
+                <div class="messages">
+                  {% for message in messages %}
+                  <div class="alert {{ message.tags }}">
+                    {{ message }}
+                  </div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+
+
+                <!-- SELLER INFORMATION -->
+
+                <div class="seller-summary">
+
+                  <p>
+                    <strong>Name:</strong>
+                    {{ seller.seller_name }}
+                  </p>
+
+                  <p>
+                    <strong>Phone:</strong>
+                    {{ seller.seller_phone }}
+                  </p>
+
+                  <p>
+                    <strong>Address:</strong>
+                    {{ seller.seller_address }}
+                  </p>
+
+                  <p>
+                    <strong>Wingastock Email:</strong>
+                    {{ seller.seller_email }}
+
+                    <br><br>
+                    <span style="font-weight: bold; text-decoration: underline;"><b>Impotant: </b> Save this email, you
+                      can only login
+                      using this email.</span>
+                  </p>
+
+                </div>
+
+
+
+                <form method="POST">
+
+                  {% csrf_token %}
+
+
+                  <!-- PASSWORD -->
+
+                  <p style="font-weight: bold; margin-top: 30px;">Create account password</p>
+
+                  <div class="input-holder-203">
+
+                    <p>
+                      <i class="fas fa-lock"></i>
+                      Password
+                    </p>
+
+                    <div>
+
+                      <input type="password" name="password" placeholder="Enter password" required>
+
+                    </div>
+
+                  </div>
+
+
+                  <!-- CONFIRM PASSWORD -->
+
+                  <div class="input-holder-203">
+
+                    <p>
+                      <i class="fas fa-lock"></i>
+                      Confirm password
+                    </p>
+
+                    <div>
+
+                      <input type="password" name="confirm_password" placeholder="Confirm password" required>
+
+                    </div>
+
+                  </div>
+
+
+                  <!-- DECLARATION -->
+
+                  <div class="form-check mt-3">
+
+                    <input class="form-check-input" type="checkbox" id="declaration" required>
+
+                    <label class="form-check-label" for="declaration">
+
+                      I confirm that the information
+                      provided is correct.
+
+                    </label>
+
+                  </div>
+
+
+                  <div class="input-holder-203 submit-203">
+
+                    <div>
+                      <button type="submit" class="btn btn-success">
+
+                        <i class="fas fa-check"></i>
+
+                        Create Seller Account
+
+                      </button>
+                    </div>
+
+                  </div>
+
+                </form>
+
+              </div>
+
+
+
+            </div>
+            <!--
+            <div class="next-holder-202">
+              <button type="button" onclick="window.location.href=`{% url 'seller_home' %}`">Yes I declared that,
+                proceed <i class="fas fa-arrow-right"></i></button>
+            </div> -->
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <script>
+    function open_menu(click) {
+      let menu1 = document.getElementById('menu1');
+      let menu2 = document.getElementById('menu2');
+      let nav = document.getElementById('nav');
+
+      if (click == 'open') {
+        menu1.style.display = 'none';
+        menu2.style.display = 'inline-block';
+        nav.style.display = 'inline-block';
+      }
+      else {
+        menu1.style.display = 'inline-block';
+        menu2.style.display = 'none';
+        nav.style.display = 'none';
+      }
+    }
+  </script>
+  <script>
+    setTimeout(function () {
+      document.querySelectorAll(".alert").forEach(function (alert) {
+        alert.style.transition = "opacity 0.5s";
+        alert.style.opacity = "0";
+        setTimeout(() => alert.remove(), 2000);
+      });
+    }, 4000);
+  </script>
+</body>
+
+</html>

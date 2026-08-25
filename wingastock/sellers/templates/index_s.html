@@ -1,0 +1,231 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wingastock | Dashboard</title>
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        .messages {
+            margin: 20px 0;
+        }
+
+        .alert {
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .success {
+            background: #28a745;
+        }
+
+        .error {
+            background: #dc3545;
+        }
+
+        .warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .info {
+            background: #17a2b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="row-holder">
+
+        <!-- Header -->
+        <div class="header-holder-100">
+            <div class="header-100">
+                <div class="action-holder-101">
+                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+                            class="fas fa-times"></i></button>
+                </div>
+                <div class="title-holder-101">
+                    <button type="button"><span>
+                            Wingastock | Seller
+                        </span></button>
+                </div>
+                <div class="title-holder-101" style="float: right;">
+                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- center content -->
+        <div class="center-content-200">
+
+            <div class="left-holder-201" id="nav">
+                <div class="nav-bar-holder-202">
+
+                    <ul>
+                        <a href="{% url 'seller_home' %}">
+                            <li class="active-0">Dashboard <i class="fas fa-tachometer-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'seller_products' %}">
+                            <li>Products <i class="fas fa-shopping-bag"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'mail_home' %}">
+                            <li>Mails <i class="fas fa-envelope"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'logout_seller' %}">
+                            <li>Exit <i class="fas fa-sign-out-alt"></i></li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="right-holder-201">
+
+                <!-- Login message -->
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="card-holder-201">
+
+                    <div class="card-201">
+                        <button type="button">
+                            <span><i class="fas fa-shopping-bag"></i> Products</span><br>
+                            <b style="font-size: 30px;">{{ total_products.total }}</b>
+                            <br>
+                            <p>Total Products</p>
+                        </button>
+                    </div>
+
+                    <div class="card-201">
+                        <button type="button">
+                            <span><i class="fas fa-store"></i> Shop visitors</span><br>
+                            <b style="font-size: 30px;">{{ total_seller.total }}</b>
+                            <br>
+                            <p>Total Visitors</p>
+                        </button>
+                    </div>
+
+
+                    <div class="card-201">
+                        <button type="button">
+                            <span><i class="fas fa-envelope"></i> Mails</span><br>
+                            <b style="font-size: 30px;">{{ total_seller.total }}</b>
+                            <br>
+                            <p>Total Mails</p>
+                        </button>
+                    </div>
+
+                    <!-- Latest viewed products and top viewers -->
+                    <div class="card-201 full-201">
+                        <button type="button" style="background: white; color: black;">
+                            <p style="font-weight: bold;"><i class="fas fa-box"></i>
+                                Realtime product viewers</p>
+
+                            <ul>
+                                <a href="">
+                                    <li>
+                                        <span>Product name</span>
+                                        <span class="mail-time-201"><i class="fas fa-eye"></i> 0</span>
+                                    </li>
+                                </a>
+                            </ul>
+                        </button>
+                    </div>
+
+                    <div class="card-201 full-201">
+                        <button type="button" style="background: white; color: black;">
+                            <p style="font-weight: bold;"><i class="fas fa-store"></i> Shop visitors</p>
+
+                            <ul>
+                                <a href="">
+                                    <li>
+                                        <span>Visitor ID</span>
+                                        <span class="mail-time-201"><i class="fas fa-clock"></i> 0000</span>
+                                    </li>
+                                </a>
+                            </ul>
+                        </button>
+                    </div>
+
+                    <div class="card-201 full-201" style="width: 100%;">
+                        <button type="button" style="background: white; color: black;">
+                            <p style="font-weight: bold;"><i class="fas fa-envelope"></i> Mails</p>
+
+                            <ul>
+                                <a href="">
+                                    <li>
+                                        <span class="list-title-201">Sender ID</span>
+                                        <span>ahhdhjasd</span>
+                                        <span class="mail-time-201"><i class="fas fa-clock"></i> 0000</span>
+                                    </li>
+                                </a>
+                            </ul>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+        function open_menu(click) {
+            let menu1 = document.getElementById('menu1');
+            let menu2 = document.getElementById('menu2');
+            let nav = document.getElementById('nav');
+
+            if (click == 'open') {
+                menu1.style.display = 'none';
+                menu2.style.display = 'inline-block';
+                nav.style.display = 'inline-block';
+            }
+            else {
+                menu1.style.display = 'inline-block';
+                menu2.style.display = 'none';
+                nav.style.display = 'none';
+            }
+        }
+    </script>
+
+    <script>
+        setTimeout(function () {
+            document.querySelectorAll(".alert").forEach(function (alert) {
+                alert.style.transition = "opacity 0.5s";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 4000);
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>

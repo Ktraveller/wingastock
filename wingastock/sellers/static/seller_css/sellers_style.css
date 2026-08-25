@@ -1,0 +1,665 @@
+* {
+    box-sizing: border-box;
+    font-size: 12px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: white;
+}
+
+.row-holder {
+    width: 100%;
+    height: auto;
+}
+
+.header-holder-100 {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.header-100 {
+    width: 100%;
+    height: 100%;
+    background: white;
+}
+
+.header-100>div {
+    float: left;
+}
+
+.action-holder-101 {
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+}
+
+.action-holder-101>button {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border-radius: 5px;
+    outline: none;
+    color: crimson;
+    border: 1px solid rgba(220, 20, 60, 0.605);
+}
+
+
+.title-holder-101 {
+    width: auto;
+    padding: 5px;
+    background: transparent;
+    height: 50px;
+}
+
+.title-holder-101>button {
+    width: auto;
+    height: 40px;
+    border-style: none;
+    outline: none;
+    background: transparent;
+    font-weight: bold;
+}
+
+.title-holder-101>button>span {
+    font-size: 15px;
+    color: crimson;
+}
+
+.title-holder-101>button>i {
+    background: crimson;
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 50%;
+    color: white;
+}
+
+.center-content-200 {
+    width: 100%;
+    height: auto;
+    margin-top: 50px;
+}
+
+.center-content-200>div {
+    float: left;
+}
+
+.left-holder-201 {
+    width: 100%;
+    height: 100vh;
+    display: none;
+}
+
+.nav-bar-holder-202 {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    padding: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul>a {
+    text-decoration: none;
+    color: black;
+}
+
+ul>a>li {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+}
+
+ul>a>li>i {
+    float: right;
+}
+
+.active-0 {
+    background: crimson;
+    border-radius: 50px;
+    padding: 15px;
+    color: white;
+}
+
+ul>a>li:hover {
+    background: whitesmoke;
+    border: 1px solid rgba(220, 20, 60, 0.225);
+    border-radius: 50px;
+    padding: 15px;
+    color: crimson;
+}
+
+.right-holder-201 {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.card-holder-201 {
+    width: 100%;
+    height: auto;
+}
+
+.card-holder-201>div {
+    float: left;
+    width: 50%;
+    height: auto;
+    padding: 10px;
+}
+
+.card-holder-201>.full-201 {
+    width: 100%;
+    max-height: 500px;
+}
+
+
+.full-201>button>ul>a>li {
+    border-radius: 5px;
+    margin-bottom: 2px;
+}
+
+.list-title-201 {
+    font-weight: 500;
+    display: block;
+}
+
+.mail-time-201 {
+    float: right;
+}
+
+.card-holder-201>div>button {
+    width: 100%;
+    height: 100%;
+    border-style: none;
+    background: transparent;
+    text-align: left;
+    padding: 10px;
+    color: white;
+    background: crimson;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.211);
+}
+
+.table-holder-100 {
+    width: 100%;
+    height: 100vh;
+    overflow-x: scroll;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.233);
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    height: auto;
+    border-collapse: collapse;
+}
+
+.id {
+    width: 40px;
+}
+
+th,
+td {
+    height: 40px;
+    width: auto;
+    padding: 10px;
+}
+
+.btn-edit {
+    background: rgba(0, 128, 0, 0.57);
+    padding: 5px;
+    border-style: none;
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid green;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+}
+
+.btn-edit:hover {
+    background: green;
+    border: 2px solid rgba(0, 128, 0, 0.753);
+}
+
+.btn-delete {
+    background: rgba(255, 0, 0, 0.6);
+    padding: 5px;
+    border-style: none;
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid red;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+}
+
+.btn-delete:hover {
+    background: red;
+    border: 2px solid rgba(255, 0, 0, 0.707);
+}
+
+.delete-product-modal-106 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.307);
+    z-index: 999;
+    display: none;
+}
+
+.delete-product-modal-106>div {
+    width: 300px;
+    height: 120px;
+    background: white;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 10%;
+    padding: 15px;
+    text-align: left;
+}
+
+.delete-product-modal-106>div>button {
+    width: auto;
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-style: none;
+    outline: none;
+    border-radius: 5px;
+    background: whitesmoke;
+    color: crimson;
+    margin-left: 5px;
+    float: right;
+    cursor: pointer;
+}
+
+.delete-product-modal-106>div>button:hover {
+    opacity: 0.7;
+    background: rgba(220, 20, 60, 0.289);
+}
+
+.view-103 {
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    background: lightseagreen;
+    float: right;
+}
+
+.view-104 {
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    background: crimson;
+    cursor: pointer;
+}
+
+.view-104:hover {
+    opacity: 0.7;
+}
+
+.filter-holder-202 {
+    width: 100%;
+    height: 50px;
+}
+
+.filter-holder-202>div {
+    width: 50%;
+    float: left;
+    height: 40px;
+}
+
+.filter-holder-202>div>input {
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
+    border-style: none;
+    outline: none;
+    background: transparent;
+    border-bottom: 2px solid crimson;
+}
+
+.filter-holder-202>div>input:hover {
+    border: 1px solid rgba(0, 0, 0, 0.271);
+    border-radius: 5px;
+    border-bottom: 2px solid crimson;
+}
+
+.products-202 {
+    padding: 10px;
+}
+
+
+.preview-102 {
+    width: 100%;
+    height: auto;
+    float: left;
+}
+
+
+.product-image-holder-103 {
+    width: 100%;
+    height: 300px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.203);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.product-image-103>h1 {
+    font-size: 15px;
+}
+
+.product-image-103 {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.small-image-103 {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-top: 170px;
+    margin-left: 20px;
+    background: white;
+    border: 2px solid rgba(220, 20, 60, 0.673);
+    padding: 20px;
+}
+
+
+.small-image-103>img {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+}
+
+.product-details-holder-103 {
+    width: 100%;
+    height: auto;
+    margin-top: 100px;
+    margin-bottom: 200px;
+    float: left;
+}
+
+.product-details-holder-103>div {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    float: left;
+}
+
+
+.product-details-holder-103>div>div {
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.189);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.des-103 {
+    border-style: none;
+    outline: none;
+    width: 100%;
+    max-height: 300px;
+    background: rgba(220, 20, 60, 0.107);
+    border-radius: 5px;
+    border-style: none;
+    outline: none;
+    padding: 10px;
+    text-align: left;
+}
+
+.other-103 {
+    width: 100%;
+    height: auto;
+}
+
+.other-103>button {
+    width: auto;
+    height: 50px;
+    border-style: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.255);
+    margin-right: 10px;
+    background: white;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.comments-holder-103 {
+    width: 100%;
+    max-height: 400px;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+.comments-holder-103>ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comments-holder-103>ul>li {
+    width: 100%;
+    height: auto;
+    background: whitesmoke;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.actions-holder-103 {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+.actions-holder-103>div {
+    width: 50%;
+    height: auto;
+    float: left;
+    padding: 10px;
+}
+
+.actions-holder-103>div>button {
+    width: 100%;
+    height: 40px;
+    border-style: none;
+    outline: none;
+    background: crimson;
+    color: white;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.actions-holder-103>div>button:hover {
+    opacity: 0.7;
+}
+
+.close-205 {
+    width: 150px;
+    height: 40px;
+    background: crimson;
+    outline: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.202);
+    border-style: none;
+    position: fixed;
+    right: 10px;
+    bottom: 15px;
+    color: white;
+}
+
+.close-205:hover {
+    background: crimson;
+}
+
+.input-holder-203 {
+    width: 100%;
+    height: 85px;
+    padding: 5px;
+    background: transparent;
+}
+
+.input-holder-203>div {
+    width: 100%;
+    height: 35px;
+}
+
+
+
+.input-holder-203>div>input,
+select,
+textarea,
+button {
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
+    border-style: none;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.267);
+    border-radius: 5px;
+}
+
+.input-holder-203>div>input:hover {
+    border: 1px solid rgba(0, 0, 0, 0.219);
+    border-bottom: 2px solid crimson;
+    border-radius: 5px;
+}
+
+.input-holder-203>div>select:hover {
+    border: 1px solid rgba(0, 0, 0, 0.219);
+    border-bottom: 2px solid crimson;
+    border-radius: 5px;
+}
+
+.input-holder-203>div>textarea {
+    border: 1px solid rgba(0, 0, 0, 0.151);
+    border-radius: 5px;
+}
+
+.input-holder-203>div>textarea:hover {
+    border: 1px solid rgba(0, 0, 0, 0.219);
+    border-bottom: 2px solid crimson;
+    border-radius: 5px;
+}
+
+.submit-203 {
+    margin-top: 20px;
+}
+
+.submit-203>div>button {
+    background: crimson;
+    color: white;
+    font-weight: bold;
+}
+
+.submit-203>div>button:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+
+/* Terms, conditions and declarations */
+.terms-holder-202 {
+    width: 100%;
+    height: auto;
+}
+
+.terms-holder-202>div {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+
+.next-holder-202 {
+    width: 100%;
+    height: 50px;
+    text-align: right;
+}
+
+.next-holder-202>button {
+    width: auto;
+    height: 40px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background: crimson;
+    color: white;
+    border-style: none;
+    outline: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.next-holder-202>button:hover {
+    background: rgba(220, 20, 60, 0.772);
+}
+
+.seller-summary {
+    width: 100%;
+    height: auto;
+}
+
+@media only screen and (min-width: 768px) {
+    .action-holder-101 {
+        display: none;
+    }
+
+    .left-holder-201 {
+        width: 20%;
+        height: 100vh;
+        display: inline-block;
+    }
+
+    .right-holder-201 {
+        width: 80%;
+        height: 100vh;
+        padding: 10px;
+    }
+
+    .card-holder-201>div {
+        width: 33.33333333%;
+    }
+
+    .card-holder-201>.full-201 {
+        width: 50%;
+    }
+
+    .filter-holder-202>div {
+        width: 30%;
+    }
+
+    .small-image-103 {
+        width: 200px;
+        height: 200px;
+        margin-top: 140px;
+        margin-left: 20px;
+    }
+
+    .product-details-holder-103>div {
+        width: 50%;
+    }
+
+}

@@ -1,0 +1,293 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wingastock | {{ product.title }}</title>
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        .messages {
+            margin: 20px 0;
+        }
+
+        .alert {
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .success {
+            background: #28a745;
+        }
+
+        .error {
+            background: #dc3545;
+        }
+
+        .warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .info {
+            background: #17a2b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="row-holder">
+
+        <!-- Header -->
+        <div class="header-holder-100">
+            <div class="header-100">
+                <div class="action-holder-101">
+                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+                            class="fas fa-times"></i></button>
+                </div>
+                <div class="title-holder-101">
+                    <button type="button"><span>Wingastock | Seller</span></button>
+                </div>
+                <div class="title-holder-101" style="float: right;">
+                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- center content -->
+        <div class="center-content-200">
+
+            <div class="left-holder-201" id="nav">
+                <div class="nav-bar-holder-202">
+
+                    <ul>
+                        <a href="{% url 'seller_home' %}">
+                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'seller_products' %}">
+                            <li class="active-0">Products <i class="fas fa-shopping-bag"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'mail_home' %}">
+                            <li>Mails <i class="fas fa-envelope"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'logout_seller' %}">
+                            <li>Exit <i class="fas fa-sign-out-alt"></i></li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="right-holder-201">
+                <div class="products-202">
+
+
+                    <div class="preview-102">
+                        <!-- product image -->
+                        <div class="product-image-holder-103">
+                            <div class="product-image-103" style="background-image: url('{{ product.image.url }}');">
+                                <h1>{{ product.title }}</h1>
+                                <button type="button" class="small-image-103">
+                                    {% if product.image %}
+                                    <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                                    {% endif %}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="product-details-holder-103">
+                            <div>
+                                <div style="max-height: 600px; float: left;">
+                                    <p style="font-weight: bold;"><i class="fas fa-align-left"></i> Descriptions</p>
+
+                                    {% if messages %}
+                                    <div class="messages">
+                                        {% for message in messages %}
+                                        <div class="alert {{ message.tags }}">
+                                            {{ message }}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
+                                    <div type="button" class="des-103">
+                                        {{ product.description }}
+                                    </div>
+                                    <table>
+                                        <tr>
+                                            <td><i class="fas fa-tags"></i> Category</td>
+                                            <td>{{ product.category }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><i class="fas fa-dollar-sign"></i> Price</td>
+                                            <td>{{ product.price }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><i class="fas fa-calendar-alt"></i> Uploaded date</td>
+                                            <td>{{ product.created_at }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><i class="fas fa-toggle-on"></i> Product status</td>
+                                            <td>
+                                                {% if product.status == 'saved' %}
+                                                <i class="fas fa-eye-slash"></i> Not visible to customers
+                                                {% else %}
+                                                <i class="fas fa-eye"></i> Product visible to customers
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <div class="actions-holder-103">
+                                        <div>
+
+                                            {% if product.status == 'saved' %}
+                                            <button type="button"
+                                                onclick="window.location.href=`{% url 'make_product_visible' product.id %}`">
+                                                <i class="fas fa-eye"></i>
+                                                Make product visible</button>
+                                            {% else %}
+                                            <button type="button"
+                                                onclick="window.location.href=`{% url 'make_product_hide' product.id %}`">
+                                                <i class="fas fa-eye"></i>
+                                                Hide product</button>
+                                            {% endif %}
+
+                                        </div>
+
+                                        <div>
+                                            <button type="button" style="background: dodgerblue;" id="shareBtn">
+                                                <i class="fas fa-share-alt"></i>
+                                                Share product</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div>
+                                    <p style="font-weight: bold;">Other informations</p>
+                                    <div class="other-103">
+                                        <button type="button"><i class="fas fa-eye"></i> Views: </button>
+                                        <button type="button"><i class="fas fa-thumbs-up"></i> Likes: </button>
+                                        <button type="button"><i class="fas fa-thumbs-down"></i> Dislikes: </button>
+                                    </div>
+                                    <div class="comments-holder-103">
+                                        <p style="font-weight: bold;"><i class="fas fa-comments"></i> Customers comments
+                                            on product</p>
+                                        <ul>
+                                            <li>Good product</li>
+                                            <li>Fake product</li>
+                                            <li>Not valid product</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+        function open_menu(click) {
+            let menu1 = document.getElementById('menu1');
+            let menu2 = document.getElementById('menu2');
+            let nav = document.getElementById('nav');
+
+            if (click == 'open') {
+                menu1.style.display = 'none';
+                menu2.style.display = 'inline-block';
+                nav.style.display = 'inline-block';
+            }
+            else {
+                menu1.style.display = 'inline-block';
+                menu2.style.display = 'none';
+                nav.style.display = 'none';
+            }
+        }
+    </script>
+
+    <script>
+        const shareBtn = document.getElementById("shareBtn");
+
+        shareBtn.addEventListener("click", async () => {
+
+            try {
+
+                const response = await fetch("{{ product.image.url }}");
+                const blob = await response.blob();
+
+                const file = new File(
+                    [blob],
+                    "product.jpg",
+                    { type: blob.type }
+                );
+
+                if (navigator.canShare &&
+                    navigator.canShare({ files: [file] })) {
+
+                    await navigator.share({
+                        title: "{{ product.title|escapejs }}",
+                        text: "{{ product.title|escapejs }}\n\n{{ product.description|truncatechars:250|escapejs }} \n\n Bei: {{ product.price }}Tsh \n\n Anuani: {{ product.location }}",
+                        url: window.location.href,
+                        files: [file]
+                    });
+
+                } else {
+
+                    await navigator.share({
+                        title: "{{ product.title|escapejs }}",
+                        text: "{{ product.title|escapejs }}\n\n{{ product.description|truncatechars:250|escapejs }} \n\n Bei: {{ product.price }}Tsh \n\n Anuani: {{ product.location }}",
+                        url: window.location.href
+                    });
+
+                }
+
+            } catch (error) {
+                console.error(error);
+            }
+
+        });
+    </script>
+
+    <script>
+        setTimeout(function () {
+            document.querySelectorAll(".alert").forEach(function (alert) {
+                alert.style.transition = "opacity 0.5s";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>

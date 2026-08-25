@@ -1,0 +1,122 @@
+<div class="search-result-holder-103" id="search-result-holder-103">
+
+    <div class="search-content-103">
+
+
+        <div class="list-102">
+            <div class="div102">
+
+                <p>
+                    Search result for:
+                    <span id="search-query">""</span>
+                </p>
+
+                <ul id="search-results-list">
+
+                    {% for message_receiver in search_result %}
+                    {% if message_receiver.email != user.email %}
+
+                    <li class="search-user-item" data-name="{{ message_receiver.sender_id|lower }}"
+                        data-email="{{ message_receiver.email|lower }}">
+
+                        <b>{{ message_receiver.sender_id }}</b>
+                        <br>
+
+                        <span style="font-size: 12px; color: crimson;">
+                            {{ message_receiver.email }}
+                        </span>
+
+                        <button type="button"
+                            onclick="window.location.href=`{% url 'mail_read' message_receiver.sender_id %}`">
+                            Open
+                        </button>
+
+                    </li>
+
+                    {% endif %}
+                    {% empty %}
+
+                    <li>No users found.</li>
+
+                    {% endfor %}
+
+                </ul>
+            </div>
+
+            <div class="close-button-102" style="margin-top: 30px;">
+                <button type="button" onclick="closeSearchResults()">
+                    Close search
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    function searchUsers() {
+
+        const input = document.getElementById("search-input-103");
+        const query = input.value.toLowerCase().trim();
+
+        const queryDisplay = document.getElementById("search-query");
+        const users = document.querySelectorAll(".search-user-item");
+
+        document.getElementById('search-result-holder-103').style.display = 'inline-block'
+
+        // Display search query
+        queryDisplay.textContent = `"${query}"`;
+
+        let found = false;
+
+        users.forEach(function (user) {
+
+            const name = user.dataset.name;
+            const email = user.dataset.email;
+
+            // Search name OR email
+            if (
+                name.includes(query) ||
+                email.includes(query)
+            ) {
+                user.style.display = "";
+                found = true;
+            } else {
+                user.style.display = "none";
+            }
+
+        });
+
+        // Show "no results" message
+        let noResults = document.getElementById("no-search-results");
+
+        if (!found && query !== "") {
+
+            if (!noResults) {
+                noResults = document.createElement("li");
+                noResults.id = "no-search-results";
+                noResults.style.textAlign = "center";
+                noResults.textContent = "No users found!";
+
+                document
+                    .getElementById("search-results-list")
+                    .appendChild(noResults);
+            }
+
+        } else {
+
+            if (noResults) {
+                noResults.remove();
+            }
+
+        }
+    }
+
+
+    function closeSearchResults() {
+        document.getElementById(
+            "search-result-holder-103"
+        ).style.display = "none";
+    }
+</script>
