@@ -53,6 +53,26 @@
       height: auto;
       border-radius: 5px;
     }
+
+    .reaction-btn {
+      border: 1px solid #ddd;
+      background: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    .reaction-btn:hover {
+      background: #f5f5f5;
+    }
+
+    .reaction-btn.active {
+      background: #007bff;
+      color: white;
+      border-color: #007bff;
+    }
   </style>
 </head>
 
@@ -85,6 +105,7 @@
                   <img src="{{ product.image.url }}" alt="{{ product.title }}">
                   {% endif %}
                 </button>
+
               </div>
             </div>
 
@@ -114,7 +135,7 @@
 
                     <tr>
                       <td><i class="fas fa-dollar-sign"></i> Price</td>
-                      <td>{{ product.price }}</td>
+                      <td>{{ product.price|floatformat:0|intcomma }} TSh</td>
                     </tr>
 
                     <tr>
@@ -138,31 +159,69 @@
                     <div>
 
                       {% if user.email %}
-                      <button type="button" style="background: green;"
-                        onclick="window.location.href=`{% url 'make_product_visible' product.id %}`">
+                      <button type="button" style="background: green;" onclick="open_whatsapp(1)">
                         <i class="fab fa-whatsapp"></i>
                         Get seller whatsapp number</button>
+
+                      <!-- Whatsapp number modal -->
+                      <div class="whatsapp-modal-holder-1004" id="w_modal">
+                        <div class="whatsapp-modal-1004">
+                          <button type="button" class="close-1004" onclick="open_whatsapp(0)">
+                            <i class="fas fa-times" style="font-size: inherit;"></i>
+                          </button>
+                          <br><br>
+
+                          <p class="t-1004">
+                            <i class="fas fa-store" style="font-size: 50px;"></i>
+                            <br><br>
+                            {{ product.owner.seller.seller_name }}
+                          </p>
+
+                          <p class="n-1004">
+                            <i class="fab fa-whatsapp" style="font-size: inherit;"></i>
+                            +{{ product.owner.seller.seller_phone }}
+                          </p>
+
+                          <div style="text-align: right;">
+
+                            <button type="button" class="copy-1004"
+                              onclick="copyText('+{{ product.owner.seller.seller_phone }}')">
+                              <i class="fas fa-copy" style="font-size: inherit;"></i>
+                            </button>
+
+                            <button type="button" class="send-1004" onclick="sendWhatsApp('{{ product.owner.seller.seller_phone }}', 
+                            'Hello, I am interested in {{ product.title }}.')">
+                              <i class="fas fa-comment-dots"></i>
+                              Send message
+                            </button>
+
+                          </div>
+
+                        </div>
+                      </div>
+
                       {% else %}
                       <button type="button"
-                        style="background: whitesmoke; color: crimson; border: 1px solid rgba(220, 20, 60, 0.511);"
-                        onclick=" window.location.href=`{% url 'make_product_hide' product.id %}`">
+                        style="background: white; color: green; border: 1px solid rgba(0, 128, 0, 0.468);"
+                        onclick=" window.location.href=`{% url 'customer_login' %}`">
                         <i class="fab fa-whatsapp"></i>
-                        Register to get seller whatsapp number</button>
+                        Register or login to get seller whatsapp number</button>
                       {% endif %}
 
                     </div>
 
                     <div>
                       {% if user.email %}
-                      <button type="button" style="background: lightseagreen;" id="shareBtn">
+                      <button type="button" onclick="window.location.href=`{% url 'compose_m_c' product.owner.email %}`"
+                        style="background: lightseagreen;">
                         <i class="fas fa-paper-plane"></i>
-                        Send seller message</button>
+                        Send message to seller</button>
                       {% else %}
                       <button type="button"
-                        style="background: whitesmoke; color: crimson; border: 1px solid rgba(220, 20, 60, 0.511);"
-                        onclick="window.location.href=`{% url 'make_product_hide' product.id %}`">
+                        style="background: white; color: crimson; border: 1px solid rgba(220, 20, 60, 0.511);"
+                        onclick="window.location.href=`{% url 'customer_login' %}`">
                         <i class="fas fa-paper-plane"></i>
-                        Register, inorder to send message to seller</button>
+                        Register or login, inorder to send message to seller</button>
                       {% endif %}
                     </div>
 
@@ -177,21 +236,64 @@
 
               <div>
                 <div>
+
                   <p style="font-weight: bold;">Other informations</p>
                   <div class="other-103">
-                    <button type="button"><i class="fas fa-eye"></i> Views: </button>
-                    <button type="button"><i class="fas fa-thumbs-up"></i> Likes: </button>
-                    <button type="button"><i class="fas fa-thumbs-down"></i> Dislikes: </button>
+                    <button type="button"><i class="fas fa-eye"></i> Views:
+                      <span>{{ product_informations.views }}</span></button>
+
+                    <button type="button" id="like-btn"
+                      class="reaction-btn {% if reaction and reaction.reaction == 'like' %}active{% endif %}"
+                      onclick="reactToProduct('like')">
+                      <i class="fas fa-thumbs-up"></i> Like: <span id="like-count">
+                        {{ product_informations.likes }}</span></button>
+
+                    <button type="button" id="dislike-btn"
+                      class="reaction-btn {% if reaction and reaction.reaction == 'dislike' %}active{% endif %}"
+                      onclick="reactToProduct('dislike')">
+                      <i class="fas fa-thumbs-down"></i> Dislike:
+                      <span id="dislike-count">{{ product_informations.dislikes }}</span></button>
+
                   </div>
                   <div class="comments-holder-103">
-                    <p style="font-weight: bold;"><i class="fas fa-comments"></i> Customers comments
-                      on product</p>
+                    <p style="font-weight: bold;"><i class="fas fa-comments"></i> Customers comment
+                      on {{ product.title }}</p>
+
+                    <form action="{% url 'submit_comments' product.id %}" method="post">
+                      {% csrf_token %}
+                      <div class="comments-holder-104">
+                        <div style="width: 80%;">
+                          <textarea name="comments" id="" placeholder="Write your comment ..." required></textarea>
+                        </div>
+                        <div style="width: 20%; padding: 5px; padding-top: 60px;">
+                          <button type="submit">Submit</button>
+                        </div>
+                      </div>
+                    </form>
+
                     <ul>
-                      <li>Good product</li>
-                      <li>Fake product</li>
-                      <li>Not valid product</li>
+                      {% for comment in product.product_id.all %}
+                      <li>
+                        <strong style="display: block;">{{ comment.customer.username }}</strong>
+                        <span>{{ comment.comment }}</span>
+
+                        {% if comment.customer.username == user.email %}
+                        <button type="button" class="comment-delete-104"
+                          onclick="window.location.href=`{% url 'delete_comment' comment.id %}`">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                        {% endif %}
+
+                        <span style="float: right;">{{ comment.saved_at|date:"d M Y H:i" }}</span>
+
+                      </li>
+                      {% empty %}
+                      <p style="text-align: center;">No comments!</p>
+                      {% endfor %}
                     </ul>
                   </div>
+
+
                 </div>
               </div>
             </div>
@@ -279,6 +381,118 @@
         button2.style.display = 'none';
         button1.style.display = 'inline-block';
       }
+    }
+
+
+    // Whatsapp modal
+    function open_whatsapp(click) {
+      modal = document.getElementById('w_modal');
+
+      if (click == 1) {
+        modal.style.display = 'inline-block';
+      }
+      else {
+        modal.style.display = 'none';
+      }
+    }
+
+    // Copy whatsapp number
+    function copyText(text) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          alert("Copied successfully!");
+        })
+        .catch(() => {
+          alert("Failed to copy.");
+        });
+    }
+
+    // Send whatsapp message
+    function sendWhatsApp(phone, message) {
+
+      // Remove spaces, +, -, and other characters
+      phone = phone.replace(/\D/g, '');
+
+      const whatsappUrl =
+        `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+      window.open(whatsappUrl, '_blank');
+    }
+  </script>
+
+
+  <script>
+    function getCookie(name) {
+      let cookieValue = null;
+
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+
+        for (let cookie of cookies) {
+          cookie = cookie.trim();
+
+          if (cookie.substring(0, name.length + 1) === name + '=') {
+            cookieValue = decodeURIComponent(
+              cookie.substring(name.length + 1)
+            );
+            break;
+          }
+        }
+      }
+
+      return cookieValue;
+    }
+
+
+    function reactToProduct(reaction) {
+
+      const csrfToken = getCookie('csrftoken');
+
+      fetch("{% url 'react_product' product.id %}", {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "X-CSRFToken": csrfToken,
+          "X-Requested-With": "XMLHttpRequest"
+        },
+
+        body: new URLSearchParams({
+          reaction: reaction
+        })
+      })
+
+        .then(response => response.json())
+
+        .then(data => {
+
+          if (!data.success) {
+            alert(data.message);
+            return;
+          }
+
+          // Update counts
+          document.getElementById('like-count').textContent = data.likes;
+          document.getElementById('dislike-count').textContent = data.dislikes;
+
+          // Remove active class
+          document.getElementById('like-btn').classList.remove('active');
+          document.getElementById('dislike-btn').classList.remove('active');
+
+          // Highlight current reaction
+          if (data.reaction === 'like') {
+            document.getElementById('like-btn').classList.add('active');
+          }
+
+          if (data.reaction === 'dislike') {
+            document.getElementById('dislike-btn').classList.add('active');
+          }
+
+        })
+
+        .catch(error => {
+          console.error('Reaction error:', error);
+        });
     }
   </script>
 </body>

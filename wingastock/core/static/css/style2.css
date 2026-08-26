@@ -1,0 +1,130 @@
+.comments-holder-104 {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 50px;
+}
+
+.comments-holder-104>div {
+    float: left;
+    height: 100%;
+}
+
+.comments-holder-104>div>textarea {
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(220, 20, 60, 0.385);
+    outline: none;
+    padding: 10px;
+}
+
+.comments-holder-104>div>button {
+    width: 100%;
+    height: 40px;
+    background: crimson;
+    color: white;
+    font-weight: bold;
+    border-style: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.comments-holder-104>div>button:hover {
+    opacity: 0.7;
+}
+
+
+.comment-delete-104 {
+    width: auto;
+    height: auto;
+    float: right;
+    border-style: none;
+    outline: none;
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.whatsapp-modal-holder-1004 {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.379);
+    z-index: 999;
+    display: none;
+}
+
+.whatsapp-modal-1004 {
+    width: 400px;
+    height: auto;
+    background-image: linear-gradient(to left,white, rgb(139, 247, 139));
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 150px;
+    padding: 20px;
+    text-align: center;
+}
+
+.t-1004 {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.n-1004 {
+    font-size: 20px;
+    font-weight: bold;
+    color: green;
+}
+
+.close-1004 {
+    width: 40px;
+    height: 40px;
+    float: right;
+    background: transparent;
+    border-radius: 50px;
+    border-style: none;
+    outline: none;
+    color: green;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.close-1004:hover {
+    opacity: 0.7;
+}
+
+.copy-1004 {
+    width: auto;
+    height: 40px;
+    background: transparent;
+    color: black;
+    border-style: none;
+    outline: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.copy-1004:hover {
+    opacity: 0.7;
+}
+
+.send-1004 {
+    width: auto;
+    height: 40px;
+    border-style: none;
+    outline: none;
+    background: green;
+    color: white;
+    font-weight: bold;
+    border-radius: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+.send-1004:hover {
+    opacity: 0.7;
+}

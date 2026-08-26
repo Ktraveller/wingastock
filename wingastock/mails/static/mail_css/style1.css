@@ -25,6 +25,7 @@ body {
     background: white;
     overflow-y: scroll;
     display: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.212);
 }
 
 .right-holder-101 {
@@ -40,7 +41,8 @@ body {
 
 .left-content-holder-102>h1 {
     padding: 10px;
-    font-size: 15px;
+    font-size: 14px;
+    text-align: center;
     color: crimson;
 }
 

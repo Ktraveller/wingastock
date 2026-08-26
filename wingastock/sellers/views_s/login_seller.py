@@ -16,39 +16,76 @@ import string
 
 # Login sellers
 def seller_login(request):
+
     if request.user.is_authenticated:
-        return redirect("seller_home")  # Redirect to the seller home page if already logged in
+        return redirect("seller_home")
 
     if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
 
-        # Check if the email is a valid email or whatsapp number
-        if "@" in email:
-            # Authenticate using email
-            try:
-                user = User.objects.get(email=email)
-                user = authenticate(request, username=user.username, password=password)
-            except User.DoesNotExist:
-                user = None
-        else:
-            # Authenticate using whatsapp number (username)
-            user = authenticate(request, username=email, password=password)
+        email = request.POST.get("email", "").strip().lower()
+        password = request.POST.get("password", "")
 
-            # redirect to seller home if user is authenticated
+        # -------------------------
+        # CHECK EMAIL DOMAIN
+        # -------------------------
+
+        if not email.endswith("@winga.com"):
+            return render(request, "login_s.html", {
+                "error": "Seller login requires a @winga.com email address."
+            })
+
+        # -------------------------
+        # FIND USER
+        # -------------------------
+
+        try:
+            user = User.objects.get(email__iexact=email)
+
+        except User.DoesNotExist:
+            return render(request, "login_s.html", {
+                "error": "Invalid seller email or password."
+            })
+
+        # -------------------------
+        # CHECK SELLER PROFILE
+        # -------------------------
+
+        try:
+            seller = user.seller
+
+        except Seller.DoesNotExist:
+            return render(request, "login_s.html", {
+                "error": "This account is not registered as a seller."
+            })
+
+        # -------------------------
+        # CHECK PASSWORD
+        # -------------------------
+
+        user = authenticate(
+            request,
+            username=user.username,
+            password=password
+        )
+
         if user is not None:
+
             login(request, user)
 
-            # Login message
             messages.success(
-                request, 'Login successfully.'
+                request,
+                "Login successfully."
             )
-            
-            return redirect("seller_home")  # Redirect to the seller home page after successful login
-        else:
-            return render(request, "login_s.html", {
-                "error": "Invalid email/whatsapp number or password."
-            })
+
+            return redirect("seller_home")
+
+        # -------------------------
+        # INVALID PASSWORD
+        # -------------------------
+
+        return render(request, "login_s.html", {
+            "error": "Invalid seller email or password."
+        })
 
     return render(request, "login_s.html")
 

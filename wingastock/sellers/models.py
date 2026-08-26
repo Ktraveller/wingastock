@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from cloudinary.models import CloudinaryField
 
-
+# Seller modal
 class Seller(models.Model):
     user = models.OneToOneField(
         User,
@@ -51,3 +51,57 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("product_details", kwargs={"id": self.id})
+
+
+# Product customer informations
+class Product_informations(models.Model):
+    product = models.OneToOneField(
+        Product, 
+        on_delete=models.CASCADE, 
+        related_name='product_information'
+    )
+
+    views = models.PositiveIntegerField(default=0)
+
+    likes = models.PositiveIntegerField(default=0)
+    dislikes = models.PositiveIntegerField(default=0)
+
+
+# Product comments
+class Product_comments(models.Model):
+    product = models.ForeignKey(
+        Product, 
+        on_delete=models.CASCADE, 
+        related_name='product_id'
+    )
+
+    customer = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE, 
+        related_name='customer_id'
+    )
+
+    comment = models.TextField()
+    saved_at = models.DateTimeField(auto_now_add=True)
+
+
+# Like and dislike limit
+class ProductReaction(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    session_key = models.CharField(max_length=40)
+
+    reaction = models.CharField(
+        max_length=10,
+        choices=[
+            ('like', 'Like'),
+            ('dislike', 'Dislike'),
+        ]
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['product', 'session_key'],
+                name='unique_product_reaction_per_session'
+            )
+        ]

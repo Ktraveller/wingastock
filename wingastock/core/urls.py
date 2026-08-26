@@ -1,6 +1,6 @@
 from django.urls import path
 from core.views.index import about, health_check, home, search, categories, favorities, terms_policy, communication
-from core.views.products import preview_products, products, filter_products
+from core.views.products import preview_products, products, filter_products, react_product, submit_comments, delete_comment
 from core.views.lucky import lucky
 from core.views.register import customer_register, customer_login, customer_logout
 
@@ -22,6 +22,10 @@ urlpatterns = [
     path('terms_and_policy/', terms_policy, name='terms'),
     path('communications/', communication, name='communication'),
 
+    #Like and dislike
+    path('product_react/<int:id>/react/', react_product, name='react_product'),
+    path('product_comment/<int:id>/', submit_comments, name='submit_comments'),
+    path('comment_delete/<int:id>/', delete_comment, name='delete_comment'),
 
     # Register customers
     path('register/', customer_register, name='customer_register'),

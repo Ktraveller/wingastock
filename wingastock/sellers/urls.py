@@ -9,7 +9,7 @@ urlpatterns = [
     # Sellers
     path('', seller_home, name='seller_home'),
     path('products/', seller_products, name='seller_products'),
-    path('preview/<int:id>/', seller_preview_p, name='seller_preview_p'),
+    path('preview_p/<int:id>/', seller_preview_p, name='seller_preview_p'),
     path('make_product_visible/<int:id>/', make_product_visible, name='make_product_visible'),
     path('make_product_hide/<int:id>/', make_product_hide, name='make_product_hide'),
     path('add-product/', seller_add_product, name='seller_add_product'),

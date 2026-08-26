@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: Verdana, sans-serif;
+    font-family: "Segoe UI", sans-serif;
     font-size: 12px;
 }
 
@@ -120,6 +120,7 @@ body {
     border-bottom-right-radius: 5px;
     border: 1px solid rgba(220, 20, 60, 0.362);
     border-top: none;
+    overflow: hidden;
 }
 
 
@@ -145,6 +146,10 @@ body {
     color: crimson;
     font-weight: bold;
     font-size: inherit;
+}
+
+.view-1003>i {
+    padding-right: 5px;
 }
 
 .loader {
@@ -191,7 +196,7 @@ body {
     height: auto;
     background: crimson;
     float: left;
-    margin-top: 400px;
+    margin-top: 200px;
     margin-bottom: 50px;
 }
 

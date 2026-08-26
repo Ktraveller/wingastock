@@ -39,6 +39,10 @@
         .info {
             background: #17a2b8;
         }
+
+        .mail-time-201 {
+            padding-left: 10px;
+        }
     </style>
 </head>
 
@@ -116,7 +120,7 @@
                     <div class="card-201">
                         <button type="button">
                             <span><i class="fas fa-shopping-bag"></i> Products</span><br>
-                            <b style="font-size: 30px;">{{ total_products.total }}</b>
+                            <b style="font-size: 30px;">{{ total_products }}</b>
                             <br>
                             <p>Total Products</p>
                         </button>
@@ -125,7 +129,7 @@
                     <div class="card-201">
                         <button type="button">
                             <span><i class="fas fa-store"></i> Shop visitors</span><br>
-                            <b style="font-size: 30px;">{{ total_seller.total }}</b>
+                            <b style="font-size: 30px;">{{ total_views }}</b>
                             <br>
                             <p>Total Visitors</p>
                         </button>
@@ -135,7 +139,7 @@
                     <div class="card-201">
                         <button type="button">
                             <span><i class="fas fa-envelope"></i> Mails</span><br>
-                            <b style="font-size: 30px;">{{ total_seller.total }}</b>
+                            <b style="font-size: 30px;">{{ total_mails.total }}</b>
                             <br>
                             <p>Total Mails</p>
                         </button>
@@ -148,12 +152,28 @@
                                 Realtime product viewers</p>
 
                             <ul>
-                                <a href="">
+                                {% for product in products %}
+                                <a href="{% url 'seller_preview_p' product.id %}">
                                     <li>
-                                        <span>Product name</span>
-                                        <span class="mail-time-201"><i class="fas fa-eye"></i> 0</span>
+                                            <span>{{ product.title }}</span>
+                                            <span class="mail-time-201">
+                                                <i class="fas fa-thumbs-down"></i> 
+                                                {{ product.product_information.dislikes }}
+                                            </span>
+
+                                            <span class="mail-time-201">
+                                                <i class="fas fa-thumbs-up"></i> 
+                                                {{ product.product_information.likes }}
+                                            </span>
+
+                                            <span class="mail-time-201"><i class="fas fa-eye"></i> 
+                                                {{ product.product_information.views }}
+                                            </span>
                                     </li>
                                 </a>
+                                {% empty %}
+                                    <p style="text-align: center;">No products!</p>
+                                {% endfor %}
                             </ul>
                         </button>
                     </div>
@@ -163,10 +183,13 @@
                             <p style="font-weight: bold;"><i class="fas fa-store"></i> Shop visitors</p>
 
                             <ul>
-                                <a href="">
+                                <a href="#">
                                     <li>
-                                        <span>Visitor ID</span>
-                                        <span class="mail-time-201"><i class="fas fa-clock"></i> 0000</span>
+                                        <span><b>Shop: </b>{{ user.seller.seller_name }}</span>
+                                        <span class="mail-time-201">
+                                            <i class="fas fa-user-friends"></i>
+                                            <strong>{{ total_views }}</strong>
+                                        </span>
                                     </li>
                                 </a>
                             </ul>
@@ -178,13 +201,19 @@
                             <p style="font-weight: bold;"><i class="fas fa-envelope"></i> Mails</p>
 
                             <ul>
-                                <a href="">
+                                {% for mail in mails %}
+                                <a href="{% url 'mail_read' mail.sender_id %}">
                                     <li>
-                                        <span class="list-title-201">Sender ID</span>
-                                        <span>ahhdhjasd</span>
-                                        <span class="mail-time-201"><i class="fas fa-clock"></i> 0000</span>
+                                        <span class="list-title-201">
+                                            <strong>{{ mail.sender_id }}</strong>
+                                        </span>
+                                        <span>{{ mail.message }}</span>
+                                        <span class="mail-time-201"><i class="fas fa-clock"></i> {{ mail.sent_at }}</span>
                                     </li>
                                 </a>
+                                {% empty %}
+                                    <p>No received mail!</p>
+                                {% endfor %}
                             </ul>
                         </button>
                     </div>

@@ -35,23 +35,23 @@
                     <div class="nav-bar-holder-102">
                         <div>
                             <ul>
-                                <a href="{% url 'seller_home' %}">
+                                <a href="{% url 'home' %}">
                                     <li>Home <i class="fas fa-home"></i></li>
                                 </a>
 
-                                <a href="{% url 'unreaded' %}">
+                                <a href="{% url 'unreaded_c' %}">
                                     <li>Unreaded mails <i class="fas fa-envelope"></i></li>
                                 </a>
 
-                                <a href="{% url 'readed' %}">
+                                <a href="{% url 'readed_c' %}">
                                     <li>Readed mails <i class="fas fa-envelope-open"></i></li>
                                 </a>
 
-                                <a href="{% url 'sent_mails' %}">
+                                <a href="{% url 'sent_mails_c' %}">
                                     <li>Sent mails <i class="fas fa-paper-plane"></i></li>
                                 </a>
 
-                                <a href="{% url 'mail_settings' %}">
+                                <a href="{% url 'mail_settings_c' %}">
                                     <li>Settings <i class="fas fa-cog"></i></li>
                                 </a>
                             </ul>
@@ -71,7 +71,7 @@
                             <div>
                                 <ul>
                                     {% for sender in senders %}
-                                    <a href="{% url 'mail_read' sender.sender_id %}">
+                                    <a href="{% url 'mail_read_c' sender.sender_id %}">
                                         <li class="opened_message"><i class="fas fa-user"></i> {{ sender.sender_id }} <i
                                                 class="fas fa-clock sender-100"></i></li>
                                     </a>
@@ -120,7 +120,7 @@
                                 <div>
                                     <p>Delete all messages</p>
                                     <button type="button"
-                                        onclick="window.location.href=`{% url 'clear_mails' m_receiver %}`">Okay,
+                                        onclick="window.location.href=`{% url 'clear_mails_c' m_receiver %}`">Okay,
                                         delete</button>
                                     <button type="button" style="background: whitesmoke; color: crimson;"
                                         onclick="document.getElementById('clear').style.display='none'">Cancel</button>
@@ -135,7 +135,7 @@
                                 <tr>
                                     <td>
                                         <button type="button" id="trash"
-                                            onclick="window.location.href=`{% url 'delete_mail' message.id %}`"><i
+                                            onclick="window.location.href=`{% url 'delete_mail_c' message.id %}`"><i
                                                 class="fas fa-trash"></i></button>
                                         <button type="button" class="received-100">{{ message.message }}</button>
                                     </td>
@@ -152,7 +152,7 @@
                                     <td style="text-align: right;"><button type="button" class="sent-100">
                                             {{ message.message }}</button>
                                         <button type="button" id="trash"
-                                            onclick="window.location.href=`{% url 'delete_mail' message.id %}`"><i
+                                            onclick="window.location.href=`{% url 'delete_mail_c' message.id %}`"><i
                                                 class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
@@ -168,7 +168,7 @@
                     <div class="reply-box-104">
                         <div class="reply-content-104">
                             <div class="inputs-holder-104">
-                                <textarea name="message" id="" placeholder="Write text to reply ..." required></textarea>
+                                <textarea name="message" id="" placeholder="Write text to reply ..."></textarea>
                             </div>
                             <div class="send-holder-104">
                                 <button type="submit">Send <i class="fas fa-paper-plane"

@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wingastock | Mails</title>
+    <link rel="stylesheet" href="{% static 'mail_css/style1.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="row-holder-100">
+
+        <div class="left-holder-101" id="left-holder-101">
+            <div class="left-content-holder-102">
+                <h1 id="head">Wingastock <br> Mails System (WMS)</h1>
+
+
+                <div class="nav-bar-holder-102">
+                    <div>
+                        <ul>
+                            <a href="{% url 'home' %}">
+                                <li>Home <i class="fas fa-home"></i></li>
+                            </a>
+
+                            <a href="{% url 'unreaded_c' %}">
+                                <li class="active-page">Unreaded mails <i class="fas fa-envelope"></i></li>
+                            </a>
+
+                            <a href="{% url 'readed_c' %}">
+                                <li>Readed mails <i class="fas fa-envelope-open"></i></li>
+                            </a>
+
+                            <a href="{% url 'sent_mails_c' %}">
+                                <li>Sent mails <i class="fas fa-paper-plane"></i></li>
+                            </a>
+
+                            <a href="{% url 'mail_settings_c' %}">
+                                <li>Settings <i class="fas fa-cog"></i></li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Recent messages -->
+                <div class="messages-list-holder-102">
+                    <div>
+                        <p><i class="fas fa-clock"></i> Recent Senders</p>
+
+                        <!-- Back top -->
+                        <button class="back-102" onclick="window.location.href='#head'">
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+
+                        <div>
+                            <ul>
+                                {% for sender in senders %}
+                                <a href="{% url 'mail_read_c' sender.sender_id %}">
+                                    <li><i class="fas fa-user"></i> {{ sender.sender_id }} <i
+                                            class="fas fa-clock sender-100"></i></li>
+                                </a>
+                                {% empty %}
+                                <p style="padding: 10px; text-align: center; color: green; font-weight: bold;">Sender's
+                                    list empty! <br> No mail received</p>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-holder-101" id="right-holder-101">
+
+            <div class="center-header-holder-102">
+                <h1><i class="fas fa-envelope"></i> Wingastock Mail System (WMS)</h1>
+                <button type="button" onclick="toggleLeftPanel()"><i class="fas fa-bars"></i></button>
+            </div>
+
+            <div class="search-messages-holder-102">
+                <div>
+                    <input type="text" id="search-input-103" placeholder="Search by name or email..."
+                        oninput="searchUsers()">
+                </div>
+            </div>
+
+            <!-- Search result bar -->
+            {% include 'search-result.html' %}
+
+            <div class="center-content-holder-102">
+
+                <!-- Unreaded message list -->
+                <div class="unreaded-list-102">
+
+                    <ul>
+
+                        {% for message in messages %}
+                        <a href="{% url 'mail_read_c' message.sender_id %}">
+                            <li><button type="button" class="message-icon-100"><i
+                                        class="fas fa-envelope"></i></button>{{ message.sender_id }} <br>
+                                <span style="font-size: 11px;">{{ message.message }}</span>
+                            </li>
+                        </a>
+                        {% empty %}
+                        <p style="text-align: center; margin-top: 20%;"><i class="fas fa-envelope"
+                                style="font-size: 50px; color: crimson;"></i> <br>
+                            No message received!</p>
+
+                        {% endfor %}
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        function toggleLeftPanel() {
+            const leftPanel = document.getElementById('left-holder-101');
+            const rightPanel = document.getElementById('right-holder-101');
+
+            if (leftPanel.style.display === 'none') {
+                leftPanel.style.display = 'inline-block';
+                leftPanel.style.width = '100%';
+                rightPanel.style.display = 'none';
+
+            } else {
+                leftPanel.style.display = 'none';
+                rightPanel.style.width = '100%';
+                rightPanel.style.display = 'inline-block';
+            }
+        }
+
+    </script>
+</body>
+
+</html>

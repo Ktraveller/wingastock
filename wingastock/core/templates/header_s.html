@@ -11,10 +11,10 @@
 
         <div class="search-holder-1003">
             <div>
-                {% if search == search %}
-                    <input type="search" placeholder="Search..." id="searchInput">
+                {% if search == 'search' %}
+                <input type="search" placeholder="Search..." id="searchInput">
                 {% else %}
-                    <input type="search" placeholder="Search..." onclick="window.location.href=`{% url 'search' %}`">
+                <input type="search" placeholder="Search..." onclick="window.location.href=`{% url 'search' %}`">
                 {% endif %}
             </div>
         </div>
@@ -75,10 +75,17 @@
         <span class="close-1003" onclick="open_notification(0)"><i class="fas fa-times"></i> Close</span>
         <p style="font-weight: bold;">Notifications</p>
 
-        <i class="fas fa-bell" style="font-size: 30px;"></i>
-
         <ul class="user-1003">
-            <li>New product arrival</li>
+            {% for mail in mails %}
+            <li onclick="window.location.href=`{% url 'mail_read_c' mail.sender_id %}`">
+                <strong>{{ mail.sender_id }}</strong> <br>
+                <span>{{ mail.message }}</span>
+                <span style="float: right;">{{ mail.sent_at }}</span>
+            </li>
+            {% empty %}
+            <p style="text-align: center;"><i class="fas fa-bell" style="font-size: 30px;"></i> <br>No notifications!
+            </p>
+            {% endfor %}
         </ul>
     </div>
 </div>
@@ -90,10 +97,9 @@
         <span class="close-1003" onclick="open_cart(0)"><i class="fas fa-times"></i> Close</span>
         <p style="font-weight: bold;">Your cart</p>
 
-        <i class="fas fa-shopping-cart" style="font-size: 30px;"></i>
-
         <ul class="user-1003">
-            <li>Product 1 </li>
+            <p style="text-align: center;"><i class="fas fa-shopping-cart" style="font-size: 30px;"></i><br>
+                Cart empty</p>
         </ul>
     </div>
 </div>

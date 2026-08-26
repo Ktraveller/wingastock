@@ -64,37 +64,7 @@
                 <div class="product-card-1002">
 
                     {% for product in favorite_products %}
-                    <div class="product-card" onclick="window.location.href=`{% url 'product_details' product.id %}`">
-
-
-                        <div class="product-1002" data-bg="{{ product.image.url }}">
-                            <div class="loader"></div>
-                        </div>
-
-                        <div class="product-details-1003">
-                            <ul>
-                                <li style="text-align: center;">
-                                    <span class="ti-1003">{{ product.title }}</span>
-                                </li>
-                                <li><i class="fas fa-money-bill-wave"></i> Price:
-                                    <strong>{{ product.price|floatformat:0|intcomma }} TSh</strong>
-                                </li>
-                                <li style="font-size: 10px;"><i class="fas fa-store"></i> Seller:
-                                    <span class="seller-1003">{{ product.owner.seller.seller_name }}</span>
-                                </li>
-
-                                <li style="font-size: 10px;"><i class="fas fa-map-marker-alt"></i> Location:
-                                    <span class="seller-1003">{{ product.owner.seller.seller_address }}</span>
-                                </li>
-
-                                <li style="text-align: right;">
-                                    <i class="fas fa-thumbs-up"></i> 1
-                                    <i class="fas fa-thumbs-down"></i> 1
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
+                        {% include 'product-container.html' %}
                     {% endfor %}
 
                 </div>

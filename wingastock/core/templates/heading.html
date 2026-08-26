@@ -10,9 +10,9 @@
         <div class="search-holder-1003">
             <div>
                 {% if search == 'search' %}
-                    <input type="search" placeholder="Search..." id="searchInput">
+                <input type="search" placeholder="Search..." id="searchInput">
                 {% else %}
-                    <input type="search" placeholder="Search..." onclick="window.location.href=`{% url 'search' %}`">
+                <input type="search" placeholder="Search..." onclick="window.location.href=`{% url 'search' %}`">
                 {% endif %}
             </div>
         </div>
@@ -56,10 +56,9 @@
         <span class="close-1003" onclick="open_cart(0)"><i class="fas fa-times"></i> Close</span>
         <p style="font-weight: bold;">Your cart</p>
 
-        <i class="fas fa-shopping-cart" style="font-size: 30px;"></i>
-
         <ul class="user-1003">
-            <li>Product 1 </li>
+            <p style="text-align: center;"><i class="fas fa-shopping-cart" style="font-size: 30px;"></i><br>
+                Cart empty</p>
         </ul>
     </div>
 </div>

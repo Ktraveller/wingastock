@@ -8,8 +8,8 @@ from django.contrib.auth.decorators import login_required
 
 
 # Message reading
-@login_required(login_url="login_seller")
-def mail_read(request, m_receiver):
+@login_required(login_url="customer_login")
+def mail_read_c(request, m_receiver):
     if m_receiver == 'null':
         get_senders = (
             Mails.objects
@@ -17,7 +17,7 @@ def mail_read(request, m_receiver):
             .values('sender_id')
             .distinct()
         )
-        return render(request, 'read_message.html', { 'senders': get_senders })
+        return render(request, 'c/read_message.html', { 'senders': get_senders })
     else:
 
         get_senders = (
@@ -43,11 +43,11 @@ def mail_read(request, m_receiver):
                     sender_id = sender,
                     receiver_id = m_receiver,
                     message = message_b,
-                    status = 'sent',
+                    status = 'unread',
                     owner_id = request.user.id
                 )
                 mail.save()
-        return render(request, 'read_message.html', 
+        return render(request, 'c/read_message.html', 
                 {
                     'senders': get_senders,
                     'm_receiver': m_receiver, 
@@ -57,8 +57,8 @@ def mail_read(request, m_receiver):
 
 
 # Unreaded messages
-@login_required(login_url="login_seller")
-def unreaded(request):
+@login_required(login_url="customer_login")
+def unreaded_c(request):
     get_senders = (
                 Mails.objects
                 .filter(receiver_id=request.user.email, status='unread')
@@ -87,7 +87,7 @@ def unreaded(request):
             .distinct()
         )
 
-    return render(request, 'unreaded.html', 
+    return render(request, 'c/unreaded.html', 
                   {
                        'senders': get_senders, 
                        'messages': messages, 
@@ -97,8 +97,8 @@ def unreaded(request):
 
 
 # readed messages
-@login_required(login_url="login_seller")
-def readed(request):
+@login_required(login_url="customer_login")
+def readed_c(request):
     get_senders = (
                 Mails.objects
                 .filter(receiver_id=request.user.email, status='unread')
@@ -127,7 +127,7 @@ def readed(request):
             .distinct()
         )
 
-    return render(request, 'readed.html', 
+    return render(request, 'c/readed.html', 
                   {
                        'senders': get_senders, 
                        'messages': messages, 
@@ -137,9 +137,8 @@ def readed(request):
 
 
 # Sents mails
-
-@login_required(login_url="login_seller")
-def sent_mails(request):
+@login_required(login_url="customer_login")
+def sent_mails_c(request):
     get_senders = (
                 Mails.objects
                 .filter(receiver_id=request.user.email, status='unread')
@@ -162,7 +161,7 @@ def sent_mails(request):
             .distinct()
         )
 
-    return render(request, 'sent_mails.html', 
+    return render(request, 'c/sent_mails.html', 
                   {
                        'senders': get_senders, 
                        'messages': messages, 
@@ -173,8 +172,8 @@ def sent_mails(request):
 
 
 # Compose message
-@login_required(login_url="login_seller")
-def compose_m(request, m_receiver):
+@login_required(login_url="customer_login")
+def compose_m_c(request, m_receiver):
     if m_receiver == 'null':
         get_receivers = User.objects.all().order_by('username')
         get_senders = (
@@ -183,7 +182,7 @@ def compose_m(request, m_receiver):
                 .values('sender_id')
                 .distinct()
             )
-        return render(request, 'compose_m.html', { 'receiver': get_receivers, 'senders': get_senders })
+        return render(request, 'c/compose_m.html', { 'receiver': get_receivers, 'senders': get_senders })
     
     else:
         get_receivers = User.objects.all().order_by('username')
@@ -207,11 +206,11 @@ def compose_m(request, m_receiver):
                     sender_id = sender,
                     receiver_id = m_receiver,
                     message = message_b,
-                    status = 'sent',
+                    status = 'unread',
                     owner_id = request.user.id
                 )
                 mail.save()
-        return render(request, 'compose_m.html', 
+        return render(request, 'c/compose_m.html', 
                     {
                     'receiver': get_receivers,
                     'm_receiver': m_receiver, 
@@ -223,8 +222,8 @@ def compose_m(request, m_receiver):
 
 
 # Delete messages
-@login_required(login_url="login_seller")
-def delete_mail(request, id):
+@login_required(login_url="customer_login")
+def delete_mail_c(request, id):
     select_mail = get_object_or_404(Mails, id=id)
 
     current_user = request.user.email
@@ -239,15 +238,15 @@ def delete_mail(request, id):
     select_mail.delete()
 
     # Redirect back to the conversation
-    return redirect('mail_read', m_receiver=m_receiver)
+    return redirect('mail_read_c', m_receiver=m_receiver)
 
 
 # Delete all mails
-@login_required(login_url="login_seller")
-def clear_mails(request, m_receiver):
+@login_required(login_url="customer_login")
+def clear_mails_c(request, m_receiver):
      messages = Mails.objects.filter(
                  Q(sender_id=request.user.email, receiver_id=m_receiver) | 
                  Q(sender_id=m_receiver, receiver_id=request.user.email)
                  )
      messages.delete()
-     return redirect('mail_home')
+     return redirect('mail_home_c')

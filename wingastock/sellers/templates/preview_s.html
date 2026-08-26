@@ -105,11 +105,11 @@
                         <div class="product-image-holder-103">
                             <div class="product-image-103" style="background-image: url('{{ product.image.url }}');">
                                 <h1>{{ product.title }}</h1>
-                                <button type="button" class="small-image-103">
+                                <div class="small-image-103">
                                     {% if product.image %}
                                     <img src="{{ product.image.url }}" alt="{{ product.title }}">
                                     {% endif %}
-                                </button>
+                                </div>
                             </div>
                         </div>
 
@@ -189,17 +189,31 @@
                                 <div>
                                     <p style="font-weight: bold;">Other informations</p>
                                     <div class="other-103">
-                                        <button type="button"><i class="fas fa-eye"></i> Views: </button>
-                                        <button type="button"><i class="fas fa-thumbs-up"></i> Likes: </button>
-                                        <button type="button"><i class="fas fa-thumbs-down"></i> Dislikes: </button>
+                                        <button type="button"><i class="fas fa-eye"></i>
+                                            Views: {{ product.product_information.views }}
+                                        </button>
+                                        <button type="button"><i class="fas fa-thumbs-up"></i>
+                                            Likes: {{ product.product_information.likes }}
+                                        </button>
+                                        <button type="button"><i class="fas fa-thumbs-down"></i>
+                                            Dislikes: {{ product.product_information.dislikes }}</button>
                                     </div>
                                     <div class="comments-holder-103">
                                         <p style="font-weight: bold;"><i class="fas fa-comments"></i> Customers comments
                                             on product</p>
                                         <ul>
-                                            <li>Good product</li>
-                                            <li>Fake product</li>
-                                            <li>Not valid product</li>
+                                            {% for comment in product.product_id.all %}
+                                            <li>
+                                                <strong style="display: block;">{{ comment.customer.username }}</strong>
+                                                <span>{{ comment.comment }}</span>
+
+                                                <span style="float: right;">
+                                                    {{ comment.saved_at|date:"d M Y H:i" }}</span>
+
+                                            </li>
+                                            {% empty %}
+                                                <p style="text-align: center;">No comments!</p>
+                                            {% endfor %}
                                         </ul>
                                     </div>
                                 </div>

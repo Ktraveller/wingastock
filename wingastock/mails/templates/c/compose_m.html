@@ -33,23 +33,23 @@
                     <div class="nav-bar-holder-102">
                         <div>
                             <ul>
-                                <a href="{% url 'seller_home' %}">
+                                <a href="{% url 'home' %}">
                                     <li>Home <i class="fas fa-home"></i></li>
                                 </a>
 
-                                <a href="{% url 'unreaded' %}">
+                                <a href="{% url 'unreaded_c' %}">
                                     <li>Unreaded mails <i class="fas fa-envelope"></i></li>
                                 </a>
 
-                                <a href="{% url 'readed' %}">
+                                <a href="{% url 'readed_c' %}">
                                     <li>Readed mails <i class="fas fa-envelope-open"></i></li>
                                 </a>
 
-                                <a href="{% url 'sent_mails' %}">
+                                <a href="{% url 'sent_mails_c' %}">
                                     <li>Sent mails <i class="fas fa-paper-plane"></i></li>
                                 </a>
 
-                                <a href="{% url 'mail_settings' %}">
+                                <a href="{% url 'mail_settings_c' %}">
                                     <li>Settings <i class="fas fa-cog"></i></li>
                                 </a>
                             </ul>
@@ -69,7 +69,7 @@
                             <div>
                                 <ul>
                                     {% for sender in senders %}
-                                    <a href="{% url 'mail_read' sender.sender_id %}">
+                                    <a href="{% url 'mail_read_c' sender.sender_id %}">
                                         <li><i class="fas fa-user"></i> {{ sender.sender_id }} <i
                                                 class="fas fa-clock sender-100"></i></li>
                                     </a>
@@ -126,7 +126,7 @@
                                             </span>
 
                                             <button type="button"
-                                                onclick="open_chart(`{% url 'compose_m' message_receiver.email %}`)">
+                                                onclick="open_chart(`{% url 'compose_m_c' message_receiver.email %}`)">
                                                 Choose
                                             </button>
                                         </li>
@@ -146,7 +146,7 @@
                             </div>
 
                             <div class="close-button-102">
-                                <button type="button" onclick="window.location.href=`{% url 'mail_home' %}`">Close
+                                <button type="button" onclick="window.location.href=`{% url 'mail_home_c' %}`">Close
                                     search</button>
                             </div>
                         </div>
@@ -193,7 +193,7 @@
                 <div class="reply-box-104">
                     <div class="reply-content-104">
                         <div class="inputs-holder-104">
-                            <textarea name="message" id="" placeholder="Write mail ..." required></textarea>
+                            <textarea name="message" id="" placeholder="Write text ..."></textarea>
                         </div>
                         <div class="send-holder-104">
                             <button type="submit">Send <i class="fas fa-paper-plane"
