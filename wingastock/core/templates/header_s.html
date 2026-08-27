@@ -1,52 +1,42 @@
+{% load static %}
+
 <div class="heading-holder-1002">
+
+    <div class="about-holder-1003">
+        <div>
+            <h1 onclick="window.location.href=`{% url 'home' %}`">
+                <img src="{% static 'logo.png' %}" alt="logo">
+                Wingastock
+            </h1>
+
+            <span class="reg-1003" style="color: white;" onclick="open_notification(1)">
+                <i class="fas fa-bell"></i>
+                Notifications</span>
+
+            <span class="login-1003" onclick="open_user(1)">
+                <i class="fas fa-user"></i>
+                {{ user.email }}</span>
+
+            <a href="{% url 'about' %}">About us</a> |
+            <a href="{% url 'terms' %}">Terms and conditions</a>
+        </div>
+    </div>
+
     <div class="heading-1002">
 
-        <div class="title-holder-1003">
-            <div>
-                <h1 onclick="window.location.href=`{% url 'home' %}`">
-                    Wingastock
-                </h1>
-            </div>
-        </div>
-
         <div class="search-holder-1003">
-            <div>
+            <div class="search-input-1003">
                 {% if search == 'search' %}
                 <input type="search" placeholder="Search..." id="searchInput">
                 {% else %}
                 <input type="search" placeholder="Search..." onclick="window.location.href=`{% url 'search' %}`">
                 {% endif %}
             </div>
-        </div>
-
-        <div class="cart-holder-1003">
-            <div>
-                <button type="button" onclick="open_cart(1)">
-                    <i class="fas fa-shopping-cart"></i> <span class="s-1003">Cart</span></button>
+            <div class="search-button-1003">
+                <button type="button"><i class="fas fa-search"></i> Search</button>
             </div>
         </div>
 
-        <div class="signin-holder-1003">
-            <div>
-                <button type="button" onclick="open_notification(1)">
-                    <i class="fas fa-bell"></i> <span class="s-1003">Notification</span></button>
-            </div>
-        </div>
-
-        <div class="create-account-holder-1003">
-            <div>
-                <button type="button" onclick="open_user(1)">
-                    <i class="fas fa-user"></i> <span class="s-1003">{{ user.email }}</span></button>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="about-holder-1003">
-        <div>
-            <a href="{% url 'about' %}">About us</a> |
-            <a href="{% url 'terms' %}">Terms and conditions</a>
-        </div>
     </div>
 </div>
 
@@ -82,12 +72,21 @@
                 <span>{{ mail.message }}</span>
                 <span style="float: right;">{{ mail.sent_at }}</span>
             </li>
+
             {% empty %}
             <p style="text-align: center;"><i class="fas fa-bell" style="font-size: 30px;"></i> <br>No notifications!
             </p>
             {% endfor %}
         </ul>
+
+        <div style="margin-top: 50px;">
+            <span onclick="open_user(1)"
+                style="background: crimson; padding: 10px; border-radius: 50px; padding-left: 20px; padding-right: 20px; color: white;">
+                <i class="fas fa-user"></i>
+                {{ user.email }}</span>
+        </div>
     </div>
+
 </div>
 
 

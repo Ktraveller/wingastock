@@ -1,50 +1,41 @@
+{% load static %}
+
 <div class="heading-holder-1002">
+
+    <div class="about-holder-1003">
+        <div>
+            <h1 onclick="window.location.href=`{% url 'home' %}`">
+                <img src="{% static 'logo.png' %}" alt="logo">
+                Wingastock
+            </h1>
+
+            <a href="{% url 'customer_register' %}" class="reg-1003" style="color: white;">
+                <i class="fas fa-user-plus"></i>
+                Register</a>
+            <a href="{% url 'customer_login' %}" class="login-1003">
+                <i class="fas fa-sign-in-alt"></i>
+                Login</a>
+
+            <a href="{% url 'about' %}">About us</a> |
+            <a href="{% url 'terms' %}">Terms and conditions</a>
+        </div>
+    </div>
+
     <div class="heading-1002">
 
-        <div class="title-holder-1003">
-            <div>
-                <h1 onclick="window.location.href=`{% url 'home' %}`">Wingastock</h1>
-            </div>
-        </div>
-
         <div class="search-holder-1003">
-            <div>
+            <div class="search-input-1003">
                 {% if search == 'search' %}
                 <input type="search" placeholder="Search..." id="searchInput">
                 {% else %}
                 <input type="search" placeholder="Search..." onclick="window.location.href=`{% url 'search' %}`">
                 {% endif %}
             </div>
-        </div>
-
-        <div class="cart-holder-1003">
-            <div>
-                <button type="button" onclick="open_cart(1)">
-                    <i class="fas fa-shopping-cart"></i> <span class="s-1003">Cart</span></button>
+            <div class="search-button-1003">
+                <button type="button"><i class="fas fa-search"></i> Search</button>
             </div>
         </div>
 
-        <div class="signin-holder-1003">
-            <div>
-                <button type="button" onclick="window.location.href=`{% url 'customer_login' %}`">
-                    <i class="fas fa-sign-in-alt"></i> <span class="s-1003">Sign in</span></button>
-            </div>
-        </div>
-
-        <div class="create-account-holder-1003">
-            <div>
-                <button type="button" onclick="window.location.href=`{% url 'customer_register' %}`">
-                    <i class="fas fa-user"></i> <span class="s-1003">Register</span></button>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="about-holder-1003">
-        <div>
-            <a href="{% url 'about' %}">About us</a> |
-            <a href="{% url 'terms' %}">Terms and conditions</a>
-        </div>
     </div>
 </div>
 

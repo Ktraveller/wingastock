@@ -69,4 +69,4 @@ def customer_login(request):
 # Logout
 def customer_logout(request):
     logout(request)
-    return redirect("customer_login")
+    return redirect("home")

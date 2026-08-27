@@ -310,6 +310,5 @@ def filter_products(request, category):
 
     return render(request, 'products.html', {
         'products': products,
-        'mails': mails,
     })
 

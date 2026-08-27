@@ -14,8 +14,12 @@
 
     <title>Wingastock</title>
 
-    <meta name="description" content="Nunua na uza bidhaa za electoniki kama simu, laptops, TV, 
-    pia tunauza samani za ndani (furniture), vyumba, nyumba na bidhaa mbalimbali kupitia jukwaa letu wingastock ">
+    <meta name="description" content="Buy and sell electronics such as smartphones, laptops, TVs, computers, accessories, 
+        and other electronic devices. Discover quality furniture, home appliances, rooms, houses, 
+        and a wide range of products from trusted sellers on Wingastock. 
+        Our platform makes it easy to find, advertise, buy, and sell products online, 
+        connecting customers and businesses in one convenient marketplace.">
+
 
     <meta name="robots" content="index, follow">
 
@@ -23,7 +27,10 @@
 
     <meta property="og:title" content="Wingastock">
 
-    <meta property="og:description" content="Soko mtandao Tanzania">
+    <meta property="og:description"
+        content="Wingastock is an online marketplace in Tanzania where you can buy and sell electronics,
+         smartphones, laptops, TVs, furniture, home appliances, rooms, houses, and a wide range of products. 
+         Connect with trusted sellers, discover great deals, and grow your business by reaching more customers online.">
 
 
     <meta property="og:type" content="website">
@@ -43,6 +50,7 @@
 
         gtag('config', 'G-STT2EJ7H54');
     </script>
+
 </head>
 
 <body>
@@ -59,13 +67,12 @@
 
         <div class="content-holder-002">
 
-
             <!-- Center content -->
             <div class="product-card-holder-1001">
                 <div class="product-card-1002">
 
                     {% for product in products %}
-                        {% include 'product-container.html' %}
+                    {% include 'product-container.html' %}
                     {% endfor %}
 
                 </div>
@@ -74,6 +81,30 @@
 
             <div style="width: 100%; height: 100px; float: left;"></div>
 
+        </div>
+
+        <!-- Call for seller signup -->
+        <div class="seller-signup-holder-1002" id="seller_ad">
+            <div>
+                <button type="button" class="seller-close-1002"
+                    onclick="document.getElementById('seller_ad').style.display='none'">
+                    <i class="fas fa-times"></i>
+                </button>
+
+                <div>
+                    <p style="font-weight: bold; font-size: 15px;">Important!</p>
+                    <p>Hello, We invite seller, winga, dalali and others deals with selling products like clothes,
+                        electronics,
+                        accessories, furnitures, food etc.</p>
+                    <p>To create seller account today for free and start post products to reach many customers.
+                        <a href="#" style="text-decoration: none; font-weight: bold; color: inherit;">Learn more...</a>
+                    </p>
+                </div>
+
+                <button type="button" class="register-1002" onclick="window.location.href=`{% url 'seller_terms' %}`">
+                    <i class="fas fa-user-plus"></i>
+                    Create seller account</button>
+            </div>
         </div>
 
         <div class="footer-holder-1003">

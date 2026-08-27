@@ -20,7 +20,8 @@
             <div class="header-100">
                 <div class="action-holder-101">
                     <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i class="fas fa-times"></i></button>
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+                            class="fas fa-times"></i></button>
                 </div>
                 <div class="title-holder-101">
                     <button type="button"><span>Wingastock | Seller</span></button>
@@ -40,19 +41,32 @@
 
                     <ul>
                         <a href="{% url 'seller_home' %}">
-                            <li class="active-0">Dashboard <i class="fas fa-tachometer-alt"></i></li>
+                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
                         </a>
                     </ul>
 
                     <ul>
                         <a href="{% url 'seller_products' %}">
-                            <li>Products <i class="fas fa-shopping-bag"></i></li>
+                            <li class="active-0">Products <i class="fas fa-shopping-bag"></i></li>
                         </a>
                     </ul>
 
                     <ul>
                         <a href="{% url 'mail_home' %}">
                             <li>Mails <i class="fas fa-envelope"></i></li>
+                        </a>
+                    </ul>
+
+
+                    <ul>
+                        <a href="{% url 'seller_account' %}">
+                            <li>Account <i class="fas fa-user"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'seller_terms_conditions' %}">
+                            <li>Terms and condtions <i class="fas fa-file-contract"></i></li>
                         </a>
                     </ul>
 
@@ -65,14 +79,27 @@
             </div>
 
             <div class="right-holder-201">
-                <div class="card-holder-201">
 
-                    <p><i class="fas fa-money-check-alt" style="font-size: 50px; color: crimson;"></i></p>
-                    <p>You reach maximum products to post in website.</p>
+                <div class="notify-card-201">
+                    <div>
 
-                    <p>Soon we will add more features for you.</p>
+                        <p style="font-size: 50px;">
+                            <i class="fas fa-exclamation-triangle" style="font-size: inherit;"></i>
+                        </p>
 
+                        <p style="font-size: 20px;">Platform Alert</p>
+
+                        <p>You have reached the maximum number of products you can post on the platform.</p>
+
+                        <p>We apologize for any inconvenience this may cause. We are currently working on a payment
+                            feature that will allow sellers to post unlimited products on the platform.</p>
+
+                        <p style="font-size: 18px;">Thank you for your patience and understanding. We truly appreciate your business and look
+                            forward to providing you with an even better experience.</p>
+
+                    </div>
                 </div>
+
             </div>
 
         </div>

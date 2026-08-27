@@ -5,8 +5,11 @@
     width: 100%;
     z-index: 9999;
 
-    background: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    background-image: url("../bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.398);
 
     transition: transform 0.35s ease-in-out;
 }
@@ -19,125 +22,56 @@
 .heading-1002 {
     width: 100%;
     height: auto;
-}
-
-.heading-1002>div {
+    background: transparent;
     float: left;
-    height: 100%;
-}
-
-.title-holder-1003 {
-    width: 100%;
-}
-
-.title-holder-1003>div {
-    width: 100%;
-    height: 100%;
     padding: 10px;
-    text-align: center;
 }
 
-.title-holder-1003>div>h1 {
-    font-size: 20px;
-    color: crimson;
-    cursor: pointer;
-}
 
 .search-holder-1003 {
-    width: 70%;
+    width: 100%;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.957);
+    float: left;
+    border-radius: 100px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.398);
 }
 
 .search-holder-1003>div {
-    width: 100%;
+    float: left;
+}
+
+.search-input-1003 {
+    width: 70%;
     height: 100%;
-    padding: 10px;
 }
 
-.search-holder-1003>div>input {
-    width: 100%;
-    height: 40px;
-    border-radius: 50px;
-    border: 1px solid crimson;
-    outline: none;
-    padding: 10px;
-}
-
-.cart-holder-1003 {
-    width: 10%;
-}
-
-.cart-holder-1003>div {
-    width: 100%;
-    height: 100%;
-    padding-top: 20px;
-}
-
-.cart-holder-1003>div>button {
+.search-input-1003>input {
     border-style: none;
     outline: none;
     width: 100%;
     height: 100%;
-    background: transparent;
-    cursor: pointer;
+    padding-left: 20px;
+    background: transparent
 }
 
-.cart-holder-1003>div>button:hover {
-    color: crimson;
-}
-
-.signin-holder-1003 {
-    width: 10%;
-}
-
-.signin-holder-1003>div {
-    width: 100%;
-    height: 100%;
-    padding-top: 20px;
-}
-
-.signin-holder-1003>div>button {
-    border-style: none;
-    outline: none;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    cursor: pointer;
-}
-
-.signin-holder-1003>div>button:hover {
-    color: crimson;
-}
-
-.create-account-holder-1003 {
-    width: 10%;
-}
-
-.create-account-holder-1003>div {
-    width: 100%;
+.search-button-1003 {
+    width: 30%;
     height: 100%;
     padding: 5px;
-    padding-top: 12px;
 }
 
-.create-account-holder-1003>div>button {
+.search-button-1003>button {
+    width: 100%;
+    height: 100%;
     border-style: none;
     outline: none;
-    width: 30px;
-    height: 30px;
     background: crimson;
-    border-radius: 50px;
-    font-weight: bold;
     color: white;
-    cursor: pointer;
+    font-weight: bold;
+    border-radius: 50px;
 }
 
-.create-account-holder-1003>div>button:hover {
-    opacity: 0.7;
-}
-
-.s-1003 {
-    display: none;
-}
 
 
 .user-info-holder-1003 {
@@ -148,7 +82,7 @@
     left: 0;
     background: rgba(0, 0, 0, 0.274);
     padding: 10px;
-    z-index: 999;
+    z-index: 9999;
     display: none;
 }
 
@@ -198,8 +132,8 @@
     width: 100%;
     height: auto;
     float: left;
-    background: crimson;
-    color: white;
+    background: rgba(255, 255, 255, 0.455);
+    color: crimson;
 }
 
 .about-holder-1003>div {
@@ -209,76 +143,53 @@
     padding: 10px;
 }
 
-.about-holder-1003>div>a {
+.about-holder-1003>div>a, span {
     text-decoration: none;
     color: inherit;
     font-weight: bold;
+    cursor: pointer;
 }
 
+.reg-1003 {
+    padding: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 50px;
+    background: crimson;
+}
+
+.login-1003 {
+    padding-right: 100px;
+    padding-left: 20px;
+    display: none;
+}
+
+.about-holder-1003>div>h1 {
+    font-size: 20px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.about-holder-1003>div>h1>img {
+    width: 20px;
+    height: 20px;
+}
 
 @media only screen and (min-width: 768px) {
-    .heading-1002 {
-        width: 100%;
-        height: 80px;
+
+    .login-1003 {
+        display: inline-block;
     }
 
-    .title-holder-1003 {
+    .search-input-1003 {
+        width: 80%;
+        height: 100%;
+    }
+
+    .search-button-1003 {
         width: 20%;
-    }
-
-    .title-holder-1003>div {
-        padding: 15px;
-    }
-
-    .search-holder-1003 {
-        width: 40%;
-    }
-
-    .search-holder-1003>div {
-        padding: 20px;
-    }
-
-    .cart-holder-1003 {
-        width: 10%;
-    }
-
-    .cart-holder-1003>div {
-        padding-top: unset;
-        padding: 20px;
-    }
-
-    .signin-holder-1003 {
-        width: 10%;
-    }
-
-    .signin-holder-1003>div {
-        padding-top: unset;
-        padding: 20px;
-    }
-
-    .create-account-holder-1003 {
-        width: 20%;
-    }
-
-    .create-account-holder-1003>div {
-        padding-top: unset;
-        padding: 20px;
-    }
-
-    .create-account-holder-1003>div>button {
-        border-style: none;
-        outline: none;
-        width: 100%;
-        height: 40px;
-        background: crimson;
-        border-radius: 50px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-    }
-
-    .s-1003 {
-        display: inline;
+        height: 100%;
+        padding: 5px;
     }
 
     .user-info-holder-1003>div {

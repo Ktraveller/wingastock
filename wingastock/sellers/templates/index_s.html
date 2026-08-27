@@ -95,6 +95,18 @@
                     </ul>
 
                     <ul>
+                        <a href="{% url 'seller_account' %}">
+                            <li>Account <i class="fas fa-user"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'seller_terms_conditions' %}">
+                            <li>Terms and condtions <i class="fas fa-file-contract"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
                         <a href="{% url 'logout_seller' %}">
                             <li>Exit <i class="fas fa-sign-out-alt"></i></li>
                         </a>
@@ -155,24 +167,24 @@
                                 {% for product in products %}
                                 <a href="{% url 'seller_preview_p' product.id %}">
                                     <li>
-                                            <span>{{ product.title }}</span>
-                                            <span class="mail-time-201">
-                                                <i class="fas fa-thumbs-down"></i> 
-                                                {{ product.product_information.dislikes }}
-                                            </span>
+                                        <span>{{ product.title }}</span>
+                                        <span class="mail-time-201">
+                                            <i class="fas fa-thumbs-down"></i>
+                                            {{ product.product_information.dislikes }}
+                                        </span>
 
-                                            <span class="mail-time-201">
-                                                <i class="fas fa-thumbs-up"></i> 
-                                                {{ product.product_information.likes }}
-                                            </span>
+                                        <span class="mail-time-201">
+                                            <i class="fas fa-thumbs-up"></i>
+                                            {{ product.product_information.likes }}
+                                        </span>
 
-                                            <span class="mail-time-201"><i class="fas fa-eye"></i> 
-                                                {{ product.product_information.views }}
-                                            </span>
+                                        <span class="mail-time-201"><i class="fas fa-eye"></i>
+                                            {{ product.product_information.views }}
+                                        </span>
                                     </li>
                                 </a>
                                 {% empty %}
-                                    <p style="text-align: center;">No products!</p>
+                                <p style="text-align: center;">No products!</p>
                                 {% endfor %}
                             </ul>
                         </button>
@@ -208,11 +220,12 @@
                                             <strong>{{ mail.sender_id }}</strong>
                                         </span>
                                         <span>{{ mail.message }}</span>
-                                        <span class="mail-time-201"><i class="fas fa-clock"></i> {{ mail.sent_at }}</span>
+                                        <span class="mail-time-201"><i class="fas fa-clock"></i> {{ mail.sent_at
+                                            }}</span>
                                     </li>
                                 </a>
                                 {% empty %}
-                                    <p>No received mail!</p>
+                                <p>No received mail!</p>
                                 {% endfor %}
                             </ul>
                         </button>

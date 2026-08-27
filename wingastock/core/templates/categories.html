@@ -12,19 +12,24 @@
     <link rel="stylesheet" href="{% static 'css/heading.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <title>Wingastock | Makundi ya bidhaa</title>
+    <title>Wingastock | Product Categories</title>
 
-    <meta name="description" content="Nunua na uza bidhaa za electoniki kama simu, laptops, TV, 
-    pia tunauza samani za ndani (furniture), vyumba, nyumba na bidhaa mbalimbali kupitia jukwaa letu wingastock ">
+    <meta name="description" content="Buy and sell electronics such as smartphones, laptops, TVs, computers, accessories, 
+        and other electronic devices. Discover quality furniture, home appliances, rooms, houses, 
+        and a wide range of products from trusted sellers on Wingastock. 
+        Our platform makes it easy to find, advertise, buy, and sell products online, 
+        connecting customers and businesses in one convenient marketplace.">
 
     <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="https://wingastock.onrender.com/">
 
-    <meta property="og:title" content="Wingastock">
+    <meta property="og:title" content="Wingastock | Product Categories">
 
-    <meta property="og:description" content="Soko mtandao Tanzania">
-
+    <meta property="og:description"
+        content="Wingastock is an online marketplace in Tanzania where you can buy and sell electronics,
+         smartphones, laptops, TVs, furniture, home appliances, rooms, houses, and a wide range of products. 
+         Connect with trusted sellers, discover great deals, and grow your business by reaching more customers online.">
 
     <meta property="og:type" content="website">
 
@@ -43,14 +48,6 @@
 
         gtag('config', 'G-STT2EJ7H54');
     </script>
-
-    <style>
-        .favorite-product-003>div {
-            float: left;
-            height: 100px;
-            width: 16.666666666666666%;
-        }
-    </style>
 </head>
 
 <body>
@@ -69,107 +66,31 @@
 
             <!-- Favorite product cards -->
             <div class="favorite-product-holder-003">
-                <div class="favorite-product-003">
 
-                    <div class="product-card-holder-004">
-                        <div>
-                            <button type="button" class="category-0004"
-                                onclick="window.location.href=`{% url 'filter_products' 'furniture' %}`">
-                                <i class="fas fa-couch"></i><br>
-                                <span>Samani za ndani</span>
-                            </button>
-                        </div>
+                <div class="product-card-holder-0004">
+                    <div>
+
+                        <!-- Phones and PCs -->
+                        {% include 'phones.html' %}
+
+                        <!-- Electronics -->
+                        {% include 'electronics.html' %}
+
+                        <!-- Clothing -->
+                        {% include 'clothes.html' %}
+
+                        <!-- Furnitures -->
+                        {% include 'furnitures.html' %}
+
+                        <!-- Foods -->
+                        {% include 'foods.html' %}
+
                     </div>
-
-                    <div class="product-card-holder-004">
-                        <div>
-                            <button type="button" class="category-0004"
-                                onclick="window.location.href=`{% url 'filter_products' 'electronics' %}`">
-                                <i class="fas fa-laptop"></i><br>
-                                <span>Electroniki</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="product-card-holder-004">
-                        <div>
-                            <button type="button" class="category-0004"
-                                onclick="window.location.href=`{% url 'filter_products' 'clothes' %}`">
-                                <i class="fas fa-tshirt"></i><br>
-                                <span>Mavazi</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="product-card-holder-004">
-                        <div>
-                            <button type="button" class="category-0004"
-                                onclick="window.location.href=`{% url 'filter_products' 'food' %}`">
-                                <i class="fas fa-utensils"></i><br>
-                                <span>Vyakula</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="product-card-holder-004">
-                        <div>
-                            <button type="button" class="category-0004"
-                                onclick="window.location.href=`{% url 'products' %}`">
-                                <i class="fas fa-ellipsis-h"></i><br>
-                                <span>Bidhaa zaidi</span>
-                            </button>
-                        </div>
-                    </div>
-
                 </div>
+
             </div>
 
             <div style="width: 100%; height: 100px; float: left;"></div>
-
-
-            <!-- In list form 
-            <div class="list-fav-product-holder-003">
-                <div class="list-fav-product-003">
-
-                    <div>
-                        <div class="list-fav-003">
-                            <div class="fav-image-003">
-                                <img src="{% static 'phone1.jpeg' %}" alt="" srcset="">
-                            </div>
-                            <div class="fav-details-003">
-                                <span>Iphone 15</span>
-                                <span>Details dhhdjjds</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="list-fav-003">
-                            <div class="fav-image-003">
-                                <img src="{% static 'phone1.jpeg' %}" alt="" srcset="">
-                            </div>
-                            <div class="fav-details-003">
-                                <span>Iphone 15</span>
-                                <span>Details dhhdjjds</span>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div>
-                        <div class="list-fav-003">
-                            <div class="fav-image-003">
-                                <img src="{% static 'phone1.jpeg' %}" alt="" srcset="">
-                            </div>
-                            <div class="fav-details-003">
-                                <span>Iphone 15</span>
-                                <span>Details dhhdjjds</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div> -->
 
         </div>
 

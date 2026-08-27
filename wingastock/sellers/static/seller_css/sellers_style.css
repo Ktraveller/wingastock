@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-size: 12px;
+    font-size: 15px;
     font-family: "Segoe UI", sans-serif;
 }
 
@@ -622,6 +622,21 @@ button {
 .seller-summary {
     width: 100%;
     height: auto;
+}
+
+.notify-card-201 {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+.notify-card-201>div {
+    width: 100%;
+    height: auto;
+    background: crimson;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 @media only screen and (min-width: 768px) {

@@ -12,19 +12,24 @@
     <link rel="stylesheet" href="{% static 'css/heading.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <title>Wingastock | Tafuta bidhaa</title>
+    <title>Wingastock | Search Products</title>
 
-    <meta name="description" content="Nunua na uza bidhaa za electoniki kama simu, laptops, TV, 
-    pia tunauza samani za ndani (furniture), vyumba, nyumba na bidhaa mbalimbali kupitia jukwaa letu wingastock ">
+    <meta name="description" content="Buy and sell electronics such as smartphones, laptops, TVs, computers, accessories, 
+        and other electronic devices. Discover quality furniture, home appliances, rooms, houses, 
+        and a wide range of products from trusted sellers on Wingastock. 
+        Our platform makes it easy to find, advertise, buy, and sell products online, 
+        connecting customers and businesses in one convenient marketplace.">
 
     <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="https://wingastock.onrender.com/">
 
-    <meta property="og:title" content="Wingastock">
+    <meta property="og:title" content="Wingastock | Search Product">
 
-    <meta property="og:description" content="Soko mtandao Tanzania">
-
+    <meta property="og:description"
+        content="Wingastock is an online marketplace in Tanzania where you can buy and sell electronics,
+         smartphones, laptops, TVs, furniture, home appliances, rooms, houses, and a wide range of products. 
+         Connect with trusted sellers, discover great deals, and grow your business by reaching more customers online.">
 
     <meta property="og:type" content="website">
 
@@ -74,7 +79,7 @@
                             </div>
                             <div class="fav-details-003">
                                 <p style="font-weight: 900;">{{ product.title }}</p>
-                                <p>{{ product.description|truncatechars:50 }}</p>
+                                <p>{{ product.description|truncatechars:20 }}</p>
                                 <strong>{{ product.price|floatformat:0|intcomma }} TSh</strong>
                             </div>
                         </div>

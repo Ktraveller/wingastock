@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-size: 12px;
+    font-size: 15px;
     font-family: Arial, sans-serif;
 }
 
@@ -25,7 +25,6 @@ body {
     background: white;
     overflow-y: scroll;
     display: none;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.212);
 }
 
 .right-holder-101 {
@@ -41,9 +40,8 @@ body {
 
 .left-content-holder-102>h1 {
     padding: 10px;
-    font-size: 14px;
-    text-align: center;
     color: crimson;
+    font-size: 20px;
 }
 
 .nav-bar-holder-102 {
@@ -509,11 +507,11 @@ body {
 
 .clear-modal-holder>div {
     width: 300px;
-    height: 100px;
+    height: 130px;
     margin: auto;
     background: white;
     border-radius: 5px;
-    margin-top: 10%;
+    margin-top: 200px;
     padding: 10px;
 }
 
@@ -555,12 +553,12 @@ body {
 
 .inputs-holder-104 {
     height: 100%;
-    width: 80%;
+    width: 70%;
     padding: 10px;
 }
 
 .send-holder-104 {
-    width: 20%;
+    width: 30%;
     height: auto;
     padding: 10px;
 }
@@ -568,7 +566,7 @@ body {
 .inputs-holder-104>textarea {
     width: 100%;
     height: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.52);
+    border: 1px solid rgba(0, 0, 0, 0.272);
     border-radius: 5px;
     padding: 10px;
     outline: none;
@@ -677,6 +675,12 @@ body {
     font-size: 15px;
 }
 
+
+.mail-display-holder-103>.mail-list-103 {
+    height: 750px;
+    overflow-y: scroll;
+}
+
 @media only screen and (min-width: 768px) {
     .left-holder-101 {
         width: 20%;
@@ -687,9 +691,6 @@ body {
         width: 80%;
     }
 
-    .center-header-holder-102 {
-        display: none;
-    }
 
     .search-messages-holder-102 {
         margin-top: 0;
@@ -716,5 +717,21 @@ body {
     .list-102>.div102 {
         width: 100%;
         height: 350px;
+    }
+
+    .mail-display-holder-103>.mail-list-103 {
+        height: 480px;
+    }
+
+    .left-holder-101 {
+        margin-top: 50px;
+    }
+
+    .right-holder-101 {
+        margin-top: 50px
+    }
+
+    .center-header-holder-102>button {
+        display: none;
     }
 }

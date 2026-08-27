@@ -36,3 +36,10 @@ def seller_home(request):
         'mails': mails,
         'total_mails': total_mails,
     })
+
+
+
+# Seller terms and condtions
+@login_required(login_url="login_seller")
+def seller_terms_conditions(request):
+    return render(request, 'terms-conditions_s.html')

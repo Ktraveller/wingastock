@@ -26,6 +26,7 @@
     border-style: none;
     outline: none;
     cursor: pointer;
+    text-align: center;
 }
 
 .comments-holder-104>div>button:hover {

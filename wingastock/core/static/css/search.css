@@ -93,26 +93,6 @@
     padding: 10px;
 }
 
-.product-card-holder-004>div {
-    background: white;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    padding: 10px;
-    background-size: cover;
-    background-position: center;
-    cursor: pointer;
-    box-shadow: 0 0px 3px 0 rgba(0, 0, 0, 0.155);
-    animation-name: favorite_product;
-    animation-duration: 500ms;
-    overflow: hidden;
-}
-
-.product-card-holder-004>div:hover {
-    width: 98%;
-    height: 98%;
-    margin: auto;
-}
 
 
 .fav-004 {
@@ -189,32 +169,76 @@
     padding: 10px;
 }
 
+.product-card-holder-0004>div {
+    float: left;
+    width: 100%;
+    padding: 10px;
+}
+
+.product-card-holder-0004>div>div {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    float: left;
+    margin-bottom: 15px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.142);
+}
+
+.category-title-0004 {
+    width: 100%;
+    height: auto;
+    padding: 5px;
+}
+
+.category-title-0004>div {
+    width: 100%;
+    height: auto;
+    background-image: linear-gradient(to right, rgb(238, 38, 78), rgba(255, 255, 255, 0.864));
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.category-title-0004>div>h1 {
+    font-size: 15px;
+}
 
 .category-0004 {
     width: 100%;
     height: 100%;
-    border-radius: inherit;
-    background: white;
     border-style: none;
     outline: none;
     cursor: pointer;
-    color: crimson;
+    color: black;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: left;
+    background: whitesmoke;
 }
 
-.category-0004>i {
-    font-size: 30px;
-    color: inherit;
-}
+
 
 .category-0004>span {
-    color: inherit;
+    padding-left: 5px;
 }
 
-@media only screen and (min-width: 768px) {
-    .favorite-product-003>div {
-        width: 25%;
-    }
+.options-holder-0004 {
+    width: 100%;
+    height: auto;
+}
 
+.options-holder-0004>div {
+    float: left;
+    width: 100%;
+    height: 60px;
+}
+
+.option-buttons-0004 {
+    padding: 5px;
+}
+
+
+@media only screen and (min-width: 768px) {
     .list-fav-product-003>div {
         width: 25%;
     }
@@ -222,15 +246,14 @@
     .search-product-0004 {
         width: 50%;
     }
+
+
+    .options-holder-0004>div {
+        float: left;
+        width: 20%;
+    }
+
+    .product-card-holder-0004>div>div {
+        padding: 20px;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-                        

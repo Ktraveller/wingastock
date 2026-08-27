@@ -636,6 +636,263 @@ def seller_declaration(request):
     )
 
 
+# Sellers account
+@login_required(login_url="login_seller")
+def seller_account(request):
+    return render(request, 'acount_s.html')
+
+
+# Seller update informations
+@login_required(login_url="login_seller")
+def update_seller_information(request):
+
+    # ==========================================
+    # GET CURRENT SELLER
+    # ==========================================
+
+    try:
+        seller = request.user.seller
+
+    except Seller.DoesNotExist:
+
+        messages.error(
+            request,
+            'Seller information was not found.'
+        )
+
+        return redirect('seller_home')
+
+
+    # ==========================================
+    # POST REQUEST
+    # ==========================================
+
+    if request.method == 'POST':
+
+        # Get submitted values
+        seller_name = request.POST.get(
+            'seller_name',
+            ''
+        ).strip()
+
+        seller_phone = request.POST.get(
+            'seller_phone',
+            ''
+        ).strip()
+
+        seller_address = request.POST.get(
+            'seller_address',
+            ''
+        ).strip()
+
+        seller_description = request.POST.get(
+            'seller_description',
+            ''
+        ).strip()
+
+        errors = []
+
+
+        # ==========================================
+        # VALIDATE ONLY FILLED FIELDS
+        # ==========================================
+
+        # Seller name
+        if seller_name:
+
+            if len(seller_name) < 2:
+
+                errors.append(
+                    'Seller name must contain at least 2 characters.'
+                )
+
+
+        # Phone
+        if seller_phone:
+
+            if not re.match(
+                r'^255\d{9}$',
+                seller_phone
+            ):
+
+                errors.append(
+                    'Seller phone number is invalid. '
+                    'Use the format 255XXXXXXXXX.'
+                )
+
+
+        # Address
+        if seller_address:
+
+            if len(seller_address) < 3:
+
+                errors.append(
+                    'Seller address is invalid.'
+                )
+
+
+        # Description
+        if seller_description:
+
+            if len(seller_description) < 10:
+
+                errors.append(
+                    'Seller description must contain at least 10 characters.'
+                )
+
+
+        # ==========================================
+        # CHECK PHONE DUPLICATE
+        # ==========================================
+
+        if seller_phone:
+
+            phone_exists = Seller.objects.filter(
+                seller_phone=seller_phone
+            ).exclude(
+                pk=seller.pk
+            ).exists()
+
+            if phone_exists:
+
+                errors.append(
+                    'Another seller is already using this phone number.'
+                )
+
+
+        # ==========================================
+        # VALIDATION FAILED
+        # ==========================================
+
+        if errors:
+
+            for error in errors:
+
+                messages.error(
+                    request,
+                    error
+                )
+
+            return render(
+                request,
+                'update_seller.html',
+                {
+                    'seller': seller,
+                }
+            )
+
+
+        # ==========================================
+        # UPDATE ONLY FILLED FIELDS
+        # ==========================================
+
+        try:
+
+            with transaction.atomic():
+
+                update_fields = []
+
+
+                # Seller name
+                if seller_name:
+
+                    seller.seller_name = seller_name
+
+                    update_fields.append(
+                        'seller_name'
+                    )
+
+
+                # Phone
+                if seller_phone:
+
+                    seller.seller_phone = seller_phone
+
+                    update_fields.append(
+                        'seller_phone'
+                    )
+
+
+                # Address
+                if seller_address:
+
+                    seller.seller_address = seller_address
+
+                    update_fields.append(
+                        'seller_address'
+                    )
+
+
+                # Description
+                if seller_description:
+
+                    seller.seller_description = seller_description
+
+                    update_fields.append(
+                        'seller_description'
+                    )
+
+
+                # ----------------------------------
+                # SAVE ONLY IF SOMETHING WAS CHANGED
+                # ----------------------------------
+
+                if update_fields:
+
+                    seller.save(
+                        update_fields=update_fields
+                    )
+
+                    messages.success(
+                        request,
+                        'Your seller information has been updated successfully.'
+                    )
+
+                else:
+
+                    messages.info(
+                        request,
+                        'No information was changed.'
+                    )
+
+
+            return redirect(
+                'seller_account'
+            )
+
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                'Something went wrong while updating your '
+                'seller information. Please try again.'
+            )
+
+            return render(
+                request,
+                'update_seller.html',
+                {
+                    'seller': seller,
+                }
+            )
+
+
+    # ==========================================
+    # GET REQUEST
+    # ==========================================
+
+    return render(
+        request,
+        'update_seller.html',
+        {
+            'seller': seller,
+        }
+    )
+    
+
+
+# Seller logout
 @login_required(login_url="login_seller")
 def seller_logout(request):
     logout(request)
