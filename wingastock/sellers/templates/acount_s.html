@@ -48,6 +48,14 @@
 
 <body>
 
+    <!-- Page Loader -->
+    <div id="page-loader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <div class="loading-text">Loading<span class="dots"></span></div>
+        </div>
+    </div>
+
     <div class="row-holder">
 
         <!-- Header -->
@@ -171,8 +179,7 @@
 
                 <div class="input-holder-203 submit-203">
                     <div>
-                        <button type="button" style="width: 40%;"
-                            onclick="window.location.href=`{% url 'update_seller_information' %}`">
+                        <button type="button" onclick="window.location.href=`{% url 'update_seller_information' %}`">
                             <i class="fas fa-edit"></i>
                             Update informations</button>
                     </div>
@@ -184,6 +191,21 @@
 
     </div>
 
+    <script>
+        window.addEventListener("load", function () {
+
+            const loader = document.getElementById("page-loader");
+
+            if (loader) {
+                loader.classList.add("hidden");
+
+                setTimeout(function () {
+                    loader.remove();
+                }, 400);
+            }
+
+        });
+    </script>
 
 
     <script>

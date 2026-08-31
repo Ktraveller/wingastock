@@ -1,0 +1,712 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Congratulations | WingaStock
+</title>
+
+
+<style>
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
+    * {
+        box-sizing: border-box;
+    }
+
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+    }
+
+
+    /* =====================================================
+       BODY
+    ===================================================== */
+
+    body {
+
+        min-height: 100vh;
+
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+
+        background: crimson;
+
+        color: #ffffff;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        padding: 20px;
+
+        overflow: hidden;
+    }
+
+
+    /* =====================================================
+       MAIN CONTAINER
+    ===================================================== */
+
+    .congratulations-page {
+
+        width: 100%;
+
+        max-width: 520px;
+
+        text-align: center;
+    }
+
+
+    /* =====================================================
+       CARD
+    ===================================================== */
+
+    .congratulations-card {
+
+        background: #ffffff;
+
+        color: #333333;
+
+        border-radius: 25px;
+
+        padding:
+            45px 30px;
+
+        box-shadow:
+            0 15px 50px
+            rgba(0, 0, 0, 0.30);
+
+        position: relative;
+
+        overflow: hidden;
+
+        animation:
+            cardAppear
+            0.7s ease;
+    }
+
+
+    /* =====================================================
+       TOP DECORATION
+    ===================================================== */
+
+    .top-decoration {
+
+        position: absolute;
+
+        top: 0;
+
+        left: 0;
+
+        width: 100%;
+
+        height: 8px;
+
+        background: crimson;
+    }
+
+
+    /* =====================================================
+       LOGO
+    ===================================================== */
+
+    .congratulations-logo {
+
+        width: 75px;
+
+        height: 75px;
+
+        object-fit: contain;
+
+        margin-bottom: 15px;
+    }
+
+
+    /* =====================================================
+       CELEBRATION ICON
+    ===================================================== */
+
+    .celebration-icon {
+
+        font-size: 75px;
+
+        line-height: 1;
+
+        margin-bottom: 15px;
+
+        animation:
+            bounce
+            1.2s ease infinite;
+    }
+
+
+    /* =====================================================
+       TITLE
+    ===================================================== */
+
+    .congratulations-title {
+
+        margin: 0;
+
+        color: crimson;
+
+        font-size: 34px;
+
+        font-weight: 900;
+
+        line-height: 1.15;
+    }
+
+
+    /* =====================================================
+       SUBTITLE
+    ===================================================== */
+
+    .congratulations-subtitle {
+
+        margin:
+            12px 0 25px;
+
+        color: #555555;
+
+        font-size: 17px;
+
+        line-height: 1.5;
+    }
+
+
+    /* =====================================================
+       VOUCHER BOX
+    ===================================================== */
+
+    .voucher-box {
+
+        background:
+            #fff0f3;
+
+        border:
+            2px solid crimson;
+
+        border-radius: 18px;
+
+        padding: 20px;
+
+        margin:
+            0 auto 25px;
+
+        max-width: 300px;
+    }
+
+
+    .voucher-icon {
+
+        font-size: 45px;
+
+        margin-bottom: 5px;
+    }
+
+
+    .voucher-number {
+
+        margin: 0;
+
+        color: crimson;
+
+        font-size: 38px;
+
+        font-weight: 900;
+    }
+
+
+    .voucher-label {
+
+        margin-top: 3px;
+
+        color: #555555;
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        text-transform: uppercase;
+
+        letter-spacing: 1px;
+    }
+
+
+    /* =====================================================
+       MESSAGE
+    ===================================================== */
+
+    .congratulations-message {
+
+        margin:
+            0 auto 25px;
+
+        max-width: 400px;
+
+        color: #666666;
+
+        font-size: 15px;
+
+        line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       BUTTON
+    ===================================================== */
+
+    .continue-button {
+
+        display: inline-block;
+
+        text-decoration: none;
+
+        background: crimson;
+
+        color: #ffffff;
+
+        padding:
+            14px 38px;
+
+        border-radius: 50px;
+
+        font-size: 16px;
+
+        font-weight: 900;
+
+        box-shadow:
+            0 6px 18px
+            rgba(220, 20, 60, 0.30);
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+
+    .continue-button:hover {
+
+        color: #ffffff;
+
+        transform:
+            translateY(-2px);
+
+        box-shadow:
+            0 9px 25px
+            rgba(220, 20, 60, 0.40);
+    }
+
+
+    .continue-button:active {
+
+        transform:
+            translateY(1px);
+    }
+
+
+    /* =====================================================
+       CONFETTI
+    ===================================================== */
+
+    .confetti {
+
+        position: fixed;
+
+        top: -20px;
+
+        width: 10px;
+
+        height: 18px;
+
+        background: #ffffff;
+
+        opacity: 0.9;
+
+        animation:
+            fall
+            linear
+            infinite;
+
+        z-index: 1;
+    }
+
+
+    .confetti:nth-child(1) {
+        left: 5%;
+        animation-duration: 3s;
+        animation-delay: 0s;
+    }
+
+
+    .confetti:nth-child(2) {
+        left: 15%;
+        animation-duration: 4s;
+        animation-delay: 1s;
+    }
+
+
+    .confetti:nth-child(3) {
+        left: 28%;
+        animation-duration: 3.5s;
+        animation-delay: 0.5s;
+    }
+
+
+    .confetti:nth-child(4) {
+        left: 42%;
+        animation-duration: 4.5s;
+        animation-delay: 1.5s;
+    }
+
+
+    .confetti:nth-child(5) {
+        left: 55%;
+        animation-duration: 3.2s;
+        animation-delay: 0.2s;
+    }
+
+
+    .confetti:nth-child(6) {
+        left: 68%;
+        animation-duration: 4.2s;
+        animation-delay: 1s;
+    }
+
+
+    .confetti:nth-child(7) {
+        left: 80%;
+        animation-duration: 3.8s;
+        animation-delay: 0.7s;
+    }
+
+
+    .confetti:nth-child(8) {
+        left: 92%;
+        animation-duration: 4.7s;
+        animation-delay: 1.8s;
+    }
+
+
+    /* =====================================================
+       ANIMATIONS
+    ===================================================== */
+
+    @keyframes cardAppear {
+
+        from {
+
+            opacity: 0;
+
+            transform:
+                translateY(30px)
+                scale(0.95);
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+    }
+
+
+    @keyframes bounce {
+
+        0%,
+        100% {
+
+            transform:
+                translateY(0);
+        }
+
+        50% {
+
+            transform:
+                translateY(-10px);
+        }
+    }
+
+
+    @keyframes fall {
+
+        0% {
+
+            transform:
+                translateY(-30px)
+                rotate(0deg);
+
+            opacity: 1;
+        }
+
+        100% {
+
+            transform:
+                translateY(110vh)
+                rotate(720deg);
+
+            opacity: 0;
+        }
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 480px) {
+
+        body {
+
+            padding: 15px;
+        }
+
+
+        .congratulations-card {
+
+            padding:
+                38px 22px;
+        }
+
+
+        .congratulations-logo {
+
+            width: 65px;
+
+            height: 65px;
+        }
+
+
+        .celebration-icon {
+
+            font-size: 65px;
+        }
+
+
+        .congratulations-title {
+
+            font-size: 29px;
+        }
+
+
+        .congratulations-subtitle {
+
+            font-size: 15px;
+        }
+
+
+        .voucher-box {
+
+            padding: 17px;
+        }
+
+
+        .voucher-number {
+
+            font-size: 34px;
+        }
+
+
+        .continue-button {
+
+            width: 100%;
+
+            padding:
+                14px 25px;
+        }
+
+    }
+
+
+    /* =====================================================
+       SMALL PHONES
+    ===================================================== */
+
+    @media (max-width: 360px) {
+
+        .congratulations-card {
+
+            padding:
+                32px 18px;
+        }
+
+
+        .celebration-icon {
+
+            font-size: 55px;
+        }
+
+
+        .congratulations-title {
+
+            font-size: 26px;
+        }
+
+    }
+
+</style>
+
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     CONFETTI
+====================================================== -->
+
+<div class="confetti"></div>
+
+<div class="confetti"></div>
+
+<div class="confetti"></div>
+
+<div class="confetti"></div>
+
+<div class="confetti"></div>
+
+<div class="confetti"></div>
+
+<div class="confetti"></div>
+
+<div class="confetti"></div>
+
+
+<!-- =====================================================
+     MAIN PAGE
+====================================================== -->
+
+<div class="congratulations-page">
+
+
+    <div class="congratulations-card">
+
+
+        <div class="top-decoration"></div>
+
+
+        <!-- =================================================
+             LOGO
+        ================================================== -->
+
+        <img
+            src="{% static 'logo.png' %}"
+            alt="WingaStock"
+            class="congratulations-logo"
+        >
+
+
+        <!-- =================================================
+             CELEBRATION
+        ================================================== -->
+
+        <div class="celebration-icon">
+            🎉
+        </div>
+
+
+        <!-- =================================================
+             TITLE
+        ================================================== -->
+
+        <h1 class="congratulations-title">
+
+            Congratulations!
+
+        </h1>
+
+
+        <p class="congratulations-subtitle">
+
+            You did it! You have successfully
+            completed your voucher collection.
+
+        </p>
+
+
+        <!-- =================================================
+             VOUCHER BOX
+        ================================================== -->
+
+        <div class="voucher-box">
+
+
+            <div class="voucher-icon">
+                🎟️
+            </div>
+
+
+            <div class="voucher-number">
+                5
+            </div>
+
+
+            <div class="voucher-label">
+                Vouchers Collected
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             MESSAGE
+        ================================================== -->
+
+        <p class="congratulations-message">
+
+            You have reached the required
+            <strong>5 vouchers</strong>.
+            Your voucher progress has been
+            reset and you can start a new
+            collection cycle.
+
+        </p>
+
+
+        <!-- =================================================
+             CONTINUE BUTTON
+        ================================================== -->
+
+        <a
+            href="{% url 'spin' %}"
+            class="continue-button"
+        >
+            🎡 Continue Spinning
+        </a>
+
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

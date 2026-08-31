@@ -74,14 +74,27 @@
                     <table style="width: auto;">
                         <thead>
                             <th class="id">#</th>
+                            <th>Seller</th>
                             <th>Phone</th>
+                            <th>Address</th>
+                            <th>Reg_date</th>
+                            <th>Actions</th>
                         </thead>
 
                         <tbody id="productTable">
                             {% for sellers in sellers_list %}
                             <tr>
                                 <td class="id">{{ sellers.id }}</td>
-                                <td>{{ sellers.phone }}</td>
+                                <td>{{ sellers.seller_name }}</td>
+                                <td>{{ sellers.seller_phone }}</td>
+                                <td>{{ sellers.seller_address }}</td>
+                                <td>{{ sellers.reg_date }}</td>
+
+                                <td style="text-align: right;">
+                                    <button class="btn delete"
+                                        onclick="window.location.href=`{% url 'delete_seller' sellers.id %}`">Delete
+                                        Seller</button>
+                                </td>
                             </tr>
 
                             {% endfor %}

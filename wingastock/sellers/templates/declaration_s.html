@@ -39,10 +39,27 @@
     .info {
       background: #17a2b8;
     }
+
+    table {
+      width: auto;
+    }
+
+    td {
+      width: auto;
+      height: 50px;
+    }
   </style>
 </head>
 
 <body>
+
+  <!-- Page Loader -->
+  <div id="page-loader">
+    <div class="loader-content">
+      <div class="spinner"></div>
+      <div class="loading-text">Loading<span class="dots"></span></div>
+    </div>
+  </div>
 
   <div class="row-holder">
 
@@ -125,30 +142,49 @@
 
                 <div class="seller-summary">
 
-                  <p>
-                    <strong>Name:</strong>
-                    {{ seller.seller_name }}
-                  </p>
+                  <div class="user-info-holder-1000">
+                    <div>
+                      <table>
 
-                  <p>
-                    <strong>Phone:</strong>
-                    {{ seller.seller_phone }}
-                  </p>
+                        <tr>
+                          <td style="font-weight: bold;">
+                            <i class="fas fa-store"></i>
+                            Name (Shop name):
+                          </td>
+                          <td>{{ seller.seller_name }}</td>
+                        </tr>
 
-                  <p>
-                    <strong>Address:</strong>
-                    {{ seller.seller_address }}
-                  </p>
+                        <tr>
+                          <td style="font-weight: bold;">
+                            <i class="fas fa-phone"></i>
+                            Phone:
+                          </td>
+                          <td>{{ seller.seller_phone }}</td>
+                        </tr>
 
-                  <p>
-                    <strong>Wingastock Email:</strong>
-                    <span style="font-size: 20px; color: crimson;">{{ seller.seller_email }}</span>
 
-                    <br><br>
-                    <span style="font-weight: bold; text-decoration: underline;"><b>Impotant: </b> Save this email, you
-                      can only login
-                      using this email.</span>
-                  </p>
+                        <tr>
+                          <td style="font-weight: bold;">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Address:
+                          </td>
+                          <td>{{ seller.seller_address }}</td>
+                        </tr>
+
+                        <tr>
+                          <td style="font-weight: bold;">
+                            <i class="fas fa-envelope"></i>
+                            Wingastock Email:
+                          </td>
+                          <td style="font-size: 15px; font-weight: bold;">{{ seller.seller_email }}</td>
+                        </tr>
+                      </table>
+
+                      <p>Save the email you can only login or access seller account using that email</p>
+                      <br>
+                    </div>
+                  </div>
+
 
                 </div>
 
@@ -248,7 +284,21 @@
 
   </div>
 
+  <script>
+    window.addEventListener("load", function () {
 
+      const loader = document.getElementById("page-loader");
+
+      if (loader) {
+        loader.classList.add("hidden");
+
+        setTimeout(function () {
+          loader.remove();
+        }, 400);
+      }
+
+    });
+  </script>
 
   <script>
     function open_menu(click) {

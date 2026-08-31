@@ -99,10 +99,6 @@
 
                     <p style="font-weight: bold;">Products list</p>
 
-                    <button type="button" class="close-205" style="float: right;"
-                        onclick="window.location.href=`{% url 'add_product' %}`">Add product</button>
-
-
                     {% if messages %}
                     <div class="messages">
                         {% for message in messages %}
@@ -138,15 +134,16 @@
                             <tr>
                                 <td class="id">{{ product_data.id }}</td>
                                 <td>
-                                    <a href="{% url 'preview_p' product_data.id %}" style="text-decoration: none;">{{ product_data.title }}</a>
+                                    <a href="{% url 'admin_preview_p' product_data.id %}" style="text-decoration: none;">{{ product_data.title }}</a>
                                 </td>
                                 <td>{{ product_data.category }}</td>
                                 <td>{{ product_data.price }} Tsh</td>
-                                <td style="text-align: left;"><span class="active">{{ product_data.location }}</span>
+                                <td style="text-align: left;">
+                                    <span class="active">
+                                        {{ product_data.owner.seller.seller_address }}
+                                    </span>
                                 </td>
                                 <td style="text-align: right;">
-                                    <button class="btn edit"
-                                        onclick="window.location.href=`{% url 'edit_product' product_data.id %}`">Edit</button>
                                     <button class="btn delete"
                                         onclick="window.location.href=`{% url 'delete_product' product_data.id %}`">Delete</button>
                                 </td>

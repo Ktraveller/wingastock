@@ -1,0 +1,57 @@
+{% load static %}
+{% load humanize %}
+
+<style>
+    .product-1002>button {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        border-style: none;
+        outline: none;
+    }
+
+    .product-1002>button>i {
+        font-size: 50px;
+    }
+
+    .product-details-1003 {
+        width: 100%;
+        height: auto;
+    }
+</style>
+
+<div class="product-card" onclick="window.location.href=`{% url 'shop_preview' shop.id %}`">
+
+
+    <div class="product-1002">
+        <button type="button">
+            <i class="fas fa-store"></i> <br><br>
+            <span style="font-size: 20px;">{{ shop.seller_name }}</span>
+        </button>
+    </div>
+
+    <div class="product-details-1003">
+
+        <ul>
+            <li>
+                {{ shop.seller_description }}
+            </li>
+            <li>
+                <span class="seller-1003">
+                    {{ shop.seller_address }}
+                </span>
+            </li>
+
+            <li>
+                <span>
+                    Since: {{ shop.reg_date }}
+                </span>
+            </li>
+
+            <li>
+
+            </li>
+        </ul>
+    </div>
+
+</div>

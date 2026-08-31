@@ -1,24 +1,43 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+from django.utils import timezone
 
-from sellers.models import Product
 
-
-class Customer(models.Model):
+class CustomerSpin(models.Model):
 
     customer = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='product_views'
+        related_name="spins"
     )
 
-    product = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE,
-        related_name='customer_views'
+    reward = models.TextField(
+        default="empty"
     )
 
-    view_time = models.DateTimeField(auto_now_add=True)
+    reward_count = models.IntegerField(
+        default=0
+    )
+
+    points = models.IntegerField(
+        default=0
+    )
+
+    play_date = models.DateField(
+        default=timezone.localdate
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["customer", "play_date"],
+                name="one_spin_per_customer_per_day"
+            )
+        ]
 
     def __str__(self):
-        return f"{self.customer.username} viewed {self.product}"
+        return f"{self.customer.username} - {self.reward}"

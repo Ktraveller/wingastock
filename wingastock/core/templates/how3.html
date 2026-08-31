@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wingastock</title>
+  <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    .messages {
+      margin: 20px 0;
+    }
+
+    .alert {
+      padding: 12px 18px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .success {
+      background: #28a745;
+    }
+
+    .error {
+      background: #dc3545;
+    }
+
+    .warning {
+      background: #ffc107;
+      color: #000;
+    }
+
+    .info {
+      background: #17a2b8;
+    }
+
+    ol>li {
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page-loader-holder-000">
+    <div>
+      <button type="button">
+        <h1>
+          <img src="{% static 'logo.png' %}" alt="logo"> <br>
+          <span>Wingastock</span>
+        </h1>
+      </button>
+    </div>
+  </div>
+
+  <div class="row-holder">
+
+    <!-- Header -->
+    <div class="header-holder-100">
+      <div class="header-100">
+        <div class="action-holder-101">
+          <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+          <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+              class="fas fa-times"></i></button>
+        </div>
+        <div class="title-holder-101">
+          <button type="button"><span>Wingastock</span></button>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- center content -->
+    <div class="center-content-200">
+
+      <div class="left-holder-201" id="nav">
+        <div class="nav-bar-holder-202">
+
+          <ul>
+            <a href="{% url 'how1' %}">
+              <li>What is wingastock <i class="fas fa-file-contract"></i></li>
+            </a>
+          </ul>
+
+          <ul>
+            <a href="{% url 'how2' %}">
+              <li>How to get seller contacts <i class="fas fa-user"></i></li>
+            </a>
+          </ul>
+
+          <ul>
+            <a href="{% url 'how3' %}">
+              <li class="active-0">How to register as seller <i class="fas fa-file-signature"></i></li>
+            </a>
+          </ul>
+
+          <ul>
+            <a href="{% url 'customer_login' %}">
+              <li>Login <i class="fas fa-sign-in-alt"></i></li>
+            </a>
+          </ul>
+
+        </div>
+      </div>
+
+      <div class="right-holder-201">
+        <div class="products-202">
+
+          <div class="terms-holder-202">
+
+            <div>
+
+              <div class="how-to-register-seller-0006">
+                <p> <strong>How to Register as a Seller on Wingastock</strong> </p>
+                <p> Becoming a seller on Wingastock allows you to advertise and sell your products to customers through
+                  our online marketplace. Follow the steps below carefully to create your seller account. </p>
+                <ol>
+                  <li>
+                    <strong>Read the Seller Terms and Conditions:</strong>
+                    Before starting the seller registration process, carefully read and
+                    understand the Wingastock Seller Terms and Conditions. These terms
+                    explain your responsibilities as a seller, including product listings,
+                    customer service, payments, prohibited products and compliance with
+                    applicable laws.
+                  </li>
+
+                  <li>
+                    <strong>Start Seller Registration:</strong>
+                    Select the option to register or become a seller on Wingastock and
+                    begin the seller registration process.
+                  </li>
+
+                  <li>
+                    <strong>Fill in Your Seller Information:</strong>
+                    Provide the required seller information accurately and completely.
+                    Depending on the information requested by Wingastock, this may include
+                    your name, business information, contact details and other information
+                    required to create and manage your seller account.
+                  </li>
+
+                  <li>
+                    <strong>Review Your Information:</strong>
+                    Before continuing, carefully check all the information you have entered.
+                    Make sure your details are correct because this information may be used
+                    to manage your seller account and communicate with you.
+                  </li>
+
+                  <li>
+                    <strong>Complete the Seller Declaration:</strong>
+                    Read the seller declaration carefully and confirm that the information
+                    you have provided is accurate and that you agree to the applicable
+                    Seller Terms and Conditions.
+                  </li>
+
+                  <li>
+                    <strong>Receive Your @winga.com Seller Email:</strong>
+                    During the declaration or account-creation process, Wingastock will
+                    provide you with a dedicated <strong>@winga.com</strong> email address
+                    for your seller account.
+
+                    <strong>Save this email address carefully.</strong>
+                    This email is important because it is used specifically for your
+                    seller login and for accessing your seller account.
+                  </li>
+
+                  <li>
+                    <strong>Create Your Account Password:</strong>
+                    Enter and confirm a secure password for your seller account. Choose a
+                    password that is difficult for others to guess and do not share it
+                    with anyone.
+                  </li>
+
+                  <li>
+                    <strong>Submit Your Seller Registration:</strong>
+                    After completing all required information, reviewing the terms and
+                    declaration, receiving your <strong>@winga.com</strong> seller email
+                    and creating your password, submit the registration form.
+                  </li>
+
+                  <li>
+                    <strong>Keep Your Seller Login Details Safe:</strong>
+                    Your <strong>@winga.com</strong> seller email and password are your
+                    seller account login credentials. Keep them secure and do not share
+                    them with other people.
+                  </li>
+
+                  <li>
+                    <strong>Log In to Your Seller Account:</strong>
+                    After successful registration, use your assigned
+                    <strong>@winga.com</strong> seller email and account password to log in
+                    and access your seller account.
+                  </li>
+
+                  <li>
+                    <strong>Start Selling on Wingastock:</strong>
+                    Once you have access to your seller account, you can use the available
+                    seller features to create product listings, add product information,
+                    manage your products, communicate with customers and manage your
+                    selling activities.
+                  </li>
+
+                </ol>
+                <p> <strong>Important:</strong> Your <strong>@winga.com</strong> seller email is specifically used for
+                  seller account login and access. Make sure you save it somewhere safe immediately after it is provided
+                  to you. If you lose your seller login details, use the available Wingastock account recovery or
+                  support process. </p>
+                <p> <strong>Quick Guide:</strong> Read Seller Terms → Start Registration → Fill Seller Information →
+                  Review Information → Complete Declaration → Receive @winga.com Email → Create Password → Submit
+                  Registration → Log In → Start Selling. </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+        <script>
+        window.addEventListener("load", function () {
+
+            const loader = document.querySelector(
+                ".page-loader-holder-000"
+            );
+
+            if (loader) {
+
+                // Fade out the loader
+                loader.classList.add("hidden");
+
+                // Remove it completely after the animation
+                setTimeout(function () {
+                    loader.remove();
+                }, 500);
+            }
+
+        });
+    </script>
+
+    <script>
+      function open_menu(click) {
+        let menu1 = document.getElementById('menu1');
+        let menu2 = document.getElementById('menu2');
+        let nav = document.getElementById('nav');
+
+        if (click == 'open') {
+          menu1.style.display = 'none';
+          menu2.style.display = 'inline-block';
+          nav.style.display = 'inline-block';
+        }
+        else {
+          menu1.style.display = 'inline-block';
+          menu2.style.display = 'none';
+          nav.style.display = 'none';
+        }
+      }
+    </script>
+</body>
+
+</html>

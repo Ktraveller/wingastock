@@ -1,0 +1,1841 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Spin & Win | WingaStock</title>
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: crimson;
+
+            color: #ffffff;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+        }
+
+
+        .spin-page {
+
+            width: 100%;
+
+            max-width: 520px;
+
+            text-align: center;
+
+            padding: 20px;
+        }
+
+
+        .spin-logo {
+
+            width: 70px;
+
+            height: 70px;
+
+            object-fit: contain;
+
+            margin-bottom: 10px;
+        }
+
+
+        .spin-title {
+
+            margin: 0;
+
+            font-size: 32px;
+
+            font-weight: 800;
+
+            color: #ffffff;
+        }
+
+
+        .spin-subtitle {
+
+            margin-top: 8px;
+
+            margin-bottom: 20px;
+
+            font-size: 16px;
+
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+
+        /* =====================================================
+           USER STATS
+        ===================================================== */
+
+        .stats-container {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            margin-bottom: 25px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .stat-box {
+
+            background: #ffffff;
+
+            color: crimson;
+
+            border-radius: 14px;
+
+            padding: 12px 20px;
+
+            min-width: 135px;
+
+            box-shadow:
+                0 5px 18px rgba(0, 0, 0, 0.20);
+        }
+
+
+        .stat-label {
+
+            display: block;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            color: #666666;
+
+            margin-bottom: 3px;
+        }
+
+
+        .stat-value {
+
+            display: block;
+
+            font-size: 22px;
+
+            font-weight: 900;
+        }
+
+
+        /* =====================================================
+           VOUCHER PROGRESS
+        ===================================================== */
+
+        .voucher-progress-container {
+
+            width: 100%;
+
+            max-width: 320px;
+
+            margin: 0 auto 25px;
+        }
+
+
+        .voucher-progress-title {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 7px;
+
+            font-size: 13px;
+
+            font-weight: 800;
+        }
+
+
+        .voucher-progress {
+
+            width: 100%;
+
+            height: 12px;
+
+            background:
+                rgba(255, 255, 255, 0.35);
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+
+        .voucher-progress-bar {
+
+            width: 0%;
+
+            height: 100%;
+
+            background: #ffffff;
+
+            border-radius: 20px;
+
+            transition:
+                width 0.5s ease;
+        }
+
+
+        /* =====================================================
+           WHEEL
+        ===================================================== */
+
+        .wheel-container {
+
+            position: relative;
+
+            width: 360px;
+
+            height: 360px;
+
+            max-width: 90vw;
+
+            max-height: 90vw;
+
+            margin: 0 auto 30px;
+        }
+
+
+        .pointer {
+
+            position: absolute;
+
+            top: -9px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 0;
+
+            height: 0;
+
+            border-left:
+                20px solid transparent;
+
+            border-right:
+                20px solid transparent;
+
+            border-top:
+                42px solid #ffffff;
+
+            z-index: 30;
+
+            filter:
+                drop-shadow(0 3px 4px rgba(0, 0, 0, 0.45));
+        }
+
+
+        .wheel {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 100%;
+
+            border-radius: 50%;
+
+            border:
+                8px solid #ffffff;
+
+            overflow: hidden;
+
+            background:
+
+                conic-gradient(crimson 0deg 45deg,
+
+                    #ffffff 45deg 90deg,
+
+                    crimson 90deg 135deg,
+
+                    #ffffff 135deg 180deg,
+
+                    crimson 180deg 225deg,
+
+                    #ffffff 225deg 270deg,
+
+                    crimson 270deg 315deg,
+
+                    #ffffff 315deg 360deg);
+
+            box-shadow:
+
+                0 10px 35px rgba(0, 0, 0, 0.30);
+
+            transform:
+                rotate(0deg);
+
+            transition:
+                transform 5s cubic-bezier(0.15,
+                    0.85,
+                    0.15,
+                    1);
+        }
+
+
+        .wheel-line {
+
+            position: absolute;
+
+            left: 50%;
+
+            top: 50%;
+
+            width: 3px;
+
+            height: 50%;
+
+            background:
+                rgba(0, 0, 0, 0.18);
+
+            transform-origin:
+                bottom center;
+
+            z-index: 3;
+        }
+
+
+        .line-1 {
+            transform:
+                translate(-50%, -100%) rotate(0deg);
+        }
+
+
+        .line-2 {
+            transform:
+                translate(-50%, -100%) rotate(45deg);
+        }
+
+
+        .line-3 {
+            transform:
+                translate(-50%, -100%) rotate(90deg);
+        }
+
+
+        .line-4 {
+            transform:
+                translate(-50%, -100%) rotate(135deg);
+        }
+
+
+        .line-5 {
+            transform:
+                translate(-50%, -100%) rotate(180deg);
+        }
+
+
+        .line-6 {
+            transform:
+                translate(-50%, -100%) rotate(225deg);
+        }
+
+
+        .line-7 {
+            transform:
+                translate(-50%, -100%) rotate(270deg);
+        }
+
+
+        .line-8 {
+            transform:
+                translate(-50%, -100%) rotate(315deg);
+        }
+
+
+        .wheel-section {
+
+            position: absolute;
+
+            width: 50%;
+
+            height: 50%;
+
+            left: 25%;
+
+            top: 0;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: flex-start;
+
+            padding-top: 27px;
+
+            text-align: center;
+
+            z-index: 5;
+
+            pointer-events: none;
+        }
+
+
+        .wheel-section span {
+
+            display: block;
+
+            width: 85px;
+
+            text-align: center;
+
+            font-size: 14px;
+
+            font-weight: 900;
+
+            line-height: 1.25;
+
+            text-transform: uppercase;
+
+            user-select: none;
+        }
+
+
+        .section-1 span,
+        .section-3 span,
+        .section-5 span,
+        .section-7 span {
+
+            color: #ffffff;
+
+            text-shadow:
+                0 2px 3px rgba(0, 0, 0, 0.35);
+        }
+
+
+        .section-2 span,
+        .section-4 span,
+        .section-6 span,
+        .section-8 span {
+
+            color: #222222;
+        }
+
+
+        .section-1 {
+
+            transform:
+                rotate(22.5deg);
+
+            transform-origin:
+                50% 100%;
+        }
+
+
+        .section-2 {
+
+            transform:
+                rotate(67.5deg);
+
+            transform-origin:
+                50% 100%;
+        }
+
+
+        .section-3 {
+
+            transform:
+                rotate(112.5deg);
+
+            transform-origin:
+                50% 100%;
+        }
+
+
+        .section-4 {
+
+            transform:
+                rotate(157.5deg);
+
+            transform-origin:
+                50% 100%;
+        }
+
+
+        .section-5 {
+
+            transform:
+                rotate(202.5deg);
+
+            transform-origin:
+                50% 100%;
+        }
+
+
+        .section-6 {
+
+            transform:
+                rotate(247.5deg);
+
+            transform-origin:
+                50% 100%;
+        }
+
+
+        .section-7 {
+
+            transform:
+                rotate(292.5deg);
+
+            transform-origin:
+                50% 100%;
+        }
+
+
+        .section-8 {
+
+            transform:
+                rotate(337.5deg);
+
+            transform-origin:
+                50% 100%;
+        }
+
+
+        .wheel-center {
+
+            position: absolute;
+
+            left: 50%;
+
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
+
+            width: 82px;
+
+            height: 82px;
+
+            border-radius: 50%;
+
+            background: #ffffff;
+
+            border:
+                6px solid crimson;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: crimson;
+
+            font-size: 15px;
+
+            font-weight: 900;
+
+            z-index: 20;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.30);
+
+            user-select: none;
+        }
+
+
+        /* =====================================================
+           SPIN BUTTON
+        ===================================================== */
+
+        .spin-button {
+
+            border: none;
+
+            outline: none;
+
+            background: #ffffff;
+
+            color: crimson;
+
+            padding:
+                14px 50px;
+
+            border-radius: 50px;
+
+            font-size: 18px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 6px 20px rgba(0, 0, 0, 0.25);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+
+        .spin-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 9px 25px rgba(0, 0, 0, 0.30);
+        }
+
+
+        .spin-button:active {
+
+            transform:
+                translateY(1px);
+        }
+
+
+        .spin-button:disabled {
+
+            opacity: 0.55;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =====================================================
+           LOADING
+        ===================================================== */
+
+        .loading-text {
+
+            display: none;
+
+            margin-top: 18px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color:
+                rgba(255, 255, 255, .9);
+        }
+
+
+        .loading-text.show {
+
+            display: block;
+        }
+
+
+        /* =====================================================
+           RESULT
+        ===================================================== */
+
+        .result {
+
+            display: none;
+
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 22px;
+
+            background: #ffffff;
+
+            color: #333333;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 7px 25px rgba(0, 0, 0, 0.22);
+
+            animation:
+                resultAppear 0.4s ease;
+        }
+
+
+        .result.show {
+
+            display: block;
+        }
+
+
+        .result-icon {
+
+            font-size: 38px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .result h2 {
+
+            margin:
+                0 0 8px;
+
+            color: crimson;
+
+            font-size: 23px;
+        }
+
+
+        .result p {
+
+            margin: 0;
+
+            color: #555555;
+
+            font-size: 15px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           ERROR
+        ===================================================== */
+
+        .error-message {
+
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 12px 15px;
+
+            background:
+                rgba(0, 0, 0, 0.18);
+
+            border:
+                1px solid rgba(255, 255, 255, .3);
+
+            border-radius: 10px;
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            line-height: 1.4;
+        }
+
+
+        .error-message.show {
+
+            display: block;
+        }
+
+
+        @keyframes resultAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(12px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 480px) {
+
+            body {
+
+                padding: 10px;
+            }
+
+
+            .spin-page {
+
+                padding: 15px 5px;
+            }
+
+
+            .spin-title {
+
+                font-size: 27px;
+            }
+
+
+            .spin-subtitle {
+
+                font-size: 14px;
+
+                margin-bottom: 18px;
+            }
+
+
+            .wheel-container {
+
+                width: 320px;
+
+                height: 320px;
+
+                max-width: 88vw;
+
+                max-height: 88vw;
+            }
+
+
+            .wheel-section {
+
+                padding-top: 24px;
+            }
+
+
+            .wheel-section span {
+
+                width: 70px;
+
+                font-size: 12px;
+            }
+
+
+            .wheel-center {
+
+                width: 70px;
+
+                height: 70px;
+
+                border-width: 5px;
+
+                font-size: 13px;
+            }
+
+
+            .pointer {
+
+                border-left-width: 15px;
+
+                border-right-width: 15px;
+
+                border-top-width: 32px;
+            }
+
+
+            .spin-button {
+
+                padding:
+                    13px 40px;
+
+                font-size: 16px;
+            }
+
+
+            .stat-box {
+
+                min-width: 120px;
+
+                padding:
+                    10px 15px;
+            }
+
+        }
+
+
+        /* =====================================================
+           SMALL PHONES
+        ===================================================== */
+
+        @media (max-width: 360px) {
+
+            .spin-title {
+
+                font-size: 24px;
+            }
+
+
+            .wheel-container {
+
+                width: 280px;
+
+                height: 280px;
+            }
+
+
+            .wheel-section {
+
+                padding-top: 21px;
+            }
+
+
+            .wheel-section span {
+
+                width: 60px;
+
+                font-size: 10px;
+            }
+
+
+            .wheel-center {
+
+                width: 62px;
+
+                height: 62px;
+
+                font-size: 11px;
+            }
+
+
+            .pointer {
+
+                border-left-width: 13px;
+
+                border-right-width: 13px;
+
+                border-top-width: 28px;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="spin-page">
+
+
+        <!-- =====================================================
+         LOGO
+    ====================================================== -->
+
+        <img src="{% static 'logo.png' %}" alt="WingaStock" class="spin-logo">
+
+
+        <!-- =====================================================
+         TITLE
+    ====================================================== -->
+
+        <h1 class="spin-title">
+            Spin & Win
+        </h1>
+
+
+        <div class="spin-subtitle">
+            Spin once a day and see what you win!
+        </div>
+
+
+        <!-- =====================================================
+         POINTS + VOUCHER
+    ====================================================== -->
+
+        <div class="stats-container">
+
+            <div class="stat-box">
+
+                <span class="stat-label">
+                    YOUR POINTS
+                </span>
+
+                <span class="stat-value" id="userPoints">
+                    {{ request.user.points|default:"0" }}
+                </span>
+
+            </div>
+
+
+            <div class="stat-box">
+
+                <span class="stat-label">
+                    VOUCHERS
+                </span>
+
+                <span class="stat-value" id="voucherCount">
+                    {{ voucher_count|default:"0" }}/5
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+         VOUCHER PROGRESS BAR
+    ====================================================== -->
+
+        <div class="voucher-progress-container">
+
+            <div class="voucher-progress-title">
+
+                <span>
+                    Voucher Progress
+                </span>
+
+                <span id="voucherProgressText">
+                    {{ voucher_count|default:"0" }}/5
+                </span>
+
+            </div>
+
+
+            <div class="voucher-progress">
+
+                <div class="voucher-progress-bar" id="voucherProgressBar"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+         FORM
+    ====================================================== -->
+
+        <form id="spinForm" method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- =================================================
+             WHEEL
+        ================================================== -->
+
+            <div class="wheel-container">
+
+                <div class="pointer"></div>
+
+
+                <div class="wheel" id="wheel">
+
+                    <!-- DIVIDING LINES -->
+
+                    <div class="wheel-line line-1"></div>
+
+                    <div class="wheel-line line-2"></div>
+
+                    <div class="wheel-line line-3"></div>
+
+                    <div class="wheel-line line-4"></div>
+
+                    <div class="wheel-line line-5"></div>
+
+                    <div class="wheel-line line-6"></div>
+
+                    <div class="wheel-line line-7"></div>
+
+                    <div class="wheel-line line-8"></div>
+
+
+                    <!-- REWARDS -->
+
+                    <div class="wheel-section section-1">
+
+                        <span>
+                            🎟️<br>
+                            VOCHA
+                        </span>
+
+                    </div>
+
+
+                    <div class="wheel-section section-2">
+
+                        <span>
+                            ⭐<br>
+                            POINTS
+                        </span>
+
+                    </div>
+
+
+                    <div class="wheel-section section-3">
+
+                        <span>
+                            ❌<br>
+                            LOSS
+                        </span>
+
+                    </div>
+
+
+                    <div class="wheel-section section-4">
+
+                        <span>
+                            📢<br>
+                            POST
+                        </span>
+
+                    </div>
+
+
+                    <div class="wheel-section section-5">
+
+                        <span>
+                            ⭐<br>
+                            POINTS
+                        </span>
+
+                    </div>
+
+
+                    <div class="wheel-section section-6">
+
+                        <span>
+                            🎟️<br>
+                            VOCHA
+                        </span>
+
+                    </div>
+
+
+                    <div class="wheel-section section-7">
+
+                        <span>
+                            ❌<br>
+                            LOSS
+                        </span>
+
+                    </div>
+
+
+                    <div class="wheel-section section-8">
+
+                        <span>
+                            📢<br>
+                            POST
+                        </span>
+
+                    </div>
+
+
+                    <!-- CENTER -->
+
+                    <div class="wheel-center">
+                        SPIN
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+             BUTTON
+        ================================================== -->
+
+            <button type="submit" class="spin-button" id="spinButton">
+                SPIN
+            </button>
+
+        </form>
+        <br><br><br>
+        <a href="{% url 'home' %}"
+            style="font-size: 20px; font-weight: bold; color: white; text-decoration: none;">Back to Wingastock</a>
+
+        <!-- =====================================================
+         LOADING
+    ====================================================== -->
+
+        <div class="loading-text" id="loadingText">
+            Checking your daily spin...
+        </div>
+
+
+        <!-- =====================================================
+         RESULT
+    ====================================================== -->
+
+        <div class="result" id="result">
+
+            <div class="result-icon" id="resultIcon">
+                🎁
+            </div>
+
+
+            <h2 id="resultTitle">
+                Congratulations!
+            </h2>
+
+
+            <p id="resultMessage"></p>
+
+        </div>
+
+
+        <!-- =====================================================
+         ERROR
+    ====================================================== -->
+
+        <div class="error-message" id="errorMessage"></div>
+
+
+    </div>
+
+
+    <script>
+
+        /* ========================================================
+           ELEMENTS
+        ======================================================== */
+
+        const form =
+            document.getElementById("spinForm");
+
+
+        const wheel =
+            document.getElementById("wheel");
+
+
+        const spinButton =
+            document.getElementById("spinButton");
+
+
+        const result =
+            document.getElementById("result");
+
+
+        const resultIcon =
+            document.getElementById("resultIcon");
+
+
+        const resultTitle =
+            document.getElementById("resultTitle");
+
+
+        const resultMessage =
+            document.getElementById("resultMessage");
+
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+
+        const loadingText =
+            document.getElementById("loadingText");
+
+
+        const userPoints =
+            document.getElementById("userPoints");
+
+
+        const voucherCount =
+            document.getElementById("voucherCount");
+
+
+        const voucherProgressText =
+            document.getElementById(
+                "voucherProgressText"
+            );
+
+
+        const voucherProgressBar =
+            document.getElementById(
+                "voucherProgressBar"
+            );
+
+
+        let currentRotation = 0;
+
+        let spinning = false;
+
+
+        /* ========================================================
+           INITIAL VOUCHER COUNT
+        ======================================================== */
+
+        let currentVoucherCount =
+            parseInt(
+                "{{ voucher_count|default:'0' }}"
+            ) || 0;
+
+
+        updateVoucherProgress(
+            currentVoucherCount
+        );
+
+
+        /* ========================================================
+           REWARD POSITIONS
+        ======================================================== */
+
+        const rewardPositions = {
+
+            "vocha": [0, 5],
+
+            "points": [1, 4],
+
+            "post_chance": [3, 7],
+
+            "loss": [2, 6]
+
+        };
+
+
+        /* ========================================================
+           FORM SUBMIT
+        ======================================================== */
+
+        form.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+                if (spinning) {
+                    return;
+                }
+
+                playSpin();
+
+            }
+        );
+
+
+        /* ========================================================
+           PLAY SPIN
+        ======================================================== */
+
+        function playSpin() {
+
+            spinning = true;
+
+            spinButton.disabled = true;
+
+            result.classList.remove("show");
+
+            errorMessage.classList.remove("show");
+
+            loadingText.classList.add("show");
+
+
+            const csrfToken =
+                document.querySelector(
+                    "[name=csrfmiddlewaretoken]"
+                ).value;
+
+
+            fetch(
+                "{% url 'spin_play' %}",
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "X-CSRFToken":
+                            csrfToken,
+
+                        "X-Requested-With":
+                            "XMLHttpRequest"
+
+                    },
+
+                    credentials:
+                        "same-origin"
+
+                }
+            )
+
+
+                .then(
+                    async function (response) {
+
+                        const contentType =
+                            response.headers.get(
+                                "content-type"
+                            );
+
+
+                        if (
+                            !contentType ||
+                            !contentType.includes(
+                                "application/json"
+                            )
+                        ) {
+
+                            const html =
+                                await response.text();
+
+                            console.error(
+                                "Server returned HTML:"
+                            );
+
+                            console.error(html);
+
+                            throw new Error(
+                                "The server returned an HTML page instead of JSON."
+                            );
+                        }
+
+
+                        const data =
+                            await response.json();
+
+
+                        return {
+                            ok: response.ok,
+                            data: data
+                        };
+
+                    }
+                )
+
+
+                .then(
+                    function (response) {
+
+                        const data =
+                            response.data;
+
+
+                        loadingText.classList.remove(
+                            "show"
+                        );
+
+
+                        /*
+                         * Server rejected the spin
+                         */
+
+                        if (
+                            !response.ok ||
+                            !data.success
+                        ) {
+
+                            showError(
+                                data.message ||
+                                "Unable to spin."
+                            );
+
+
+                            spinning = false;
+
+
+                            if (
+                                data.already_played
+                            ) {
+
+                                spinButton.disabled =
+                                    true;
+
+                            }
+
+                            else {
+
+                                spinButton.disabled =
+                                    false;
+
+                            }
+
+
+                            return;
+                        }
+
+
+                        /*
+                         * Update points immediately
+                         */
+
+                        if (
+                            data.points !== undefined
+                        ) {
+
+                            userPoints.textContent =
+                                data.points;
+
+                        }
+
+
+                        /*
+                         * Update voucher count
+                         */
+
+                        if (
+                            data.reward_count !== undefined
+                        ) {
+
+                            currentVoucherCount =
+                                parseInt(
+                                    data.reward_count
+                                ) || 0;
+
+
+                            updateVoucherProgress(
+                                currentVoucherCount
+                            );
+
+                        }
+
+
+                        /*
+                         * Animate wheel
+                         */
+
+                        animateWheel(
+                            data.reward_type,
+                            data
+                        );
+
+                    }
+                )
+
+
+                .catch(
+                    function (error) {
+
+                        console.error(
+                            "Spin error:",
+                            error
+                        );
+
+
+                        loadingText.classList.remove(
+                            "show"
+                        );
+
+
+                        showError(
+                            error.message ||
+                            "Something went wrong. Please try again."
+                        );
+
+
+                        spinning = false;
+
+                        spinButton.disabled = false;
+
+                    }
+                );
+
+        }
+
+
+        /* ========================================================
+           ANIMATE WHEEL
+        ======================================================== */
+
+        function animateWheel(
+            rewardType,
+            rewardData
+        ) {
+
+            const positions =
+                rewardPositions[rewardType];
+
+
+            if (!positions) {
+
+                showError(
+                    "Invalid reward type received from server."
+                );
+
+                spinning = false;
+
+                spinButton.disabled = false;
+
+                return;
+            }
+
+
+            const winningIndex =
+                positions[
+                Math.floor(
+                    Math.random() *
+                    positions.length
+                )
+                ];
+
+
+            const sectionAngle = 45;
+
+
+            const targetAngle =
+                360 -
+                (
+                    winningIndex *
+                    sectionAngle
+                    +
+                    sectionAngle / 2
+                );
+
+
+            const extraSpins =
+                5 * 360;
+
+
+            const normalized =
+                currentRotation % 360;
+
+
+            currentRotation =
+                currentRotation
+                -
+                normalized
+                +
+                extraSpins
+                +
+                targetAngle;
+
+
+            wheel.style.transform =
+                `rotate(${currentRotation}deg)`;
+
+
+            setTimeout(
+                function () {
+
+                    showResult(
+                        rewardData
+                    );
+
+
+                    spinning = false;
+
+
+                    /*
+                     * One spin per day.
+                     * Keep button disabled.
+                     */
+
+                    spinButton.disabled = true;
+
+
+                    /*
+                     * If 5 vouchers have been reached,
+                     * go to congratulations page.
+                     */
+
+                    if (
+                        rewardData.congratulations === true
+                    ) {
+
+                        setTimeout(
+                            function () {
+
+                                window.location.href =
+                                    "{% url 'congratulations' %}";
+
+                            },
+                            1500
+                        );
+
+                    }
+
+                },
+                5200
+            );
+
+        }
+
+
+        /* ========================================================
+           SHOW RESULT
+        ======================================================== */
+
+        function showResult(data) {
+
+            let icon = "🎁";
+
+
+            if (
+                data.reward_type === "vocha"
+            ) {
+
+                icon = "🎟️";
+
+            }
+
+            else if (
+                data.reward_type === "points"
+            ) {
+
+                icon = "⭐";
+
+            }
+
+            else if (
+                data.reward_type === "post_chance"
+            ) {
+
+                icon = "📢";
+
+            }
+
+            else if (
+                data.reward_type === "loss"
+            ) {
+
+                icon = "❌";
+
+            }
+
+
+            resultIcon.textContent =
+                icon;
+
+
+            resultTitle.textContent =
+                data.reward;
+
+
+            /*
+             * Show proper message
+             */
+
+            if (
+                data.reward_type === "points"
+            ) {
+
+                resultMessage.textContent =
+                    "You won 10 points! " +
+                    "Your total is now " +
+                    data.points +
+                    " points.";
+
+            }
+
+            else if (
+                data.reward_type === "vocha"
+            ) {
+
+                if (
+                    data.congratulations === true
+                ) {
+
+                    resultMessage.textContent =
+                        "🎉 You have collected 5 vouchers! " +
+                        "Redirecting you to the congratulations page...";
+
+                }
+
+                else {
+
+                    resultMessage.textContent =
+                        "🎟️ You won a voucher! " +
+                        "Your voucher progress is now " +
+                        data.reward_count +
+                        "/5.";
+
+                }
+
+            }
+
+            else {
+
+                resultMessage.textContent =
+                    data.message ||
+                    `You won ${data.reward}.`;
+
+            }
+
+
+            result.classList.add(
+                "show"
+            );
+
+        }
+
+
+        /* ========================================================
+           UPDATE VOUCHER PROGRESS
+        ======================================================== */
+
+        function updateVoucherProgress(count) {
+
+            /*
+             * Make sure count is between 0 and 5
+             */
+
+            count =
+                Math.max(
+                    0,
+                    Math.min(
+                        5,
+                        count
+                    )
+                );
+
+
+            voucherCount.textContent =
+                count + "/5";
+
+
+            voucherProgressText.textContent =
+                count + "/5";
+
+
+            const percentage =
+                (count / 5) * 100;
+
+
+            voucherProgressBar.style.width =
+                percentage + "%";
+
+        }
+
+
+        /* ========================================================
+           SHOW ERROR
+        ======================================================== */
+
+        function showError(message) {
+
+            errorMessage.textContent =
+                message;
+
+
+            errorMessage.classList.add(
+                "show"
+            );
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

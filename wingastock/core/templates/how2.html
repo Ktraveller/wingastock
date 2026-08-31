@@ -1,0 +1,267 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wingastock</title>
+  <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    .messages {
+      margin: 20px 0;
+    }
+
+    .alert {
+      padding: 12px 18px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .success {
+      background: #28a745;
+    }
+
+    .error {
+      background: #dc3545;
+    }
+
+    .warning {
+      background: #ffc107;
+      color: #000;
+    }
+
+    .info {
+      background: #17a2b8;
+    }
+
+    ol>li {
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page-loader-holder-000">
+    <div>
+      <button type="button">
+        <h1>
+          <img src="{% static 'logo.png' %}" alt="logo"> <br>
+          <span>Wingastock</span>
+        </h1>
+      </button>
+    </div>
+  </div>
+
+  <div class="row-holder">
+
+    <!-- Header -->
+    <div class="header-holder-100">
+      <div class="header-100">
+        <div class="action-holder-101">
+          <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+          <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+              class="fas fa-times"></i></button>
+        </div>
+        <div class="title-holder-101">
+          <button type="button"><span>Wingastock</span></button>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- center content -->
+    <div class="center-content-200">
+
+      <div class="left-holder-201" id="nav">
+        <div class="nav-bar-holder-202">
+
+          <ul>
+            <a href="{% url 'how1' %}">
+              <li>What is wingastock <i class="fas fa-file-contract"></i></li>
+            </a>
+          </ul>
+
+          <ul>
+            <a href="{% url 'how2' %}">
+              <li class="active-0">How to get seller contacts <i class="fas fa-user"></i></li>
+            </a>
+          </ul>
+
+          <ul>
+            <a href="{% url 'how3' %}">
+              <li>How to register as seller <i class="fas fa-file-signature"></i></li>
+            </a>
+          </ul>
+
+          <ul>
+            <a href="{% url 'customer_login' %}">
+              <li>Login <i class="fas fa-sign-in-alt"></i></li>
+            </a>
+          </ul>
+
+        </div>
+      </div>
+
+      <div class="right-holder-201">
+        <div class="products-202">
+
+          <div class="terms-holder-202">
+
+            <div>
+
+              <div class="how-to-contact-seller-0005">
+                <p> <strong>How to Contact a Seller on Wingastock</strong> </p>
+                <p> Wingastock makes it easy for customers to communicate directly with sellers before making a
+                  purchase. To protect users and provide a better marketplace experience, customers must have a
+                  registered Wingastock account before they can access seller contact information or send messages to
+                  sellers. </p>
+                <ol>
+                  <li>
+                    <strong>Create a Wingastock Account:</strong>
+                    If you do not already have an account, register on Wingastock using
+                    your required information. Registration is required before you can
+                    access seller contact details or use the platform's messaging
+                    features.
+                  </li>
+
+                  <li>
+                    <strong>Log In to Your Account:</strong>
+                    After registration, log in to your Wingastock account. Once you are
+                    logged in, you can interact with sellers and access the communication
+                    features available on product listings.
+                  </li>
+
+                  <li>
+                    <strong>Find the Product You Want:</strong>
+                    Search or browse Wingastock to find the product you are interested in.
+                    You can explore categories such as smartphones, laptops, TVs,
+                    computers, accessories, furniture, home appliances, rooms, houses
+                    and other products.
+                  </li>
+
+                  <li>
+                    <strong>Open the Product Listing:</strong>
+                    Click on the product you are interested in to view its details,
+                    including the description, price, images, availability and seller
+                    information.
+                  </li>
+
+                  <li>
+                    <strong>View Seller Contact Information:</strong>
+                    If the seller has provided contact information that is available to
+                    registered customers, you can view the available seller contact
+                    details after logging into your Wingastock account.
+                  </li>
+
+                  <li>
+                    <strong>Send a Direct Message:</strong>
+                    You can also communicate with the seller directly through Wingastock's
+                    integrated chat system. Select the available chat or message option
+                    on the product or seller page to start a conversation.
+                  </li>
+
+                  <li>
+                    <strong>Ask Questions Before Buying:</strong>
+                    Use the chat system to ask the seller about product availability,
+                    condition, specifications, price, location, delivery or any other
+                    information you need before making a purchase.
+                  </li>
+
+                  <li>
+                    <strong>Keep Your Conversations in Wingastock:</strong>
+                    Where possible, use Wingastock's integrated chat system to communicate
+                    with sellers. Keeping conversations within the platform can make it
+                    easier to manage your enquiries and refer back to previous
+                    conversations.
+                  </li>
+
+                  <li>
+                    <strong>Be Careful With Personal Information:</strong>
+                    Do not share unnecessary passwords, account credentials, financial
+                    information or other sensitive personal information through chat.
+                    Only provide information that is necessary for completing a legitimate
+                    transaction.
+                  </li>
+
+                  <li>
+                    <strong>Report Suspicious Activity:</strong>
+                    If a seller sends suspicious messages, provides misleading information,
+                    attempts to scam you or violates Wingastock policies, report the
+                    activity through the appropriate Wingastock support or reporting
+                    channel.
+                  </li>
+
+                </ol>
+                <p> <strong>Why Registration Is Required:</strong> Requiring customers to register before accessing
+                  seller contacts and messaging helps Wingastock maintain a safer and more trusted marketplace. It
+                  allows users to have an identifiable account, provides access to the platform's communication features
+                  and helps reduce misuse of seller contact information. </p>
+                <p> <strong>Quick Guide:</strong> Register → Log In → Find a Product → Open the Listing → View Seller
+                  Contact or Click Chat → Communicate With the Seller. </p>
+                <p> <strong>Important:</strong> Seller contact information and communication options may depend on the
+                  information provided by the seller and the features available for the particular listing. Always use
+                  Wingastock responsibly and follow the platform's applicable terms, privacy rules and safety
+                  guidelines. </p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+    window.addEventListener("load", function () {
+
+      const loader = document.querySelector(
+        ".page-loader-holder-000"
+      );
+
+      if (loader) {
+
+        // Fade out the loader
+        loader.classList.add("hidden");
+
+        // Remove it completely after the animation
+        setTimeout(function () {
+          loader.remove();
+        }, 500);
+      }
+
+    });
+  </script>
+
+  <script>
+    function open_menu(click) {
+      let menu1 = document.getElementById('menu1');
+      let menu2 = document.getElementById('menu2');
+      let nav = document.getElementById('nav');
+
+      if (click == 'open') {
+        menu1.style.display = 'none';
+        menu2.style.display = 'inline-block';
+        nav.style.display = 'inline-block';
+      }
+      else {
+        menu1.style.display = 'inline-block';
+        menu2.style.display = 'none';
+        nav.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+
+</html>

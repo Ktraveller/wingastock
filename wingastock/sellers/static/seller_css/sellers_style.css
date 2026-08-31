@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-size: 15px;
+    font-size: 12px;
     font-family: "Segoe UI", sans-serif;
 }
 
@@ -639,6 +639,23 @@ button {
     border-radius: 10px;
 }
 
+
+
+/* For customer declaration */
+.user-info-holder-1000{
+    width: 100%;
+    height: auto;
+}
+
+.user-info-holder-1000>div {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    padding: 15px;
+    background: rgba(250, 243, 243, 0.479);
+}
+
+
 @media only screen and (min-width: 768px) {
     .action-holder-101 {
         display: none;
@@ -679,4 +696,71 @@ button {
         width: 50%;
     }
 
+}
+
+
+
+/* Loader */
+/* =========================
+   PAGE LOADER
+   ========================= */
+
+#page-loader {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 999999;
+
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#page-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+/* Circular loader */
+.spinner {
+    width: 45px;
+    height: 45px;
+
+    border: 4px solid #eeeeee;
+    border-top: 4px solid crimson;
+    border-right: 4px solid crimson;
+
+    border-radius: 50%;
+
+    animation: spin 0.8s linear infinite;
+
+    margin: 0 auto 12px;
+}
+
+/* Loading text */
+.loading-text {
+    color: crimson;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Spinner animation */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }

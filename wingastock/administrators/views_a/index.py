@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from sellers.models import Product
+from sellers.models import Product, Seller
 from django.db.models import Count
 
 
@@ -10,8 +10,8 @@ def admin_home(request):
         total=Count('id'),
     )
 
-    seller =  Product.objects.aggregate(
-        total=Count('phone', distinct=True),
+    seller =  Seller.objects.aggregate(
+        total=Count('id', distinct=True),
     )
         
     return render(request, 'index_a.html', {

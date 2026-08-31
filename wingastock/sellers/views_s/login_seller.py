@@ -2,12 +2,13 @@ from django.contrib import messages
 import re
 import uuid
 
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.core.files.storage import default_storage
 from django.db import transaction
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from sellers.models import Seller
 import random
@@ -690,11 +691,26 @@ def update_seller_information(request):
             ''
         ).strip()
 
+        current_password = request.POST.get(
+            'current_password',
+            ''
+        ).strip()
+
+        new_password = request.POST.get(
+            'new_password',
+            ''
+        ).strip()
+
+        confirm_password = request.POST.get(
+            'confirm_password',
+            ''
+        ).strip()
+
         errors = []
 
 
         # ==========================================
-        # VALIDATE ONLY FILLED FIELDS
+        # VALIDATE SELLER INFORMATION
         # ==========================================
 
         # Seller name
@@ -761,6 +777,79 @@ def update_seller_information(request):
 
 
         # ==========================================
+        # PASSWORD VALIDATION
+        # ==========================================
+
+        # If user wants to change password,
+        # both current and new password are required.
+        if current_password or new_password or confirm_password:
+
+            if not current_password:
+
+                errors.append(
+                    'Please enter your current password.'
+                )
+
+            if not new_password:
+
+                errors.append(
+                    'Please enter a new password.'
+                )
+
+            if not confirm_password:
+
+                errors.append(
+                    'Please confirm your new password.'
+                )
+
+
+            # Check current password
+            if current_password:
+
+                if not check_password(
+                    current_password,
+                    request.user.password
+                ):
+
+                    errors.append(
+                        'Your current password is incorrect.'
+                    )
+
+
+            # Check new password confirmation
+            if new_password and confirm_password:
+
+                if new_password != confirm_password:
+
+                    errors.append(
+                        'New password and confirmation password do not match.'
+                    )
+
+
+            # Password length
+            if new_password:
+
+                if len(new_password) < 8:
+
+                    errors.append(
+                        'New password must contain at least 8 characters.'
+                    )
+
+
+            # Prevent using the same password
+            if current_password and new_password:
+
+                if check_password(
+                    new_password,
+                    request.user.password
+                ):
+
+                    errors.append(
+                        'Your new password must be different from your current password.'
+                    )
+
+
+        # ==========================================
         # VALIDATION FAILED
         # ==========================================
 
@@ -783,7 +872,7 @@ def update_seller_information(request):
 
 
         # ==========================================
-        # UPDATE ONLY FILLED FIELDS
+        # UPDATE INFORMATION
         # ==========================================
 
         try:
@@ -793,7 +882,10 @@ def update_seller_information(request):
                 update_fields = []
 
 
+                # ----------------------------------
                 # Seller name
+                # ----------------------------------
+
                 if seller_name:
 
                     seller.seller_name = seller_name
@@ -803,7 +895,10 @@ def update_seller_information(request):
                     )
 
 
+                # ----------------------------------
                 # Phone
+                # ----------------------------------
+
                 if seller_phone:
 
                     seller.seller_phone = seller_phone
@@ -813,7 +908,10 @@ def update_seller_information(request):
                     )
 
 
+                # ----------------------------------
                 # Address
+                # ----------------------------------
+
                 if seller_address:
 
                     seller.seller_address = seller_address
@@ -823,7 +921,10 @@ def update_seller_information(request):
                     )
 
 
+                # ----------------------------------
                 # Description
+                # ----------------------------------
+
                 if seller_description:
 
                     seller.seller_description = seller_description
@@ -834,7 +935,7 @@ def update_seller_information(request):
 
 
                 # ----------------------------------
-                # SAVE ONLY IF SOMETHING WAS CHANGED
+                # SAVE SELLER INFORMATION
                 # ----------------------------------
 
                 if update_fields:
@@ -843,9 +944,58 @@ def update_seller_information(request):
                         update_fields=update_fields
                     )
 
+
+                # ==================================
+                # UPDATE PASSWORD
+                # ==================================
+
+                password_changed = False
+
+                if new_password:
+
+                    request.user.set_password(
+                        new_password
+                    )
+
+                    request.user.save(
+                        update_fields=['password']
+                    )
+
+                    password_changed = True
+
+
+                    # Keep the user logged in after
+                    # changing their password.
+                    update_session_auth_hash(
+                        request,
+                        request.user
+                    )
+
+
+                # ==================================
+                # SUCCESS MESSAGE
+                # ==================================
+
+                if update_fields and password_changed:
+
+                    messages.success(
+                        request,
+                        'Your seller information and password '
+                        'have been updated successfully.'
+                    )
+
+                elif update_fields:
+
                     messages.success(
                         request,
                         'Your seller information has been updated successfully.'
+                    )
+
+                elif password_changed:
+
+                    messages.success(
+                        request,
+                        'Your password has been updated successfully.'
                     )
 
                 else:

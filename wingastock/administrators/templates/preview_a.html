@@ -50,7 +50,7 @@
                     </ul>
 
                     <ul>
-                        <a href="">
+                        <a href="{% url 'admin_sellers' %}">
                             <li>Sellers</li>
                         </a>
                     </ul>
@@ -68,14 +68,15 @@
 
                     <p style="font-weight: bold;">{{ product.title }}</p>
 
-                    <div class="image-preview-203">
+                    <div class="image-preview-203" style="height: auto;">
                         {% if product.image %}
-                        <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                        <img src="{{ product.image.url }}" alt="{{ product.title }}" style="height: auto;">
                         {% endif %}
                     </div>
 
                     <div class="details-203">
                         <table style="width: auto;">
+
                             <tr>
                                 <td style="font-weight: bold;">Description: </td>
                                 <td>{{ product.description }}</td>
@@ -92,8 +93,8 @@
                             </tr>
 
                             <tr>
-                                <td style="font-weight: bold;">Location: </td>
-                                <td>{{ product.location }}</td>
+                                <td style="font-weight: bold;">Date: </td>
+                                <td>{{ product.created_at }}</td>
                             </tr>
 
                             <tr>
@@ -102,14 +103,23 @@
                             </tr>
 
                             <tr>
+                                <td style="font-weight: bold;">Seller: </td>
+                                <td>{{ product.owner.seller.seller_name }}</td>
+                            </tr>
+
+                            <tr>
+                                <td style="font-weight: bold;">Location: </td>
+                                <td>{{ product.owner.seller.seller_address }}</td>
+                            </tr>
+
+
+                            <tr>
                                 <td style="font-weight: bold;">Contact: </td>
-                                <td style="font-size: 15px;">{{ product.phone }}</td>
+                                <td style="font-size: 15px;">
+                                    {{ product.owner.seller.seller_phone }}
+                                </td>
                             </tr>
                         </table>
-
-                        <button type="button" id="shareBtn" class="close-205"
-                            style="width: 200px; background: green;">Promote product</button>
-
 
                         <button type="button" class="close-205"
                             onclick="window.location.href=`{% url 'admin_products' %}`">Close</button>
@@ -142,48 +152,7 @@
         }
     </script>
 
-    <script>
-        const shareBtn = document.getElementById("shareBtn");
 
-        shareBtn.addEventListener("click", async () => {
-
-            try {
-
-                const response = await fetch("{{ product.image.url }}");
-                const blob = await response.blob();
-
-                const file = new File(
-                    [blob],
-                    "product.jpg",
-                    { type: blob.type }
-                );
-
-                if (navigator.canShare &&
-                    navigator.canShare({ files: [file] })) {
-
-                    await navigator.share({
-                        title: "{{ product.title|escapejs }}",
-                        text: "{{ product.title|escapejs }}\n\n{{ product.description|truncatechars:250|escapejs }} \n\n Bei: {{ product.price }}Tsh \n\n Anuani: {{ product.location }}",
-                        url: window.location.href,
-                        files: [file]
-                    });
-
-                } else {
-
-                    await navigator.share({
-                        title: "{{ product.title|escapejs }}",
-                        text: "{{ product.title|escapejs }}\n\n{{ product.description|truncatechars:250|escapejs }} \n\n Bei: {{ product.price }}Tsh \n\n Anuani: {{ product.location }}",
-                        url: window.location.href
-                    });
-
-                }
-
-            } catch (error) {
-                console.error(error);
-            }
-
-        });
-    </script>
 </body>
 
 </html>

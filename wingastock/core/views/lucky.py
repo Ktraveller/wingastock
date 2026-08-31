@@ -1,209 +1,365 @@
-from django.shortcuts import render
 import random
+import secrets
+
+from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError, transaction
+from django.db.models.aggregates import Sum
+from django.http import JsonResponse
+from django.shortcuts import render
 from django.utils import timezone
 
+from core.models import CustomerSpin
 
-def lucky(request):
 
-    # Make user access lucky only one in day
-    today = str(timezone.now().date())
+@login_required
+def spin_page(request):
+    """
+    Display the spin wheel page.
+    """
+    return render(request, "lucky/lucky_c.html")
+
+
+
+@login_required
+@transaction.atomic
+def spin(request):
+
+    if request.method != "POST":
+
+        return JsonResponse(
+            {
+                "success": False,
+                "message": "Invalid request."
+            },
+            status=405
+        )
+
+    user = request.user
+
+    today = timezone.localdate()
+
+
+    # =========================================================
+    # CHECK IF CUSTOMER ALREADY PLAYED TODAY
+    # =========================================================
+
+    already_played = CustomerSpin.objects.filter(
+        customer=user,
+        play_date=today
+    ).exists()
+
+
+    if already_played:
+
+        return JsonResponse(
+        {
+            "success": False,
+            "already_played": True,
+            "message": (
+                "You have already played today. "
+                "Come back tomorrow."
+            ),
+            "points": (
+                CustomerSpin.objects
+                .filter(
+                    customer=user
+                )
+                .aggregate(
+                    total=Sum("points")
+                )
+                .get("total")
+                or 0
+            ),
+            "reward_count": (
+                CustomerSpin.objects
+                .filter(
+                    customer=user
+                )
+                .order_by("-created_at")
+                .values_list(
+                    "reward_count",
+                    flat=True
+                )
+                .first()
+                or 0
+            ),
+        }
+    )
+
+    # =========================================================
+    # REWARD OPTIONS
+    # =========================================================
+
+    rewards = [
+        "vocha",
+        "points",
+        "loss",
+        "post_chance",
+        "points",
+        "vocha",
+        "loss",
+        "post_chance",
+    ]
+
+    reward_type = random.choice(rewards)
+
+
+    # =========================================================
+    # GET PREVIOUS TOTAL POINTS
+    # =========================================================
+
+    previous_points = (
+        CustomerSpin.objects
+        .filter(
+            customer=user
+        )
+        .aggregate(
+            total=Sum("points")
+        )
+        .get("total")
+        or 0
+    )
+
+
+    # =========================================================
+    # GET PREVIOUS VOUCHER COUNT
+    #
+    # reward_count stores the voucher progress.
+    # =========================================================
+
+    previous_vouchers = (
+        CustomerSpin.objects
+        .filter(
+            customer=user
+        )
+        .order_by("-created_at")
+        .values_list(
+            "reward_count",
+            flat=True
+        )
+        .first()
+        or 0
+    )
+
+
+    # =========================================================
+    # DEFAULT VALUES
+    # =========================================================
+
+    reward = "LOSS"
 
     message = ""
 
-    if request.method == "POST":
+    points_earned = 0
 
-        # Verify day
-        if request.COOKIES.get("last_lucky_date") == today:
-            return render(
-                request,
-                "lucky/home_l.html",
-                {
-                    "message": "Umeshajaribu leo. Rudi kesho."
-                }
+    voucher_count = previous_vouchers
+
+    congratulations = False
+
+
+    # =========================================================
+    # POINTS
+    # =========================================================
+
+    if reward_type == "points":
+
+        points_earned = 10
+
+        total_points = (
+            previous_points +
+            points_earned
+        )
+
+        reward = "10 POINTS"
+
+        message = (
+            "🎉 Congratulations! "
+            "You won 10 points. "
+            f"Your total points are now "
+            f"{total_points}."
+        )
+
+
+        # Save today's points
+
+        CustomerSpin.objects.create(
+            customer=user,
+            reward=reward,
+            reward_count=previous_vouchers,
+            points=points_earned,
+            play_date=today
+        )
+
+
+    # =========================================================
+    # VOCHA
+    # =========================================================
+
+    elif reward_type == "vocha":
+
+        voucher_count = (
+            previous_vouchers +
+            1
+        )
+
+        reward = "VOCHA"
+
+
+        # =====================================================
+        # REACHED 5 VOUCHERS
+        # =====================================================
+
+        if voucher_count >= 5:
+
+            congratulations = True
+
+            message = (
+                "🎉 Congratulations! "
+                "You have collected 5 vouchers!"
             )
 
 
-        selected_gift = request.POST.get("lucky")
+            # Clear voucher progress
 
-        # Gift array
-        gifts = ["vocha", "book", "pen", "points"]
-
-        # Random select gift
-        selected_gift_random = random.choice(gifts)
-
-
-        # Comparing selected gift and random list
-        if selected_gift == selected_gift_random:
-
-
-            if selected_gift == "vocha":
-
-                vocha_win_chance = int(
-                    request.COOKIES.get("vocha_win_chance", 0)
-                )
-
-                win = vocha_win_chance + 1
-
-                if win == 10:
-                    message = "Umejishindia vocha ya Tsh 1000 mtandao wowote!"
-                    vocha_win_chance = 0
-                else:
-                    message = (
-                        "Hongera! umeongeza nafasi ya kushinda "
-                        + selected_gift
-                    )
-                    vocha_win_chance = win
-
-
-
-            elif selected_gift == "book":
-
-                book_win_chance = int(
-                    request.COOKIES.get("book_win_chance", 0)
-                )
-
-                win = book_win_chance + 1
-
-                if win == 10:
-                    message = "Umejishindia daftari jipya!"
-                    book_win_chance = 0
-                else:
-                    message = (
-                        "Hongera! umeongeza nafasi ya kushinda "
-                        + selected_gift
-                    )
-                    book_win_chance = win
-
-
-
-            elif selected_gift == "pen":
-
-                pen_win_chance = int(
-                    request.COOKIES.get("pen_win_chance", 0)
-                )
-
-                win = pen_win_chance + 1
-
-                if win == 10:
-                    message = "Umejishindia peni 3!"
-                    pen_win_chance = 0
-                else:
-                    message = (
-                        "Hongera! umeongeza nafasi ya kushinda "
-                        + selected_gift
-                    )
-                    pen_win_chance = win
-
-
-
-            elif selected_gift == "points":
-
-                points = int(
-                    request.COOKIES.get("points", 0)
-                )
-
-                win = points + 1
-
-                if win == 10:
-
-                    points = 0
-
-                    bonus_gift = random.choice(
-                        ["vocha", "book", "pen"]
-                    )
-
-                    if bonus_gift == "vocha":
-                        message = (
-                            "Umejishindia vocha ya Tsh 1000 "
-                            "mtandao wowote!"
-                        )
-
-                    elif bonus_gift == "book":
-                        message = "Umejishindia daftari jipya!"
-
-                    elif bonus_gift == "pen":
-                        message = "Umejishindia peni 3!"
-
-                else:
-                    message = (
-                        "Hongera! umeongeza nafasi ya kushinda "
-                        + selected_gift
-                    )
-
-                    points = win
-
-
-
-            # Create response using render()
-            response = render(
-                request,
-                "lucky/home_l.html",
-                {
-                    "message": message
-                }
+            CustomerSpin.objects.create(
+                customer=user,
+                reward=reward,
+                reward_count=0,
+                points=0,
+                play_date=today
             )
 
 
-            # Save cookies
-            response.set_cookie(
-                "last_lucky_date",
-                today
-            )
-
-
-            if selected_gift == "vocha":
-                response.set_cookie(
-                    "vocha_win_chance",
-                    vocha_win_chance
-                )
-
-            elif selected_gift == "book":
-                response.set_cookie(
-                    "book_win_chance",
-                    book_win_chance
-                )
-
-            elif selected_gift == "pen":
-                response.set_cookie(
-                    "pen_win_chance",
-                    pen_win_chance
-                )
-
-            elif selected_gift == "points":
-                response.set_cookie(
-                    "points",
-                    points
-                )
-
-
-            return response
+        # =====================================================
+        # LESS THAN 5 VOUCHERS
+        # =====================================================
 
         else:
 
             message = (
-                "Hongera! umepata nafasi ya kujaribu tena baadae."
+                "🎟️ Congratulations! "
+                "You won 1 voucher. "
+                f"Your voucher progress is "
+                f"{voucher_count}/5."
             )
 
-            response = render(
-                request,
-                "lucky/home_l.html",
-                {
-                    "message": message
-                }
+
+            CustomerSpin.objects.create(
+                customer=user,
+                reward=reward,
+                reward_count=voucher_count,
+                points=0,
+                play_date=today
             )
 
-            response.set_cookie(
-                "last_lucky_date",
-                today
-            )
 
-            return response
+    # =========================================================
+    # LOSS
+    # =========================================================
 
+    elif reward_type == "loss":
+
+        reward = "LOSS"
+
+        message = (
+            "❌ Sorry! You didn't win anything "
+            "this time. Come back tomorrow!"
+        )
+
+
+        CustomerSpin.objects.create(
+            customer=user,
+            reward=reward,
+            reward_count=previous_vouchers,
+            points=0,
+            play_date=today
+        )
+
+
+    # =========================================================
+    # POST CHANCE
+    # =========================================================
+
+    elif reward_type == "post_chance":
+
+        reward = "POST"
+
+        message = (
+            "📢 Congratulations! "
+            "You won a chance to post."
+        )
+
+
+        CustomerSpin.objects.create(
+            customer=user,
+            reward=reward,
+            reward_count=previous_vouchers,
+            points=0,
+            play_date=today
+        )
+
+
+    # =========================================================
+    # CALCULATE FINAL TOTAL POINTS
+    # =========================================================
+
+    final_points = (
+        previous_points +
+        points_earned
+    )
+
+
+    # =========================================================
+    # CONGRATULATIONS URL
+    # =========================================================
+
+    congratulations_url = ""
+
+
+    if congratulations:
+
+        congratulations_url = (
+            "/spin/congratulations/"
+        )
+
+
+    # =========================================================
+    # JSON RESPONSE
+    # =========================================================
+
+    return JsonResponse(
+        {
+            "success": True,
+
+            "reward_type": reward_type,
+
+            "reward": reward,
+
+            "message": message,
+
+            "points": final_points,
+
+            "points_earned": points_earned,
+
+            "reward_count": (
+                0
+                if congratulations
+                else voucher_count
+            ),
+
+            "congratulations": congratulations,
+
+            "congratulations_url": (
+                congratulations_url
+            ),
+        }
+    )
+
+
+@login_required
+def congratulations(request):
 
     return render(
         request,
-        "lucky/home_l.html",
-        {
-            "message": message
-        }
+        "lucky/congratulations.html"
     )

@@ -20,6 +20,14 @@
 
 <body>
 
+    <!-- Page Loader -->
+<div id="page-loader">
+    <div class="loader-content">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading<span class="dots"></span></div>
+    </div>
+</div>
+
     <form action="" method="post">
         {% csrf_token %}
 
@@ -123,10 +131,12 @@
                                                 {{ message_receiver.email }}
                                             </span>
 
+                                            {% if message_receiver.email %}
                                             <button type="button"
                                                 onclick="open_chart(`{% url 'compose_m' message_receiver.email %}`)">
                                                 Choose
                                             </button>
+                                            {% endif %}
                                         </li>
 
                                         {% endif %}
@@ -205,6 +215,22 @@
         </div>
     </form>
 
+
+    <script>
+    window.addEventListener("load", function () {
+
+        const loader = document.getElementById("page-loader");
+
+        if (loader) {
+            loader.classList.add("hidden");
+
+            setTimeout(function () {
+                loader.remove();
+            }, 400);
+        }
+
+    });
+</script>
 
     <script>
         function toggleLeftPanel() {

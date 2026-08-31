@@ -12,28 +12,25 @@
     <link rel="stylesheet" href="{% static 'css/heading.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <title>Wingastock</title>
+    <title>Wingastock - Buy &amp; Sell Products in Tanzania</title>
 
-    <meta name="description" content="Buy and sell electronics such as smartphones, laptops, TVs, computers, accessories, 
-        and other electronic devices. Discover quality furniture, home appliances, rooms, houses, 
-        and a wide range of products from trusted sellers on Wingastock. 
-        Our platform makes it easy to find, advertise, buy, and sell products online, 
-        connecting customers and businesses in one convenient marketplace.">
+    <meta name="description"
+        content="Buy and sell electronics, phones, laptops, furniture, homes, and more on Wingastock, Tanzania's online marketplace.">
+
+    <meta property="og:title" content="Wingastock - Buy &amp; Sell Products in Tanzania">
+
+    <meta property="og:description"
+        content="Buy and sell electronics, phones, laptops, furniture, homes, and more on Wingastock, Tanzania's online marketplace.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wingastock.onrender.com/">
+    <meta property="og:site_name" content="Wingastock">
 
 
     <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="https://wingastock.onrender.com/">
 
-    <meta property="og:title" content="Wingastock">
-
-    <meta property="og:description"
-        content="Wingastock is an online marketplace in Tanzania where you can buy and sell electronics,
-         smartphones, laptops, TVs, furniture, home appliances, rooms, houses, and a wide range of products. 
-         Connect with trusted sellers, discover great deals, and grow your business by reaching more customers online.">
-
-
-    <meta property="og:type" content="website">
 
     <meta property="og:image" content="/static/logo.png">
 
@@ -43,6 +40,10 @@
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-STT2EJ7H54"></script>
+    <!-- Microsoft tag -->
+    <meta name="msvalidate.01" content="24C554194C77E0084DA5450B14850A0F" />
+
+
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
@@ -51,9 +52,51 @@
         gtag('config', 'G-STT2EJ7H54');
     </script>
 
+    <style>
+        .spin-holder-100 {
+            background: crimson;
+            position: fixed;
+            bottom: 75px;
+            left: 0;
+            border-top-right-radius: 50px;
+            border-bottom-right-radius: 50px;
+            height: 50px;
+            width: 80px;
+        }
+
+        .spin-holder-100>button {
+            width: 100%;
+            height: 100%;
+            border-style: none;
+            outline: none;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .spin-holder-100:hover {
+            background: rgba(220, 20, 60, 0.678);
+        }
+
+        .spin-holder-100>button>img {
+            width: 35px;
+            height: 35px;
+        }
+    </style>
 </head>
 
 <body>
+
+    <div class="page-loader-holder-000">
+        <div>
+            <button type="button">
+                <h1>
+                    <img src="{% static 'logo.png' %}" alt="logo"> <br>
+                    <span>Wingastock</span>
+                </h1>
+            </button>
+        </div>
+    </div>
+
 
     <div class="row-holder-001">
 
@@ -76,6 +119,13 @@
                     {% endfor %}
 
                 </div>
+            </div>
+
+            <!-- Spin to win icon -->
+            <div class="spin-holder-100">
+                <button type="button" onclick="window.location.href=`{% url 'spin' %}`">
+                    <img src="{% static 'spin.png' %}" alt="spin icon">
+                </button>
             </div>
 
 
@@ -107,16 +157,42 @@
             </div>
         </div>
 
+        <!-- How to -->
+        {% include 'how-to.html' %}
+
         <div class="footer-holder-1003">
             <div>
                 <p>Wingastock | Online marketplace</p>
             </div>
         </div>
 
+
         <!-- Nav bar -->
         {% include 'navbar.html' %}
 
     </div>
+
+
+    <script>
+        window.addEventListener("load", function () {
+
+            const loader = document.querySelector(
+                ".page-loader-holder-000"
+            );
+
+            if (loader) {
+
+                // Fade out the loader
+                loader.classList.add("hidden");
+
+                // Remove it completely after the animation
+                setTimeout(function () {
+                    loader.remove();
+                }, 500);
+            }
+
+        });
+    </script>
 
 
     <script>

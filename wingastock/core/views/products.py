@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from mails.models import Mails
 from sellers.models import Product, Product_informations, Product_comments, ProductReaction
 
+
+
+# Products
 def products(request):
     products = Product.objects.filter(status='visible').order_by('?')
 
@@ -25,6 +28,9 @@ def products(request):
     })
 
 
+
+
+# Preview products
 def preview_products(request, id):
 
 
@@ -174,6 +180,7 @@ def preview_products(request, id):
 
 
 
+
 # Like ans dislike
 def react_product(request, id):
     if request.method != 'POST':
@@ -270,6 +277,8 @@ def react_product(request, id):
     })
 
 
+
+
 # customer comments
 @login_required(login_url="customer_login")
 def submit_comments(request, id):
@@ -283,6 +292,8 @@ def submit_comments(request, id):
         )
         return redirect('product_details', id=id)
 
+
+
 # Comment delete
 @login_required(login_url="customer_login")
 def delete_comment(request, id):
@@ -293,6 +304,9 @@ def delete_comment(request, id):
     return redirect('product_details', id=product)
     
 
+
+
+# Filter products
 def filter_products(request, category):
     products = Product.objects.order_by('?').filter(category=category, status='visible')
 

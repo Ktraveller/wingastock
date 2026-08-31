@@ -51,6 +51,17 @@
 
 <body>
 
+    <div class="page-loader-holder-000">
+        <div>
+            <button type="button">
+                <h1>
+                    <img src="{% static 'logo.png' %}" alt="logo"> <br>
+                    <span>Wingastock</span>
+                </h1>
+            </button>
+        </div>
+    </div>
+
     <div class="row-holder-001">
 
         <!-- Inlude heading -->
@@ -130,7 +141,7 @@
 
 
             <br><br>
-            
+
             <h3 style="color: crimson;">
                 <i class="fa fa-envelope"></i>
                 Contact Information
@@ -167,6 +178,27 @@
         {% include 'navbar.html' %}
 
     </div>
+
+    <script>
+        window.addEventListener("load", function () {
+
+            const loader = document.querySelector(
+                ".page-loader-holder-000"
+            );
+
+            if (loader) {
+
+                // Fade out the loader
+                loader.classList.add("hidden");
+
+                // Remove it completely after the animation
+                setTimeout(function () {
+                    loader.remove();
+                }, 500);
+            }
+
+        });
+    </script>
 
     <script>
         function menu_bar(click) {
