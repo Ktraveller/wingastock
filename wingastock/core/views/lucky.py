@@ -11,7 +11,7 @@ from django.utils import timezone
 from core.models import CustomerSpin
 
 
-@login_required
+@login_required(login_url="customer_login")
 def spin_page(request):
     """
     Display the spin wheel page.
@@ -20,7 +20,7 @@ def spin_page(request):
 
 
 
-@login_required
+@login_required(login_url="customer_login")
 @transaction.atomic
 def spin(request):
 
@@ -356,7 +356,7 @@ def spin(request):
     )
 
 
-@login_required
+@login_required(login_url="customer_login")
 def congratulations(request):
 
     return render(

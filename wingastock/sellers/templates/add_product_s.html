@@ -39,6 +39,7 @@
         .info {
             background: #17a2b8;
         }
+        
     </style>
 </head>
 
@@ -119,8 +120,8 @@
             <div class="right-holder-201">
                 <div class="products-202">
 
-                    <p style="font-weight: bold;">Add product <span style="float: right;">Remains: {{ product_remain
-                            }}</span></p>
+                    <p style="font-weight: bold;">Add product <span style="float: right;">
+                            Remains: {{ product_remain }}</span></p>
 
                     {% if messages %}
                     <div class="messages">
@@ -146,13 +147,33 @@
                         <div class="input-holder-203">
                             <p><i class="fas fa-tags"></i> Category</p>
                             <div>
+
                                 <select name="category" required>
                                     <option value="">Choose category</option>
-                                    <option value="electronics">Electronics</option>
-                                    <option value="food">Food</option>
-                                    <option value="clothes">Clothes</option>
-                                    <option value="furniture">Furniture</option>
+
+                                    <option value="electronics">📱 Electronics</option>
+                                    <option value="phones">📱 Phones & Tablets</option>
+                                    <option value="computers">💻 Computers & Laptops</option>
+                                    <option value="fashion">👕 Fashion</option>
+                                    <option value="shoes">👟 Shoes</option>
+                                    <option value="beauty">💄 Beauty & Personal Care</option>
+                                    <option value="food">🍔 Food & Groceries</option>
+                                    <option value="drinks">🥤 Drinks & Beverages</option>
+                                    <option value="furniture">🛋️ Furniture</option>
+                                    <option value="home">🏠 Home & Garden</option>
+                                    <option value="appliances">🔌 Home Appliances</option>
+                                    <option value="vehicles">🚗 Vehicles</option>
+                                    <option value="parts">🔧 Vehicle Parts & Accessories</option>
+                                    <option value="sports">⚽ Sports & Fitness</option>
+                                    <option value="books">📚 Books & Education</option>
+                                    <option value="toys">🧸 Toys & Games</option>
+                                    <option value="baby">👶 Baby & Kids</option>
+                                    <option value="services">🛠️ Services</option>
+                                    <option value="jobs">💼 Jobs</option>
+                                    <option value="property">🏠 Property</option>
+                                    <option value="other">📦 Other</option>
                                 </select>
+
                             </div>
                         </div>
 

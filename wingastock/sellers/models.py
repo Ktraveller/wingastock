@@ -27,22 +27,42 @@ class Seller(models.Model):
 class Product(models.Model):
     CATEGORY_CHOICES = [
         ('electronics', 'Electronics'),
-        ('food', 'Food'),
-        ('clothes', 'Clothes'),
+        ('phones', 'Phones & Tablets'),
+        ('computers', 'Computers & Laptops'),
+        ('fashion', 'Fashion'),
+        ('shoes', 'Shoes'),
+        ('beauty', 'Beauty & Personal Care'),
+        ('food', 'Food & Groceries'),
+        ('drinks', 'Drinks & Beverages'),
         ('furniture', 'Furniture'),
+        ('home', 'Home & Garden'),
+        ('appliances', 'Home Appliances'),
+        ('vehicles', 'Vehicles'),
+        ('parts', 'Vehicle Parts & Accessories'),
+        ('sports', 'Sports & Fitness'),
+        ('books', 'Books & Education'),
+        ('toys', 'Toys & Games'),
+        ('baby', 'Baby & Kids'),
+        ('services', 'Services'),
+        ('jobs', 'Jobs'),
+        ('property', 'Property'),
+        ('other', 'Other'),
     ]
 
     title = models.CharField(max_length=200)
     description = models.TextField()
     price = models.DecimalField(max_digits=12, decimal_places=2)
-    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
+    category = models.CharField(
+        max_length=50,
+        choices=CATEGORY_CHOICES
+    )
     status = models.CharField(max_length=100, default="saved")
     image = CloudinaryField("image", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     owner = models.ForeignKey(
-        User, 
-        on_delete=models.CASCADE, 
+        User,
+        on_delete=models.CASCADE,
         related_name='products'
     )
 
@@ -51,6 +71,8 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("product_details", kwargs={"id": self.id})
+
+
 
 
 # Product customer informations

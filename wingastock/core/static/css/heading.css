@@ -207,6 +207,8 @@ span {
     height: 100%;
     background: crimson;
     color: white;
+    border-style: none;
+    outline: none;
 }
 
 
