@@ -166,15 +166,32 @@ body {
 }
 
 .ti-1003 {
-    font-size: 15px;
-    font-weight: bold;
+    font-size: 13px;
     color: crimson;
 }
 
 .seller-1003 {
-    color: crimson;
-    font-weight: bold;
-    font-size: inherit;
+    font-size: smaller;
+    font-weight: unset;
+}
+
+.ti-1003,
+.seller-1003 {
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.seller-1003 {
+    width: 100%;
+    display: inline-block;
+}
+
+.seller-1003>span {
+    font-weight: 100;
 }
 
 .view-1003>i {
