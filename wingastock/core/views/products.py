@@ -10,6 +10,7 @@ from sellers.models import Product, Product_informations, Product_comments, Prod
 # Products
 def products(request):
     products = Product.objects.filter(status='visible').order_by('?')
+    other_products = Product.objects.filter(status='visible').order_by('?')
 
     if request.user.is_authenticated:
         mails = Mails.objects.filter(
@@ -20,18 +21,20 @@ def products(request):
 
         return render(request, 'products.html', {
         'products': products,
+        'other_products': other_products,
         'mails': mails
     })
     
     return render(request, 'products.html', {
         'products': products,
+        'other_products': other_products,
     })
 
 
 
 
 # Preview products
-def preview_products(request, id):
+def preview_products(request, id, title):
 
 
     if request.user.is_authenticated:
@@ -309,6 +312,7 @@ def delete_comment(request, id):
 # Filter products
 def filter_products(request, category):
     products = Product.objects.order_by('?').filter(category=category, status='visible')
+    other_products = Product.objects.order_by('?').filter(status='visible').exclude(category=category)
 
     if request.user.is_authenticated:
         mails = Mails.objects.filter(
@@ -319,10 +323,14 @@ def filter_products(request, category):
 
         return render(request, 'products.html', {
         'products': products,
-        'mails': mails
+        'other_products': other_products,
+        'mails': mails,
+        'category': category
     })
 
     return render(request, 'products.html', {
         'products': products,
+        'other_products': other_products,
+        'category': category
     })
 

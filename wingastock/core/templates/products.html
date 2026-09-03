@@ -78,13 +78,49 @@
 
             <!-- Center content -->
             <div class="product-card-holder-1001">
+
+                <!-- Product categories -->
+                {% include 'side-category.html' %}
+
                 <div class="product-card-1002">
+                    <p style="font-weight: bold; padding-left: 10px;">
+                        <span style="text-transform: capitalize;">{{ category }}</span>
+                        Products
+                    </p>
 
                     {% for product in products %}
                     {% include 'product-container.html' %}
-                    {% endfor %}
 
+                    {% empty %}
+                    <p style="text-align: center; font-weight: bold; color: crimson; padding: 20px;">No products found
+                        in this category.</p>
+                    {% endfor %}
                 </div>
+
+            </div>
+
+            <!-- Other products -->
+            <div class="product-card-holder-1001">
+
+                <!-- Product categories -->
+                <div class="product-category-holder-1001">
+                    <div style="width: 100%;"></div>
+                </div>
+
+                <div class="product-card-1002">
+                    <p style="font-weight: bold; padding-left: 10px;">
+                        Other Products
+                    </p>
+
+                    {% for product in other_products %}
+                    {% include 'product-container.html' %}
+
+                    {% empty %}
+                    <p style="text-align: center; font-weight: bold; color: crimson; padding: 20px;">
+                        No products found.</p>
+                    {% endfor %}
+                </div>
+
             </div>
 
             <div style="width: 100%; height: 100px; float: left;"></div>

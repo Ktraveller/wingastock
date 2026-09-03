@@ -57,12 +57,14 @@
         .spin-holder-100 {
             background: crimson;
             position: fixed;
-            bottom: 75px;
+            bottom: 78px;
             left: 0;
             border-top-right-radius: 50px;
             border-bottom-right-radius: 50px;
             height: 50px;
-            width: 80px;
+            width: 50px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.671);
+            overflow: hidden;
         }
 
         .spin-holder-100>button {
@@ -75,7 +77,9 @@
         }
 
         .spin-holder-100:hover {
-            background: rgba(220, 20, 60, 0.678);
+            height: 150px;
+            width: 100px;
+            border-radius: 5px;
         }
 
         .spin-holder-100>button>img {
@@ -113,8 +117,12 @@
 
             <!-- Center content -->
             <div class="product-card-holder-1001">
-                <div class="product-card-1002">
 
+                <!-- Product categories -->
+                {% include 'side-category.html' %}
+
+                <div class="product-card-1002">
+                    <p style="font-weight: bold; padding-left: 10px;">Top products</p>
                     {% for product in products %}
                     {% include 'product-container.html' %}
                     {% endfor %}

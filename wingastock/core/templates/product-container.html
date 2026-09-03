@@ -1,7 +1,7 @@
 {% load static %}
 {% load humanize %}
 
-<div class="product-card" onclick="window.location.href=`{% url 'product_details' product.id %}`">
+<div class="product-card" onclick="window.location.href=`{% url 'product_details' product.id product.title %}`">
 
 
     <div class="product-1002" data-bg="{{ product.image.url }}">

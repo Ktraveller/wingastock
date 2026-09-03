@@ -18,7 +18,7 @@ urlpatterns = [
     path('favorites/', favorities, name='favorities'),
     
     path('products/', products, name="products"),
-    path('p/<int:id>', preview_products, name="product_details"),
+    path('p/<int:id>/<str:title>/', preview_products, name="product_details"),
     path('f/<str:category>', filter_products, name="filter_products"),
     path('about/', about, name='about'),
     path('terms_and_policy/', terms_policy, name='terms'),
