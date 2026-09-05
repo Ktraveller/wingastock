@@ -15,23 +15,25 @@
 
     <title>Wingastock - Buy &amp; Sell Products in Tanzania</title>
 
-    <meta name="description"
-        content="Buy and sell electronics, phones, laptops, furniture, homes, and more on Wingastock, Tanzania's online marketplace.">
-
-    <meta property="og:title" content="Wingastock - Buy &amp; Sell Products in Tanzania">
-
-    <meta property="og:description"
-        content="Buy and sell electronics, phones, laptops, furniture, homes, and more on Wingastock, Tanzania's online marketplace.">
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://wingastock.onrender.com/">
-    <meta property="og:site_name" content="Wingastock">
-
+    <meta name="description" content="Buy and sell electronics such as smartphones, laptops, TVs, computers, accessories, 
+        and other electronic devices. Discover quality furniture, home appliances, rooms, houses, 
+        and a wide range of products from trusted sellers on Wingastock. 
+        Our platform makes it easy to find, advertise, buy, and sell products online, 
+        connecting customers and businesses in one convenient marketplace.">
 
     <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="https://wingastock.onrender.com/">
 
+    <meta property="og:title" content="Wingastock - Buy &amp; Sell Products in Tanzania">
+
+    <meta property="og:description"
+        content="Wingastock is an online marketplace in Tanzania where you can buy and sell electronics,
+         smartphones, laptops, TVs, furniture, home appliances, rooms, houses, and a wide range of products. 
+         Connect with trusted sellers, discover great deals, and grow your business by reaching more customers online.">
+
+
+    <meta property="og:type" content="website">
 
     <meta property="og:image" content="/static/logo.png">
 
@@ -122,7 +124,7 @@
                 {% include 'side-category.html' %}
 
                 <div class="product-card-1002">
-                    <p style="font-weight: bold; padding-left: 10px;">Top products</p>
+                    <p style="font-weight: bold; padding-left: 10px; font-size: 20px;">Top products</p>
                     {% for product in products %}
                     {% include 'product-container.html' %}
                     {% endfor %}
@@ -178,6 +180,11 @@
 
         <!-- Nav bar -->
         {% include 'navbar.html' %}
+
+
+        <!-- Login and register modal-->
+        {% include 'login-container.html' %}
+
 
     </div>
 

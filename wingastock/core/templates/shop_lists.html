@@ -46,6 +46,23 @@
         gtag('config', 'G-STT2EJ7H54');
     </script>
 
+    <style>
+        .shop-card-holder-1001 {
+            width: 100%;
+            height: auto;
+        }
+
+        .shop-card-1002>div {
+            width: 100%;
+            float: left;
+        }
+
+        @media only screen and (min-width: 768px) {
+            .shop-card-1002>div {
+                width: 50%;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -81,9 +98,9 @@
             </div>
 
             <!-- Shops -->
-            <div class="product-card-holder-1001">
+            <div class="shop-card-holder-1001">
 
-                <div class="product-card-1002">
+                <div class="shop-card-1002">
 
                     {% for shop in shops %}
                     {% include 'shops-container.html' %}
@@ -110,6 +127,9 @@
 
         <!-- Nav bar -->
         {% include 'navbar.html' %}
+
+        <!-- Login and register modal-->
+        {% include 'login-container.html' %}
 
     </div>
 

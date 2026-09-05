@@ -85,7 +85,7 @@
 
 
                 <div class="product-card-1002">
-                    <p style="font-weight: bold; padding-left: 10px;">Favorite products</p>
+                    <p style="font-weight: bold; padding-left: 10px; font-size: 20px;">Favorite products</p>
 
                     {% for product in favorite_products %}
                     {% include 'product-container.html' %}
@@ -107,6 +107,9 @@
 
         <!-- Nav bar -->
         {% include 'navbar.html' %}
+
+        <!-- Login and register modal-->
+        {% include 'login-container.html' %}
 
     </div>
 

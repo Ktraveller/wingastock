@@ -1,0 +1,676 @@
+{% load static %}
+
+<div class="register-modal-holder-2001" id="login_container">
+    <div class="register-modal-2001">
+
+        <!-- CLOSE BUTTON -->
+        <div class="close-holder-2001">
+            <button type="button" onclick="open_login_modal(0)">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+
+        <!-- LOGIN / REGISTER SELECTOR -->
+        <div class="choose-holder-2001">
+
+            <div style="padding-right: 10px;">
+                <button type="button" id="login_button" onclick="choose_type(1)">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </button>
+            </div>
+
+            <div style="padding-left: 10px;">
+                <button type="button" id="register_button" onclick="choose_type(2)">
+                    <i class="fas fa-user-plus"></i>
+                    Register
+                </button>
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             LOGIN
+        ====================================================== -->
+
+        <div class="form-holder-login-2001" id="login">
+
+            <p>Login Wingastock</p>
+
+            <div class="form-login-2001">
+
+                <form method="post" action="{% url 'customer_login' %}" id="customer_login_form">
+
+                    {% csrf_token %}
+
+                    <!-- EMAIL -->
+                    <div>
+
+                        <label for="login_email">
+                            <i class="fas fa-envelope"></i>
+                            Email
+                        </label>
+
+                        <input type="email" name="email" id="login_email" placeholder="E.g juma@mail.com"
+                            autocomplete="email" required>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+                    <div>
+
+                        <label for="login_password">
+                            <i class="fas fa-lock"></i>
+                            Password
+                        </label>
+
+                        <input type="password" name="password" id="login_password" placeholder="Write password"
+                            autocomplete="current-password" required>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+                    <div>
+
+                        <button type="submit" id="login_submit">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- LOGIN MESSAGE -->
+            <div class="footer-201" id="login_message" aria-live="polite"></div>
+
+
+            <!-- SWITCH TO REGISTER -->
+            <p style="font-size: 14px;">
+
+                Don't have an account?
+
+                <span onclick="choose_type(2)" style="
+                        font-size: inherit;
+                        color: crimson;
+                        font-weight: bold;
+                        cursor: pointer;
+                    ">
+                    Register
+                </span>
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             REGISTER
+        ====================================================== -->
+
+        <div class="form-holder-login-2001" style="display: none;" id="signup">
+
+            <p>Register Wingastock</p>
+
+            <div class="form-login-2001">
+
+                <form method="post" action="{% url 'customer_register' %}" id="customer_register_form">
+
+                    {% csrf_token %}
+
+
+                    <!-- EMAIL -->
+                    <div>
+
+                        <label for="register_email">
+                            <i class="fas fa-envelope"></i>
+                            Email
+                        </label>
+
+                        <input type="email" name="email" id="register_email" placeholder="E.g juma@mail.com"
+                            autocomplete="email" required>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+                    <div>
+
+                        <label for="register_password">
+                            <i class="fas fa-lock"></i>
+                            Password
+                        </label>
+
+                        <input type="password" name="password" id="register_password" placeholder="Write password"
+                            autocomplete="new-password" required>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+                    <div>
+
+                        <button type="submit" id="register_submit">
+                            <i class="fas fa-user-plus"></i>
+                            Signup
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- REGISTER MESSAGE -->
+            <div class="footer-201" id="register_message" aria-live="polite"></div>
+
+
+            <!-- SWITCH TO LOGIN -->
+            <p style="font-size: 14px;">
+
+                Already have an account?
+
+                <span onclick="choose_type(1)" style="
+                        font-size: inherit;
+                        color: crimson;
+                        font-weight: bold;
+                        cursor: pointer;
+                    ">
+                    Login
+                </span>
+
+            </p>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+
+    /* ============================================================
+       ELEMENTS
+    ============================================================ */
+
+    const loginContainer = document.getElementById("login_container");
+
+    const loginButton = document.getElementById("login_button");
+    const registerButton = document.getElementById("register_button");
+
+    const loginModal = document.getElementById("login");
+    const registerModal = document.getElementById("signup");
+
+
+
+    /* ============================================================
+       OPEN / CLOSE LOGIN MODAL
+    ============================================================ */
+
+    function open_login_modal(click) {
+
+        if (click === 1) {
+
+            loginContainer.style.display = "inline-block";
+
+            // Always open Login by default
+            choose_type(1);
+
+        }
+
+        else if (click === 2) {
+
+            loginContainer.style.display = "inline-block";
+
+            // Always open Login by default
+            choose_type(2);
+
+        }
+
+        else {
+
+            loginContainer.style.display = "none";
+
+        }
+
+    }
+
+
+
+    /* ============================================================
+       CHOOSE LOGIN OR REGISTER
+    ============================================================ */
+
+    function choose_type(click) {
+
+        if (click === 1) {
+
+            // Show login
+            loginModal.style.display = "inline-block";
+            registerModal.style.display = "none";
+
+
+            // Login button active
+            loginButton.style.background = "crimson";
+            loginButton.style.color = "white";
+            loginButton.style.border = "none";
+
+
+            // Register button inactive
+            registerButton.style.background = "white";
+            registerButton.style.color = "inherit";
+            registerButton.style.border =
+                "1px solid rgba(220, 20, 60, 0.266)";
+
+        }
+
+
+        else if (click === 2) {
+
+            // Hide login
+            loginModal.style.display = "none";
+
+            // Show register
+            registerModal.style.display = "inline-block";
+
+
+            // Login button inactive
+            loginButton.style.background = "white";
+            loginButton.style.color = "inherit";
+            loginButton.style.border =
+                "1px solid rgba(220, 20, 60, 0.266)";
+
+
+            // Register button active
+            registerButton.style.background = "crimson";
+            registerButton.style.color = "white";
+            registerButton.style.border = "none";
+
+        }
+
+    }
+
+
+
+    /* ============================================================
+       GET CSRF TOKEN
+    ============================================================ */
+
+    function getCSRFToken(form) {
+
+        return form.querySelector(
+            "[name=csrfmiddlewaretoken]"
+        ).value;
+
+    }
+
+
+
+    /* ============================================================
+       CUSTOMER LOGIN
+    ============================================================ */
+
+    const loginForm =
+        document.getElementById("customer_login_form");
+
+    const loginMessage =
+        document.getElementById("login_message");
+
+    const loginSubmit =
+        document.getElementById("login_submit");
+
+
+
+    loginForm.addEventListener("submit", async function (event) {
+
+        // Prevent normal form submission
+        event.preventDefault();
+
+
+        const email =
+            document.getElementById("login_email")
+                .value
+                .trim()
+                .toLowerCase();
+
+        const password =
+            document.getElementById("login_password")
+                .value;
+
+
+        // Clear previous message
+        loginMessage.innerHTML = "";
+
+
+        // Disable button
+        loginSubmit.disabled = true;
+
+
+        loginSubmit.innerHTML = `
+        <i class="fas fa-spinner fa-spin"></i>
+        Logging in...
+    `;
+
+
+        try {
+
+            const response = await fetch(
+                loginForm.action,
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type": "application/json",
+
+                        "X-CSRFToken":
+                            getCSRFToken(loginForm)
+
+                    },
+
+                    body: JSON.stringify({
+
+                        email: email,
+
+                        password: password
+
+                    })
+
+                }
+            );
+
+
+            const data = await response.json();
+
+
+            /* ==========================================
+               LOGIN SUCCESS
+            ========================================== */
+
+            if (data.success) {
+
+                loginMessage.innerHTML = `
+                <p
+                    style="
+                        text-align: center;
+                        color: green;
+                    "
+                >
+                    <i class="fas fa-check-circle"></i>
+                    ${data.message}
+                </p>
+            `;
+
+
+                // Reload page
+                setTimeout(function () {
+
+                    window.location.href = '';
+
+                }, 500);
+
+
+            }
+
+
+            /* ==========================================
+               LOGIN ERROR
+            ========================================== */
+
+            else {
+
+                loginMessage.innerHTML = `
+                <p
+                    style="
+                        text-align: center;
+                        color: red;
+                    "
+                >
+                    <i class="fas fa-exclamation-circle"></i>
+                    ${data.error}
+                </p>
+            `;
+
+
+                // Enable button again
+                loginSubmit.disabled = false;
+
+
+                loginSubmit.innerHTML = `
+                <i class="fas fa-sign-in-alt"></i>
+                Login
+            `;
+
+            }
+
+        }
+
+
+        /* ==========================================
+           NETWORK / SERVER ERROR
+        ========================================== */
+
+        catch (error) {
+
+            console.error("Login error:", error);
+
+
+            loginMessage.innerHTML = `
+            <p
+                style="
+                    text-align: center;
+                    color: red;
+                "
+            >
+                <i class="fas fa-exclamation-circle"></i>
+                Something went wrong. Please try again.
+            </p>
+        `;
+
+
+            loginSubmit.disabled = false;
+
+
+            loginSubmit.innerHTML = `
+            <i class="fas fa-sign-in-alt"></i>
+            Login
+        `;
+
+        }
+
+    });
+
+
+
+    /* ============================================================
+       CUSTOMER REGISTRATION
+    ============================================================ */
+
+    const registerForm =
+        document.getElementById("customer_register_form");
+
+    const registerMessage =
+        document.getElementById("register_message");
+
+    const registerSubmit =
+        document.getElementById("register_submit");
+
+
+
+    registerForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            // Prevent normal form submission
+            event.preventDefault();
+
+
+            const email =
+                document.getElementById("register_email")
+                    .value
+                    .trim()
+                    .toLowerCase();
+
+            const password =
+                document.getElementById("register_password")
+                    .value;
+
+
+            // Clear previous message
+            registerMessage.innerHTML = "";
+
+
+            // Disable button
+            registerSubmit.disabled = true;
+
+
+            registerSubmit.innerHTML = `
+            <i class="fas fa-spinner fa-spin"></i>
+            Creating account...
+        `;
+
+
+            try {
+
+                const response = await fetch(
+                    registerForm.action,
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type": "application/json",
+
+                            "X-CSRFToken":
+                                getCSRFToken(registerForm)
+
+                        },
+
+                        body: JSON.stringify({
+
+                            email: email,
+
+                            password: password
+
+                        })
+
+                    }
+                );
+
+
+                const data = await response.json();
+
+
+                /* ==========================================
+                   REGISTRATION SUCCESS
+                ========================================== */
+
+                if (data.success) {
+
+                    registerMessage.innerHTML = `
+                    <p
+                        style="
+                            text-align: center;
+                            color: green;
+                        "
+                    >
+                        <i class="fas fa-check-circle"></i>
+                        ${data.message}
+                    </p>
+                `;
+
+
+                    // Reload page
+                    setTimeout(function () {
+
+                        window.location.href = '';
+
+                    }, 500);
+
+                }
+
+
+                /* ==========================================
+                   REGISTRATION ERROR
+                ========================================== */
+
+                else {
+
+                    registerMessage.innerHTML = `
+                    <p
+                        style="
+                            text-align: center;
+                            color: red;
+                        "
+                    >
+                        <i class="fas fa-exclamation-circle"></i>
+                        ${data.error}
+                    </p>
+                `;
+
+
+                    // Enable button again
+                    registerSubmit.disabled = false;
+
+
+                    registerSubmit.innerHTML = `
+                    <i class="fas fa-user-plus"></i>
+                    Signup
+                `;
+
+                }
+
+            }
+
+
+            /* ==========================================
+               NETWORK / SERVER ERROR
+            ========================================== */
+
+            catch (error) {
+
+                console.error(
+                    "Registration error:",
+                    error
+                );
+
+
+                registerMessage.innerHTML = `
+                <p
+                    style="
+                        text-align: center;
+                        color: red;
+                    "
+                >
+                    <i class="fas fa-exclamation-circle"></i>
+                    Something went wrong. Please try again.
+                </p>
+            `;
+
+
+                registerSubmit.disabled = false;
+
+
+                registerSubmit.innerHTML = `
+                <i class="fas fa-user-plus"></i>
+                Signup
+            `;
+
+            }
+
+        }
+    );
+
+</script>

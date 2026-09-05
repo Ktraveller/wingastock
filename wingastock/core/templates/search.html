@@ -83,7 +83,7 @@
 
                     <div>
                         <div class="list-fav-003"
-                            onclick="window.location.href=`{% url 'product_details' product.id %}`">
+                            onclick="window.location.href=`{% url 'product_details' product.id product.title %}`">
                             <div class="fav-image-003">
                                 {% if product.image %}
                                 <img src="{{ product.image.url }}" alt="{{ product.title }}">
@@ -115,6 +115,9 @@
 
         <!-- Nav bar -->
         {% include 'navbar.html' %}
+
+        <!-- Login and register modal-->
+        {% include 'login-container.html' %}
 
     </div>
 

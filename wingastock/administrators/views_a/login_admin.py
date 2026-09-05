@@ -3,8 +3,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 def admin_login(request):
-    if request.user.is_authenticated:
-        return redirect("admin_home")
 
     if request.method == "POST":
         email = request.POST.get("email")

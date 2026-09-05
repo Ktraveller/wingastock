@@ -1,68 +1,110 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+import json
+
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.urls import reverse
+from django.shortcuts import redirect
 
 
-# Customer login
+
+
+# Customer registration
 def customer_register(request):
-    if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
+    if request.method != "POST":
+        return JsonResponse({
+            "success": False,
+            "error": "Only POST requests are allowed."
+        }, status=405)
 
-        if not email or not password:
-            return render(request, "register.html", {
-                "error": "Email and password are required."
-            })
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({
+            "success": False,
+            "error": "Invalid JSON data."
+        }, status=400)
 
-        if User.objects.filter(email=email).exists():
-            return render(request, "register.html", {
-                "error": "An account with this email already exists."
-            })
+    email = data.get("email", "").strip().lower()
+    password = data.get("password", "")
 
-        user = User.objects.create_user(
-            username=email,
-            email=email,
-            password=password
-        )
+    # Validate fields
+    if not email or not password:
+        return JsonResponse({
+            "success": False,
+            "error": "Email and password are required."
+        }, status=400)
 
-        # Automatically log the user in
-        login(request, user)
+    # Check existing account
+    if User.objects.filter(email=email).exists():
+        return JsonResponse({
+            "success": False,
+            "error": "An account with this email already exists."
+        }, status=400)
 
-        return redirect("home")
+    # Create user
+    user = User.objects.create_user(
+        username=email,
+        email=email,
+        password=password
+    )
 
-    return render(request, "register.html")
+    # Automatically login
+    login(request, user)
 
-
+    return JsonResponse({
+        "success": True,
+        "message": "Account created successfully.",
+        "redirect_url": reverse("home")
+    })
 
 
 # Customer login
 def customer_login(request):
-    if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
+    if request.method != "POST":
+        return JsonResponse({
+            "success": False,
+            "error": "Only POST requests are allowed."
+        }, status=405)
 
-        if not email or not password:
-            return render(request, "login.html", {
-                "error": "Email and password are required."
-            })
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({
+            "success": False,
+            "error": "Invalid JSON data."
+        }, status=400)
 
-        # Since we use email as username during registration
-        user = authenticate(
-            request,
-            username=email,
-            password=password
-        )
+    email = data.get("email", "").strip().lower()
+    password = data.get("password", "")
 
-        if user is not None:
-            login(request, user)
-            return redirect("home")
+    # Validate fields
+    if not email or not password:
+        return JsonResponse({
+            "success": False,
+            "error": "Email and password are required."
+        }, status=400)
 
-        return render(request, "login.html", {
-            "error": "Invalid email or password."
-        })  
+    # Authenticate
+    user = authenticate(
+        request,
+        username=email,
+        password=password
+    )
 
-    return render(request, "login.html")
+    if user is not None:
+        login(request, user)
+
+        return JsonResponse({
+            "success": True,
+            "message": "Login successful.",
+        })
+
+    return JsonResponse({
+        "success": False,
+        "error": "Invalid email or password."
+    }, status=401)
+
 
 
 
@@ -70,3 +112,4 @@ def customer_login(request):
 def customer_logout(request):
     logout(request)
     return redirect("home")
+

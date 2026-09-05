@@ -83,8 +83,8 @@
                 {% include 'side-category.html' %}
 
                 <div class="product-card-1002">
-                    <p style="font-weight: bold; padding-left: 10px;">
-                        <span style="text-transform: capitalize;">{{ category }}</span>
+                    <p style="font-weight: bold; padding-left: 10px; font-size: 20px;">
+                        <span style="text-transform: capitalize; font-size: inherit;">{{ category }}</span>
                         Products
                     </p>
 
@@ -108,7 +108,7 @@
                 </div>
 
                 <div class="product-card-1002">
-                    <p style="font-weight: bold; padding-left: 10px;">
+                    <p style="font-weight: bold; padding-left: 10px; font-size: 20px;">
                         Other Products
                     </p>
 
@@ -137,6 +137,9 @@
 
         <!-- Nav bar -->
         {% include 'navbar.html' %}
+
+        <!-- Login and register modal-->
+        {% include 'login-container.html' %}
 
     </div>
 

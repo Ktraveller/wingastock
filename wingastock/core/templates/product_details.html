@@ -223,7 +223,7 @@
                       {% else %}
                       <button type="button"
                         style="background: white; color: green; border: 1px solid rgba(0, 128, 0, 0.468);"
-                        onclick=" window.location.href=`{% url 'customer_login' %}`">
+                        onclick="open_login_modal(1)">
                         <i class="fab fa-whatsapp"></i>
                         Register or login to get seller whatsapp number</button>
                       {% endif %}
@@ -233,8 +233,7 @@
                     <div>
                       {% if user.email %}
 
-                      <button type="button" 
-                      onclick="window.location.href=`{% url 'compose_m_c' product.owner.email %}`"
+                      <button type="button" onclick="window.location.href=`{% url 'compose_m_c' product.owner.email %}`"
                         style="background: lightseagreen;">
                         <i class="fas fa-paper-plane"></i>
                         Send message to seller</button>
@@ -242,7 +241,7 @@
                       {% else %}
                       <button type="button"
                         style="background: white; color: crimson; border: 1px solid rgba(220, 20, 60, 0.511);"
-                        onclick="window.location.href=`{% url 'customer_login' %}`">
+                        onclick="open_login_modal(1)">
                         <i class="fas fa-paper-plane"></i>
                         Register or login, inorder to send message to seller</button>
                       {% endif %}
@@ -344,6 +343,9 @@
 
     <!-- Nav bar -->
     {% include 'navbar.html' %}
+
+    <!-- Login and register modal-->
+    {% include 'login-container.html' %}
 
   </div>
 

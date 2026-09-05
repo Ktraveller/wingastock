@@ -9,12 +9,12 @@
                 Wingastock
             </h1>
 
-            <a href="{% url 'customer_register' %}" class="reg-1003" style="color: white;">
+            <span class="reg-1003" style="color: white;" onclick="open_login_modal(2)">
                 <i class="fas fa-user-plus"></i>
-                Register</a>
-            <a href="{% url 'customer_login' %}" class="login-1003">
+                Register</span>
+            <span class="login-1003" onclick="open_login_modal(1)">
                 <i class="fas fa-sign-in-alt"></i>
-                Login</a>
+                Login</span>
 
             <a href="{% url 'about' %}">About us</a> |
             <a href="{% url 'terms' %}">Terms and conditions</a>

@@ -18,9 +18,6 @@ import string
 # Login sellers
 def seller_login(request):
 
-    if request.user.is_authenticated:
-        return redirect("seller_home")
-
     if request.method == "POST":
 
         email = request.POST.get("email", "").strip().lower()
@@ -93,8 +90,6 @@ def seller_login(request):
 
 # Signup sellers
 def seller_signup(request):
-    if request.user.is_authenticated:
-        return redirect("seller_home")  # Redirect to the seller home page if already logged in
 
     if request.method == 'POST':
 

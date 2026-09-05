@@ -47,7 +47,7 @@ urlpatterns = [
 
     # Seller shops
     path('shops', shop_lists, name='shop_list'),
-    path('shop-preview/<int:id>/', shop_preview, name='shop_preview'),
+    path('shop/<int:id>', shop_preview, name='shop_preview'),
 
     # web check
     path('ping/', health_check, name='health_check'),
