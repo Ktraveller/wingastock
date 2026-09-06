@@ -21,18 +21,18 @@ urlpatterns = [
     path('p/<int:id>/<str:title>/', preview_products, name="product_details"),
     path('f/<str:category>', filter_products, name="filter_products"),
     path('about/', about, name='about'),
-    path('terms_and_policy/', terms_policy, name='terms'),
+    path('terms-and-policy/', terms_policy, name='terms'),
     path('communications/', communication, name='communication'),
 
     #Like and dislike
-    path('product_react/<int:id>/react/', react_product, name='react_product'),
-    path('product_comment/<int:id>/', submit_comments, name='submit_comments'),
-    path('comment_delete/<int:id>/', delete_comment, name='delete_comment'),
+    path('product-react/<int:id>/react/', react_product, name='react_product'),
+    path('product-comment/<int:id>/', submit_comments, name='submit_comments'),
+    path('comment-delete/<int:id>/', delete_comment, name='delete_comment'),
 
     # Register customers
     path('register/', customer_register, name='customer_register'),
-    path('customer_login/', customer_login, name='customer_login'),
-    path('customer_logout/', customer_logout, name='customer_logout'),
+    path('customer-login/', customer_login, name='customer_login'),
+    path('customer-logout/', customer_logout, name='customer_logout'),
 
     # Lucky
     path('spin/', spin_page, name='spin'),
@@ -47,7 +47,7 @@ urlpatterns = [
 
     # Seller shops
     path('shops', shop_lists, name='shop_list'),
-    path('shop/<int:id>', shop_preview, name='shop_preview'),
+    path('shop/<int:id>/', shop_preview, name='shop_preview'),
 
     # web check
     path('ping/', health_check, name='health_check'),

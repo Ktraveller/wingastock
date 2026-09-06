@@ -79,6 +79,22 @@
             color: white;
             border-color: #007bff;
         }
+
+        .share-10 {
+            width: auto;
+            height: 40px;
+            padding-left: 25px;
+            padding-right: 25px;
+            background: #007bff;
+            color: white;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .share-10:hover {
+            opacity: 0.7;
+        }
     </style>
 </head>
 
@@ -119,7 +135,9 @@
                             <div style="width: 100%;">
                                 <div style="max-height: 600px; float: left;">
 
-                                    <h1 style="color: crimson; font-size: 18px;">{{ shop.seller_name }}</h1>
+                                    <h1 style="color: crimson; font-size: 15px;">
+                                        <i class="fas fa-store" style="padding-right: 5px; font-size: 20px;"></i>
+                                        {{ shop.seller_name }}</h1>
 
                                     <p style="font-weight: bold;"><i class="fas fa-align-left"></i> Descriptions</p>
 
@@ -136,6 +154,15 @@
                                         <tr>
                                             <td><i class="fas fa-tags"></i> Reg date</td>
                                             <td>{{ shop.reg_date }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <button class="share-10" type="button" onclick="shareShop('{{ shop.id }}')"
+                                                    style="cursor: pointer;" title="Share shop">
+                                                    <i class="fas fa-share-alt"></i> Share shop ID
+                                                </button>
+                                            </td>
                                         </tr>
 
                                     </table>
@@ -157,7 +184,7 @@
             <div class="product-card-holder-1001">
 
                 <div class="product-card-1002" style="width: 100%;">
-                    <p style="font-weight: bold; padding-left: 10px; font-size: 20px;">Products</p>
+                    <p style="font-weight: bold; padding-left: 10px; font-size: 20px;">Shop products</p>
                     {% for product in products %}
                     {% include 'product-container.html' %}
                     {% endfor %}
@@ -252,6 +279,32 @@
             img.src = product.dataset.bg;
         });
     </script>
+
+
+    <script>
+        function shareShop(shopId) {
+            // Create the shop URL 
+            const shopUrl = window.location.origin + "/shop/" + shopId + "/";
+            // If browser supports native sharing 
+            if (navigator.share) {
+                navigator.share(
+                    {
+                        title: "Wingastock Shop",
+                        text: "Check out this shop on Wingastock",
+                        url: shopUrl
+                    }
+                ).catch(function (error) {
+                    console.log("Sharing cancelled:", error);
+                });
+            } else {
+                // Fallback: copy URL to clipboard 
+                navigator.clipboard.writeText(shopUrl).then(function () {
+                    alert("Shop link copied!");
+                }).catch(function () {
+                    alert("Unable to copy shop link.");
+                });
+            }
+        } </script>
 
 </body>
 

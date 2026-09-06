@@ -1,0 +1,662 @@
+<!-- ================================
+     WINGASTOCK NOTIFICATION SLIDESHOW
+================================= -->
+
+<div class="winga-notification-wrapper" style="width: 100%;">
+
+    <div class="winga-notification-slider" id="wingaNotificationSlider">
+
+        <!-- SLIDE 1 -->
+        <div class="winga-notification-card active">
+
+            <div class="winga-notification-icon">
+                <i class="fas fa-bullhorn"></i>
+            </div>
+
+            <div class="winga-notification-content">
+
+                <div class="winga-notification-title">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Important!
+                </div>
+
+                <p>
+                    Hello! We invite <strong>sellers, winga, madalali</strong>
+                    and everyone dealing with selling products such as
+                    <strong>clothes, electronics, accessories, furniture,
+                    food</strong> and many other products.
+                </p>
+
+                <p>
+                    Create your <strong>free seller account today</strong>
+                    and start posting your products to reach more customers
+                    through Wingastock.
+                </p>
+
+                <button type="button" class="winga-notification-btn"
+                        onclick="window.location.href=`{% url 'seller_terms' %}`">
+                    <i class="fas fa-user-plus"></i>
+                    Become a Seller
+                </button>
+
+            </div>
+        </div>
+
+
+        <!-- SLIDE 2 -->
+        <div class="winga-notification-card">
+
+            <div class="winga-notification-icon">
+                <i class="fas fa-store"></i>
+            </div>
+
+            <div class="winga-notification-content">
+
+                <div class="winga-notification-title">
+                    <i class="fas fa-shopping-bag"></i>
+                    What is Wingastock?
+                </div>
+
+                <p>
+                    <strong>Wingastock</strong> is an online marketplace
+                    designed to connect customers with sellers and make it
+                    easier to discover products in one place.
+                </p>
+
+                <p>
+                    Sellers can showcase their products while customers can
+                    browse different categories, discover products and
+                    connect with sellers.
+                </p>
+
+                <a href="https://wingastock.onrender.com/"
+                   class="winga-notification-btn"
+                   style="display: inline-block; text-decoration: none;">
+                    <i class="fas fa-info-circle"></i>
+                    Learn More
+                </a>
+
+            </div>
+        </div>
+
+
+        <!-- SLIDE 3 -->
+        <div class="winga-notification-card">
+
+            <div class="winga-notification-icon spin-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+
+            <div class="winga-notification-content">
+
+                <div class="winga-notification-title">
+                    <i class="fas fa-star"></i>
+                    Spin & Win!
+                </div>
+
+                <p>
+                    Did you know that Wingastock can give customers a chance
+                    to <strong>spin and win exciting rewards?</strong>
+                </p>
+
+                <p>
+                    Visit the Spin & Win section, take your chance and see
+                    what you can win. You could be our next lucky customer!
+                </p>
+
+                <button type="button"
+                        class="winga-notification-btn"
+                        onclick="window.location.href=`{% url 'spin' %}`">
+                    <i class="fas fa-sync-alt"></i>
+                    Spin Now
+                </button>
+
+            </div>
+        </div>
+
+
+        <!-- SLIDE 4 -->
+        <div class="winga-notification-card">
+
+            <div class="winga-notification-icon">
+                <i class="fas fa-search"></i>
+            </div>
+
+            <div class="winga-notification-content">
+
+                <div class="winga-notification-title">
+                    <i class="fas fa-shopping-cart"></i>
+                    Discover Products
+                </div>
+
+                <p>
+                    Looking for something to buy?
+                    <strong>Wingastock makes product discovery easier.</strong>
+                </p>
+
+                <p>
+                    Explore different products, compare what is available
+                    and find sellers offering the products you need.
+                </p>
+
+                <a href="/"
+                   class="winga-notification-btn"
+                   style="display: inline-block; text-decoration: none;">
+                    <i class="fas fa-search"></i>
+                    Explore Products
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- SLIDER CONTROLS -->
+
+    <button class="winga-slider-control winga-prev"
+            onclick="wingaChangeSlide(-1)"
+            aria-label="Previous notification">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <button class="winga-slider-control winga-next"
+            onclick="wingaChangeSlide(1)"
+            aria-label="Next notification">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+
+
+    <!-- DOTS -->
+
+    <div class="winga-slider-dots">
+
+        <span class="winga-dot active"
+              onclick="wingaGoToSlide(0)"></span>
+
+        <span class="winga-dot"
+              onclick="wingaGoToSlide(1)"></span>
+
+        <span class="winga-dot"
+              onclick="wingaGoToSlide(2)"></span>
+
+        <span class="winga-dot"
+              onclick="wingaGoToSlide(3)"></span>
+
+    </div>
+
+</div>
+
+
+<style>
+
+/* =================================
+   MAIN SLIDESHOW
+================================= */
+
+.winga-notification-wrapper {
+    width: 100%;
+    margin: 15px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 70px;
+    float: left;
+}
+
+
+/* =================================
+   SLIDER
+================================= */
+
+.winga-notification-slider {
+    width: 100%;
+    position: relative;
+    min-height: 230px;
+}
+
+
+/* =================================
+   CARD
+================================= */
+
+.winga-notification-card {
+    width: 100%;
+    min-height: 230px;
+
+    display: none;
+    align-items: center;
+
+    box-sizing: border-box;
+    padding: 28px 55px;
+
+
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.08);
+
+    animation: wingaSlideIn 0.5s ease;
+}
+
+
+/* ACTIVE CARD */
+
+.winga-notification-card.active {
+    display: flex;
+}
+
+
+/* =================================
+   ICON
+================================= */
+
+.winga-notification-icon {
+    width: 75px;
+    min-width: 75px;
+    height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 25px;
+
+    border-radius: 50%;
+
+    background: crimson;
+    color: white;
+
+    font-size: 30px;
+
+    box-shadow:
+        0 7px 18px rgba(220, 20, 60, 0.25);
+}
+
+
+.winga-notification-icon.spin-icon {
+    animation: wingaSpinIcon 2s infinite linear;
+}
+
+
+/* =================================
+   CONTENT
+================================= */
+
+.winga-notification-content {
+    flex: 1;
+}
+
+
+.winga-notification-title {
+    font-size: 21px;
+    font-weight: bold;
+    color: crimson;
+    margin-bottom: 12px;
+}
+
+
+.winga-notification-title i {
+    margin-right: 6px;
+}
+
+
+.winga-notification-content p {
+    margin: 7px 0;
+    line-height: 1.6;
+    font-size: 14px;
+    color: #444;
+}
+
+
+.winga-notification-content strong {
+    color: #222;
+}
+
+
+/* =================================
+   BUTTON
+================================= */
+
+.winga-notification-btn {
+    margin-top: 12px;
+
+    padding: 9px 16px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: crimson;
+    color: white;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.winga-notification-btn:hover {
+    background: #a90025;
+    transform: translateY(-2px);
+}
+
+
+.winga-notification-btn i {
+    margin-right: 5px;
+}
+
+
+/* =================================
+   ARROWS
+================================= */
+
+.winga-slider-control {
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(220, 20, 60, 0.9);
+    color: white;
+
+    cursor: pointer;
+
+    z-index: 10;
+
+    transition: 0.2s;
+}
+
+
+.winga-slider-control:hover {
+    background: crimson;
+    transform: translateY(-50%) scale(1.08);
+}
+
+
+.winga-prev {
+    left: 10px;
+}
+
+
+.winga-next {
+    right: 10px;
+}
+
+
+/* =================================
+   DOTS
+================================= */
+
+.winga-slider-dots {
+    position: absolute;
+
+    bottom: 10px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+    gap: 7px;
+}
+
+
+.winga-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.2);
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.winga-dot.active {
+    width: 22px;
+    border-radius: 10px;
+    background: crimson;
+}
+
+
+/* =================================
+   ANIMATIONS
+================================= */
+
+@keyframes wingaSlideIn {
+
+    from {
+        opacity: 0;
+        transform: translateX(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+}
+
+
+@keyframes wingaSpinIcon {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+.mobile {
+    display: inline-block;
+}
+
+.web {
+    display: none;
+}
+
+@media only screen and (min-width: 768px) {
+    .mobile {
+        display: none;
+    }
+
+    .web {
+        display: inline-block;
+    }
+}
+
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 600px) {
+
+    .winga-notification-card {
+        min-height: 300px;
+
+        padding: 25px 42px;
+
+        align-items: flex-start;
+    }
+
+    .winga-notification-icon {
+        width: 52px;
+        min-width: 52px;
+        height: 52px;
+
+        margin-right: 15px;
+
+        font-size: 20px;
+    }
+
+    .winga-notification-title {
+        font-size: 17px;
+    }
+
+    .winga-notification-content p {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .winga-slider-control {
+        width: 30px;
+        height: 30px;
+    }
+
+}
+
+
+/* VERY SMALL SCREENS */
+
+@media (max-width: 400px) {
+
+    .winga-notification-card {
+        display: none;
+        flex-direction: column;
+        text-align: center;
+
+        padding: 20px 35px 30px;
+    }
+
+    .winga-notification-card.active {
+        display: flex;
+    }
+
+    .winga-notification-icon {
+        margin: 0 auto 12px;
+    }
+
+    .winga-notification-content {
+        width: 100%;
+    }
+
+}
+
+</style>
+
+
+<script>
+
+/* =================================
+   WINGASTOCK NOTIFICATION SLIDER
+================================= */
+
+let wingaCurrentSlide = 0;
+
+const wingaSlides =
+    document.querySelectorAll(".winga-notification-card");
+
+const wingaDots =
+    document.querySelectorAll(".winga-dot");
+
+
+function wingaShowSlide(index) {
+
+    if (index >= wingaSlides.length) {
+        wingaCurrentSlide = 0;
+    }
+
+    else if (index < 0) {
+        wingaCurrentSlide = wingaSlides.length - 1;
+    }
+
+    else {
+        wingaCurrentSlide = index;
+    }
+
+
+    wingaSlides.forEach(function(slide, i) {
+
+        slide.classList.toggle(
+            "active",
+            i === wingaCurrentSlide
+        );
+
+    });
+
+
+    wingaDots.forEach(function(dot, i) {
+
+        dot.classList.toggle(
+            "active",
+            i === wingaCurrentSlide
+        );
+
+    });
+
+}
+
+
+function wingaChangeSlide(direction) {
+
+    wingaShowSlide(
+        wingaCurrentSlide + direction
+    );
+
+}
+
+
+function wingaGoToSlide(index) {
+
+    wingaShowSlide(index);
+
+}
+
+
+/* =================================
+   AUTOMATIC SLIDESHOW
+================================= */
+
+let wingaAutoSlide =
+    setInterval(function() {
+
+        wingaChangeSlide(1);
+
+    }, 6000);
+
+
+/* =================================
+   PAUSE WHEN MOUSE IS OVER CARD
+================================= */
+
+const wingaSlider =
+    document.getElementById("wingaNotificationSlider");
+
+
+wingaSlider.addEventListener("mouseenter", function() {
+
+    clearInterval(wingaAutoSlide);
+
+});
+
+
+wingaSlider.addEventListener("mouseleave", function() {
+
+    wingaAutoSlide =
+        setInterval(function() {
+
+            wingaChangeSlide(1);
+
+        }, 6000);
+
+});
+
+</script>

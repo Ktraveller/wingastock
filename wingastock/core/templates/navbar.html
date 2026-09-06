@@ -23,11 +23,32 @@
         </div>
 
         <div>
-            <button type="button" onclick="window.location.href=`{% url 'unreaded_c' %}`">
-                <i class="fas fa-comments"></i><br>
-                <span>Charts</span>
+            <button type="button" onclick="document.getElementById('option').style.display='inline-block'">
+                <i class="fas fa-ellipsis-h"></i><br>
+                <span>Options</span>
             </button>
         </div>
-        
+
+    </div>
+</div>
+
+
+<div class="other-options-100" id="option">
+    <div>
+        <span class="close-100" onclick="document.getElementById('option').style.display='none'">
+            <i class="fas fa-times"></i>
+        </span>
+        <br><br>
+        <ul>
+
+            <li onclick="open_user(1)">
+                <i class="fas fa-user"></i> Account
+            </li>
+
+            <li onclick="open_notification(1)">
+                <i class="fas fa-bell"></i> Notifications
+            </li>
+
+        </ul>
     </div>
 </div>
