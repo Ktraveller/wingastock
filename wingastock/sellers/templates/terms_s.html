@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wingastock | Add product</title>
+  <title>Wingastock | Signup</title>
   <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
   <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -115,7 +115,12 @@
           <div class="terms-holder-202">
 
             <div>
-              <p style="font-weight: bold;">Seller Terms and Conditions</p>
+              <h1 style="font-size: 20px; color: crimson; text-align: center;">Welcome wingastock | Create seller
+                account</h1><br>
+              <p style="font-weight: bold;">
+                <span style="font-weight: 100;">Before proceeding please read carefully</span><br>
+                Seller Terms and Conditions
+              </p>
 
               <div class="seller-terms-0004">
 
@@ -303,7 +308,8 @@
             </div>
 
             <div class="next-holder-202">
-              <button type="button" onclick="window.location.href=`{% url 'signup_seller' %}`">I understood, proceed <i
+              <button type="button" style="padding-left: 30px; height: 50px; padding-right: 30px;"
+                onclick="window.location.href=`{% url 'signup_seller' %}`">I understood, proceed <i
                   class="fas fa-arrow-right"></i></button>
             </div>
           </div>

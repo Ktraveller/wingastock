@@ -10,21 +10,21 @@ urlpatterns = [
     path('read/<str:m_receiver>/', mail_read, name='mail_read'),
     path('unreaded/', unreaded, name='unreaded'),
     path('readed/', readed, name='readed'),
-    path('sent_mails', sent_mails, name='sent_mails'),
+    path('sent-mails', sent_mails, name='sent_mails'),
     path('compose/<str:m_receiver>/', compose_m, name='compose_m'),
     path('settings/', mail_settings, name='mail_settings'),
-    path('delete_mail/<int:id>/', delete_mail, name='delete_mail'),
-    path('clear_mails/<str:m_receiver>/', clear_mails, name='clear_mails'),
+    path('delete-mail/<int:id>/', delete_mail, name='delete_mail'),
+    path('clear-mails/<str:m_receiver>/', clear_mails, name='clear_mails'),
 
 
     # For customer
-    path('mail_c', mail_index_c, name='mail_home_c'),
-    path('read_c/<str:m_receiver>/', mail_read_c, name='mail_read_c'),
-    path('unreaded_c/', unreaded_c, name='unreaded_c'),
-    path('readed_c/', readed_c, name='readed_c'),
-    path('sent_mails_c', sent_mails_c, name='sent_mails_c'),
-    path('compose_c/<str:m_receiver>/', compose_m_c, name='compose_m_c'),
-    path('settings_c/', mail_settings_c, name='mail_settings_c'),
-    path('delete_mail_c/<int:id>/', delete_mail_c, name='delete_mail_c'),
-    path('clear_mails_c/<str:m_receiver>/', clear_mails_c, name='clear_mails_c')
+    path('mail-c', mail_index_c, name='mail_home_c'),
+    path('read-c/<str:m_receiver>/', mail_read_c, name='mail_read_c'),
+    path('unreaded-c/', unreaded_c, name='unreaded_c'),
+    path('readed-c/', readed_c, name='readed_c'),
+    path('sent-mails_c', sent_mails_c, name='sent_mails_c'),
+    path('compose-c/<str:m_receiver>/', compose_m_c, name='compose_m_c'),
+    path('settings-c/', mail_settings_c, name='mail_settings_c'),
+    path('delete-mail-c/<int:id>/', delete_mail_c, name='delete_mail_c'),
+    path('clear-mails-c/<str:m_receiver>/', clear_mails_c, name='clear_mails_c')
 ]

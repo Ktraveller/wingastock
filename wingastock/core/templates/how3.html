@@ -211,56 +211,62 @@
                 <p> <strong>Quick Guide:</strong> Read Seller Terms → Start Registration → Fill Seller Information →
                   Review Information → Complete Declaration → Receive @winga.com Email → Create Password → Submit
                   Registration → Log In → Start Selling. </p>
-              </div>
-            </div>
 
+
+                <div class="next-holder-202">
+                  <button type="button" style="padding-left: 30px; height: 50px; padding-right: 30px;"
+                    onclick="window.location.href=`{% url 'seller_terms' %}`">Go seller register page <i
+                      class="fas fa-arrow-right"></i></button>
+                </div>
+              </div>
+
+            </div>
           </div>
+
         </div>
 
       </div>
 
-    </div>
 
-
-        <script>
+      <script>
         window.addEventListener("load", function () {
 
-            const loader = document.querySelector(
-                ".page-loader-holder-000"
-            );
+          const loader = document.querySelector(
+            ".page-loader-holder-000"
+          );
 
-            if (loader) {
+          if (loader) {
 
-                // Fade out the loader
-                loader.classList.add("hidden");
+            // Fade out the loader
+            loader.classList.add("hidden");
 
-                // Remove it completely after the animation
-                setTimeout(function () {
-                    loader.remove();
-                }, 500);
-            }
+            // Remove it completely after the animation
+            setTimeout(function () {
+              loader.remove();
+            }, 500);
+          }
 
         });
-    </script>
+      </script>
 
-    <script>
-      function open_menu(click) {
-        let menu1 = document.getElementById('menu1');
-        let menu2 = document.getElementById('menu2');
-        let nav = document.getElementById('nav');
+      <script>
+        function open_menu(click) {
+          let menu1 = document.getElementById('menu1');
+          let menu2 = document.getElementById('menu2');
+          let nav = document.getElementById('nav');
 
-        if (click == 'open') {
-          menu1.style.display = 'none';
-          menu2.style.display = 'inline-block';
-          nav.style.display = 'inline-block';
+          if (click == 'open') {
+            menu1.style.display = 'none';
+            menu2.style.display = 'inline-block';
+            nav.style.display = 'inline-block';
+          }
+          else {
+            menu1.style.display = 'inline-block';
+            menu2.style.display = 'none';
+            nav.style.display = 'none';
+          }
         }
-        else {
-          menu1.style.display = 'inline-block';
-          menu2.style.display = 'none';
-          nav.style.display = 'none';
-        }
-      }
-    </script>
+      </script>
 </body>
 
 </html>
