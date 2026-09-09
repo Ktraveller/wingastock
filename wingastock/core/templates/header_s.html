@@ -9,30 +9,22 @@
                 Wingastock
             </h1>
 
-            <span class="login-1003" onclick="open_user(1)">
+            <div class="header-search search-holder-1003">
+                <div class="search-input-1003">
+                    {% if search == 'search' %}
+                    <input type="search" placeholder="Search products, shops and more..." id="searchInput">
+                    {% else %}
+                    <input type="search" placeholder="Search products, shops and more..." onclick="window.location.href=`{% url 'search' %}`">
+                    {% endif %}
+                </div>
+                <div class="search-button-1003">
+                    <button type="button" aria-label="Search"><i class="fas fa-search"></i><span>Search</span></button>
+                </div>
+            </div>
+            <span class="login-1003" onclick="open_user(1)" aria-label="Account">
                 <i class="fas fa-user"></i>
                 {{ user.email }}</span>
-
-            <a href="{% url 'about' %}">About us</a> |
-            <a href="{% url 'terms' %}">Terms and conditions</a>
         </div>
-    </div>
-
-    <div class="heading-1002">
-
-        <div class="search-holder-1003">
-            <div class="search-input-1003">
-                {% if search == 'search' %}
-                <input type="search" placeholder="Search..." id="searchInput">
-                {% else %}
-                <input type="search" placeholder="Search..." onclick="window.location.href=`{% url 'search' %}`">
-                {% endif %}
-            </div>
-            <div class="search-button-1003">
-                <button type="button"><i class="fas fa-search"></i> Search</button>
-            </div>
-        </div>
-
     </div>
 </div>
 

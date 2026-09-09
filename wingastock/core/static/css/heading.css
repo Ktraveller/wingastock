@@ -383,6 +383,51 @@ span {
         display: inline-block;
     }
 
+        /* Modern header */
+    .heading-holder-1002 {
+        background: rgba(255, 255, 255, .94);
+        background-image: none;
+        border-bottom: 1px solid #e7ebf2;
+        box-shadow: 0 5px 20px rgba(23, 32, 51, .06);
+        backdrop-filter: blur(14px);
+    }
+    .about-holder-1003 {
+        color: #172033;
+        background: transparent;
+    }
+    .about-holder-1003 > div {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        max-width: 1480px;
+        margin: auto;
+        padding: 9px 24px;
+    }
+    .about-holder-1003 > div > h1 {
+        flex: 1;
+        margin: 0;
+        color: #172033;
+        font-size: 19px;
+    }
+    .about-holder-1003 > div > h1 > img { width: 28px; height: 28px; vertical-align: middle; }
+    .login-1003 { flex: 0 0 auto; padding: 8px 12px; color: #64748b; white-space: nowrap; }
+    .header-search { flex: 1 1 620px; max-width: 720px; height: 46px; border: 1px solid #e7ebf2; background: #f6f8fc; box-shadow: none; }
+    .search-input-1003 > input { color: #172033; font-size: 12px; }
+    .search-button-1003 > button { background: #e11d48; }
+
+    @media (max-width: 767px) {
+        .about-holder-1003 > div { padding: 9px 14px; gap: 8px; }
+        .about-holder-1003 > div > h1 { font-size: 16px; }
+        .header-search { min-width: 0; height: 42px; }
+        .about-holder-1003 > div > h1 { flex: 0 0 auto; }
+        .login-1003 { padding: 8px; font-size: 0; }
+        .login-1003 i { font-size: 16px; }
+        .search-button-1003 { width: 23%; }
+        .search-input-1003 { width: 77%; }
+        .search-button-1003 > button { font-size: 0; }
+        .search-button-1003 > button i { font-size: 14px; }
+    }
+
     .search-input-1003 {
         width: 80%;
         height: 100%;
@@ -412,5 +457,61 @@ span {
         margin: auto;
         margin-top: 5%;
         border-radius: 10px;
+    }
+}
+
+/* Keep one compact Pinterest-style row across all screen sizes. */
+.heading-holder-1002 .about-holder-1003 > div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 1480px;
+    margin: auto;
+    padding: 9px 24px;
+}
+
+.heading-holder-1002 .about-holder-1003 h1 {
+    flex: 0 0 auto;
+    margin: 0;
+}
+
+.heading-holder-1002 .header-search {
+    flex: 1 1 620px;
+    max-width: 760px;
+    min-width: 0;
+    height: 46px;
+    margin: 0 auto;
+    border: 1px solid #e7ebf2;
+    background: #f6f8fc;
+    box-shadow: none;
+}
+
+.heading-holder-1002 .login-1003 {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+    .heading-holder-1002 .about-holder-1003 > div {
+        gap: 8px;
+        padding: 9px 14px;
+    }
+
+    .heading-holder-1002 .about-holder-1003 h1 {
+        font-size: 16px;
+    }
+
+    .heading-holder-1002 .header-search {
+        flex: 1 1 auto;
+        height: 42px;
+    }
+
+    .heading-holder-1002 .login-1003 {
+        padding: 8px;
+        font-size: 0;
+    }
+
+    .heading-holder-1002 .login-1003 i {
+        font-size: 16px;
     }
 }

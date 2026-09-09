@@ -73,7 +73,7 @@
         {% include 'heading.html' %}
         {% endif %}
 
-        <div class="content-holder-002">
+        <div class="content-holder-002 category-page-{{ category|default:'all' }}">
 
 
             <!-- Center content -->
@@ -83,7 +83,7 @@
                 {% include 'side-category.html' %}
 
                 <div class="product-card-1002">
-                    <p style="font-weight: bold; padding-left: 10px; font-size: 20px;">
+                    <p class="category-page-title">
                         <span style="text-transform: capitalize; font-size: inherit;">{{ category }}</span>
                         Products
                     </p>
@@ -100,15 +100,9 @@
             </div>
 
             <!-- Other products -->
-            <div class="product-card-holder-1001">
-
-                <!-- Product categories -->
-                <div class="product-category-holder-1001">
-                    <div style="width: 100%;"></div>
-                </div>
-
+            <div class="product-card-holder-1001 other-products-section">
                 <div class="product-card-1002">
-                    <p style="font-weight: bold; padding-left: 10px; font-size: 20px;">
+                    <p class="category-page-title">
                         Other Products
                     </p>
 

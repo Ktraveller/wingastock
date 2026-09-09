@@ -120,13 +120,27 @@
             <!-- Center content -->
             <div class="product-card-holder-1001">
 
+                <section class="marketplace-hero">
+                    <div>
+                        <span class="eyebrow"><i class="fas fa-sparkles"></i> Tanzania's smarter marketplace</span>
+                        <h2>Find something <em>great</em> today.</h2>
+                        <p>Discover products from trusted local sellers and connect with them directly.</p>
+                        <div class="hero-actions">
+                            <a href="{% url 'search' %}" class="hero-primary">Explore products <i class="fas fa-arrow-right"></i></a>
+                            <a href="{% url 'shop_list' %}" class="hero-secondary">Browse shops</a>
+                        </div>
+                    </div>
+                    <div class="hero-trust"><i class="fas fa-shield-alt"></i><span><strong>Trusted sellers</strong><br>Shop with confidence</span></div>
+                </section>
 
                 <!-- Product categories -->
                 {% include 'side-category.html' %}
 
                 <div class="product-card-1002">
-
-                    <p style="font-weight: bold; padding-left: 10px; font-size: 20px;">Top products</p>
+                    <div class="section-heading">
+                        <div><span class="eyebrow">Curated for you</span><h2>Top products</h2></div>
+                        <a href="{% url 'search' %}">See all <i class="fas fa-arrow-right"></i></a>
+                    </div>
                     {% for product in products %}
                     {% include 'product-container.html' %}
                     {% endfor %}

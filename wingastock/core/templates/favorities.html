@@ -61,7 +61,7 @@
                     <span>Wingastock</span>
                 </h1>
             </button>
-        </div>
+        </section>
     </div>
 
     <div class="row-holder-001">
@@ -77,22 +77,29 @@
 
         <div class="content-holder-002">
 
-            <!-- Favorite product cards -->
-            <div class="product-card-holder-1001">
+            <section class="favorites-page">
+                <div class="favorites-heading">
+                    <div>
+                        <span class="eyebrow">Your collection</span>
+                        <h1>Favorite products</h1>
+                        <p>Keep the products you love close and revisit them whenever you are ready.</p>
+                    </div>
+                    <span class="favorites-count">{{ favorite_products|length }} saved</span>
+                </div>
 
-                <!-- Product categories -->
-                {% include 'side-category.html' %}
-
-
-                <div class="product-card-1002">
-                    <p style="font-weight: bold; padding-left: 10px; font-size: 20px;">Favorite products</p>
-
+                <div class="product-card-1002 favorites-grid">
                     {% for product in favorite_products %}
                     {% include 'product-container.html' %}
+                    {% empty %}
+                    <div class="favorites-empty">
+                        <i class="far fa-heart"></i>
+                        <h2>No favorites yet</h2>
+                        <p>Tap the heart on a product to save it here.</p>
+                        <a href="{% url 'index' %}">Explore products</a>
+                    </div>
                     {% endfor %}
-
                 </div>
-            </div>
+            </section>
 
             <div style="width: 100%; height: 100px; float: left;"></div>
 
