@@ -46,23 +46,6 @@
         gtag('config', 'G-STT2EJ7H54');
     </script>
 
-    <style>
-        .shop-card-holder-1001 {
-            width: 100%;
-            height: auto;
-        }
-
-        .shop-card-1002>div {
-            width: 100%;
-            float: left;
-        }
-
-        @media only screen and (min-width: 768px) {
-            .shop-card-1002>div {
-                width: 50%;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -91,15 +74,17 @@
 
         <div class="content-holder-002">
 
-            <div class="category-title-0004">
-                <div style="border-radius: 5px;">
-                    <h1><i class="fas fa-store"></i> Seller shops</h1>
+            <div class="shops-page-heading">
+                <div>
+                    <span class="eyebrow"><i class="fas fa-store"></i> Marketplace community</span>
+                    <h1>Discover trusted shops</h1>
+                    <p>Browse local sellers and find products from businesses you can connect with directly.</p>
                 </div>
+                <div class="shops-page-stat"><strong>{{ shops|length }}</strong><span>shops available</span></div>
             </div>
 
             <!-- Shops -->
             <div class="shop-card-holder-1001">
-
                 <div class="shop-card-1002">
 
                     {% for shop in shops %}

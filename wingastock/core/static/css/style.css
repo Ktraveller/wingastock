@@ -321,3 +321,34 @@
 .dark-mode .location {
     color: #d1d5db;
 }
+
+/* Shared Wingastock type scale */
+html body,
+html body p,
+html body span,
+html body a,
+html body label,
+html body li,
+html body td,
+html body th,
+html body input,
+html body textarea,
+html body select,
+html body small {
+    font-size: 12px;
+}
+
+html body h1,
+html body h2,
+html body h3,
+html body h4,
+html body h5,
+html body h6,
+html body strong,
+html body b,
+html body button,
+html body .wingastock-title,
+html body .seller-box-content-100 > strong,
+html body .options-heading-100 > strong {
+    font-size: 15px;
+}

@@ -136,7 +136,40 @@
                 </div>
                 {% endif %}
 
-                <div class="card-holder-201">
+                <section class="seller-modern-dashboard">
+                    <div class="seller-dashboard-intro">
+                        <div>
+                            <span class="seller-kicker">SELLER OVERVIEW</span>
+                            <h1>Good to see you, {{ user.seller.seller_name }}</h1>
+                            <p>Track your store performance and keep your product catalogue growing.</p>
+                        </div>
+                        <a class="seller-primary-action" href="{% url 'seller_add_product' %}"><i class="fas fa-plus"></i> Add product</a>
+                    </div>
+                    <div class="seller-stat-grid">
+                        <article class="seller-stat-card"><span class="seller-stat-icon rose"><i class="fas fa-box"></i></span><small>Products</small><strong>{{ total_products }}</strong><em>Published catalogue</em></article>
+                        <article class="seller-stat-card"><span class="seller-stat-icon blue"><i class="fas fa-eye"></i></span><small>Customer views</small><strong>{{ total_views }}</strong><em>Across all products</em></article>
+                        <article class="seller-stat-card"><span class="seller-stat-icon amber"><i class="fas fa-envelope"></i></span><small>Messages</small><strong>{{ total_mails.total }}</strong><em>Customer conversations</em></article>
+                    </div>
+                    <div class="seller-analytics-grid">
+                        <article class="seller-panel seller-chart-panel">
+                            <div class="seller-panel-heading"><div><span class="seller-panel-label">PERFORMANCE</span><h2>Views by product</h2></div><span class="seller-live-dot">Live data</span></div>
+                            <div class="seller-chart" aria-label="Customer views by product">
+                                {% for product in chart_products %}
+                                <div class="seller-chart-column"><span>{{ product.product_information.views }}</span><div class="seller-chart-bar" style="--bar-height: {% if total_views %}{% widthratio product.product_information.views total_views 100 %}{% else %}0{% endif %}%"></div><small title="{{ product.title }}">{{ product.title|truncatechars:12 }}</small></div>
+                                {% empty %}<div class="seller-chart-empty">Views will appear here after customers discover your products.</div>{% endfor %}
+                            </div>
+                        </article>
+                        <article class="seller-panel seller-progress-panel">
+                            <div class="seller-panel-heading"><div><span class="seller-panel-label">POSTING SPACE</span><h2>Product progress</h2></div><i class="fas fa-chart-line seller-panel-accent"></i></div>
+                            <div class="seller-progress-ring" style="--progress: {{ product_progress }}%"><strong>{{ product_progress }}%</strong></div>
+                            <p><strong>{{ total_products }} of {{ product_limit }}</strong> product spaces used</p>
+                            <div class="seller-progress-track"><span style="width: {{ product_progress }}%"></span></div>
+                            <a href="{% url 'seller_payment_alert' %}">Need more space? Get a package <i class="fas fa-arrow-right"></i></a>
+                        </article>
+                    </div>
+                </section>
+
+                <div class="card-holder-201 legacy-dashboard">
 
                     <div class="card-201">
                         <button type="button">

@@ -70,8 +70,11 @@
                                             class="fas fa-clock sender-100"></i></li>
                                 </a>
                                 {% empty %}
-                                <p style="padding: 10px; text-align: center; color: green;">Sender's list empty! <br> No
-                                    mail received</p>
+                                <li class="mail-empty-state">
+                                    <i class="fas fa-users"></i>
+                                    <strong>No recent senders</strong>
+                                    <span>Your conversations will appear here.</span>
+                                </li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -113,9 +116,11 @@
                         </a>
 
                         {% empty %}
-                        <p style="text-align: center; margin-top: 20%;"><i class="fas fa-envelope"
-                                style="font-size: 50px; color: crimson;"></i> <br>
-                            No mail received!</p>
+                        <li class="mail-empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <strong>No emails here</strong>
+                            <span>Read messages will appear in this folder.</span>
+                        </li>
 
                         {% endfor%}
 
@@ -164,6 +169,7 @@
         }
 
     </script>
+    <script src="{% static 'mail_js/mail.js' %}"></script>
 </body>
 
 </html>

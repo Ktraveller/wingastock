@@ -1,4 +1,3 @@
-from django.db.models.aggregates import Count
 from django.shortcuts import render
 from decimal import Decimal, InvalidOperation
 from django.contrib.auth.decorators import login_required
@@ -7,16 +6,29 @@ from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404
 import cloudinary
 from sellers.models import Product, Seller
+from sellers.models import SellerPaymentRequest
+from django.conf import settings
 
 # Products management
 # Product list
+@login_required(login_url="login_seller")
 def seller_products(request):
     products = Product.objects.filter(
         owner=request.user
         ).order_by('created_at')
     
+    paid_posts = sum(
+        item.requested_products
+        for item in SellerPaymentRequest.objects.filter(
+            seller=request.user,
+            status='approved',
+        )
+    )
+    product_limit = 5 + paid_posts
     return render(request, 'products_s.html', {
-        'products': products
+        'products': products,
+        'product_limit': product_limit,
+        'product_progress': min(100, round((products.count() / product_limit) * 100)) if product_limit else 0,
     })
 
 
@@ -48,13 +60,17 @@ def seller_add_product(request):
         owner=request.user
     ).count()
 
-    MAX_PRODUCTS = 5
-
-    if check_products >= MAX_PRODUCTS:
-
-        return redirect(
-            "seller_payment_alert"
+    BASE_PRODUCT_LIMIT = 5
+    approved_products = sum(
+        request_item.requested_products
+        for request_item in SellerPaymentRequest.objects.filter(
+            seller=request.user,
+            status="approved",
         )
+    )
+    max_products = BASE_PRODUCT_LIMIT + approved_products
+    if check_products >= max_products:
+        return redirect("seller_payment_alert")
 
 
     # ==========================================
@@ -397,8 +413,8 @@ def seller_add_product(request):
         request,
         "add_product_s.html",
         {
-            "product_remain":
-                MAX_PRODUCTS - check_products
+            "product_remain": max_products - check_products,
+            "product_limit": max_products,
         }
     )
 
@@ -408,7 +424,54 @@ def seller_add_product(request):
 # Payment alert
 @login_required(login_url="login_seller")
 def seller_payment_alert(request):
-    return render(request, 'payment_alert_s.html', {})
+    base_package = 5
+    price_per_package = 1000
+    payment_number = getattr(settings, "SELLER_PAYMENT_NUMBER", "Winga Pay number set by admin")
+    pending_request = SellerPaymentRequest.objects.filter(
+        seller=request.user,
+        status="pending",
+    ).first()
+
+    if request.method == "POST":
+        try:
+            requested_products = int(request.POST.get("requested_products", "0"))
+        except (TypeError, ValueError):
+            requested_products = 0
+
+        screenshot = request.FILES.get("screenshot")
+        reference = request.POST.get("payment_reference", "").strip()
+
+        if requested_products < base_package or requested_products % base_package:
+            messages.error(request, "Choose products in groups of 5.")
+        elif not screenshot:
+            messages.error(request, "Upload your payment screenshot for admin review.")
+        elif screenshot.size > 5 * 1024 * 1024:
+            messages.error(request, "Payment screenshot must not exceed 5MB.")
+        elif pending_request:
+            messages.info(request, "Your previous payment is already waiting for admin review.")
+        else:
+            package_count = requested_products // base_package
+            SellerPaymentRequest.objects.create(
+                seller=request.user,
+                requested_products=requested_products,
+                amount=package_count * price_per_package,
+                payment_reference=reference,
+                screenshot=screenshot,
+            )
+            messages.success(request, "Payment submitted. Admin will review your screenshot before enabling products.")
+            return redirect("seller_payment_alert")
+
+    approved_products = sum(
+        item.requested_products
+        for item in SellerPaymentRequest.objects.filter(seller=request.user, status="approved")
+    )
+    return render(request, "payment_alert_s.html", {
+        "base_package": base_package,
+        "price_per_package": price_per_package,
+        "payment_number": payment_number,
+        "pending_request": pending_request,
+        "approved_products": approved_products,
+    })
 
 
 # Edit products

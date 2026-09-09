@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wingastock | Payment reviews</title>
+    <link rel="stylesheet" href="{% static 'admin_css/admin_style.css' %}?v=20260910">
+</head>
+<body>
+<div class="row-holder">
+    <div class="header-holder-100">
+        <div class="header-100">
+            <div class="action-holder-101">
+                <button type="button" id="menu1" onclick="open_menu('open')">m</button>
+                <button type="button" id="menu2" style="display:none" onclick="open_menu('close')">c</button>
+            </div>
+            <div class="title-holder-101"><button type="button">Wingastock | Admin</button></div>
+            <div class="title-holder-101" style="float:right"><button type="button">{{ user.username }}</button></div>
+        </div>
+    </div>
+    <div class="center-content-200">
+        <div class="left-holder-201" id="nav">
+            <div class="nav-bar-holder-202">
+                <p style="text-align:center;font-weight:bold">Options</p>
+                <ul><a href="{% url 'admin_home' %}"><li>Dashboard</li></a></ul>
+                <ul><a href="{% url 'admin_products' %}"><li>Products</li></a></ul>
+                <ul><a href="{% url 'admin_sellers' %}"><li>Sellers</li></a></ul>
+                <ul><a href="{% url 'admin_payment_requests' %}"><li class="active-0">Payment reviews</li></a></ul>
+                <ul><a href="{% url 'logout_admin' %}"><li>Exit</li></a></ul>
+            </div>
+        </div>
+        <div class="right-holder-201">
+            <div class="payment-review-page">
+                <div class="payment-review-heading">
+                    <span>SELLER PAYMENTS</span>
+                    <h1>Payment reviews</h1>
+                    <p>Review payment screenshots and unlock product posting space.</p>
+                </div>
+                {% if messages %}
+                    {% for message in messages %}<div class="payment-review-message">{{ message }}</div>{% endfor %}
+                {% endif %}
+                <div class="payment-review-list">
+                    {% for payment in payment_requests %}
+                    <article class="payment-review-card">
+                        <div class="payment-review-meta">
+                            <strong>{{ payment.seller.email }}</strong>
+                            <span>{{ payment.created_at|date:"d M Y, H:i" }}</span>
+                            <b class="payment-review-status status-{{ payment.status }}">{{ payment.get_status_display }}</b>
+                        </div>
+                        <div class="payment-review-details">
+                            <div><small>Requested space</small><strong>{{ payment.requested_products }} products</strong></div>
+                            <div><small>Amount</small><strong>{{ payment.amount }} TSh</strong></div>
+                            <div><small>Reference</small><strong>{{ payment.payment_reference|default:"Not provided" }}</strong></div>
+                        </div>
+                        {% if payment.screenshot %}
+                            <a class="payment-review-image" href="{{ payment.screenshot.url }}" target="_blank" rel="noopener">
+                                <img src="{{ payment.screenshot.url }}" alt="Payment screenshot">
+                                <span>Open screenshot</span>
+                            </a>
+                        {% endif %}
+                        <form method="post" action="{% url 'admin_review_payment' payment.id %}" class="payment-review-form">
+                            {% csrf_token %}
+                            <textarea name="admin_note" placeholder="Optional note for seller">{{ payment.admin_note }}</textarea>
+                            <div>
+                                <button name="status" value="approved" class="payment-approve">Approve & unlock</button>
+                                <button name="status" value="rejected" class="payment-reject">Reject</button>
+                            </div>
+                        </form>
+                    </article>
+                    {% empty %}
+                    <div class="payment-review-empty">No payment requests yet.</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function open_menu(click) {
+    const nav = document.getElementById("nav");
+    document.getElementById("menu1").style.display = click === "open" ? "none" : "inline-block";
+    document.getElementById("menu2").style.display = click === "open" ? "inline-block" : "none";
+    nav.style.display = click === "open" ? "inline-block" : "none";
+}
+</script>
+</body>
+</html>

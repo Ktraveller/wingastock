@@ -1,157 +1,75 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wingastock | Dashboard</title>
-    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+    <title>Wingastock | Product packages</title>
     <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-
-<body>
-
-    <!-- Page Loader -->
-    <div id="page-loader">
-        <div class="loader-content">
-            <div class="spinner"></div>
-            <div class="loading-text">Loading<span class="dots"></span></div>
+<body class="seller-modern-page">
+<main class="seller-payment-page">
+    <a class="seller-back-link" href="{% url 'seller_products' %}"><i class="fas fa-arrow-left"></i> Back to products</a>
+    <section class="seller-payment-hero">
+        <div>
+            <span class="seller-kicker">GROW YOUR STORE</span>
+            <h1>Keep publishing products</h1>
+            <p>Your first 5 product posts are included. Choose another package when you are ready to reach more customers.</p>
         </div>
-    </div>
+        <div class="seller-payment-stat"><strong>{{ approved_products|add:5 }}</strong><span>posts available</span></div>
+    </section>
 
-    <div class="row-holder">
+    {% if messages %}
+    <div class="seller-messages">{% for message in messages %}<div class="seller-message {{ message.tags }}">{{ message }}</div>{% endfor %}</div>
+    {% endif %}
 
-        <!-- Header -->
-        <div class="header-holder-100">
-            <div class="header-100">
-                <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-                            class="fas fa-times"></i></button>
-                </div>
-                <div class="title-holder-101">
-                    <button type="button"><span>Wingastock | Seller</span></button>
-                </div>
-                <div class="title-holder-101" style="float: right;">
-                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
-                </div>
-            </div>
+    {% if pending_request %}
+    <section class="seller-review-card">
+        <i class="fas fa-hourglass-half"></i>
+        <div><strong>Payment under review</strong><p>Your request for {{ pending_request.requested_products }} posts was sent {{ pending_request.created_at|date:"d M Y, H:i" }}. You can continue once an admin approves it.</p></div>
+        <span class="seller-status-pill">Pending</span>
+    </section>
+    {% else %}
+    <section class="seller-payment-grid">
+        <div class="seller-payment-card">
+            <span class="seller-card-icon"><i class="fas fa-store"></i></span>
+            <h2>Choose your posting space</h2>
+            <p class="seller-muted">Packages are added to your current 5 free posts.</p>
+            <div class="seller-package-price"><strong id="package-price">1,000</strong> <span>TSh</span></div>
+            <form method="post" enctype="multipart/form-data" class="seller-payment-form">
+                {% csrf_token %}
+                <label>Number of products</label>
+                <select name="requested_products" id="requested-products" required>
+                    <option value="5">5 products — 1,000 TSh</option>
+                    <option value="10">10 products — 2,000 TSh</option>
+                    <option value="15">15 products — 3,000 TSh</option>
+                    <option value="20">20 products — 4,000 TSh</option>
+                    <option value="25">25 products — 5,000 TSh</option>
+                </select>
+                <label>Payment reference <span>(optional)</span></label>
+                <input name="payment_reference" placeholder="Transaction ID or payer name">
+                <label>Payment screenshot</label>
+                <input type="file" name="screenshot" accept="image/*" required>
+                <button type="submit"><i class="fas fa-paper-plane"></i> Submit for review</button>
+            </form>
         </div>
-
-
-        <!-- center content -->
-        <div class="center-content-200">
-
-            <div class="left-holder-201" id="nav">
-                <div class="nav-bar-holder-202">
-
-                    <ul>
-                        <a href="{% url 'seller_home' %}">
-                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
-                        </a>
-                    </ul>
-
-                    <ul>
-                        <a href="{% url 'seller_products' %}">
-                            <li class="active-0">Products <i class="fas fa-shopping-bag"></i></li>
-                        </a>
-                    </ul>
-
-                    <ul>
-                        <a href="{% url 'mail_home' %}">
-                            <li>Mails <i class="fas fa-envelope"></i></li>
-                        </a>
-                    </ul>
-
-
-                    <ul>
-                        <a href="{% url 'seller_account' %}">
-                            <li>Account <i class="fas fa-user"></i></li>
-                        </a>
-                    </ul>
-
-                    <ul>
-                        <a href="{% url 'seller_terms_conditions' %}">
-                            <li>Terms and condtions <i class="fas fa-file-contract"></i></li>
-                        </a>
-                    </ul>
-
-                    <ul>
-                        <a href="{% url 'logout_seller' %}">
-                            <li>Exit <i class="fas fa-sign-out-alt"></i></li>
-                        </a>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="right-holder-201">
-
-                <div class="notify-card-201">
-                    <div>
-
-                        <p style="font-size: 50px;">
-                            <i class="fas fa-exclamation-triangle" style="font-size: inherit;"></i>
-                        </p>
-
-                        <p style="font-size: 20px;">Platform Alert</p>
-
-                        <p>You have reached the maximum number of products you can post on the platform.</p>
-
-                        <p>We apologize for any inconvenience this may cause. We are currently working on a payment
-                            feature that will allow sellers to post unlimited products on the platform.</p>
-
-                        <p style="font-size: 18px;">Thank you for your patience and understanding. We truly appreciate
-                            your business and look
-                            forward to providing you with an even better experience.</p>
-
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <script>
-        window.addEventListener("load", function () {
-
-            const loader = document.getElementById("page-loader");
-
-            if (loader) {
-                loader.classList.add("hidden");
-
-                setTimeout(function () {
-                    loader.remove();
-                }, 400);
-            }
-
-        });
-    </script>
-
-    <script>
-        function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
-
-            if (click == 'open') {
-                menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
-            }
-            else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
-                nav.style.display = 'none';
-            }
-        }
-    </script>
+        <aside class="seller-payment-info">
+            <div class="seller-pay-number"><span>Pay via</span><strong>{{ payment_number }}</strong><small>Use this number, then upload the confirmation screenshot.</small></div>
+            <h3>How it works</h3>
+            <ol><li>Choose a product package.</li><li>Pay the displayed amount.</li><li>Upload your payment screenshot.</li><li>Admin reviews and unlocks your quota.</li></ol>
+            <p class="seller-safe-note"><i class="fas fa-shield-alt"></i> Your screenshot is visible only to the review team.</p>
+        </aside>
+    </section>
+    {% endif %}
+</main>
+<script>
+const picker = document.getElementById("requested-products");
+const price = document.getElementById("package-price");
+if (picker && price) picker.addEventListener("change", () => {
+    price.textContent = (Number(picker.value) / 5 * {{ price_per_package }}).toLocaleString();
+});
+</script>
 </body>
-
 </html>

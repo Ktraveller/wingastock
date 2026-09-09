@@ -1,103 +1,175 @@
 {% load static %}
 
-<div class="heading-holder-1002">
+<header class="wingastock-header heading-holder-1002">
 
-    <div class="about-holder-1003">
-        <div>
-            <h1 onclick="window.location.href=`{% url 'home' %}`">
-                <img src="{% static 'logo.png' %}" alt="logo">
+    <div class="wingastock-header-inner">
+
+        <!-- BRAND -->
+        <a href="{% url 'home' %}" class="wingastock-brand">
+
+            <img
+                src="{% static 'logo.png' %}"
+                alt="Wingastock"
+                class="wingastock-logo"
+            >
+
+            <span class="wingastock-title">
                 Wingastock
-            </h1>
+            </span>
 
-            <span class="reg-1003" style="color: white;" onclick="open_login_modal(2)">
-                <i class="fas fa-user-plus"></i>
-                Register</span>
-            <span class="login-1003" onclick="open_login_modal(1)">
-                <i class="fas fa-sign-in-alt"></i>
-                Login</span>
+        </a>
 
-            <a href="{% url 'about' %}">About us</a> |
-            <a href="{% url 'terms' %}">Terms and conditions</a>
+
+        <!-- SEARCH -->
+        <div class="wingastock-search">
+
+            <i class="fas fa-search"></i>
+
+            {% if search == 'search' %}
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search products, shops and more..."
+                    autocomplete="off"
+                >
+
+            {% else %}
+
+                <input
+                    type="search"
+                    placeholder="Search products, shops and more..."
+                    onclick="window.location.href=`{% url 'search' %}`"
+                    readonly
+                >
+
+            {% endif %}
+
         </div>
+
+
+        <!-- ACTIONS -->
+        <div class="wingastock-actions">
+
+            <!-- CART -->
+            <button
+                type="button"
+                class="wingastock-icon"
+                onclick="open_cart(1)"
+                aria-label="Shopping cart"
+            >
+                <i class="fas fa-shopping-cart"></i>
+            </button>
+
+
+            <!-- LOGIN -->
+            <button
+                type="button"
+                class="wingastock-login"
+                onclick="open_login_modal(1)"
+            >
+                Login
+            </button>
+
+        </div>
+
     </div>
 
-    <div class="heading-1002">
-
-        <div class="search-holder-1003">
-            <div class="search-input-1003">
-                {% if search == 'search' %}
-                <input type="search" placeholder="Search..." id="searchInput">
-                {% else %}
-                <input type="search" placeholder="Search..." onclick="window.location.href=`{% url 'search' %}`">
-                {% endif %}
-            </div>
-            <div class="search-button-1003">
-                <button type="button"><i class="fas fa-search"></i> Search</button>
-            </div>
-        </div>
-
-    </div>
-</div>
+</header>
 
 
+<!-- ================= CART ================= -->
 
-<!-- Cart -->
 <div class="user-info-holder-1003" id="user_cart">
+
     <div>
-        <span class="close-1003" onclick="open_cart(0)"><i class="fas fa-times"></i> Close</span>
-        <p style="font-weight: bold;">Your cart</p>
+
+        <button
+            type="button"
+            class="close-1003"
+            onclick="open_cart(0)"
+            aria-label="Close cart"
+        >
+            <i class="fas fa-times"></i>
+        </button>
+
+        <p class="cart-title">
+            Your cart
+        </p>
 
         <ul class="user-1003">
-            <p style="text-align: center;"><i class="fas fa-shopping-cart" style="font-size: 30px;"></i><br>
-                Cart empty</p>
+
+            <p class="cart-empty">
+
+                <i class="fas fa-shopping-cart"></i>
+
+                <br>
+
+                Cart empty
+
+            </p>
+
         </ul>
+
     </div>
+
 </div>
 
 
-
-
-
-
-
 <script>
-    let lastScrollTop = 0;
-    const header = document.querySelector('.heading-holder-1002');
 
-    window.addEventListener('scroll', function () {
-        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+let lastScrollTop = 0;
 
-        // Don't hide when we're at the very top
-        if (currentScroll <= 0) {
-            header.classList.remove('hide-header');
-            lastScrollTop = 0;
-            return;
-        }
+const header = document.querySelector('.wingastock-header');
 
-        // Scrolling down → hide
-        if (currentScroll > lastScrollTop) {
-            header.classList.add('hide-header');
-        }
+window.addEventListener('scroll', function () {
 
-        // Scrolling up → show
-        else {
-            header.classList.remove('hide-header');
-        }
-
-        lastScrollTop = currentScroll;
-    });
-</script>
+    const currentScroll =
+        window.pageYOffset ||
+        document.documentElement.scrollTop;
 
 
-<script>
-    function open_cart(click) {
-        user = document.getElementById('user_cart');
+    if (currentScroll <= 0) {
 
-        if (click == 1) {
-            user.style.display = 'inline-block';
-        }
-        else {
-            user.style.display = 'none';
-        }
+        header.classList.remove('hide-header');
+
+        lastScrollTop = 0;
+
+        return;
+
     }
+
+
+    if (currentScroll > lastScrollTop) {
+
+        header.classList.add('hide-header');
+
+    } else {
+
+        header.classList.remove('hide-header');
+
+    }
+
+
+    lastScrollTop = currentScroll;
+
+});
+
+
+function open_cart(click) {
+
+    const cart = document.getElementById('user_cart');
+
+    if (click == 1) {
+
+        cart.style.display = 'block';
+
+    } else {
+
+        cart.style.display = 'none';
+
+    }
+
+}
+
 </script>

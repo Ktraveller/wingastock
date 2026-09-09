@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from mails.models import Mails
-from sellers.models import Product, Product_informations
+from sellers.models import Product, Product_informations, SellerPaymentRequest
 from django.db.models import Count, Sum
 
 
@@ -31,6 +31,15 @@ def seller_home(request):
         ).order_by('-id')
 
     total_mails = mails.aggregate(total=Count('id'))
+    paid_posts = sum(
+        item.requested_products
+        for item in SellerPaymentRequest.objects.filter(
+            seller=request.user,
+            status='approved',
+        )
+    )
+    product_limit = 5 + paid_posts
+    chart_products = list(products.order_by('-product_information__views', '-created_at')[:8])
 
     return render(request, 'index_s.html', {
         'products': products,
@@ -38,6 +47,9 @@ def seller_home(request):
         'total_views': total_views,
         'mails': mails,
         'total_mails': total_mails,
+        'product_limit': product_limit,
+        'product_progress': min(100, round((total_products / product_limit) * 100)) if product_limit else 0,
+        'chart_products': chart_products,
     })
 
 

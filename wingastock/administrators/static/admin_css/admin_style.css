@@ -4,6 +4,36 @@
     font-family: "Segoe UI", sans-serif;
 }
 
+/* Final application type scale */
+html body,
+html body p,
+html body span,
+html body a,
+html body label,
+html body li,
+html body td,
+html body th,
+html body input,
+html body textarea,
+html body select,
+html body small {
+    font-size: 12px;
+}
+
+html body h1,
+html body h2,
+html body h3,
+html body h4,
+html body h5,
+html body h6,
+html body strong,
+html body b,
+html body button,
+html body .admin-brand,
+html body .admin-page-title {
+    font-size: 15px;
+}
+
 html,
 body {
     margin: 0;
@@ -284,6 +314,527 @@ select {
         display: none;
     }
 
+}
+
+/* Modern administrator workspace */
+    :root {
+        --admin-bg: #f5f7fb;
+        --admin-panel: #ffffff;
+        --admin-text: #172033;
+        --admin-muted: #64748b;
+        --admin-border: #e5eaf1;
+        --admin-brand: #e11d48;
+        --admin-brand-soft: #fff1f2;
+        --admin-blue: #2563eb;
+}
+
+html,
+body {
+        width: 100%;
+        min-height: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        background: var(--admin-bg);
+        color: var(--admin-text);
+    }
+
+    .header-holder-100 {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 30;
+        height: 64px;
+        border-bottom: 1px solid var(--admin-border);
+        background: rgba(255, 255, 255, .94);
+        box-shadow: 0 4px 18px rgba(15, 23, 42, .04);
+        backdrop-filter: blur(14px);
+    }
+
+    .header-100 {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 100%;
+        padding: 0 22px;
+        background: transparent;
+    }
+
+    .header-100 > div {
+        float: none !important;
+    }
+
+    .action-holder-101 {
+        display: none;
+        width: 38px;
+        height: 38px;
+        padding: 0;
+    }
+
+    .action-holder-101 > button {
+        width: 38px;
+        height: 38px;
+        border: 1px solid var(--admin-border);
+        border-radius: 10px;
+        color: var(--admin-brand);
+        background: white;
+        cursor: pointer;
+    }
+
+    .title-holder-101 {
+        display: flex;
+        align-items: center;
+        min-width: 0;
+        height: 64px;
+        padding: 0;
+    }
+
+    .title-holder-101:first-of-type {
+        flex: 1 1 auto;
+    }
+
+    .title-holder-101 > button {
+        max-width: 100%;
+        overflow: hidden;
+        border: 0;
+        color: var(--admin-text);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .title-holder-101:first-of-type > button {
+        font-size: 15px;
+        letter-spacing: -.02em;
+    }
+
+    .title-holder-101:last-child {
+        flex: 0 1 auto;
+        max-width: 280px;
+    }
+
+    .title-holder-101:last-child > button {
+        padding: 8px 12px;
+        border: 1px solid var(--admin-border);
+        border-radius: 10px;
+        color: var(--admin-muted);
+        background: white;
+    }
+
+    .center-content-200 {
+        display: block;
+        min-height: 100vh;
+        padding-top: 64px;
+    }
+
+    .left-holder-201 {
+        position: fixed;
+        inset: 64px auto 0 0;
+        z-index: 20;
+        display: block;
+        width: 236px;
+        height: auto;
+        background: var(--admin-panel);
+        border-right: 1px solid var(--admin-border);
+    }
+
+    .nav-bar-holder-202 {
+        height: 100%;
+        padding: 24px 14px;
+        color: var(--admin-muted);
+        background: var(--admin-panel);
+    }
+
+    .nav-bar-holder-202 > p {
+        margin: 0 8px 14px;
+        color: #94a3b8;
+        font-size: 11px;
+        letter-spacing: .12em;
+        text-align: left !important;
+        text-transform: uppercase;
+    }
+
+    .nav-bar-holder-202 ul {
+        margin: 4px 0;
+    }
+
+    .nav-bar-holder-202 ul > a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .nav-bar-holder-202 ul > a > li {
+        display: flex;
+        align-items: center;
+        min-height: 42px;
+        padding: 11px 12px;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        color: var(--admin-muted);
+        transition: .2s ease;
+    }
+
+    .nav-bar-holder-202 ul > a > li:hover,
+    .nav-bar-holder-202 ul > a > li.active-0 {
+        border-color: #fecdd3;
+        color: var(--admin-brand);
+        background: var(--admin-brand-soft);
+    }
+
+    .right-holder-201 {
+        width: calc(100% - 236px);
+        min-height: calc(100vh - 64px);
+        margin-left: 236px;
+        padding: 28px;
+        overflow: visible;
+    }
+
+    .card-holder-201,
+    .products-202,
+    .payment-review-page {
+        width: min(1180px, 100%);
+        margin: 0 auto;
+    }
+
+    .card-holder-201 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .card-holder-201 > div {
+        float: none;
+        width: auto;
+        padding: 0;
+    }
+
+    .card-holder-201 > .full-201 {
+        grid-column: 1 / -1;
+        width: auto;
+    }
+
+    .card-holder-201 > div > button {
+        min-height: 180px;
+        padding: 24px;
+        border: 1px solid var(--admin-border);
+        border-radius: 18px;
+        color: var(--admin-text);
+        background: var(--admin-panel);
+        box-shadow: 0 10px 28px rgba(15, 23, 42, .05);
+    }
+
+    .card-holder-201 > div > button span,
+    .card-holder-201 > div > button p {
+        color: var(--admin-muted);
+    }
+
+    .card-holder-201 > div > button b {
+        display: block;
+        margin: 12px 0;
+        color: var(--admin-brand);
+        font-size: 30px !important;
+    }
+
+    .products-202 {
+        padding: 0;
+    }
+
+    .products-202 > p,
+    .payment-review-heading h1 {
+        margin: 0 0 6px;
+        font-size: 22px;
+    }
+
+    .products-202 > p::before {
+        content: "ADMINISTRATION / ";
+        display: block;
+        margin-bottom: 7px;
+        color: var(--admin-brand);
+        font-size: 11px;
+        letter-spacing: .12em;
+    }
+
+    .filter-holder-202 {
+        height: auto;
+        margin: 18px 0;
+    }
+
+    .filter-holder-202 > div {
+        float: none;
+        width: min(420px, 100%);
+        height: 44px;
+    }
+
+    .filter-holder-202 > div > input {
+        width: 100%;
+        border: 1px solid var(--admin-border);
+        border-radius: 12px;
+        background: white;
+    }
+
+    .products-202 > table {
+        display: table;
+        overflow: hidden;
+        border: 1px solid var(--admin-border);
+        border-radius: 16px;
+        background: white;
+        box-shadow: 0 10px 28px rgba(15, 23, 42, .04);
+    }
+
+    .products-202 th {
+        color: var(--admin-muted);
+        background: #f8fafc;
+        font-size: 11px;
+        text-transform: uppercase;
+    }
+
+    .products-202 td {
+        color: #334155;
+    }
+
+    .products-202 tr:last-child td {
+        border-bottom: 0;
+    }
+
+    .products-202 a {
+        color: var(--admin-blue);
+        font-weight: 600;
+    }
+
+    .btn.delete,
+    .delete {
+        padding: 8px 11px;
+        border: 0;
+        border-radius: 8px;
+        color: #be123c;
+        background: var(--admin-brand-soft);
+        cursor: pointer;
+    }
+
+    .payment-review-page {
+        padding: 0;
+    }
+
+    .payment-review-heading span {
+        color: var(--admin-brand);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .12em;
+    }
+
+    .payment-review-heading p {
+        margin: 0 0 22px;
+        color: var(--admin-muted);
+    }
+
+    .payment-review-list {
+        display: grid;
+        gap: 16px;
+    }
+
+    .payment-review-card {
+        padding: 20px;
+        border: 1px solid var(--admin-border);
+        border-radius: 16px;
+        background: white;
+        box-shadow: 0 10px 28px rgba(15, 23, 42, .05);
+    }
+
+    .payment-review-meta,
+    .payment-review-details,
+    .payment-review-form {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .payment-review-meta span,
+    .payment-review-details small {
+        color: var(--admin-muted);
+    }
+
+    .payment-review-status {
+        margin-left: auto;
+        padding: 5px 10px;
+        border-radius: 999px;
+    }
+
+    .payment-review-details {
+        margin: 18px 0;
+    }
+
+    .payment-review-details div {
+        display: grid;
+        gap: 4px;
+        min-width: 150px;
+    }
+
+    .payment-review-image {
+        display: inline-grid;
+        gap: 6px;
+        color: var(--admin-blue);
+        text-decoration: none;
+    }
+
+    .payment-review-image img {
+        width: 150px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .payment-review-form {
+        margin-top: 16px;
+    }
+
+    .payment-review-form textarea {
+        flex: 1 1 260px;
+        min-height: 54px;
+        padding: 10px;
+        border: 1px solid var(--admin-border);
+        border-radius: 10px;
+        resize: vertical;
+    }
+
+    .payment-review-form button {
+        padding: 10px 13px;
+        border: 0;
+        border-radius: 9px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .payment-approve { background: #15803d; }
+    .payment-reject { background: #b91c1c; }
+
+    .image-preview-203 {
+        display: grid;
+        place-items: center;
+        min-height: 300px;
+        padding: 20px;
+        border: 1px solid var(--admin-border);
+        border-radius: 18px;
+        background: white;
+    }
+
+    .image-preview-203 > img {
+        width: min(420px, 100%);
+        max-height: 420px;
+        object-fit: contain;
+        border-radius: 12px;
+    }
+
+    .details-203 {
+        padding: 20px 0;
+    }
+
+    .details-203 table {
+        overflow: hidden;
+        border: 1px solid var(--admin-border);
+        border-radius: 14px;
+        background: white;
+    }
+
+    .close-205 {
+        width: auto;
+        height: auto;
+        margin-top: 18px;
+        padding: 10px 16px;
+        border-radius: 9px;
+        background: var(--admin-brand);
+    }
+
+    @media (max-width: 767px) {
+        .header-100 {
+            padding: 0 12px;
+        }
+
+        .action-holder-101 {
+            display: block;
+            flex: 0 0 38px;
+        }
+
+        .title-holder-101:last-child {
+            display: none;
+        }
+
+        .center-content-200 {
+            padding-top: 64px;
+        }
+
+        .left-holder-201 {
+            inset: 64px auto 0 0;
+            display: none;
+            width: min(280px, 86vw);
+            box-shadow: 10px 0 30px rgba(15, 23, 42, .14);
+        }
+
+        .right-holder-201 {
+            width: 100%;
+            margin-left: 0;
+            padding: 22px 14px 36px;
+        }
+
+        .card-holder-201 {
+            grid-template-columns: 1fr;
+        }
+
+        .card-holder-201 > .full-201 {
+            grid-column: auto;
+        }
+
+        .products-202 > table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .payment-review-meta,
+        .payment-review-details,
+        .payment-review-form {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .payment-review-status {
+            align-self: flex-start;
+            margin-left: 0;
+        }
+
+        .payment-review-form textarea,
+        .payment-review-form button {
+            width: 100%;
+        }
+
+        .image-preview-203 {
+            min-height: 220px;
+        }
+    }
+
+    .payment-review-page { padding: 24px; }
+    .payment-review-heading span { color: crimson; font-size: 11px; font-weight: 700; letter-spacing: .12em; }
+    .payment-review-heading h1 { margin: 6px 0; font-size: 28px; }
+    .payment-review-heading p { color: #64748b; }
+    .payment-review-list { display: grid; gap: 16px; }
+    .payment-review-card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 14px; background: #fff; box-shadow: 0 4px 18px rgba(15,23,42,.06); }
+    .payment-review-meta, .payment-review-details, .payment-review-form { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .payment-review-meta span, .payment-review-details small { color: #64748b; }
+    .payment-review-status { margin-left: auto; padding: 5px 10px; border-radius: 999px; font-size: 11px; }
+    .status-pending { background: #fef3c7; color: #92400e; }
+    .status-approved { background: #dcfce7; color: #166534; }
+    .status-rejected { background: #fee2e2; color: #991b1b; }
+    .payment-review-details { margin: 18px 0; }
+    .payment-review-details div { display: grid; gap: 4px; min-width: 150px; }
+    .payment-review-image { display: inline-grid; gap: 6px; color: crimson; text-decoration: none; }
+    .payment-review-image img { width: 150px; height: 100px; object-fit: cover; border-radius: 10px; }
+    .payment-review-form { margin-top: 16px; }
+    .payment-review-form textarea { flex: 1 1 260px; min-height: 54px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; resize: vertical; }
+    .payment-review-form button { padding: 10px 13px; border: 0; border-radius: 8px; color: white; cursor: pointer; }
+    .payment-approve { background: #15803d; }
+    .payment-reject { background: #b91c1c; }
+    .payment-review-message { margin: 12px 0; padding: 12px; border-radius: 8px; background: #ecfdf5; color: #166534; }
+    .payment-review-empty { padding: 36px; text-align: center; color: #64748b; background: #f8fafc; border-radius: 12px; }
+
     .left-holder-201 {
         width: 20%;
         height: 100vh;
@@ -304,4 +855,42 @@ select {
         width: 30%;
     }
 
+/* Final mobile overrides after legacy desktop declarations. */
+@media (max-width: 767px) {
+    .header-holder-100 {
+        height: 64px;
+    }
+
+    .header-100 {
+        height: 64px;
+    }
+
+    .left-holder-201 {
+        display: none;
+        width: min(280px, 86vw) !important;
+        height: auto !important;
+        float: none !important;
+    }
+
+    .right-holder-201 {
+        display: block;
+        width: 100% !important;
+        height: auto !important;
+        min-height: calc(100vh - 64px);
+        margin-left: 0 !important;
+        padding: 22px 14px 36px !important;
+        float: none !important;
+    }
+
+    .card-holder-201 {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+    }
+
+    .card-holder-201 > div,
+    .card-holder-201 > .full-201 {
+        width: 100% !important;
+        float: none !important;
+    }
 }

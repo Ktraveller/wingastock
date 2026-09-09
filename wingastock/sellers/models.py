@@ -22,6 +22,34 @@ class Seller(models.Model):
         return self.seller_name
 
 
+class SellerPaymentRequest(models.Model):
+    STATUS_CHOICES = [
+        ("pending", "Pending review"),
+        ("approved", "Approved"),
+        ("rejected", "Rejected"),
+    ]
+
+    seller = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="seller_payment_requests",
+    )
+    requested_products = models.PositiveIntegerField()
+    amount = models.PositiveIntegerField()
+    payment_reference = models.CharField(max_length=120, blank=True)
+    screenshot = CloudinaryField("payment screenshot")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+    admin_note = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    reviewed_at = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.seller.email} - {self.requested_products} products ({self.status})"
+
+
 
 # Product model
 class Product(models.Model):
@@ -70,7 +98,7 @@ class Product(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("product_details", kwargs={"id": self.id})
+        return reverse("product_details", kwargs={"id": self.id, "title": self.title})
 
 
 

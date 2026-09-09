@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <title>Wingastock | {{ product.title }}</title>
+    <title>Wingastock | {{ shop.seller_name }}</title>
 
     <meta name="description" content="Buy and sell electronics such as smartphones, laptops, TVs, computers, accessories, 
         and other electronic devices. Discover quality furniture, home appliances, rooms, houses, 
@@ -123,75 +123,49 @@
 
         <div class="content-holder-002">
 
-            <!-- Preview product -->
-            <div class="preview-product-holder-003">
-
-                <div class="preview-product-004">
-
-                    <div class="preview-102">
-
-                        <div class="product-details-holder-103">
-
-                            <div style="width: 100%;">
-                                <div style="max-height: 600px; float: left;">
-
-                                    <h1 style="color: crimson; font-size: 15px;">
-                                        <i class="fas fa-store" style="padding-right: 5px; font-size: 20px;"></i>
-                                        {{ shop.seller_name }}</h1>
-
-                                    <p style="font-weight: bold;"><i class="fas fa-align-left"></i> Descriptions</p>
-
-                                    <div type="button" class="des-103">
-                                        {{ shop.seller_description }}
-                                    </div>
-                                    <table>
-
-                                        <tr>
-                                            <td><i class="fas fa-map-marker-alt"></i> Address</td>
-                                            <td>{{ shop.seller_address }}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td><i class="fas fa-tags"></i> Reg date</td>
-                                            <td>{{ shop.reg_date }}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <button class="share-10" type="button" onclick="shareShop('{{ shop.id }}')"
-                                                    style="cursor: pointer;" title="Share shop">
-                                                    <i class="fas fa-share-alt"></i> Share shop ID
-                                                </button>
-                                            </td>
-                                        </tr>
-
-                                    </table>
-
-                                </div>
-                            </div>
-
-
-
-                        </div>
-
+            <div class="shop-preview-breadcrumb"><a href="{% url 'home' %}">Home</a><i
+                    class="fas fa-chevron-right"></i><a href="{% url 'shop_list' %}">Shops</a><i
+                    class="fas fa-chevron-right"></i>{{ shop.seller_name }}</div>
+            <div class="shop-preview-hero">
+                <div class="shop-preview-avatar"><i class="fas fa-store"></i></div>
+                <div class="shop-preview-intro">
+                    <span class="eyebrow"><i class="fas fa-check-circle"></i> Verified Wingastock seller</span>
+                    <h1>{{ shop.seller_name }}</h1>
+                    <p><i class="fas fa-map-marker-alt"></i> {{ shop.seller_address }}</p>
+                </div>
+                <button class="shop-preview-share" type="button" onclick="shareShop('{{ shop.id }}')"><i
+                        class="fas fa-share-alt"></i> Share shop</button>
+            </div>
+            <div class="shop-preview-layout">
+                <section class="shop-preview-about">
+                    <span class="eyebrow">About this shop</span>
+                    <h2>Quality products from a local seller</h2>
+                    <p>{{ shop.seller_description }}</p>
+                    <div class="shop-preview-facts">
+                        <span><i class="fas fa-box-open"></i><strong>{{ products|length }}</strong> products</span>
+                        <span><i class="fas fa-calendar-alt"></i><strong>{{ shop.reg_date|date:"M Y" }}</strong>
+                            joined</span>
                     </div>
-
-                </div>
-
+                </section>
+                <section class="shop-preview-products">
+                    <div class="shop-products-heading">
+                        <div><span class="eyebrow">Shop catalogue</span>
+                            <h2>Products from {{ shop.seller_name }}</h2>
+                        </div>
+                        <span>{{ products|length }} listings</span>
+                    </div>
+                    <div class="product-card-1002 shop-product-grid" style="width: 100%;">
+                        {% for product in products %}
+                        {% include 'product-container.html' %}
+                        {% empty %}
+                        <div class="shop-empty-state"><i class="fas fa-box-open"></i>
+                            <h3>No products yet</h3>
+                            <p>This shop has not listed products yet.</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
             </div>
-
-            <!-- Shops products -->
-            <div class="product-card-holder-1001">
-
-                <div class="product-card-1002" style="width: 100%;">
-                    <p style="font-weight: bold; padding-left: 10px; font-size: 20px;">Shop products</p>
-                    {% for product in products %}
-                    {% include 'product-container.html' %}
-                    {% endfor %}
-
-                </div>
-            </div>
-
             <div style="width: 100%; height: 100px; float: left;"></div>
 
 

@@ -1,84 +1,248 @@
 {% load static %}
 
-<div class="register-modal-holder-2001" id="login_container">
-    <div class="register-modal-2001">
+<!-- =========================================================
+     WINGASTOCK LOGIN / REGISTER MODAL
+========================================================= -->
 
-        <!-- CLOSE BUTTON -->
+<div
+    class="register-modal-holder-2001"
+    id="login_container"
+    aria-hidden="true"
+>
+
+    <div
+        class="register-modal-2001"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="auth_modal_title"
+    >
+
+        <!-- =================================================
+             CLOSE BUTTON
+        ================================================== -->
+
         <div class="close-holder-2001">
-            <button type="button" onclick="open_login_modal(0)">
+
+            <button
+                type="button"
+                onclick="open_login_modal(0)"
+                aria-label="Close"
+            >
                 <i class="fas fa-times"></i>
             </button>
+
         </div>
 
 
-        <!-- LOGIN / REGISTER SELECTOR -->
+        <!-- =================================================
+             BRAND
+        ================================================== -->
+
+        <div class="auth-brand-2001">
+
+            <div class="auth-logo-2001">
+
+                <img
+                    src="{% static 'logo.png' %}"
+                    alt="Wingastock"
+                >
+
+            </div>
+
+            <div class="auth-brand-text-2001">
+
+                <h2 id="auth_modal_title">
+                    Wingastock
+                </h2>
+
+                <p>
+                    Shop smarter. Shop better.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             LOGIN / REGISTER TABS
+        ================================================== -->
+
         <div class="choose-holder-2001">
 
-            <div style="padding-right: 10px;">
-                <button type="button" id="login_button" onclick="choose_type(1)">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Login
-                </button>
-            </div>
+            <button
+                type="button"
+                id="login_button"
+                class="auth-tab active"
+                onclick="choose_type(1)"
+            >
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Login</span>
+            </button>
 
-            <div style="padding-left: 10px;">
-                <button type="button" id="register_button" onclick="choose_type(2)">
-                    <i class="fas fa-user-plus"></i>
-                    Register
-                </button>
-            </div>
+
+            <button
+                type="button"
+                id="register_button"
+                class="auth-tab"
+                onclick="choose_type(2)"
+            >
+                <i class="fas fa-user-plus"></i>
+                <span>Register</span>
+            </button>
 
         </div>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              LOGIN
-        ====================================================== -->
+        ================================================== -->
 
-        <div class="form-holder-login-2001" id="login">
+        <div
+            class="form-holder-login-2001 auth-form active"
+            id="login"
+        >
 
-            <p>Login Wingastock</p>
+            <div class="auth-heading-2001">
+
+                <div class="auth-icon-2001">
+
+                    <i class="fas fa-user"></i>
+
+                </div>
+
+                <div>
+
+                    <h3>
+                        Welcome back
+                    </h3>
+
+                    <p>
+                        Login to continue to your account
+                    </p>
+
+                </div>
+
+            </div>
+
 
             <div class="form-login-2001">
 
-                <form method="post" action="{% url 'customer_login' %}" id="customer_login_form">
+                <form
+                    method="post"
+                    action="{% url 'customer_login' %}"
+                    id="customer_login_form"
+                >
 
                     {% csrf_token %}
 
+
                     <!-- EMAIL -->
-                    <div>
+
+                    <div class="auth-field-2001">
 
                         <label for="login_email">
+
                             <i class="fas fa-envelope"></i>
-                            Email
+
+                            Email address
+
                         </label>
 
-                        <input type="email" name="email" id="login_email" placeholder="E.g juma@mail.com"
-                            autocomplete="email" required>
+
+                        <div class="auth-input-2001">
+
+                            <i class="fas fa-envelope input-icon"></i>
+
+                            <input
+                                type="email"
+                                name="email"
+                                id="login_email"
+                                placeholder="juma@mail.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
 
                     </div>
 
 
                     <!-- PASSWORD -->
-                    <div>
+
+                    <div class="auth-field-2001">
 
                         <label for="login_password">
+
                             <i class="fas fa-lock"></i>
+
                             Password
+
                         </label>
 
-                        <input type="password" name="password" id="login_password" placeholder="Write password"
-                            autocomplete="current-password" required>
+
+                        <div class="auth-input-2001">
+
+                            <i class="fas fa-lock input-icon"></i>
+
+                            <input
+                                type="password"
+                                name="password"
+                                id="login_password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                class="password-toggle-2001"
+                                onclick="togglePassword(
+                                    'login_password',
+                                    this
+                                )"
+                                aria-label="Show password"
+                            >
+
+                                <i class="fas fa-eye"></i>
+
+                            </button>
+
+                        </div>
 
                     </div>
 
 
                     <!-- SUBMIT -->
-                    <div>
 
-                        <button type="submit" id="login_submit">
-                            <i class="fas fa-sign-in-alt"></i>
-                            Login
+                    <div class="auth-submit-2001">
+
+                        <button
+                            type="submit"
+                            id="login_submit"
+                        >
+
+                            <span class="button-text">
+
+                                <i class="fas fa-sign-in-alt"></i>
+
+                                Login
+
+                            </span>
+
+
+                            <span
+                                class="button-loading"
+                                style="display:none;"
+                            >
+
+                                <i class="fas fa-spinner fa-spin"></i>
+
+                                Logging in...
+
+                            </span>
+
                         </button>
 
                     </div>
@@ -88,79 +252,184 @@
             </div>
 
 
-            <!-- LOGIN MESSAGE -->
-            <div class="footer-201" id="login_message" aria-live="polite"></div>
+            <!-- MESSAGE -->
+
+            <div
+                class="footer-201 auth-message-2001"
+                id="login_message"
+                aria-live="polite"
+            ></div>
 
 
-            <!-- SWITCH TO REGISTER -->
-            <p style="font-size: 14px;">
+            <!-- SWITCH -->
 
-                Don't have an account?
+            <div class="auth-switch-2001">
 
-                <span onclick="choose_type(2)" style="
-                        font-size: inherit;
-                        color: crimson;
-                        font-weight: bold;
-                        cursor: pointer;
-                    ">
-                    Register
+                <span>
+                    Don't have an account?
                 </span>
 
-            </p>
+                <button
+                    type="button"
+                    onclick="choose_type(2)"
+                >
+                    Create one
+                </button>
+
+            </div>
 
         </div>
 
 
-
-        <!-- =====================================================
+        <!-- =================================================
              REGISTER
-        ====================================================== -->
+        ================================================== -->
 
-        <div class="form-holder-login-2001" style="display: none;" id="signup">
+        <div
+            class="form-holder-login-2001 auth-form"
+            id="signup"
+        >
 
-            <p>Register Wingastock</p>
+            <div class="auth-heading-2001">
+
+                <div class="auth-icon-2001">
+
+                    <i class="fas fa-user-plus"></i>
+
+                </div>
+
+                <div>
+
+                    <h3>
+                        Create your account
+                    </h3>
+
+                    <p>
+                        Join Wingastock and start shopping
+                    </p>
+
+                </div>
+
+            </div>
+
 
             <div class="form-login-2001">
 
-                <form method="post" action="{% url 'customer_register' %}" id="customer_register_form">
+                <form
+                    method="post"
+                    action="{% url 'customer_register' %}"
+                    id="customer_register_form"
+                >
 
                     {% csrf_token %}
 
 
                     <!-- EMAIL -->
-                    <div>
+
+                    <div class="auth-field-2001">
 
                         <label for="register_email">
+
                             <i class="fas fa-envelope"></i>
-                            Email
+
+                            Email address
+
                         </label>
 
-                        <input type="email" name="email" id="register_email" placeholder="E.g juma@mail.com"
-                            autocomplete="email" required>
+
+                        <div class="auth-input-2001">
+
+                            <i class="fas fa-envelope input-icon"></i>
+
+                            <input
+                                type="email"
+                                name="email"
+                                id="register_email"
+                                placeholder="juma@mail.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
 
                     </div>
 
 
                     <!-- PASSWORD -->
-                    <div>
+
+                    <div class="auth-field-2001">
 
                         <label for="register_password">
+
                             <i class="fas fa-lock"></i>
+
                             Password
+
                         </label>
 
-                        <input type="password" name="password" id="register_password" placeholder="Write password"
-                            autocomplete="new-password" required>
+
+                        <div class="auth-input-2001">
+
+                            <i class="fas fa-lock input-icon"></i>
+
+                            <input
+                                type="password"
+                                name="password"
+                                id="register_password"
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                class="password-toggle-2001"
+                                onclick="togglePassword(
+                                    'register_password',
+                                    this
+                                )"
+                                aria-label="Show password"
+                            >
+
+                                <i class="fas fa-eye"></i>
+
+                            </button>
+
+                        </div>
 
                     </div>
 
 
                     <!-- SUBMIT -->
-                    <div>
 
-                        <button type="submit" id="register_submit">
-                            <i class="fas fa-user-plus"></i>
-                            Signup
+                    <div class="auth-submit-2001">
+
+                        <button
+                            type="submit"
+                            id="register_submit"
+                        >
+
+                            <span class="button-text">
+
+                                <i class="fas fa-user-plus"></i>
+
+                                Create account
+
+                            </span>
+
+
+                            <span
+                                class="button-loading"
+                                style="display:none;"
+                            >
+
+                                <i class="fas fa-spinner fa-spin"></i>
+
+                                Creating account...
+
+                            </span>
+
                         </button>
 
                     </div>
@@ -170,476 +439,1836 @@
             </div>
 
 
-            <!-- REGISTER MESSAGE -->
-            <div class="footer-201" id="register_message" aria-live="polite"></div>
+            <!-- MESSAGE -->
+
+            <div
+                class="footer-201 auth-message-2001"
+                id="register_message"
+                aria-live="polite"
+            ></div>
 
 
-            <!-- SWITCH TO LOGIN -->
-            <p style="font-size: 14px;">
+            <!-- SWITCH -->
 
-                Already have an account?
+            <div class="auth-switch-2001">
 
-                <span onclick="choose_type(1)" style="
-                        font-size: inherit;
-                        color: crimson;
-                        font-weight: bold;
-                        cursor: pointer;
-                    ">
-                    Login
+                <span>
+                    Already have an account?
                 </span>
 
-            </p>
+                <button
+                    type="button"
+                    onclick="choose_type(1)"
+                >
+                    Login
+                </button>
+
+            </div>
 
         </div>
 
     </div>
+
 </div>
 
 
+<!-- =========================================================
+     CSS
+========================================================= -->
+
+<style>
+
+/* =========================================================
+   GLOBAL AUTH VARIABLES
+========================================================= */
+
+:root {
+
+    --auth-primary: #e60023;
+    --auth-primary-dark: #c9001f;
+
+    --auth-text: #172033;
+    --auth-muted: #70798a;
+
+    --auth-border: #e5e7eb;
+
+    --auth-bg: #f7f8fa;
+
+    --auth-white: #ffffff;
+
+    --auth-success: #16803c;
+
+    --auth-error: #d92d20;
+
+}
+
+
+/* =========================================================
+   MODAL BACKDROP
+========================================================= */
+
+.register-modal-holder-2001 {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(230, 0, 35, .10),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(23, 32, 51, .12),
+            transparent 30%
+        ),
+        rgba(10, 15, 25, .72);
+
+    backdrop-filter: blur(10px);
+
+    -webkit-backdrop-filter: blur(10px);
+
+    z-index: 999999;
+
+    overflow-y: auto;
+
+}
+
+
+/* =========================================================
+   MODAL CARD
+========================================================= */
+
+.register-modal-2001 {
+
+    position: relative;
+
+    width: min(460px, 100%);
+
+    max-height: calc(100vh - 40px);
+
+    overflow-y: auto;
+
+    background: var(--auth-white);
+
+    border: 1px solid rgba(255,255,255,.7);
+
+    border-radius: 26px;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.22),
+        0 10px 30px rgba(0,0,0,.10);
+
+    padding: 30px;
+
+    box-sizing: border-box;
+
+    animation: authModalIn .28s ease both;
+
+}
+
+
+@keyframes authModalIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(.96);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.close-holder-2001 {
+
+    position: absolute;
+
+    top: 16px;
+
+    right: 16px;
+
+    z-index: 10;
+
+}
+
+
+.close-holder-2001 button {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #f3f4f6;
+
+    color: #555e6d;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+
+}
+
+
+.close-holder-2001 button:hover {
+
+    background: #fee2e2;
+
+    color: var(--auth-primary);
+
+    transform: rotate(90deg);
+
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.auth-brand-2001 {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    margin: 4px 35px 25px 0;
+
+}
+
+
+.auth-logo-2001 {
+
+    width: 52px;
+
+    height: 52px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #fff1f2;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+}
+
+
+.auth-logo-2001 img {
+
+    width: 40px;
+
+    height: 40px;
+
+    object-fit: contain;
+
+}
+
+
+.auth-brand-text-2001 h2 {
+
+    margin: 0;
+
+    color: var(--auth-text);
+
+    font-size: 22px;
+
+    font-weight: 800;
+
+    line-height: 1.1;
+
+}
+
+
+.auth-brand-text-2001 p {
+
+    margin: 4px 0 0;
+
+    color: var(--auth-muted);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   LOGIN / REGISTER TABS
+========================================================= */
+
+.choose-holder-2001 {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 5px;
+
+    padding: 5px;
+
+    margin-bottom: 28px;
+
+    background: #f3f4f6;
+
+    border-radius: 14px;
+
+}
+
+
+.auth-tab {
+
+    min-height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #697386;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        box-shadow .2s ease,
+        transform .2s ease;
+
+}
+
+
+.auth-tab:hover {
+
+    color: var(--auth-text);
+
+}
+
+
+.auth-tab.active {
+
+    background: #ffffff;
+
+    color: var(--auth-primary);
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,.08);
+
+}
+
+
+.auth-tab.active i {
+
+    color: var(--auth-primary);
+
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.auth-form {
+
+    display: none;
+
+}
+
+
+.auth-form.active {
+
+    display: block;
+
+    animation: authFormIn .25s ease both;
+
+}
+
+
+@keyframes authFormIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateX(10px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateX(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   FORM HEADING
+========================================================= */
+
+.auth-heading-2001 {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 24px;
+
+}
+
+
+.auth-icon-2001 {
+
+    width: 46px;
+
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: #fff1f2;
+
+    color: var(--auth-primary);
+
+    font-size: 17px;
+
+}
+
+
+.auth-heading-2001 h3 {
+
+    margin: 0;
+
+    color: var(--auth-text);
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+}
+
+
+.auth-heading-2001 p {
+
+    margin: 4px 0 0;
+
+    color: var(--auth-muted);
+
+    font-size: 12px;
+
+    line-height: 1.4;
+
+}
+
+
+/* =========================================================
+   FIELD
+========================================================= */
+
+.auth-field-2001 {
+
+    margin-bottom: 18px;
+
+}
+
+
+.auth-field-2001 label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--auth-text);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.auth-field-2001 label i {
+
+    margin-right: 5px;
+
+    color: var(--auth-primary);
+
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.auth-input-2001 {
+
+    position: relative;
+
+    width: 100%;
+
+}
+
+
+.auth-input-2001 .input-icon {
+
+    position: absolute;
+
+    left: 15px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #9aa2af;
+
+    font-size: 14px;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+}
+
+
+.auth-input-2001 input {
+
+    width: 100%;
+
+    height: 50px;
+
+    box-sizing: border-box;
+
+    padding:
+        0 45px
+        0 42px;
+
+    border: 1px solid var(--auth-border);
+
+    border-radius: 12px;
+
+    outline: none;
+
+    background: #fafafa;
+
+    color: var(--auth-text);
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    transition:
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+
+}
+
+
+.auth-input-2001 input::placeholder {
+
+    color: #a5acb8;
+
+}
+
+
+.auth-input-2001 input:hover {
+
+    border-color: #d3d7df;
+
+}
+
+
+.auth-input-2001 input:focus {
+
+    background: #ffffff;
+
+    border-color: var(--auth-primary);
+
+    box-shadow:
+        0 0 0 4px rgba(230,0,35,.08);
+
+}
+
+
+/* =========================================================
+   PASSWORD TOGGLE
+========================================================= */
+
+.password-toggle-2001 {
+
+    position: absolute;
+
+    top: 50%;
+
+    right: 8px;
+
+    transform: translateY(-50%);
+
+    width: 35px;
+
+    height: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 0;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #8b94a3;
+
+    cursor: pointer;
+
+}
+
+
+.password-toggle-2001:hover {
+
+    background: #f3f4f6;
+
+    color: var(--auth-primary);
+
+}
+
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+.auth-submit-2001 {
+
+    margin-top: 25px;
+
+}
+
+
+.auth-submit-2001 button {
+
+    width: 100%;
+
+    min-height: 51px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e60023,
+            #c9001f
+        );
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba(230,0,35,.20);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        opacity .2s ease;
+
+}
+
+
+.auth-submit-2001 button:hover:not(:disabled) {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 26px rgba(230,0,35,.28);
+
+}
+
+
+.auth-submit-2001 button:active:not(:disabled) {
+
+    transform: translateY(0);
+
+}
+
+
+.auth-submit-2001 button:disabled {
+
+    opacity: .7;
+
+    cursor: not-allowed;
+
+}
+
+
+.button-text,
+.button-loading {
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.auth-message-2001 {
+
+    min-height: 0;
+
+    margin-top: 14px;
+
+    padding: 0;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+
+}
+
+
+.auth-message-2001:not(:empty) {
+
+    padding: 11px 13px;
+
+}
+
+
+.auth-message-2001.success {
+
+    color: var(--auth-success);
+
+    background: #ecfdf3;
+
+    border: 1px solid #bbf7d0;
+
+}
+
+
+.auth-message-2001.error {
+
+    color: var(--auth-error);
+
+    background: #fff1f2;
+
+    border: 1px solid #fecdd3;
+
+}
+
+
+/* =========================================================
+   BOTTOM SWITCH
+========================================================= */
+
+.auth-switch-2001 {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 4px;
+
+    margin-top: 22px;
+
+    color: var(--auth-muted);
+
+    font-size: 12px;
+
+    text-align: center;
+
+}
+
+
+.auth-switch-2001 button {
+
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    color: var(--auth-primary);
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+}
+
+
+.auth-switch-2001 button:hover {
+
+    text-decoration: underline;
+
+}
+
+
+/* =========================================================
+   BODY LOCK
+========================================================= */
+
+body.auth-modal-open {
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .register-modal-holder-2001 {
+
+        align-items: flex-end;
+
+        padding: 0;
+
+    }
+
+
+    .register-modal-2001 {
+
+        width: 100%;
+
+        max-height: 92vh;
+
+        padding: 24px 20px;
+
+        border-radius:
+            24px 24px 0 0;
+
+        animation:
+            authMobileIn .28s ease both;
+
+    }
+
+
+    @keyframes authMobileIn {
+
+        from {
+
+            opacity: 0;
+
+            transform: translateY(100%);
+
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+    }
+
+
+    .auth-brand-2001 {
+
+        margin-right: 40px;
+
+        margin-bottom: 20px;
+
+    }
+
+
+    .auth-brand-text-2001 h2 {
+
+        font-size: 20px;
+
+    }
+
+
+    .auth-heading-2001 h3 {
+
+        font-size: 18px;
+
+    }
+
+
+    .auth-input-2001 input {
+
+        height: 48px;
+
+    }
+
+
+    .auth-submit-2001 button {
+
+        min-height: 49px;
+
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL SCREENS
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .register-modal-2001 {
+
+        padding: 20px 15px;
+
+    }
+
+
+    .auth-heading-2001 {
+
+        gap: 9px;
+
+    }
+
+
+    .auth-icon-2001 {
+
+        width: 40px;
+
+        height: 40px;
+
+    }
+
+
+    .auth-heading-2001 h3 {
+
+        font-size: 17px;
+
+    }
+
+}
+
+</style>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
 <script>
 
-    /* ============================================================
-       ELEMENTS
-    ============================================================ */
+/* =========================================================
+   OPEN / CLOSE MODAL
+========================================================= */
 
-    const loginContainer = document.getElementById("login_container");
+function open_login_modal(click) {
 
-    const loginButton = document.getElementById("login_button");
-    const registerButton = document.getElementById("register_button");
+    const modal =
+        document.getElementById("login_container");
 
-    const loginModal = document.getElementById("login");
-    const registerModal = document.getElementById("signup");
-
+    if (!modal) return;
 
 
-    /* ============================================================
-       OPEN / CLOSE LOGIN MODAL
-    ============================================================ */
+    if (click === 1) {
 
-    function open_login_modal(click) {
+        modal.style.display = "flex";
 
-        if (click === 1) {
+        modal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
 
-            loginContainer.style.display = "inline-block";
+        document.body.classList.add(
+            "auth-modal-open"
+        );
 
-            // Always open Login by default
-            choose_type(1);
+        choose_type(1);
 
-        }
 
-        else if (click === 2) {
+        setTimeout(function() {
 
-            loginContainer.style.display = "inline-block";
+            const email =
+                document.getElementById(
+                    "login_email"
+                );
 
-            // Always open Login by default
-            choose_type(2);
+            if (email) {
 
-        }
+                email.focus();
 
-        else {
+            }
 
-            loginContainer.style.display = "none";
+        }, 250);
 
-        }
+
+    } else {
+
+        modal.style.display = "none";
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        document.body.classList.remove(
+            "auth-modal-open"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOGIN / REGISTER SWITCH
+========================================================= */
+
+function choose_type(type) {
+
+    const login =
+        document.getElementById("login");
+
+    const signup =
+        document.getElementById("signup");
+
+    const loginButton =
+        document.getElementById(
+            "login_button"
+        );
+
+    const registerButton =
+        document.getElementById(
+            "register_button"
+        );
+
+
+    if (
+        !login ||
+        !signup ||
+        !loginButton ||
+        !registerButton
+    ) {
+
+        return;
 
     }
 
 
+    if (type === 1) {
 
-    /* ============================================================
-       CHOOSE LOGIN OR REGISTER
-    ============================================================ */
+        login.classList.add("active");
 
-    function choose_type(click) {
+        signup.classList.remove("active");
 
-        if (click === 1) {
+        loginButton.classList.add("active");
 
-            // Show login
-            loginModal.style.display = "inline-block";
-            registerModal.style.display = "none";
-
-
-            // Login button active
-            loginButton.style.background = "crimson";
-            loginButton.style.color = "white";
-            loginButton.style.border = "none";
+        registerButton.classList.remove(
+            "active"
+        );
 
 
-            // Register button inactive
-            registerButton.style.background = "white";
-            registerButton.style.color = "inherit";
-            registerButton.style.border =
-                "1px solid rgba(220, 20, 60, 0.266)";
-
-        }
+        clearAuthMessage(
+            "register_message"
+        );
 
 
-        else if (click === 2) {
+        setTimeout(function() {
 
-            // Hide login
-            loginModal.style.display = "none";
+            const email =
+                document.getElementById(
+                    "login_email"
+                );
 
-            // Show register
-            registerModal.style.display = "inline-block";
+            if (email) {
 
+                email.focus();
 
-            // Login button inactive
-            loginButton.style.background = "white";
-            loginButton.style.color = "inherit";
-            loginButton.style.border =
-                "1px solid rgba(220, 20, 60, 0.266)";
+            }
 
-
-            // Register button active
-            registerButton.style.background = "crimson";
-            registerButton.style.color = "white";
-            registerButton.style.border = "none";
-
-        }
+        }, 150);
 
     }
 
 
+    if (type === 2) {
 
-    /* ============================================================
-       GET CSRF TOKEN
-    ============================================================ */
+        signup.classList.add("active");
 
-    function getCSRFToken(form) {
+        login.classList.remove("active");
 
-        return form.querySelector(
-            "[name=csrfmiddlewaretoken]"
-        ).value;
+        registerButton.classList.add(
+            "active"
+        );
+
+        loginButton.classList.remove(
+            "active"
+        );
+
+
+        clearAuthMessage(
+            "login_message"
+        );
+
+
+        setTimeout(function() {
+
+            const email =
+                document.getElementById(
+                    "register_email"
+                );
+
+            if (email) {
+
+                email.focus();
+
+            }
+
+        }, 150);
+
+    }
+
+}
+
+
+/* =========================================================
+   PASSWORD SHOW / HIDE
+========================================================= */
+
+function togglePassword(
+    inputId,
+    button
+) {
+
+    const input =
+        document.getElementById(inputId);
+
+    if (!input) return;
+
+
+    const icon =
+        button.querySelector("i");
+
+    if (!icon) return;
+
+
+    if (input.type === "password") {
+
+        input.type = "text";
+
+        icon.classList.remove(
+            "fa-eye"
+        );
+
+        icon.classList.add(
+            "fa-eye-slash"
+        );
+
+        button.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
+
+
+    } else {
+
+        input.type = "password";
+
+        icon.classList.remove(
+            "fa-eye-slash"
+        );
+
+        icon.classList.add(
+            "fa-eye"
+        );
+
+        button.setAttribute(
+            "aria-label",
+            "Show password"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CSRF
+========================================================= */
+
+function getCSRFToken(form) {
+
+    const csrfInput =
+        form.querySelector(
+            'input[name="csrfmiddlewaretoken"]'
+        );
+
+
+    if (csrfInput) {
+
+        return csrfInput.value;
 
     }
 
 
-
-    /* ============================================================
-       CUSTOMER LOGIN
-    ============================================================ */
-
-    const loginForm =
-        document.getElementById("customer_login_form");
-
-    const loginMessage =
-        document.getElementById("login_message");
-
-    const loginSubmit =
-        document.getElementById("login_submit");
+    const cookies =
+        document.cookie.split(";");
 
 
+    for (
+        let cookie of cookies
+    ) {
 
-    loginForm.addEventListener("submit", async function (event) {
-
-        // Prevent normal form submission
-        event.preventDefault();
-
-
-        const email =
-            document.getElementById("login_email")
-                .value
-                .trim()
-                .toLowerCase();
-
-        const password =
-            document.getElementById("login_password")
-                .value;
+        cookie = cookie.trim();
 
 
-        // Clear previous message
-        loginMessage.innerHTML = "";
+        if (
+            cookie.startsWith(
+                "csrftoken="
+            )
+        ) {
 
-
-        // Disable button
-        loginSubmit.disabled = true;
-
-
-        loginSubmit.innerHTML = `
-        <i class="fas fa-spinner fa-spin"></i>
-        Logging in...
-    `;
-
-
-        try {
-
-            const response = await fetch(
-                loginForm.action,
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type": "application/json",
-
-                        "X-CSRFToken":
-                            getCSRFToken(loginForm)
-
-                    },
-
-                    body: JSON.stringify({
-
-                        email: email,
-
-                        password: password
-
-                    })
-
-                }
+            return decodeURIComponent(
+                cookie.substring(
+                    "csrftoken=".length
+                )
             );
 
+        }
 
-            const data = await response.json();
-
-
-            /* ==========================================
-               LOGIN SUCCESS
-            ========================================== */
-
-            if (data.success) {
-
-                loginMessage.innerHTML = `
-                <p
-                    style="
-                        text-align: center;
-                        color: green;
-                    "
-                >
-                    <i class="fas fa-check-circle"></i>
-                    ${data.message}
-                </p>
-            `;
+    }
 
 
-                // Reload page
-                setTimeout(function () {
+    return "";
 
-                    window.location.href = '';
-
-                }, 500);
+}
 
 
-            }
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+function showAuthMessage(
+    element,
+    type,
+    message
+) {
+
+    if (!element) return;
 
 
-            /* ==========================================
-               LOGIN ERROR
-            ========================================== */
-
-            else {
-
-                loginMessage.innerHTML = `
-                <p
-                    style="
-                        text-align: center;
-                        color: red;
-                    "
-                >
-                    <i class="fas fa-exclamation-circle"></i>
-                    ${data.error}
-                </p>
-            `;
+    element.className =
+        "footer-201 auth-message-2001";
 
 
-                // Enable button again
-                loginSubmit.disabled = false;
+    if (type) {
+
+        element.classList.add(type);
+
+    }
 
 
-                loginSubmit.innerHTML = `
-                <i class="fas fa-sign-in-alt"></i>
-                Login
-            `;
+    element.innerHTML = message || "";
+
+}
+
+
+function clearAuthMessage(id) {
+
+    const element =
+        document.getElementById(id);
+
+    if (!element) return;
+
+    element.className =
+        "footer-201 auth-message-2001";
+
+    element.innerHTML = "";
+
+}
+
+
+/* =========================================================
+   BUTTON LOADING
+========================================================= */
+
+function setButtonLoading(
+    button,
+    loading,
+    loadingText
+) {
+
+    if (!button) return;
+
+
+    const text =
+        button.querySelector(
+            ".button-text"
+        );
+
+    const loader =
+        button.querySelector(
+            ".button-loading"
+        );
+
+
+    button.disabled = loading;
+
+
+    if (loading) {
+
+        if (text) {
+
+            text.style.display = "none";
+
+        }
+
+
+        if (loader) {
+
+            loader.style.display =
+                "inline-flex";
+
+        }
+
+
+        if (loader && loadingText) {
+
+            const nodes =
+                loader.childNodes;
+
+            for (
+                let node of nodes
+            ) {
+
+                if (
+                    node.nodeType ===
+                    Node.TEXT_NODE &&
+                    node.textContent.trim()
+                ) {
+
+                    node.textContent =
+                        " " +
+                        loadingText;
+
+                    break;
+
+                }
 
             }
 
         }
 
 
-        /* ==========================================
-           NETWORK / SERVER ERROR
-        ========================================== */
+    } else {
 
-        catch (error) {
+        if (text) {
 
-            console.error("Login error:", error);
-
-
-            loginMessage.innerHTML = `
-            <p
-                style="
-                    text-align: center;
-                    color: red;
-                "
-            >
-                <i class="fas fa-exclamation-circle"></i>
-                Something went wrong. Please try again.
-            </p>
-        `;
-
-
-            loginSubmit.disabled = false;
-
-
-            loginSubmit.innerHTML = `
-            <i class="fas fa-sign-in-alt"></i>
-            Login
-        `;
+            text.style.display =
+                "inline-flex";
 
         }
 
-    });
+
+        if (loader) {
+
+            loader.style.display =
+                "none";
+
+        }
+
+    }
+
+}
 
 
+/* =========================================================
+   FORM DATA
+========================================================= */
 
-    /* ============================================================
-       CUSTOMER REGISTRATION
-    ============================================================ */
+function getFormJSON(form) {
 
-    const registerForm =
-        document.getElementById("customer_register_form");
+    const formData =
+        new FormData(form);
 
-    const registerMessage =
-        document.getElementById("register_message");
-
-    const registerSubmit =
-        document.getElementById("register_submit");
+    const data = {};
 
 
+    formData.forEach(
+        function(value, key) {
 
-    registerForm.addEventListener(
+            if (
+                key !==
+                "csrfmiddlewaretoken"
+            ) {
+
+                data[key] = value;
+
+            }
+
+        }
+    );
+
+
+    return data;
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+const loginForm =
+    document.getElementById(
+        "customer_login_form"
+    );
+
+
+if (loginForm) {
+
+    loginForm.addEventListener(
         "submit",
-        async function (event) {
+        async function(event) {
 
-            // Prevent normal form submission
             event.preventDefault();
 
 
-            const email =
-                document.getElementById("register_email")
-                    .value
-                    .trim()
-                    .toLowerCase();
+            const button =
+                document.getElementById(
+                    "login_submit"
+                );
 
-            const password =
-                document.getElementById("register_password")
-                    .value;
-
-
-            // Clear previous message
-            registerMessage.innerHTML = "";
+            const message =
+                document.getElementById(
+                    "login_message"
+                );
 
 
-            // Disable button
-            registerSubmit.disabled = true;
+            setButtonLoading(
+                button,
+                true,
+                "Logging in..."
+            );
 
 
-            registerSubmit.innerHTML = `
-            <i class="fas fa-spinner fa-spin"></i>
-            Creating account...
-        `;
+            showAuthMessage(
+                message,
+                "",
+                ""
+            );
 
 
             try {
 
-                const response = await fetch(
-                    registerForm.action,
-                    {
+                const response =
+                    await fetch(
+                        loginForm.action,
+                        {
+                            method: "POST",
 
-                        method: "POST",
+                            headers: {
 
-                        headers: {
+                                "Content-Type":
+                                    "application/json",
 
-                            "Content-Type": "application/json",
+                                "X-CSRFToken":
+                                    getCSRFToken(
+                                        loginForm
+                                    ),
 
-                            "X-CSRFToken":
-                                getCSRFToken(registerForm)
+                                "X-Requested-With":
+                                    "XMLHttpRequest"
+
+                            },
+
+                            credentials:
+                                "same-origin",
+
+                            body:
+                                JSON.stringify(
+                                    getFormJSON(
+                                        loginForm
+                                    )
+                                )
+
+                        }
+                    );
+
+
+                let result;
+
+
+                try {
+
+                    result =
+                        await response.json();
+
+                } catch (jsonError) {
+
+                    throw new Error(
+                        "Invalid server response."
+                    );
+
+                }
+
+
+                if (
+                    response.ok &&
+                    result.success
+                ) {
+
+                    showAuthMessage(
+                        message,
+                        "success",
+                        '<i class="fas fa-check-circle"></i> ' +
+                        (
+                            result.message ||
+                            "Login successful."
+                        )
+                    );
+
+
+                    setTimeout(
+                        function() {
+
+                            window.location.reload();
 
                         },
+                        700
+                    );
 
-                        body: JSON.stringify({
 
-                            email: email,
+                } else {
 
-                            password: password
+                    showAuthMessage(
+                        message,
+                        "error",
+                        '<i class="fas fa-exclamation-circle"></i> ' +
+                        (
+                            result.message ||
+                            "Invalid email or password."
+                        )
+                    );
 
-                        })
 
-                    }
+                    setButtonLoading(
+                        button,
+                        false
+                    );
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Login error:",
+                    error
                 );
 
 
-                const data = await response.json();
+                showAuthMessage(
+                    message,
+                    "error",
+                    '<i class="fas fa-exclamation-circle"></i> ' +
+                    "Unable to connect to the server. Please try again."
+                );
 
 
-                /* ==========================================
-                   REGISTRATION SUCCESS
-                ========================================== */
-
-                if (data.success) {
-
-                    registerMessage.innerHTML = `
-                    <p
-                        style="
-                            text-align: center;
-                            color: green;
-                        "
-                    >
-                        <i class="fas fa-check-circle"></i>
-                        ${data.message}
-                    </p>
-                `;
-
-
-                    // Reload page
-                    setTimeout(function () {
-
-                        window.location.href = '';
-
-                    }, 500);
-
-                }
-
-
-                /* ==========================================
-                   REGISTRATION ERROR
-                ========================================== */
-
-                else {
-
-                    registerMessage.innerHTML = `
-                    <p
-                        style="
-                            text-align: center;
-                            color: red;
-                        "
-                    >
-                        <i class="fas fa-exclamation-circle"></i>
-                        ${data.error}
-                    </p>
-                `;
-
-
-                    // Enable button again
-                    registerSubmit.disabled = false;
-
-
-                    registerSubmit.innerHTML = `
-                    <i class="fas fa-user-plus"></i>
-                    Signup
-                `;
-
-                }
+                setButtonLoading(
+                    button,
+                    false
+                );
 
             }
 
+        }
+    );
 
-            /* ==========================================
-               NETWORK / SERVER ERROR
-            ========================================== */
+}
 
-            catch (error) {
+
+/* =========================================================
+   REGISTER
+========================================================= */
+
+const registerForm =
+    document.getElementById(
+        "customer_register_form"
+    );
+
+
+if (registerForm) {
+
+    registerForm.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const button =
+                document.getElementById(
+                    "register_submit"
+                );
+
+            const message =
+                document.getElementById(
+                    "register_message"
+                );
+
+
+            setButtonLoading(
+                button,
+                true,
+                "Creating account..."
+            );
+
+
+            showAuthMessage(
+                message,
+                "",
+                ""
+            );
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        registerForm.action,
+                        {
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "X-CSRFToken":
+                                    getCSRFToken(
+                                        registerForm
+                                    ),
+
+                                "X-Requested-With":
+                                    "XMLHttpRequest"
+
+                            },
+
+                            credentials:
+                                "same-origin",
+
+                            body:
+                                JSON.stringify(
+                                    getFormJSON(
+                                        registerForm
+                                    )
+                                )
+
+                        }
+                    );
+
+
+                let result;
+
+
+                try {
+
+                    result =
+                        await response.json();
+
+                } catch (jsonError) {
+
+                    throw new Error(
+                        "Invalid server response."
+                    );
+
+                }
+
+
+                if (
+                    response.ok &&
+                    result.success
+                ) {
+
+                    showAuthMessage(
+                        message,
+                        "success",
+                        '<i class="fas fa-check-circle"></i> ' +
+                        (
+                            result.message ||
+                            "Account created successfully."
+                        )
+                    );
+
+
+                    setTimeout(
+                        function() {
+
+                            choose_type(1);
+
+
+                            const email =
+                                document.getElementById(
+                                    "register_email"
+                                );
+
+                            const password =
+                                document.getElementById(
+                                    "register_password"
+                                );
+
+
+                            if (email) {
+
+                                email.value = "";
+
+                            }
+
+
+                            if (password) {
+
+                                password.value = "";
+
+                            }
+
+                        },
+                        1000
+                    );
+
+
+                } else {
+
+                    showAuthMessage(
+                        message,
+                        "error",
+                        '<i class="fas fa-exclamation-circle"></i> ' +
+                        (
+                            result.message ||
+                            "Registration failed."
+                        )
+                    );
+
+
+                    setButtonLoading(
+                        button,
+                        false
+                    );
+
+                }
+
+
+            } catch (error) {
 
                 console.error(
                     "Registration error:",
@@ -647,30 +2276,106 @@
                 );
 
 
-                registerMessage.innerHTML = `
-                <p
-                    style="
-                        text-align: center;
-                        color: red;
-                    "
-                >
-                    <i class="fas fa-exclamation-circle"></i>
-                    Something went wrong. Please try again.
-                </p>
-            `;
+                showAuthMessage(
+                    message,
+                    "error",
+                    '<i class="fas fa-exclamation-circle"></i> ' +
+                    "Unable to connect to the server. Please try again."
+                );
 
 
-                registerSubmit.disabled = false;
-
-
-                registerSubmit.innerHTML = `
-                <i class="fas fa-user-plus"></i>
-                Signup
-            `;
+                setButtonLoading(
+                    button,
+                    false
+                );
 
             }
 
         }
     );
+
+}
+
+
+/* =========================================================
+   CLICK OUTSIDE MODAL
+========================================================= */
+
+const authModal =
+    document.getElementById(
+        "login_container"
+    );
+
+
+if (authModal) {
+
+    authModal.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                authModal
+            ) {
+
+                open_login_modal(0);
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key !== "Escape"
+        ) {
+
+            return;
+
+        }
+
+
+        const modal =
+            document.getElementById(
+                "login_container"
+            );
+
+
+        if (
+            modal &&
+            modal.style.display ===
+                "flex"
+        ) {
+
+            open_login_modal(0);
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        choose_type(1);
+
+    }
+);
 
 </script>

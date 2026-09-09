@@ -6,6 +6,34 @@
   font-family: "Segoe UI", sans-serif;
 }
 
+/* Final application type scale */
+html body,
+html body p,
+html body span,
+html body a,
+html body label,
+html body li,
+html body td,
+html body th,
+html body input,
+html body textarea,
+html body select,
+html body small {
+    font-size: 12px;
+}
+
+html body h1,
+html body h2,
+html body h3,
+html body h4,
+html body h5,
+html body h6,
+html body strong,
+html body b,
+html body button {
+    font-size: 15px;
+}
+
 body {
   background: white;
 }
@@ -178,6 +206,63 @@ button:hover {
 @keyframes blink {
   50% {
     border-color: transparent;
+  }
+
+  /* Shared seller type scale and contrast */
+  body, input, button, label, p, a { font-size: 12px; }
+  form h2, .typing-container > h1, #typing { font-size: 15px; }
+  .login-form-201 > div { color: #172033; }
+  .login-form-201 input { color: #172033; background: #fff; font-size: 12px; }
+  .login-form-201 label { color: #475569; font-size: 12px; }
+  .login-form-201 button { font-size: 15px; }
+
+  /* Match the seller workspace type scale. */
+  body,
+  body input,
+  body button,
+  body p,
+  body a {
+    font-size: 15px;
+  }
+  body label,
+  body small,
+  body .footer-201,
+  body .footer-201 a {
+    font-size: 12px;
+  }
+  form h2,
+  .typing-container > h1,
+  #typing,
+  .login-form-201 button {
+    font-size: 15px !important;
+  }
+
+  /* Login uses the same seller type scale as the workspace. */
+  body,
+  body input,
+  body button,
+  body p,
+  body a {
+    font-size: 12px !important;
+  }
+
+  body h1,
+  body h2,
+  body h3,
+  body strong,
+  body b,
+  body form h2,
+  body .typing-container > h1,
+  body #typing,
+  body .login-form-201 button {
+    font-size: 15px !important;
+  }
+
+  body label,
+  body small,
+  body .footer-201,
+  body .footer-201 a {
+    font-size: 12px !important;
   }
 }
 

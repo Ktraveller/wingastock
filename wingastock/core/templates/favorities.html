@@ -7,57 +7,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="{% static 'css/style1.css' %}">
     <link rel="stylesheet" href="{% static 'css/search.css' %}">
     <link rel="stylesheet" href="{% static 'css/heading.css' %}">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <title>Wingastock | Favorite Products</title>
-
-    <meta name="description" content="Buy and sell electronics such as smartphones, laptops, TVs, computers, accessories, 
-        and other electronic devices. Discover quality furniture, home appliances, rooms, houses, 
-        and a wide range of products from trusted sellers on Wingastock. 
-        Our platform makes it easy to find, advertise, buy, and sell products online, 
-        connecting customers and businesses in one convenient marketplace.">
-
-    <meta name="robots" content="index, follow">
-
-    <link rel="canonical" href="https://wingastock.onrender.com/">
-
-    <meta property="og:title" content="Wingastock | Favorite Products">
-
-    <meta property="og:description"
-        content="Wingastock is an online marketplace in Tanzania where you can buy and sell electronics,
-         smartphones, laptops, TVs, furniture, home appliances, rooms, houses, and a wide range of products. 
-         Connect with trusted sellers, discover great deals, and grow your business by reaching more customers online.">
-
-    <meta property="og:type" content="website">
-
-    <meta property="og:image" content="/static/logo.png">
-
-    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
-
-    <meta name="google-site-verification" content="cBo6MO_R0NHmkbNtZ4TbAd5KcLYgqPdt0XB-BgMYi1o" />
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-STT2EJ7H54"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-STT2EJ7H54');
-    </script>
 </head>
 
 <body>
 
-    <div class="page-loader-holder-000">
+    <!-- PAGE LOADER -->
+    <div class="page-loader-holder-000" id="pageLoader">
         <div>
             <button type="button">
                 <h1>
-                    <img src="{% static 'logo.png' %}" alt="logo"> <br>
+                    <img src="{% static 'logo.png' %}" alt="Wingastock logo">
+                    <br>
                     <span>Wingastock</span>
                 </h1>
             </button>
@@ -66,92 +36,100 @@
 
     <div class="row-holder-001">
 
-
-        <!-- Inlude heading -->
-        {% if user.email %}
+        <!-- Header -->
+        {% if user.is_authenticated %}
         {% include 'header_s.html' %}
         {% else %}
         {% include 'heading.html' %}
         {% endif %}
 
-
+        <!-- Content -->
         <div class="content-holder-002">
 
-            <!-- Favorite product cards -->
-            <div class="product-card-holder-1001">
+            <section class="favorites-page product-card-holder-1001">
 
-                <!-- Product categories -->
                 {% include 'side-category.html' %}
 
+                <div class="product-card-1002 favorites-grid"  style="width: 100%;">
 
-                <div class="product-card-1002">
-                    <p style="font-weight: bold; padding-left: 10px; font-size: 20px;">Favorite products</p>
+                    <div class="section-heading">
+                        <div>
+                            <span class="eyebrow">Curated for you</span>
+                            <h2>Favorite products</h2>
+                        </div>
+
+                        <span class="favorites-count">
+                            {{ favorite_products|length }} saved
+                        </span>
+                    </div>
 
                     {% for product in favorite_products %}
+
                     {% include 'product-container.html' %}
+
+                    {% empty %}
+
+                    <div class="favorites-empty">
+                        <i class="far fa-heart"></i>
+
+                        <h2>No favorites yet</h2>
+
+                        <p>
+                            Tap the heart on a product to save it here.
+                        </p>
+
+                        <a href="{% url 'index' %}">
+                            Explore products
+                        </a>
+                    </div>
+
                     {% endfor %}
 
                 </div>
-            </div>
 
-            <div style="width: 100%; height: 100px; float: left;"></div>
+            </section>
 
+            <div style="width:100%; height:100px; float:left;"></div>
 
         </div>
 
+        <!-- Footer -->
         <div class="footer-holder-1003">
             <div>
                 <p>Wingastock | Online marketplace</p>
             </div>
         </div>
 
-        <!-- Nav bar -->
+        <!-- Navigation -->
         {% include 'navbar.html' %}
 
-        <!-- Login and register modal-->
+        <!-- Login -->
         {% include 'login-container.html' %}
 
     </div>
 
     <script>
-        window.addEventListener("load", function () {
+        document.addEventListener("DOMContentLoaded", function () {
 
-            const loader = document.querySelector(
-                ".page-loader-holder-000"
-            );
+            const loader = document.getElementById("pageLoader");
 
-            if (loader) {
+            if (!loader) {
+                return;
+            }
 
-                // Fade out the loader
+            setTimeout(function () {
+
                 loader.classList.add("hidden");
 
-                // Remove it completely after the animation
                 setTimeout(function () {
                     loader.remove();
                 }, 500);
-            }
+
+            }, 200);
 
         });
     </script>
 
-    <script>
-        function menu_bar(click) {
-            let menu_div = document.getElementById('menu_div');
-            let button1 = document.getElementById('button1');
-            let button2 = document.getElementById('button2');
-
-            if (click == 'open') {
-                menu_div.style.display = 'inline-block';
-                button1.style.display = 'none';
-                button2.style.display = 'inline-block';
-            }
-            else {
-                menu_div.style.display = 'none';
-                button2.style.display = 'none';
-                button1.style.display = 'inline-block';
-            }
-        }
-    </script>
 
     <script>
         document.querySelectorAll(".product-card").forEach(card => {
@@ -177,7 +155,6 @@
             img.src = product.dataset.bg;
         });
     </script>
-
 </body>
 
 </html>

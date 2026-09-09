@@ -1,78 +1,293 @@
 {% load static %}
 
-<div class="heading-holder-1002">
+<header class="wingastock-header heading-holder-1002">
 
-    <div class="about-holder-1003">
-        <div>
-            <h1 onclick="window.location.href=`{% url 'home' %}`">
-                <img src="{% static 'logo.png' %}" alt="logo">
+    <div class="wingastock-header-inner">
+
+        <!-- ================= BRAND ================= -->
+
+        <a href="{% url 'home' %}" class="wingastock-brand">
+
+            <img
+                src="{% static 'logo.png' %}"
+                alt="Wingastock"
+                class="wingastock-logo"
+            >
+
+            <span class="wingastock-title">
                 Wingastock
-            </h1>
+            </span>
 
-            <span class="login-1003" onclick="open_user(1)">
+        </a>
+
+
+        <!-- ================= SEARCH ================= -->
+
+        <div class="wingastock-search">
+
+            <i class="fas fa-search"></i>
+
+            {% if search == 'search' %}
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search products, shops and more..."
+                    autocomplete="off"
+                >
+
+            {% else %}
+
+                <input
+                    type="search"
+                    placeholder="Search products, shops and more..."
+                    onclick="window.location.href=`{% url 'search' %}`"
+                    readonly
+                >
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- ================= USER ACTIONS ================= -->
+
+        <div class="wingastock-actions">
+
+            {% if user.is_authenticated %}
+
+                <!-- CART -->
+
+                <button
+                    type="button"
+                    class="wingastock-icon"
+                    onclick="open_cart(1)"
+                    aria-label="Shopping cart"
+                >
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
+
+
+                <!-- NOTIFICATIONS -->
+
+                <button
+                    type="button"
+                    class="wingastock-icon notification-button"
+                    onclick="open_notification(1)"
+                    aria-label="Notifications"
+                >
+
+                    <i class="fas fa-bell"></i>
+
+                    {% if mails %}
+                        <span class="notification-badge">
+                            {{ mails|length }}
+                        </span>
+                    {% endif %}
+
+                </button>
+
+
+                <!-- USER -->
+
+                <button
+                    type="button"
+                    class="wingastock-user"
+                    onclick="open_user(1)"
+                    aria-label="Account"
+                >
+
+                    <span class="wingastock-avatar">
+                        <i class="fas fa-user"></i>
+                    </span>
+
+                    <span class="wingastock-user-email">
+                        {{ user.email }}
+                    </span>
+
+                    <i class="fas fa-chevron-down user-arrow"></i>
+
+                </button>
+
+
+            {% else %}
+
+                <!-- LOGIN -->
+
+                <button
+                    type="button"
+                    class="wingastock-login"
+                    onclick="open_login_modal(1)"
+                >
+                    Login
+                </button>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     USER ACCOUNT
+     ===================================================== -->
+
+<div class="user-info-holder-1003 wingastock-panel" id="user_info">
+
+    <div>
+
+        <button
+            type="button"
+            class="panel-close"
+            onclick="open_user(0)"
+        >
+            <i class="fas fa-times"></i>
+        </button>
+
+
+        <div class="account-header">
+
+            <div class="account-avatar">
                 <i class="fas fa-user"></i>
-                {{ user.email }}</span>
+            </div>
 
-            <a href="{% url 'about' %}">About us</a> |
-            <a href="{% url 'terms' %}">Terms and conditions</a>
+            <div>
+
+                <h3>My account</h3>
+
+                <span>
+                    {{ user.email }}
+                </span>
+
+            </div>
+
         </div>
-    </div>
 
-    <div class="heading-1002">
 
-        <div class="search-holder-1003">
-            <div class="search-input-1003">
-                {% if search == 'search' %}
-                <input type="search" placeholder="Search..." id="searchInput">
-                {% else %}
-                <input type="search" placeholder="Search..." onclick="window.location.href=`{% url 'search' %}`">
+        <ul class="user-1003 account-menu">
+
+            <li onclick="open_notification(1); open_user(0);">
+
+                <i class="fas fa-bell"></i>
+
+                <span>
+                    Notifications
+                </span>
+
+                {% if mails %}
+                    <strong>{{ mails|length }}</strong>
                 {% endif %}
-            </div>
-            <div class="search-button-1003">
-                <button type="button"><i class="fas fa-search"></i> Search</button>
-            </div>
+
+            </li>
+
+
+            <li
+                class="logout-item"
+                onclick="window.location.href=`{% url 'customer_logout' %}`"
+            >
+
+                <i class="fas fa-sign-out-alt"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     NOTIFICATIONS
+     ===================================================== -->
+
+<div
+    class="user-info-holder-1003 wingastock-panel"
+    id="user_notifications"
+>
+
+    <div>
+
+        <button
+            type="button"
+            class="panel-close"
+            onclick="open_notification(0)"
+        >
+            <i class="fas fa-times"></i>
+        </button>
+
+
+        <div class="panel-heading">
+
+            <h3>
+                Notifications
+            </h3>
+
+            {% if mails %}
+                <span>{{ mails|length }} new</span>
+            {% endif %}
+
         </div>
 
-    </div>
-</div>
 
+        <ul class="user-1003 notification-list">
 
-<!-- User -->
-<div class="user-info-holder-1003" id="user_info">
-    <div>
-        <span class="close-1003" onclick="open_user(0)"><i class="fas fa-times"></i> Close</span>
-        <p style="font-weight: bold;">Account informations</p>
-
-        <i class="fas fa-user" style="font-size: 30px;"></i>
-
-        <ul class="user-1003">
-            <li><i class="fas fa-envelope"></i> {{ user.email }}</li>
-            <li style="margin-top: 30px;" onclick="window.location.href=`{% url 'customer_logout' %}`">
-                <span class="logout-1003"><i class="fas fa-sign-out-alt"></i> Logout</span>
-            </li>
-        </ul>
-    </div>
-</div>
-
-
-<!-- notifications -->
-<div class="user-info-holder-1003" id="user_notifications">
-    <div>
-        <span class="close-1003" onclick="open_notification(0)"><i class="fas fa-times"></i> Close</span>
-        <p style="font-weight: bold;">Notifications</p>
-
-        <ul class="user-1003">
             {% for mail in mails %}
-            <li onclick="window.location.href=`{% url 'mail_read_c' mail.sender_id %}`">
-                <strong>{{ mail.sender_id }}</strong> <br>
-                <span>{{ mail.message }}</span>
-                <span style="float: right;">{{ mail.sent_at }}</span>
-            </li>
+
+                <li
+                    onclick="window.location.href=`{% url 'mail_read_c' mail.sender_id %}`"
+                >
+
+                    <div class="notification-icon">
+
+                        <i class="fas fa-envelope"></i>
+
+                    </div>
+
+
+                    <div class="notification-content">
+
+                        <strong>
+                            {{ mail.sender_id }}
+                        </strong>
+
+                        <span>
+                            {{ mail.message }}
+                        </span>
+
+                        <small>
+                            {{ mail.sent_at }}
+                        </small>
+
+                    </div>
+
+                </li>
 
             {% empty %}
-            <p style="text-align: center;"><i class="fas fa-bell" style="font-size: 30px;"></i> <br>No notifications!
-            </p>
+
+                <div class="empty-panel">
+
+                    <i class="fas fa-bell"></i>
+
+                    <strong>
+                        No notifications
+                    </strong>
+
+                    <span>
+                        You're all caught up.
+                    </span>
+
+                </div>
+
             {% endfor %}
+
         </ul>
 
     </div>
@@ -80,84 +295,179 @@
 </div>
 
 
-<!-- Cart -->
-<div class="user-info-holder-1003" id="user_cart">
+<!-- =====================================================
+     CART
+     ===================================================== -->
+
+<div
+    class="user-info-holder-1003 wingastock-panel"
+    id="user_cart"
+>
+
     <div>
-        <span class="close-1003" onclick="open_cart(0)"><i class="fas fa-times"></i> Close</span>
-        <p style="font-weight: bold;">Your cart</p>
+
+        <button
+            type="button"
+            class="panel-close"
+            onclick="open_cart(0)"
+        >
+            <i class="fas fa-times"></i>
+        </button>
+
+
+        <div class="panel-heading">
+
+            <h3>
+                Your cart
+            </h3>
+
+        </div>
+
 
         <ul class="user-1003">
-            <p style="text-align: center;"><i class="fas fa-shopping-cart" style="font-size: 30px;"></i><br>
-                Cart empty</p>
+
+            <div class="empty-panel">
+
+                <i class="fas fa-shopping-cart"></i>
+
+                <strong>
+                    Your cart is empty
+                </strong>
+
+                <span>
+                    Products you add will appear here.
+                </span>
+
+            </div>
+
         </ul>
+
     </div>
+
 </div>
 
 
-
-
-
-
-
 <script>
-    let lastScrollTop = 0;
-    const header = document.querySelector('.heading-holder-1002');
 
-    window.addEventListener('scroll', function () {
-        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+/* =====================================================
+   HEADER SCROLL
+   ===================================================== */
 
-        // Don't hide when we're at the very top
-        if (currentScroll <= 0) {
-            header.classList.remove('hide-header');
-            lastScrollTop = 0;
-            return;
-        }
+let lastScrollTop = 0;
 
-        // Scrolling down → hide
-        if (currentScroll > lastScrollTop) {
-            header.classList.add('hide-header');
-        }
+const header =
+    document.querySelector('.wingastock-header');
 
-        // Scrolling up → show
-        else {
-            header.classList.remove('hide-header');
-        }
 
-        lastScrollTop = currentScroll;
-    });
-</script>
+window.addEventListener('scroll', function () {
 
-<script>
-    function open_user(click) {
-        user = document.getElementById('user_info');
+    const currentScroll =
+        window.pageYOffset ||
+        document.documentElement.scrollTop;
 
-        if (click == 1) {
-            user.style.display = 'inline-block';
-        }
-        else {
-            user.style.display = 'none';
-        }
+
+    if (currentScroll <= 0) {
+
+        header.classList.remove('hide-header');
+
+        lastScrollTop = 0;
+
+        return;
+
     }
 
-    function open_notification(click) {
-        user = document.getElementById('user_notifications');
 
-        if (click == 1) {
-            user.style.display = 'inline-block';
-        }
-        else {
-            user.style.display = 'none';
-        }
+    if (currentScroll > lastScrollTop) {
+
+        header.classList.add('hide-header');
+
+    } else {
+
+        header.classList.remove('hide-header');
+
     }
 
-    function open_cart(click) {
-        user = document.getElementById('user_cart');
 
-        if (click == 1) {
-            user.style.display = 'inline-block';
-        }
-        else {
-            user.style.display = 'none';
-        }
+    lastScrollTop = currentScroll;
+
+});
+
+
+/* =====================================================
+   CLOSE ALL PANELS
+   ===================================================== */
+
+function closePanels() {
+
+    document.getElementById('user_info').style.display = 'none';
+
+    document.getElementById('user_notifications').style.display = 'none';
+
+    document.getElementById('user_cart').style.display = 'none';
+
+}
+
+
+/* =====================================================
+   ACCOUNT
+   ===================================================== */
+
+function open_user(click) {
+
+    closePanels();
+
+    const user =
+        document.getElementById('user_info');
+
+
+    if (click == 1) {
+
+        user.style.display = 'block';
+
     }
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+   ===================================================== */
+
+function open_notification(click) {
+
+    closePanels();
+
+    const notifications =
+        document.getElementById('user_notifications');
+
+
+    if (click == 1) {
+
+        notifications.style.display = 'block';
+
+    }
+
+}
+
+
+/* =====================================================
+   CART
+   ===================================================== */
+
+function open_cart(click) {
+
+    closePanels();
+
+    const cart =
+        document.getElementById('user_cart');
+
+
+    if (click == 1) {
+
+        cart.style.display = 'block';
+
+    }
+
+}
+
 </script>

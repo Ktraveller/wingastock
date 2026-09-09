@@ -120,7 +120,16 @@
             <div class="right-holder-201">
                 <div class="products-202">
 
-                    <p style="font-weight: bold;">Edit product</p>
+                    <div class="seller-page-heading">
+                        <div>
+                            <span class="seller-kicker">PRODUCT STUDIO</span>
+                            <h1>Edit product</h1>
+                            <p>Refresh your product details, image and pricing without leaving your workspace.</p>
+                        </div>
+                        <a class="seller-secondary-action" href="{% url 'seller_products' %}">
+                            <i class="fas fa-arrow-left"></i> Back to products
+                        </a>
+                    </div>
 
                     {% if messages %}
                     <div class="messages">
@@ -132,75 +141,89 @@
                     </div>
                     {% endif %}
 
-                    <form action="{% url 'seller_edit_product' selected.id %}" enctype="multipart/form-data"
-                        method="post">
+                    <form class="seller-product-form" action="{% url 'seller_edit_product' selected.id %}"
+                        enctype="multipart/form-data" method="post">
                         {% csrf_token %}
 
-                        <div class="input-holder-203">
-                            <p><i class="fas fa-heading"></i> Product name</p>
-                            <div>
-                                <input type="text" name="title" placeholder="Product name" value="{{ selected.title }}">
+                        <div class="seller-upload-layout">
+                            <div class="seller-photo-panel">
+                                <label class="seller-photo-drop" for="product-image">
+                                    <span class="seller-photo-placeholder{% if selected.image %} is-hidden{% endif %}">
+                                        <i class="fas fa-camera"></i>
+                                        <b>Update product photo</b>
+                                        <small>Tap to upload a replacement</small>
+                                    </span>
+                                    {% if selected.image %}
+                                    <img id="product-image-preview" class="is-visible" src="{{ selected.image.url }}"
+                                        alt="{{ selected.title }}">
+                                    {% else %}
+                                    <img id="product-image-preview" alt="Product preview">
+                                    {% endif %}
+                                    <input id="product-image" type="file" name="image" accept="image/*">
+                                </label>
+                                <small class="seller-photo-help">Leave unchanged to keep the current image · JPG, PNG or WEBP</small>
                             </div>
-                        </div>
 
-                        <div class="input-holder-203">
-                            <p><i class="fas fa-tags"></i> Category</p>
-                            <div>
+                            <div class="seller-details-panel">
+                                <div class="input-holder-203">
+                                    <p><i class="fas fa-heading"></i> Product name</p>
+                                    <div>
+                                        <input type="text" name="title" placeholder="e.g iPhone 12"
+                                            value="{{ selected.title }}" required>
+                                    </div>
+                                </div>
 
-                                <select name="category">
-                                    <option value="{{ selected.category }}">{{ selected.category}}</option>
+                                <div class="input-holder-203">
+                                    <p><i class="fas fa-tags"></i> Category</p>
+                                    <div>
+                                        <select name="category" required>
+                                            <option value="">Choose category</option>
+                                            <option value="electronics" {% if selected.category == "electronics" %}selected{% endif %}>📱 Electronics</option>
+                                            <option value="phones" {% if selected.category == "phones" %}selected{% endif %}>📱 Phones & Tablets</option>
+                                            <option value="computers" {% if selected.category == "computers" %}selected{% endif %}>💻 Computers & Laptops</option>
+                                            <option value="fashion" {% if selected.category == "fashion" %}selected{% endif %}>👕 Fashion</option>
+                                            <option value="shoes" {% if selected.category == "shoes" %}selected{% endif %}>👟 Shoes</option>
+                                            <option value="beauty" {% if selected.category == "beauty" %}selected{% endif %}>💄 Beauty & Personal Care</option>
+                                            <option value="food" {% if selected.category == "food" %}selected{% endif %}>🍔 Food & Groceries</option>
+                                            <option value="drinks" {% if selected.category == "drinks" %}selected{% endif %}>🥤 Drinks & Beverages</option>
+                                            <option value="furniture" {% if selected.category == "furniture" %}selected{% endif %}>🛋️ Furniture</option>
+                                            <option value="home" {% if selected.category == "home" %}selected{% endif %}>🏠 Home & Garden</option>
+                                            <option value="appliances" {% if selected.category == "appliances" %}selected{% endif %}>🔌 Home Appliances</option>
+                                            <option value="vehicles" {% if selected.category == "vehicles" %}selected{% endif %}>🚗 Vehicles</option>
+                                            <option value="parts" {% if selected.category == "parts" %}selected{% endif %}>🔧 Vehicle Parts & Accessories</option>
+                                            <option value="sports" {% if selected.category == "sports" %}selected{% endif %}>⚽ Sports & Fitness</option>
+                                            <option value="books" {% if selected.category == "books" %}selected{% endif %}>📚 Books & Education</option>
+                                            <option value="toys" {% if selected.category == "toys" %}selected{% endif %}>🧸 Toys & Games</option>
+                                            <option value="baby" {% if selected.category == "baby" %}selected{% endif %}>👶 Baby & Kids</option>
+                                            <option value="services" {% if selected.category == "services" %}selected{% endif %}>🛠️ Services</option>
+                                            <option value="jobs" {% if selected.category == "jobs" %}selected{% endif %}>💼 Jobs</option>
+                                            <option value="property" {% if selected.category == "property" %}selected{% endif %}>🏠 Property</option>
+                                            <option value="other" {% if selected.category == "other" %}selected{% endif %}>📦 Other</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                                    <option value="electronics">📱 Electronics</option>
-                                    <option value="phones">📱 Phones & Tablets</option>
-                                    <option value="computers">💻 Computers & Laptops</option>
-                                    <option value="fashion">👕 Fashion</option>
-                                    <option value="shoes">👟 Shoes</option>
-                                    <option value="beauty">💄 Beauty & Personal Care</option>
-                                    <option value="food">🍔 Food & Groceries</option>
-                                    <option value="drinks">🥤 Drinks & Beverages</option>
-                                    <option value="furniture">🛋️ Furniture</option>
-                                    <option value="home">🏠 Home & Garden</option>
-                                    <option value="appliances">🔌 Home Appliances</option>
-                                    <option value="vehicles">🚗 Vehicles</option>
-                                    <option value="parts">🔧 Vehicle Parts & Accessories</option>
-                                    <option value="sports">⚽ Sports & Fitness</option>
-                                    <option value="books">📚 Books & Education</option>
-                                    <option value="toys">🧸 Toys & Games</option>
-                                    <option value="baby">👶 Baby & Kids</option>
-                                    <option value="services">🛠️ Services</option>
-                                    <option value="jobs">💼 Jobs</option>
-                                    <option value="property">🏠 Property</option>
-                                    <option value="other">📦 Other</option>
-                                </select>
+                                <div class="input-holder-203" style="height: 250px;">
+                                    <p><i class="fas fa-align-left"></i> Description</p>
+                                    <div style="height: 200px;">
+                                        <textarea name="description" required
+                                            placeholder="Describe your product clearly">{{ selected.description }}</textarea>
+                                    </div>
+                                </div>
 
-                            </div>
-                        </div>
+                                <div class="input-holder-203">
+                                    <p><i class="fas fa-dollar-sign"></i> Price</p>
+                                    <div>
+                                        <input type="number" name="price" min="1" step="0.01"
+                                            value="{{ selected.price }}" required>
+                                    </div>
+                                </div>
 
-                        <div class="input-holder-203" style="height: 250px;">
-                            <p><i class="fas fa-align-left"></i> Descriptions</p>
-                            <div style="height: 200px;">
-                                <textarea name="description">{{ selected.description }}</textarea>
-                            </div>
-                        </div>
-
-                        <div class="input-holder-203">
-                            <p><i class="fas fa-image"></i> Image</p>
-                            <div>
-                                <input type="file" style="padding: 7px;" name="image" accept="image/*">
-                            </div>
-                        </div>
-
-
-                        <div class="input-holder-203">
-                            <p><i class="fas fa-dollar-sign"></i> Price</p>
-                            <div>
-                                <input type="number" name="price" min="1" step="0.01" value="{{ selected.price }}">
-                            </div>
-                        </div>
-
-                        <div class="input-holder-203 submit-203">
-                            <div>
-                                <button type="submit"><i class="fas fa-save"></i> Save product update</button>
+                                <div class="input-holder-203 submit-203">
+                                    <div>
+                                        <button type="submit"><i class="fas fa-save"></i> Save product update</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -215,6 +238,17 @@
 
 
     <script>
+        const imageInput = document.getElementById("product-image");
+        const imagePreview = document.getElementById("product-image-preview");
+        const photoPlaceholder = document.querySelector(".seller-photo-placeholder");
+        imageInput?.addEventListener("change", function () {
+            const file = this.files && this.files[0];
+            if (!file) return;
+            imagePreview.src = URL.createObjectURL(file);
+            imagePreview.classList.add("is-visible");
+            photoPlaceholder?.classList.add("is-hidden");
+        });
+
         window.addEventListener("load", function () {
 
             const loader = document.getElementById("page-loader");

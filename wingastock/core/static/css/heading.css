@@ -5,13 +5,42 @@
     width: 100%;
     z-index: 9999;
 
-    background-image: url("../bg.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.398);
+    background: rgba(255, 255, 255, .94);
+    background-image: none;
+    border-bottom: 1px solid #e7ebf2;
+    box-shadow: 0 5px 20px rgba(23, 32, 51, .06);
+    backdrop-filter: blur(14px);
 
     transition: transform 0.35s ease-in-out;
+}
+
+/* Shared Wingastock type scale */
+html body,
+html body p,
+html body span,
+html body a,
+html body label,
+html body li,
+html body td,
+html body th,
+html body input,
+html body textarea,
+html body select,
+html body small {
+    font-size: 12px;
+}
+
+html body h1,
+html body h2,
+html body h3,
+html body h4,
+html body h5,
+html body h6,
+html body strong,
+html body b,
+html body button,
+html body .wingastock-title {
+    font-size: 15px;
 }
 
 .heading-holder-1002.hide-header {
@@ -383,6 +412,112 @@ span {
         display: inline-block;
     }
 
+    /* Modern header */
+    .heading-holder-1002 {
+        background: rgba(255, 255, 255, .94);
+        background-image: none;
+        border-bottom: 1px solid #e7ebf2;
+        box-shadow: 0 5px 20px rgba(23, 32, 51, .06);
+        backdrop-filter: blur(14px);
+    }
+
+    .about-holder-1003 {
+        color: #172033;
+        background: transparent;
+    }
+
+    .about-holder-1003>div {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        max-width: 1480px;
+        margin: auto;
+        padding: 9px 24px;
+    }
+
+    .about-holder-1003>div>h1 {
+        flex: 1;
+        margin: 0;
+        color: #172033;
+        font-size: 19px;
+    }
+
+    .about-holder-1003>div>h1>img {
+        width: 28px;
+        height: 28px;
+        vertical-align: middle;
+    }
+
+    .login-1003 {
+        flex: 0 0 auto;
+        padding: 8px 12px;
+        color: #64748b;
+        white-space: nowrap;
+    }
+
+    .header-search {
+        flex: 1 1 620px;
+        max-width: 720px;
+        height: 46px;
+        border: 1px solid #e7ebf2;
+        background: #f6f8fc;
+        box-shadow: none;
+    }
+
+    .search-input-1003>input {
+        color: #172033;
+        font-size: 12px;
+    }
+
+    .search-button-1003>button {
+        background: #e11d48;
+    }
+
+    @media (max-width: 767px) {
+        .about-holder-1003>div {
+            padding: 9px 14px;
+            gap: 8px;
+        }
+
+        .about-holder-1003>div>h1 {
+            font-size: 16px;
+        }
+
+        .header-search {
+            min-width: 0;
+            height: 42px;
+        }
+
+        .about-holder-1003>div>h1 {
+            flex: 0 0 auto;
+        }
+
+        .login-1003 {
+            padding: 8px;
+            font-size: 0;
+        }
+
+        .login-1003 i {
+            font-size: 16px;
+        }
+
+        .search-button-1003 {
+            width: 23%;
+        }
+
+        .search-input-1003 {
+            width: 77%;
+        }
+
+        .search-button-1003>button {
+            font-size: 0;
+        }
+
+        .search-button-1003>button i {
+            font-size: 14px;
+        }
+    }
+
     .search-input-1003 {
         width: 80%;
         height: 100%;
@@ -413,4 +548,1417 @@ span {
         margin-top: 5%;
         border-radius: 10px;
     }
+}
+
+/* Keep one compact Pinterest-style row across all screen sizes. */
+.heading-holder-1002 .about-holder-1003>div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 1480px;
+    margin: auto;
+    padding: 9px 24px;
+}
+
+.heading-holder-1002 .about-holder-1003 h1 {
+    flex: 0 0 auto;
+    margin: 0;
+}
+
+.heading-holder-1002 .header-search {
+    flex: 1 1 620px;
+    max-width: 760px;
+    min-width: 0;
+    height: 46px;
+    margin: 0 auto;
+    border: 1px solid #e7ebf2;
+    background: #f6f8fc;
+    box-shadow: none;
+}
+
+.heading-holder-1002 .login-1003 {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+    .heading-holder-1002 .about-holder-1003>div {
+        gap: 8px;
+        padding: 9px 14px;
+    }
+
+    .heading-holder-1002 .about-holder-1003 h1 {
+        font-size: 16px;
+    }
+
+    .heading-holder-1002 .header-search {
+        flex: 1 1 auto;
+        height: 42px;
+    }
+
+    .heading-holder-1002 .login-1003 {
+        padding: 8px;
+        font-size: 0;
+    }
+
+    .heading-holder-1002 .login-1003 i {
+        font-size: 16px;
+    }
+}
+
+
+
+
+/* =========================================================
+   WINGASTOCK HEADER
+   Clean Pinterest-inspired responsive design
+   ========================================================= */
+
+.wingastock-header {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    width: 100%;
+
+    height: 76px;
+
+    z-index: 9999;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #eeeeee;
+
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+
+    transition: transform 0.25s ease;
+
+}
+
+
+/* Hide header while scrolling down */
+
+.wingastock-header.hide-header {
+
+    transform: translateY(-100%);
+
+}
+
+
+/* =========================================================
+   HEADER INNER
+   ========================================================= */
+
+.wingastock-header-inner {
+
+    width: 100%;
+
+    max-width: 1600px;
+
+    height: 76px;
+
+    margin: 0 auto;
+
+    padding: 0 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.wingastock-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-shrink: 0;
+
+    text-decoration: none;
+
+    color: #111111;
+
+}
+
+
+.wingastock-brand:hover {
+
+    color: #111111;
+
+}
+
+
+/* Logo */
+
+.wingastock-logo {
+
+    width: 46px;
+
+    height: 46px;
+
+    object-fit: contain;
+
+    border-radius: 50%;
+
+    flex-shrink: 0;
+
+}
+
+
+/* BIG TITLE */
+
+.wingastock-title {
+
+    font-size: 27px;
+
+    line-height: 1;
+
+    font-weight: 800;
+
+    letter-spacing: -0.8px;
+
+    color: #111111;
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.wingastock-search {
+
+    flex: 1;
+
+    height: 50px;
+
+    max-width: 900px;
+
+    min-width: 150px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 19px;
+
+    background: #f1f1f1;
+
+    border-radius: 26px;
+
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.wingastock-search:hover {
+
+    background: #eaeaea;
+
+}
+
+
+.wingastock-search:focus-within {
+
+    background: #ffffff;
+
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+
+}
+
+
+/* Search icon */
+
+.wingastock-search>i {
+
+    flex-shrink: 0;
+
+    color: #555555;
+
+    font-size: 17px;
+
+}
+
+
+/* Search input */
+
+.wingastock-search input {
+
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #111111;
+
+    font-size: 15px;
+
+    font-family: inherit;
+
+}
+
+
+.wingastock-search input::placeholder {
+
+    color: #666666;
+
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.wingastock-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    flex-shrink: 0;
+
+}
+
+
+/* =========================================================
+   CART BUTTON
+   ========================================================= */
+
+.wingastock-icon {
+
+    width: 46px;
+
+    height: 46px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #222222;
+
+    cursor: pointer;
+
+    font-size: 19px;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+
+}
+
+
+.wingastock-icon:hover {
+
+    background: #eeeeee;
+
+}
+
+
+.wingastock-icon:active {
+
+    transform: scale(0.92);
+
+}
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+.wingastock-login {
+
+    height: 46px;
+
+    padding: 0 19px;
+
+    border: none;
+
+    border-radius: 24px;
+
+    background: #e60023;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+
+}
+
+
+.wingastock-login:hover {
+
+    background: #c9001f;
+
+}
+
+
+.wingastock-login:active {
+
+    transform: scale(0.96);
+
+}
+
+
+/* =========================================================
+   CART PANEL
+   ========================================================= */
+
+.user-info-holder-1003 {
+
+    z-index: 10000;
+
+}
+
+
+.cart-title {
+
+    margin: 0;
+
+    padding: 8px 0 20px;
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+}
+
+
+.cart-empty {
+
+    padding: 40px 10px;
+
+    text-align: center;
+
+    color: #777777;
+
+}
+
+
+.cart-empty i {
+
+    margin-bottom: 10px;
+
+    font-size: 36px;
+
+}
+
+
+/* =========================================================
+   LARGE TABLETS
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .wingastock-header-inner {
+
+        padding: 0 18px;
+
+        gap: 14px;
+
+    }
+
+
+    .wingastock-title {
+
+        font-size: 24px;
+
+    }
+
+
+    .wingastock-search {
+
+        height: 48px;
+
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .wingastock-header {
+
+        height: 68px;
+
+    }
+
+
+    .wingastock-header-inner {
+
+        height: 68px;
+
+        padding: 0 14px;
+
+        gap: 10px;
+
+    }
+
+
+    .wingastock-logo {
+
+        width: 42px;
+
+        height: 42px;
+
+    }
+
+
+    .wingastock-title {
+
+        font-size: 21px;
+
+    }
+
+
+    .wingastock-search {
+
+        height: 44px;
+
+        padding: 0 14px;
+
+    }
+
+
+    .wingastock-search input {
+
+        font-size: 14px;
+
+    }
+
+
+    .wingastock-login {
+
+        height: 42px;
+
+        padding: 0 14px;
+
+    }
+
+
+    .wingastock-icon {
+
+        width: 42px;
+
+        height: 42px;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .wingastock-header {
+
+        height: 62px;
+
+    }
+
+
+    .wingastock-header-inner {
+
+        height: 62px;
+
+        padding: 0 10px;
+
+        gap: 8px;
+
+    }
+
+
+    /* Smaller logo */
+
+    .wingastock-logo {
+
+        width: 38px;
+
+        height: 38px;
+
+    }
+
+
+    /* Keep title visible */
+
+    .wingastock-title {
+
+        font-size: 18px;
+
+        letter-spacing: -0.5px;
+
+    }
+
+
+    /* Search */
+
+    .wingastock-search {
+
+        height: 42px;
+
+        padding: 0 12px;
+
+        gap: 7px;
+
+        border-radius: 22px;
+
+    }
+
+
+    .wingastock-search>i {
+
+        font-size: 14px;
+
+    }
+
+
+    .wingastock-search input {
+
+        font-size: 12px;
+
+    }
+
+
+    .wingastock-search input::placeholder {
+
+        font-size: 12px;
+
+    }
+
+
+    /* Cart */
+
+    .wingastock-icon {
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 17px;
+
+    }
+
+
+    /* Login becomes icon */
+
+    .wingastock-login {
+
+        width: 38px;
+
+        height: 38px;
+
+        padding: 0;
+
+        border-radius: 50%;
+
+        font-size: 0;
+
+    }
+
+
+    .wingastock-login::before {
+
+        content: "\f2bd";
+
+        font-family: "Font Awesome 5 Free";
+
+        font-weight: 900;
+
+        font-size: 17px;
+
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .wingastock-header-inner {
+
+        padding: 0 7px;
+
+        gap: 5px;
+
+    }
+
+
+    .wingastock-logo {
+
+        width: 34px;
+
+        height: 34px;
+
+    }
+
+
+    .wingastock-title {
+
+        font-size: 16px;
+
+    }
+
+
+    .wingastock-search {
+
+        height: 39px;
+
+        padding: 0 10px;
+
+    }
+
+
+    .wingastock-search input {
+
+        font-size: 11px;
+
+    }
+
+
+    .wingastock-search input::placeholder {
+
+        font-size: 11px;
+
+    }
+
+
+    .wingastock-icon,
+    .wingastock-login {
+
+        width: 35px;
+
+        height: 35px;
+
+    }
+
+
+    .wingastock-icon {
+
+        font-size: 15px;
+
+    }
+
+
+    .wingastock-login::before {
+
+        font-size: 15px;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   LOGGED-IN USER HEADER
+   ========================================================= */
+
+.wingastock-user {
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 4px 10px 4px 5px;
+
+    border: none;
+
+    border-radius: 28px;
+
+    background: transparent;
+
+    color: #222;
+
+    cursor: pointer;
+
+    transition: background .2s ease;
+
+}
+
+
+.wingastock-user:hover {
+
+    background: #f1f1f1;
+
+}
+
+
+/* Avatar */
+
+.wingastock-avatar {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eeeeee;
+
+    color: #333;
+
+    font-size: 16px;
+
+}
+
+
+.wingastock-user-email {
+
+    max-width: 150px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+
+.user-arrow {
+
+    margin-left: 2px;
+
+    font-size: 11px;
+
+    color: #777;
+
+}
+
+
+/* =========================================================
+   NOTIFICATION BADGE
+   ========================================================= */
+
+.notification-button {
+
+    position: relative;
+
+}
+
+
+.notification-badge {
+
+    position: absolute;
+
+    top: 3px;
+
+    right: 2px;
+
+    min-width: 17px;
+
+    height: 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0 4px;
+
+    border-radius: 20px;
+
+    background: #e60023;
+
+    color: #fff;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    border: 2px solid #fff;
+
+}
+
+
+/* =========================================================
+   PANELS
+   ========================================================= */
+
+.wingastock-panel {
+
+    display: none;
+
+}
+
+
+.wingastock-panel>div {
+
+    position: relative;
+
+}
+
+
+/* Close button */
+
+.panel-close {
+
+    position: absolute;
+
+    top: 15px;
+
+    right: 15px;
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f1f1f1;
+
+    color: #333;
+
+    cursor: pointer;
+
+    transition: background .2s ease;
+
+}
+
+
+.panel-close:hover {
+
+    background: #e5e5e5;
+
+}
+
+
+/* =========================================================
+   ACCOUNT HEADER
+   ========================================================= */
+
+.account-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 15px 45px 20px 0;
+
+    border-bottom: 1px solid #eeeeee;
+
+}
+
+
+.account-avatar {
+
+    width: 54px;
+
+    height: 54px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eeeeee;
+
+    color: #333;
+
+    font-size: 21px;
+
+}
+
+
+.account-header h3 {
+
+    margin: 0 0 5px;
+
+    font-size: 18px;
+
+}
+
+
+.account-header span {
+
+    display: block;
+
+    max-width: 230px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: #777;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   ACCOUNT MENU
+   ========================================================= */
+
+.account-menu {
+
+    margin-top: 10px;
+
+}
+
+
+.account-menu li {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 10px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    transition: background .2s ease;
+
+}
+
+
+.account-menu li:hover {
+
+    background: #f5f5f5;
+
+}
+
+
+.account-menu li i {
+
+    width: 22px;
+
+    text-align: center;
+
+    color: #555;
+
+}
+
+
+.account-menu li span {
+
+    flex: 1;
+
+}
+
+
+.account-menu li strong {
+
+    min-width: 20px;
+
+    height: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0 5px;
+
+    border-radius: 20px;
+
+    background: #e60023;
+
+    color: white;
+
+    font-size: 10px;
+
+}
+
+
+/* Logout */
+
+.account-menu .logout-item {
+
+    margin-top: 8px;
+
+    color: #d60020;
+
+    border-top: 1px solid #eeeeee;
+
+    border-radius: 0;
+
+}
+
+
+.account-menu .logout-item i {
+
+    color: #d60020;
+
+}
+
+
+/* =========================================================
+   PANEL HEADING
+   ========================================================= */
+
+.panel-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 8px 45px 18px 0;
+
+    border-bottom: 1px solid #eeeeee;
+
+}
+
+
+.panel-heading h3 {
+
+    margin: 0;
+
+    font-size: 20px;
+
+}
+
+
+.panel-heading span {
+
+    color: #777;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+   ========================================================= */
+
+.notification-list {
+
+    max-height: 70vh;
+
+    overflow-y: auto;
+
+}
+
+
+.notification-list li {
+
+    display: flex;
+
+    gap: 12px;
+
+    padding: 14px 8px;
+
+    border-bottom: 1px solid #f0f0f0;
+
+    cursor: pointer;
+
+}
+
+
+.notification-list li:hover {
+
+    background: #f7f7f7;
+
+}
+
+
+.notification-icon {
+
+    width: 38px;
+
+    height: 38px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f1f1f1;
+
+}
+
+
+.notification-content {
+
+    min-width: 0;
+
+    flex: 1;
+
+}
+
+
+.notification-content strong {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 13px;
+
+}
+
+
+.notification-content span {
+
+    display: block;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: #555;
+
+    font-size: 13px;
+
+}
+
+
+.notification-content small {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: #999;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   EMPTY PANEL
+   ========================================================= */
+
+.empty-panel {
+
+    min-height: 220px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    text-align: center;
+
+    color: #777;
+
+}
+
+
+.empty-panel i {
+
+    margin-bottom: 5px;
+
+    font-size: 35px;
+
+    color: #999;
+
+}
+
+
+.empty-panel strong {
+
+    color: #444;
+
+    font-size: 15px;
+
+}
+
+
+.empty-panel span {
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .wingastock-user {
+
+        width: 38px;
+
+        height: 38px;
+
+        padding: 0;
+
+        justify-content: center;
+
+    }
+
+
+    .wingastock-user-email,
+    .user-arrow {
+
+        display: none;
+
+    }
+
+
+    .wingastock-avatar {
+
+        width: 36px;
+
+        height: 36px;
+
+    }
+
+
+    .wingastock-actions {
+
+        gap: 2px;
+
+    }
+
+
+    .wingastock-panel {
+
+        width: calc(100% - 20px);
+
+        max-width: none;
+
+        margin: 0 10px;
+
+        border-radius: 18px;
+
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .wingastock-title {
+
+        font-size: 15px;
+
+    }
+
+
+    .wingastock-search {
+
+        min-width: 0;
+
+    }
+
+
+    .wingastock-user,
+    .wingastock-icon {
+
+        width: 34px;
+
+        height: 34px;
+
+    }
+
+
+    .wingastock-avatar {
+
+        width: 33px;
+
+        height: 33px;
+
+        font-size: 14px;
+
+    }
+
 }

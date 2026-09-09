@@ -109,6 +109,7 @@
 
       <!-- Preview product -->
       <div class="preview-product-holder-003">
+        <div class="product-breadcrumb"><a href="{% url 'home' %}">Home</a><i class="fas fa-chevron-right"></i>{{ product.get_category_display }}</div>
 
         <div class="preview-product-004">
 
@@ -124,8 +125,12 @@
               </div>
 
 
-              <div>
-                <div style="max-height: 600px; float: left;">
+              <div class="product-summary">
+                <div class="product-summary-content">
+                  <span class="product-detail-category">{{ product.get_category_display }}</span>
+                  <h1 class="product-detail-title">{{ product.title }}</h1>
+                  <div class="product-detail-seller"><i class="fas fa-store"></i> {{ product.owner.seller.seller_name }} <span><i class="fas fa-map-marker-alt"></i> {{ product.owner.seller.seller_address }}</span></div>
+                  <div class="product-detail-price">{{ product.price|floatformat:0|intcomma }} <small>TSh</small></div>
                   <p style="font-weight: bold;"><i class="fas fa-align-left"></i> Descriptions</p>
 
                   {% if messages %}
@@ -256,7 +261,7 @@
                 </div>
               </div>
 
-              <div>
+              <div class="activity-panel">
                 <div>
 
                   <p style="font-weight: bold;">Other informations</p>

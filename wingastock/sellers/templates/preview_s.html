@@ -130,7 +130,11 @@
                             <!-- product image -->
                             <div class="product-image-holder-103">
                                 <div class="product-image-103" style="padding: 0px; box-shadow: unset;">
-                                    <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                                    {% if product.image %}
+                                    <img src="{{ product.image.url }}" alt="{{ product.title }}" loading="eager">
+                                    {% else %}
+                                    <div class="seller-no-image"><i class="fas fa-image"></i><span>No product image</span></div>
+                                    {% endif %}
                                 </div>
                             </div>
 
