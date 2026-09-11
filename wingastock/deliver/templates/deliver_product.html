@@ -1,0 +1,279 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wingastock | Add product</title>
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        .messages {
+            margin: 20px 0;
+        }
+
+        .alert {
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .success {
+            background: #28a745;
+        }
+
+        .error {
+            background: #dc3545;
+        }
+
+        .warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .info {
+            background: #17a2b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Page Loader -->
+    <div id="page-loader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <div class="loading-text">Loading<span class="dots"></span></div>
+        </div>
+    </div>
+
+    <div class="row-holder">
+
+        <!-- Header -->
+        <div class="header-holder-100">
+            <div class="header-100">
+                <div class="action-holder-101">
+                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+                            class="fas fa-times"></i></button>
+                </div>
+                <div class="title-holder-101">
+                    <button type="button"><span>Wingastock | Seller</span></button>
+                </div>
+                <div class="title-holder-101" style="float: right;">
+                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- center content -->
+        <div class="center-content-200">
+
+            <div class="left-holder-201" id="nav">
+                <div class="nav-bar-holder-202">
+
+
+                    <ul>
+                        <a href="{% url 'delivery_home' %}">
+                            <li>Home <i class="fas fa-tachometer-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'deliver_product' %}">
+                            <li class="active-0">Request <i class="fas fa-shopping-bag"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'how_to_deliver' %}">
+                            <li>How to <i class="fas fa-envelope"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'home' %}">
+                            <li>Back wingastock <i class="fas fa-user"></i></li>
+                        </a>
+                    </ul>
+
+
+                </div>
+            </div>
+
+            <div class="right-holder-201">
+                <div class="products-202">
+
+                    <div class="seller-page-heading">
+                        <div>
+                            <span class="seller-kicker">PRODUCT STUDIO</span>
+                            <h1>Add a product</h1>
+                            <p>Show your product clearly and start conversations with new customers.</p>
+                        </div>
+                        <span class="seller-quota"><strong>{{ product_remain }}</strong> posts left</span>
+                    </div>
+
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="alert {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form class="seller-product-form" method="POST" action=""
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="seller-upload-layout">
+                            <div class="seller-photo-panel">
+                                <label class="seller-photo-drop" for="product-image">
+                                    <span class="seller-photo-placeholder"><i class="fas fa-camera"></i><b>Add product
+                                            photo</b><small>Tap to upload or take a photo</small></span>
+                                    <img id="product-image-preview" alt="Product preview">
+                                    <input id="product-image" type="file" name="image" accept="image/*" required>
+                                </label>
+                                <small class="seller-photo-help">JPG, PNG or WEBP · maximum 5MB</small>
+                            </div>
+                            <div class="seller-details-panel">
+                                <div class="input-holder-203">
+                                    <p><i class="fas fa-heading"></i> Product name</p>
+                                    <div>
+                                        <input type="text" name="title" placeholder="e.g iPhone 12" required>
+                                    </div>
+                                </div>
+
+
+                                <div class="input-holder-203">
+                                    <p><i class="fas fa-tags"></i> Category</p>
+                                    <div>
+
+                                        <select name="category" required>
+                                            <option value="">Choose category</option>
+
+                                            <option value="electronics">📱 Electronics</option>
+                                            <option value="phones">📱 Phones & Tablets</option>
+                                            <option value="computers">💻 Computers & Laptops</option>
+                                            <option value="fashion">👕 Fashion</option>
+                                            <option value="shoes">👟 Shoes</option>
+                                            <option value="beauty">💄 Beauty & Personal Care</option>
+                                            <option value="food">🍔 Food & Groceries</option>
+                                            <option value="drinks">🥤 Drinks & Beverages</option>
+                                            <option value="furniture">🛋️ Furniture</option>
+                                            <option value="home">🏠 Home & Garden</option>
+                                            <option value="appliances">🔌 Home Appliances</option>
+                                            <option value="vehicles">🚗 Vehicles</option>
+                                            <option value="parts">🔧 Vehicle Parts & Accessories</option>
+                                            <option value="sports">⚽ Sports & Fitness</option>
+                                            <option value="books">📚 Books & Education</option>
+                                            <option value="toys">🧸 Toys & Games</option>
+                                            <option value="baby">👶 Baby & Kids</option>
+                                            <option value="services">🛠️ Services</option>
+                                            <option value="jobs">💼 Jobs</option>
+                                            <option value="property">🏠 Property</option>
+                                            <option value="other">📦 Other</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="input-holder-203" style="height: 250px;">
+                                    <p><i class="fas fa-align-left"></i> Descriptions</p>
+                                    <div style="height: 200px;">
+                                        <textarea name="description" required
+                                            placeholder="e.g Quality product from ..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="input-holder-203">
+                                    <p><i class="fas fa-dollar-sign"></i> Price</p>
+                                    <div>
+                                        <input type="number" name="price" min="1" step="0.01" placeholder="e.g 1000.00"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <div class="input-holder-203 submit-203">
+                                    <div>
+                                        <button type="submit"><i class="fas fa-save"></i> Save product</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        const imageInput = document.getElementById("product-image");
+        const imagePreview = document.getElementById("product-image-preview");
+        const photoPlaceholder = document.querySelector(".seller-photo-placeholder");
+        imageInput?.addEventListener("change", function () {
+            const file = this.files && this.files[0];
+            if (!file) return;
+            imagePreview.src = URL.createObjectURL(file);
+            imagePreview.classList.add("is-visible");
+            photoPlaceholder.classList.add("is-hidden");
+        });
+
+        window.addEventListener("load", function () {
+
+            const loader = document.getElementById("page-loader");
+
+            if (loader) {
+                loader.classList.add("hidden");
+
+                setTimeout(function () {
+                    loader.remove();
+                }, 400);
+            }
+
+        });
+    </script>
+
+    <script>
+        function open_menu(click) {
+            let menu1 = document.getElementById('menu1');
+            let menu2 = document.getElementById('menu2');
+            let nav = document.getElementById('nav');
+
+            if (click == 'open') {
+                menu1.style.display = 'none';
+                menu2.style.display = 'inline-block';
+                nav.style.display = 'inline-block';
+            }
+            else {
+                menu1.style.display = 'inline-block';
+                menu2.style.display = 'none';
+                nav.style.display = 'none';
+            }
+        }
+    </script>
+    <script>
+        setTimeout(function () {
+            document.querySelectorAll(".alert").forEach(function (alert) {
+                alert.style.transition = "opacity 0.5s";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>

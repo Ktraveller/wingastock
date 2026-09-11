@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wingastock | Products</title>
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        table {
+            width: 1000px;
+        }
+
+        .messages {
+            margin: 20px 0;
+        }
+
+        .alert {
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .success {
+            background: #28a745;
+        }
+
+        .error {
+            background: #dc3545;
+        }
+
+        .warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .info {
+            background: #17a2b8;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- Page Loader -->
+    <div id="page-loader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <div class="loading-text">Loading<span class="dots"></span></div>
+        </div>
+    </div>
+
+    <div class="row-holder">
+
+        <!-- Header -->
+        <div class="header-holder-100">
+            <div class="header-100">
+                <div class="action-holder-101">
+                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+                            class="fas fa-times"></i></button>
+                </div>
+                <div class="title-holder-101">
+                    <button type="button"><span>Wingastock | Seller</span></button>
+                </div>
+                <div class="title-holder-101" style="float: right;">
+                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- center content -->
+        <div class="center-content-200">
+
+            <div class="left-holder-201" id="nav">
+                <div class="nav-bar-holder-202">
+
+                    <ul>
+                        <a href="{% url 'delivery_home' %}">
+                            <li class="active-0">Home <i class="fas fa-tachometer-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'deliver_product' %}">
+                            <li>Request <i class="fas fa-shopping-bag"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'how_to_deliver' %}">
+                            <li>How to <i class="fas fa-envelope"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'home' %}">
+                            <li>Back wingastock <i class="fas fa-user"></i></li>
+                        </a>
+                    </ul>
+                    
+                </div>
+            </div>
+
+            <div class="right-holder-201">
+                <div class="card-holder-201 products-202">
+                    <div class="seller-products-heading">
+                        <div><span class="seller-kicker">CATALOGUE</span>
+                            <h1>Your products</h1>
+                            <p>Manage visibility, pricing and customer reach from one place.</p>
+                        </div>
+                        <a class="seller-primary-action" href=""><i
+                                class="fas fa-plus"></i> Add product</a>
+                    </div>
+                    <div class="seller-products-progress"><span><strong>{{ products|length }}</strong> of
+                           {{ product_limit }} spaces used</span>
+                        <div class="seller-progress-track"><span style="width: {{ product_progress }}%"></span></div><a
+                            href="">Get more space</a>
+                    </div>
+
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="alert {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+
+                    <div class="seller-products-list-wrap">
+                        <div class="filter-holder-202">
+                            <div><input type="text" id="searchInput" placeholder="Search products..."
+                                    aria-label="Search products"></div>
+                        </div>
+
+                        <div class="seller-product-list" id="productTable">
+                            {% for product_data in products %}
+                            <article class="seller-product-row"
+                                data-search="{{ product_data.title|lower }} {{ product_data.category|lower }} {{ product_data.status|lower }} {{ product_data.price }}">
+                                <a class="seller-product-main" href="">
+                                    <span class="seller-product-thumb">
+                                        {% if product_data.image %}
+                                        <img src="{{ product_data.image.url }}"
+                                            alt="{{ product_data.title }}">
+                                        {% endif %}
+                                    </span>
+                                    <span class="seller-product-copy">
+                                        <strong>{{ product_data.title }}</strong>
+                                        <small>{{ product_data.category|title }} · #{{ product_data.id }}</small>
+                                    </span>
+                                </a>
+                                <span class="seller-product-fact"><small>Price</small><strong>{{ product_data.price }}
+                                        Tsh</strong></span>
+                                <span class="seller-product-fact"><small>Views</small><strong><i class="fas fa-eye"></i>
+                                        {{ product_data.product_information.views|default:0 }}</strong></span>
+                                <span class="seller-product-fact"><small>Added</small><strong>
+                                       {{ product_data.created_at|date:"d M Y" }}</strong></span>
+                                <span class="seller-product-status">
+                                    {% if product_data.status == 'saved' %}
+                                    <i class="fas fa-eye-slash"></i> Hidden
+                                    {% else %}
+                                    <i class="fas fa-eye"></i> Live
+                                    {% endif %}
+                                </span>
+                                <span class="seller-product-actions">
+                                    <button class="btn-edit"
+                                        onclick="window.location.href=``"><i
+                                            class="fas fa-edit"></i><span>Edit</span></button>
+                                    <button class="btn-delete"
+                                        onclick="document.getElementById('delete-modal{{ product_data.id }}').style.display='inline-block'"><i
+                                            class="fas fa-trash"></i><span>Delete</span></button>
+                                </span>
+
+                                <!-- Delete product modal -->
+                                <div class="delete-product-modal-106" id="delete-modal{{ product_data.id }}">
+                                    <div>
+                                        <p>Sure want to delete <b>{{ product_data.title }}</b></p>
+
+                                        <button type="button" style="background: crimson; color: white;"
+                                            onclick="window.location.href=``">Yes,
+                                            delete</button>
+                                        <button type="button"
+                                            onclick="document.getElementById('delete-modal{{ product_data.id }}').style.display='none'">Cancel</button>
+                                    </div>
+                                </div>
+                            </article>
+
+                            {% empty %}
+                            <div class="seller-empty-products"><i class="fas fa-box-open"></i><strong>No products
+                                    found</strong><span>Add your first product to start building your catalogue.</span>
+                            </div>
+
+                            {% endfor %}
+                        </div>
+                        <p class="seller-list-hint">Click a product card to preview it.</p>
+                        <p class="seller-search-empty" id="searchEmpty" hidden>No products match your search.</p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        window.addEventListener("load", function () {
+
+            const loader = document.getElementById("page-loader");
+
+            if (loader) {
+                loader.classList.add("hidden");
+
+                setTimeout(function () {
+                    loader.remove();
+                }, 400);
+            }
+
+        });
+    </script>
+
+
+    <script>
+        function open_menu(click) {
+            let menu1 = document.getElementById('menu1');
+            let menu2 = document.getElementById('menu2');
+            let nav = document.getElementById('nav');
+
+            if (click == 'open') {
+                menu1.style.display = 'none';
+                menu2.style.display = 'inline-block';
+                nav.style.display = 'inline-block';
+            }
+            else {
+                menu1.style.display = 'inline-block';
+                menu2.style.display = 'none';
+                nav.style.display = 'none';
+            }
+        }
+    </script>
+
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const productRows = document.querySelectorAll(".seller-product-row");
+        const searchEmpty = document.getElementById("searchEmpty");
+        searchInput.addEventListener("input", function () {
+            const filter = this.value.trim().toLowerCase();
+            let visible = 0;
+            productRows.forEach(row => {
+                const match = row.dataset.search.includes(filter);
+                row.hidden = !match;
+                if (match) visible += 1;
+            });
+            searchEmpty.hidden = visible !== 0 || productRows.length === 0;
+        });
+    </script>
+    <script>
+        setTimeout(function () {
+            document.querySelectorAll(".alert").forEach(function (alert) {
+                alert.style.transition = "opacity 0.5s";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>

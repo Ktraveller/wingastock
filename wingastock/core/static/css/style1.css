@@ -394,7 +394,7 @@ html body .wingastock-title {
 
 .how-to-close-2001 {
     position: fixed;
-    bottom: 20px;
+    bottom: 70px;
     right: 10px;
     width: auto;
     height: 50px;
@@ -481,6 +481,10 @@ html body .wingastock-title {
 
     .category-name-1001 {
         display: inline-block;
+    }
+
+    .how-to-close-2001 {
+        bottom: 20px;
     }
 }
 
@@ -986,7 +990,6 @@ body * {
     font-size: 11px;
     line-height: 1.55;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
 }
 
 .shop-card-meta {
@@ -1226,7 +1229,7 @@ body * {
         z-index: 30;
         width: 78px;
         height: 100vh;
-        padding-top: 50px;
+        padding-top: 0px;
     }
 
     .nav-content-003 {
@@ -1238,6 +1241,8 @@ body * {
         border-right: 1px solid var(--line);
         border-radius: 0;
         box-shadow: 4px 0 20px rgba(23, 32, 51, .06);
+        padding: 10px;
+        padding-top: 80px;
     }
 
     .nav-content-003>div {
@@ -1323,10 +1328,9 @@ body * {
 }
 
 .product-category-holder-1001>div:last-child>button {
-    border-radius: 0;
-    border: 2px solid currentColor;
+    border-radius: 10px;
     min-height: 62px;
-    background: transparent !important;
+    background: currentColor;
     color: var(--muted);
 }
 
@@ -1681,6 +1685,15 @@ body * {
     opacity: 1;
 }
 
+.category-chip-fashion>i {
+    color: white;
+}
+
+.category-name-1001 {
+    color: white;
+    font-weight: bold;
+}
+
 @media (max-width: 767px) {
     .content-holder-002 {
         margin-top: 142px;
@@ -1920,7 +1933,7 @@ body * {
         box-shadow: 0 -4px 18px rgba(23, 32, 51, .10);
     }
 
-    .nav-content-003 > div {
+    .nav-content-003>div {
         flex: 1;
         float: none;
         width: auto;
@@ -1929,7 +1942,7 @@ body * {
         padding: 0;
     }
 
-    .nav-content-003 > div > button {
+    .nav-content-003>div>button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1942,7 +1955,7 @@ body * {
         outline: none;
     }
 
-    .nav-content-003 > div > button > i {
+    .nav-content-003>div>button>i {
         font-size: 15px;
         padding-right: 5px;
     }

@@ -51,10 +51,7 @@
                 <span>Everything you need in one place</span>
             </div>
 
-            <button type="button"
-                    class="options-close-100"
-                    onclick="closeOtherOptions()"
-                    aria-label="Close options">
+            <button type="button" class="options-close-100" onclick="closeOtherOptions()" aria-label="Close options">
 
                 <i class="fas fa-times"></i>
 
@@ -85,8 +82,8 @@
                     reaching more customers.
                 </p>
 
-                <button type="button"
-                        onclick="window.location.href=`{% url 'seller_terms' %}`">
+                <button type="button" style="height: 40px; width: auto; padding-left: 20px; padding-right: 20px;"
+                    onclick="window.location.href=`{% url 'seller_terms' %}`">
 
                     <span>Become a Seller</span>
 
@@ -110,9 +107,7 @@
         <div class="options-items-100">
 
             <!-- ACCOUNT -->
-            <button type="button"
-                    class="other-option-item-100"
-                    onclick="closeOtherOptions(); open_user(1)">
+            <button type="button" class="other-option-item-100" onclick="closeOtherOptions(); open_user(1)">
 
                 <span class="other-option-icon-100">
                     <i class="fas fa-user"></i>
@@ -134,9 +129,7 @@
 
 
             <!-- NOTIFICATIONS -->
-            <button type="button"
-                    class="other-option-item-100"
-                    onclick="closeOtherOptions(); open_notification(1)">
+            <button type="button" class="other-option-item-100" onclick="closeOtherOptions(); open_notification(1)">
 
                 <span class="other-option-icon-100 notification-option-icon-100">
                     <i class="fas fa-bell"></i>
@@ -158,9 +151,7 @@
 
 
             <!-- FAVORITES -->
-            <button type="button"
-                    class="other-option-item-100"
-                    onclick="window.location.href=`{% url 'favorities' %}`">
+            <button type="button" class="other-option-item-100" onclick="window.location.href=`{% url 'favorities' %}`">
 
                 <span class="other-option-icon-100 favorite-option-icon-100">
                     <i class="fas fa-heart"></i>
@@ -182,9 +173,7 @@
 
 
             <!-- SHOPS -->
-            <button type="button"
-                    class="other-option-item-100"
-                    onclick="window.location.href=`{% url 'shop_list' %}`">
+            <button type="button" class="other-option-item-100" onclick="window.location.href=`{% url 'shop_list' %}`">
 
                 <span class="other-option-icon-100 shop-option-icon-100">
                     <i class="fas fa-store"></i>
@@ -218,9 +207,7 @@
         <div class="options-items-100">
 
             <!-- SETTINGS -->
-            <button type="button"
-                    class="other-option-item-100"
-                    onclick="alert('Settings coming soon')">
+            <button type="button" class="other-option-item-100" onclick="alert('Settings coming soon')">
 
                 <span class="other-option-icon-100">
                     <i class="fas fa-cog"></i>
@@ -242,9 +229,7 @@
 
 
             <!-- HELP -->
-            <button type="button"
-                    class="other-option-item-100"
-                    onclick="alert('Help & Support coming soon')">
+            <button type="button" class="other-option-item-100" onclick="alert('Help & Support coming soon')">
 
                 <span class="other-option-icon-100">
                     <i class="fas fa-question-circle"></i>
@@ -285,8 +270,7 @@
 
 
 <style>
-
-/* =====================================================
+    /* =====================================================
    IMPORTANT
 
    Hizi styles zinahusu MODAL TU.
@@ -301,596 +285,84 @@
 ===================================================== */
 
 
-/* =====================================================
+    /* =====================================================
    MODAL BACKGROUND
 ===================================================== */
 
-.other-options-100 {
+    .other-options-100 {
 
-    position: fixed;
+        position: fixed;
 
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
 
-    width: 100%;
-    height: 100%;
+        width: 100%;
+        height: 100%;
 
-    z-index: 999999;
+        z-index: 999999;
 
-    display: none;
+        display: none;
 
-    align-items: center;
-    justify-content: center;
+        align-items: center;
+        justify-content: center;
 
-    padding: 20px;
+        padding: 20px;
 
-    box-sizing: border-box;
+        box-sizing: border-box;
 
-    background: rgba(15, 18, 25, .58);
+        background: rgba(15, 18, 25, .58);
 
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(7px);
+        backdrop-filter: blur(7px);
+        -webkit-backdrop-filter: blur(7px);
 
-}
+    }
 
 
-/* =====================================================
+    /* =====================================================
    MODAL CARD
 ===================================================== */
 
-.other-options-card-100 {
+    .other-options-card-100 {
 
-    position: relative;
+        position: relative;
 
-    width: 520px;
+        width: 520px;
 
-    max-width: 100%;
+        max-width: 100%;
 
-    max-height: calc(100vh - 40px);
+        max-height: calc(100vh - 40px);
 
-    overflow-y: auto;
+        overflow-y: auto;
 
-    box-sizing: border-box;
+        box-sizing: border-box;
 
-    background: #ffffff;
+        background: #ffffff;
 
-    border-radius: 22px;
+        border-radius: 22px;
 
-    box-shadow:
-        0 25px 80px rgba(0,0,0,.25);
+        box-shadow:
+            0 25px 80px rgba(0, 0, 0, .25);
 
-    animation:
-        otherOptionsOpen .25s ease;
+        animation:
+            otherOptionsOpen .25s ease;
 
-}
+    }
 
 
-/* =====================================================
+    /* =====================================================
    ANIMATION
 ===================================================== */
 
-@keyframes otherOptionsOpen {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(15px)
-            scale(.97);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-
-    }
-
-}
-
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.options-top-100 {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 15px;
-
-    padding: 22px 22px 17px;
-
-    border-bottom:
-        1px solid #eeeeee;
-
-}
-
-
-.options-heading-100 strong {
-
-    display: block;
-
-    font-size: 20px;
-
-    font-weight: 700;
-
-    color: #20242d;
-
-}
-
-
-.options-heading-100 span {
-
-    display: block;
-
-    margin-top: 4px;
-
-    font-size: 12px;
-
-    color: #8b909a;
-
-}
-
-
-.options-close-100 {
-
-    width: 40px;
-    height: 40px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border: 0;
-
-    border-radius: 50%;
-
-    background: #f3f4f6;
-
-    color: #555b65;
-
-    cursor: pointer;
-
-    transition: .2s ease;
-
-}
-
-
-.options-close-100:hover {
-
-    background: #e8e9ed;
-
-    transform: rotate(90deg);
-
-}
-
-
-
-/* =====================================================
-   SELLER BOX
-===================================================== */
-
-.seller-box-100 {
-
-    display: flex;
-
-    gap: 15px;
-
-    margin: 18px;
-
-    padding: 18px;
-
-    box-sizing: border-box;
-
-    border-radius: 18px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff1f3,
-            #fff8f9
-        );
-
-    border:
-        1px solid #ffd6dc;
-
-}
-
-
-.seller-box-icon-100 {
-
-    width: 48px;
-    height: 48px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 14px;
-
-    background: crimson;
-
-    color: #fff;
-
-    font-size: 19px;
-
-}
-
-
-.seller-box-content-100 {
-
-    flex: 1;
-
-    min-width: 0;
-
-}
-
-
-.seller-box-content-100 strong {
-
-    display: block;
-
-    font-size: 15px;
-
-    font-weight: 700;
-
-    color: #272b34;
-
-}
-
-
-.seller-box-content-100 p {
-
-    margin: 5px 0 0;
-
-    font-size: 12px;
-
-    line-height: 1.55;
-
-    color: #777d87;
-
-}
-
-
-.seller-box-content-100 button {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 9px;
-
-    margin-top: 13px;
-
-    padding: 10px 16px;
-
-    border: 0;
-
-    border-radius: 50px;
-
-    background: crimson;
-
-    color: white;
-
-    font-size: 12px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition: .2s ease;
-
-}
-
-
-.seller-box-content-100 button:hover {
-
-    background: #b91532;
-
-    transform: translateX(2px);
-
-}
-
-
-
-/* =====================================================
-   SECTION LABEL
-===================================================== */
-
-.options-label-100 {
-
-    padding:
-        5px 22px 8px;
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-    letter-spacing: .8px;
-
-    text-transform: uppercase;
-
-    color: #999ea7;
-
-}
-
-
-
-/* =====================================================
-   OPTIONS LIST
-===================================================== */
-
-.options-items-100 {
-
-    padding:
-        0 12px 10px;
-
-}
-
-
-.other-option-item-100 {
-
-    width: 100%;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    padding: 11px 10px;
-
-    box-sizing: border-box;
-
-    border: 0;
-
-    border-radius: 13px;
-
-    background: transparent;
-
-    text-align: left;
-
-    cursor: pointer;
-
-    transition:
-        background .18s ease,
-        transform .18s ease;
-
-}
-
-
-.other-option-item-100:hover {
-
-    background: #f7f7f8;
-
-    transform: translateX(2px);
-
-}
-
-
-
-/* =====================================================
-   OPTION ICON
-===================================================== */
-
-.other-option-icon-100 {
-
-    width: 40px;
-    height: 40px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 12px;
-
-    background: #f1f2f4;
-
-    color: #525966;
-
-    font-size: 15px;
-
-}
-
-
-.notification-option-icon-100 {
-
-    color: #d59600;
-
-    background: #fff6dc;
-
-}
-
-
-.favorite-option-icon-100 {
-
-    color: crimson;
-
-    background: #fff0f2;
-
-}
-
-
-.shop-option-icon-100 {
-
-    color: #2675d1;
-
-    background: #edf5ff;
-
-}
-
-
-
-/* =====================================================
-   OPTION TEXT
-===================================================== */
-
-.other-option-info-100 {
-
-    flex: 1;
-
-    min-width: 0;
-
-}
-
-
-.other-option-info-100 strong {
-
-    display: block;
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    color: #292d35;
-
-}
-
-
-.other-option-info-100 small {
-
-    display: block;
-
-    margin-top: 3px;
-
-    font-size: 11px;
-
-    color: #9297a1;
-
-}
-
-
-
-/* =====================================================
-   ARROW
-===================================================== */
-
-.other-option-arrow-100 {
-
-    flex-shrink: 0;
-
-    margin-right: 4px;
-
-    color: #b5bac2;
-
-    font-size: 9px;
-
-}
-
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-.options-footer-100 {
-
-    padding:
-        15px 20px 19px;
-
-    text-align: center;
-
-    border-top:
-        1px solid #eeeeee;
-
-}
-
-
-.options-footer-100 span {
-
-    display: block;
-
-    font-size: 11px;
-
-    font-weight: 700;
-
-    color: #91969f;
-
-}
-
-
-.options-footer-100 small {
-
-    display: block;
-
-    margin-top: 3px;
-
-    font-size: 9px;
-
-    color: #b3b6bd;
-
-}
-
-
-
-/* =====================================================
-   MOBILE
-
-   Hapa navbar yako bado inabaki na CSS yake ya zamani.
-
-   Modal pekee ndiyo inakuwa bottom sheet.
-===================================================== */
-
-@media (max-width: 767px) {
-
-    .other-options-100 {
-
-        align-items: flex-end;
-
-        justify-content: center;
-
-        padding: 0;
-
-    }
-
-
-    .other-options-card-100 {
-
-        width: 100%;
-
-        max-width: none;
-
-        max-height: 88vh;
-
-        border-radius:
-            24px 24px 0 0;
-
-        animation:
-            otherOptionsMobileOpen .25s ease;
-
-    }
-
-
-    @keyframes otherOptionsMobileOpen {
+    @keyframes otherOptionsOpen {
 
         from {
 
             opacity: 0;
 
             transform:
-                translateY(100%);
+                translateY(15px) scale(.97);
 
         }
 
@@ -899,172 +371,679 @@
             opacity: 1;
 
             transform:
-                translateY(0);
+                translateY(0) scale(1);
 
         }
 
     }
 
 
+
+    /* =====================================================
+   HEADER
+===================================================== */
+
     .options-top-100 {
 
-        padding:
-            19px 17px 15px;
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 15px;
+
+        padding: 22px 22px 17px;
+
+        border-bottom:
+            1px solid #eeeeee;
 
     }
 
 
     .options-heading-100 strong {
 
-        font-size: 18px;
+        display: block;
+
+        font-size: 20px;
+
+        font-weight: 700;
+
+        color: #20242d;
 
     }
 
+
+    .options-heading-100 span {
+
+        display: block;
+
+        margin-top: 4px;
+
+        font-size: 12px;
+
+        color: #8b909a;
+
+    }
+
+
+    .options-close-100 {
+
+        width: 40px;
+        height: 40px;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border: 0;
+
+        border-radius: 50%;
+
+        background: #f3f4f6;
+
+        color: #555b65;
+
+        cursor: pointer;
+
+        transition: .2s ease;
+
+    }
+
+
+    .options-close-100:hover {
+
+        background: #e8e9ed;
+
+        transform: rotate(90deg);
+
+    }
+
+
+
+    /* =====================================================
+   SELLER BOX
+===================================================== */
 
     .seller-box-100 {
 
-        margin:
-            15px;
+        display: flex;
 
-        padding:
-            15px;
+        gap: 15px;
+
+        margin: 18px;
+
+        padding: 18px;
+
+        box-sizing: border-box;
+
+        border-radius: 18px;
+
+        background:
+            linear-gradient(135deg,
+                #fff1f3,
+                #fff8f9);
+
+        border:
+            1px solid #ffd6dc;
 
     }
 
 
-    .options-items-100 {
+    .seller-box-icon-100 {
 
-        padding-left: 8px;
-        padding-right: 8px;
+        width: 48px;
+        height: 48px;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 14px;
+
+        background: crimson;
+
+        color: #fff;
+
+        font-size: 19px;
 
     }
 
-}
+
+    .seller-box-content-100 {
+
+        flex: 1;
+
+        min-width: 0;
+
+    }
 
 
+    .seller-box-content-100 strong {
 
-/* =====================================================
-   VERY SMALL MOBILE
-===================================================== */
+        display: block;
 
-@media (max-width: 380px) {
+        font-size: 15px;
+
+        font-weight: 700;
+
+        color: #272b34;
+
+    }
+
 
     .seller-box-content-100 p {
 
-        font-size: 11px;
+        margin: 5px 0 0;
+
+        font-size: 12px;
+
+        line-height: 1.55;
+
+        color: #777d87;
+
+    }
+
+
+    .seller-box-content-100 button {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 9px;
+
+        margin-top: 13px;
+
+        padding: 10px 16px;
+
+        border: 0;
+
+        border-radius: 50px;
+
+        background: crimson;
+
+        color: white;
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition: .2s ease;
+
+    }
+
+
+    .seller-box-content-100 button:hover {
+
+        background: #b91532;
+
+        transform: translateX(2px);
+
+    }
+
+
+
+    /* =====================================================
+   SECTION LABEL
+===================================================== */
+
+    .options-label-100 {
+
+        padding:
+            5px 22px 8px;
+
+        font-size: 10px;
+
+        font-weight: 700;
+
+        letter-spacing: .8px;
+
+        text-transform: uppercase;
+
+        color: #999ea7;
+
+    }
+
+
+
+    /* =====================================================
+   OPTIONS LIST
+===================================================== */
+
+    .options-items-100 {
+
+        padding:
+            0 12px 10px;
+
+    }
+
+
+    .other-option-item-100 {
+
+        width: 100%;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        padding: 11px 10px;
+
+        box-sizing: border-box;
+
+        border: 0;
+
+        border-radius: 13px;
+
+        background: transparent;
+
+        text-align: left;
+
+        cursor: pointer;
+
+        transition:
+            background .18s ease,
+            transform .18s ease;
+
+    }
+
+
+    .other-option-item-100:hover {
+
+        background: #f7f7f8;
+
+        transform: translateX(2px);
+
+    }
+
+
+
+    /* =====================================================
+   OPTION ICON
+===================================================== */
+
+    .other-option-icon-100 {
+
+        width: 40px;
+        height: 40px;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 12px;
+
+        background: #f1f2f4;
+
+        color: #525966;
+
+        font-size: 15px;
+
+    }
+
+
+    .notification-option-icon-100 {
+
+        color: #d59600;
+
+        background: #fff6dc;
+
+    }
+
+
+    .favorite-option-icon-100 {
+
+        color: crimson;
+
+        background: #fff0f2;
+
+    }
+
+
+    .shop-option-icon-100 {
+
+        color: #2675d1;
+
+        background: #edf5ff;
+
+    }
+
+
+
+    /* =====================================================
+   OPTION TEXT
+===================================================== */
+
+    .other-option-info-100 {
+
+        flex: 1;
+
+        min-width: 0;
+
+    }
+
+
+    .other-option-info-100 strong {
+
+        display: block;
+
+        font-size: 13px;
+
+        font-weight: 600;
+
+        color: #292d35;
 
     }
 
 
     .other-option-info-100 small {
 
-        font-size: 10px;
+        display: block;
+
+        margin-top: 3px;
+
+        font-size: 11px;
+
+        color: #9297a1;
 
     }
 
-}
 
+
+    /* =====================================================
+   ARROW
+===================================================== */
+
+    .other-option-arrow-100 {
+
+        flex-shrink: 0;
+
+        margin-right: 4px;
+
+        color: #b5bac2;
+
+        font-size: 9px;
+
+    }
+
+
+
+    /* =====================================================
+   FOOTER
+===================================================== */
+
+    .options-footer-100 {
+
+        padding:
+            15px 20px 19px;
+
+        text-align: center;
+
+        border-top:
+            1px solid #eeeeee;
+
+    }
+
+
+    .options-footer-100 span {
+
+        display: block;
+
+        font-size: 11px;
+
+        font-weight: 700;
+
+        color: #91969f;
+
+    }
+
+
+    .options-footer-100 small {
+
+        display: block;
+
+        margin-top: 3px;
+
+        font-size: 9px;
+
+        color: #b3b6bd;
+
+    }
+
+
+
+    /* =====================================================
+   MOBILE
+
+   Hapa navbar yako bado inabaki na CSS yake ya zamani.
+
+   Modal pekee ndiyo inakuwa bottom sheet.
+===================================================== */
+
+    @media (max-width: 767px) {
+
+        .other-options-100 {
+
+            align-items: flex-end;
+
+            justify-content: center;
+
+            padding: 0;
+
+        }
+
+
+        .other-options-card-100 {
+
+            width: 100%;
+
+            max-width: none;
+
+            max-height: 88vh;
+
+            border-radius:
+                24px 24px 0 0;
+
+            animation:
+                otherOptionsMobileOpen .25s ease;
+
+        }
+
+
+        @keyframes otherOptionsMobileOpen {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(100%);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        .options-top-100 {
+
+            padding:
+                19px 17px 15px;
+
+        }
+
+
+        .options-heading-100 strong {
+
+            font-size: 18px;
+
+        }
+
+
+        .seller-box-100 {
+
+            margin:
+                15px;
+
+            padding:
+                15px;
+
+        }
+
+
+        .options-items-100 {
+
+            padding-left: 8px;
+            padding-right: 8px;
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+    @media (max-width: 380px) {
+
+        .seller-box-content-100 p {
+
+            font-size: 11px;
+
+        }
+
+
+        .other-option-info-100 small {
+
+            font-size: 10px;
+
+        }
+
+    }
 </style>
 
 
 
 <script>
 
-/* =====================================================
-   OPEN OPTIONS
+    /* =====================================================
+       OPEN OPTIONS
+    
+       Hii ndiyo button yako ya zamani inaweza kutumia:
+    
+       onclick="openOtherOptions()"
+    
+    ===================================================== */
 
-   Hii ndiyo button yako ya zamani inaweza kutumia:
+    function openOtherOptions() {
 
-   onclick="openOtherOptions()"
+        const modal =
+            document.getElementById("option");
 
-===================================================== */
-
-function openOtherOptions() {
-
-    const modal =
-        document.getElementById("option");
-
-    if (!modal) return;
-
-
-    modal.style.display = "flex";
+        if (!modal) return;
 
 
-    document.body.style.overflow = "hidden";
-
-}
+        modal.style.display = "flex";
 
 
-
-/* =====================================================
-   CLOSE OPTIONS
-===================================================== */
-
-function closeOtherOptions() {
-
-    const modal =
-        document.getElementById("option");
-
-    if (!modal) return;
-
-
-    modal.style.display = "none";
-
-
-    document.body.style.overflow = "";
-
-}
-
-
-
-/* =====================================================
-   BACKWARD COMPATIBILITY
-
-   Kama somewhere kwenye project yako bado kuna:
-
-   document.getElementById('option')
-   .style.display = 'inline-block'
-
-   itaendelea kufungua modal.
-
-   Hii function pia inafanya kazi na old logic.
-===================================================== */
-
-
-/* =====================================================
-   CLICK OUTSIDE
-===================================================== */
-
-document.addEventListener("click", function(event) {
-
-    const modal =
-        document.getElementById("option");
-
-    if (!modal) return;
-
-
-    if (event.target === modal) {
-
-        closeOtherOptions();
+        document.body.style.overflow = "hidden";
 
     }
 
-});
 
 
+    /* =====================================================
+       CLOSE OPTIONS
+    ===================================================== */
 
-/* =====================================================
-   ESC KEY
-===================================================== */
+    function closeOtherOptions() {
 
-document.addEventListener("keydown", function(event) {
+        const modal =
+            document.getElementById("option");
 
-    if (event.key === "Escape") {
+        if (!modal) return;
 
-        closeOtherOptions();
+
+        modal.style.display = "none";
+
+
+        document.body.style.overflow = "";
 
     }
 
-});
+
+
+    /* =====================================================
+       BACKWARD COMPATIBILITY
+    
+       Kama somewhere kwenye project yako bado kuna:
+    
+       document.getElementById('option')
+       .style.display = 'inline-block'
+    
+       itaendelea kufungua modal.
+    
+       Hii function pia inafanya kazi na old logic.
+    ===================================================== */
+
+
+    /* =====================================================
+       CLICK OUTSIDE
+    ===================================================== */
+
+    document.addEventListener("click", function (event) {
+
+        const modal =
+            document.getElementById("option");
+
+        if (!modal) return;
+
+
+        if (event.target === modal) {
+
+            closeOtherOptions();
+
+        }
+
+    });
+
+
+
+    /* =====================================================
+       ESC KEY
+    ===================================================== */
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            closeOtherOptions();
+
+        }
+
+    });
 
 </script>

@@ -293,7 +293,7 @@ def submit_comments(request, id):
             customer=request.user,
             comment=comments
         )
-        return redirect('product_details', id=id)
+        return redirect('product_details', id=id, title=product.title)
 
 
 
@@ -304,7 +304,7 @@ def delete_comment(request, id):
     product = comment.product.id
     comment.delete()
 
-    return redirect('product_details', id=product)
+    return redirect('product_details', id=product, title=comment.product.title)
     
 
 

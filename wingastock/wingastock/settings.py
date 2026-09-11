@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "administrators",
     "sellers",
     "mails",
+    "deliver",
 ]
 
 SELLER_PAYMENT_NUMBER = os.environ.get(
