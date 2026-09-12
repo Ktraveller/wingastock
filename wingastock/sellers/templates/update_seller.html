@@ -72,9 +72,7 @@
                             Wingastock | Seller
                         </span></button>
                 </div>
-                <div class="title-holder-101" style="float: right;">
-                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
-                </div>
+                {% include 'profile_s.html' %}
             </div>
         </div>
 
@@ -137,6 +135,74 @@
 
                 <form method="POST" action="" enctype="multipart/form-data">
                     {% csrf_token %}
+
+                    <div class="input-holder-203" style="height: auto;">
+                        <p>
+                            <i class="fas fa-camera"></i>
+                            Upload profile picture
+                        </p>
+
+                        <div id="sellerImagePreview" style="margin-top:10px; height: auto;">
+
+                            {% if user.seller.seller_dp %}
+                            <img id="sellerPreview" src="{{ user.seller.seller_dp.url }}" alt="Seller profile picture"
+                                style="width:100px;height:100px;object-fit:cover;border-radius:50%;">
+                            {% else %}
+                            <i class="fas fa-user-circle" style="font-size:80px;"></i>
+                            Not uploaded
+                            {% endif %}
+
+                        </div>
+
+                        <div style="width: 200px;">
+                            <input type="file" name="seller_dp" id="sellerDpInput"
+                                accept="image/jpeg,image/png,image/webp" onchange="previewSellerImage(event)"
+                                style="padding: 7px;">
+                        </div>
+
+                    </div>
+
+                    <script>
+                        function previewSellerImage(event) {
+
+                            const input = event.target;
+                            const previewContainer =
+                                document.getElementById("sellerImagePreview");
+
+                            const preview =
+                                document.getElementById("sellerPreview");
+
+                            if (input.files && input.files[0]) {
+
+                                const file = input.files[0];
+
+                                // Make sure it is an image
+                                if (!file.type.startsWith("image/")) {
+                                    alert("Please select an image file.");
+                                    input.value = "";
+                                    previewContainer.style.display = "none";
+                                    return;
+                                }
+
+                                const reader = new FileReader();
+
+                                reader.onload = function (e) {
+
+                                    preview.src = e.target.result;
+
+                                    previewContainer.style.display = "inline-block";
+                                };
+
+                                reader.readAsDataURL(file);
+
+                            } else {
+
+                                preview.src = "";
+                                previewContainer.style.display = "none";
+                            }
+                        }
+                    </script>
+
 
                     <div class="input-holder-203">
                         <p><i class="fas fa-user"></i>

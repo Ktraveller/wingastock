@@ -744,6 +744,7 @@ body {
         background: var(--admin-brand);
     }
 
+
     @media (max-width: 767px) {
         .header-100 {
             padding: 0 12px;
@@ -894,3 +895,23 @@ body {
         float: none !important;
     }
 }
+
+
+
+    @media only screen and (min-width: 768px) {
+        .center-content-200 {
+            width: 100%;
+            float: left;
+        }
+        .left-holder-201 {
+            width: 20%;
+            background: transparent;
+        }
+        .right-holder-201 {
+            width: 100%;
+            position: unset;
+            padding: 20px;
+            padding-right: 340px;
+            margin-left: 20%;
+        }
+    }

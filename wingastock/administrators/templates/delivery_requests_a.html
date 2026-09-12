@@ -1,0 +1,1095 @@
+```html
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wingastock | Delivery reviews</title>
+
+    <link rel="stylesheet"
+          href="{% static 'admin_css/admin_style.css' %}?v=20260910">
+
+    <style>
+        /* ================================
+           DELIVERY REVIEW PAGE
+        ================================= */
+
+        .delivery-review-page {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 25px;
+            box-sizing: border-box;
+        }
+
+        .delivery-review-heading {
+            margin-bottom: 25px;
+        }
+
+        .delivery-review-heading span {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: crimson;
+            margin-bottom: 5px;
+        }
+
+        .delivery-review-heading h1 {
+            margin: 0;
+            font-size: 30px;
+            color: #222;
+        }
+
+        .delivery-review-heading p {
+            margin-top: 8px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* Messages */
+
+        .delivery-review-message {
+            padding: 13px 16px;
+            margin-bottom: 20px;
+            background: #f4f4f4;
+            border-left: 4px solid crimson;
+            border-radius: 5px;
+            color: #333;
+        }
+
+        /* List */
+
+        .delivery-review-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Card */
+
+        .delivery-review-card {
+            background: #fff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Top */
+
+        .delivery-review-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .delivery-review-meta strong {
+            font-size: 16px;
+            color: #222;
+        }
+
+        .delivery-review-meta span {
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* Status */
+
+        .delivery-review-status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fff4d6;
+            color: #9a6b00;
+        }
+
+        .status-processing {
+            background: #e6f0ff;
+            color: #1757a6;
+        }
+
+        .status-processed {
+            background: #e2f7e9;
+            color: #18733b;
+        }
+
+        .status-rejected {
+            background: #ffe5e5;
+            color: #b42323;
+        }
+
+        /* Main content */
+
+        .delivery-review-main {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+        }
+
+        /* Image */
+
+        .delivery-review-image {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #f5f5f5;
+            text-decoration: none;
+        }
+
+        .delivery-review-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .delivery-review-image span {
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            padding: 9px;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.65);
+            color: #fff;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        /* Details */
+
+        .delivery-review-content h2 {
+            margin: 0 0 8px 0;
+            font-size: 22px;
+            color: #222;
+        }
+
+        .delivery-review-content .customer {
+            margin-bottom: 18px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .delivery-review-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .delivery-review-detail-box {
+            padding: 13px;
+            background: #f8f8f8;
+            border-radius: 8px;
+        }
+
+        .delivery-review-detail-box small {
+            display: block;
+            margin-bottom: 5px;
+            color: #888;
+            font-size: 11px;
+        }
+
+        .delivery-review-detail-box strong {
+            color: #222;
+            font-size: 14px;
+            word-break: break-word;
+        }
+
+        /* Description / note */
+
+        .delivery-review-note {
+            padding: 13px;
+            background: #fafafa;
+            border-radius: 8px;
+            margin-bottom: 18px;
+        }
+
+        .delivery-review-note small {
+            display: block;
+            margin-bottom: 6px;
+            color: #888;
+            font-size: 11px;
+        }
+
+        .delivery-review-note p {
+            margin: 0;
+            color: #444;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        /* Review form */
+
+        .delivery-review-form {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .delivery-review-form textarea {
+            width: 100%;
+            min-height: 90px;
+            resize: vertical;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .delivery-review-form textarea:focus {
+            border-color: crimson;
+        }
+
+        .delivery-review-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .delivery-review-actions button {
+            border: 0;
+            border-radius: 7px;
+            padding: 11px 17px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .delivery-process {
+            background: #1769aa;
+            color: #fff;
+        }
+
+        .delivery-processed {
+            background: #198754;
+            color: #fff;
+        }
+
+        .delivery-reject {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        .delivery-review-actions button:hover {
+            opacity: 0.88;
+        }
+
+        /* Empty */
+
+        .delivery-review-empty {
+            padding: 50px 20px;
+            text-align: center;
+            background: #fff;
+            border: 1px dashed #ddd;
+            border-radius: 10px;
+            color: #888;
+        }
+
+        /* ================================
+           MODAL
+        ================================= */
+
+        .delivery-modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 99999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .delivery-modal-overlay.active {
+            display: flex;
+        }
+
+        .delivery-modal {
+            width: 100%;
+            max-width: 480px;
+            background: #fff;
+            border-radius: 14px;
+            padding: 25px;
+            box-sizing: border-box;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            animation: deliveryModalShow 0.2s ease;
+        }
+
+        @keyframes deliveryModalShow {
+            from {
+                opacity: 0;
+                transform: translateY(-15px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .delivery-modal-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #f1f1f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .delivery-modal h3 {
+            margin: 0 0 8px;
+            color: #222;
+            font-size: 20px;
+        }
+
+        .delivery-modal p {
+            margin: 0;
+            color: #777;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .delivery-modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .delivery-modal-buttons button {
+            border: 0;
+            border-radius: 7px;
+            padding: 11px 18px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .modal-cancel {
+            background: #eee;
+            color: #333;
+        }
+
+        .modal-confirm {
+            background: crimson;
+            color: #fff;
+        }
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 800px) {
+
+            .delivery-review-page {
+                padding: 15px;
+            }
+
+            .delivery-review-heading h1 {
+                font-size: 24px;
+            }
+
+            .delivery-review-main {
+                grid-template-columns: 1fr;
+            }
+
+            .delivery-review-image {
+                height: 240px;
+            }
+
+            .delivery-review-details {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .delivery-review-details {
+                grid-template-columns: 1fr;
+            }
+
+            .delivery-review-actions {
+                flex-direction: column;
+            }
+
+            .delivery-review-actions button {
+                width: 100%;
+            }
+
+            .delivery-modal {
+                padding: 20px;
+            }
+
+            .delivery-modal-buttons {
+                flex-direction: column-reverse;
+            }
+
+            .delivery-modal-buttons button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="row-holder">
+
+    <!-- ================================
+         ADMIN HEADER
+    ================================= -->
+
+    <div class="header-holder-100">
+
+        <div class="header-100">
+
+            <div class="action-holder-101">
+
+                <button type="button"
+                        id="menu1"
+                        onclick="open_menu('open')">
+                    m
+                </button>
+
+                <button type="button"
+                        id="menu2"
+                        style="display:none"
+                        onclick="open_menu('close')">
+                    c
+                </button>
+
+            </div>
+
+            <div class="title-holder-101">
+                <button type="button">
+                    Wingastock | Admin
+                </button>
+            </div>
+
+            <div class="title-holder-101"
+                 style="float:right">
+
+                <button type="button">
+                    {{ user.username }}
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         CENTER
+    ================================= -->
+
+    <div class="center-content-200">
+
+
+        <!-- ================================
+             LEFT NAVIGATION
+        ================================= -->
+
+        <div class="left-holder-201" id="nav">
+
+            <div class="nav-bar-holder-202">
+
+                <p style="text-align:center;font-weight:bold">
+                    Options
+                </p>
+
+                <ul>
+                    <a href="{% url 'admin_home' %}">
+                        <li>Dashboard</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_products' %}">
+                        <li>Products</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_sellers' %}">
+                        <li>Sellers</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_payment_requests' %}">
+                        <li>Payment reviews</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_delivery_requests' %}">
+                        <li class="active-0">
+                            Delivery requests
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'mail_home_a' %}">
+                        <li>Mail</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'logout_admin' %}">
+                        <li>Exit</li>
+                    </a>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             RIGHT CONTENT
+        ================================= -->
+
+        <div class="right-holder-201">
+
+            <div class="delivery-review-page">
+
+
+                <!-- PAGE HEADER -->
+
+                <div class="delivery-review-heading">
+
+                    <span>DELIVERY REQUESTS</span>
+
+                    <h1>
+                        Delivery requests
+                    </h1>
+
+                    <p>
+                        Review customer delivery requests and update
+                        their processing status.
+                    </p>
+
+                </div>
+
+
+                <!-- DJANGO MESSAGES -->
+
+                {% if messages %}
+
+                    {% for message in messages %}
+
+                        <div class="delivery-review-message">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+
+                <!-- REQUEST LIST -->
+
+                <div class="delivery-review-list">
+
+                    {% for request in delivery_requests %}
+
+                    <article class="delivery-review-card">
+
+
+                        <!-- REQUEST META -->
+
+                        <div class="delivery-review-meta">
+
+                            <strong>
+                                {{ request.customer.email }}
+                            </strong>
+
+                            <span>
+                                {{ request.created_at|date:"d M Y, H:i" }}
+                            </span>
+
+                            <b class="delivery-review-status status-{{ request.status }}">
+                                {{ request.get_status_display }}
+                            </b>
+
+                        </div>
+
+
+                        <!-- MAIN REQUEST -->
+
+                        <div class="delivery-review-main">
+
+
+                            <!-- IMAGE -->
+
+                            <div>
+
+                                {% if request.image %}
+
+                                    <a class="delivery-review-image"
+                                       href="{{ request.image.url }}"
+                                       target="_blank"
+                                       rel="noopener">
+
+                                        <img src="{{ request.image.url }}"
+                                             alt="{{ request.title }}">
+
+                                        <span>
+                                            Open full image
+                                        </span>
+
+                                    </a>
+
+                                {% else %}
+
+                                    <div class="delivery-review-image">
+
+                                        <div style="
+                                            width:100%;
+                                            height:100%;
+                                            display:flex;
+                                            align-items:center;
+                                            justify-content:center;
+                                            color:#999;
+                                            font-size:13px;
+                                        ">
+                                            No image
+                                        </div>
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- CONTENT -->
+
+                            <div class="delivery-review-content">
+
+                                <h2>
+                                    {{ request.title }}
+                                </h2>
+
+                                <div class="customer">
+                                    Customer:
+                                    <strong>
+                                        {{ request.customer.email }}
+                                    </strong>
+                                </div>
+
+
+                                <!-- DETAILS -->
+
+                                <div class="delivery-review-details">
+
+                                    <div class="delivery-review-detail-box">
+
+                                        <small>
+                                            Category
+                                        </small>
+
+                                        <strong>
+                                            {{ request.category|default:"Not provided" }}
+                                        </strong>
+
+                                    </div>
+
+
+                                    <div class="delivery-review-detail-box">
+
+                                        <small>
+                                            Price
+                                        </small>
+
+                                        <strong>
+                                            {% if request.price %}
+                                                {{ request.price|floatformat:0 }} TSh
+                                            {% else %}
+                                                Not provided
+                                            {% endif %}
+                                        </strong>
+
+                                    </div>
+
+
+                                    <div class="delivery-review-detail-box">
+
+                                        <small>
+                                            Status
+                                        </small>
+
+                                        <strong>
+                                            {{ request.get_status_display }}
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- ADMIN NOTE -->
+
+                                {% if request.customer_note %}
+
+                                    <div class="delivery-review-note">
+
+                                        <small>
+                                            Previous customer note
+                                        </small>
+
+                                        <p>
+                                            {{ request.customer_note }}
+                                        </p>
+
+                                    </div>
+
+                                {% endif %}
+
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- REVIEW FORM -->
+
+                        <form method="post"
+                              action="{% url 'admin_review_delivery' request.id %}"
+                              class="delivery-review-form">
+
+                            {% csrf_token %}
+
+                            <textarea
+                                name="admin_note"
+                                disabled
+                                placeholder="Optional note from the customer..."
+                            >{{ request.customer_note }}</textarea>
+
+
+                            <div class="delivery-review-actions">
+
+
+                                {% if request.status == "pending" %}
+
+                                    <button type="button"
+                                            class="delivery-process"
+                                            onclick="openDeliveryModal(
+                                                this,
+                                                'processing',
+                                                'Start processing this delivery request?'
+                                            )">
+
+                                        Start processing
+
+                                    </button>
+
+                                {% endif %}
+
+
+                                {% if request.status == "processing" %}
+
+                                    <button type="button"
+                                            class="delivery-processed"
+                                            onclick="openDeliveryModal(
+                                                this,
+                                                'processed',
+                                                'Mark this delivery request as processed?'
+                                            )">
+
+                                        Mark as processed
+
+                                    </button>
+
+                                {% endif %}
+
+
+                                {% if request.status != "rejected" %}
+
+                                    <button type="button"
+                                            class="delivery-reject"
+                                            onclick="openDeliveryModal(
+                                                this,
+                                                'rejected',
+                                                'Are you sure you want to reject this delivery request?'
+                                            )">
+
+                                        Reject
+
+                                    </button>
+
+                                {% endif %}
+
+
+                                {% if request.status == "rejected" %}
+
+                                    <button type="button"
+                                            class="delivery-process"
+                                            onclick="openDeliveryModal(
+                                                this,
+                                                'processing',
+                                                'Move this rejected request back to processing?'
+                                            )">
+
+                                        Re-open request
+
+                                    </button>
+
+                                {% endif %}
+
+
+                            </div>
+
+                        </form>
+
+                    </article>
+
+
+                    {% empty %}
+
+                    <div class="delivery-review-empty">
+
+                        No delivery requests yet.
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================
+     CONFIRMATION MODAL
+================================= -->
+
+<div class="delivery-modal-overlay"
+     id="deliveryModal">
+
+    <div class="delivery-modal">
+
+        <div class="delivery-modal-icon">
+            !
+        </div>
+
+        <h3>
+            Confirm action
+        </h3>
+
+        <p id="deliveryModalMessage">
+            Are you sure?
+        </p>
+
+
+        <div class="delivery-modal-buttons">
+
+            <button type="button"
+                    class="modal-cancel"
+                    onclick="closeDeliveryModal()">
+
+                Cancel
+
+            </button>
+
+            <button type="button"
+                    class="modal-confirm"
+                    onclick="confirmDeliveryAction()">
+
+                Confirm
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================
+     JAVASCRIPT
+================================= -->
+
+<script>
+
+    /*
+     * Existing admin menu
+     */
+
+    function open_menu(click) {
+
+        const nav = document.getElementById("nav");
+
+        document.getElementById("menu1").style.display =
+            click === "open"
+                ? "none"
+                : "inline-block";
+
+        document.getElementById("menu2").style.display =
+            click === "open"
+                ? "inline-block"
+                : "none";
+
+        nav.style.display =
+            click === "open"
+                ? "inline-block"
+                : "none";
+    }
+
+
+    /*
+     * Delivery review modal
+     */
+
+    let selectedDeliveryForm = null;
+    let selectedDeliveryStatus = null;
+
+
+    function openDeliveryModal(button, status, message) {
+
+        selectedDeliveryForm = button.closest("form");
+
+        selectedDeliveryStatus = status;
+
+        document.getElementById("deliveryModalMessage").innerText =
+            message;
+
+        document.getElementById("deliveryModal").classList.add("active");
+    }
+
+
+    function closeDeliveryModal() {
+
+        selectedDeliveryForm = null;
+
+        selectedDeliveryStatus = null;
+
+        document.getElementById("deliveryModal")
+            .classList.remove("active");
+    }
+
+
+    function confirmDeliveryAction() {
+
+        if (!selectedDeliveryForm || !selectedDeliveryStatus) {
+            return;
+        }
+
+
+        /*
+         * Remove old hidden status input
+         * if one already exists.
+         */
+
+        const oldStatus =
+            selectedDeliveryForm.querySelector(
+                'input[name="status"]'
+            );
+
+        if (oldStatus) {
+            oldStatus.remove();
+        }
+
+
+        /*
+         * Create status input.
+         */
+
+        const statusInput =
+            document.createElement("input");
+
+        statusInput.type = "hidden";
+
+        statusInput.name = "status";
+
+        statusInput.value =
+            selectedDeliveryStatus;
+
+
+        selectedDeliveryForm.appendChild(statusInput);
+
+
+        /*
+         * Submit Django form.
+         */
+
+        selectedDeliveryForm.submit();
+    }
+
+
+    /*
+     * Close modal when clicking outside.
+     */
+
+    document.getElementById("deliveryModal")
+        .addEventListener("click", function(event) {
+
+            if (event.target === this) {
+
+                closeDeliveryModal();
+
+            }
+
+        });
+
+
+    /*
+     * ESC key closes modal.
+     */
+
+    document.addEventListener("keydown", function(event) {
+
+        if (event.key === "Escape") {
+
+            closeDeliveryModal();
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
+```

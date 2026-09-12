@@ -10,6 +10,11 @@ from django.contrib.auth.decorators import login_required
 # Message reading
 @login_required(login_url="login_seller")
 def mail_read(request, m_receiver):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+    
     if m_receiver == 'null':
         get_senders = (
             Mails.objects
@@ -59,6 +64,11 @@ def mail_read(request, m_receiver):
 # Unreaded messages
 @login_required(login_url="login_seller")
 def unreaded(request):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+    
     get_senders = (
                 Mails.objects
                 .filter(receiver_id=request.user.email, status='unread')
@@ -99,6 +109,11 @@ def unreaded(request):
 # readed messages
 @login_required(login_url="login_seller")
 def readed(request):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+    
     get_senders = (
                 Mails.objects
                 .filter(receiver_id=request.user.email, status='unread')
@@ -140,6 +155,11 @@ def readed(request):
 
 @login_required(login_url="login_seller")
 def sent_mails(request):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+    
     get_senders = (
                 Mails.objects
                 .filter(receiver_id=request.user.email, status='unread')
@@ -153,7 +173,7 @@ def sent_mails(request):
             sender_id=request.user.email)
             .values('receiver_id')
             .distinct()
-        )
+        ).order_by('-sent_at')
 
     search_content =  (
             Mails.objects
@@ -175,6 +195,11 @@ def sent_mails(request):
 # Compose message
 @login_required(login_url="login_seller")
 def compose_m(request, m_receiver):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+    
     if m_receiver == 'null':
         get_receivers = User.objects.all().order_by('username')
         get_senders = (
@@ -225,6 +250,11 @@ def compose_m(request, m_receiver):
 # Delete messages
 @login_required(login_url="login_seller")
 def delete_mail(request, id):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+    
     select_mail = get_object_or_404(Mails, id=id)
 
     current_user = request.user.email
@@ -245,9 +275,14 @@ def delete_mail(request, id):
 # Delete all mails
 @login_required(login_url="login_seller")
 def clear_mails(request, m_receiver):
-     messages = Mails.objects.filter(
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+    
+    messages = Mails.objects.filter(
                  Q(sender_id=request.user.email, receiver_id=m_receiver) | 
                  Q(sender_id=m_receiver, receiver_id=request.user.email)
                  )
-     messages.delete()
-     return redirect('mail_home')
+    messages.delete()
+    return redirect('mail_home')

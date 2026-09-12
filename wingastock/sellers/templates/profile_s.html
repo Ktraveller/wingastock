@@ -1,0 +1,34 @@
+<div class="title-holder-101" style="float: right;">
+    <button type="button" onclick="window.location.href=`{% url 'seller_account' %}`">
+        {% if user.seller.seller_dp %}
+        <img src="{{ user.seller.seller_dp.url }}" alt="Profile" class="seller-header-profile">
+        {% else %}
+        <i class="fas fa-user"></i>
+        {% endif %}
+
+        {{ user.email }}
+    </button>
+
+</div>
+
+
+<style>
+    .title-holder-101 button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+
+    .seller-header-profile {
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+        border-radius: 50%;
+        display: block;
+    }
+
+    .title-holder-101 button i {
+        font-size: 18px;
+    }
+</style>

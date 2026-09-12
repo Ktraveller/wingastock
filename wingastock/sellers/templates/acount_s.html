@@ -72,9 +72,7 @@
                             Wingastock | Seller
                         </span></button>
                 </div>
-                <div class="title-holder-101" style="float: right;">
-                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
-                </div>
+                {% include 'profile_s.html' %}
             </div>
         </div>
 
@@ -136,6 +134,27 @@
                     {% endfor %}
                 </div>
                 {% endif %}
+
+
+                <div class="input-holder-203" style="height: auto;">
+                    <p>
+                        <i class="fas fa-user"></i>
+                        Seller profile picture
+                    </p>
+
+                    <div style="height: auto;">
+                        {% if user.seller.seller_dp %}
+                        <img src="{{ user.seller.seller_dp.url }}" alt="Seller profile picture"
+                            style="width:100px;height:100px;object-fit:cover;border-radius:50%;">
+                        {% else %}
+                        <i class="fas fa-user-circle" style="font-size:80px;"></i>
+                        Not uploaded - <a href="{% url 'update_seller_information' %}"
+                            style="text-decoration: none; color: crimson; font-weight: bold;">Upload now</a>
+                        {% endif %}
+                    </div>
+
+                </div>
+
 
                 <div class="input-holder-203">
                     <p><i class="fas fa-user"></i>

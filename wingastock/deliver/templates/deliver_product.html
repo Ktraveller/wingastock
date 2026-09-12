@@ -64,7 +64,7 @@
                             class="fas fa-times"></i></button>
                 </div>
                 <div class="title-holder-101">
-                    <button type="button"><span>Wingastock | Seller</span></button>
+                    <button type="button"><span>Upload product</span></button>
                 </div>
                 <div class="title-holder-101" style="float: right;">
                     <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
@@ -114,10 +114,9 @@
                     <div class="seller-page-heading">
                         <div>
                             <span class="seller-kicker">PRODUCT STUDIO</span>
-                            <h1>Add a product</h1>
-                            <p>Show your product clearly and start conversations with new customers.</p>
+                            <h1>Upload a product</h1>
+                            <p>Show your product clearly for us to find it in markets.</p>
                         </div>
-                        <span class="seller-quota"><strong>{{ product_remain }}</strong> posts left</span>
                     </div>
 
                     {% if messages %}
@@ -154,7 +153,7 @@
 
 
                                 <div class="input-holder-203">
-                                    <p><i class="fas fa-tags"></i> Category</p>
+                                    <p><i class="fas fa-tags"></i> Category </p>
                                     <div>
 
                                         <select name="category" required>
@@ -188,23 +187,22 @@
 
 
                                 <div class="input-holder-203" style="height: 250px;">
-                                    <p><i class="fas fa-align-left"></i> Descriptions</p>
+                                    <p><i class="fas fa-align-left"></i> Descriptions </p>
                                     <div style="height: 200px;">
                                         <textarea name="description" required
                                             placeholder="e.g Quality product from ..."></textarea>
                                     </div>
                                 </div>
                                 <div class="input-holder-203">
-                                    <p><i class="fas fa-dollar-sign"></i> Price</p>
+                                    <p><i class="fas fa-dollar-sign"></i> Price (optional)</p>
                                     <div>
-                                        <input type="number" name="price" min="1" step="0.01" placeholder="e.g 1000.00"
-                                            required>
+                                        <input type="number" name="price" min="1" step="0.01" placeholder="e.g 1000.00">
                                     </div>
                                 </div>
 
                                 <div class="input-holder-203 submit-203">
                                     <div>
-                                        <button type="submit"><i class="fas fa-save"></i> Save product</button>
+                                        <button type="submit"><i class="fas fa-save"></i> Upload product</button>
                                     </div>
                                 </div>
                             </div>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from mails.models import Mails
 from sellers.models import Product, Product_informations, SellerPaymentRequest
@@ -7,6 +7,10 @@ from django.db.models import Count, Sum
 
 @login_required(login_url="login_seller")
 def seller_home(request):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
 
     products = Product.objects.filter(
         owner=request.user
@@ -57,4 +61,9 @@ def seller_home(request):
 # Seller terms and condtions
 @login_required(login_url="login_seller")
 def seller_terms_conditions(request):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+    
     return render(request, 'terms-conditions_s.html')

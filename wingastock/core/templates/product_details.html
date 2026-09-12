@@ -109,7 +109,8 @@
 
       <!-- Preview product -->
       <div class="preview-product-holder-003">
-        <div class="product-breadcrumb"><a href="{% url 'home' %}">Home</a><i class="fas fa-chevron-right"></i>{{ product.get_category_display }}</div>
+        <div class="product-breadcrumb"><a href="{% url 'home' %}">Home</a><i class="fas fa-chevron-right"></i>
+          {{ product.get_category_display }}</div>
 
         <div class="preview-product-004">
 
@@ -129,7 +130,8 @@
                 <div class="product-summary-content">
                   <span class="product-detail-category">{{ product.get_category_display }}</span>
                   <h1 class="product-detail-title">{{ product.title }}</h1>
-                  <div class="product-detail-seller"><i class="fas fa-store"></i> {{ product.owner.seller.seller_name }} <span><i class="fas fa-map-marker-alt"></i> {{ product.owner.seller.seller_address }}</span></div>
+                  <div class="product-detail-seller"><i class="fas fa-store"></i> {{ product.owner.seller.seller_name }}
+                    <span><i class="fas fa-map-marker-alt"></i> {{ product.owner.seller.seller_address }}</span></div>
                   <div class="product-detail-price">{{ product.price|floatformat:0|intcomma }} <small>TSh</small></div>
                   <p style="font-weight: bold;"><i class="fas fa-align-left"></i> Descriptions</p>
 
@@ -505,7 +507,7 @@
 
 
 
-  <script>
+<script>
     const shareBtn = document.getElementById("shareBtn");
 
     shareBtn.addEventListener("click", async () => {
@@ -513,821 +515,129 @@
       try {
 
         // =====================================================
-        // PRODUCT DATA
+        // PRODUCT INFORMATION
         // =====================================================
 
-        const imageUrl = "{{ product.image.url|escapejs }}"
-          .replace(/^http:\/\//i, "https://");
+        const imageUrl =
+          "{{ product.image.url|escapejs }}"
+            .replace(/^http:\/\//i, "https://");
 
         const productTitle =
           "{{ product.title|escapejs }}";
 
         const productPrice =
-          "{{ product.price|floatformat:0|intcomma }}";
+          "{{ product.price|floatformat:0|intcomma|escapejs }}";
+
+        const productDescription =
+          "{{ product.description|default:'No description provided.'|escapejs }}";
 
         const sellerName =
           "{{ product.owner.seller.seller_name|default:product.owner.get_full_name|default:product.owner.username|escapejs }}";
 
+        const sellerPhone =
+          "{{ product.owner.seller.seller_phone|default:'Not provided'|escapejs }}";
+
         const sellerLocation =
-          "{{ product.owner.seller.seller_address|escapejs }}";
-
-        const productDescription =
-          "{{ product.description|default:'Hakuna maelezo ya bidhaa.'|escapejs }}";
+          "{{ product.owner.seller.seller_address|default:'Not provided'|escapejs }}";
 
 
         // =====================================================
-        // COLORS
+        // UPLOADED DATE
         // =====================================================
 
-        const crimson = "#DC143C";
-        const darkCrimson = "#B01030";
-        const white = "#FFFFFF";
-        const black = "#222222";
-        const gray = "#666666";
-        const lightGray = "#EEEEEE";
-        const softWhite = "#FAFAFA";
+        const uploadedDate =
+          "{{ product.created_at|date:'d M Y'|default:'Not provided'|escapejs }}";
+
+
+        // =====================================================
+        // PRODUCT LINK
+        // =====================================================
+
+        const productLink =
+          window.location.href;
+
+
+        // =====================================================
+        // SHARE TEXT WITH ICONS
+        // =====================================================
+
+        const shareText =
+`🛍️ ${productTitle}
+
+💰 Price: TSh ${productPrice}
+
+📝 Description:
+${productDescription}
+
+👤 Seller:
+${sellerName}
+
+📞 Contact:
+${sellerPhone}
+
+📍 Location:
+${sellerLocation}
+
+📅 Uploaded:
+${uploadedDate}
+
+🔗 View this product on WingaStock:
+${productLink}
+
+🛒 Find more products on WingaStock.`;
 
 
         // =====================================================
         // LOAD PRODUCT IMAGE
         // =====================================================
 
-        const productImage = new Image();
+        const response =
+          await fetch(imageUrl, {
+            mode: "cors"
+          });
 
-        productImage.crossOrigin = "anonymous";
-        productImage.src = imageUrl;
-
-        await new Promise((resolve, reject) => {
-
-          productImage.onload = resolve;
-
-          productImage.onerror = () => reject(
-            new Error("Unable to load product image.")
+        if (!response.ok) {
+          throw new Error(
+            "Unable to load product image."
           );
-
-        });
-
-
-        // =====================================================
-        // LOAD LOGO
-        // =====================================================
-
-        const logo = new Image();
-
-        logo.src = "{% static 'logo.png' %}";
-
-        await new Promise((resolve) => {
-
-          logo.onload = resolve;
-          logo.onerror = resolve;
-
-        });
-
-
-        // =====================================================
-        // CANVAS SETTINGS
-        // =====================================================
-
-        const canvas =
-          document.createElement("canvas");
-
-        const width = 1080;
-        const height = 1350;
-
-        canvas.width = width;
-        canvas.height = height;
-
-        const ctx =
-          canvas.getContext("2d");
-
-
-        // =====================================================
-        // HELPER: ROUNDED RECTANGLE
-        // =====================================================
-
-        function roundedRect(
-          ctx,
-          x,
-          y,
-          width,
-          height,
-          radius
-        ) {
-
-          ctx.beginPath();
-
-          ctx.moveTo(
-            x + radius,
-            y
-          );
-
-          ctx.lineTo(
-            x + width - radius,
-            y
-          );
-
-          ctx.quadraticCurveTo(
-            x + width,
-            y,
-            x + width,
-            y + radius
-          );
-
-          ctx.lineTo(
-            x + width,
-            y + height - radius
-          );
-
-          ctx.quadraticCurveTo(
-            x + width,
-            y + height,
-            x + width - radius,
-            y + height
-          );
-
-          ctx.lineTo(
-            x + radius,
-            y + height
-          );
-
-          ctx.quadraticCurveTo(
-            x,
-            y + height,
-            x,
-            y + height - radius
-          );
-
-          ctx.lineTo(
-            x,
-            y + radius
-          );
-
-          ctx.quadraticCurveTo(
-            x,
-            y,
-            x + radius,
-            y
-          );
-
-          ctx.closePath();
         }
-
-
-        // =====================================================
-        // HELPER: WRAP TEXT
-        // =====================================================
-
-        function wrapText(
-          text,
-          x,
-          y,
-          maxWidth,
-          lineHeight,
-          maxLines
-        ) {
-
-          if (!text) {
-            return y;
-          }
-
-          const words =
-            text.split(/\s+/);
-
-          let line = "";
-          let lines = [];
-
-          for (
-            let i = 0;
-            i < words.length;
-            i++
-          ) {
-
-            const testLine =
-              line + words[i] + " ";
-
-            const testWidth =
-              ctx.measureText(testLine).width;
-
-
-            if (
-              testWidth > maxWidth &&
-              line !== ""
-            ) {
-
-              lines.push(
-                line.trim()
-              );
-
-              line =
-                words[i] + " ";
-
-            } else {
-
-              line =
-                testLine;
-            }
-          }
-
-
-          if (line.trim()) {
-
-            lines.push(
-              line.trim()
-            );
-
-          }
-
-
-          // Maximum lines
-
-          lines =
-            lines.slice(
-              0,
-              maxLines
-            );
-
-
-          lines.forEach(
-            (lineText, index) => {
-
-              ctx.fillText(
-                lineText,
-                x,
-                y + (
-                  index *
-                  lineHeight
-                )
-              );
-
-            }
-          );
-
-
-          return y +
-            (
-              lines.length *
-              lineHeight
-            );
-        }
-
-
-        // =====================================================
-        // BACKGROUND
-        // =====================================================
-
-        ctx.fillStyle =
-          white;
-
-        ctx.fillRect(
-          0,
-          0,
-          width,
-          height
-        );
-
-
-        // =====================================================
-        // HEADER
-        // =====================================================
-
-        ctx.fillStyle =
-          crimson;
-
-        ctx.fillRect(
-          0,
-          0,
-          width,
-          115
-        );
-
-
-        // =====================================================
-        // LOGO
-        // =====================================================
-
-        if (
-          logo.complete &&
-          logo.naturalWidth > 0
-        ) {
-
-          ctx.drawImage(
-            logo,
-            40,
-            18,
-            78,
-            78
-          );
-
-        }
-
-
-        // =====================================================
-        // WINGASTOCK NAME
-        // =====================================================
-
-        ctx.fillStyle =
-          white;
-
-        ctx.font =
-          "bold 43px Arial";
-
-        ctx.textAlign =
-          "left";
-
-        ctx.fillText(
-          "Wingastock",
-          135,
-          70
-        );
-
-
-        // =====================================================
-        // PRODUCT IMAGE CARD
-        // =====================================================
-
-        const imageX = 50;
-        const imageY = 145;
-        const imageWidth = 980;
-        const imageHeight = 500;
-
-
-        // Card
-
-        ctx.fillStyle =
-          softWhite;
-
-        roundedRect(
-          ctx,
-          imageX,
-          imageY,
-          imageWidth,
-          imageHeight,
-          25
-        );
-
-        ctx.fill();
-
-
-        // Border
-
-        ctx.strokeStyle =
-          lightGray;
-
-        ctx.lineWidth =
-          3;
-
-        roundedRect(
-          ctx,
-          imageX,
-          imageY,
-          imageWidth,
-          imageHeight,
-          25
-        );
-
-        ctx.stroke();
-
-
-        // =====================================================
-        // PRODUCT IMAGE CROP
-        // =====================================================
-
-        const imageRatio =
-          productImage.width /
-          productImage.height;
-
-        const boxRatio =
-          imageWidth /
-          imageHeight;
-
-
-        let sourceX = 0;
-        let sourceY = 0;
-
-        let sourceWidth =
-          productImage.width;
-
-        let sourceHeight =
-          productImage.height;
-
-
-        if (
-          imageRatio > boxRatio
-        ) {
-
-          sourceWidth =
-            productImage.height *
-            boxRatio;
-
-          sourceX =
-            (
-              productImage.width -
-              sourceWidth
-            ) / 2;
-
-        } else {
-
-          sourceHeight =
-            productImage.width /
-            boxRatio;
-
-          sourceY =
-            (
-              productImage.height -
-              sourceHeight
-            ) / 2;
-        }
-
-
-        ctx.save();
-
-
-        roundedRect(
-          ctx,
-          imageX,
-          imageY,
-          imageWidth,
-          imageHeight,
-          25
-        );
-
-        ctx.clip();
-
-
-        ctx.drawImage(
-          productImage,
-          sourceX,
-          sourceY,
-          sourceWidth,
-          sourceHeight,
-          imageX,
-          imageY,
-          imageWidth,
-          imageHeight
-        );
-
-
-        ctx.restore();
-
-
-        // =====================================================
-        // PRODUCT NAME
-        // =====================================================
-
-        ctx.fillStyle =
-          crimson;
-
-        ctx.font =
-          "bold 43px Arial";
-
-        ctx.textAlign =
-          "left";
-
-
-        wrapText(
-          productTitle,
-          50,
-          710,
-          680,
-          52,
-          2
-        );
-
-
-        // =====================================================
-        // PRICE
-        // =====================================================
-
-        const priceText =
-          "TSh " + productPrice;
-
-
-        ctx.font =
-          "bold 40px Arial";
-
-
-        const priceWidth =
-          ctx.measureText(
-            priceText
-          ).width + 60;
-
-
-        ctx.fillStyle =
-          crimson;
-
-
-        roundedRect(
-          ctx,
-          width -
-          priceWidth -
-          50,
-          680,
-          priceWidth,
-          70,
-          18
-        );
-
-        ctx.fill();
-
-
-        ctx.fillStyle =
-          white;
-
-        ctx.textAlign =
-          "center";
-
-        ctx.fillText(
-          priceText,
-          width -
-          (
-            priceWidth / 2
-          ) -
-          50,
-          727
-        );
-
-
-        // =====================================================
-        // DIVIDER
-        // =====================================================
-
-        ctx.strokeStyle =
-          lightGray;
-
-        ctx.lineWidth =
-          2;
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-          50,
-          785
-        );
-
-        ctx.lineTo(
-          1030,
-          785
-        );
-
-        ctx.stroke();
-
-
-        // =====================================================
-        // SELLER INFORMATION
-        // =====================================================
-
-        ctx.textAlign =
-          "left";
-
-
-        // SELLER TITLE
-
-        ctx.fillStyle =
-          crimson;
-
-        ctx.font =
-          "bold 28px Arial";
-
-        ctx.fillText(
-          "SELLER",
-          50,
-          835
-        );
-
-
-        // =====================================================
-        // SELLER NAME
-        // =====================================================
-
-        ctx.fillStyle =
-          gray;
-
-        ctx.font =
-          "23px Arial";
-
-        ctx.fillText(
-          "Jina:",
-          50,
-          880
-        );
-
-
-        ctx.fillStyle =
-          black;
-
-        ctx.font =
-          "bold 25px Arial";
-
-        ctx.fillText(
-          sellerName || "Seller",
-          145,
-          880
-        );
-
-
-        // =====================================================
-        // SELLER LOCATION
-        // =====================================================
-
-        ctx.fillStyle =
-          gray;
-
-        ctx.font =
-          "23px Arial";
-
-        ctx.fillText(
-          "Location:",
-          50,
-          925
-        );
-
-
-        ctx.fillStyle =
-          black;
-
-        ctx.font =
-          "25px Arial";
-
-
-        // Long location wrapping
-
-        wrapText(
-          sellerLocation || "-",
-          175,
-          925,
-          850,
-          32,
-          2
-        );
-
-
-        // =====================================================
-        // DESCRIPTION TITLE
-        // =====================================================
-
-        ctx.fillStyle =
-          crimson;
-
-        ctx.font =
-          "bold 28px Arial";
-
-        ctx.fillText(
-          "DESCRIPTION",
-          50,
-          995
-        );
-
-
-        // =====================================================
-        // DESCRIPTION
-        // =====================================================
-
-        ctx.fillStyle =
-          black;
-
-        ctx.font =
-          "24px Arial";
-
-
-        wrapText(
-          productDescription,
-          50,
-          1035,
-          980,
-          35,
-          3
-        );
-
-
-        // =====================================================
-        // FOOTER DIVIDER
-        // =====================================================
-
-        ctx.strokeStyle =
-          crimson;
-
-        ctx.lineWidth =
-          3;
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-          50,
-          1160
-        );
-
-        ctx.lineTo(
-          1030,
-          1160
-        );
-
-        ctx.stroke();
-
-
-        // =====================================================
-        // FOOTER MESSAGE
-        // =====================================================
-
-        ctx.textAlign =
-          "center";
-
-        ctx.fillStyle =
-          crimson;
-
-        ctx.font =
-          "bold 28px Arial";
-
-        ctx.fillText(
-          "Bidhaa hii na bidhaa zaidi",
-          width / 2,
-          1210
-        );
-
-        ctx.fillText(
-          "zinapatikana Wingastock",
-          width / 2,
-          1250
-        );
-
-
-        // =====================================================
-        // WINGASTOCK
-        // =====================================================
-
-        ctx.fillStyle =
-          gray;
-
-        ctx.font =
-          "22px Arial";
-
-        ctx.fillText(
-          "Wingastock",
-          width / 2,
-          1295
-        );
-
-
-        // =====================================================
-        // RESET ALIGNMENT
-        // =====================================================
-
-        ctx.textAlign =
-          "left";
-
-
-        // =====================================================
-        // CREATE CANVAS IMAGE
-        // =====================================================
 
         const blob =
-          await new Promise(
-            resolve => {
-
-              canvas.toBlob(
-                resolve,
-                "image/jpeg",
-                0.95
-              );
-
-            }
-          );
+          await response.blob();
 
 
-        if (!blob) {
+        // =====================================================
+        // CREATE IMAGE FILE
+        // =====================================================
 
-          throw new Error(
-            "Failed to create Canvas image."
-          );
+        let extension = "jpg";
 
+        if (blob.type === "image/png") {
+          extension = "png";
+        }
+        else if (blob.type === "image/webp") {
+          extension = "webp";
         }
 
-
-        // =====================================================
-        // CANVAS FILE ONLY
-        // NO URL
-        // NO PRODUCT LINK
-        // =====================================================
-
-        const file =
+        const imageFile =
           new File(
             [blob],
-            "wingastock-product.jpg",
+            "wingastock-product." + extension,
             {
-              type:
-                "image/jpeg"
+              type: blob.type
             }
           );
 
 
         // =====================================================
-        // SHARE CANVAS ONLY
+        // NATIVE SHARE
         // =====================================================
 
         if (
           navigator.share &&
           navigator.canShare &&
           navigator.canShare({
-            files: [file]
+            files: [imageFile]
           })
         ) {
 
@@ -1336,72 +646,151 @@
             title:
               productTitle,
 
-            files: [file]
+            text:
+              shareText,
+
+            files: [
+              imageFile
+            ]
 
           });
 
         }
 
-        else {
 
-          // =================================================
-          // FALLBACK DOWNLOAD
-          // =================================================
+        // =====================================================
+        // FALLBACK: TEXT + LINK
+        // =====================================================
 
-          const imageURL =
-            URL.createObjectURL(
-              blob
-            );
+        else if (navigator.share) {
 
+          await navigator.share({
 
-          const downloadLink =
-            document.createElement(
-              "a"
-            );
+            title:
+              productTitle,
 
+            text:
+              shareText,
 
-          downloadLink.href =
-            imageURL;
+            url:
+              productLink
 
-          downloadLink.download =
-            "wingastock-product.jpg";
-
-
-          document.body.appendChild(
-            downloadLink
-          );
-
-
-          downloadLink.click();
-
-
-          document.body.removeChild(
-            downloadLink
-          );
-
-
-          URL.revokeObjectURL(
-            imageURL
-          );
+          });
 
         }
 
 
+        // =====================================================
+        // BROWSER DOES NOT SUPPORT SHARE
+        // =====================================================
+
+        else {
+
+          await navigator.clipboard.writeText(
+            shareText
+          );
+
+          alert(
+            "Product information and link copied successfully."
+          );
+
+        }
+
       } catch (error) {
 
+        // =====================================================
+        // USER CANCELLED SHARE
+        // =====================================================
+
+        if (
+          error.name === "AbortError"
+        ) {
+          return;
+        }
+
+
         console.error(
-          "Wingastock Canvas Error:",
+          "WingaStock Share Error:",
           error
         );
 
-        alert(
-          "Imeshindikana kutengeneza Canvas image."
-        );
+
+        // =====================================================
+        // FALLBACK SHARE
+        // =====================================================
+
+        try {
+
+          const fallbackText =
+`🛍️ ${productTitle}
+
+💰 Price: TSh ${productPrice}
+
+📝 Description:
+${productDescription}
+
+👤 Seller:
+${sellerName}
+
+📞 Contact:
+${sellerPhone}
+
+📍 Location:
+${sellerLocation}
+
+📅 Uploaded:
+${uploadedDate}
+
+🔗 View this product on WingaStock:
+${productLink}`;
+
+
+          if (navigator.share) {
+
+            await navigator.share({
+
+              title:
+                productTitle,
+
+              text:
+                fallbackText,
+
+              url:
+                productLink
+
+            });
+
+          }
+          else {
+
+            await navigator.clipboard.writeText(
+              fallbackText
+            );
+
+            alert(
+              "Product information and link copied successfully."
+            );
+
+          }
+
+        } catch (fallbackError) {
+
+          console.error(
+            "WingaStock Share Fallback Error:",
+            fallbackError
+          );
+
+          alert(
+            "Unable to share this product."
+          );
+
+        }
 
       }
 
     });
-  </script>
+</script>
+
 
 </body>
 

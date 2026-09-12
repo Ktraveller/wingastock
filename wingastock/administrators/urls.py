@@ -4,6 +4,8 @@ from administrators.views_a.index import admin_home
 from administrators.views_a.products import admin_products, delete_product, preview_p
 from administrators.views_a.sellers import sellers, delete_seller
 from administrators.views_a.payments import payment_requests, review_payment_request
+from administrators.views_a.delivery import delivery_requests, review_delivery_request
+from administrators.views_a.mail import admin_mail
 
 urlpatterns = [
     path('', admin_home, name='admin_home'),
@@ -12,6 +14,9 @@ urlpatterns = [
     path('seller_delete_a/<int:id>/', delete_seller, name='delete_seller'),
     path('payment-requests/', payment_requests, name='admin_payment_requests'),
     path('payment-requests/<int:id>/review/', review_payment_request, name='admin_review_payment'),
+    path('delivery-requests/', delivery_requests, name='admin_delivery_requests'),
+    path('delivery-requests/<int:id>/review/', review_delivery_request, name='admin_review_delivery'),
+    path('mail/', admin_mail, name='admin_mail'),
     path('privilege_a/preview/<int:id>', preview_p, name='admin_preview_p'),
     path('privilege_a/delete-product/<int:id>', delete_product, name='delete_product'),
 

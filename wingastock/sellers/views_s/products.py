@@ -13,6 +13,11 @@ from django.conf import settings
 # Product list
 @login_required(login_url="login_seller")
 def seller_products(request):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+    
     products = Product.objects.filter(
         owner=request.user
         ).order_by('created_at')
@@ -38,6 +43,11 @@ def seller_products(request):
 # Add product
 @login_required(login_url="login_seller")
 def seller_add_product(request):
+
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
 
     # ==========================================
     # CHECK USER
@@ -424,6 +434,12 @@ def seller_add_product(request):
 # Payment alert
 @login_required(login_url="login_seller")
 def seller_payment_alert(request):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+
+    
     base_package = 5
     price_per_package = 1000
     payment_number = getattr(settings, "SELLER_PAYMENT_NUMBER", "Winga Pay number set by admin")
@@ -477,6 +493,10 @@ def seller_payment_alert(request):
 # Edit products
 @login_required(login_url="login_seller")
 def seller_edit_product(request, id):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
 
     # ==========================================
     # GET PRODUCT
@@ -873,6 +893,11 @@ def seller_edit_product(request, id):
 # Preview product
 @login_required(login_url="login_seller")
 def seller_preview_p(request, id):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+    
     product = get_object_or_404(
             Product,
             id=id,
@@ -886,6 +911,11 @@ def seller_preview_p(request, id):
 # Delete product
 @login_required(login_url="login_seller")
 def seller_delete_product(request, id):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+    
     product = get_object_or_404(
             Product,
             id=id,
@@ -906,6 +936,11 @@ def seller_delete_product(request, id):
 # Make product visible
 @login_required(login_url="login_seller")
 def make_product_visible(request, id):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+    
     product = get_object_or_404(
             Product,
             id=id,
@@ -929,6 +964,12 @@ def make_product_visible(request, id):
 # Hide product
 @login_required(login_url="login_seller")
 def make_product_hide(request, id):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+
+    
     product = get_object_or_404(
             Product,
             id=id,

@@ -15,7 +15,12 @@ class Seller(models.Model):
     seller_phone = models.CharField(max_length=20)
     seller_address = models.CharField(max_length=255)
     seller_description = models.TextField()
-    seller_dp = models.ImageField(upload_to='sellers/', blank=True, null=True)
+    seller_dp = CloudinaryField(
+        "seller profile picture",
+        folder="profile_picture",
+        blank=True,
+        null=True
+    )
     reg_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -37,7 +42,7 @@ class SellerPaymentRequest(models.Model):
     requested_products = models.PositiveIntegerField()
     amount = models.PositiveIntegerField()
     payment_reference = models.CharField(max_length=120, blank=True)
-    screenshot = CloudinaryField("payment screenshot")
+    screenshot = CloudinaryField("payment screenshot", folder="payment_screenshot",)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     admin_note = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -28,5 +28,10 @@ def admin_login(request):
 
 @login_required(login_url="login_admin")
 def admin_logout(request):
+
+    # Only staff/admin users can access this page
+    if not request.user.is_staff:
+        return redirect("login_admin")
+    
     logout(request)
     return redirect("login_admin")

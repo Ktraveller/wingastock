@@ -12,6 +12,11 @@ from sellers.models import Product
 # Product list
 @login_required(login_url="login_admin")
 def admin_products(request):
+
+    # Only staff/admin users can access this page
+    if not request.user.is_staff:
+        return redirect("login_admin")
+    
     products = Product.objects.all().order_by('created_at')
     return render(request, 'products_a.html', {
         'products': products
@@ -23,6 +28,11 @@ def admin_products(request):
 # Preview product
 @login_required(login_url="login_admin")
 def preview_p(request, id):
+
+    # Only staff/admin users can access this page
+    if not request.user.is_staff:
+        return redirect("login_admin")
+    
     product = get_object_or_404(Product, id=id)
     return render(request, 'preview_a.html', {
             'product': product,
@@ -32,6 +42,11 @@ def preview_p(request, id):
 # Delete product
 @login_required(login_url="login_admin")
 def delete_product(request, id):
+
+    # Only staff/admin users can access this page
+    if not request.user.is_staff:
+        return redirect("login_admin")
+    
     product = get_object_or_404(Product, id=id)
 
     # Delete image from Cloudinary

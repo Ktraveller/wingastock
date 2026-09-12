@@ -8,11 +8,7 @@
 
         <a href="{% url 'home' %}" class="wingastock-brand">
 
-            <img
-                src="{% static 'logo.png' %}"
-                alt="Wingastock"
-                class="wingastock-logo"
-            >
+            <img src="{% static 'logo.png' %}" alt="Wingastock" class="wingastock-logo">
 
             <span class="wingastock-title">
                 Wingastock
@@ -29,21 +25,12 @@
 
             {% if search == 'search' %}
 
-                <input
-                    type="search"
-                    id="searchInput"
-                    placeholder="Search products, shops and more..."
-                    autocomplete="off"
-                >
+            <input type="search" id="searchInput" placeholder="Search products, shops and more..." autocomplete="off">
 
             {% else %}
 
-                <input
-                    type="search"
-                    placeholder="Search products, shops and more..."
-                    onclick="window.location.href=`{% url 'search' %}`"
-                    readonly
-                >
+            <input type="search" placeholder="Search products, shops and more..."
+                onclick="window.location.href=`{% url 'search' %}`" readonly>
 
             {% endif %}
 
@@ -56,71 +43,53 @@
 
             {% if user.is_authenticated %}
 
-                <!-- CART -->
+            <!-- CART -->
 
-                <button
-                    type="button"
-                    class="wingastock-icon"
-                    onclick="open_cart(1)"
-                    aria-label="Shopping cart"
-                >
-                    <i class="fas fa-shopping-cart"></i>
-                </button>
+            <button type="button" class="wingastock-icon" onclick="open_cart(1)" aria-label="Shopping cart">
+                <i class="fas fa-shopping-cart"></i>
+            </button>
 
 
-                <!-- NOTIFICATIONS -->
+            <!-- NOTIFICATIONS -->
 
-                <button
-                    type="button"
-                    class="wingastock-icon notification-button"
-                    onclick="open_notification(1)"
-                    aria-label="Notifications"
-                >
+            <button type="button" class="wingastock-icon notification-button" onclick="open_notification(1)"
+                aria-label="Notifications">
 
-                    <i class="fas fa-bell"></i>
+                <i class="fas fa-bell"></i>
 
-                    {% if mails %}
-                        <span class="notification-badge">
-                            {{ mails|length }}
-                        </span>
-                    {% endif %}
+                {% if mails %}
+                <span class="notification-badge">
+                    {{ mails|length }}
+                </span>
+                {% endif %}
 
-                </button>
+            </button>
 
 
-                <!-- USER -->
+            <!-- USER -->
 
-                <button
-                    type="button"
-                    class="wingastock-user"
-                    onclick="open_user(1)"
-                    aria-label="Account"
-                >
+            <button type="button" class="wingastock-user" onclick="open_user(1)" aria-label="Account">
 
-                    <span class="wingastock-avatar">
-                        <i class="fas fa-user"></i>
-                    </span>
+                <span class="wingastock-avatar">
+                    <i class="fas fa-user"></i>
+                </span>
 
-                    <span class="wingastock-user-email">
-                        {{ user.email }}
-                    </span>
+                <span class="wingastock-user-email">
+                    {{ user.email }}
+                </span>
 
-                    <i class="fas fa-chevron-down user-arrow"></i>
+                <i class="fas fa-chevron-down user-arrow"></i>
 
-                </button>
+            </button>
 
 
             {% else %}
 
-                <!-- LOGIN -->
+            <!-- LOGIN -->
 
-                <button
-                    type="button"
-                    class="wingastock-login"
-                    onclick="open_login_modal(1)"
-                >
-                    Login
-                </button>
+            <button type="button" class="wingastock-login" onclick="open_login_modal(1)">
+                Login
+            </button>
 
             {% endif %}
 
@@ -139,11 +108,7 @@
 
     <div>
 
-        <button
-            type="button"
-            class="panel-close"
-            onclick="open_user(0)"
-        >
+        <button type="button" class="panel-close" onclick="open_user(0)">
             <i class="fas fa-times"></i>
         </button>
 
@@ -169,7 +134,18 @@
 
         <ul class="user-1003 account-menu">
 
-            <li onclick="open_notification(1); open_user(0);">
+            <li onclick="open_cart(1);">
+
+                <i class="fas fa-shopping-cart"></i>
+
+                <span>
+                    Your cart
+                </span>
+
+            </li>
+
+
+            <li onclick="open_notification(1);">
 
                 <i class="fas fa-bell"></i>
 
@@ -177,17 +153,10 @@
                     Notifications
                 </span>
 
-                {% if mails %}
-                    <strong>{{ mails|length }}</strong>
-                {% endif %}
-
             </li>
 
 
-            <li
-                class="logout-item"
-                onclick="window.location.href=`{% url 'customer_logout' %}`"
-            >
+            <li class="logout-item" onclick="window.location.href=`{% url 'customer_logout' %}`">
 
                 <i class="fas fa-sign-out-alt"></i>
 
@@ -208,18 +177,11 @@
      NOTIFICATIONS
      ===================================================== -->
 
-<div
-    class="user-info-holder-1003 wingastock-panel"
-    id="user_notifications"
->
+<div class="user-info-holder-1003 wingastock-panel" id="user_notifications">
 
     <div>
 
-        <button
-            type="button"
-            class="panel-close"
-            onclick="open_notification(0)"
-        >
+        <button type="button" class="panel-close" onclick="open_notification(0)">
             <i class="fas fa-times"></i>
         </button>
 
@@ -231,7 +193,7 @@
             </h3>
 
             {% if mails %}
-                <span>{{ mails|length }} new</span>
+            <span>{{ mails|length }} new</span>
             {% endif %}
 
         </div>
@@ -241,50 +203,48 @@
 
             {% for mail in mails %}
 
-                <li
-                    onclick="window.location.href=`{% url 'mail_read_c' mail.sender_id %}`"
-                >
+            <li onclick="window.location.href=`{% url 'mail_read_c' mail.sender_id %}`">
 
-                    <div class="notification-icon">
+                <div class="notification-icon">
 
-                        <i class="fas fa-envelope"></i>
+                    <i class="fas fa-envelope"></i>
 
-                    </div>
+                </div>
 
 
-                    <div class="notification-content">
-
-                        <strong>
-                            {{ mail.sender_id }}
-                        </strong>
-
-                        <span>
-                            {{ mail.message }}
-                        </span>
-
-                        <small>
-                            {{ mail.sent_at }}
-                        </small>
-
-                    </div>
-
-                </li>
-
-            {% empty %}
-
-                <div class="empty-panel">
-
-                    <i class="fas fa-bell"></i>
+                <div class="notification-content">
 
                     <strong>
-                        No notifications
+                        {{ mail.sender_id }}
                     </strong>
 
                     <span>
-                        You're all caught up.
+                        {{ mail.message }}
                     </span>
 
+                    <small>
+                        {{ mail.sent_at }}
+                    </small>
+
                 </div>
+
+            </li>
+
+            {% empty %}
+
+            <div class="empty-panel">
+
+                <i class="fas fa-bell"></i>
+
+                <strong>
+                    No notifications
+                </strong>
+
+                <span>
+                    You're all caught up.
+                </span>
+
+            </div>
 
             {% endfor %}
 
@@ -299,18 +259,11 @@
      CART
      ===================================================== -->
 
-<div
-    class="user-info-holder-1003 wingastock-panel"
-    id="user_cart"
->
+<div class="user-info-holder-1003 wingastock-panel" id="user_cart">
 
     <div>
 
-        <button
-            type="button"
-            class="panel-close"
-            onclick="open_cart(0)"
-        >
+        <button type="button" class="panel-close" onclick="open_cart(0)">
             <i class="fas fa-times"></i>
         </button>
 
@@ -349,125 +302,141 @@
 
 <script>
 
-/* =====================================================
-   HEADER SCROLL
-   ===================================================== */
+    /* =====================================================
+       HEADER SCROLL
+       ===================================================== */
 
-let lastScrollTop = 0;
+    let lastScrollTop = 0;
 
-const header =
-    document.querySelector('.wingastock-header');
-
-
-window.addEventListener('scroll', function () {
-
-    const currentScroll =
-        window.pageYOffset ||
-        document.documentElement.scrollTop;
+    const header =
+        document.querySelector('.wingastock-header');
 
 
-    if (currentScroll <= 0) {
+    window.addEventListener('scroll', function () {
 
-        header.classList.remove('hide-header');
+        const currentScroll =
+            window.pageYOffset ||
+            document.documentElement.scrollTop;
 
-        lastScrollTop = 0;
 
-        return;
+        if (currentScroll <= 0) {
+
+            header.classList.remove('hide-header');
+
+            lastScrollTop = 0;
+
+            return;
+
+        }
+
+
+        if (currentScroll > lastScrollTop) {
+
+            header.classList.add('hide-header');
+
+        } else {
+
+            header.classList.remove('hide-header');
+
+        }
+
+
+        lastScrollTop = currentScroll;
+
+    });
+
+
+    /* =====================================================
+       CLOSE ALL PANELS
+       ===================================================== */
+
+    function closePanels() {
+
+        document.getElementById('user_info').style.display = 'none';
+
+        document.getElementById('user_notifications').style.display = 'none';
+
+        document.getElementById('user_cart').style.display = 'none';
+
+    }
+
+
+    /* =====================================================
+       ACCOUNT
+       ===================================================== */
+
+    function open_user(click) {
+
+        closePanels();
+
+        const user =
+            document.getElementById('user_info');
+
+
+        if (click == 1) {
+
+            user.style.display = 'block';
+
+        }
 
     }
 
 
-    if (currentScroll > lastScrollTop) {
+    /* =====================================================
+       NOTIFICATIONS
+       ===================================================== */
 
-        header.classList.add('hide-header');
+    function open_notification(click) {
 
-    } else {
+        closePanels();
 
-        header.classList.remove('hide-header');
-
-    }
-
-
-    lastScrollTop = currentScroll;
-
-});
+        const notifications =
+            document.getElementById('user_notifications');
 
 
-/* =====================================================
-   CLOSE ALL PANELS
-   ===================================================== */
+        if (click == 1) {
 
-function closePanels() {
+            notifications.style.display = 'block';
 
-    document.getElementById('user_info').style.display = 'none';
-
-    document.getElementById('user_notifications').style.display = 'none';
-
-    document.getElementById('user_cart').style.display = 'none';
-
-}
-
-
-/* =====================================================
-   ACCOUNT
-   ===================================================== */
-
-function open_user(click) {
-
-    closePanels();
-
-    const user =
-        document.getElementById('user_info');
-
-
-    if (click == 1) {
-
-        user.style.display = 'block';
+        }
 
     }
 
-}
+
+    /* =====================================================
+       CART
+       ===================================================== */
+
+    function open_cart(click) {
+
+        closePanels();
+
+        const cart =
+            document.getElementById('user_cart');
 
 
-/* =====================================================
-   NOTIFICATIONS
-   ===================================================== */
+        if (click == 1) {
 
-function open_notification(click) {
+            cart.style.display = 'block';
 
-    closePanels();
-
-    const notifications =
-        document.getElementById('user_notifications');
-
-
-    if (click == 1) {
-
-        notifications.style.display = 'block';
-
-    }
-
-}
-
-
-/* =====================================================
-   CART
-   ===================================================== */
-
-function open_cart(click) {
-
-    closePanels();
-
-    const cart =
-        document.getElementById('user_cart');
-
-
-    if (click == 1) {
-
-        cart.style.display = 'block';
+        }
 
     }
-
-}
 
 </script>
+
+
+
+<style>
+
+    .wingastock-avatar {
+        background: transparent;
+    }
+
+    @media only screen and (min-width: 768px) {
+
+        .wingastock-avatar {
+            background: whitesmoke;
+        }
+    }
+</style>

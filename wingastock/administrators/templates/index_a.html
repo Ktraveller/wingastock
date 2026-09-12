@@ -62,6 +62,18 @@
                     </ul>
 
                     <ul>
+                        <a href="{% url 'admin_delivery_requests' %}">
+                            <li>Delivery requests</li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'mail_home_a' %}">
+                            <li>Mail</li>
+                        </a>
+                    </ul>
+
+                    <ul>
                         <a href="{% url 'logout_admin' %}">
                             <li>Exit</li>
                         </a>
@@ -72,95 +84,84 @@
             <div class="right-holder-201">
                 <div class="card-holder-201">
 
+
                     <div class="card-201">
                         <button type="button">
                             <span>Products</span><br>
-                            <b style="font-size: 30px;">{{ total_products.total }}</b>
+                            <b style="font-size: 30px;">{{ total_products }}</b>
                             <br><br><br>
                             <p>Total products</p>
                         </button>
                     </div>
 
+
                     <div class="card-201">
                         <button type="button">
                             <span>Sellers</span><br>
-                            <b style="font-size: 30px;">{{ total_seller.total }}</b>
+                            <b style="font-size: 30px;">{{ total_seller }}</b>
                             <br><br><br>
                             <p>Total sellers</p>
                         </button>
                     </div>
 
-                    <!-- Latest viewed products and top viewers 
-                    <div class="card-201 full-201">
-                        <button type="button" style="background: whitesmoke; color: black;">
-                            <p style="font-weight: bold;">Latest viewed products</p>
-                            <table>
-                                <th class="id">#</th>
-                                <th>Product name</th>
-                                <th style="text-align: right;">Views</th>
 
-                                <tr>
-                                    <td class="id">1</td>
-                                    <td>hdhd</td>
-                                    <td><span class="view-103">0</span></td>
-                                </tr>
-                            </table>
+                    <div class="card-201">
+                        <button type="button">
+                            <span>Payments</span><br>
+                            <b style="font-size: 30px;">{{ total_payment }}</b>
+                            <br><br><br>
+                            <p>Total payment requests</p>
                         </button>
                     </div>
 
-                    <div class="card-201 full-201">
-                        <button type="button" style="background: whitesmoke; color: black;">
-                            <p style="font-weight: bold;">Top viewed products</p>
-                            <table>
-                                <th class="id">#</th>
-                                <th>Product name</th>
-                                <th>Seller</th>
-                                <th style="text-align: right;">Views</th>
 
-                                <tr>
-                                    <td class="id">1</td>
-                                    <td>hdhd</td>
-                                    <td>Juma</td>
-                                    <td><span class="view-103">0</span></td>
-                                </tr>
-
-                                <tr>
-                                    <td class="id">1</td>
-                                    <td>hdhd</td>
-                                    <td>Juma</td>
-                                    <td><span class="view-103">0</span></td>
-                                </tr>
-                            </table>
+                    <div class="card-201">
+                        <button type="button">
+                            <span>Delivery</span><br>
+                            <b style="font-size: 30px;">{{ total_delivery }}</b>
+                            <br><br><br>
+                            <p>Total delivery requests</p>
                         </button>
-                    </div> -->
+                    </div>
+
+
+                    <div class="card-201">
+                        <button type="button">
+                            <span>Mails</span><br>
+                            <b style="font-size: 30px;">{{ total_mails }}</b>
+                            <br><br><br>
+                            <p>Total mails</p>
+                        </button>
+                    </div>
+
+
 
                 </div>
+
             </div>
 
         </div>
 
-    </div>
 
 
+        <script>
+            function open_menu(click) {
+                let menu1 = document.getElementById('menu1');
+                let menu2 = document.getElementById('menu2');
+                let nav = document.getElementById('nav');
 
-    <script>
-        function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
-
-            if (click == 'open') {
-                menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
+                if (click == 'open') {
+                    menu1.style.display = 'none';
+                    menu2.style.display = 'inline-block';
+                    nav.style.display = 'inline-block';
+                }
+                else {
+                    menu1.style.display = 'inline-block';
+                    menu2.style.display = 'none';
+                    nav.style.display = 'none';
+                }
             }
-            else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
-                nav.style.display = 'none';
-            }
-        }
-    </script>
+        </script>
 </body>
 
 </html>

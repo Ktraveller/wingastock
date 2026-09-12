@@ -33,11 +33,6 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = True
 
-SELLER_PAYMENT_NUMBER = os.environ.get(
-    "SELLER_PAYMENT_NUMBER",
-    "Set SELLER_PAYMENT_NUMBER in your environment",
-)
-
 ALLOWED_HOSTS = ["*"]
 
 
@@ -66,7 +61,13 @@ INSTALLED_APPS = [
     "administrators",
     "sellers",
     "mails",
+    "deliver",
 ]
+
+SELLER_PAYMENT_NUMBER = os.environ.get(
+    "SELLER_PAYMENT_NUMBER",
+    "Set SELLER_PAYMENT_NUMBER in your environment",
+)
 
 
 # ==========================================================

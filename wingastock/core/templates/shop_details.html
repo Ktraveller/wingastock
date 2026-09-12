@@ -82,7 +82,7 @@
 
         .share-10 {
             width: auto;
-            height: 40px;
+            height: 50px;
             padding-left: 25px;
             padding-right: 25px;
             background: #007bff;
@@ -94,6 +94,291 @@
 
         .share-10:hover {
             opacity: 0.7;
+        }
+
+        .shop-preview-hero {
+            position: relative;
+            overflow: hidden;
+
+            background-color: #222;
+
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            min-height: 300px;
+
+            display: flex;
+            align-items: center;
+            gap: 25px;
+
+            padding: 40px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 35px rgba(0, 0, 0, 0.15);
+
+            isolation: isolate;
+
+        }
+
+        /* ================================
+DARK OVERLAY
+================================ */
+
+        .shop-preview-hero-overlay {
+            position: absolute;
+            inset: 0;
+
+            z-index: -1;
+
+            background:
+                linear-gradient(90deg,
+                    rgba(0, 0, 0, 0.78) 0%,
+                    rgba(0, 0, 0, 0.55) 45%,
+                    rgba(0, 0, 0, 0.35) 100%);
+
+        }
+
+        /* ================================
+PROFILE IMAGE
+================================ */
+
+        .shop-preview-avatar {
+            position: relative;
+
+            width: 120px;
+            height: 120px;
+
+            flex: 0 0 120px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.95);
+
+            border: 5px solid rgba(255, 255, 255, 0.9);
+
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.35);
+
+            z-index: 2;
+
+        }
+
+        .shop-preview-profile-image {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+
+            border-radius: 50%;
+
+        }
+
+        .shop-preview-avatar i {
+            font-size: 42px;
+            color: #DC143C;
+        }
+
+        /* ================================
+SELLER INFORMATION
+================================ */
+
+        .shop-preview-intro {
+            position: relative;
+            z-index: 2;
+
+            flex: 1;
+
+            min-width: 0;
+
+        }
+
+        .shop-preview-intro .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            margin-bottom: 10px;
+
+            color: #fff;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            text-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.7);
+
+        }
+
+        .shop-preview-intro .eyebrow i {
+            color: #2ecc71;
+        }
+
+        .shop-preview-intro h1 {
+            margin: 0 0 10px;
+
+            color: #fff;
+
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 700;
+
+            line-height: 1.1;
+
+            text-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.75);
+
+        }
+
+        .shop-preview-intro p {
+            margin: 0;
+
+            color: #fff;
+
+            font-size: 15px;
+            font-weight: 500;
+
+            text-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.8);
+
+        }
+
+        .shop-preview-intro p i {
+            margin-right: 6px;
+            color: #fff;
+        }
+
+        /* ================================
+SHARE BUTTON
+================================ */
+
+        .shop-preview-share {
+            position: relative;
+
+            z-index: 2;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            padding: 12px 18px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: rgba(255, 255, 255, 0.95);
+
+            color: #222;
+
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.25);
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+
+        }
+
+        .shop-preview-share:hover {
+            transform: translateY(-2px);
+            background: #fff;
+        }
+
+        .shop-preview-share i {
+            color: #DC143C;
+        }
+
+        /* ================================
+MOBILE
+================================ */
+
+        @media (max-width: 700px) {
+
+            .shop-preview-hero {
+                min-height: 360px;
+
+                flex-direction: column;
+
+                align-items: center;
+                justify-content: center;
+
+                text-align: center;
+
+                padding: 35px 20px;
+
+                gap: 15px;
+
+                border-radius: 16px;
+            }
+
+
+            .shop-preview-avatar {
+                width: 105px;
+                height: 105px;
+
+                flex-basis: 105px;
+            }
+
+
+            .shop-preview-avatar i {
+                font-size: 36px;
+            }
+
+
+            .shop-preview-intro {
+                width: 100%;
+            }
+
+
+            .shop-preview-intro .eyebrow {
+                justify-content: center;
+
+                font-size: 12px;
+            }
+
+
+            .shop-preview-intro h1 {
+                font-size: 30px;
+
+                word-break: break-word;
+            }
+
+
+            .shop-preview-intro p {
+                font-size: 14px;
+            }
+
+
+            .shop-preview-share {
+                margin-top: 5px;
+            }
+
+
+            .shop-preview-hero-overlay {
+                background:
+                    linear-gradient(180deg,
+                        rgba(0, 0, 0, 0.45),
+                        rgba(0, 0, 0, 0.75));
+            }
+
         }
     </style>
 </head>
@@ -126,16 +411,46 @@
             <div class="shop-preview-breadcrumb"><a href="{% url 'home' %}">Home</a><i
                     class="fas fa-chevron-right"></i><a href="{% url 'shop_list' %}">Shops</a><i
                     class="fas fa-chevron-right"></i>{{ shop.seller_name }}</div>
-            <div class="shop-preview-hero">
-                <div class="shop-preview-avatar"><i class="fas fa-store"></i></div>
-                <div class="shop-preview-intro">
-                    <span class="eyebrow"><i class="fas fa-check-circle"></i> Verified Wingastock seller</span>
-                    <h1>{{ shop.seller_name }}</h1>
-                    <p><i class="fas fa-map-marker-alt"></i> {{ shop.seller_address }}</p>
+
+            <div class="shop-preview-hero" {% if shop.seller_dp %}
+                style="background-image: url('{{ shop.seller_dp.url }}');" {% endif %}>
+
+                <div class="shop-preview-hero-overlay"></div>
+
+                <div class="shop-preview-avatar">
+
+                    {% if shop.seller_dp %}
+                    <img src="{{ shop.seller_dp.url }}" alt="{{ shop.seller_name }}" class="shop-preview-profile-image">
+                    {% else %}
+                    <i class="fas fa-store"></i>
+                    {% endif %}
+
                 </div>
-                <button class="shop-preview-share" type="button" onclick="shareShop('{{ shop.id }}')"><i
-                        class="fas fa-share-alt"></i> Share shop</button>
+
+                <div class="shop-preview-intro">
+
+                    <span class="eyebrow">
+                        <i class="fas fa-check-circle"></i>
+                        Verified Wingastock seller
+                    </span>
+
+                    <h1>{{ shop.seller_name }}</h1>
+
+                    <p>
+                        <i class="fas fa-map-marker-alt"></i>
+                        {{ shop.seller_address }}
+                    </p>
+
+                </div>
+
+                <button class="shop-preview-share" type="button" onclick="shareShop('{{ shop.id }}')">
+                    <i class="fas fa-share-alt"></i>
+                    Share shop
+                </button>
+
             </div>
+
+
             <div class="shop-preview-layout">
                 <section class="shop-preview-about">
                     <span class="eyebrow">About this shop</span>

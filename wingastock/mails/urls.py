@@ -1,8 +1,9 @@
 from django.urls import path
-from mails.views_m.index import mail_index, mail_index_c
+from mails.views_m.index import mail_index, mail_index_a, mail_index_c
+from mails.views_m.read_a import clear_mails_a, compose_m_a, delete_mail_a, mail_read_a, readed_a, sent_mails_a, unreaded_a
 from mails.views_m.read_m import mail_read, readed, unreaded, compose_m, sent_mails, delete_mail, clear_mails
 from mails.views_m.read_m_c import mail_read_c, readed_c, unreaded_c, compose_m_c, sent_mails_c, clear_mails_c, delete_mail_c
-from mails.views_m.settings_m import mail_settings, mail_settings_c
+from mails.views_m.settings_m import mail_settings, mail_settings_a, mail_settings_c
 
 urlpatterns = [
     # For seller
@@ -26,5 +27,17 @@ urlpatterns = [
     path('compose-c/<str:m_receiver>/', compose_m_c, name='compose_m_c'),
     path('settings-c/', mail_settings_c, name='mail_settings_c'),
     path('delete-mail-c/<int:id>/', delete_mail_c, name='delete_mail_c'),
-    path('clear-mails-c/<str:m_receiver>/', clear_mails_c, name='clear_mails_c')
+    path('clear-mails-c/<str:m_receiver>/', clear_mails_c, name='clear_mails_c'),
+
+
+    # For admin
+    path('mail-a', mail_index_a, name='mail_home_a'),
+    path('read-a/<str:m_receiver>/', mail_read_a, name='mail_read_a'),
+    path('unreaded-a/', unreaded_a, name='unreaded_a'),
+    path('readed-a/', readed_a, name='readed_a'),
+    path('sent-mails-a', sent_mails_a, name='sent_mails_a'),
+    path('compose-a/<str:m_receiver>/', compose_m_a, name='compose_m_a'),
+    path('settings-a/', mail_settings_a, name='mail_settings_a'),
+    path('delete-mail-a/<int:id>/', delete_mail_a, name='delete_mail_a'),
+    path('clear-mails-a/<str:m_receiver>/', clear_mails_a, name='clear_mails_a')
 ]

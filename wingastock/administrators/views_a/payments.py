@@ -8,6 +8,11 @@ from sellers.models import SellerPaymentRequest
 
 @login_required(login_url="login_admin")
 def payment_requests(request):
+
+    # Only staff/admin users can access this page
+    if not request.user.is_staff:
+        return redirect("login_admin")
+    
     requests = SellerPaymentRequest.objects.select_related("seller").all()
     return render(request, "payment_requests_a.html", {
         "payment_requests": requests,
@@ -16,6 +21,11 @@ def payment_requests(request):
 
 @login_required(login_url="login_admin")
 def review_payment_request(request, id):
+
+    # Only staff/admin users can access this page
+    if not request.user.is_staff:
+        return redirect("login_admin")
+    
     payment_request = get_object_or_404(SellerPaymentRequest, id=id)
 
     if request.method != "POST":

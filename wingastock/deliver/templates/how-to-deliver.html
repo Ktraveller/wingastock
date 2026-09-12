@@ -1,335 +1,762 @@
 {% load static %}
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wingastock | Add product</title>
+  <title>How to Deliver</title>
+
   <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+
+  <!-- Your existing CSS -->
   <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    .messages {
-      margin: 20px 0;
+    /* =========================================================
+       DELIVER HOW-TO PAGE
+       All classes are uniquely prefixed to avoid conflicts.
+    ========================================================= */
+
+    .deliver-how-page-1001 {
+      font-family: 'Poppins', sans-serif;
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    .alert {
-      padding: 12px 18px;
-      margin-bottom: 10px;
-      border-radius: 5px;
+    .deliver-how-page-1001 *,
+    .deliver-how-page-1001 *::before,
+    .deliver-how-page-1001 *::after {
+      box-sizing: border-box;
+    }
+
+    .deliver-how-intro-1001 {
+      background: #fff;
+      border: 1px solid #eeeeee;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    .deliver-how-title-1001 {
+      margin: 0 0 8px 0;
+      font-size: 24px;
+      font-weight: 700;
+      color: crimson;
+    }
+
+    .deliver-how-subtitle-1001 {
+      margin: 0;
+      color: #666;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* INFORMATION BOX */
+
+    .deliver-how-info-1001 {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #fff5f6;
+      border-left: 4px solid crimson;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .deliver-how-info-icon-1001 {
+      color: crimson;
+      font-size: 20px;
+      min-width: 22px;
+      padding-top: 2px;
+    }
+
+    .deliver-how-info-text-1001 {
+      margin: 0;
+      color: #555;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    /* STEPS */
+
+    .deliver-how-step-1001 {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      background: #fff;
+      border: 1px solid #eeeeee;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 15px;
+    }
+
+    .deliver-how-number-1001 {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      border-radius: 50%;
+      background: crimson;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .deliver-how-step-content-1001 {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .deliver-how-step-content-1001 h4 {
+      margin: 0 0 7px 0;
+      color: #222;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .deliver-how-step-content-1001 p {
+      margin: 0 0 12px 0;
+      color: #666;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    /* IMAGE SEARCH LINKS */
+
+    .deliver-how-image-links-1001 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .deliver-how-image-link-1001 {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      background: #f7f7f7;
+      color: #333;
+      border: 1px solid #e5e5e5;
+      font-size: 12px;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .deliver-how-image-link-1001:hover {
+      background: crimson;
       color: #fff;
-      font-weight: 500;
+      border-color: crimson;
     }
 
-    .success {
-      background: #28a745;
+    .deliver-how-image-link-1001 i {
+      font-size: 15px;
     }
 
-    .error {
-      background: #dc3545;
+    /* WHAT TO SEND */
+
+    .deliver-how-checklist-1001 {
+      background: #fafafa;
+      border: 1px solid #eeeeee;
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 10px;
     }
 
-    .warning {
-      background: #ffc107;
-      color: #000;
+    .deliver-how-checklist-1001 h4 {
+      margin: 0 0 12px 0;
+      font-size: 14px;
+      color: #222;
     }
 
-    .info {
-      background: #17a2b8;
+    .deliver-how-checklist-1001 ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
-    table {
-      width: auto;
+    .deliver-how-checklist-1001 li {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin-bottom: 9px;
+      color: #555;
+      font-size: 13px;
+      line-height: 1.5;
     }
 
-    td {
-      width: auto;
-      height: 50px;
+    .deliver-how-checklist-1001 li:last-child {
+      margin-bottom: 0;
+    }
+
+    .deliver-how-checklist-1001 li i {
+      color: #28a745;
+      margin-top: 3px;
+    }
+
+    /* REQUEST BUTTON */
+
+    .deliver-how-action-1001 {
+      text-align: center;
+      padding: 20px 0 5px;
+    }
+
+    .deliver-how-request-btn-1001 {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      background: crimson;
+      color: #fff !important;
+      text-decoration: none !important;
+      padding: 13px 22px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .deliver-how-request-btn-1001:hover {
+      background: #b00020;
+      transform: translateY(-1px);
+    }
+
+    /* FINAL MESSAGE */
+
+    .deliver-how-final-1001 {
+      margin-top: 20px;
+      padding: 18px;
+      text-align: center;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border: 1px solid #eeeeee;
+    }
+
+    .deliver-how-final-1001 i {
+      color: crimson;
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .deliver-how-final-1001 strong {
+      display: block;
+      color: #222;
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .deliver-how-final-1001 span {
+      color: #666;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+
+      .deliver-how-intro-1001 {
+        padding: 16px;
+      }
+
+      .deliver-how-title-1001 {
+        font-size: 20px;
+      }
+
+      .deliver-how-step-1001 {
+        padding: 14px;
+        gap: 11px;
+      }
+
+      .deliver-how-number-1001 {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        font-size: 14px;
+      }
+
+      .deliver-how-step-content-1001 h4 {
+        font-size: 14px;
+      }
+
+      .deliver-how-image-links-1001 {
+        flex-direction: column;
+      }
+
+      .deliver-how-image-link-1001 {
+        width: 100%;
+      }
+
+      .deliver-how-request-btn-1001 {
+        width: 100%;
+      }
     }
   </style>
+  ```
+
 </head>
 
 <body>
 
-  <!-- Page Loader -->
+  ```
+  <!-- PAGE LOADER -->
   <div id="page-loader">
     <div class="loader-content">
-      <div class="spinner"></div>
-      <div class="loading-text">Loading<span class="dots"></span></div>
+      <div class="loader-spinner"></div>
+      <p>Loading...</p>
     </div>
   </div>
 
+
+  <!-- MAIN PAGE -->
   <div class="row-holder">
 
-    <!-- Header -->
+    <!-- HEADER -->
     <div class="header-holder-100">
+
       <div class="header-100">
+
         <div class="action-holder-101">
-          <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-          <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-              class="fas fa-times"></i></button>
+
+          <button type="button" id="menu1" onclick="open_menu('open')">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')">
+            <i class="fas fa-times"></i>
+          </button>
+
         </div>
+
+
         <div class="title-holder-101">
-          <button type="button"><span>Wingastock | Signup</span></button>
+          <button type="button">
+            <span>How to deliver</span>
+          </button>
+
         </div>
 
       </div>
+
     </div>
 
 
-    <!-- center content -->
+    <!-- CONTENT AREA -->
     <div class="center-content-200">
 
-      <div class="left-holder-201" id="nav">
-        <div class="nav-bar-holder-202">
 
+      <!-- LEFT NAVIGATION -->
+      <div class="left-holder-201" id="nav">
+
+        <div class="nav-bar-holder-202">
 
           <ul>
             <a href="{% url 'delivery_home' %}">
-              <li>Home <i class="fas fa-tachometer-alt"></i></li>
+              <li>
+                Home
+                <i class="fas fa-tachometer-alt"></i>
+              </li>
             </a>
           </ul>
+
 
           <ul>
             <a href="{% url 'deliver_product' %}">
-              <li>Request <i class="fas fa-shopping-bag"></i></li>
+              <li>
+                Request
+                <i class="fas fa-shopping-bag"></i>
+              </li>
             </a>
           </ul>
+
 
           <ul>
             <a href="{% url 'how_to_deliver' %}">
-              <li class="active-0">How to <i class="fas fa-envelope"></i></li>
+              <li class="active-0">
+                How to
+                <i class="fas fa-envelope"></i>
+              </li>
             </a>
           </ul>
+
 
           <ul>
             <a href="{% url 'home' %}">
-              <li>Back wingastock <i class="fas fa-user"></i></li>
+              <li>
+                Back wingastock
+                <i class="fas fa-user"></i>
+              </li>
             </a>
           </ul>
 
-
         </div>
+
       </div>
 
+
+      <!-- RIGHT CONTENT -->
       <div class="right-holder-201">
+
         <div class="products-202">
 
           <div class="terms-holder-202">
-            <div>
 
 
+            <!-- =================================================
+                         HOW TO DELIVER CONTENT
+                    ================================================== -->
 
-              <div class="card-header">
-                <h4>Seller Account Declaration</h4>
-              </div>
-
-
-              <div class="card-body">
-
-                {% if messages %}
-                <div class="messages">
-                  {% for message in messages %}
-                  <div class="alert {{ message.tags }}">
-                    {{ message }}
-                  </div>
-                  {% endfor %}
-                </div>
-                {% endif %}
+            <div class="deliver-how-page-1001">
 
 
-                <!-- SELLER INFORMATION -->
+              <!-- INTRO -->
+              <div class="deliver-how-intro-1001">
 
-                <div class="seller-summary">
+                <h2 class="deliver-how-title-1001">
+                  How to Send a Deliver Request
+                </h2>
 
-                  <div class="user-info-holder-1000">
-                    <div>
-                      <table>
-
-                        <tr>
-                          <td style="font-weight: bold;">
-                            <i class="fas fa-store"></i>
-                            Name (Shop name):
-                          </td>
-                          <td>{{ seller.seller_name }}</td>
-                        </tr>
-
-                        <tr>
-                          <td style="font-weight: bold;">
-                            <i class="fas fa-phone"></i>
-                            Phone:
-                          </td>
-                          <td>{{ seller.seller_phone }}</td>
-                        </tr>
-
-
-                        <tr>
-                          <td style="font-weight: bold;">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Address:
-                          </td>
-                          <td>{{ seller.seller_address }}</td>
-                        </tr>
-
-                        <tr>
-                          <td style="font-weight: bold;">
-                            <i class="fas fa-envelope"></i>
-                            Wingastock Email:
-                          </td>
-                          <td style="font-size: 15px; font-weight: bold;">{{ seller.seller_email }}</td>
-                        </tr>
-                      </table>
-
-                      <p>Save the email you can only login or access seller account using that email</p>
-                      <br>
-                    </div>
-                  </div>
-
-
-                </div>
-
-
-
-                <form method="POST">
-
-                  {% csrf_token %}
-
-
-                  <!-- PASSWORD -->
-
-                  <p style="font-weight: bold; margin-top: 30px;">Create account password</p>
-
-                  <div class="input-holder-203">
-
-                    <p>
-                      <i class="fas fa-lock"></i>
-                      Password
-                    </p>
-
-                    <div>
-
-                      <input type="password" name="password" placeholder="Enter password" required>
-
-                    </div>
-
-                  </div>
-
-
-                  <!-- CONFIRM PASSWORD -->
-
-                  <div class="input-holder-203">
-
-                    <p>
-                      <i class="fas fa-lock"></i>
-                      Confirm password
-                    </p>
-
-                    <div>
-
-                      <input type="password" name="confirm_password" placeholder="Confirm password" required>
-
-                    </div>
-
-                  </div>
-
-
-                  <!-- DECLARATION -->
-                  <br>
-                  <div class="form-check mt-3">
-
-                    <input class="form-check-input" type="checkbox" id="declaration" required>
-
-                    <label class="form-check-label" for="declaration">
-
-                      I confirm that the information
-                      provided is correct.
-
-                    </label>
-
-                  </div>
-
-
-                  <div class="input-holder-203 submit-203">
-
-                    <div>
-                      <button type="submit" class="btn btn-success">
-
-                        <i class="fas fa-check"></i>
-
-                        Create Seller Account
-
-                      </button>
-                    </div>
-
-                  </div>
-
-                </form>
+                <p class="deliver-how-subtitle-1001">
+                  Can't find the product you want on WingaStock?
+                  Don't worry. You can send us a Deliver request
+                  and we will help you get the product.
+                </p>
 
               </div>
 
+
+              <!-- IMPORTANT NOTE -->
+              <div class="deliver-how-info-1001">
+
+                <i class="fas fa-info-circle deliver-how-info-icon-1001"></i>
+
+                <p class="deliver-how-info-text-1001">
+                  <strong>Before sending your request:</strong>
+                  Find a clear picture of the product you want.
+                  A good product picture helps us understand exactly
+                  what you are looking for.
+                </p>
+
+              </div>
+
+
+              <!-- STEP 1 -->
+              <div class="deliver-how-step-1001">
+
+                <div class="deliver-how-number-1001">
+                  1
+                </div>
+
+                <div class="deliver-how-step-content-1001">
+
+                  <h4>
+                    Find the product you want
+                  </h4>
+
+                  <p>
+                    Search for the product online and find a clear
+                    picture that shows the product properly.
+                    You can use Google Images, Bing Images,
+                    Pinterest or another website.
+                  </p>
+
+
+                  <div class="deliver-how-image-links-1001">
+
+                    <a href="https://www.google.com/imghp" target="_blank" rel="noopener noreferrer"
+                      class="deliver-how-image-link-1001">
+
+                      <i class="fab fa-google"></i>
+                      Search Google Images
+
+                    </a>
+
+
+                    <a href="https://www.bing.com/images" target="_blank" rel="noopener noreferrer"
+                      class="deliver-how-image-link-1001">
+
+                      <i class="fas fa-search"></i>
+                      Search Bing Images
+
+                    </a>
+
+
+                    <a href="https://www.pinterest.com/" target="_blank" rel="noopener noreferrer"
+                      class="deliver-how-image-link-1001">
+
+                      <i class="fab fa-pinterest"></i>
+                      Search Pinterest
+
+                    </a>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <!-- STEP 2 -->
+              <div class="deliver-how-step-1001">
+
+                <div class="deliver-how-number-1001">
+                  2
+                </div>
+
+                <div class="deliver-how-step-content-1001">
+
+                  <h4>
+                    Download the product picture
+                  </h4>
+
+                  <p>
+                    Save the product picture to your phone or
+                    computer. Make sure the picture is clear
+                    enough to identify the product.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <!-- STEP 3 -->
+              <div class="deliver-how-step-1001">
+
+                <div class="deliver-how-number-1001">
+                  3
+                </div>
+
+                <div class="deliver-how-step-content-1001">
+
+                  <h4>
+                    Open the Deliver Request page
+                  </h4>
+
+                  <p>
+                    After you have the product picture, go to the
+                    Deliver Request page and start your request.
+                  </p>
+
+
+                  <a href="{% url 'deliver_product' %}" class="deliver-how-request-btn-1001">
+
+                    <i class="fas fa-shopping-bag"></i>
+                    Open Deliver Request
+
+                  </a>
+
+                </div>
+
+              </div>
+
+
+              <!-- STEP 4 -->
+              <div class="deliver-how-step-1001">
+
+                <div class="deliver-how-number-1001">
+                  4
+                </div>
+
+                <div class="deliver-how-step-content-1001">
+
+                  <h4>
+                    Enter the product details
+                  </h4>
+
+                  <p>
+                    Tell us as much as possible about the product
+                    you want. This makes it easier for us to
+                    understand your request.
+                  </p>
+
+
+                  <div class="deliver-how-checklist-1001">
+
+                    <h4>
+                      What should you include?
+                    </h4>
+
+                    <ul>
+
+                      <li>
+                        <i class="fas fa-check-circle"></i>
+                        Product picture
+                      </li>
+
+                      <li>
+                        <i class="fas fa-check-circle"></i>
+                        Product name
+                      </li>
+
+                      <li>
+                        <i class="fas fa-check-circle"></i>
+                        Product description
+                      </li>
+
+                      <li>
+                        <i class="fas fa-check-circle"></i>
+                        Quantity you need
+                      </li>
+
+                      <li>
+                        <i class="fas fa-check-circle"></i>
+                        Preferred colour
+                      </li>
+
+                      <li>
+                        <i class="fas fa-check-circle"></i>
+                        Size, model or version
+                      </li>
+
+                      <li>
+                        <i class="fas fa-check-circle"></i>
+                        Any other special instructions
+                      </li>
+
+                    </ul>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <!-- STEP 5 -->
+              <div class="deliver-how-step-1001">
+
+                <div class="deliver-how-number-1001">
+                  5
+                </div>
+
+                <div class="deliver-how-step-content-1001">
+
+                  <h4>
+                    Submit your request
+                  </h4>
+
+                  <p>
+                    Check your information, make sure the picture
+                    is attached, then submit the request.
+                    WingaStock will receive your request and
+                    work on helping you get the product.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <!-- FINAL MESSAGE -->
+              <div class="deliver-how-final-1001">
+
+                <i class="fas fa-truck"></i>
+
+                <strong>
+                  We’ll take it from there!
+                </strong>
+
+                <span>
+                  Once your request has been submitted,
+                  WingaStock will review the information and
+                  help you with the next steps.
+                </span>
+
+              </div>
+
+
+              <!-- BOTTOM BUTTON -->
+              <div class="deliver-how-action-1001">
+
+                <a href="{% url 'deliver_product' %}" class="deliver-how-request-btn-1001">
+
+                  <i class="fas fa-plus-circle"></i>
+                  Request a Product
+
+                </a>
+
+              </div>
 
 
             </div>
-            <!--
-            <div class="next-holder-202">
-              <button type="button" onclick="window.location.href=`{% url 'seller_home' %}`">Yes I declared that,
-                proceed <i class="fas fa-arrow-right"></i></button>
-            </div> -->
+
           </div>
 
         </div>
+
       </div>
 
     </div>
 
   </div>
 
+
+  <!-- PAGE LOADER SCRIPT -->
   <script>
+
     window.addEventListener("load", function () {
 
       const loader = document.getElementById("page-loader");
 
       if (loader) {
+
         loader.classList.add("hidden");
 
         setTimeout(function () {
           loader.remove();
         }, 400);
+
       }
 
     });
+
   </script>
 
+
+  <!-- MENU SCRIPT -->
   <script>
+
     function open_menu(click) {
+
       let menu1 = document.getElementById('menu1');
       let menu2 = document.getElementById('menu2');
       let nav = document.getElementById('nav');
 
+
       if (click == 'open') {
+
         menu1.style.display = 'none';
         menu2.style.display = 'inline-block';
         nav.style.display = 'inline-block';
-      }
-      else {
+
+      } else {
+
         menu1.style.display = 'inline-block';
         menu2.style.display = 'none';
         nav.style.display = 'none';
+
       }
+
     }
+
   </script>
-  <script>
-    setTimeout(function () {
-      document.querySelectorAll(".alert").forEach(function (alert) {
-        alert.style.transition = "opacity 0.5s";
-        alert.style.opacity = "0";
-        setTimeout(() => alert.remove(), 2000);
-      });
-    }, 4000);
-  </script>
+
+
 </body>
 
 </html>

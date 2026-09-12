@@ -12,6 +12,7 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from sellers.models import Seller
 import random
+import cloudinary.uploader
 import string
 
 
@@ -635,12 +636,23 @@ def seller_declaration(request):
 # Sellers account
 @login_required(login_url="login_seller")
 def seller_account(request):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+    
     return render(request, 'acount_s.html')
+
+
 
 
 # Seller update informations
 @login_required(login_url="login_seller")
 def update_seller_information(request):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller")
 
     # ==========================================
     # GET CURRENT SELLER
@@ -665,7 +677,10 @@ def update_seller_information(request):
 
     if request.method == 'POST':
 
-        # Get submitted values
+        # ==========================================
+        # GET SUBMITTED VALUES
+        # ==========================================
+
         seller_name = request.POST.get(
             'seller_name',
             ''
@@ -700,6 +715,16 @@ def update_seller_information(request):
             'confirm_password',
             ''
         ).strip()
+
+
+        # ==========================================
+        # PROFILE PICTURE
+        # ==========================================
+
+        seller_dp = request.FILES.get(
+            'seller_dp'
+        )
+
 
         errors = []
 
@@ -753,6 +778,36 @@ def update_seller_information(request):
 
 
         # ==========================================
+        # VALIDATE PROFILE PICTURE
+        # ==========================================
+
+        if seller_dp:
+
+            # Check file type
+            allowed_types = [
+                'image/jpeg',
+                'image/png',
+                'image/webp'
+            ]
+
+            if seller_dp.content_type not in allowed_types:
+
+                errors.append(
+                    'Profile picture must be JPG, PNG, or WEBP.'
+                )
+
+
+            # Maximum size: 5 MB
+            max_size = 5 * 1024 * 1024
+
+            if seller_dp.size > max_size:
+
+                errors.append(
+                    'Profile picture must not exceed 5 MB.'
+                )
+
+
+        # ==========================================
         # CHECK PHONE DUPLICATE
         # ==========================================
 
@@ -775,9 +830,11 @@ def update_seller_information(request):
         # PASSWORD VALIDATION
         # ==========================================
 
-        # If user wants to change password,
-        # both current and new password are required.
-        if current_password or new_password or confirm_password:
+        if (
+            current_password
+            or new_password
+            or confirm_password
+        ):
 
             if not current_password:
 
@@ -785,11 +842,13 @@ def update_seller_information(request):
                     'Please enter your current password.'
                 )
 
+
             if not new_password:
 
                 errors.append(
                     'Please enter a new password.'
                 )
+
 
             if not confirm_password:
 
@@ -831,7 +890,7 @@ def update_seller_information(request):
                     )
 
 
-            # Prevent using the same password
+            # Prevent using same password
             if current_password and new_password:
 
                 if check_password(
@@ -877,9 +936,9 @@ def update_seller_information(request):
                 update_fields = []
 
 
-                # ----------------------------------
-                # Seller name
-                # ----------------------------------
+                # ==================================
+                # SELLER NAME
+                # ==================================
 
                 if seller_name:
 
@@ -890,9 +949,9 @@ def update_seller_information(request):
                     )
 
 
-                # ----------------------------------
-                # Phone
-                # ----------------------------------
+                # ==================================
+                # PHONE
+                # ==================================
 
                 if seller_phone:
 
@@ -903,9 +962,9 @@ def update_seller_information(request):
                     )
 
 
-                # ----------------------------------
-                # Address
-                # ----------------------------------
+                # ==================================
+                # ADDRESS
+                # ==================================
 
                 if seller_address:
 
@@ -916,9 +975,9 @@ def update_seller_information(request):
                     )
 
 
-                # ----------------------------------
-                # Description
-                # ----------------------------------
+                # ==================================
+                # DESCRIPTION
+                # ==================================
 
                 if seller_description:
 
@@ -929,15 +988,63 @@ def update_seller_information(request):
                     )
 
 
-                # ----------------------------------
+                # ==================================
+                # PROFILE PICTURE
+                # ==================================
+
+                old_public_id = None
+
+                if seller_dp:
+
+                    # Save old Cloudinary public_id
+                    if seller.seller_dp:
+
+                        try:
+                            old_public_id = (
+                                seller.seller_dp.public_id
+                            )
+                        except Exception:
+                            old_public_id = None
+
+
+                    # Assign new image
+                    seller.seller_dp = seller_dp
+
+                    update_fields.append(
+                        'seller_dp'
+                    )
+
+
+                # ==================================
                 # SAVE SELLER INFORMATION
-                # ----------------------------------
+                # ==================================
 
                 if update_fields:
 
                     seller.save(
                         update_fields=update_fields
                     )
+
+
+                # ==================================
+                # DELETE OLD PROFILE PICTURE
+                # ==================================
+
+                if seller_dp and old_public_id:
+
+                    try:
+
+                        cloudinary.uploader.destroy(
+                            old_public_id,
+                            resource_type='image'
+                        )
+
+                    except Exception as e:
+
+                        print(
+                            f"Old seller profile image "
+                            f"delete error: {e}"
+                        )
 
 
                 # ==================================
@@ -953,14 +1060,15 @@ def update_seller_information(request):
                     )
 
                     request.user.save(
-                        update_fields=['password']
+                        update_fields=[
+                            'password'
+                        ]
                     )
 
                     password_changed = True
 
 
-                    # Keep the user logged in after
-                    # changing their password.
+                    # Keep seller logged in
                     update_session_auth_hash(
                         request,
                         request.user
@@ -971,7 +1079,10 @@ def update_seller_information(request):
                 # SUCCESS MESSAGE
                 # ==================================
 
-                if update_fields and password_changed:
+                if (
+                    update_fields
+                    and password_changed
+                ):
 
                     messages.success(
                         request,
@@ -1008,6 +1119,10 @@ def update_seller_information(request):
 
         except Exception as e:
 
+            print(
+                f"Seller update error: {e}"
+            )
+
             messages.error(
                 request,
                 'Something went wrong while updating your '
@@ -1034,11 +1149,17 @@ def update_seller_information(request):
             'seller': seller,
         }
     )
-    
+
+
 
 
 # Seller logout
 @login_required(login_url="login_seller")
 def seller_logout(request):
+
+    # User must have a Seller profile
+    if not hasattr(request.user, "seller"):
+        return redirect("login_seller") 
+    
     logout(request)
     return redirect("login_seller")  # Redirect to the seller login page after logout

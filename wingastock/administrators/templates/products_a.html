@@ -93,6 +93,18 @@
                     </ul>
 
                     <ul>
+                        <a href="{% url 'admin_delivery_requests' %}">
+                            <li>Delivery requests</li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'mail_home_a' %}">
+                            <li>Mail</li>
+                        </a>
+                    </ul>
+
+                    <ul>
                         <a href="{% url 'logout_admin' %}">
                             <li>Exit</li>
                         </a>
@@ -140,7 +152,8 @@
                             <tr>
                                 <td class="id">{{ product_data.id }}</td>
                                 <td>
-                                    <a href="{% url 'admin_preview_p' product_data.id %}" style="text-decoration: none;">{{ product_data.title }}</a>
+                                    <a href="{% url 'admin_preview_p' product_data.id %}"
+                                        style="text-decoration: none;">{{ product_data.title }}</a>
                                 </td>
                                 <td>{{ product_data.category }}</td>
                                 <td>{{ product_data.price }} Tsh</td>
