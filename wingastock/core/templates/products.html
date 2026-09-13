@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 {% load humanize %}
 
 <!DOCTYPE html>
@@ -77,6 +78,7 @@
 
 
             <!-- Center content -->
+
             <div class="product-card-holder-1001">
 
                 <!-- Product categories -->
@@ -85,28 +87,37 @@
                 <div class="product-card-1002" style="width: 100%;">
                     <div class="section-heading category-results-heading">
                         <div>
-                            <span class="eyebrow">Browse by category</span>
-                            <h2><span style="text-transform: capitalize; font-size: inherit;">{{ category }}</span>
-                                products</h2>
+                            <span class="eyebrow">{% translate "Browse by category" %}</span>
+
+                            <h2>
+                                <span style="text-transform: capitalize; font-size: inherit;">{{ category }}</span>
+                                {% translate "products" %}
+                            </h2>
                         </div>
-                        <a href="{% url 'search' %}">See all <i class="fas fa-arrow-right"></i></a>
+
+                        <a href="{% url 'search' %}">
+                            {% translate "See all" %}
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
 
                     {% for product in products %}
                     {% include 'product-container.html' %}
 
                     {% empty %}
-                    <div class="products-empty-state" style="width: 100%; padding: 50px; text-align: center; color: #555;">
+                    <div class="products-empty-state"
+                        style="width: 100%; padding: 50px; text-align: center; color: #555;">
                         <i class="fas fa-box-open" style="font-size: 50px;"></i>
-                        <strong>No products found in this category.</strong>
-                        <span>Try another category or explore all products.</span>
+
+                        <strong>{% translate "No products found in this category." %}</strong>
+
+                        <span>{% translate "Try another category or explore all products." %}</span>
                     </div>
                     {% endfor %}
                 </div>
 
-                
-
             </div>
+
 
 
             <div style="width: 100%; height: 100px; float: left;"></div>

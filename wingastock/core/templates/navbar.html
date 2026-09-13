@@ -1,37 +1,36 @@
+```django
+{% load static %}
+{% load i18n %}
+
 <div class="nav-holder-002">
 
-    <div class="nav-content-003">
+    <div class="nav-content-003" style="overflow: hidden;">
         <div>
             <button type="button" onclick="window.location.href=`{% url 'home' %}`">
-                <i class="fas fa-home"></i><br>
-                <span>Home</span>
+                <i class="fas fa-home"></i>
             </button>
         </div>
 
         <div>
             <button type="button" onclick="window.location.href=`{% url 'favorities' %}`">
-                <i class="fas fa-heart"></i><br>
-                <span>Favorite</span>
+                <i class="fas fa-heart"></i>
             </button>
         </div>
 
         <div>
             <button type="button" onclick="window.location.href=`{% url 'shop_list' %}`">
-                <i class="fas fa-store"></i><br>
-                <span>Shops</span>
+                <i class="fas fa-store"></i>
             </button>
         </div>
 
         <div>
             <button type="button" onclick="document.getElementById('option').style.display='inline-block'">
-                <i class="fas fa-ellipsis-h"></i><br>
-                <span>Options</span>
+                <i class="fas fa-ellipsis-h"></i>
             </button>
         </div>
 
     </div>
 </div>
-
 
 
 <!-- =====================================================
@@ -47,14 +46,17 @@
         <div class="options-top-100">
 
             <div class="options-heading-100">
-                <strong>More Options</strong>
-                <span>Everything you need in one place</span>
+                <strong>{% translate "More Options" %}</strong>
+                <span>{% translate "Everything you need in one place" %}</span>
             </div>
 
-            <button type="button" class="options-close-100" onclick="closeOtherOptions()" aria-label="Close options">
-
+            <button
+                type="button"
+                class="options-close-100"
+                onclick="closeOtherOptions()"
+                aria-label="{% translate 'Close options' %}"
+            >
                 <i class="fas fa-times"></i>
-
             </button>
 
         </div>
@@ -73,22 +75,22 @@
             <div class="seller-box-content-100">
 
                 <strong>
-                    Sell on Wingastock
+                    {% translate "Sell on Wingastock" %}
                 </strong>
 
                 <p>
-                    Have products to sell?
-                    Create your seller account and start
-                    reaching more customers.
+                    {% translate "Have products to sell?" %}
+                    {% translate "Create your seller account and start" %}
+                    {% translate "reaching more customers." %}
                 </p>
 
-                <button type="button" style="height: 40px; width: auto; padding-left: 20px; padding-right: 20px;"
-                    onclick="window.location.href=`{% url 'seller_terms' %}`">
-
-                    <span>Become a Seller</span>
-
+                <button
+                    type="button"
+                    style="height: 40px; width: auto; padding-left: 20px; padding-right: 20px;"
+                    onclick="window.location.href=`{% url 'seller_terms' %}`"
+                >
+                    <span>{% translate "Become a Seller" %}</span>
                     <i class="fas fa-arrow-right"></i>
-
                 </button>
 
             </div>
@@ -101,13 +103,17 @@
         ================================================== -->
 
         <div class="options-label-100">
-            Account
+            {% translate "Account" %}
         </div>
 
         <div class="options-items-100">
 
             <!-- ACCOUNT -->
-            <button type="button" class="other-option-item-100" onclick="closeOtherOptions(); open_user(1)">
+            <button
+                type="button"
+                class="other-option-item-100"
+                onclick="closeOtherOptions(); open_user(1)"
+            >
 
                 <span class="other-option-icon-100">
                     <i class="fas fa-user"></i>
@@ -115,10 +121,10 @@
 
                 <span class="other-option-info-100">
 
-                    <strong>My Account</strong>
+                    <strong>{% translate "My Account" %}</strong>
 
                     <small>
-                        Manage your profile
+                        {% translate "Manage your profile" %}
                     </small>
 
                 </span>
@@ -129,7 +135,11 @@
 
 
             <!-- NOTIFICATIONS -->
-            <button type="button" class="other-option-item-100" onclick="closeOtherOptions(); open_notification(1)">
+            <button
+                type="button"
+                class="other-option-item-100"
+                onclick="closeOtherOptions(); open_notification(1)"
+            >
 
                 <span class="other-option-icon-100 notification-option-icon-100">
                     <i class="fas fa-bell"></i>
@@ -137,10 +147,10 @@
 
                 <span class="other-option-info-100">
 
-                    <strong>Notifications</strong>
+                    <strong>{% translate "Notifications" %}</strong>
 
                     <small>
-                        Check your latest notifications
+                        {% translate "Check your latest notifications" %}
                     </small>
 
                 </span>
@@ -151,7 +161,11 @@
 
 
             <!-- FAVORITES -->
-            <button type="button" class="other-option-item-100" onclick="window.location.href=`{% url 'favorities' %}`">
+            <button
+                type="button"
+                class="other-option-item-100"
+                onclick="window.location.href=`{% url 'favorities' %}`"
+            >
 
                 <span class="other-option-icon-100 favorite-option-icon-100">
                     <i class="fas fa-heart"></i>
@@ -159,10 +173,10 @@
 
                 <span class="other-option-info-100">
 
-                    <strong>Favorite Products</strong>
+                    <strong>{% translate "Favorite Products" %}</strong>
 
                     <small>
-                        Products you saved
+                        {% translate "Products you saved" %}
                     </small>
 
                 </span>
@@ -173,7 +187,11 @@
 
 
             <!-- SHOPS -->
-            <button type="button" class="other-option-item-100" onclick="window.location.href=`{% url 'shop_list' %}`">
+            <button
+                type="button"
+                class="other-option-item-100"
+                onclick="window.location.href=`{% url 'shop_list' %}`"
+            >
 
                 <span class="other-option-icon-100 shop-option-icon-100">
                     <i class="fas fa-store"></i>
@@ -181,10 +199,10 @@
 
                 <span class="other-option-info-100">
 
-                    <strong>Browse Shops</strong>
+                    <strong>{% translate "Browse Shops" %}</strong>
 
                     <small>
-                        Discover sellers and stores
+                        {% translate "Discover sellers and stores" %}
                     </small>
 
                 </span>
@@ -201,15 +219,19 @@
         ================================================== -->
 
         <div class="options-label-100">
-            More
+            {% translate "More" %}
         </div>
 
         <div class="options-items-100">
 
             <!-- DELIVER -->
             {% if user.email %}
-            <button type="button" class="other-option-item-100"
-                onclick="window.location.href=`{% url 'delivery_home' %}`">
+
+            <button
+                type="button"
+                class="other-option-item-100"
+                onclick="window.location.href=`{% url 'delivery_home' %}`"
+            >
 
                 <span class="other-option-icon-100">
                     <i class="fas fa-truck"></i>
@@ -217,10 +239,10 @@
 
                 <span class="other-option-info-100">
 
-                    <strong>Deliver</strong>
+                    <strong>{% translate "Deliver" %}</strong>
 
                     <small>
-                        Request a product delivery
+                        {% translate "Request a product delivery" %}
                     </small>
 
                 </span>
@@ -228,10 +250,14 @@
                 <i class="fas fa-chevron-right other-option-arrow-100"></i>
 
             </button>
+
             {% else %}
 
-            <button type="button" class="other-option-item-100"
-                onclick="open_login_modal(1)">
+            <button
+                type="button"
+                class="other-option-item-100"
+                onclick="open_login_modal(1)"
+            >
 
                 <span class="other-option-icon-100">
                     <i class="fas fa-truck"></i>
@@ -239,10 +265,10 @@
 
                 <span class="other-option-info-100">
 
-                    <strong>Deliver</strong>
+                    <strong>{% translate "Deliver" %}</strong>
 
                     <small>
-                        Request a product delivery
+                        {% translate "Request a product delivery" %}
                     </small>
 
                 </span>
@@ -250,10 +276,16 @@
                 <i class="fas fa-chevron-right other-option-arrow-100"></i>
 
             </button>
+
             {% endif %}
 
+
             <!-- SETTINGS -->
-            <button type="button" class="other-option-item-100" onclick="alert('Settings coming soon')">
+            <button
+                type="button"
+                class="other-option-item-100"
+                onclick="alert('{% translate "Settings coming soon" %}')"
+            >
 
                 <span class="other-option-icon-100">
                     <i class="fas fa-cog"></i>
@@ -261,10 +293,10 @@
 
                 <span class="other-option-info-100">
 
-                    <strong>Settings</strong>
+                    <strong>{% translate "Settings" %}</strong>
 
                     <small>
-                        Customize your experience
+                        {% translate "Customize your experience" %}
                     </small>
 
                 </span>
@@ -275,7 +307,11 @@
 
 
             <!-- HELP -->
-            <button type="button" class="other-option-item-100" onclick="alert('Help & Support coming soon')">
+            <button
+                type="button"
+                class="other-option-item-100"
+                onclick="alert('{% translate "Help & Support coming soon" %}')"
+            >
 
                 <span class="other-option-icon-100">
                     <i class="fas fa-question-circle"></i>
@@ -283,10 +319,10 @@
 
                 <span class="other-option-info-100">
 
-                    <strong>Help & Support</strong>
+                    <strong>{% translate "Help & Support" %}</strong>
 
                     <small>
-                        Get help with Wingastock
+                        {% translate "Get help with Wingastock" %}
                     </small>
 
                 </span>
@@ -304,7 +340,7 @@
             <span>Wingastock</span>
 
             <small>
-                Buy • Sell • Discover
+                {% translate "Buy • Sell • Discover" %}
             </small>
 
         </div>
@@ -314,695 +350,329 @@
 </div>
 
 
-
 <style>
-    /* =====================================================
-   IMPORTANT
-
-   Hizi styles zinahusu MODAL TU.
-
-   Hazibadilishi:
-   .nav-holder-002
-   .nav-content-003
-   .nav-content-003 > div
-   navbar buttons
-
-   Kwa hiyo navbar layout yako ya zamani inaendelea.
-===================================================== */
-
-
-    /* =====================================================
-   MODAL BACKGROUND
-===================================================== */
+    /* CSS YAKO YA ZAMANI INAENDELEA BILA MABADILIKO */
 
     .other-options-100 {
-
         position: fixed;
-
         top: 0;
         right: 0;
         bottom: 0;
         left: 0;
-
         width: 100%;
         height: 100%;
-
         z-index: 999999;
-
         display: none;
-
         align-items: center;
         justify-content: center;
-
         padding: 20px;
-
         box-sizing: border-box;
-
         background: rgba(15, 18, 25, .58);
-
         backdrop-filter: blur(7px);
         -webkit-backdrop-filter: blur(7px);
-
     }
-
-
-    /* =====================================================
-   MODAL CARD
-===================================================== */
 
     .other-options-card-100 {
-
         position: relative;
-
         width: 520px;
-
         max-width: 100%;
-
         max-height: calc(100vh - 40px);
-
         overflow-y: auto;
-
         box-sizing: border-box;
-
         background: #ffffff;
-
         border-radius: 22px;
-
-        box-shadow:
-            0 25px 80px rgba(0, 0, 0, .25);
-
-        animation:
-            otherOptionsOpen .25s ease;
-
+        box-shadow: 0 25px 80px rgba(0, 0, 0, .25);
+        animation: otherOptionsOpen .25s ease;
     }
 
-
-    /* =====================================================
-   ANIMATION
-===================================================== */
-
     @keyframes otherOptionsOpen {
-
         from {
-
             opacity: 0;
-
-            transform:
-                translateY(15px) scale(.97);
-
+            transform: translateY(15px) scale(.97);
         }
 
         to {
-
             opacity: 1;
-
-            transform:
-                translateY(0) scale(1);
-
+            transform: translateY(0) scale(1);
         }
-
     }
-
-
-
-    /* =====================================================
-   HEADER
-===================================================== */
 
     .options-top-100 {
-
         display: flex;
-
         align-items: center;
-
         justify-content: space-between;
-
         gap: 15px;
-
         padding: 22px 22px 17px;
-
-        border-bottom:
-            1px solid #eeeeee;
-
+        border-bottom: 1px solid #eeeeee;
     }
-
 
     .options-heading-100 strong {
-
         display: block;
-
         font-size: 20px;
-
         font-weight: 700;
-
         color: #20242d;
-
     }
-
 
     .options-heading-100 span {
-
         display: block;
-
         margin-top: 4px;
-
         font-size: 12px;
-
         color: #8b909a;
-
     }
-
 
     .options-close-100 {
-
         width: 40px;
         height: 40px;
-
         flex-shrink: 0;
-
         display: flex;
-
         align-items: center;
         justify-content: center;
-
         border: 0;
-
         border-radius: 50%;
-
         background: #f3f4f6;
-
         color: #555b65;
-
         cursor: pointer;
-
         transition: .2s ease;
-
     }
-
 
     .options-close-100:hover {
-
         background: #e8e9ed;
-
         transform: rotate(90deg);
-
     }
-
-
-
-    /* =====================================================
-   SELLER BOX
-===================================================== */
 
     .seller-box-100 {
-
         display: flex;
-
         gap: 15px;
-
         margin: 18px;
-
         padding: 18px;
-
         box-sizing: border-box;
-
         border-radius: 18px;
-
-        background:
-            linear-gradient(135deg,
-                #fff1f3,
-                #fff8f9);
-
-        border:
-            1px solid #ffd6dc;
-
+        background: linear-gradient(135deg, #fff1f3, #fff8f9);
+        border: 1px solid #ffd6dc;
     }
-
 
     .seller-box-icon-100 {
-
         width: 48px;
         height: 48px;
-
         flex-shrink: 0;
-
         display: flex;
-
         align-items: center;
         justify-content: center;
-
         border-radius: 14px;
-
         background: crimson;
-
         color: #fff;
-
         font-size: 19px;
-
     }
-
 
     .seller-box-content-100 {
-
         flex: 1;
-
         min-width: 0;
-
     }
-
 
     .seller-box-content-100 strong {
-
         display: block;
-
         font-size: 15px;
-
         font-weight: 700;
-
         color: #272b34;
-
     }
-
 
     .seller-box-content-100 p {
-
         margin: 5px 0 0;
-
         font-size: 12px;
-
         line-height: 1.55;
-
         color: #777d87;
-
     }
-
 
     .seller-box-content-100 button {
-
         display: inline-flex;
-
         align-items: center;
-
         gap: 9px;
-
         margin-top: 13px;
-
         padding: 10px 16px;
-
         border: 0;
-
         border-radius: 50px;
-
         background: crimson;
-
         color: white;
-
         font-size: 12px;
-
         font-weight: 700;
-
         cursor: pointer;
-
         transition: .2s ease;
-
     }
-
 
     .seller-box-content-100 button:hover {
-
         background: #b91532;
-
         transform: translateX(2px);
-
     }
-
-
-
-    /* =====================================================
-   SECTION LABEL
-===================================================== */
 
     .options-label-100 {
-
-        padding:
-            5px 22px 8px;
-
+        padding: 5px 22px 8px;
         font-size: 10px;
-
         font-weight: 700;
-
         letter-spacing: .8px;
-
         text-transform: uppercase;
-
         color: #999ea7;
-
     }
-
-
-
-    /* =====================================================
-   OPTIONS LIST
-===================================================== */
 
     .options-items-100 {
-
-        padding:
-            0 12px 10px;
-
+        padding: 0 12px 10px;
     }
-
 
     .other-option-item-100 {
-
         width: 100%;
-
         display: flex;
-
         align-items: center;
-
         gap: 12px;
-
         padding: 11px 10px;
-
         box-sizing: border-box;
-
         border: 0;
-
         border-radius: 13px;
-
         background: transparent;
-
         text-align: left;
-
         cursor: pointer;
-
-        transition:
-            background .18s ease,
-            transform .18s ease;
-
+        transition: background .18s ease, transform .18s ease;
     }
-
 
     .other-option-item-100:hover {
-
         background: #f7f7f8;
-
         transform: translateX(2px);
-
     }
-
-
-
-    /* =====================================================
-   OPTION ICON
-===================================================== */
 
     .other-option-icon-100 {
-
         width: 40px;
         height: 40px;
-
         flex-shrink: 0;
-
         display: flex;
-
         align-items: center;
         justify-content: center;
-
         border-radius: 12px;
-
         background: #f1f2f4;
-
         color: #525966;
-
         font-size: 15px;
-
     }
-
 
     .notification-option-icon-100 {
-
         color: #d59600;
-
         background: #fff6dc;
-
     }
-
 
     .favorite-option-icon-100 {
-
         color: crimson;
-
         background: #fff0f2;
-
     }
-
 
     .shop-option-icon-100 {
-
         color: #2675d1;
-
         background: #edf5ff;
-
     }
-
-
-
-    /* =====================================================
-   OPTION TEXT
-===================================================== */
 
     .other-option-info-100 {
-
         flex: 1;
-
         min-width: 0;
-
     }
-
 
     .other-option-info-100 strong {
-
         display: block;
-
         font-size: 13px;
-
         font-weight: 600;
-
         color: #292d35;
-
     }
-
 
     .other-option-info-100 small {
-
         display: block;
-
         margin-top: 3px;
-
         font-size: 11px;
-
         color: #9297a1;
-
     }
-
-
-
-    /* =====================================================
-   ARROW
-===================================================== */
 
     .other-option-arrow-100 {
-
         flex-shrink: 0;
-
         margin-right: 4px;
-
         color: #b5bac2;
-
         font-size: 9px;
-
     }
-
-
-
-    /* =====================================================
-   FOOTER
-===================================================== */
 
     .options-footer-100 {
-
-        padding:
-            15px 20px 19px;
-
+        padding: 15px 20px 19px;
         text-align: center;
-
-        border-top:
-            1px solid #eeeeee;
-
+        border-top: 1px solid #eeeeee;
     }
-
 
     .options-footer-100 span {
-
         display: block;
-
         font-size: 11px;
-
         font-weight: 700;
-
         color: #91969f;
-
     }
-
 
     .options-footer-100 small {
-
         display: block;
-
         margin-top: 3px;
-
         font-size: 9px;
-
         color: #b3b6bd;
-
     }
-
-
-
-    /* =====================================================
-   MOBILE
-
-   Hapa navbar yako bado inabaki na CSS yake ya zamani.
-
-   Modal pekee ndiyo inakuwa bottom sheet.
-===================================================== */
 
     @media (max-width: 767px) {
 
         .other-options-100 {
-
             align-items: flex-end;
-
             justify-content: center;
-
             padding: 0;
-
         }
-
 
         .other-options-card-100 {
-
             width: 100%;
-
             max-width: none;
-
             max-height: 88vh;
-
-            border-radius:
-                24px 24px 0 0;
-
-            animation:
-                otherOptionsMobileOpen .25s ease;
-
+            border-radius: 24px 24px 0 0;
+            animation: otherOptionsMobileOpen .25s ease;
         }
 
-
         @keyframes otherOptionsMobileOpen {
-
             from {
-
                 opacity: 0;
-
-                transform:
-                    translateY(100%);
-
+                transform: translateY(100%);
             }
 
             to {
-
                 opacity: 1;
-
-                transform:
-                    translateY(0);
-
+                transform: translateY(0);
             }
-
         }
-
 
         .options-top-100 {
-
-            padding:
-                19px 17px 15px;
-
+            padding: 19px 17px 15px;
         }
-
 
         .options-heading-100 strong {
-
             font-size: 18px;
-
         }
-
 
         .seller-box-100 {
-
-            margin:
-                15px;
-
-            padding:
-                15px;
-
+            margin: 15px;
+            padding: 15px;
         }
-
 
         .options-items-100 {
-
             padding-left: 8px;
             padding-right: 8px;
-
         }
-
     }
-
-
-
-    /* =====================================================
-   VERY SMALL MOBILE
-===================================================== */
 
     @media (max-width: 380px) {
 
         .seller-box-content-100 p {
-
             font-size: 11px;
-
         }
 
-
         .other-option-info-100 small {
-
             font-size: 10px;
-
         }
 
     }
 </style>
 
 
-
 <script>
-
-    /* =====================================================
-       OPEN OPTIONS
-    
-       Hii ndiyo button yako ya zamani inaweza kutumia:
-    
-       onclick="openOtherOptions()"
-    
-    ===================================================== */
 
     function openOtherOptions() {
 
@@ -1011,19 +681,12 @@
 
         if (!modal) return;
 
-
         modal.style.display = "flex";
-
 
         document.body.style.overflow = "hidden";
 
     }
 
-
-
-    /* =====================================================
-       CLOSE OPTIONS
-    ===================================================== */
 
     function closeOtherOptions() {
 
@@ -1032,33 +695,12 @@
 
         if (!modal) return;
 
-
         modal.style.display = "none";
-
 
         document.body.style.overflow = "";
 
     }
 
-
-
-    /* =====================================================
-       BACKWARD COMPATIBILITY
-    
-       Kama somewhere kwenye project yako bado kuna:
-    
-       document.getElementById('option')
-       .style.display = 'inline-block'
-    
-       itaendelea kufungua modal.
-    
-       Hii function pia inafanya kazi na old logic.
-    ===================================================== */
-
-
-    /* =====================================================
-       CLICK OUTSIDE
-    ===================================================== */
 
     document.addEventListener("click", function (event) {
 
@@ -1066,7 +708,6 @@
             document.getElementById("option");
 
         if (!modal) return;
-
 
         if (event.target === modal) {
 
@@ -1076,11 +717,6 @@
 
     });
 
-
-
-    /* =====================================================
-       ESC KEY
-    ===================================================== */
 
     document.addEventListener("keydown", function (event) {
 

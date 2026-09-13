@@ -1,0 +1,1033 @@
+msgid ""
+msgstr ""
+"Language: sw\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Search products, shops and more..."
+msgstr "Tafuta bidhaa, maduka na zaidi..."
+
+msgid "Shopping cart"
+msgstr "Kikapu cha manunuzi"
+
+msgid "Login"
+msgstr "Ingia"
+
+msgid "Close cart"
+msgstr "Funga kikapu"
+
+msgid "Your cart"
+msgstr "Kikapu chako"
+
+msgid "Cart empty"
+msgstr "Kikapu kiko tupu"
+
+msgid "Select language"
+msgstr "Chagua lugha"
+
+msgid "Home"
+msgstr "Nyumbani"
+
+msgid "Favorite"
+msgstr "Vipendwa"
+
+msgid "Shops"
+msgstr "Maduka"
+
+msgid "Options"
+msgstr "Chaguo"
+
+msgid "More Options"
+msgstr "Chaguo Zaidi"
+
+msgid "Everything you need in one place"
+msgstr "Kila kitu unachohitaji sehemu moja"
+
+msgid "Close options"
+msgstr "Funga chaguo"
+
+msgid "Sell on Wingastock"
+msgstr "Uza kwenye Wingastock"
+
+msgid "Have products to sell?"
+msgstr "Una bidhaa za kuuza?"
+
+msgid "Create your seller account and start"
+msgstr "Fungua akaunti yako ya muuzaji na anza"
+
+msgid "reaching more customers."
+msgstr "kuwafikia wateja zaidi."
+
+msgid "Become a Seller"
+msgstr "Kuwa Muuzaji"
+
+msgid "Account"
+msgstr "Akaunti"
+
+msgid "My Account"
+msgstr "Akaunti Yangu"
+
+msgid "Manage your profile"
+msgstr "Simamia wasifu wako"
+
+msgid "Notifications"
+msgstr "Arifa"
+
+msgid "Check your latest notifications"
+msgstr "Angalia arifa zako za hivi karibuni"
+
+msgid "Favorite Products"
+msgstr "Bidhaa za Vipendwa"
+
+msgid "Products you saved"
+msgstr "Bidhaa ulizohifadhi"
+
+msgid "Browse Shops"
+msgstr "Vinjari Maduka"
+
+msgid "Discover sellers and stores"
+msgstr "Gundua wauzaji na maduka"
+
+msgid "More"
+msgstr "Zaidi"
+
+msgid "Deliver"
+msgstr "Uwasilishaji"
+
+msgid "Request a product delivery"
+msgstr "Omba bidhaa iwasilishwe"
+
+msgid "Settings"
+msgstr "Mipangilio"
+
+msgid "Customize your experience"
+msgstr "Badilisha matumizi yako"
+
+msgid "Help & Support"
+msgstr "Msaada na Usaidizi"
+
+msgid "Get help with Wingastock"
+msgstr "Pata msaada kuhusu Wingastock"
+
+msgid "Buy • Sell • Discover"
+msgstr "Nunua • Uza • Gundua"
+
+msgid "Settings coming soon"
+msgstr "Mipangilio inakuja hivi karibuni"
+
+msgid "Help & Support coming soon"
+msgstr "Msaada na usaidizi unakuja hivi karibuni"
+
+
+msgid "Tanzania's smarter marketplace"
+msgstr "Soko bora zaidi Tanzania"
+
+msgid "Find something"
+msgstr "Tafuta kitu"
+
+msgid "great"
+msgstr "kizuri"
+
+msgid "today."
+msgstr "leo."
+
+msgid "Discover products from trusted local sellers and connect with them directly."
+msgstr "Gundua bidhaa kutoka kwa wauzaji waaminifu wa ndani na wasiliana nao moja kwa moja."
+
+msgid "Explore products"
+msgstr "Gundua bidhaa"
+
+msgid "Browse shops"
+msgstr "Vinjari maduka"
+
+msgid "Trusted sellers"
+msgstr "Wauzaji waaminifu"
+
+msgid "Shop with confidence"
+msgstr "Nunua kwa kujiamini"
+
+msgid "Curated for you"
+msgstr "Zilizochaguliwa kwa ajili yako"
+
+msgid "Top products"
+msgstr "Bidhaa bora"
+
+msgid "See all"
+msgstr "Tazama zote"
+
+
+msgid "Explore"
+msgstr "Gundua"
+
+msgid "Categories"
+msgstr "Makundi"
+
+msgid "Electronics"
+msgstr "Elektroniki"
+
+msgid "Phones & Tablets"
+msgstr "Simu na Tablet"
+
+msgid "Computers & Laptops"
+msgstr "Kompyuta na Laptop"
+
+msgid "Fashion"
+msgstr "Mavazi"
+
+msgid "Shoes"
+msgstr "Viatu"
+
+msgid "Beauty & Personal Care"
+msgstr "Urembo na Huduma Binafsi"
+
+msgid "Food & Groceries"
+msgstr "Chakula na Mahitaji ya Nyumbani"
+
+msgid "Drinks & Beverages"
+msgstr "Vinywaji"
+
+msgid "Furniture"
+msgstr "Samani"
+
+msgid "Home & Garden"
+msgstr "Nyumbani na Bustani"
+
+msgid "Home Appliances"
+msgstr "Vifaa vya Nyumbani"
+
+msgid "Vehicles"
+msgstr "Magari"
+
+msgid "Vehicle Parts & Accessories"
+msgstr "Vipuri na Vifaa vya Magari"
+
+msgid "Sports & Fitness"
+msgstr "Michezo na Mazoezi"
+
+msgid "Books & Education"
+msgstr "Vitabu na Elimu"
+
+msgid "Toys & Games"
+msgstr "Vichezeo na Michezo"
+
+msgid "Baby & Kids"
+msgstr "Watoto na Mahitaji yao"
+
+msgid "Services"
+msgstr "Huduma"
+
+msgid "Jobs"
+msgstr "Kazi"
+
+msgid "Property"
+msgstr "Mali"
+
+msgid "Other"
+msgstr "Nyingine"
+
+msgid "View details"
+msgstr "Angalia maelezo"
+
+msgid "Marketplace community"
+msgstr "Jumuiya ya soko"
+
+msgid "Discover trusted shops"
+msgstr "Gundua maduka yanayoaminika"
+
+msgid "Browse local sellers and find products from businesses you can connect with directly."
+msgstr "Vinjari wauzaji wa ndani na upate bidhaa kutoka kwa wafanyabiashara unaoweza kuwasiliana nao moja kwa moja."
+
+msgid "shops available"
+msgstr "maduka yanayopatikana"
+
+msgid "Home"
+msgstr "Nyumbani"
+
+msgid "Shops"
+msgstr "Maduka"
+
+msgid "Verified Wingastock seller"
+msgstr "Muuzaji wa Wingastock aliyethibitishwa"
+
+msgid "Share shop"
+msgstr "Shiriki duka"
+
+msgid "About this shop"
+msgstr "Kuhusu duka hili"
+
+msgid "Quality products from a local seller"
+msgstr "Bidhaa bora kutoka kwa muuzaji wa ndani"
+
+msgid "products"
+msgstr "bidhaa"
+
+msgid "joined"
+msgstr "amejiunga"
+
+msgid "Shop catalogue"
+msgstr "Orodha ya bidhaa za duka"
+
+msgid "Products from %(seller_name)s"
+msgstr "Bidhaa kutoka kwa %(seller_name)s"
+
+msgid "listings"
+msgstr "matangazo"
+
+msgid "No products yet"
+msgstr "Hakuna bidhaa bado"
+
+msgid "This shop has not listed products yet."
+msgstr "Duka hili bado halijaweka bidhaa."
+
+msgid "What is wingastock"
+msgstr "Wingastock ni nini"
+
+msgid "How to get seller contacts"
+msgstr "Jinsi ya kupata mawasiliano ya muuzaji"
+
+msgid "How to register as seller"
+msgstr "Jinsi ya kujisajili kama muuzaji"
+
+msgid "Welcome to Wingastock!"
+msgstr "Karibu Wingastock!"
+
+msgid "Wingastock is an online marketplace that makes it easy to discover, advertise, buy and sell a wide range of products and services. You can find electronics such as smartphones, laptops, TVs, computers and accessories, as well as furniture, home appliances, rooms, houses and many other products from sellers on the platform."
+msgstr "Wingastock ni soko la mtandaoni linalorahisisha kugundua, kutangaza, kununua na kuuza bidhaa na huduma mbalimbali. Unaweza kupata vifaa vya elektroniki kama simu janja, laptop, televisheni, kompyuta na vifaa vyake, pamoja na samani, vifaa vya nyumbani, vyumba, nyumba na bidhaa nyingine nyingi kutoka kwa wauzaji waliopo kwenye jukwaa."
+
+msgid "Whether you are looking to buy something or want to advertise and sell your products, the following guide explains how to use Wingastock:"
+msgstr "Iwe unatafuta kununua kitu au unataka kutangaza na kuuza bidhaa zako, mwongozo ufuatao unaeleza jinsi ya kutumia Wingastock:"
+
+msgid "Create an Account:"
+msgstr "Fungua Akaunti:"
+
+msgid "Register for a Wingastock account using your required personal or business information. Make sure the information you provide is accurate and up to date."
+msgstr "Jisajili kwa akaunti ya Wingastock kwa kutumia taarifa zako binafsi au za biashara zinazohitajika. Hakikisha taarifa unazotoa ni sahihi na zimesasishwa."
+
+msgid "Complete Your Profile:"
+msgstr "Kamilisha Wasifu Wako:"
+
+msgid "After creating your account, complete your profile with the relevant information. A complete profile helps other users know who they are dealing with and makes communication easier."
+msgstr "Baada ya kufungua akaunti yako, kamilisha wasifu wako kwa taarifa zinazohitajika. Wasifu kamili huwasaidia watumiaji wengine kujua wanayeshughulika naye na hurahisisha mawasiliano."
+
+msgid "Browse Products:"
+msgstr "Vinjari Bidhaa:"
+
+msgid "Search for Products:"
+msgstr "Tafuta Bidhaa:"
+
+msgid "View Product Details:"
+msgstr "Angalia Maelezo ya Bidhaa:"
+
+msgid "Contact the Seller:"
+msgstr "Wasiliana na Muuzaji:"
+
+msgid "Buy a Product:"
+msgstr "Nunua Bidhaa:"
+
+msgid "Sell or Advertise a Product:"
+msgstr "Uza au Tangaza Bidhaa:"
+
+msgid "Create an Accurate Listing:"
+msgstr "Tengeneza Tangazo Sahihi:"
+
+msgid "Set Your Price:"
+msgstr "Weka Bei Yako:"
+
+msgid "Manage Your Products:"
+msgstr "Simamia Bidhaa Zako:"
+
+msgid "Communicate With Customers:"
+msgstr "Wasiliana na Wateja:"
+
+msgid "Complete Orders:"
+msgstr "Kamilisha Oda:"
+
+msgid "Delivery or Collection:"
+msgstr "Uwasilishaji au Kuchukua:"
+
+msgid "Check Products Before Buying:"
+msgstr "Kagua Bidhaa Kabla ya Kununua:"
+
+msgid "Keep Your Account Secure:"
+msgstr "Linda Usalama wa Akaunti Yako:"
+
+msgid "Use Wingastock Responsibly:"
+msgstr "Tumia Wingastock kwa Uwajibikaji:"
+
+msgid "Report Problems:"
+msgstr "Ripoti Matatizo:"
+
+msgid "Resolve Issues Professionally:"
+msgstr "Tatua Matatizo kwa Kitaalamu:"
+
+msgid "Keep Your Information Updated:"
+msgstr "Weka Taarifa Zako Zikiwa Zimesasishwa:"
+
+msgid "In Simple Terms:"
+msgstr "Kwa Ufupi:"
+
+msgid "Stay Safe:"
+msgstr "Kuwa Salama:"
+
+msgid "How to use wingastock"
+msgstr "Jinsi ya kutumia Wingastock"
+
+msgid "How to Contact a Seller on Wingastock"
+msgstr "Jinsi ya Kuwasiliana na Muuzaji kwenye Wingastock"
+
+msgid "Wingastock makes it easy for customers to communicate directly with sellers before making a purchase. To protect users and provide a better marketplace experience, customers must have a registered Wingastock account before they can access seller contact information or send messages to sellers."
+msgstr "Wingastock inarahisisha wateja kuwasiliana moja kwa moja na wauzaji kabla ya kufanya ununuzi. Ili kuwalinda watumiaji na kutoa uzoefu bora wa soko, wateja lazima wawe na akaunti ya Wingastock iliyosajiliwa kabla ya kupata taarifa za mawasiliano ya muuzaji au kutuma ujumbe kwa wauzaji."
+
+msgid "Create a Wingastock Account:"
+msgstr "Fungua Akaunti ya Wingastock:"
+
+msgid "If you do not already have an account, register on Wingastock using your required information. Registration is required before you can access seller contact details or use the platform's messaging features."
+msgstr "Ikiwa bado huna akaunti, jisajili kwenye Wingastock kwa kutumia taarifa zinazohitajika. Usajili unahitajika kabla ya kupata maelezo ya mawasiliano ya muuzaji au kutumia huduma za ujumbe za jukwaa."
+
+msgid "Log In to Your Account:"
+msgstr "Ingia kwenye Akaunti Yako:"
+
+msgid "After registration, log in to your Wingastock account. Once you are logged in, you can interact with sellers and access the communication features available on product listings."
+msgstr "Baada ya usajili, ingia kwenye akaunti yako ya Wingastock. Baada ya kuingia, unaweza kuwasiliana na wauzaji na kutumia huduma za mawasiliano zinazopatikana kwenye matangazo ya bidhaa."
+
+msgid "Find the Product You Want:"
+msgstr "Tafuta Bidhaa Unayotaka:"
+
+msgid "Search or browse Wingastock to find the product you are interested in. You can explore categories such as smartphones, laptops, TVs, computers, accessories, furniture, home appliances, rooms, houses and other products."
+msgstr "Tafuta au vinjari Wingastock ili kupata bidhaa unayoipenda. Unaweza kuchunguza kategoria kama simu janja, laptop, televisheni, kompyuta, vifaa vyake, samani, vifaa vya nyumbani, vyumba, nyumba na bidhaa nyingine."
+
+msgid "Open the Product Listing:"
+msgstr "Fungua Tangazo la Bidhaa:"
+
+msgid "Click on the product you are interested in to view its details, including the description, price, images, availability and seller information."
+msgstr "Bonyeza bidhaa unayoipenda ili kuona maelezo yake, ikiwemo maelezo ya bidhaa, bei, picha, upatikanaji na taarifa za muuzaji."
+
+msgid "View Seller Contact Information:"
+msgstr "Angalia Taarifa za Mawasiliano ya Muuzaji:"
+
+msgid "If the seller has provided contact information that is available to registered customers, you can view the available seller contact details after logging into your Wingastock account."
+msgstr "Ikiwa muuzaji ametoa taarifa za mawasiliano zinazopatikana kwa wateja waliosajiliwa, unaweza kuona maelezo hayo baada ya kuingia kwenye akaunti yako ya Wingastock."
+
+msgid "Send a Direct Message:"
+msgstr "Tuma Ujumbe wa Moja kwa Moja:"
+
+msgid "You can also communicate with the seller directly through Wingastock's integrated chat system. Select the available chat or message option on the product or seller page to start a conversation."
+msgstr "Unaweza pia kuwasiliana moja kwa moja na muuzaji kupitia mfumo wa mazungumzo wa Wingastock. Chagua chaguo la mazungumzo au ujumbe kwenye ukurasa wa bidhaa au muuzaji ili kuanza mazungumzo."
+
+msgid "Ask Questions Before Buying:"
+msgstr "Uliza Maswali Kabla ya Kununua:"
+
+msgid "Use the chat system to ask the seller about product availability, condition, specifications, price, location, delivery or any other information you need before making a purchase."
+msgstr "Tumia mfumo wa mazungumzo kumuuliza muuzaji kuhusu upatikanaji wa bidhaa, hali yake, sifa zake, bei, mahali ilipo, uwasilishaji au taarifa nyingine yoyote unayohitaji kabla ya kufanya ununuzi."
+
+msgid "Keep Your Conversations in Wingastock:"
+msgstr "Weka Mazungumzo Yako ndani ya Wingastock:"
+
+msgid "Where possible, use Wingastock's integrated chat system to communicate with sellers. Keeping conversations within the platform can make it easier to manage your enquiries and refer back to previous conversations."
+msgstr "Inapowezekana, tumia mfumo wa mazungumzo wa Wingastock kuwasiliana na wauzaji. Kuweka mazungumzo ndani ya jukwaa kunaweza kurahisisha kusimamia maswali yako na kurejea mazungumzo ya awali."
+
+msgid "Be Careful With Personal Information:"
+msgstr "Kuwa Makini na Taarifa Binafsi:"
+
+msgid "Do not share unnecessary passwords, account credentials, financial information or other sensitive personal information through chat. Only provide information that is necessary for completing a legitimate transaction."
+msgstr "Usishiriki nywila zisizo za lazima, taarifa za kuingia kwenye akaunti, taarifa za kifedha au taarifa nyingine nyeti binafsi kupitia mazungumzo. Toa tu taarifa zinazohitajika kukamilisha muamala halali."
+
+msgid "Report Suspicious Activity:"
+msgstr "Ripoti Shughuli za Kutiliwa Shaka:"
+
+msgid "If a seller sends suspicious messages, provides misleading information, attempts to scam you or violates Wingastock policies, report the activity through the appropriate Wingastock support or reporting channel."
+msgstr "Ikiwa muuzaji anatuma ujumbe wa kutiliwa shaka, anatoa taarifa za kupotosha, anajaribu kukulaghai au anakiuka sera za Wingastock, ripoti shughuli hiyo kupitia njia husika ya msaada au kuripoti ya Wingastock."
+
+msgid "Why Registration Is Required:"
+msgstr "Kwa Nini Usajili Unahitajika:"
+
+msgid "Requiring customers to register before accessing seller contacts and messaging helps Wingastock maintain a safer and more trusted marketplace. It allows users to have an identifiable account, provides access to the platform's communication features and helps reduce misuse of seller contact information."
+msgstr "Kuwataka wateja wajisajili kabla ya kupata mawasiliano ya wauzaji na huduma za ujumbe husaidia Wingastock kudumisha soko salama na linaloaminika zaidi. Huwapa watumiaji akaunti inayotambulika, huwapa uwezo wa kutumia huduma za mawasiliano za jukwaa na husaidia kupunguza matumizi mabaya ya taarifa za mawasiliano ya wauzaji."
+
+msgid "Quick Guide:"
+msgstr "Mwongozo wa Haraka:"
+
+msgid "Register"
+msgstr "Jisajili"
+
+msgid "Log In"
+msgstr "Ingia"
+
+msgid "Find a Product"
+msgstr "Tafuta Bidhaa"
+
+msgid "Open the Listing"
+msgstr "Fungua Tangazo"
+
+msgid "View Seller Contact"
+msgstr "Angalia Mawasiliano ya Muuzaji"
+
+msgid "Click Chat"
+msgstr "Bonyeza Mazungumzo"
+
+msgid "Communicate With the Seller"
+msgstr "Wasiliana na Muuzaji"
+
+msgid "Important:"
+msgstr "Muhimu:"
+
+msgid "Seller contact information and communication options may depend on the information provided by the seller and the features available for the particular listing. Always use Wingastock responsibly and follow the platform's applicable terms, privacy rules and safety guidelines."
+msgstr "Taarifa za mawasiliano ya muuzaji na chaguo za mawasiliano zinaweza kutegemea taarifa zilizotolewa na muuzaji na huduma zinazopatikana kwenye tangazo husika. Tumia Wingastock kwa uwajibikaji na fuata masharti, kanuni za faragha na miongozo ya usalama inayotumika kwenye jukwaa."
+
+msgid "How to Register as a Seller on Wingastock"
+msgstr "Jinsi ya Kujisajili kama Muuzaji kwenye Wingastock"
+
+msgid "Becoming a seller on Wingastock allows you to advertise and sell your products to customers through our online marketplace. Follow the steps below carefully to create your seller account."
+msgstr "Kuwa muuzaji kwenye Wingastock kunakuwezesha kutangaza na kuuza bidhaa zako kwa wateja kupitia soko letu la mtandaoni. Fuata hatua zilizo hapa chini kwa makini ili kufungua akaunti yako ya muuzaji."
+
+msgid "Read the Seller Terms and Conditions:"
+msgstr "Soma Masharti na Vigezo vya Wauzaji:"
+
+msgid "Before starting the seller registration process, carefully read and understand the Wingastock Seller Terms and Conditions. These terms explain your responsibilities as a seller, including product listings, customer service, payments, prohibited products and compliance with applicable laws."
+msgstr "Kabla ya kuanza mchakato wa usajili wa muuzaji, soma na uelewe kwa makini Masharti na Vigezo vya Wauzaji vya Wingastock. Masharti haya yanaeleza majukumu yako kama muuzaji, ikiwa ni pamoja na matangazo ya bidhaa, huduma kwa wateja, malipo, bidhaa zilizopigwa marufuku na kufuata sheria zinazotumika."
+
+msgid "Start Seller Registration:"
+msgstr "Anza Usajili wa Muuzaji:"
+
+msgid "Select the option to register or become a seller on Wingastock and begin the seller registration process."
+msgstr "Chagua chaguo la kujisajili au kuwa muuzaji kwenye Wingastock na anza mchakato wa usajili wa muuzaji."
+
+msgid "Fill in Your Seller Information:"
+msgstr "Jaza Taarifa Zako za Muuzaji:"
+
+msgid "Provide the required seller information accurately and completely. Depending on the information requested by Wingastock, this may include your name, business information, contact details and other information required to create and manage your seller account."
+msgstr "Toa taarifa zinazohitajika za muuzaji kwa usahihi na ukamilifu. Kulingana na taarifa zinazoombwa na Wingastock, hizi zinaweza kujumuisha jina lako, taarifa za biashara, maelezo ya mawasiliano na taarifa nyingine zinazohitajika kufungua na kusimamia akaunti yako ya muuzaji."
+
+msgid "Review Your Information:"
+msgstr "Kagua Taarifa Zako:"
+
+msgid "Before continuing, carefully check all the information you have entered. Make sure your details are correct because this information may be used to manage your seller account and communicate with you."
+msgstr "Kabla ya kuendelea, kagua kwa makini taarifa zote ulizoingiza. Hakikisha taarifa zako ni sahihi kwa sababu zinaweza kutumika kusimamia akaunti yako ya muuzaji na kuwasiliana nawe."
+
+msgid "Complete the Seller Declaration:"
+msgstr "Kamilisha Tamko la Muuzaji:"
+
+msgid "Read the seller declaration carefully and confirm that the information you have provided is accurate and that you agree to the applicable Seller Terms and Conditions."
+msgstr "Soma tamko la muuzaji kwa makini na uthibitishe kuwa taarifa ulizotoa ni sahihi na kwamba unakubaliana na Masharti na Vigezo vya Wauzaji vinavyotumika."
+
+msgid "Receive Your @winga.com Seller Email:"
+msgstr "Pokea Barua Pepe Yako ya Muuzaji ya @winga.com:"
+
+msgid "During the declaration or account-creation process, Wingastock will provide you with a dedicated"
+msgstr "Wakati wa mchakato wa tamko au kufungua akaunti, Wingastock itakupatia"
+
+msgid "email address for your seller account."
+msgstr "barua pepe maalum kwa ajili ya akaunti yako ya muuzaji."
+
+msgid "Save this email address carefully."
+msgstr "Hifadhi barua pepe hii kwa uangalifu."
+
+msgid "This email is important because it is used specifically for your seller login and for accessing your seller account."
+msgstr "Barua pepe hii ni muhimu kwa sababu inatumika mahsusi kuingia kwenye akaunti yako ya muuzaji na kupata akaunti yako ya muuzaji."
+
+msgid "Create Your Account Password:"
+msgstr "Tengeneza Nenosiri la Akaunti Yako:"
+
+msgid "Enter and confirm a secure password for your seller account. Choose a password that is difficult for others to guess and do not share it with anyone."
+msgstr "Weka na uthibitishe nenosiri salama kwa ajili ya akaunti yako ya muuzaji. Chagua nenosiri ambalo ni vigumu kwa wengine kulikisia na usimshirikishe mtu yeyote."
+
+msgid "Submit Your Seller Registration:"
+msgstr "Wasilisha Usajili Wako wa Muuzaji:"
+
+msgid "After completing all required information, reviewing the terms and declaration, receiving your"
+msgstr "Baada ya kukamilisha taarifa zote zinazohitajika, kukagua masharti na tamko, kupokea"
+
+msgid "seller email and creating your password, submit the registration form."
+msgstr "barua pepe yako ya muuzaji na kutengeneza nenosiri lako, wasilisha fomu ya usajili."
+
+msgid "Keep Your Seller Login Details Safe:"
+msgstr "Linda Taarifa Zako za Kuingia kama Muuzaji:"
+
+msgid "Your"
+msgstr "Barua pepe yako ya"
+
+msgid "seller email and password are your seller account login credentials. Keep them secure and do not share them with other people."
+msgstr "ya muuzaji na nenosiri lako ni taarifa za kuingia kwenye akaunti yako ya muuzaji. Zilinde na usizishirikishe na watu wengine."
+
+msgid "Log In to Your Seller Account:"
+msgstr "Ingia kwenye Akaunti Yako ya Muuzaji:"
+
+msgid "After successful registration, use your assigned"
+msgstr "Baada ya usajili kufanikiwa, tumia"
+
+msgid "seller email and account password to log in and access your seller account."
+msgstr "barua pepe ya muuzaji na nenosiri la akaunti yako kuingia na kupata akaunti yako ya muuzaji."
+
+msgid "Start Selling on Wingastock:"
+msgstr "Anza Kuuza kwenye Wingastock:"
+
+msgid "Once you have access to your seller account, you can use the available seller features to create product listings, add product information, manage your products, communicate with customers and manage your selling activities."
+msgstr "Baada ya kupata akaunti yako ya muuzaji, unaweza kutumia huduma zinazopatikana kwa wauzaji kutengeneza matangazo ya bidhaa, kuongeza taarifa za bidhaa, kusimamia bidhaa zako, kuwasiliana na wateja na kusimamia shughuli zako za mauzo."
+
+msgid "Your"
+msgstr "Barua pepe yako ya"
+
+msgid "seller email is specifically used for seller account login and access. Make sure you save it somewhere safe immediately after it is provided to you. If you lose your seller login details, use the available Wingastock account recovery or support process."
+msgstr "ya muuzaji inatumika mahsusi kuingia na kupata akaunti ya muuzaji. Hakikisha unaihifadhi mahali salama mara tu unapopewa. Ukipoteza taarifa zako za kuingia kama muuzaji, tumia mchakato unaopatikana wa kurejesha akaunti au kupata msaada kutoka Wingastock."
+
+msgid "Read Seller Terms"
+msgstr "Soma Masharti ya Muuzaji"
+
+msgid "Start Registration"
+msgstr "Anza Usajili"
+
+msgid "Fill Seller Information"
+msgstr "Jaza Taarifa za Muuzaji"
+
+msgid "Review Information"
+msgstr "Kagua Taarifa"
+
+msgid "Complete Declaration"
+msgstr "Kamilisha Tamko"
+
+msgid "Receive @winga.com Email"
+msgstr "Pokea Barua Pepe ya @winga.com"
+
+msgid "Create Password"
+msgstr "Tengeneza Nenosiri"
+
+msgid "Submit Registration"
+msgstr "Wasilisha Usajili"
+
+msgid "Start Selling"
+msgstr "Anza Kuuza"
+
+msgid "Go seller register page"
+msgstr "Nenda kwenye ukurasa wa usajili wa muuzaji"
+
+
+
+msgid "Close"
+msgstr "Funga"
+
+msgid "Shop smarter. Shop better."
+msgstr "Nunua kwa busara. Nunua vizuri."
+
+msgid "Login"
+msgstr "Ingia"
+
+msgid "Register"
+msgstr "Jisajili"
+
+msgid "Welcome back"
+msgstr "Karibu tena"
+
+msgid "Login to continue to your account"
+msgstr "Ingia ili kuendelea kwenye akaunti yako"
+
+msgid "Email address"
+msgstr "Anwani ya barua pepe"
+
+msgid "Password"
+msgstr "Nenosiri"
+
+msgid "Enter your password"
+msgstr "Ingiza nenosiri lako"
+
+msgid "Show password"
+msgstr "Onyesha nenosiri"
+
+msgid "Hide password"
+msgstr "Ficha nenosiri"
+
+msgid "Logging in..."
+msgstr "Inaingia..."
+
+msgid "Don't have an account?"
+msgstr "Huna akaunti?"
+
+msgid "Create one"
+msgstr "Fungua akaunti"
+
+msgid "Create your account"
+msgstr "Fungua akaunti yako"
+
+msgid "Join Wingastock and start shopping"
+msgstr "Jiunge na Wingastock na anza kununua"
+
+msgid "Create a password"
+msgstr "Tengeneza nenosiri"
+
+msgid "Create account"
+msgstr "Fungua akaunti"
+
+msgid "Creating account..."
+msgstr "Inafungua akaunti..."
+
+msgid "Already have an account?"
+msgstr "Tayari una akaunti?"
+
+msgid "Logging in..."
+msgstr "Inaingia..."
+
+msgid "Creating account..."
+msgstr "Inafungua akaunti..."
+
+msgid "Invalid server response."
+msgstr "Majibu ya seva si sahihi."
+
+msgid "Login successful."
+msgstr "Umefanikiwa kuingia."
+
+msgid "Invalid email or password."
+msgstr "Barua pepe au nenosiri si sahihi."
+
+msgid "Unable to connect to the server. Please try again."
+msgstr "Imeshindikana kuunganisha na seva. Tafadhali jaribu tena."
+
+msgid "Account created successfully."
+msgstr "Akaunti imefunguliwa kwa mafanikio."
+
+msgid "Registration failed."
+msgstr "Usajili umeshindikana."
+
+msgid "Seller"
+msgstr "Muuzaji"
+
+msgid "Since %(date)s"
+msgstr "Tangu %(date)s"
+
+msgid "View shop"
+msgstr "Angalia duka"
+
+
+
+msgid "Products"
+msgstr "Bidhaa"
+
+msgid "Loading"
+msgstr "Inapakia"
+
+msgid "Request product"
+msgstr "Omba bidhaa"
+
+msgid "Home"
+msgstr "Nyumbani"
+
+msgid "Request"
+msgstr "Omba"
+
+msgid "How to"
+msgstr "Jinsi ya"
+
+msgid "Back wingastock"
+msgstr "Rudi Wingastock"
+
+msgid "Hello,"
+msgstr "Habari,"
+
+msgid "Now you can request products that are not available in website by uploading image and some descriptions."
+msgstr "Sasa unaweza kuomba bidhaa ambazo hazipatikani kwenye tovuti kwa kupakia picha na maelezo kadhaa."
+
+msgid "Search products..."
+msgstr "Tafuta bidhaa..."
+
+msgid "Search products"
+msgstr "Tafuta bidhaa"
+
+msgid "Category not provided"
+msgstr "Kategoria haijatolewa"
+
+msgid "Price"
+msgstr "Bei"
+
+msgid "Not provided"
+msgstr "Haijatolewa"
+
+msgid "Added"
+msgstr "Imeongezwa"
+
+msgid "Pending"
+msgstr "Inasubiri"
+
+msgid "Processing"
+msgstr "Inachakatwa"
+
+msgid "Processed"
+msgstr "Imeshughulikiwa"
+
+msgid "Rejected"
+msgstr "Imekataliwa"
+
+msgid "Delete"
+msgstr "Futa"
+
+msgid "Delete Request?"
+msgstr "Ufute ombi?"
+
+msgid "Are you sure you want to delete"
+msgstr "Una uhakika unataka kufuta"
+
+msgid "This action cannot be undone."
+msgstr "Kitendo hiki hakiwezi kutenduliwa."
+
+msgid "Yes, Delete"
+msgstr "Ndiyo, Futa"
+
+msgid "Cancel"
+msgstr "Ghairi"
+
+msgid "Customer note:"
+msgstr "Maelezo ya mteja:"
+
+msgid "No products match your search."
+msgstr "Hakuna bidhaa zinazolingana na utafutaji wako."
+
+msgid "Ready to find a product?"
+msgstr "Uko tayari kutafuta bidhaa?"
+
+msgid "You haven't submitted a Deliver request yet. Find the product you want, download its picture, then send us the details and we'll help you get it."
+msgstr "Bado hujatuma ombi la Deliver. Tafuta bidhaa unayotaka, pakua picha yake, kisha tutumie maelezo yake na tutakusaidia kuipata."
+
+msgid "Find & Download Product Picture"
+msgstr "Tafuta na Pakua Picha ya Bidhaa"
+
+msgid "Search Google, Bing, Pinterest and other platforms to find a picture of the product you want."
+msgstr "Tafuta Google, Bing, Pinterest na majukwaa mengine ili kupata picha ya bidhaa unayotaka."
+
+msgid "Request Product"
+msgstr "Omba Bidhaa"
+
+msgid "Have the product picture ready? Submit your request and WingaStock will take it from there."
+msgstr "Una picha ya bidhaa tayari? Tuma ombi lako na WingaStock itaendelea na mchakato huo."
+
+msgid "Add product"
+msgstr "Ongeza bidhaa"
+
+msgid "Upload product"
+msgstr "Pakia bidhaa"
+
+msgid "PRODUCT STUDIO"
+msgstr "MAABARA YA BIDHAA"
+
+msgid "Upload a product"
+msgstr "Pakia bidhaa"
+
+msgid "Show your product clearly for us to find it in markets."
+msgstr "Onyesha bidhaa yako kwa uwazi ili tuweze kuipata kwenye masoko."
+
+msgid "Add product photo"
+msgstr "Ongeza picha ya bidhaa"
+
+msgid "Tap to upload or take a photo"
+msgstr "Gusa kupakia au kupiga picha"
+
+msgid "JPG, PNG or WEBP · maximum 5MB"
+msgstr "JPG, PNG au WEBP · kiwango cha juu 5MB"
+
+msgid "Product name"
+msgstr "Jina la bidhaa"
+
+msgid "Choose category"
+msgstr "Chagua kategoria"
+
+msgid "Product preview"
+msgstr "Mwonekano wa bidhaa"
+
+msgid "e.g iPhone 12"
+msgstr "mfano iPhone 12"
+
+msgid "e.g Quality product from ..."
+msgstr "mfano Bidhaa bora kutoka ..."
+
+msgid "Price (optional)"
+msgstr "Bei (hiari)"
+
+msgid "e.g 1000.00"
+msgstr "mfano 1000.00"
+
+msgid "Electronics"
+msgstr "Elektroniki"
+
+msgid "Phones & Tablets"
+msgstr "Simu na Tableti"
+
+msgid "Computers & Laptops"
+msgstr "Kompyuta na Laptop"
+
+msgid "Fashion"
+msgstr "Mavazi"
+
+msgid "Shoes"
+msgstr "Viatu"
+
+msgid "Beauty & Personal Care"
+msgstr "Urembo na Huduma Binafsi"
+
+msgid "Food & Groceries"
+msgstr "Chakula na Vyakula vya Nyumbani"
+
+msgid "Drinks & Beverages"
+msgstr "Vinywaji"
+
+msgid "Furniture"
+msgstr "Samani"
+
+msgid "Home & Garden"
+msgstr "Nyumbani na Bustani"
+
+msgid "Home Appliances"
+msgstr "Vifaa vya Nyumbani"
+
+msgid "Vehicles"
+msgstr "Magari"
+
+msgid "Vehicle Parts & Accessories"
+msgstr "Vipuri na Vifaa vya Magari"
+
+msgid "Sports & Fitness"
+msgstr "Michezo na Mazoezi"
+
+msgid "Books & Education"
+msgstr "Vitabu na Elimu"
+
+msgid "Toys & Games"
+msgstr "Vichezeo na Michezo"
+
+msgid "Baby & Kids"
+msgstr "Watoto na Watoto Wadogo"
+
+msgid "Services"
+msgstr "Huduma"
+
+msgid "Jobs"
+msgstr "Kazi"
+
+msgid "Property"
+msgstr "Mali"
+
+msgid "Other"
+msgstr "Nyingine"
+
+msgid "How to Deliver"
+msgstr "Jinsi ya Kuwasilisha"
+
+msgid "Loading..."
+msgstr "Inapakia..."
+
+msgid "How to deliver"
+msgstr "Jinsi ya kuwasilisha"
+
+msgid "How to Send a Deliver Request"
+msgstr "Jinsi ya Kutuma Ombi la Kuwasilishiwa"
+
+msgid "Can't find the product you want on WingaStock? Don't worry. You can send us a Deliver request and we will help you get the product."
+msgstr "Huwezi kupata bidhaa unayotaka kwenye WingaStock? Usijali. Unaweza kututumia ombi la Kuwasilishiwa na tutakusaidia kupata bidhaa hiyo."
+
+msgid "Before sending your request:"
+msgstr "Kabla ya kutuma ombi lako:"
+
+msgid "Find a clear picture of the product you want. A good product picture helps us understand exactly what you are looking for."
+msgstr "Tafuta picha iliyo wazi ya bidhaa unayotaka. Picha nzuri ya bidhaa hutusaidia kuelewa vizuri unachotafuta."
+
+msgid "Find the product you want"
+msgstr "Tafuta bidhaa unayotaka"
+
+msgid "Search for the product online and find a clear picture that shows the product properly. You can use Google Images, Bing Images, Pinterest or another website."
+msgstr "Tafuta bidhaa hiyo mtandaoni na upate picha iliyo wazi inayoonyesha bidhaa vizuri. Unaweza kutumia Google Images, Bing Images, Pinterest au tovuti nyingine."
+
+msgid "Search Google Images"
+msgstr "Tafuta Google Images"
+
+msgid "Search Bing Images"
+msgstr "Tafuta Bing Images"
+
+msgid "Search Pinterest"
+msgstr "Tafuta Pinterest"
+
+msgid "Download the product picture"
+msgstr "Pakua picha ya bidhaa"
+
+msgid "Save the product picture to your phone or computer. Make sure the picture is clear enough to identify the product."
+msgstr "Hifadhi picha ya bidhaa kwenye simu au kompyuta yako. Hakikisha picha iko wazi vya kutosha kutambua bidhaa."
+
+msgid "Open the Deliver Request page"
+msgstr "Fungua ukurasa wa Ombi la Kuwasilishiwa"
+
+msgid "After you have the product picture, go to the Deliver Request page and start your request."
+msgstr "Baada ya kupata picha ya bidhaa, nenda kwenye ukurasa wa Ombi la Kuwasilishiwa na anza ombi lako."
+
+msgid "Open Deliver Request"
+msgstr "Fungua Ombi la Kuwasilishiwa"
+
+msgid "Enter the product details"
+msgstr "Weka maelezo ya bidhaa"
+
+msgid "Tell us as much as possible about the product you want. This makes it easier for us to understand your request."
+msgstr "Tuambie maelezo mengi iwezekanavyo kuhusu bidhaa unayotaka. Hii hurahisisha kuelewa ombi lako."
+
+msgid "What should you include?"
+msgstr "Unapaswa kujumuisha nini?"
+
+msgid "Product picture"
+msgstr "Picha ya bidhaa"
+
+msgid "Product description"
+msgstr "Maelezo ya bidhaa"
+
+msgid "Quantity you need"
+msgstr "Kiasi unachohitaji"
+
+msgid "Preferred colour"
+msgstr "Rangi unayopendelea"
+
+msgid "Size, model or version"
+msgstr "Ukubwa, modeli au toleo"
+
+msgid "Any other special instructions"
+msgstr "Maelekezo mengine maalum"
+
+msgid "Submit your request"
+msgstr "Tuma ombi lako"
+
+msgid "Check your information, make sure the picture is attached, then submit the request. WingaStock will receive your request and work on helping you get the product."
+msgstr "Kagua taarifa zako, hakikisha picha imeambatanishwa, kisha tuma ombi. WingaStock itapokea ombi lako na kuanza kukusaidia kupata bidhaa hiyo."
+
+msgid "We’ll take it from there!"
+msgstr "Sisi tutaendelea na mchakato huo!"
+
+msgid "Once your request has been submitted, WingaStock will review the information and help you with the next steps."
+msgstr "Baada ya ombi lako kutumwa, WingaStock itakagua taarifa na kukusaidia na hatua zinazofuata."
+
+msgid "Request a Product"
+msgstr "Omba Bidhaa"
+
+msgid "Select language"
+msgstr "Chagua lugha"
+
+msgid "Shopping cart"
+msgstr "Kikapu cha manunuzi"
+
+msgid "Account"
+msgstr "Akaunti"
+
+msgid "My account"
+msgstr "Akaunti yangu"
+
+msgid "Your cart"
+msgstr "Kikapu chako"
+
+msgid "new"
+msgstr "mpya"
+
+msgid "No notifications"
+msgstr "Hakuna arifa"
+
+msgid "You're all caught up."
+msgstr "Umeona arifa zote."
+
+msgid "Your cart is empty"
+msgstr "Kikapu chako hakina bidhaa"
+
+msgid "Products you add will appear here."
+msgstr "Bidhaa utakazoongeza zitaonekana hapa."
+
+msgid "Close"
+msgstr "Funga"
+
+msgid "Search products, shops and more..."
+msgstr "Tafuta bidhaa, maduka na zaidi..."

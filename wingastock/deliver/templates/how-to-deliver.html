@@ -1,4 +1,50 @@
 {% load static %}
+{% load i18n %}
+
+{% translate "How to Deliver" as how_to_deliver_title %}
+{% translate "Loading..." as loading_text %}
+{% translate "How to deliver" as how_to_deliver_text %}
+{% translate "Home" as home_text %}
+{% translate "Request" as request_text %}
+{% translate "How to" as how_to_text %}
+{% translate "Back wingastock" as back_wingastock_text %}
+
+{% translate "How to Send a Deliver Request" as how_to_send_request_text %}
+{% translate "Can't find the product you want on WingaStock? Don't worry. You can send us a Deliver request and we will help you get the product." as deliver_intro_text %}
+
+{% translate "Before sending your request:" as before_request_text %}
+{% translate "Find a clear picture of the product you want. A good product picture helps us understand exactly what you are looking for." as clear_picture_info_text %}
+
+{% translate "Find the product you want" as find_product_text %}
+{% translate "Search for the product online and find a clear picture that shows the product properly. You can use Google Images, Bing Images, Pinterest or another website." as search_product_online_text %}
+{% translate "Search Google Images" as search_google_images_text %}
+{% translate "Search Bing Images" as search_bing_images_text %}
+{% translate "Search Pinterest" as search_pinterest_text %}
+
+{% translate "Download the product picture" as download_product_picture_text %}
+{% translate "Save the product picture to your phone or computer. Make sure the picture is clear enough to identify the product." as save_product_picture_text %}
+
+{% translate "Open the Deliver Request page" as open_deliver_request_page_text %}
+{% translate "After you have the product picture, go to the Deliver Request page and start your request." as open_request_description_text %}
+{% translate "Open Deliver Request" as open_deliver_request_text %}
+
+{% translate "Enter the product details" as enter_product_details_text %}
+{% translate "Tell us as much as possible about the product you want. This makes it easier for us to understand your request." as product_details_description_text %}
+{% translate "What should you include?" as what_include_text %}
+{% translate "Product picture" as product_picture_text %}
+{% translate "Product name" as product_name_text %}
+{% translate "Product description" as product_description_text %}
+{% translate "Quantity you need" as quantity_needed_text %}
+{% translate "Preferred colour" as preferred_colour_text %}
+{% translate "Size, model or version" as size_model_version_text %}
+{% translate "Any other special instructions" as special_instructions_text %}
+
+{% translate "Submit your request" as submit_request_text %}
+{% translate "Check your information, make sure the picture is attached, then submit the request. WingaStock will receive your request and work on helping you get the product." as submit_request_description_text %}
+
+{% translate "We’ll take it from there!" as take_it_from_there_text %}
+{% translate "Once your request has been submitted, WingaStock will review the information and help you with the next steps." as final_message_text %}
+{% translate "Request a Product" as request_a_product_text %}
 
 <!DOCTYPE html>
 
@@ -7,7 +53,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How to Deliver</title>
+  <title>{{ how_to_deliver_title }}</title>
 
   <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
 
@@ -306,18 +352,16 @@
       }
     }
   </style>
-  ```
 
 </head>
 
 <body>
 
-  ```
   <!-- PAGE LOADER -->
   <div id="page-loader">
     <div class="loader-content">
       <div class="loader-spinner"></div>
-      <p>Loading...</p>
+      <p>{{ loading_text }}</p>
     </div>
   </div>
 
@@ -345,7 +389,7 @@
 
         <div class="title-holder-101">
           <button type="button">
-            <span>How to deliver</span>
+            <span>{{ how_to_deliver_text }}</span>
           </button>
 
         </div>
@@ -367,7 +411,7 @@
           <ul>
             <a href="{% url 'delivery_home' %}">
               <li>
-                Home
+                {{ home_text }}
                 <i class="fas fa-tachometer-alt"></i>
               </li>
             </a>
@@ -377,7 +421,7 @@
           <ul>
             <a href="{% url 'deliver_product' %}">
               <li>
-                Request
+                {{ request_text }}
                 <i class="fas fa-shopping-bag"></i>
               </li>
             </a>
@@ -387,7 +431,7 @@
           <ul>
             <a href="{% url 'how_to_deliver' %}">
               <li class="active-0">
-                How to
+                {{ how_to_text }}
                 <i class="fas fa-envelope"></i>
               </li>
             </a>
@@ -397,7 +441,7 @@
           <ul>
             <a href="{% url 'home' %}">
               <li>
-                Back wingastock
+                {{ back_wingastock_text }}
                 <i class="fas fa-user"></i>
               </li>
             </a>
@@ -427,13 +471,11 @@
               <div class="deliver-how-intro-1001">
 
                 <h2 class="deliver-how-title-1001">
-                  How to Send a Deliver Request
+                  {{ how_to_send_request_text }}
                 </h2>
 
                 <p class="deliver-how-subtitle-1001">
-                  Can't find the product you want on WingaStock?
-                  Don't worry. You can send us a Deliver request
-                  and we will help you get the product.
+                  {{ deliver_intro_text }}
                 </p>
 
               </div>
@@ -445,10 +487,8 @@
                 <i class="fas fa-info-circle deliver-how-info-icon-1001"></i>
 
                 <p class="deliver-how-info-text-1001">
-                  <strong>Before sending your request:</strong>
-                  Find a clear picture of the product you want.
-                  A good product picture helps us understand exactly
-                  what you are looking for.
+                  <strong>{{ before_request_text }}</strong>
+                  {{ clear_picture_info_text }}
                 </p>
 
               </div>
@@ -464,14 +504,11 @@
                 <div class="deliver-how-step-content-1001">
 
                   <h4>
-                    Find the product you want
+                    {{ find_product_text }}
                   </h4>
 
                   <p>
-                    Search for the product online and find a clear
-                    picture that shows the product properly.
-                    You can use Google Images, Bing Images,
-                    Pinterest or another website.
+                    {{ search_product_online_text }}
                   </p>
 
 
@@ -481,7 +518,7 @@
                       class="deliver-how-image-link-1001">
 
                       <i class="fab fa-google"></i>
-                      Search Google Images
+                      {{ search_google_images_text }}
 
                     </a>
 
@@ -490,7 +527,7 @@
                       class="deliver-how-image-link-1001">
 
                       <i class="fas fa-search"></i>
-                      Search Bing Images
+                      {{ search_bing_images_text }}
 
                     </a>
 
@@ -499,7 +536,7 @@
                       class="deliver-how-image-link-1001">
 
                       <i class="fab fa-pinterest"></i>
-                      Search Pinterest
+                      {{ search_pinterest_text }}
 
                     </a>
 
@@ -520,13 +557,11 @@
                 <div class="deliver-how-step-content-1001">
 
                   <h4>
-                    Download the product picture
+                    {{ download_product_picture_text }}
                   </h4>
 
                   <p>
-                    Save the product picture to your phone or
-                    computer. Make sure the picture is clear
-                    enough to identify the product.
+                    {{ save_product_picture_text }}
                   </p>
 
                 </div>
@@ -544,19 +579,18 @@
                 <div class="deliver-how-step-content-1001">
 
                   <h4>
-                    Open the Deliver Request page
+                    {{ open_deliver_request_page_text }}
                   </h4>
 
                   <p>
-                    After you have the product picture, go to the
-                    Deliver Request page and start your request.
+                    {{ open_request_description_text }}
                   </p>
 
 
                   <a href="{% url 'deliver_product' %}" class="deliver-how-request-btn-1001">
 
                     <i class="fas fa-shopping-bag"></i>
-                    Open Deliver Request
+                    {{ open_deliver_request_text }}
 
                   </a>
 
@@ -575,57 +609,55 @@
                 <div class="deliver-how-step-content-1001">
 
                   <h4>
-                    Enter the product details
+                    {{ enter_product_details_text }}
                   </h4>
 
                   <p>
-                    Tell us as much as possible about the product
-                    you want. This makes it easier for us to
-                    understand your request.
+                    {{ product_details_description_text }}
                   </p>
 
 
                   <div class="deliver-how-checklist-1001">
 
                     <h4>
-                      What should you include?
+                      {{ what_include_text }}
                     </h4>
 
                     <ul>
 
                       <li>
                         <i class="fas fa-check-circle"></i>
-                        Product picture
+                        {{ product_picture_text }}
                       </li>
 
                       <li>
                         <i class="fas fa-check-circle"></i>
-                        Product name
+                        {{ product_name_text }}
                       </li>
 
                       <li>
                         <i class="fas fa-check-circle"></i>
-                        Product description
+                        {{ product_description_text }}
                       </li>
 
                       <li>
                         <i class="fas fa-check-circle"></i>
-                        Quantity you need
+                        {{ quantity_needed_text }}
                       </li>
 
                       <li>
                         <i class="fas fa-check-circle"></i>
-                        Preferred colour
+                        {{ preferred_colour_text }}
                       </li>
 
                       <li>
                         <i class="fas fa-check-circle"></i>
-                        Size, model or version
+                        {{ size_model_version_text }}
                       </li>
 
                       <li>
                         <i class="fas fa-check-circle"></i>
-                        Any other special instructions
+                        {{ special_instructions_text }}
                       </li>
 
                     </ul>
@@ -647,14 +679,11 @@
                 <div class="deliver-how-step-content-1001">
 
                   <h4>
-                    Submit your request
+                    {{ submit_request_text }}
                   </h4>
 
                   <p>
-                    Check your information, make sure the picture
-                    is attached, then submit the request.
-                    WingaStock will receive your request and
-                    work on helping you get the product.
+                    {{ submit_request_description_text }}
                   </p>
 
                 </div>
@@ -668,13 +697,11 @@
                 <i class="fas fa-truck"></i>
 
                 <strong>
-                  We’ll take it from there!
+                  {{ take_it_from_there_text }}
                 </strong>
 
                 <span>
-                  Once your request has been submitted,
-                  WingaStock will review the information and
-                  help you with the next steps.
+                  {{ final_message_text }}
                 </span>
 
               </div>
@@ -686,7 +713,7 @@
                 <a href="{% url 'deliver_product' %}" class="deliver-how-request-btn-1001">
 
                   <i class="fas fa-plus-circle"></i>
-                  Request a Product
+                  {{ request_a_product_text }}
 
                 </a>
 

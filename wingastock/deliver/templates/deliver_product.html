@@ -1,11 +1,35 @@
 {% load static %}
+{% load i18n %}
+
+{% translate "Loading" as loading_text %}
+{% translate "Upload product" as upload_product_text %}
+{% translate "Home" as home_text %}
+{% translate "Request" as request_text %}
+{% translate "How to" as how_to_text %}
+{% translate "Back wingastock" as back_wingastock_text %}
+
+{% translate "PRODUCT STUDIO" as product_studio_text %}
+{% translate "Upload a product" as upload_a_product_text %}
+{% translate "Show your product clearly for us to find it in markets." as product_heading_description_text %}
+
+{% translate "Add product photo" as add_product_photo_text %}
+{% translate "Tap to upload or take a photo" as tap_upload_photo_text %}
+{% translate "JPG, PNG or WEBP · maximum 5MB" as photo_help_text %}
+
+{% translate "Product name" as product_name_text %}
+{% translate "Category" as category_text %}
+{% translate "Choose category" as choose_category_text %}
+{% translate "Descriptions" as descriptions_text %}
+{% translate "Price (optional)" as price_optional_text %}
+{% translate "Upload product" as upload_product_button_text %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wingastock | Add product</title>
+    <title>Wingastock | {% translate "Add product" %}</title>
     <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -49,7 +73,7 @@
     <div id="page-loader">
         <div class="loader-content">
             <div class="spinner"></div>
-            <div class="loading-text">Loading<span class="dots"></span></div>
+            <div class="loading-text">{{ loading_text }}<span class="dots"></span></div>
         </div>
     </div>
 
@@ -63,9 +87,11 @@
                     <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
                             class="fas fa-times"></i></button>
                 </div>
+
                 <div class="title-holder-101">
-                    <button type="button"><span>Upload product</span></button>
+                    <button type="button"><span>{{ upload_product_text }}</span></button>
                 </div>
+
                 <div class="title-holder-101" style="float: right;">
                     <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
                 </div>
@@ -79,31 +105,29 @@
             <div class="left-holder-201" id="nav">
                 <div class="nav-bar-holder-202">
 
-
                     <ul>
                         <a href="{% url 'delivery_home' %}">
-                            <li>Home <i class="fas fa-tachometer-alt"></i></li>
+                            <li>{{ home_text }} <i class="fas fa-tachometer-alt"></i></li>
                         </a>
                     </ul>
 
                     <ul>
                         <a href="{% url 'deliver_product' %}">
-                            <li class="active-0">Request <i class="fas fa-shopping-bag"></i></li>
+                            <li class="active-0">{{ request_text }} <i class="fas fa-shopping-bag"></i></li>
                         </a>
                     </ul>
 
                     <ul>
                         <a href="{% url 'how_to_deliver' %}">
-                            <li>How to <i class="fas fa-envelope"></i></li>
+                            <li>{{ how_to_text }} <i class="fas fa-envelope"></i></li>
                         </a>
                     </ul>
 
                     <ul>
                         <a href="{% url 'home' %}">
-                            <li>Back wingastock <i class="fas fa-user"></i></li>
+                            <li>{{ back_wingastock_text }} <i class="fas fa-user"></i></li>
                         </a>
                     </ul>
-
 
                 </div>
             </div>
@@ -113,9 +137,9 @@
 
                     <div class="seller-page-heading">
                         <div>
-                            <span class="seller-kicker">PRODUCT STUDIO</span>
-                            <h1>Upload a product</h1>
-                            <p>Show your product clearly for us to find it in markets.</p>
+                            <span class="seller-kicker">{{ product_studio_text }}</span>
+                            <h1>{{ upload_a_product_text }}</h1>
+                            <p>{{ product_heading_description_text }}</p>
                         </div>
                     </div>
 
@@ -134,52 +158,74 @@
                         {% csrf_token %}
 
                         <div class="seller-upload-layout">
+
                             <div class="seller-photo-panel">
                                 <label class="seller-photo-drop" for="product-image">
-                                    <span class="seller-photo-placeholder"><i class="fas fa-camera"></i><b>Add product
-                                            photo</b><small>Tap to upload or take a photo</small></span>
-                                    <img id="product-image-preview" alt="Product preview">
+
+                                    <span class="seller-photo-placeholder">
+                                        <i class="fas fa-camera"></i>
+                                        <b>{{ add_product_photo_text }}</b>
+                                        <small>{{ tap_upload_photo_text }}</small>
+                                    </span>
+
+                                    <img id="product-image-preview" alt="{% translate 'Product preview' %}">
+
                                     <input id="product-image" type="file" name="image" accept="image/*" required>
                                 </label>
-                                <small class="seller-photo-help">JPG, PNG or WEBP · maximum 5MB</small>
+
+                                <small class="seller-photo-help">{{ photo_help_text }}</small>
                             </div>
+
+
                             <div class="seller-details-panel">
+
                                 <div class="input-holder-203">
-                                    <p><i class="fas fa-heading"></i> Product name</p>
+                                    <p>
+                                        <i class="fas fa-heading"></i>
+                                        {{ product_name_text }}
+                                    </p>
+
                                     <div>
-                                        <input type="text" name="title" placeholder="e.g iPhone 12" required>
+                                        <input type="text"
+                                            name="title"
+                                            placeholder="{% translate 'e.g iPhone 12' %}"
+                                            required>
                                     </div>
                                 </div>
 
 
                                 <div class="input-holder-203">
-                                    <p><i class="fas fa-tags"></i> Category </p>
+                                    <p>
+                                        <i class="fas fa-tags"></i>
+                                        {{ category_text }}
+                                    </p>
+
                                     <div>
 
                                         <select name="category" required>
-                                            <option value="">Choose category</option>
+                                            <option value="">{{ choose_category_text }}</option>
 
-                                            <option value="electronics">📱 Electronics</option>
-                                            <option value="phones">📱 Phones & Tablets</option>
-                                            <option value="computers">💻 Computers & Laptops</option>
-                                            <option value="fashion">👕 Fashion</option>
-                                            <option value="shoes">👟 Shoes</option>
-                                            <option value="beauty">💄 Beauty & Personal Care</option>
-                                            <option value="food">🍔 Food & Groceries</option>
-                                            <option value="drinks">🥤 Drinks & Beverages</option>
-                                            <option value="furniture">🛋️ Furniture</option>
-                                            <option value="home">🏠 Home & Garden</option>
-                                            <option value="appliances">🔌 Home Appliances</option>
-                                            <option value="vehicles">🚗 Vehicles</option>
-                                            <option value="parts">🔧 Vehicle Parts & Accessories</option>
-                                            <option value="sports">⚽ Sports & Fitness</option>
-                                            <option value="books">📚 Books & Education</option>
-                                            <option value="toys">🧸 Toys & Games</option>
-                                            <option value="baby">👶 Baby & Kids</option>
-                                            <option value="services">🛠️ Services</option>
-                                            <option value="jobs">💼 Jobs</option>
-                                            <option value="property">🏠 Property</option>
-                                            <option value="other">📦 Other</option>
+                                            <option value="electronics">📱 {% translate "Electronics" %}</option>
+                                            <option value="phones">📱 {% translate "Phones & Tablets" %}</option>
+                                            <option value="computers">💻 {% translate "Computers & Laptops" %}</option>
+                                            <option value="fashion">👕 {% translate "Fashion" %}</option>
+                                            <option value="shoes">👟 {% translate "Shoes" %}</option>
+                                            <option value="beauty">💄 {% translate "Beauty & Personal Care" %}</option>
+                                            <option value="food">🍔 {% translate "Food & Groceries" %}</option>
+                                            <option value="drinks">🥤 {% translate "Drinks & Beverages" %}</option>
+                                            <option value="furniture">🛋️ {% translate "Furniture" %}</option>
+                                            <option value="home">🏠 {% translate "Home & Garden" %}</option>
+                                            <option value="appliances">🔌 {% translate "Home Appliances" %}</option>
+                                            <option value="vehicles">🚗 {% translate "Vehicles" %}</option>
+                                            <option value="parts">🔧 {% translate "Vehicle Parts & Accessories" %}</option>
+                                            <option value="sports">⚽ {% translate "Sports & Fitness" %}</option>
+                                            <option value="books">📚 {% translate "Books & Education" %}</option>
+                                            <option value="toys">🧸 {% translate "Toys & Games" %}</option>
+                                            <option value="baby">👶 {% translate "Baby & Kids" %}</option>
+                                            <option value="services">🛠️ {% translate "Services" %}</option>
+                                            <option value="jobs">💼 {% translate "Jobs" %}</option>
+                                            <option value="property">🏠 {% translate "Property" %}</option>
+                                            <option value="other">📦 {% translate "Other" %}</option>
                                         </select>
 
                                     </div>
@@ -187,24 +233,45 @@
 
 
                                 <div class="input-holder-203" style="height: 250px;">
-                                    <p><i class="fas fa-align-left"></i> Descriptions </p>
+                                    <p>
+                                        <i class="fas fa-align-left"></i>
+                                        {{ descriptions_text }}
+                                    </p>
+
                                     <div style="height: 200px;">
-                                        <textarea name="description" required
-                                            placeholder="e.g Quality product from ..."></textarea>
-                                    </div>
-                                </div>
-                                <div class="input-holder-203">
-                                    <p><i class="fas fa-dollar-sign"></i> Price (optional)</p>
-                                    <div>
-                                        <input type="number" name="price" min="1" step="0.01" placeholder="e.g 1000.00">
+                                        <textarea
+                                            name="description"
+                                            required
+                                            placeholder="{% translate 'e.g Quality product from ...' %}"></textarea>
                                     </div>
                                 </div>
 
-                                <div class="input-holder-203 submit-203">
+
+                                <div class="input-holder-203">
+                                    <p>
+                                        <i class="fas fa-dollar-sign"></i>
+                                        {{ price_optional_text }}
+                                    </p>
+
                                     <div>
-                                        <button type="submit"><i class="fas fa-save"></i> Upload product</button>
+                                        <input type="number"
+                                            name="price"
+                                            min="1"
+                                            step="0.01"
+                                            placeholder="{% translate 'e.g 1000.00' %}">
                                     </div>
                                 </div>
+
+
+                                <div class="input-holder-203 submit-203">
+                                    <div>
+                                        <button type="submit">
+                                            <i class="fas fa-save"></i>
+                                            {{ upload_product_button_text }}
+                                        </button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -222,9 +289,11 @@
         const imageInput = document.getElementById("product-image");
         const imagePreview = document.getElementById("product-image-preview");
         const photoPlaceholder = document.querySelector(".seller-photo-placeholder");
+
         imageInput?.addEventListener("change", function () {
             const file = this.files && this.files[0];
             if (!file) return;
+
             imagePreview.src = URL.createObjectURL(file);
             imagePreview.classList.add("is-visible");
             photoPlaceholder.classList.add("is-hidden");
@@ -245,6 +314,7 @@
         });
     </script>
 
+
     <script>
         function open_menu(click) {
             let menu1 = document.getElementById('menu1');
@@ -263,6 +333,8 @@
             }
         }
     </script>
+
+
     <script>
         setTimeout(function () {
             document.querySelectorAll(".alert").forEach(function (alert) {
@@ -272,6 +344,7 @@
             });
         }, 4000);
     </script>
+
 </body>
 
 </html>

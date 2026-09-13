@@ -1,5 +1,7 @@
 {% load static %}
 {% load humanize %}
+{% load i18n %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -405,11 +407,16 @@ MOBILE
         {% endif %}
 
 
+
         <div class="content-holder-002">
 
-            <div class="shop-preview-breadcrumb"><a href="{% url 'home' %}">Home</a><i
-                    class="fas fa-chevron-right"></i><a href="{% url 'shop_list' %}">Shops</a><i
-                    class="fas fa-chevron-right"></i>{{ shop.seller_name }}</div>
+            <div class="shop-preview-breadcrumb">
+                <a href="{% url 'home' %}">{% translate "Home" %}</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="{% url 'shop_list' %}">{% translate "Shops" %}</a>
+                <i class="fas fa-chevron-right"></i>
+                {{ shop.seller_name }}
+            </div>
 
             <div class="shop-preview-hero" {% if shop.seller_dp %}
                 style="background-image: url('{{ shop.seller_dp.url }}');" {% endif %}>
@@ -430,7 +437,7 @@ MOBILE
 
                     <span class="eyebrow">
                         <i class="fas fa-check-circle"></i>
-                        Verified Wingastock seller
+                        {% translate "Verified Wingastock seller" %}
                     </span>
 
                     <h1>{{ shop.seller_name }}</h1>
@@ -444,48 +451,103 @@ MOBILE
 
                 <button class="shop-preview-share" type="button" onclick="shareShop('{{ shop.id }}')">
                     <i class="fas fa-share-alt"></i>
-                    Share shop
+                    {% translate "Share shop" %}
                 </button>
 
             </div>
 
 
             <div class="shop-preview-layout">
+
                 <section class="shop-preview-about">
-                    <span class="eyebrow">About this shop</span>
-                    <h2>Quality products from a local seller</h2>
+
+                    <span class="eyebrow">
+                        {% translate "About this shop" %}
+                    </span>
+
+                    <h2>
+                        {% translate "Quality products from a local seller" %}
+                    </h2>
+
                     <p>{{ shop.seller_description }}</p>
+
                     <div class="shop-preview-facts">
-                        <span><i class="fas fa-box-open"></i><strong>{{ products|length }}</strong> products</span>
-                        <span><i class="fas fa-calendar-alt"></i><strong>{{ shop.reg_date|date:"M Y" }}</strong>
-                            joined</span>
+
+                        <span>
+                            <i class="fas fa-box-open"></i>
+                            <strong>{{ products|length }}</strong>
+                            {% translate "products" %}
+                        </span>
+
+                        <span>
+                            <i class="fas fa-calendar-alt"></i>
+                            <strong>{{ shop.reg_date|date:"M Y" }}</strong>
+                            {% translate "joined" %}
+                        </span>
+
                     </div>
+
                 </section>
+
+
                 <section class="shop-preview-products">
+
                     <div class="shop-products-heading">
-                        <div><span class="eyebrow">Shop catalogue</span>
-                            <h2>Products from {{ shop.seller_name }}</h2>
+
+                        <div>
+                            <span class="eyebrow">
+                                {% translate "Shop catalogue" %}
+                            </span>
+
+                            <h2>
+                                {% blocktranslate with seller_name=shop.seller_name %}
+                                Products from {{ seller_name }}
+                                {% endblocktranslate %}
+                            </h2>
                         </div>
-                        <span>{{ products|length }} listings</span>
+
+                        <span>
+                            {{ products|length }}
+                            {% translate "listings" %}
+                        </span>
+
                     </div>
+
+
                     <div class="product-card-1002 shop-product-grid" style="width: 100%;">
+
                         {% for product in products %}
+
                         {% include 'product-container.html' %}
+
                         {% empty %}
+
                         <div class="shop-empty-state" style="width: 100%;">
+
                             <i class="fas fa-box-open" style="font-size: 50px;"></i>
-                            <h3>No products yet</h3>
-                            <p>This shop has not listed products yet.</p>
+
+                            <h3>
+                                {% translate "No products yet" %}
+                            </h3>
+
+                            <p>
+                                {% translate "This shop has not listed products yet." %}
+                            </p>
+
                         </div>
+
                         {% endfor %}
+
                     </div>
+
                 </section>
+
             </div>
+
             <div style="width: 100%; height: 100px; float: left;"></div>
 
-
-
         </div>
+
 
         <div class="footer-holder-1003">
             <div>

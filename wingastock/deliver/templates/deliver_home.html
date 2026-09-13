@@ -1,15 +1,52 @@
 {% load static %}
+{% load i18n %}
+
+{% translate "Loading" as loading_text %}
+{% translate "Request product" as request_product_text %}
+{% translate "Home" as home_text %}
+{% translate "Request" as request_text %}
+{% translate "How to" as how_to_text %}
+{% translate "Back wingastock" as back_wingastock_text %}
+{% translate "Hello," as hello_text %}
+{% translate "Now you can request products that are not available in website by uploading image and some descriptions." as request_description_text %}
+{% translate "Search products..." as search_products_text %}
+{% translate "Search products" as search_products_label %}
+{% translate "Category not provided" as category_not_provided_text %}
+{% translate "Price" as price_text %}
+{% translate "Not provided" as not_provided_text %}
+{% translate "Added" as added_text %}
+{% translate "Pending" as pending_text %}
+{% translate "Processing" as processing_text %}
+{% translate "Processed" as processed_text %}
+{% translate "Rejected" as rejected_text %}
+{% translate "Delete" as delete_text %}
+{% translate "Delete Request?" as delete_request_text %}
+{% translate "Are you sure you want to delete" as are_you_sure_delete_text %}
+{% translate "This action cannot be undone." as cannot_undo_text %}
+{% translate "Yes, Delete" as yes_delete_text %}
+{% translate "Cancel" as cancel_text %}
+{% translate "Customer note:" as customer_note_text %}
+{% translate "No products match your search." as no_search_match_text %}
+{% translate "Ready to find a product?" as ready_find_product_text %}
+{% translate "You haven't submitted a Deliver request yet. Find the product you want, download its picture, then send us the details and we'll help you get it." as no_delivery_request_text %}
+{% translate "Find & Download Product Picture" as find_download_picture_text %}
+{% translate "Search Google, Bing, Pinterest and other platforms to find a picture of the product you want." as find_picture_description_text %}
+{% translate "Request Product" as request_product_button_text %}
+{% translate "Have the product picture ready? Submit your request and WingaStock will take it from there." as helper_request_text %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wingastock | Products</title>
+    <title>Wingastock | {% translate "Products" %}</title>
     <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
         table {
@@ -781,7 +818,7 @@
     <div id="page-loader">
         <div class="loader-content">
             <div class="spinner"></div>
-            <div class="loading-text">Loading<span class="dots"></span></div>
+            <div class="loading-text">{{ loading_text }}<span class="dots"></span></div>
         </div>
     </div>
 
@@ -791,15 +828,25 @@
         <div class="header-holder-100">
             <div class="header-100">
                 <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-                            class="fas fa-times"></i></button>
+                    <button type="button" id="menu1" onclick="open_menu('open')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
+
                 <div class="title-holder-101">
-                    <button type="button"><span>Request product</span></button>
+                    <button type="button">
+                        <span>{{ request_product_text }}</span>
+                    </button>
                 </div>
+
                 <div class="title-holder-101" style="float: right;">
-                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
+                    <button type="button">
+                        <i class="fas fa-user"></i> {{ user.email }}
+                    </button>
                 </div>
             </div>
         </div>
@@ -813,25 +860,37 @@
 
                     <ul>
                         <a href="{% url 'delivery_home' %}">
-                            <li class="active-0">Home <i class="fas fa-tachometer-alt"></i></li>
+                            <li class="active-0">
+                                {{ home_text }}
+                                <i class="fas fa-tachometer-alt"></i>
+                            </li>
                         </a>
                     </ul>
 
                     <ul>
                         <a href="{% url 'deliver_product' %}">
-                            <li>Request <i class="fas fa-shopping-bag"></i></li>
+                            <li>
+                                {{ request_text }}
+                                <i class="fas fa-shopping-bag"></i>
+                            </li>
                         </a>
                     </ul>
 
                     <ul>
                         <a href="{% url 'how_to_deliver' %}">
-                            <li>How to <i class="fas fa-envelope"></i></li>
+                            <li>
+                                {{ how_to_text }}
+                                <i class="fas fa-envelope"></i>
+                            </li>
                         </a>
                     </ul>
 
                     <ul>
                         <a href="{% url 'home' %}">
-                            <li>Back wingastock <i class="fas fa-user"></i></li>
+                            <li>
+                                {{ back_wingastock_text }}
+                                <i class="fas fa-user"></i>
+                            </li>
                         </a>
                     </ul>
 
@@ -840,11 +899,15 @@
 
             <div class="right-holder-201">
                 <div class="card-holder-201 products-202">
+
                     <div class="seller-products-heading" style="width: 100%; float: left;">
                         <div>
-                            <span class="seller-kicker">Hello, <i style="font-weight: 100;">{{ user.email }}</i></span>
-                            <p>Now you can request products that are not available in website by uploading image and
-                                some descriptions.</p>
+                            <span class="seller-kicker">
+                                {{ hello_text }}
+                                <i style="font-weight: 100;">{{ user.email }}</i>
+                            </span>
+
+                            <p>{{ request_description_text }}</p>
                         </div>
                     </div>
 
@@ -864,14 +927,19 @@
                     <div class="seller-products-list-wrap">
                         {% if delivery_requests %}
                         <div class="filter-holder-202" style="width: 100%; float: left;">
-                            <div><input type="text" id="searchInput" placeholder="Search products..."
-                                    aria-label="Search products"></div>
+                            <div>
+                                <input type="text"
+                                    id="searchInput"
+                                    placeholder="{{ search_products_text }}"
+                                    aria-label="{{ search_products_label }}">
+                            </div>
                         </div>
                         {% else %}
                         <div></div>
                         {% endif %}
 
                         <div class="seller-product-list" id="productTable">
+
                             {% for product_data in delivery_requests %}
 
                             <article class="seller-product-row deliver-request-row-1001"
@@ -900,7 +968,7 @@
                                             {% if product_data.category %}
                                             {{ product_data.category|title }}
                                             {% else %}
-                                            Category not provided
+                                            {{ category_not_provided_text }}
                                             {% endif %}
 
                                             · #{{ product_data.id }}
@@ -914,13 +982,13 @@
                                 <!-- PRICE -->
                                 <span class="seller-product-fact deliver-request-fact-1001">
 
-                                    <small>Price</small>
+                                    <small>{{ price_text }}</small>
 
                                     <strong>
                                         {% if product_data.price %}
                                         {{ product_data.price }} Tsh
                                         {% else %}
-                                        Not provided
+                                        {{ not_provided_text }}
                                         {% endif %}
                                     </strong>
 
@@ -930,7 +998,7 @@
                                 <!-- ADDED DATE -->
                                 <span class="seller-product-fact deliver-request-fact-1001">
 
-                                    <small>Added</small>
+                                    <small>{{ added_text }}</small>
 
                                     <strong>
                                         {{ product_data.created_at|date:"d M Y" }}
@@ -945,22 +1013,22 @@
                                     {% if product_data.status == "pending" %}
 
                                     <i class="fas fa-clock"></i>
-                                    Pending
+                                    {{ pending_text }}
 
                                     {% elif product_data.status == "processing" %}
 
                                     <i class="fas fa-spinner"></i>
-                                    Processing
+                                    {{ processing_text }}
 
                                     {% elif product_data.status == "processed" %}
 
                                     <i class="fas fa-check-circle"></i>
-                                    Processed
+                                    {{ processed_text }}
 
                                     {% elif product_data.status == "rejected" %}
 
                                     <i class="fas fa-times-circle"></i>
-                                    Rejected
+                                    {{ rejected_text }}
 
                                     {% else %}
 
@@ -976,13 +1044,14 @@
                                 <span class="seller-product-actions deliver-request-actions-1001">
 
                                     <!-- DELETE BUTTON -->
-                                    <button type="button" class="btn-delete deliver-delete-btn-1001"
+                                    <button type="button"
+                                        class="btn-delete deliver-delete-btn-1001"
                                         onclick="document.getElementById('delete-modal{{ product_data.id }}').style.display='flex'">
 
                                         <i class="fas fa-trash"></i>
 
                                         <span>
-                                            Delete
+                                            {{ delete_text }}
                                         </span>
 
                                     </button>
@@ -1002,16 +1071,16 @@
                                         </div>
 
                                         <h3>
-                                            Delete Request?
+                                            {{ delete_request_text }}
                                         </h3>
 
                                         <p>
-                                            Are you sure you want to delete
+                                            {{ are_you_sure_delete_text }}
                                             <strong>{{ product_data.title }}</strong>?
                                         </p>
 
                                         <small>
-                                            This action cannot be undone.
+                                            {{ cannot_undo_text }}
                                         </small>
 
 
@@ -1023,11 +1092,12 @@
 
                                                 {% csrf_token %}
 
-                                                <button type="submit" class="deliver-confirm-delete-1001">
+                                                <button type="submit"
+                                                    class="deliver-confirm-delete-1001">
 
                                                     <i class="fas fa-trash"></i>
 
-                                                    Yes, Delete
+                                                    {{ yes_delete_text }}
 
                                                 </button>
 
@@ -1035,12 +1105,13 @@
 
 
                                             <!-- CANCEL -->
-                                            <button type="button" class="deliver-cancel-delete-1001"
+                                            <button type="button"
+                                                class="deliver-cancel-delete-1001"
                                                 onclick="document.getElementById('delete-modal{{ product_data.id }}').style.display='none'">
 
                                                 <i class="fas fa-times"></i>
 
-                                                Cancel
+                                                {{ cancel_text }}
 
                                             </button>
 
@@ -1054,13 +1125,19 @@
                                 <!-- ADMIN NOTE -->
                                 {% if product_data.customer_note %}
 
-                                <div class="deliver-admin-note-1001" style="width: 100%; float: left;">
+                                <div class="deliver-admin-note-1001"
+                                    style="width: 100%; float: left;">
 
                                     <i class="fas fa-comment-alt"></i>
 
                                     <span style="max-width: 200px; overflow: hidden; font-size: 12px">
-                                        <strong style="font-size: inherit;">Customer note:</strong>
+
+                                        <strong style="font-size: inherit;">
+                                            {{ customer_note_text }}
+                                        </strong>
+
                                         {{ product_data.customer_note }}
+
                                     </span>
 
                                 </div>
@@ -1071,9 +1148,6 @@
 
                             {% empty %}
 
-
-
-
                             <div class="seller-empty-products deliver-empty-state-1001">
 
                                 <!-- ICON -->
@@ -1083,19 +1157,18 @@
 
                                 <!-- TITLE -->
                                 <strong class="deliver-empty-title-1001">
-                                    Ready to find a product?
+                                    {{ ready_find_product_text }}
                                 </strong>
 
                                 <!-- DESCRIPTION -->
                                 <span class="deliver-empty-description-1001">
-                                    You haven't submitted a Deliver request yet.
-                                    Find the product you want, download its picture,
-                                    then send us the details and we'll help you get it.
+                                    {{ no_delivery_request_text }}
                                 </span>
 
 
                                 <!-- DOWNLOAD PICTURE CARD -->
-                                <a href="{% url 'how_to_deliver' %}" class="deliver-download-card-1001">
+                                <a href="{% url 'how_to_deliver' %}"
+                                    class="deliver-download-card-1001">
 
                                     <span class="deliver-download-icon-1001">
                                         <i class="fas fa-images"></i>
@@ -1104,12 +1177,11 @@
                                     <span class="deliver-download-content-1001">
 
                                         <strong>
-                                            Find & Download Product Picture
+                                            {{ find_download_picture_text }}
                                         </strong>
 
                                         <small>
-                                            Search Google, Bing, Pinterest and other platforms
-                                            to find a picture of the product you want.
+                                            {{ find_picture_description_text }}
                                         </small>
 
                                     </span>
@@ -1120,12 +1192,13 @@
 
 
                                 <!-- REQUEST BUTTON -->
-                                <a href="{% url 'deliver_product' %}" class="deliver-request-button-1001">
+                                <a href="{% url 'deliver_product' %}"
+                                    class="deliver-request-button-1001">
 
                                     <i class="fas fa-plus-circle"></i>
 
                                     <span>
-                                        Request Product
+                                        {{ request_product_button_text }}
                                     </span>
 
                                 </a>
@@ -1136,17 +1209,19 @@
 
                                     <i class="fas fa-info-circle"></i>
 
-                                    Have the product picture ready?
-                                    Submit your request and WingaStock will take it from there.
+                                    {{ helper_request_text }}
 
                                 </small>
 
                             </div>
 
-
                             {% endfor %}
+
                         </div>
-                        <p class="seller-search-empty" id="searchEmpty" hidden>No products match your search.</p>
+
+                        <p class="seller-search-empty" id="searchEmpty" hidden>
+                            {{ no_search_match_text }}
+                        </p>
 
                     </div>
                 </div>

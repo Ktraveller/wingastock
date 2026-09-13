@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -87,22 +88,21 @@
 
           <ul>
             <a href="{% url 'how1' %}">
-              <li>What is wingastock <i class="fas fa-file-contract"></i></li>
+              <li>{% translate "What is wingastock" %} <i class="fas fa-file-contract"></i></li>
             </a>
           </ul>
 
           <ul>
             <a href="{% url 'how2' %}">
-              <li class="active-0">How to get seller contacts <i class="fas fa-user"></i></li>
+              <li class="active-0">{% translate "How to get seller contacts" %} <i class="fas fa-user"></i></li>
             </a>
           </ul>
 
           <ul>
             <a href="{% url 'how3' %}">
-              <li>How to register as seller <i class="fas fa-file-signature"></i></li>
+              <li>{% translate "How to register as seller" %} <i class="fas fa-file-signature"></i></li>
             </a>
           </ul>
-
 
         </div>
       </div>
@@ -115,98 +115,90 @@
             <div>
 
               <div class="how-to-contact-seller-0005">
-                <p> <strong>How to Contact a Seller on Wingastock</strong> </p>
-                <p> Wingastock makes it easy for customers to communicate directly with sellers before making a
-                  purchase. To protect users and provide a better marketplace experience, customers must have a
-                  registered Wingastock account before they can access seller contact information or send messages to
-                  sellers. </p>
+
+                <p>
+                  <strong>{% translate "How to Contact a Seller on Wingastock" %}</strong>
+                </p>
+
+                <p>
+                  {% translate "Wingastock makes it easy for customers to communicate directly with sellers before making a purchase. To protect users and provide a better marketplace experience, customers must have a registered Wingastock account before they can access seller contact information or send messages to sellers." %}
+                </p>
+
                 <ol>
+
                   <li>
-                    <strong>Create a Wingastock Account:</strong>
-                    If you do not already have an account, register on Wingastock using
-                    your required information. Registration is required before you can
-                    access seller contact details or use the platform's messaging
-                    features.
+                    <strong>{% translate "Create a Wingastock Account:" %}</strong>
+                    {% translate "If you do not already have an account, register on Wingastock using your required information. Registration is required before you can access seller contact details or use the platform's messaging features." %}
                   </li>
 
                   <li>
-                    <strong>Log In to Your Account:</strong>
-                    After registration, log in to your Wingastock account. Once you are
-                    logged in, you can interact with sellers and access the communication
-                    features available on product listings.
+                    <strong>{% translate "Log In to Your Account:" %}</strong>
+                    {% translate "After registration, log in to your Wingastock account. Once you are logged in, you can interact with sellers and access the communication features available on product listings." %}
                   </li>
 
                   <li>
-                    <strong>Find the Product You Want:</strong>
-                    Search or browse Wingastock to find the product you are interested in.
-                    You can explore categories such as smartphones, laptops, TVs,
-                    computers, accessories, furniture, home appliances, rooms, houses
-                    and other products.
+                    <strong>{% translate "Find the Product You Want:" %}</strong>
+                    {% translate "Search or browse Wingastock to find the product you are interested in. You can explore categories such as smartphones, laptops, TVs, computers, accessories, furniture, home appliances, rooms, houses and other products." %}
                   </li>
 
                   <li>
-                    <strong>Open the Product Listing:</strong>
-                    Click on the product you are interested in to view its details,
-                    including the description, price, images, availability and seller
-                    information.
+                    <strong>{% translate "Open the Product Listing:" %}</strong>
+                    {% translate "Click on the product you are interested in to view its details, including the description, price, images, availability and seller information." %}
                   </li>
 
                   <li>
-                    <strong>View Seller Contact Information:</strong>
-                    If the seller has provided contact information that is available to
-                    registered customers, you can view the available seller contact
-                    details after logging into your Wingastock account.
+                    <strong>{% translate "View Seller Contact Information:" %}</strong>
+                    {% translate "If the seller has provided contact information that is available to registered customers, you can view the available seller contact details after logging into your Wingastock account." %}
                   </li>
 
                   <li>
-                    <strong>Send a Direct Message:</strong>
-                    You can also communicate with the seller directly through Wingastock's
-                    integrated chat system. Select the available chat or message option
-                    on the product or seller page to start a conversation.
+                    <strong>{% translate "Send a Direct Message:" %}</strong>
+                    {% translate "You can also communicate with the seller directly through Wingastock's integrated chat system. Select the available chat or message option on the product or seller page to start a conversation." %}
                   </li>
 
                   <li>
-                    <strong>Ask Questions Before Buying:</strong>
-                    Use the chat system to ask the seller about product availability,
-                    condition, specifications, price, location, delivery or any other
-                    information you need before making a purchase.
+                    <strong>{% translate "Ask Questions Before Buying:" %}</strong>
+                    {% translate "Use the chat system to ask the seller about product availability, condition, specifications, price, location, delivery or any other information you need before making a purchase." %}
                   </li>
 
                   <li>
-                    <strong>Keep Your Conversations in Wingastock:</strong>
-                    Where possible, use Wingastock's integrated chat system to communicate
-                    with sellers. Keeping conversations within the platform can make it
-                    easier to manage your enquiries and refer back to previous
-                    conversations.
+                    <strong>{% translate "Keep Your Conversations in Wingastock:" %}</strong>
+                    {% translate "Where possible, use Wingastock's integrated chat system to communicate with sellers. Keeping conversations within the platform can make it easier to manage your enquiries and refer back to previous conversations." %}
                   </li>
 
                   <li>
-                    <strong>Be Careful With Personal Information:</strong>
-                    Do not share unnecessary passwords, account credentials, financial
-                    information or other sensitive personal information through chat.
-                    Only provide information that is necessary for completing a legitimate
-                    transaction.
+                    <strong>{% translate "Be Careful With Personal Information:" %}</strong>
+                    {% translate "Do not share unnecessary passwords, account credentials, financial information or other sensitive personal information through chat. Only provide information that is necessary for completing a legitimate transaction." %}
                   </li>
 
                   <li>
-                    <strong>Report Suspicious Activity:</strong>
-                    If a seller sends suspicious messages, provides misleading information,
-                    attempts to scam you or violates Wingastock policies, report the
-                    activity through the appropriate Wingastock support or reporting
-                    channel.
+                    <strong>{% translate "Report Suspicious Activity:" %}</strong>
+                    {% translate "If a seller sends suspicious messages, provides misleading information, attempts to scam you or violates Wingastock policies, report the activity through the appropriate Wingastock support or reporting channel." %}
                   </li>
 
                 </ol>
-                <p> <strong>Why Registration Is Required:</strong> Requiring customers to register before accessing
-                  seller contacts and messaging helps Wingastock maintain a safer and more trusted marketplace. It
-                  allows users to have an identifiable account, provides access to the platform's communication features
-                  and helps reduce misuse of seller contact information. </p>
-                <p> <strong>Quick Guide:</strong> Register → Log In → Find a Product → Open the Listing → View Seller
-                  Contact or Click Chat → Communicate With the Seller. </p>
-                <p> <strong>Important:</strong> Seller contact information and communication options may depend on the
-                  information provided by the seller and the features available for the particular listing. Always use
-                  Wingastock responsibly and follow the platform's applicable terms, privacy rules and safety
-                  guidelines. </p>
+
+                <p>
+                  <strong>{% translate "Why Registration Is Required:" %}</strong>
+                  {% translate "Requiring customers to register before accessing seller contacts and messaging helps Wingastock maintain a safer and more trusted marketplace. It allows users to have an identifiable account, provides access to the platform's communication features and helps reduce misuse of seller contact information." %}
+                </p>
+
+                <p>
+                  <strong>{% translate "Quick Guide:" %}</strong>
+                  {% translate "Register" %} →
+                  {% translate "Log In" %} →
+                  {% translate "Find a Product" %} →
+                  {% translate "Open the Listing" %} →
+                  {% translate "View Seller Contact" %} →
+                  {% translate "Click Chat" %} →
+                  {% translate "Communicate With the Seller" %}.
+                </p>
+
+                <p>
+                  <strong>{% translate "Important:" %}</strong>
+                  {% translate "Seller contact information and communication options may depend on the information provided by the seller and the features available for the particular listing. Always use Wingastock responsibly and follow the platform's applicable terms, privacy rules and safety guidelines." %}
+                </p>
+
               </div>
             </div>
 

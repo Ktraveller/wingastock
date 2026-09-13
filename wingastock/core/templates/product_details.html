@@ -1,5 +1,6 @@
 {% load static %}
 {% load humanize %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -108,8 +109,12 @@
 
       <!-- Preview product -->
       <div class="preview-product-holder-003">
-        <div class="product-breadcrumb"><a href="{% url 'home' %}">Home</a><i class="fas fa-chevron-right"></i>
-          {{ product.get_category_display }}</div>
+
+        <div class="product-breadcrumb">
+          <a href="{% url 'home' %}">{% translate "Home" %}</a>
+          <i class="fas fa-chevron-right"></i>
+          {{ product.get_category_display }}
+        </div>
 
         <div class="preview-product-004">
 
@@ -127,12 +132,32 @@
 
               <div class="product-summary">
                 <div class="product-summary-content">
-                  <span class="product-detail-category">{{ product.get_category_display }}</span>
+
+                  <span class="product-detail-category">
+                    {{ product.get_category_display }}
+                  </span>
+
                   <h1 class="product-detail-title">{{ product.title }}</h1>
-                  <div class="product-detail-seller"><i class="fas fa-store"></i> {{ product.owner.seller.seller_name }}
-                    <span><i class="fas fa-map-marker-alt"></i> {{ product.owner.seller.seller_address }}</span></div>
-                  <div class="product-detail-price">{{ product.price|floatformat:0|intcomma }} <small>TSh</small></div>
-                  <p style="font-weight: bold;"><i class="fas fa-align-left"></i> Descriptions</p>
+
+                  <div class="product-detail-seller">
+                    <i class="fas fa-store"></i>
+                    {{ product.owner.seller.seller_name }}
+
+                    <span>
+                      <i class="fas fa-map-marker-alt"></i>
+                      {{ product.owner.seller.seller_address }}
+                    </span>
+                  </div>
+
+                  <div class="product-detail-price">
+                    {{ product.price|floatformat:0|intcomma }} <small>TSh</small>
+                  </div>
+
+                  <p style="font-weight: bold;">
+                    <i class="fas fa-align-left"></i>
+                    {% translate "Descriptions" %}
+                  </p>
+
 
                   {% if messages %}
                   <div class="messages">
@@ -144,181 +169,326 @@
                   </div>
                   {% endif %}
 
+
                   <div type="button" class="des-103">
                     {{ product.description }}
                   </div>
+
+
                   <table>
 
                     <tr>
-                      <td><i class="fas fa-box-open"></i> Product</td>
+                      <td>
+                        <i class="fas fa-box-open"></i>
+                        {% translate "Product" %}
+                      </td>
                       <td>{{ product.title }}</td>
                     </tr>
 
                     <tr>
-                      <td><i class="fas fa-tags"></i> Category</td>
-                      <td>{{ product.category }}</td>
+                      <td>
+                        <i class="fas fa-tags"></i>
+                        {% translate "Category" %}
+                      </td>
+                      <td>{{ product.get_category_display }}</td>
                     </tr>
 
                     <tr>
-                      <td><i class="fas fa-dollar-sign"></i> Price</td>
-                      <td>{{ product.price|floatformat:0|intcomma }} TSh</td>
+                      <td>
+                        <i class="fas fa-dollar-sign"></i>
+                        {% translate "Price" %}
+                      </td>
+                      <td>
+                        {{ product.price|floatformat:0|intcomma }} TSh
+                      </td>
                     </tr>
 
                     <tr>
-                      <td><i class="fas fa-calendar-alt"></i> Uploaded date</td>
+                      <td>
+                        <i class="fas fa-calendar-alt"></i>
+                        {% translate "Uploaded date" %}
+                      </td>
                       <td>{{ product.created_at }}</td>
                     </tr>
 
                     <tr>
-                      <td><i class="fas fa-store"></i> Seller</td>
+                      <td>
+                        <i class="fas fa-store"></i>
+                        {% translate "Seller" %}
+                      </td>
                       <td>{{ product.owner.seller.seller_name }}</td>
                     </tr>
 
                     <tr>
-                      <td><i class="fas fa-map-marker-alt"></i> Location</td>
+                      <td>
+                        <i class="fas fa-map-marker-alt"></i>
+                        {% translate "Location" %}
+                      </td>
                       <td>{{ product.owner.seller.seller_address }}</td>
                     </tr>
 
                   </table>
 
+
                   <div class="actions-holder-103">
+
                     <div>
 
                       <button type="button" style="background: green;" onclick="open_whatsapp(1)">
+
                         <i class="fab fa-whatsapp"></i>
-                        Get seller whatsapp number</button>
+                        {% translate "Get seller whatsapp number" %}
+
+                      </button>
+
 
                       <!-- Whatsapp number modal -->
                       <div class="whatsapp-modal-holder-1004" id="w_modal">
+
                         <div class="whatsapp-modal-1004">
+
                           <button type="button" class="close-1004" onclick="open_whatsapp(0)">
+
                             <i class="fas fa-times" style="font-size: inherit;"></i>
+
                           </button>
+
                           <br><br>
 
                           <p class="t-1004">
+
                             <i class="fas fa-store" style="font-size: 50px;"></i>
+
                             <br><br>
+
                             {{ product.owner.seller.seller_name }}
+
                           </p>
 
+
                           <p class="n-1004">
+
                             <i class="fab fa-whatsapp" style="font-size: inherit;"></i>
+
                             +{{ product.owner.seller.seller_phone }}
+
                           </p>
+
 
                           <div style="text-align: right;">
 
                             <button type="button" class="copy-1004"
                               onclick="copyText('+{{ product.owner.seller.seller_phone }}')">
+
                               <i class="fas fa-copy" style="font-size: inherit;"></i>
+
                             </button>
 
+
                             <button type="button" class="send-1004" onclick="sendWhatsApp('{{ product.owner.seller.seller_phone }}', 
-                            'Hello, I am interested in {{ product.title }}.')">
+                          'Hello, I am interested in {{ product.title }}.')">
+
                               <i class="fas fa-comment-dots"></i>
-                              Send message whatsapp
+                              {% translate "Send message whatsapp" %}
+
                             </button>
 
                             <br><br><br>
+
                           </div>
 
                         </div>
+
                       </div>
 
                     </div>
 
+
                     <div>
+
                       {% if user.email %}
 
                       <button type="button" onclick="window.location.href=`{% url 'compose_m_c' product.owner.email %}`"
                         style="background: lightseagreen;">
+
                         <i class="fas fa-paper-plane"></i>
-                        Send message to seller</button>
+                        {% translate "Send message to seller" %}
+
+                      </button>
 
                       {% else %}
+
                       <button type="button"
                         style="background: white; color: crimson; border: 1px solid rgba(220, 20, 60, 0.511);"
                         onclick="open_login_modal(1)">
+
                         <i class="fas fa-paper-plane"></i>
-                        Send message to seller</button>
+                        {% translate "Send message to seller" %}
+
+                      </button>
+
                       {% endif %}
+
                     </div>
 
+
                     <div>
+
                       <button type="button" style="background: dodgerblue;" id="shareBtn">
+
                         <i class="fas fa-share-alt"></i>
-                        Share product to others</button>
+                        {% translate "Share product to others" %}
+
+                      </button>
+
                     </div>
+
                   </div>
+
                 </div>
               </div>
 
+
               <div class="activity-panel">
+
                 <div>
 
-                  <p style="font-weight: bold;">Other informations</p>
+                  <p style="font-weight: bold;">
+                    {% translate "Other informations" %}
+                  </p>
+
+
                   <div class="other-103">
-                    <button type="button" style="margin-bottom: 15px;"><i class="fas fa-eye"></i> Views:
-                      <span>{{ product_informations.views }}</span></button>
+
+                    <button type="button" style="margin-bottom: 15px;">
+
+                      <i class="fas fa-eye"></i>
+                      {% translate "Views" %}:
+                      <span>{{ product_informations.views }}</span>
+
+                    </button>
+
 
                     <button type="button" id="like-btn"
                       class="reaction-btn {% if reaction and reaction.reaction == 'like' %}active{% endif %}"
                       onclick="reactToProduct('like')">
-                      <i class="fas fa-thumbs-up"></i> Like: <span id="like-count">
-                        {{ product_informations.likes }}</span></button>
+
+                      <i class="fas fa-thumbs-up"></i>
+                      {% translate "Like" %}:
+
+                      <span id="like-count">
+                        {{ product_informations.likes }}
+                      </span>
+
+                    </button>
+
 
                     <button type="button" id="dislike-btn"
                       class="reaction-btn {% if reaction and reaction.reaction == 'dislike' %}active{% endif %}"
                       onclick="reactToProduct('dislike')">
-                      <i class="fas fa-thumbs-down"></i> Dislike:
-                      <span id="dislike-count">{{ product_informations.dislikes }}</span></button>
+
+                      <i class="fas fa-thumbs-down"></i>
+                      {% translate "Dislike" %}:
+
+                      <span id="dislike-count">
+                        {{ product_informations.dislikes }}
+                      </span>
+
+                    </button>
 
                   </div>
+
+
                   <div class="comments-holder-103">
-                    <p style="font-weight: bold;"><i class="fas fa-comments"></i> Customers comment
-                      on {{ product.title }}</p>
+
+                    <p style="font-weight: bold;">
+
+                      <i class="fas fa-comments"></i>
+
+                      {% blocktranslate with product_title=product.title %}
+                      Customers comment on {{ product_title }}
+                      {% endblocktranslate %}
+
+                    </p>
+
 
                     <form action="{% url 'submit_comments' product.id %}" method="post">
+
                       {% csrf_token %}
+
                       <div class="comments-holder-104">
+
                         <div style="width: 80%;">
-                          <textarea name="comments" id="" placeholder="Write your comment ..." required></textarea>
+
+                          <textarea name="comments" id="" placeholder="{% translate 'Write your comment ...' %}"
+                            required></textarea>
+
                         </div>
+
+
                         <div style="width: 20%; padding: 5px; padding-top: 60px;">
+
                           <button type="submit">
+
                             <i class="fas fa-paper-plane"></i>
-                            Submit
+                            {% translate "Submit" %}
+
                           </button>
+
                         </div>
+
                       </div>
+
                     </form>
 
+
                     <ul>
+
                       {% for comment in product.product_id.all %}
+
                       <li style="font-weight: 100;">
-                        <strong style="display: block;">{{ comment.customer.username }}</strong>
+
+                        <strong style="display: block;">
+                          {{ comment.customer.username }}
+                        </strong>
+
                         <span>{{ comment.comment }}</span>
 
+
                         {% if comment.customer.username == user.email %}
+
                         <button type="button" class="comment-delete-104"
                           onclick="window.location.href=`{% url 'delete_comment' comment.id %}`">
+
                           <i class="fas fa-trash"></i>
+
                         </button>
+
                         {% endif %}
 
-                        <span style="float: right;">{{ comment.saved_at|date:"d M Y H:i" }}</span>
+
+                        <span style="float: right;">
+                          {{ comment.saved_at|date:"d M Y H:i" }}
+                        </span>
 
                       </li>
+
                       {% empty %}
-                      <p style="text-align: center;">No comments!</p>
+
+                      <p style="text-align: center;">
+                        {% translate "No comments!" %}
+                      </p>
+
                       {% endfor %}
+
                     </ul>
+
                   </div>
 
-
                 </div>
+
               </div>
+
             </div>
 
           </div>
@@ -329,9 +499,8 @@
 
       <div style="width: 100%; height: 100px; float: left;"></div>
 
-
-
     </div>
+
 
     <div class="footer-holder-1003">
       <div>
@@ -506,7 +675,7 @@
 
 
 
-<script>
+  <script>
     const shareBtn = document.getElementById("shareBtn");
 
     shareBtn.addEventListener("click", async () => {
@@ -561,7 +730,7 @@
         // =====================================================
 
         const shareText =
-`🛍️ ${productTitle}
+          `🛍️ ${productTitle}
 
 💰 Price: TSh ${productPrice}
 
@@ -721,7 +890,7 @@ ${productLink}
         try {
 
           const fallbackText =
-`🛍️ ${productTitle}
+            `🛍️ ${productTitle}
 
 💰 Price: TSh ${productPrice}
 
@@ -788,7 +957,7 @@ ${productLink}`;
       }
 
     });
-</script>
+  </script>
 
 
 </body>

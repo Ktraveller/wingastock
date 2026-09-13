@@ -1,155 +1,180 @@
+{% load i18n %}
 
 <div class="product-category-holder-1001">
-    <div class="category-title"><span class="eyebrow">Explore</span>
-        <h2>Categories</h2>
+
+    <div class="category-title">
+        <span class="eyebrow">{% translate "Explore" %}</span>
+        <h2>{% translate "Categories" %}</h2>
     </div>
+
     <div>
 
         <!-- Electronics -->
         <button class="category-chip-electronics" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'electronics' %}`">
             <i class="fas fa-tv" style="color: white;"></i>
-            <span class="category-name-1001">Electronics</span>
+            {% translate "Electronics" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Phones & Tablets -->
         <button class="category-chip-phones" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'phones' %}`">
             <i class="fas fa-mobile-alt" style="color: white;"></i>
-            <span class="category-name-1001">Phones & Tablets</span>
+            {% translate "Phones & Tablets" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Computers & Laptops -->
         <button class="category-chip-computers" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'computers' %}`">
             <i class="fas fa-laptop" style="color: white;"></i>
-            <span class="category-name-1001">Computers & Laptops</span>
+            {% translate "Computers & Laptops" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Fashion -->
         <button class="category-chip-fashion" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'fashion' %}`">
             <i class="fas fa-tshirt" style="color: white;"></i>
-            <span class="category-name-1001">Fashion</span>
+            {% translate "Fashion" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Shoes -->
         <button class="category-chip-shoes" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'shoes' %}`">
             <i class="fas fa-shoe-prints" style="color: white;"></i>
-            <span class="category-name-1001">Shoes</span>
+            {% translate "Shoes" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Beauty -->
         <button class="category-chip-beauty" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'beauty' %}`">
             <i class="fas fa-spa" style="color: white;"></i>
-            <span class="category-name-1001">Beauty & Personal Care</span>
+            {% translate "Beauty & Personal Care" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Food -->
         <button class="category-chip-food" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'food' %}`">
             <i class="fas fa-utensils" style="color: white;"></i>
-            <span class="category-name-1001">Food & Groceries</span>
+            {% translate "Food & Groceries" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Drinks -->
         <button class="category-chip-drinks" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'drinks' %}`">
             <i class="fas fa-glass-martini-alt" style="color: white;"></i>
-            <span class="category-name-1001">Drinks & Beverages</span>
+            {% translate "Drinks & Beverages" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Furniture -->
         <button class="category-chip-furniture" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'furniture' %}`">
             <i class="fas fa-couch" style="color: white;"></i>
-            <span class="category-name-1001">Furniture</span>
+            {% translate "Furniture" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Home & Garden -->
         <button class="category-chip-home" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'home' %}`">
             <i class="fas fa-home" style="color: white;"></i>
-            <span class="category-name-1001">Home & Garden</span>
+            {% translate "Home & Garden" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Home Appliances -->
         <button class="category-chip-appliances" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'appliances' %}`">
             <i class="fas fa-blender" style="color: white;"></i>
-            <span class="category-name-1001">Home Appliances</span>
+            {% translate "Home Appliances" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Vehicles -->
         <button class="category-chip-vehicles" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'vehicles' %}`">
             <i class="fas fa-car" style="color: white;"></i>
-            <span class="category-name-1001">Vehicles</span>
+            {% translate "Vehicles" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Vehicle Parts -->
         <button class="category-chip-parts" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'parts' %}`">
             <i class="fas fa-cogs" style="color: white;"></i>
-            <span class="category-name-1001">Vehicle Parts & Accessories</span>
+            {% translate "Vehicle Parts & Accessories" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Sports -->
         <button class="category-chip-sports" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'sports' %}`">
             <i class="fas fa-futbol" style="color: white;"></i>
-            <span class="category-name-1001">Sports & Fitness</span>
+            {% translate "Sports & Fitness" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Books -->
         <button class="category-chip-books" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'books' %}`">
             <i class="fas fa-book" style="color: white;"></i>
-            <span class="category-name-1001">Books & Education</span>
+            {% translate "Books & Education" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Toys -->
         <button class="category-chip-toys" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'toys' %}`">
             <i class="fas fa-gamepad" style="color: white;"></i>
-            <span class="category-name-1001">Toys & Games</span>
+            {% translate "Toys & Games" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Baby & Kids -->
         <button class="category-chip-baby" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'baby' %}`">
             <i class="fas fa-baby" style="color: white;"></i>
-            <span class="category-name-1001">Baby & Kids</span>
+            {% translate "Baby & Kids" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Services -->
         <button class="category-chip-services" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'services' %}`">
             <i class="fas fa-concierge-bell" style="color: white;"></i>
-            <span class="category-name-1001">Services</span>
+            {% translate "Services" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Jobs -->
         <button class="category-chip-jobs" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'jobs' %}`">
             <i class="fas fa-briefcase" style="color: white;"></i>
-            <span class="category-name-1001">Jobs</span>
+            {% translate "Jobs" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Property -->
         <button class="category-chip-property" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'property' %}`">
             <i class="fas fa-building" style="color: white;"></i>
-            <span class="category-name-1001">Property</span>
+            {% translate "Property" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
         <!-- Other -->
         <button class="category-chip-other" type="button"
             onclick="window.location.href=`{% url 'filter_products' 'other' %}`">
             <i class="fas fa-th-large" style="color: white;"></i>
-            <span class="category-name-1001">Other</span>
+            {% translate "Other" as category_name %}
+            <span class="category-name-1001">{{ category_name|truncatechars:15 }}</span>
         </button>
 
     </div>

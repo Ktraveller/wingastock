@@ -1,20 +1,206 @@
 {% load static %}
+{% load i18n %}
+
+<style>
+    .wingastock-search {
+        background: transparent;
+        padding-left: 15px;
+        width: 50px;
+    }
+
+    @media only screen and (min-width: 768px) {
+        .wingastock-search {
+            background: whitesmoke;
+        }
+    }
+
+
+    /* ==========================================================
+       BRAND + LANGUAGE
+       Keeps the original header layout
+       ========================================================== */
+
+    .wingastock-brand-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+        flex-shrink: 0;
+    }
+
+    .wingastock-title-language {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .wingastock-title-language form {
+        margin: 0;
+        padding: 0;
+    }
+
+    .wingastock-language-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+
+        height: 28px;
+        min-width: 46px;
+
+        padding: 0 7px;
+
+        border: 1px solid #e5e5e5;
+        border-radius: 999px;
+
+        background: #fff;
+        color: #333;
+
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 700;
+
+        cursor: pointer;
+        outline: none;
+
+        transition:
+            border-color .2s ease,
+            background .2s ease,
+            box-shadow .2s ease,
+            transform .15s ease;
+    }
+
+    .wingastock-language-button:hover {
+        border-color: #DC143C;
+        background: #fffafa;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, .06);
+    }
+
+    .wingastock-language-button:active {
+        transform: scale(.96);
+    }
+
+    .wingastock-language-button:focus-visible {
+        border-color: #DC143C;
+        box-shadow: 0 0 0 3px rgba(220, 20, 60, .10);
+    }
+
+    .wingastock-language-button .language-flag {
+        font-size: 13px;
+        line-height: 1;
+    }
+
+    .wingastock-language-button .language-code {
+        line-height: 1;
+    }
+
+    .wingastock-language-button i {
+        font-size: 7px;
+        margin-left: 1px;
+        transition: transform .2s ease;
+    }
+
+    .wingastock-language-button:hover i {
+        transform: rotate(180deg);
+    }
+
+
+    /* ==========================================================
+       MOBILE
+       ========================================================== */
+
+    @media (max-width: 600px) {
+
+        .wingastock-brand-wrap {
+            gap: 5px;
+        }
+
+        .wingastock-language-button {
+            height: 26px;
+            min-width: 42px;
+            padding: 0 6px;
+            font-size: 9px;
+        }
+
+        .wingastock-language-button .language-flag {
+            font-size: 12px;
+        }
+
+        .wingastock-language-button i {
+            font-size: 6px;
+        }
+
+    }
+</style>
 
 <header class="wingastock-header heading-holder-1002">
 
     <div class="wingastock-header-inner">
 
+
         <!-- ================= BRAND ================= -->
 
-        <a href="{% url 'home' %}" class="wingastock-brand">
+        <div class="wingastock-brand-wrap">
 
-            <img src="{% static 'logo.png' %}" alt="Wingastock" class="wingastock-logo">
+            <a href="{% url 'home' %}" class="wingastock-brand">
 
-            <span class="wingastock-title">
-                Wingastock
-            </span>
+                <img src="{% static 'logo.png' %}" alt="Wingastock" class="wingastock-logo">
 
-        </a>
+                <span class="wingastock-title">
+                    Wingastock
+                </span>
+
+            </a>
+
+
+            <!-- ================= LANGUAGE ================= -->
+
+            {% get_current_language as CURRENT_LANGUAGE %}
+
+            <div class="wingastock-title-language">
+
+                <form action="{% url 'set_language' %}" method="post">
+
+                    {% csrf_token %}
+
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+
+                    <button type="submit" name="language"
+                        value="{% if CURRENT_LANGUAGE == 'en' %}sw{% else %}en{% endif %}"
+                        class="wingastock-language-button"
+                        aria-label="{% if CURRENT_LANGUAGE == 'en' %}{% translate 'Change language to Kiswahili' %}{% else %}{% translate 'Change language to English' %}{% endif %}">
+
+                        {% if CURRENT_LANGUAGE == "en" %}
+
+                        <span class="language-flag">
+                            🇬🇧
+                        </span>
+
+                        <span class="language-code">
+                            EN
+                        </span>
+
+                        {% else %}
+
+                        <span class="language-flag">
+                            🇹🇿
+                        </span>
+
+                        <span class="language-code">
+                            SW
+                        </span>
+
+                        {% endif %}
+
+                        <i class="fas fa-chevron-down"></i>
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
 
 
         <!-- ================= SEARCH ================= -->
@@ -25,11 +211,12 @@
 
             {% if search == 'search' %}
 
-            <input type="search" id="searchInput" placeholder="Search products, shops and more..." autocomplete="off">
+            <input type="search" id="searchInput" placeholder="{% translate 'Search products, shops and more...' %}"
+                autocomplete="off">
 
             {% else %}
 
-            <input type="search" placeholder="Search products, shops and more..."
+            <input type="search" placeholder="{% translate 'Search products, shops and more...' %}"
                 onclick="window.location.href=`{% url 'search' %}`" readonly>
 
             {% endif %}
@@ -41,41 +228,52 @@
 
         <div class="wingastock-actions">
 
+
             {% if user.is_authenticated %}
 
-            <!-- CART -->
 
-            <button type="button" class="wingastock-icon" onclick="open_cart(1)" aria-label="Shopping cart">
+            <!-- ================= CART ================= -->
+
+            <button type="button" class="wingastock-icon" onclick="open_cart(1)"
+                aria-label="{% translate 'Shopping cart' %}">
+
                 <i class="fas fa-shopping-cart"></i>
+
             </button>
 
 
-            <!-- NOTIFICATIONS -->
+            <!-- ================= NOTIFICATIONS ================= -->
 
             <button type="button" class="wingastock-icon notification-button" onclick="open_notification(1)"
-                aria-label="Notifications">
+                aria-label="{% translate 'Notifications' %}">
 
                 <i class="fas fa-bell"></i>
 
                 {% if mails %}
+
                 <span class="notification-badge">
                     {{ mails|length }}
                 </span>
+
                 {% endif %}
 
             </button>
 
 
-            <!-- USER -->
+            <!-- ================= USER ================= -->
 
-            <button type="button" class="wingastock-user" onclick="open_user(1)" aria-label="Account">
+            <button type="button" class="wingastock-user" onclick="open_user(1)" aria-label="{% translate 'Account' %}">
 
                 <span class="wingastock-avatar">
+
                     <i class="fas fa-user"></i>
+
                 </span>
 
                 <span class="wingastock-user-email">
+
                     {{ user.email }}
+
                 </span>
 
                 <i class="fas fa-chevron-down user-arrow"></i>
@@ -85,11 +283,15 @@
 
             {% else %}
 
-            <!-- LOGIN -->
+
+            <!-- ================= LOGIN ================= -->
 
             <button type="button" class="wingastock-login" onclick="open_login_modal(1)">
-                Login
+
+                {% translate "Login" %}
+
             </button>
+
 
             {% endif %}
 
@@ -99,7 +301,6 @@
 
 </header>
 
-
 <!-- =====================================================
      USER ACCOUNT
      ===================================================== -->
@@ -108,23 +309,36 @@
 
     <div>
 
-        <button type="button" class="panel-close" onclick="open_user(0)">
+
+        <button type="button" class="panel-close" onclick="open_user(0)" aria-label="{% translate 'Close' %}">
+
             <i class="fas fa-times"></i>
+
         </button>
 
 
         <div class="account-header">
 
             <div class="account-avatar">
+
                 <i class="fas fa-user"></i>
+
             </div>
+
 
             <div>
 
-                <h3>My account</h3>
+                <h3>
+
+                    {% translate "My account" %}
+
+                </h3>
+
 
                 <span>
+
                     {{ user.email }}
+
                 </span>
 
             </div>
@@ -134,12 +348,15 @@
 
         <ul class="user-1003 account-menu">
 
+
             <li onclick="open_cart(1);">
 
                 <i class="fas fa-shopping-cart"></i>
 
                 <span>
-                    Your cart
+
+                    {% translate "Your cart" %}
+
                 </span>
 
             </li>
@@ -150,7 +367,9 @@
                 <i class="fas fa-bell"></i>
 
                 <span>
-                    Notifications
+
+                    {% translate "Notifications" %}
+
                 </span>
 
             </li>
@@ -161,17 +380,19 @@
                 <i class="fas fa-sign-out-alt"></i>
 
                 <span>
-                    Logout
+
+                    {% translate "Logout" %}
+
                 </span>
 
             </li>
+
 
         </ul>
 
     </div>
 
 </div>
-
 
 <!-- =====================================================
      NOTIFICATIONS
@@ -181,19 +402,33 @@
 
     <div>
 
-        <button type="button" class="panel-close" onclick="open_notification(0)">
+
+        <button type="button" class="panel-close" onclick="open_notification(0)" aria-label="{% translate 'Close' %}">
+
             <i class="fas fa-times"></i>
+
         </button>
 
 
         <div class="panel-heading">
 
             <h3>
-                Notifications
+
+                {% translate "Notifications" %}
+
             </h3>
 
+
             {% if mails %}
-            <span>{{ mails|length }} new</span>
+
+            <span>
+
+                {{ mails|length }}
+
+                {% translate "new" %}
+
+            </span>
+
             {% endif %}
 
         </div>
@@ -201,9 +436,12 @@
 
         <ul class="user-1003 notification-list">
 
+
             {% for mail in mails %}
 
+
             <li onclick="window.location.href=`{% url 'mail_read_c' mail.sender_id %}`">
+
 
                 <div class="notification-icon">
 
@@ -215,45 +453,62 @@
                 <div class="notification-content">
 
                     <strong>
+
                         {{ mail.sender_id }}
+
                     </strong>
 
+
                     <span>
+
                         {{ mail.message }}
+
                     </span>
 
+
                     <small>
+
                         {{ mail.sent_at }}
+
                     </small>
 
                 </div>
 
             </li>
 
+
             {% empty %}
+
 
             <div class="empty-panel">
 
                 <i class="fas fa-bell"></i>
 
+
                 <strong>
-                    No notifications
+
+                    {% translate "No notifications" %}
+
                 </strong>
 
+
                 <span>
-                    You're all caught up.
+
+                    {% translate "You're all caught up." %}
+
                 </span>
 
             </div>
 
+
             {% endfor %}
+
 
         </ul>
 
     </div>
 
 </div>
-
 
 <!-- =====================================================
      CART
@@ -263,15 +518,20 @@
 
     <div>
 
-        <button type="button" class="panel-close" onclick="open_cart(0)">
+
+        <button type="button" class="panel-close" onclick="open_cart(0)" aria-label="{% translate 'Close' %}">
+
             <i class="fas fa-times"></i>
+
         </button>
 
 
         <div class="panel-heading">
 
             <h3>
-                Your cart
+
+                {% translate "Your cart" %}
+
             </h3>
 
         </div>
@@ -279,26 +539,33 @@
 
         <ul class="user-1003">
 
+
             <div class="empty-panel">
 
                 <i class="fas fa-shopping-cart"></i>
 
+
                 <strong>
-                    Your cart is empty
+
+                    {% translate "Your cart is empty" %}
+
                 </strong>
 
+
                 <span>
-                    Products you add will appear here.
+
+                    {% translate "Products you add will appear here." %}
+
                 </span>
 
             </div>
+
 
         </ul>
 
     </div>
 
 </div>
-
 
 <script>
 
@@ -346,6 +613,7 @@
     });
 
 
+
     /* =====================================================
        CLOSE ALL PANELS
        ===================================================== */
@@ -359,6 +627,7 @@
         document.getElementById('user_cart').style.display = 'none';
 
     }
+
 
 
     /* =====================================================
@@ -382,6 +651,7 @@
     }
 
 
+
     /* =====================================================
        NOTIFICATIONS
        ===================================================== */
@@ -401,6 +671,7 @@
         }
 
     }
+
 
 
     /* =====================================================
@@ -425,18 +696,8 @@
 
 </script>
 
-
-
 <style>
-
     .wingastock-avatar {
         background: transparent;
-    }
-
-    @media only screen and (min-width: 768px) {
-
-        .wingastock-avatar {
-            background: whitesmoke;
-        }
     }
 </style>

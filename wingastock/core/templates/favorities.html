@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 {% load humanize %}
 
 <!DOCTYPE html>
@@ -50,13 +51,15 @@
 
                 {% include 'side-category.html' %}
 
-                <div class="product-card-1002 favorites-grid"  style="width: 100%;">
+                <div class="product-card-1002 favorites-grid" style="width: 100%;">
 
                     <div class="section-heading">
+
                         <div>
-                            <span class="eyebrow">Curated for you</span>
-                            <h2>Favorite products</h2>
+                            <span class="eyebrow">{% translate "Curated for you" %}</span>
+                            <h2>{% translate "Favorite products" %}</h2>
                         </div>
+
 
                         <span class="favorites-count">
                             {{ favorite_products|length }} saved

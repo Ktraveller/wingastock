@@ -1,17 +1,16 @@
 {% load static %}
+{% load i18n %}
 
 <header class="wingastock-header heading-holder-1002">
 
-    <div class="wingastock-header-inner">
+<div class="wingastock-header-inner">
 
-        <!-- BRAND -->
+    <!-- BRAND + LANGUAGE -->
+    <div class="wingastock-brand-wrap">
+
         <a href="{% url 'home' %}" class="wingastock-brand">
 
-            <img
-                src="{% static 'logo.png' %}"
-                alt="Wingastock"
-                class="wingastock-logo"
-            >
+            <img src="{% static 'logo.png' %}" alt="Wingastock" class="wingastock-logo">
 
             <span class="wingastock-title">
                 Wingastock
@@ -20,156 +19,387 @@
         </a>
 
 
-        <!-- SEARCH -->
-        <div class="wingastock-search">
+        <!-- MODERN LANGUAGE SWITCHER -->
+        {% get_current_language as CURRENT_LANGUAGE %}
 
-            <i class="fas fa-search"></i>
+        <div class="wingastock-title-language">
 
-            {% if search == 'search' %}
+            <form action="{% url 'set_language' %}" method="post">
 
-                <input
-                    type="search"
-                    id="searchInput"
-                    placeholder="Search products, shops and more..."
-                    autocomplete="off"
-                >
+                {% csrf_token %}
 
-            {% else %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
 
-                <input
-                    type="search"
-                    placeholder="Search products, shops and more..."
-                    onclick="window.location.href=`{% url 'search' %}`"
-                    readonly
-                >
+                <button type="submit"
+                    name="language"
+                    value="{% if CURRENT_LANGUAGE == 'en' %}sw{% else %}en{% endif %}"
+                    class="wingastock-language-button"
+                    aria-label="{% if CURRENT_LANGUAGE == 'en' %}{% translate 'Change language to Kiswahili' %}{% else %}{% translate 'Change language to English' %}{% endif %}">
 
-            {% endif %}
+                    {% if CURRENT_LANGUAGE == "en" %}
 
-        </div>
+                    <span class="language-flag">🇬🇧</span>
+                    <span class="language-code">EN</span>
 
+                    {% else %}
 
-        <!-- ACTIONS -->
-        <div class="wingastock-actions">
+                    <span class="language-flag">🇹🇿</span>
+                    <span class="language-code">SW</span>
 
-            <!-- CART -->
-            <button
-                type="button"
-                class="wingastock-icon"
-                onclick="open_cart(1)"
-                aria-label="Shopping cart"
-            >
-                <i class="fas fa-shopping-cart"></i>
-            </button>
+                    {% endif %}
 
+                    <i class="fas fa-chevron-down"></i>
 
-            <!-- LOGIN -->
-            <button
-                type="button"
-                class="wingastock-login"
-                onclick="open_login_modal(1)"
-            >
-                Login
-            </button>
+                </button>
+
+            </form>
 
         </div>
 
     </div>
 
-</header>
+
+    <!-- SEARCH -->
+    <div class="wingastock-search">
+
+        <i class="fas fa-search"></i>
+
+        {% if search == 'search' %}
+
+        <input type="search"
+            id="searchInput"
+            placeholder="{% translate 'Search products, shops and more...' %}"
+            autocomplete="off">
+
+        {% else %}
+
+        <input type="search"
+            placeholder="{% translate 'Search products, shops and more...' %}"
+            onclick="window.location.href=`{% url 'search' %}`"
+            readonly>
+
+        {% endif %}
+
+    </div>
 
 
-<!-- ================= CART ================= -->
+    <!-- ACTIONS -->
+    <div class="wingastock-actions">
 
-<div class="user-info-holder-1003" id="user_cart">
 
-    <div>
+        <!-- CART -->
+        <button type="button"
+            class="wingastock-icon"
+            onclick="open_cart(1)"
+            aria-label="{% translate 'Shopping cart' %}">
 
-        <button
-            type="button"
-            class="close-1003"
-            onclick="open_cart(0)"
-            aria-label="Close cart"
-        >
-            <i class="fas fa-times"></i>
+            <i class="fas fa-shopping-cart"></i>
+
         </button>
 
-        <p class="cart-title">
-            Your cart
-        </p>
 
-        <ul class="user-1003">
+        <!-- LOGIN -->
+        <button type="button"
+            class="wingastock-login"
+            onclick="open_login_modal(1)">
 
-            <p class="cart-empty">
+            {% translate "Login" %}
 
-                <i class="fas fa-shopping-cart"></i>
-
-                <br>
-
-                Cart empty
-
-            </p>
-
-        </ul>
+        </button>
 
     </div>
 
 </div>
 
+</header>
+
+<!-- ================= CART ================= -->
+
+<div class="user-info-holder-1003" id="user_cart">
+
+<div>
+
+    <button type="button"
+        class="close-1003"
+        onclick="open_cart(0)"
+        aria-label="{% translate 'Close cart' %}">
+
+        <i class="fas fa-times"></i>
+
+    </button>
+
+
+    <p class="cart-title">
+        {% translate "Your cart" %}
+    </p>
+
+
+    <ul class="user-1003">
+
+        <p class="cart-empty">
+
+            <i class="fas fa-shopping-cart"></i>
+
+            <br>
+
+            {% translate "Cart empty" %}
+
+        </p>
+
+    </ul>
+
+</div>
+
+</div>
 
 <script>
 
-let lastScrollTop = 0;
+    let lastScrollTop = 0;
 
-const header = document.querySelector('.wingastock-header');
-
-window.addEventListener('scroll', function () {
-
-    const currentScroll =
-        window.pageYOffset ||
-        document.documentElement.scrollTop;
+    const header = document.querySelector('.wingastock-header');
 
 
-    if (currentScroll <= 0) {
+    window.addEventListener('scroll', function () {
 
-        header.classList.remove('hide-header');
+        const currentScroll =
+            window.pageYOffset ||
+            document.documentElement.scrollTop;
 
-        lastScrollTop = 0;
 
-        return;
+        if (currentScroll <= 0) {
+
+            header.classList.remove('hide-header');
+
+            lastScrollTop = 0;
+
+            return;
+
+        }
+
+
+        if (currentScroll > lastScrollTop) {
+
+            header.classList.add('hide-header');
+
+        } else {
+
+            header.classList.remove('hide-header');
+
+        }
+
+
+        lastScrollTop = currentScroll;
+
+    });
+
+
+    function open_cart(click) {
+
+        const cart = document.getElementById('user_cart');
+
+
+        if (click == 1) {
+
+            cart.style.display = 'block';
+
+        } else {
+
+            cart.style.display = 'none';
+
+        }
+
+    }
+
+</script>
+
+<style>
+
+/* ==========================================================
+   BRAND + LANGUAGE
+   ========================================================== */
+
+.wingastock-brand-wrap {
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    min-width: 0;
+
+    flex-shrink: 0;
+
+}
+
+
+.wingastock-title-language {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-shrink: 0;
+
+}
+
+
+.wingastock-title-language form {
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+
+/* ==========================================================
+   MODERN LANGUAGE BUTTON
+   ========================================================== */
+
+.wingastock-language-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 4px;
+
+    height: 28px;
+
+    min-width: 46px;
+
+    padding: 0 7px;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 999px;
+
+    background: #fff;
+
+    color: #333;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    outline: none;
+
+    transition:
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease,
+        transform .15s ease;
+
+}
+
+
+.wingastock-language-button:hover {
+
+    border-color: #DC143C;
+
+    background: #fffafa;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .06);
+
+}
+
+
+.wingastock-language-button:active {
+
+    transform: scale(.96);
+
+}
+
+
+.wingastock-language-button:focus-visible {
+
+    border-color: #DC143C;
+
+    box-shadow:
+        0 0 0 3px rgba(220, 20, 60, .10);
+
+}
+
+
+.wingastock-language-button .language-flag {
+
+    font-size: 13px;
+
+    line-height: 1;
+
+}
+
+
+.wingastock-language-button .language-code {
+
+    line-height: 1;
+
+}
+
+
+.wingastock-language-button i {
+
+    font-size: 7px;
+
+    margin-left: 1px;
+
+    transition: transform .2s ease;
+
+}
+
+
+.wingastock-language-button:hover i {
+
+    transform: rotate(180deg);
+
+}
+
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 600px) {
+
+    .wingastock-brand-wrap {
+
+        gap: 5px;
 
     }
 
 
-    if (currentScroll > lastScrollTop) {
+    .wingastock-language-button {
 
-        header.classList.add('hide-header');
+        height: 26px;
 
-    } else {
+        min-width: 42px;
 
-        header.classList.remove('hide-header');
+        padding: 0 6px;
+
+        font-size: 9px;
 
     }
 
 
-    lastScrollTop = currentScroll;
+    .wingastock-language-button .language-flag {
 
-});
+        font-size: 12px;
+
+    }
 
 
-function open_cart(click) {
+    .wingastock-language-button i {
 
-    const cart = document.getElementById('user_cart');
-
-    if (click == 1) {
-
-        cart.style.display = 'block';
-
-    } else {
-
-        cart.style.display = 'none';
+        font-size: 6px;
 
     }
 
 }
 
-</script>
+</style>

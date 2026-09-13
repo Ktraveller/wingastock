@@ -1,32 +1,66 @@
 {% load humanize %}
+{% load i18n %}
 
 <article class="product-card category-{{ product.category }}" data-category="{{ product.category }}"
     onclick="window.location.href=`{% url 'product_details' product.id product.title %}`">
+
     <div class="product-card-media product-1002" data-bg="{% if product.image %}{{ product.image.url }}{% endif %}">
         <div class="loader"></div>
+
         {% if product.image %}
         <img src="{{ product.image.url }}" alt="{{ product.title }}" loading="lazy">
         {% else %}
-        <div class="product-image-placeholder"><i class="fas fa-image"></i></div>
+        <div class="product-image-placeholder">
+            <i class="fas fa-image"></i>
+        </div>
         {% endif %}
+
         <span class="product-category">{{ product.get_category_display }}</span>
         <span class="product-card-id">#{{ product.id }}</span>
     </div>
+
     <div class="product-card-body">
+
         <h3>{{ product.title }}</h3>
-        <p class="product-card-description">{{ product.description|truncatechars:72 }}</p>
-        <strong class="product-card-price">{{ product.price|floatformat:0|intcomma }} <small>TSh</small></strong>
+
+        <p class="product-card-description">
+            {{ product.description|truncatechars:72 }}
+        </p>
+
+        <strong class="product-card-price">
+            {{ product.price|floatformat:0|intcomma }}
+            <small>TSh</small>
+        </strong>
+
         <div class="product-card-meta">
-            <span><i class="fas fa-store"></i> {{ product.owner.seller.seller_name }}</span>
-            <span><i class="fas fa-map-marker-alt"></i> {{ product.owner.seller.seller_address }}</span>
+            <span>
+                <i class="fas fa-store"></i>
+                {{ product.owner.seller.seller_name }}
+            </span>
+
+            <span>
+                <i class="fas fa-map-marker-alt"></i>
+                {{ product.owner.seller.seller_address }}
+            </span>
         </div>
+
         <div class="product-card-footer">
-            <span class="product-card-stats"><i class="fas fa-eye"></i> 
-                {{ product.product_information.views|default:0 }}</span>
-            <button type="button" class="product-card-action" style="width: auto; padding-left: 10px; padding-right: 10px;"
+
+            <span class="product-card-stats">
+                <i class="fas fa-eye"></i>
+                {{ product.product_information.views|default:0 }}
+            </span>
+
+            <button type="button"
+                class="product-card-action"
+                style="width: auto; padding-left: 10px; padding-right: 10px;"
                 onclick="event.stopPropagation(); window.location.href=`{% url 'product_details' product.id product.title %}`">
-                View details <i class="fas fa-arrow-right"></i>
+
+                {% translate "View details" %}
+                <i class="fas fa-arrow-right"></i>
+
             </button>
+
         </div>
     </div>
 </article>

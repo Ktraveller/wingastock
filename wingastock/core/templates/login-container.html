@@ -1,21 +1,14 @@
 {% load static %}
+{% load static %}
+{% load i18n %}
+
 
 <!-- =========================================================
      WINGASTOCK LOGIN / REGISTER MODAL
 ========================================================= -->
+<div class="register-modal-holder-2001" id="login_container" aria-hidden="true">
 
-<div
-    class="register-modal-holder-2001"
-    id="login_container"
-    aria-hidden="true"
->
-
-    <div
-        class="register-modal-2001"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="auth_modal_title"
-    >
+    <div class="register-modal-2001" role="dialog" aria-modal="true" aria-labelledby="auth_modal_title">
 
         <!-- =================================================
              CLOSE BUTTON
@@ -23,15 +16,12 @@
 
         <div class="close-holder-2001">
 
-            <button
-                type="button"
-                onclick="open_login_modal(0)"
-                aria-label="Close"
-            >
+            <button type="button" class="auth-close" onclick="open_login_modal(0)" aria-label="{% translate 'Close' %}">
                 <i class="fas fa-times"></i>
             </button>
 
         </div>
+
 
 
         <!-- =================================================
@@ -42,10 +32,7 @@
 
             <div class="auth-logo-2001">
 
-                <img
-                    src="{% static 'logo.png' %}"
-                    alt="Wingastock"
-                >
+                <img src="{% static 'logo.png' %}" alt="Wingastock">
 
             </div>
 
@@ -56,7 +43,7 @@
                 </h2>
 
                 <p>
-                    Shop smarter. Shop better.
+                    {% translate "Shop smarter. Shop better." %}
                 </p>
 
             </div>
@@ -70,25 +57,15 @@
 
         <div class="choose-holder-2001">
 
-            <button
-                type="button"
-                id="login_button"
-                class="auth-tab active"
-                onclick="choose_type(1)"
-            >
+            <button type="button" id="login_button" class="auth-tab active" onclick="choose_type(1)">
                 <i class="fas fa-sign-in-alt"></i>
-                <span>Login</span>
+                <span>{% translate "Login" %}</span>
             </button>
 
 
-            <button
-                type="button"
-                id="register_button"
-                class="auth-tab"
-                onclick="choose_type(2)"
-            >
+            <button type="button" id="register_button" class="auth-tab" onclick="choose_type(2)">
                 <i class="fas fa-user-plus"></i>
-                <span>Register</span>
+                <span>{% translate "Register" %}</span>
             </button>
 
         </div>
@@ -98,10 +75,7 @@
              LOGIN
         ================================================== -->
 
-        <div
-            class="form-holder-login-2001 auth-form active"
-            id="login"
-        >
+        <div class="form-holder-login-2001 auth-form active" id="login">
 
             <div class="auth-heading-2001">
 
@@ -114,11 +88,11 @@
                 <div>
 
                     <h3>
-                        Welcome back
+                        {% translate "Welcome back" %}
                     </h3>
 
                     <p>
-                        Login to continue to your account
+                        {% translate "Login to continue to your account" %}
                     </p>
 
                 </div>
@@ -128,11 +102,7 @@
 
             <div class="form-login-2001">
 
-                <form
-                    method="post"
-                    action="{% url 'customer_login' %}"
-                    id="customer_login_form"
-                >
+                <form method="post" action="{% url 'customer_login' %}" id="customer_login_form">
 
                     {% csrf_token %}
 
@@ -145,7 +115,7 @@
 
                             <i class="fas fa-envelope"></i>
 
-                            Email address
+                            {% translate "Email address" %}
 
                         </label>
 
@@ -154,14 +124,8 @@
 
                             <i class="fas fa-envelope input-icon"></i>
 
-                            <input
-                                type="email"
-                                name="email"
-                                id="login_email"
-                                placeholder="juma@mail.com"
-                                autocomplete="email"
-                                required
-                            >
+                            <input type="email" name="email" id="login_email" placeholder="juma@mail.com"
+                                autocomplete="email" required>
 
                         </div>
 
@@ -176,7 +140,7 @@
 
                             <i class="fas fa-lock"></i>
 
-                            Password
+                            {% translate "Password" %}
 
                         </label>
 
@@ -185,25 +149,15 @@
 
                             <i class="fas fa-lock input-icon"></i>
 
-                            <input
-                                type="password"
-                                name="password"
-                                id="login_password"
-                                placeholder="Enter your password"
-                                autocomplete="current-password"
-                                required
-                            >
+                            <input type="password" name="password" id="login_password"
+                                placeholder="{% translate 'Enter your password' %}"
+                                autocomplete="current-password" required>
 
 
-                            <button
-                                type="button"
-                                class="password-toggle-2001"
-                                onclick="togglePassword(
+                            <button type="button" class="password-toggle-2001" onclick="togglePassword(
                                     'login_password',
                                     this
-                                )"
-                                aria-label="Show password"
-                            >
+                                )" aria-label="{{ show_password_text }}">
 
                                 <i class="fas fa-eye"></i>
 
@@ -218,28 +172,22 @@
 
                     <div class="auth-submit-2001">
 
-                        <button
-                            type="submit"
-                            id="login_submit"
-                        >
+                        <button type="submit" id="login_submit">
 
                             <span class="button-text">
 
                                 <i class="fas fa-sign-in-alt"></i>
 
-                                Login
+                                {% translate "Login" %}
 
                             </span>
 
 
-                            <span
-                                class="button-loading"
-                                style="display:none;"
-                            >
+                            <span class="button-loading" style="display:none;">
 
                                 <i class="fas fa-spinner fa-spin"></i>
 
-                                Logging in...
+                                {{ logging_in_text }}
 
                             </span>
 
@@ -254,11 +202,7 @@
 
             <!-- MESSAGE -->
 
-            <div
-                class="footer-201 auth-message-2001"
-                id="login_message"
-                aria-live="polite"
-            ></div>
+            <div class="footer-201 auth-message-2001" id="login_message" aria-live="polite"></div>
 
 
             <!-- SWITCH -->
@@ -266,14 +210,11 @@
             <div class="auth-switch-2001">
 
                 <span>
-                    Don't have an account?
+                    {% translate "Don't have an account?" %}
                 </span>
 
-                <button
-                    type="button"
-                    onclick="choose_type(2)"
-                >
-                    Create one
+                <button type="button" onclick="choose_type(2)">
+                    {% translate "Create one" %}
                 </button>
 
             </div>
@@ -285,10 +226,7 @@
              REGISTER
         ================================================== -->
 
-        <div
-            class="form-holder-login-2001 auth-form"
-            id="signup"
-        >
+        <div class="form-holder-login-2001 auth-form" id="signup">
 
             <div class="auth-heading-2001">
 
@@ -301,11 +239,11 @@
                 <div>
 
                     <h3>
-                        Create your account
+                        {% translate "Create your account" %}
                     </h3>
 
                     <p>
-                        Join Wingastock and start shopping
+                        {% translate "Join Wingastock and start shopping" %}
                     </p>
 
                 </div>
@@ -315,11 +253,7 @@
 
             <div class="form-login-2001">
 
-                <form
-                    method="post"
-                    action="{% url 'customer_register' %}"
-                    id="customer_register_form"
-                >
+                <form method="post" action="{% url 'customer_register' %}" id="customer_register_form">
 
                     {% csrf_token %}
 
@@ -332,7 +266,7 @@
 
                             <i class="fas fa-envelope"></i>
 
-                            Email address
+                            {% translate "Email address" %}
 
                         </label>
 
@@ -341,14 +275,8 @@
 
                             <i class="fas fa-envelope input-icon"></i>
 
-                            <input
-                                type="email"
-                                name="email"
-                                id="register_email"
-                                placeholder="juma@mail.com"
-                                autocomplete="email"
-                                required
-                            >
+                            <input type="email" name="email" id="register_email" placeholder="juma@mail.com"
+                                autocomplete="email" required>
 
                         </div>
 
@@ -363,7 +291,7 @@
 
                             <i class="fas fa-lock"></i>
 
-                            Password
+                            {% translate "Password" %}
 
                         </label>
 
@@ -372,25 +300,15 @@
 
                             <i class="fas fa-lock input-icon"></i>
 
-                            <input
-                                type="password"
-                                name="password"
-                                id="register_password"
-                                placeholder="Create a password"
-                                autocomplete="new-password"
-                                required
-                            >
+                            <input type="password" name="password" id="register_password"
+                                placeholder="{% translate 'Create a password' %}"
+                                autocomplete="new-password" required>
 
 
-                            <button
-                                type="button"
-                                class="password-toggle-2001"
-                                onclick="togglePassword(
+                            <button type="button" class="password-toggle-2001" onclick="togglePassword(
                                     'register_password',
                                     this
-                                )"
-                                aria-label="Show password"
-                            >
+                                )" aria-label="{{ show_password_text }}">
 
                                 <i class="fas fa-eye"></i>
 
@@ -405,28 +323,22 @@
 
                     <div class="auth-submit-2001">
 
-                        <button
-                            type="submit"
-                            id="register_submit"
-                        >
+                        <button type="submit" id="register_submit">
 
                             <span class="button-text">
 
                                 <i class="fas fa-user-plus"></i>
 
-                                Create account
+                                {% translate "Create account" %}
 
                             </span>
 
 
-                            <span
-                                class="button-loading"
-                                style="display:none;"
-                            >
+                            <span class="button-loading" style="display:none;">
 
                                 <i class="fas fa-spinner fa-spin"></i>
 
-                                Creating account...
+                                {{ creating_account_text }}
 
                             </span>
 
@@ -441,11 +353,7 @@
 
             <!-- MESSAGE -->
 
-            <div
-                class="footer-201 auth-message-2001"
-                id="register_message"
-                aria-live="polite"
-            ></div>
+            <div class="footer-201 auth-message-2001" id="register_message" aria-live="polite"></div>
 
 
             <!-- SWITCH -->
@@ -453,14 +361,11 @@
             <div class="auth-switch-2001">
 
                 <span>
-                    Already have an account?
+                    {% translate "Already have an account?" %}
                 </span>
 
-                <button
-                    type="button"
-                    onclick="choose_type(1)"
-                >
-                    Login
+                <button type="button" onclick="choose_type(1)">
+                    {% translate "Login" %}
                 </button>
 
             </div>
@@ -477,897 +382,114 @@
 ========================================================= -->
 
 <style>
-
-/* =========================================================
+    /* =========================================================
    GLOBAL AUTH VARIABLES
 ========================================================= */
 
-:root {
+    :root {
 
-    --auth-primary: #e60023;
-    --auth-primary-dark: #c9001f;
+        --auth-primary: #e60023;
+        --auth-primary-dark: #c9001f;
 
-    --auth-text: #172033;
-    --auth-muted: #70798a;
+        --auth-text: #172033;
+        --auth-muted: #70798a;
 
-    --auth-border: #e5e7eb;
+        --auth-border: #e5e7eb;
 
-    --auth-bg: #f7f8fa;
+        --auth-bg: #f7f8fa;
 
-    --auth-white: #ffffff;
+        --auth-white: #ffffff;
 
-    --auth-success: #16803c;
+        --auth-success: #16803c;
 
-    --auth-error: #d92d20;
+        --auth-error: #d92d20;
 
-}
+    }
 
 
-/* =========================================================
+    /* =========================================================
    MODAL BACKDROP
 ========================================================= */
 
-.register-modal-holder-2001 {
+    .register-modal-holder-2001 {
 
-    position: fixed;
+        position: fixed;
 
-    inset: 0;
+        inset: 0;
 
-    width: 100%;
-    height: 100%;
+        width: 100%;
+        height: 100%;
 
-    display: none;
+        display: none;
 
-    align-items: center;
-    justify-content: center;
+        align-items: center;
+        justify-content: center;
 
-    padding: 20px;
+        padding: 20px;
 
-    box-sizing: border-box;
+        box-sizing: border-box;
 
-    background:
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(230, 0, 35, .10),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 80% 80%,
-            rgba(23, 32, 51, .12),
-            transparent 30%
-        ),
-        rgba(10, 15, 25, .72);
+        background:
+            radial-gradient(circle at 20% 20%,
+                rgba(230, 0, 35, .10),
+                transparent 30%),
+            radial-gradient(circle at 80% 80%,
+                rgba(23, 32, 51, .12),
+                transparent 30%),
+            rgba(10, 15, 25, .72);
 
-    backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
 
-    -webkit-backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
 
-    z-index: 999999;
+        z-index: 999999;
 
-    overflow-y: auto;
+        overflow-y: auto;
 
-}
+    }
 
 
-/* =========================================================
+    /* =========================================================
    MODAL CARD
 ========================================================= */
 
-.register-modal-2001 {
-
-    position: relative;
-
-    width: min(460px, 100%);
-
-    max-height: calc(100vh - 40px);
-
-    overflow-y: auto;
-
-    background: var(--auth-white);
-
-    border: 1px solid rgba(255,255,255,.7);
-
-    border-radius: 26px;
-
-    box-shadow:
-        0 30px 80px rgba(0,0,0,.22),
-        0 10px 30px rgba(0,0,0,.10);
-
-    padding: 30px;
-
-    box-sizing: border-box;
-
-    animation: authModalIn .28s ease both;
-
-}
-
-
-@keyframes authModalIn {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(25px)
-            scale(.96);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-
-    }
-
-}
-
-
-/* =========================================================
-   CLOSE BUTTON
-========================================================= */
-
-.close-holder-2001 {
-
-    position: absolute;
-
-    top: 16px;
-
-    right: 16px;
-
-    z-index: 10;
-
-}
-
-
-.close-holder-2001 button {
-
-    width: 38px;
-
-    height: 38px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border: 0;
-
-    border-radius: 50%;
-
-    background: #f3f4f6;
-
-    color: #555e6d;
-
-    cursor: pointer;
-
-    font-size: 15px;
-
-    transition:
-        background .2s ease,
-        color .2s ease,
-        transform .2s ease;
-
-}
-
-
-.close-holder-2001 button:hover {
-
-    background: #fee2e2;
-
-    color: var(--auth-primary);
-
-    transform: rotate(90deg);
-
-}
-
-
-/* =========================================================
-   BRAND
-========================================================= */
-
-.auth-brand-2001 {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 12px;
-
-    margin: 4px 35px 25px 0;
-
-}
-
-
-.auth-logo-2001 {
-
-    width: 52px;
-
-    height: 52px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #fff1f2;
-
-    border-radius: 15px;
-
-    overflow: hidden;
-
-}
-
-
-.auth-logo-2001 img {
-
-    width: 40px;
-
-    height: 40px;
-
-    object-fit: contain;
-
-}
-
-
-.auth-brand-text-2001 h2 {
-
-    margin: 0;
-
-    color: var(--auth-text);
-
-    font-size: 22px;
-
-    font-weight: 800;
-
-    line-height: 1.1;
-
-}
-
-
-.auth-brand-text-2001 p {
-
-    margin: 4px 0 0;
-
-    color: var(--auth-muted);
-
-    font-size: 12px;
-
-}
-
-
-/* =========================================================
-   LOGIN / REGISTER TABS
-========================================================= */
-
-.choose-holder-2001 {
-
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 5px;
-
-    padding: 5px;
-
-    margin-bottom: 28px;
-
-    background: #f3f4f6;
-
-    border-radius: 14px;
-
-}
-
-
-.auth-tab {
-
-    min-height: 44px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 8px;
-
-    border: 0;
-
-    border-radius: 10px;
-
-    background: transparent;
-
-    color: #697386;
-
-    font-family: inherit;
-
-    font-size: 14px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition:
-        background .2s ease,
-        color .2s ease,
-        box-shadow .2s ease,
-        transform .2s ease;
-
-}
-
-
-.auth-tab:hover {
-
-    color: var(--auth-text);
-
-}
-
-
-.auth-tab.active {
-
-    background: #ffffff;
-
-    color: var(--auth-primary);
-
-    box-shadow:
-        0 3px 10px rgba(0,0,0,.08);
-
-}
-
-
-.auth-tab.active i {
-
-    color: var(--auth-primary);
-
-}
-
-
-/* =========================================================
-   FORM
-========================================================= */
-
-.auth-form {
-
-    display: none;
-
-}
-
-
-.auth-form.active {
-
-    display: block;
-
-    animation: authFormIn .25s ease both;
-
-}
-
-
-@keyframes authFormIn {
-
-    from {
-
-        opacity: 0;
-
-        transform: translateX(10px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform: translateX(0);
-
-    }
-
-}
-
-
-/* =========================================================
-   FORM HEADING
-========================================================= */
-
-.auth-heading-2001 {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 13px;
-
-    margin-bottom: 24px;
-
-}
-
-
-.auth-icon-2001 {
-
-    width: 46px;
-
-    height: 46px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 13px;
-
-    background: #fff1f2;
-
-    color: var(--auth-primary);
-
-    font-size: 17px;
-
-}
-
-
-.auth-heading-2001 h3 {
-
-    margin: 0;
-
-    color: var(--auth-text);
-
-    font-size: 20px;
-
-    font-weight: 800;
-
-}
-
-
-.auth-heading-2001 p {
-
-    margin: 4px 0 0;
-
-    color: var(--auth-muted);
-
-    font-size: 12px;
-
-    line-height: 1.4;
-
-}
-
-
-/* =========================================================
-   FIELD
-========================================================= */
-
-.auth-field-2001 {
-
-    margin-bottom: 18px;
-
-}
-
-
-.auth-field-2001 label {
-
-    display: block;
-
-    margin-bottom: 8px;
-
-    color: var(--auth-text);
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-}
-
-
-.auth-field-2001 label i {
-
-    margin-right: 5px;
-
-    color: var(--auth-primary);
-
-}
-
-
-/* =========================================================
-   INPUT
-========================================================= */
-
-.auth-input-2001 {
-
-    position: relative;
-
-    width: 100%;
-
-}
-
-
-.auth-input-2001 .input-icon {
-
-    position: absolute;
-
-    left: 15px;
-
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    color: #9aa2af;
-
-    font-size: 14px;
-
-    pointer-events: none;
-
-    z-index: 2;
-
-}
-
-
-.auth-input-2001 input {
-
-    width: 100%;
-
-    height: 50px;
-
-    box-sizing: border-box;
-
-    padding:
-        0 45px
-        0 42px;
-
-    border: 1px solid var(--auth-border);
-
-    border-radius: 12px;
-
-    outline: none;
-
-    background: #fafafa;
-
-    color: var(--auth-text);
-
-    font-family: inherit;
-
-    font-size: 14px;
-
-    transition:
-        border-color .2s ease,
-        background .2s ease,
-        box-shadow .2s ease;
-
-}
-
-
-.auth-input-2001 input::placeholder {
-
-    color: #a5acb8;
-
-}
-
-
-.auth-input-2001 input:hover {
-
-    border-color: #d3d7df;
-
-}
-
-
-.auth-input-2001 input:focus {
-
-    background: #ffffff;
-
-    border-color: var(--auth-primary);
-
-    box-shadow:
-        0 0 0 4px rgba(230,0,35,.08);
-
-}
-
-
-/* =========================================================
-   PASSWORD TOGGLE
-========================================================= */
-
-.password-toggle-2001 {
-
-    position: absolute;
-
-    top: 50%;
-
-    right: 8px;
-
-    transform: translateY(-50%);
-
-    width: 35px;
-
-    height: 35px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border: 0;
-
-    border-radius: 8px;
-
-    background: transparent;
-
-    color: #8b94a3;
-
-    cursor: pointer;
-
-}
-
-
-.password-toggle-2001:hover {
-
-    background: #f3f4f6;
-
-    color: var(--auth-primary);
-
-}
-
-
-/* =========================================================
-   SUBMIT
-========================================================= */
-
-.auth-submit-2001 {
-
-    margin-top: 25px;
-
-}
-
-
-.auth-submit-2001 button {
-
-    width: 100%;
-
-    min-height: 51px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 8px;
-
-    border: 0;
-
-    border-radius: 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #e60023,
-            #c9001f
-        );
-
-    color: #ffffff;
-
-    font-family: inherit;
-
-    font-size: 14px;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 8px 20px rgba(230,0,35,.20);
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        opacity .2s ease;
-
-}
-
-
-.auth-submit-2001 button:hover:not(:disabled) {
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 12px 26px rgba(230,0,35,.28);
-
-}
-
-
-.auth-submit-2001 button:active:not(:disabled) {
-
-    transform: translateY(0);
-
-}
-
-
-.auth-submit-2001 button:disabled {
-
-    opacity: .7;
-
-    cursor: not-allowed;
-
-}
-
-
-.button-text,
-.button-loading {
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 8px;
-
-}
-
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-.auth-message-2001 {
-
-    min-height: 0;
-
-    margin-top: 14px;
-
-    padding: 0;
-
-    border-radius: 10px;
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    line-height: 1.4;
-
-}
-
-
-.auth-message-2001:not(:empty) {
-
-    padding: 11px 13px;
-
-}
-
-
-.auth-message-2001.success {
-
-    color: var(--auth-success);
-
-    background: #ecfdf3;
-
-    border: 1px solid #bbf7d0;
-
-}
-
-
-.auth-message-2001.error {
-
-    color: var(--auth-error);
-
-    background: #fff1f2;
-
-    border: 1px solid #fecdd3;
-
-}
-
-
-/* =========================================================
-   BOTTOM SWITCH
-========================================================= */
-
-.auth-switch-2001 {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    flex-wrap: wrap;
-
-    gap: 4px;
-
-    margin-top: 22px;
-
-    color: var(--auth-muted);
-
-    font-size: 12px;
-
-    text-align: center;
-
-}
-
-
-.auth-switch-2001 button {
-
-    padding: 0;
-
-    border: 0;
-
-    background: transparent;
-
-    color: var(--auth-primary);
-
-    font-family: inherit;
-
-    font-size: 12px;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-}
-
-
-.auth-switch-2001 button:hover {
-
-    text-decoration: underline;
-
-}
-
-
-/* =========================================================
-   BODY LOCK
-========================================================= */
-
-body.auth-modal-open {
-
-    overflow: hidden;
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
-
-    .register-modal-holder-2001 {
-
-        align-items: flex-end;
-
-        padding: 0;
-
-    }
-
-
     .register-modal-2001 {
 
-        width: 100%;
+        position: relative;
 
-        max-height: 92vh;
+        width: min(460px, 100%);
 
-        padding: 24px 20px;
+        max-height: calc(100vh - 40px);
 
-        border-radius:
-            24px 24px 0 0;
+        overflow-y: auto;
 
-        animation:
-            authMobileIn .28s ease both;
+        background: var(--auth-white);
+
+        border: 1px solid rgba(255, 255, 255, .7);
+
+        border-radius: 26px;
+
+        box-shadow:
+            0 30px 80px rgba(0, 0, 0, .22),
+            0 10px 30px rgba(0, 0, 0, .10);
+
+        padding: 30px;
+
+        box-sizing: border-box;
+
+        animation: authModalIn .28s ease both;
 
     }
 
 
-    @keyframes authMobileIn {
+    @keyframes authModalIn {
 
         from {
 
             opacity: 0;
 
-            transform: translateY(100%);
+            transform:
+                translateY(25px) scale(.96);
 
         }
 
@@ -1375,89 +497,861 @@ body.auth-modal-open {
 
             opacity: 1;
 
-            transform: translateY(0);
+            transform:
+                translateY(0) scale(1);
 
         }
 
     }
 
 
+    /* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+    .close-holder-2001 {
+
+        position: absolute;
+
+        top: 16px;
+
+        right: 16px;
+
+        z-index: 10;
+
+    }
+
+
+    .close-holder-2001 button {
+
+        width: 38px;
+
+        height: 38px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border: 0;
+
+        border-radius: 50%;
+
+        background: #f3f4f6;
+
+        color: #555e6d;
+
+        cursor: pointer;
+
+        font-size: 15px;
+
+        transition:
+            background .2s ease,
+            color .2s ease,
+            transform .2s ease;
+
+    }
+
+
+    .close-holder-2001 button:hover {
+
+        background: #fee2e2;
+
+        color: var(--auth-primary);
+
+        transform: rotate(90deg);
+
+    }
+
+
+    /* =========================================================
+   BRAND
+========================================================= */
+
     .auth-brand-2001 {
 
-        margin-right: 40px;
+        display: flex;
 
-        margin-bottom: 20px;
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 12px;
+
+        margin: 4px 35px 25px 0;
+
+    }
+
+
+    .auth-logo-2001 {
+
+        width: 52px;
+
+        height: 52px;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background: #fff1f2;
+
+        border-radius: 15px;
+
+        overflow: hidden;
+
+    }
+
+
+    .auth-logo-2001 img {
+
+        width: 40px;
+
+        height: 40px;
+
+        object-fit: contain;
 
     }
 
 
     .auth-brand-text-2001 h2 {
 
-        font-size: 20px;
+        margin: 0;
+
+        color: var(--auth-text);
+
+        font-size: 22px;
+
+        font-weight: 800;
+
+        line-height: 1.1;
 
     }
 
 
-    .auth-heading-2001 h3 {
+    .auth-brand-text-2001 p {
 
-        font-size: 18px;
+        margin: 4px 0 0;
 
-    }
+        color: var(--auth-muted);
 
-
-    .auth-input-2001 input {
-
-        height: 48px;
+        font-size: 12px;
 
     }
 
 
-    .auth-submit-2001 button {
-
-        min-height: 49px;
-
-    }
-
-}
-
-
-/* =========================================================
-   VERY SMALL SCREENS
+    /* =========================================================
+   LOGIN / REGISTER TABS
 ========================================================= */
 
-@media (max-width: 360px) {
+    .choose-holder-2001 {
 
-    .register-modal-2001 {
+        display: grid;
 
-        padding: 20px 15px;
+        grid-template-columns: 1fr 1fr;
+
+        gap: 5px;
+
+        padding: 5px;
+
+        margin-bottom: 28px;
+
+        background: #f3f4f6;
+
+        border-radius: 14px;
 
     }
 
+
+    .auth-tab {
+
+        min-height: 44px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+        border: 0;
+
+        border-radius: 10px;
+
+        background: transparent;
+
+        color: #697386;
+
+        font-family: inherit;
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition:
+            background .2s ease,
+            color .2s ease,
+            box-shadow .2s ease,
+            transform .2s ease;
+
+    }
+
+
+    .auth-tab:hover {
+
+        color: var(--auth-text);
+
+    }
+
+
+    .auth-tab.active {
+
+        background: #ffffff;
+
+        color: var(--auth-primary);
+
+        box-shadow:
+            0 3px 10px rgba(0, 0, 0, .08);
+
+    }
+
+
+    .auth-tab.active i {
+
+        color: var(--auth-primary);
+
+    }
+
+
+    /* =========================================================
+   FORM
+========================================================= */
+
+    .auth-form {
+
+        display: none;
+
+    }
+
+
+    .auth-form.active {
+
+        display: block;
+
+        animation: authFormIn .25s ease both;
+
+    }
+
+
+    @keyframes authFormIn {
+
+        from {
+
+            opacity: 0;
+
+            transform: translateX(10px);
+
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform: translateX(0);
+
+        }
+
+    }
+
+
+    /* =========================================================
+   FORM HEADING
+========================================================= */
 
     .auth-heading-2001 {
 
-        gap: 9px;
+        display: flex;
+
+        align-items: center;
+
+        gap: 13px;
+
+        margin-bottom: 24px;
 
     }
 
 
     .auth-icon-2001 {
 
-        width: 40px;
+        width: 46px;
 
-        height: 40px;
+        height: 46px;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 13px;
+
+        background: #fff1f2;
+
+        color: var(--auth-primary);
+
+        font-size: 17px;
 
     }
 
 
     .auth-heading-2001 h3 {
 
-        font-size: 17px;
+        margin: 0;
+
+        color: var(--auth-text);
+
+        font-size: 20px;
+
+        font-weight: 800;
 
     }
 
-}
 
+    .auth-heading-2001 p {
+
+        margin: 4px 0 0;
+
+        color: var(--auth-muted);
+
+        font-size: 12px;
+
+        line-height: 1.4;
+
+    }
+
+
+    /* =========================================================
+   FIELD
+========================================================= */
+
+    .auth-field-2001 {
+
+        margin-bottom: 18px;
+
+    }
+
+
+    .auth-field-2001 label {
+
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: var(--auth-text);
+
+        font-size: 13px;
+
+        font-weight: 700;
+
+    }
+
+
+    .auth-field-2001 label i {
+
+        margin-right: 5px;
+
+        color: var(--auth-primary);
+
+    }
+
+
+    /* =========================================================
+   INPUT
+========================================================= */
+
+    .auth-input-2001 {
+
+        position: relative;
+
+        width: 100%;
+
+    }
+
+
+    .auth-input-2001 .input-icon {
+
+        position: absolute;
+
+        left: 15px;
+
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        color: #9aa2af;
+
+        font-size: 14px;
+
+        pointer-events: none;
+
+        z-index: 2;
+
+    }
+
+
+    .auth-input-2001 input {
+
+        width: 100%;
+
+        height: 50px;
+
+        box-sizing: border-box;
+
+        padding:
+            0 45px 0 42px;
+
+        border: 1px solid var(--auth-border);
+
+        border-radius: 12px;
+
+        outline: none;
+
+        background: #fafafa;
+
+        color: var(--auth-text);
+
+        font-family: inherit;
+
+        font-size: 14px;
+
+        transition:
+            border-color .2s ease,
+            background .2s ease,
+            box-shadow .2s ease;
+
+    }
+
+
+    .auth-input-2001 input::placeholder {
+
+        color: #a5acb8;
+
+    }
+
+
+    .auth-input-2001 input:hover {
+
+        border-color: #d3d7df;
+
+    }
+
+
+    .auth-input-2001 input:focus {
+
+        background: #ffffff;
+
+        border-color: var(--auth-primary);
+
+        box-shadow:
+            0 0 0 4px rgba(230, 0, 35, .08);
+
+    }
+
+
+    /* =========================================================
+   PASSWORD TOGGLE
+========================================================= */
+
+    .password-toggle-2001 {
+
+        position: absolute;
+
+        top: 50%;
+
+        right: 8px;
+
+        transform: translateY(-50%);
+
+        width: 35px;
+
+        height: 35px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border: 0;
+
+        border-radius: 8px;
+
+        background: transparent;
+
+        color: #8b94a3;
+
+        cursor: pointer;
+
+    }
+
+
+    .password-toggle-2001:hover {
+
+        background: #f3f4f6;
+
+        color: var(--auth-primary);
+
+    }
+
+
+    /* =========================================================
+   SUBMIT
+========================================================= */
+
+    .auth-submit-2001 {
+
+        margin-top: 25px;
+
+    }
+
+
+    .auth-submit-2001 button {
+
+        width: 100%;
+
+        min-height: 51px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+        border: 0;
+
+        border-radius: 12px;
+
+        background:
+            linear-gradient(135deg,
+                #e60023,
+                #c9001f);
+
+        color: #ffffff;
+
+        font-family: inherit;
+
+        font-size: 14px;
+
+        font-weight: 800;
+
+        cursor: pointer;
+
+        box-shadow:
+            0 8px 20px rgba(230, 0, 35, .20);
+
+        transition:
+            transform .2s ease,
+            box-shadow .2s ease,
+            opacity .2s ease;
+
+    }
+
+
+    .auth-submit-2001 button:hover:not(:disabled) {
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 12px 26px rgba(230, 0, 35, .28);
+
+    }
+
+
+    .auth-submit-2001 button:active:not(:disabled) {
+
+        transform: translateY(0);
+
+    }
+
+
+    .auth-submit-2001 button:disabled {
+
+        opacity: .7;
+
+        cursor: not-allowed;
+
+    }
+
+
+    .button-text,
+    .button-loading {
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+    }
+
+
+    /* =========================================================
+   MESSAGE
+========================================================= */
+
+    .auth-message-2001 {
+
+        min-height: 0;
+
+        margin-top: 14px;
+
+        padding: 0;
+
+        border-radius: 10px;
+
+        font-size: 13px;
+
+        font-weight: 600;
+
+        line-height: 1.4;
+
+    }
+
+
+    .auth-message-2001:not(:empty) {
+
+        padding: 11px 13px;
+
+    }
+
+
+    .auth-message-2001.success {
+
+        color: var(--auth-success);
+
+        background: #ecfdf3;
+
+        border: 1px solid #bbf7d0;
+
+    }
+
+
+    .auth-message-2001.error {
+
+        color: var(--auth-error);
+
+        background: #fff1f2;
+
+        border: 1px solid #fecdd3;
+
+    }
+
+
+    /* =========================================================
+   BOTTOM SWITCH
+========================================================= */
+
+    .auth-switch-2001 {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        gap: 4px;
+
+        margin-top: 22px;
+
+        color: var(--auth-muted);
+
+        font-size: 12px;
+
+        text-align: center;
+
+    }
+
+
+    .auth-switch-2001 button {
+
+        padding: 0;
+
+        border: 0;
+
+        background: transparent;
+
+        color: var(--auth-primary);
+
+        font-family: inherit;
+
+        font-size: 12px;
+
+        font-weight: 800;
+
+        cursor: pointer;
+
+    }
+
+
+    .auth-switch-2001 button:hover {
+
+        text-decoration: underline;
+
+    }
+
+
+    /* =========================================================
+   BODY LOCK
+========================================================= */
+
+    body.auth-modal-open {
+
+        overflow: hidden;
+
+    }
+
+
+    /* =========================================================
+   MOBILE
+========================================================= */
+
+    @media (max-width: 600px) {
+
+        .register-modal-holder-2001 {
+
+            align-items: flex-end;
+
+            padding: 0;
+
+        }
+
+
+        .register-modal-2001 {
+
+            width: 100%;
+
+            max-height: 92vh;
+
+            padding: 24px 20px;
+
+            border-radius:
+                24px 24px 0 0;
+
+            animation:
+                authMobileIn .28s ease both;
+
+        }
+
+
+        @keyframes authMobileIn {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(100%);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+
+            }
+
+        }
+
+
+        .auth-brand-2001 {
+
+            margin-right: 40px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .auth-brand-text-2001 h2 {
+
+            font-size: 20px;
+
+        }
+
+
+        .auth-heading-2001 h3 {
+
+            font-size: 18px;
+
+        }
+
+
+        .auth-input-2001 input {
+
+            height: 48px;
+
+        }
+
+
+        .auth-submit-2001 button {
+
+            min-height: 49px;
+
+        }
+
+    }
+
+
+    /* =========================================================
+   VERY SMALL SCREENS
+========================================================= */
+
+    @media (max-width: 360px) {
+
+        .register-modal-2001 {
+
+            padding: 20px 15px;
+
+        }
+
+
+        .auth-heading-2001 {
+
+            gap: 9px;
+
+        }
+
+
+        .auth-icon-2001 {
+
+            width: 40px;
+
+            height: 40px;
+
+        }
+
+
+        .auth-heading-2001 h3 {
+
+            font-size: 17px;
+
+        }
+
+    }
 </style>
 
 
@@ -1465,599 +1359,659 @@ body.auth-modal-open {
      JAVASCRIPT
 ========================================================= -->
 
+
 <script>
 
-/* =========================================================
-   OPEN / CLOSE MODAL
-========================================================= */
+    /* =========================================================
+       TRANSLATION VARIABLES
+    ========================================================= */
 
-function open_login_modal(click) {
+    const showPasswordText =
+        "{{ show_password_text|escapejs }}";
 
-    const modal =
-        document.getElementById("login_container");
+    const hidePasswordText =
+        "{{ hide_password_text|escapejs }}";
 
-    if (!modal) return;
+    const loggingInText =
+        "{{ logging_in_text|escapejs }}";
 
+    const creatingAccountText =
+        "{{ creating_account_text|escapejs }}";
 
-    if (click === 1) {
+    const invalidServerResponseText =
+        "{{ invalid_server_response_text|escapejs }}";
 
-        modal.style.display = "flex";
+    const loginSuccessfulText =
+        "{{ login_successful_text|escapejs }}";
 
-        modal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
+    const invalidLoginText =
+        "{{ invalid_login_text|escapejs }}";
 
-        document.body.classList.add(
-            "auth-modal-open"
-        );
+    const serverConnectionErrorText =
+        "{{ server_connection_error_text|escapejs }}";
 
-        choose_type(1);
+    const accountCreatedText =
+        "{{ account_created_text|escapejs }}";
 
-
-        setTimeout(function() {
-
-            const email =
-                document.getElementById(
-                    "login_email"
-                );
-
-            if (email) {
-
-                email.focus();
-
-            }
-
-        }, 250);
+    const registrationFailedText =
+        "{{ registration_failed_text|escapejs }}";
 
 
-    } else {
+    /* =========================================================
+       OPEN / CLOSE MODAL
+    ========================================================= */
 
-        modal.style.display = "none";
+    function open_login_modal(click) {
 
-        modal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
+        const modal =
+            document.getElementById("login_container");
 
-        document.body.classList.remove(
-            "auth-modal-open"
-        );
-
-    }
-
-}
+        if (!modal) return;
 
 
-/* =========================================================
-   LOGIN / REGISTER SWITCH
-========================================================= */
+        if (click === 1) {
 
-function choose_type(type) {
+            modal.style.display = "flex";
 
-    const login =
-        document.getElementById("login");
+            modal.setAttribute(
+                "aria-hidden",
+                "false"
+            );
 
-    const signup =
-        document.getElementById("signup");
+            document.body.classList.add(
+                "auth-modal-open"
+            );
 
-    const loginButton =
-        document.getElementById(
-            "login_button"
-        );
-
-    const registerButton =
-        document.getElementById(
-            "register_button"
-        );
+            choose_type(1);
 
 
-    if (
-        !login ||
-        !signup ||
-        !loginButton ||
-        !registerButton
-    ) {
+            setTimeout(function () {
 
-        return;
+                const email =
+                    document.getElementById(
+                        "login_email"
+                    );
 
-    }
+                if (email) {
 
+                    email.focus();
 
-    if (type === 1) {
+                }
 
-        login.classList.add("active");
-
-        signup.classList.remove("active");
-
-        loginButton.classList.add("active");
-
-        registerButton.classList.remove(
-            "active"
-        );
+            }, 250);
 
 
-        clearAuthMessage(
-            "register_message"
-        );
+        } else {
 
+            modal.style.display = "none";
 
-        setTimeout(function() {
+            modal.setAttribute(
+                "aria-hidden",
+                "true"
+            );
 
-            const email =
-                document.getElementById(
-                    "login_email"
-                );
+            document.body.classList.remove(
+                "auth-modal-open"
+            );
 
-            if (email) {
-
-                email.focus();
-
-            }
-
-        }, 150);
+        }
 
     }
 
 
-    if (type === 2) {
+    /* =========================================================
+       LOGIN / REGISTER SWITCH
+    ========================================================= */
 
-        signup.classList.add("active");
+    function choose_type(type) {
 
-        login.classList.remove("active");
+        const login =
+            document.getElementById("login");
 
-        registerButton.classList.add(
-            "active"
-        );
+        const signup =
+            document.getElementById("signup");
 
-        loginButton.classList.remove(
-            "active"
-        );
+        const loginButton =
+            document.getElementById(
+                "login_button"
+            );
 
-
-        clearAuthMessage(
-            "login_message"
-        );
-
-
-        setTimeout(function() {
-
-            const email =
-                document.getElementById(
-                    "register_email"
-                );
-
-            if (email) {
-
-                email.focus();
-
-            }
-
-        }, 150);
-
-    }
-
-}
-
-
-/* =========================================================
-   PASSWORD SHOW / HIDE
-========================================================= */
-
-function togglePassword(
-    inputId,
-    button
-) {
-
-    const input =
-        document.getElementById(inputId);
-
-    if (!input) return;
-
-
-    const icon =
-        button.querySelector("i");
-
-    if (!icon) return;
-
-
-    if (input.type === "password") {
-
-        input.type = "text";
-
-        icon.classList.remove(
-            "fa-eye"
-        );
-
-        icon.classList.add(
-            "fa-eye-slash"
-        );
-
-        button.setAttribute(
-            "aria-label",
-            "Hide password"
-        );
-
-
-    } else {
-
-        input.type = "password";
-
-        icon.classList.remove(
-            "fa-eye-slash"
-        );
-
-        icon.classList.add(
-            "fa-eye"
-        );
-
-        button.setAttribute(
-            "aria-label",
-            "Show password"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CSRF
-========================================================= */
-
-function getCSRFToken(form) {
-
-    const csrfInput =
-        form.querySelector(
-            'input[name="csrfmiddlewaretoken"]'
-        );
-
-
-    if (csrfInput) {
-
-        return csrfInput.value;
-
-    }
-
-
-    const cookies =
-        document.cookie.split(";");
-
-
-    for (
-        let cookie of cookies
-    ) {
-
-        cookie = cookie.trim();
+        const registerButton =
+            document.getElementById(
+                "register_button"
+            );
 
 
         if (
-            cookie.startsWith(
-                "csrftoken="
-            )
+            !login ||
+            !signup ||
+            !loginButton ||
+            !registerButton
         ) {
 
-            return decodeURIComponent(
-                cookie.substring(
-                    "csrftoken=".length
+            return;
+
+        }
+
+
+        if (type === 1) {
+
+            login.classList.add("active");
+
+            signup.classList.remove("active");
+
+            loginButton.classList.add("active");
+
+            registerButton.classList.remove(
+                "active"
+            );
+
+
+            clearAuthMessage(
+                "register_message"
+            );
+
+
+            setTimeout(function () {
+
+                const email =
+                    document.getElementById(
+                        "login_email"
+                    );
+
+                if (email) {
+
+                    email.focus();
+
+                }
+
+            }, 150);
+
+        }
+
+
+        if (type === 2) {
+
+            signup.classList.add("active");
+
+            login.classList.remove("active");
+
+            registerButton.classList.add(
+                "active"
+            );
+
+            loginButton.classList.remove(
+                "active"
+            );
+
+
+            clearAuthMessage(
+                "login_message"
+            );
+
+
+            setTimeout(function () {
+
+                const email =
+                    document.getElementById(
+                        "register_email"
+                    );
+
+                if (email) {
+
+                    email.focus();
+
+                }
+
+            }, 150);
+
+        }
+
+    }
+
+
+    /* =========================================================
+       PASSWORD SHOW / HIDE
+    ========================================================= */
+
+    function togglePassword(
+        inputId,
+        button
+    ) {
+
+        const input =
+            document.getElementById(inputId);
+
+        if (!input) return;
+
+
+        const icon =
+            button.querySelector("i");
+
+        if (!icon) return;
+
+
+        if (input.type === "password") {
+
+            input.type = "text";
+
+            icon.classList.remove(
+                "fa-eye"
+            );
+
+            icon.classList.add(
+                "fa-eye-slash"
+            );
+
+            button.setAttribute(
+                "aria-label",
+                hidePasswordText
+            );
+
+
+        } else {
+
+            input.type = "password";
+
+            icon.classList.remove(
+                "fa-eye-slash"
+            );
+
+            icon.classList.add(
+                "fa-eye"
+            );
+
+            button.setAttribute(
+                "aria-label",
+                showPasswordText
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       CSRF
+    ========================================================= */
+
+    function getCSRFToken(form) {
+
+        const csrfInput =
+            form.querySelector(
+                'input[name="csrfmiddlewaretoken"]'
+            );
+
+
+        if (csrfInput) {
+
+            return csrfInput.value;
+
+        }
+
+
+        const cookies =
+            document.cookie.split(";");
+
+
+        for (
+            let cookie of cookies
+        ) {
+
+            cookie = cookie.trim();
+
+
+            if (
+                cookie.startsWith(
+                    "csrftoken="
                 )
-            );
-
-        }
-
-    }
-
-
-    return "";
-
-}
-
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-function showAuthMessage(
-    element,
-    type,
-    message
-) {
-
-    if (!element) return;
-
-
-    element.className =
-        "footer-201 auth-message-2001";
-
-
-    if (type) {
-
-        element.classList.add(type);
-
-    }
-
-
-    element.innerHTML = message || "";
-
-}
-
-
-function clearAuthMessage(id) {
-
-    const element =
-        document.getElementById(id);
-
-    if (!element) return;
-
-    element.className =
-        "footer-201 auth-message-2001";
-
-    element.innerHTML = "";
-
-}
-
-
-/* =========================================================
-   BUTTON LOADING
-========================================================= */
-
-function setButtonLoading(
-    button,
-    loading,
-    loadingText
-) {
-
-    if (!button) return;
-
-
-    const text =
-        button.querySelector(
-            ".button-text"
-        );
-
-    const loader =
-        button.querySelector(
-            ".button-loading"
-        );
-
-
-    button.disabled = loading;
-
-
-    if (loading) {
-
-        if (text) {
-
-            text.style.display = "none";
-
-        }
-
-
-        if (loader) {
-
-            loader.style.display =
-                "inline-flex";
-
-        }
-
-
-        if (loader && loadingText) {
-
-            const nodes =
-                loader.childNodes;
-
-            for (
-                let node of nodes
             ) {
 
-                if (
-                    node.nodeType ===
-                    Node.TEXT_NODE &&
-                    node.textContent.trim()
+                return decodeURIComponent(
+                    cookie.substring(
+                        "csrftoken=".length
+                    )
+                );
+
+            }
+
+        }
+
+
+        return "";
+
+    }
+
+
+    /* =========================================================
+       MESSAGE
+    ========================================================= */
+
+    function showAuthMessage(
+        element,
+        type,
+        message
+    ) {
+
+        if (!element) return;
+
+
+        element.className =
+            "footer-201 auth-message-2001";
+
+
+        if (type) {
+
+            element.classList.add(type);
+
+        }
+
+
+        element.innerHTML = message || "";
+
+    }
+
+
+    function clearAuthMessage(id) {
+
+        const element =
+            document.getElementById(id);
+
+        if (!element) return;
+
+        element.className =
+            "footer-201 auth-message-2001";
+
+        element.innerHTML = "";
+
+    }
+
+
+    /* =========================================================
+       BUTTON LOADING
+    ========================================================= */
+
+    function setButtonLoading(
+        button,
+        loading,
+        loadingText
+    ) {
+
+        if (!button) return;
+
+
+        const text =
+            button.querySelector(
+                ".button-text"
+            );
+
+        const loader =
+            button.querySelector(
+                ".button-loading"
+            );
+
+
+        button.disabled = loading;
+
+
+        if (loading) {
+
+            if (text) {
+
+                text.style.display = "none";
+
+            }
+
+
+            if (loader) {
+
+                loader.style.display =
+                    "inline-flex";
+
+            }
+
+
+            if (loader && loadingText) {
+
+                const nodes =
+                    loader.childNodes;
+
+                for (
+                    let node of nodes
                 ) {
 
-                    node.textContent =
-                        " " +
-                        loadingText;
+                    if (
+                        node.nodeType ===
+                        Node.TEXT_NODE &&
+                        node.textContent.trim()
+                    ) {
 
-                    break;
+                        node.textContent =
+                            " " +
+                            loadingText;
+
+                        break;
+
+                    }
 
                 }
 
             }
 
-        }
+
+        } else {
+
+            if (text) {
+
+                text.style.display =
+                    "inline-flex";
+
+            }
 
 
-    } else {
+            if (loader) {
 
-        if (text) {
+                loader.style.display =
+                    "none";
 
-            text.style.display =
-                "inline-flex";
-
-        }
-
-
-        if (loader) {
-
-            loader.style.display =
-                "none";
+            }
 
         }
 
     }
 
-}
+
+    /* =========================================================
+       FORM DATA
+    ========================================================= */
+
+    function getFormJSON(form) {
+
+        const formData =
+            new FormData(form);
+
+        const data = {};
 
 
-/* =========================================================
-   FORM DATA
-========================================================= */
+        formData.forEach(
+            function (value, key) {
 
-function getFormJSON(form) {
+                if (
+                    key !==
+                    "csrfmiddlewaretoken"
+                ) {
 
-    const formData =
-        new FormData(form);
+                    data[key] = value;
 
-    const data = {};
-
-
-    formData.forEach(
-        function(value, key) {
-
-            if (
-                key !==
-                "csrfmiddlewaretoken"
-            ) {
-
-                data[key] = value;
+                }
 
             }
-
-        }
-    );
+        );
 
 
-    return data;
+        return data;
 
-}
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-const loginForm =
-    document.getElementById(
-        "customer_login_form"
-    );
+    }
 
 
-if (loginForm) {
+    /* =========================================================
+       LOGIN
+    ========================================================= */
 
-    loginForm.addEventListener(
-        "submit",
-        async function(event) {
-
-            event.preventDefault();
-
-
-            const button =
-                document.getElementById(
-                    "login_submit"
-                );
-
-            const message =
-                document.getElementById(
-                    "login_message"
-                );
+    const loginForm =
+        document.getElementById(
+            "customer_login_form"
+        );
 
 
-            setButtonLoading(
-                button,
-                true,
-                "Logging in..."
-            );
+    if (loginForm) {
+
+        loginForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
 
 
-            showAuthMessage(
-                message,
-                "",
-                ""
-            );
+                const button =
+                    document.getElementById(
+                        "login_submit"
+                    );
 
-
-            try {
-
-                const response =
-                    await fetch(
-                        loginForm.action,
-                        {
-                            method: "POST",
-
-                            headers: {
-
-                                "Content-Type":
-                                    "application/json",
-
-                                "X-CSRFToken":
-                                    getCSRFToken(
-                                        loginForm
-                                    ),
-
-                                "X-Requested-With":
-                                    "XMLHttpRequest"
-
-                            },
-
-                            credentials:
-                                "same-origin",
-
-                            body:
-                                JSON.stringify(
-                                    getFormJSON(
-                                        loginForm
-                                    )
-                                )
-
-                        }
+                const message =
+                    document.getElementById(
+                        "login_message"
                     );
 
 
-                let result;
+                setButtonLoading(
+                    button,
+                    true,
+                    loggingInText
+                );
+
+
+                showAuthMessage(
+                    message,
+                    "",
+                    ""
+                );
 
 
                 try {
 
-                    result =
-                        await response.json();
+                    const response =
+                        await fetch(
+                            loginForm.action,
+                            {
+                                method: "POST",
 
-                } catch (jsonError) {
+                                headers: {
 
-                    throw new Error(
-                        "Invalid server response."
+                                    "Content-Type":
+                                        "application/json",
+
+                                    "X-CSRFToken":
+                                        getCSRFToken(
+                                            loginForm
+                                        ),
+
+                                    "X-Requested-With":
+                                        "XMLHttpRequest"
+
+                                },
+
+                                credentials:
+                                    "same-origin",
+
+                                body:
+                                    JSON.stringify(
+                                        getFormJSON(
+                                            loginForm
+                                        )
+                                    )
+
+                            }
+                        );
+
+
+                    let result;
+
+
+                    try {
+
+                        result =
+                            await response.json();
+
+                    } catch (jsonError) {
+
+                        throw new Error(
+                            invalidServerResponseText
+                        );
+
+                    }
+
+
+                    if (
+                        response.ok &&
+                        result.success
+                    ) {
+
+                        showAuthMessage(
+                            message,
+                            "success",
+                            '<i class="fas fa-check-circle"></i> ' +
+                            (
+                                result.message ||
+                                loginSuccessfulText
+                            )
+                        );
+
+
+                        setTimeout(
+                            function () {
+
+                                window.location.reload();
+
+                            },
+                            700
+                        );
+
+
+                    } else {
+
+                        showAuthMessage(
+                            message,
+                            "error",
+                            '<i class="fas fa-exclamation-circle"></i> ' +
+                            (
+                                result.message ||
+                                invalidLoginText
+                            )
+                        );
+
+
+                        setButtonLoading(
+                            button,
+                            false
+                        );
+
+                    }
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Login error:",
+                        error
                     );
 
-                }
-
-
-                if (
-                    response.ok &&
-                    result.success
-                ) {
-
-                    showAuthMessage(
-                        message,
-                        "success",
-                        '<i class="fas fa-check-circle"></i> ' +
-                        (
-                            result.message ||
-                            "Login successful."
-                        )
-                    );
-
-
-                    setTimeout(
-                        function() {
-
-                            window.location.reload();
-
-                        },
-                        700
-                    );
-
-
-                } else {
 
                     showAuthMessage(
                         message,
                         "error",
                         '<i class="fas fa-exclamation-circle"></i> ' +
-                        (
-                            result.message ||
-                            "Invalid email or password."
-                        )
+                        serverConnectionErrorText
                     );
 
 
@@ -2068,195 +2022,195 @@ if (loginForm) {
 
                 }
 
+            }
+        );
 
-            } catch (error) {
+    }
 
-                console.error(
-                    "Login error:",
-                    error
+
+    /* =========================================================
+       REGISTER
+    ========================================================= */
+
+    const registerForm =
+        document.getElementById(
+            "customer_register_form"
+        );
+
+
+    if (registerForm) {
+
+        registerForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                const button =
+                    document.getElementById(
+                        "register_submit"
+                    );
+
+                const message =
+                    document.getElementById(
+                        "register_message"
+                    );
+
+
+                setButtonLoading(
+                    button,
+                    true,
+                    creatingAccountText
                 );
 
 
                 showAuthMessage(
                     message,
-                    "error",
-                    '<i class="fas fa-exclamation-circle"></i> ' +
-                    "Unable to connect to the server. Please try again."
+                    "",
+                    ""
                 );
-
-
-                setButtonLoading(
-                    button,
-                    false
-                );
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   REGISTER
-========================================================= */
-
-const registerForm =
-    document.getElementById(
-        "customer_register_form"
-    );
-
-
-if (registerForm) {
-
-    registerForm.addEventListener(
-        "submit",
-        async function(event) {
-
-            event.preventDefault();
-
-
-            const button =
-                document.getElementById(
-                    "register_submit"
-                );
-
-            const message =
-                document.getElementById(
-                    "register_message"
-                );
-
-
-            setButtonLoading(
-                button,
-                true,
-                "Creating account..."
-            );
-
-
-            showAuthMessage(
-                message,
-                "",
-                ""
-            );
-
-
-            try {
-
-                const response =
-                    await fetch(
-                        registerForm.action,
-                        {
-                            method: "POST",
-
-                            headers: {
-
-                                "Content-Type":
-                                    "application/json",
-
-                                "X-CSRFToken":
-                                    getCSRFToken(
-                                        registerForm
-                                    ),
-
-                                "X-Requested-With":
-                                    "XMLHttpRequest"
-
-                            },
-
-                            credentials:
-                                "same-origin",
-
-                            body:
-                                JSON.stringify(
-                                    getFormJSON(
-                                        registerForm
-                                    )
-                                )
-
-                        }
-                    );
-
-
-                let result;
 
 
                 try {
 
-                    result =
-                        await response.json();
+                    const response =
+                        await fetch(
+                            registerForm.action,
+                            {
+                                method: "POST",
 
-                } catch (jsonError) {
+                                headers: {
 
-                    throw new Error(
-                        "Invalid server response."
-                    );
+                                    "Content-Type":
+                                        "application/json",
 
-                }
+                                    "X-CSRFToken":
+                                        getCSRFToken(
+                                            registerForm
+                                        ),
 
+                                    "X-Requested-With":
+                                        "XMLHttpRequest"
 
-                if (
-                    response.ok &&
-                    result.success
-                ) {
+                                },
 
-                    showAuthMessage(
-                        message,
-                        "success",
-                        '<i class="fas fa-check-circle"></i> ' +
-                        (
-                            result.message ||
-                            "Account created successfully."
-                        )
-                    );
+                                credentials:
+                                    "same-origin",
 
-
-                    setTimeout(
-                        function() {
-
-                            choose_type(1);
-
-
-                            const email =
-                                document.getElementById(
-                                    "register_email"
-                                );
-
-                            const password =
-                                document.getElementById(
-                                    "register_password"
-                                );
-
-
-                            if (email) {
-
-                                email.value = "";
+                                body:
+                                    JSON.stringify(
+                                        getFormJSON(
+                                            registerForm
+                                        )
+                                    )
 
                             }
+                        );
 
 
-                            if (password) {
+                    let result;
 
-                                password.value = "";
 
-                            }
+                    try {
 
-                        },
-                        1000
+                        result =
+                            await response.json();
+
+                    } catch (jsonError) {
+
+                        throw new Error(
+                            invalidServerResponseText
+                        );
+
+                    }
+
+
+                    if (
+                        response.ok &&
+                        result.success
+                    ) {
+
+                        showAuthMessage(
+                            message,
+                            "success",
+                            '<i class="fas fa-check-circle"></i> ' +
+                            (
+                                result.message ||
+                                accountCreatedText
+                            )
+                        );
+
+
+                        setTimeout(
+                            function () {
+
+                                choose_type(1);
+
+
+                                const email =
+                                    document.getElementById(
+                                        "register_email"
+                                    );
+
+                                const password =
+                                    document.getElementById(
+                                        "register_password"
+                                    );
+
+
+                                if (email) {
+
+                                    email.value = "";
+
+                                }
+
+
+                                if (password) {
+
+                                    password.value = "";
+
+                                }
+
+                            },
+                            1000
+                        );
+
+
+                    } else {
+
+                        showAuthMessage(
+                            message,
+                            "error",
+                            '<i class="fas fa-exclamation-circle"></i> ' +
+                            (
+                                result.message ||
+                                registrationFailedText
+                            )
+                        );
+
+
+                        setButtonLoading(
+                            button,
+                            false
+                        );
+
+                    }
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Registration error:",
+                        error
                     );
 
-
-                } else {
 
                     showAuthMessage(
                         message,
                         "error",
                         '<i class="fas fa-exclamation-circle"></i> ' +
-                        (
-                            result.message ||
-                            "Registration failed."
-                        )
+                        serverConnectionErrorText
                     );
 
 
@@ -2267,55 +2221,70 @@ if (registerForm) {
 
                 }
 
+            }
+        );
 
-            } catch (error) {
-
-                console.error(
-                    "Registration error:",
-                    error
-                );
+    }
 
 
-                showAuthMessage(
-                    message,
-                    "error",
-                    '<i class="fas fa-exclamation-circle"></i> ' +
-                    "Unable to connect to the server. Please try again."
-                );
+    /* =========================================================
+       CLICK OUTSIDE MODAL
+    ========================================================= */
+
+    const authModal =
+        document.getElementById(
+            "login_container"
+        );
 
 
-                setButtonLoading(
-                    button,
-                    false
-                );
+    if (authModal) {
+
+        authModal.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target ===
+                    authModal
+                ) {
+
+                    open_login_modal(0);
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================================================
+       ESCAPE KEY
+    ========================================================= */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key !== "Escape"
+            ) {
+
+                return;
 
             }
 
-        }
-    );
 
-}
+            const modal =
+                document.getElementById(
+                    "login_container"
+                );
 
-
-/* =========================================================
-   CLICK OUTSIDE MODAL
-========================================================= */
-
-const authModal =
-    document.getElementById(
-        "login_container"
-    );
-
-
-if (authModal) {
-
-    authModal.addEventListener(
-        "click",
-        function(event) {
 
             if (
-                event.target ===
-                authModal
+                modal &&
+                modal.style.display ===
+                "flex"
             ) {
 
                 open_login_modal(0);
@@ -2325,57 +2294,18 @@ if (authModal) {
         }
     );
 
-}
 
+    /* =========================================================
+       INITIAL STATE
+    ========================================================= */
 
-/* =========================================================
-   ESCAPE KEY
-========================================================= */
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
 
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key !== "Escape"
-        ) {
-
-            return;
+            choose_type(1);
 
         }
-
-
-        const modal =
-            document.getElementById(
-                "login_container"
-            );
-
-
-        if (
-            modal &&
-            modal.style.display ===
-                "flex"
-        ) {
-
-            open_login_modal(0);
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   INITIAL STATE
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        choose_type(1);
-
-    }
-);
+    );
 
 </script>

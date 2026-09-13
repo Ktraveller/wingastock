@@ -1,5 +1,6 @@
 {% load static %}
 {% load humanize %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -115,6 +116,7 @@
         {% endif %}
 
 
+
         <div class="content-holder-002">
 
             <!-- Center content -->
@@ -122,15 +124,40 @@
 
                 <section class="marketplace-hero">
                     <div>
-                        <span class="eyebrow"><i class="fas fa-sparkles"></i> Tanzania's smarter marketplace</span>
-                        <h2>Find something <em>great</em> today.</h2>
-                        <p>Discover products from trusted local sellers and connect with them directly.</p>
+                        <span class="eyebrow">
+                            <i class="fas fa-sparkles"></i>
+                            {% translate "Tanzania's smarter marketplace" %}
+                        </span>
+
+                        <h2>
+                            {% translate "Find something" %}
+                            <em>{% translate "great" %}</em>
+                            {% translate "today." %}
+                        </h2>
+
+                        <p>
+                            {% translate "Discover products from trusted local sellers and connect with them directly." %}
+                        </p>
+
                         <div class="hero-actions">
-                            <a href="{% url 'search' %}" class="hero-primary">Explore products <i class="fas fa-arrow-right"></i></a>
-                            <a href="{% url 'shop_list' %}" class="hero-secondary">Browse shops</a>
+                            <a href="{% url 'search' %}" class="hero-primary">
+                                {% translate "Explore products" %}
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+
+                            <a href="{% url 'shop_list' %}" class="hero-secondary">
+                                {% translate "Browse shops" %}
+                            </a>
                         </div>
                     </div>
-                    <div class="hero-trust"><i class="fas fa-shield-alt"></i><span><strong>Trusted sellers</strong><br>Shop with confidence</span></div>
+
+                    <div class="hero-trust">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>
+                            <strong>{% translate "Trusted sellers" %}</strong><br>
+                            {% translate "Shop with confidence" %}
+                        </span>
+                    </div>
                 </section>
 
                 <!-- Product categories -->
@@ -138,9 +165,22 @@
 
                 <div class="product-card-1002" style="width: 100%;">
                     <div class="section-heading">
-                        <div><span class="eyebrow">Curated for you</span><h2>Top products</h2></div>
-                        <a href="{% url 'search' %}">See all <i class="fas fa-arrow-right"></i></a>
+                        <div>
+                            <span class="eyebrow">
+                                {% translate "Curated for you" %}
+                            </span>
+
+                            <h2>
+                                {% translate "Top products" %}
+                            </h2>
+                        </div>
+
+                        <a href="{% url 'search' %}">
+                            {% translate "See all" %}
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
+
                     {% for product in products %}
                     {% include 'product-container.html' %}
                     {% endfor %}
@@ -148,10 +188,10 @@
                 </div>
             </div>
 
-
             <div style="width: 100%; height: 100px; float: left;"></div>
 
         </div>
+
 
         <!-- How to -->
         {% include 'how-to.html' %}
