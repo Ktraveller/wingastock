@@ -1031,3 +1031,123 @@ msgstr "Funga"
 
 msgid "Search products, shops and more..."
 msgstr "Tafuta bidhaa, maduka na zaidi..."
+
+msgid "Home"
+msgstr "Nyumbani"
+
+msgid "Descriptions"
+msgstr "Maelezo"
+
+msgid "Product"
+msgstr "Bidhaa"
+
+msgid "Category"
+msgstr "Kategoria"
+
+msgid "Price"
+msgstr "Bei"
+
+msgid "Uploaded date"
+msgstr "Tarehe ya kupakia"
+
+msgid "Seller"
+msgstr "Muuzaji"
+
+msgid "Location"
+msgstr "Mahali"
+
+msgid "Get seller whatsapp number"
+msgstr "Pata namba ya WhatsApp ya muuzaji"
+
+msgid "Send message whatsapp"
+msgstr "Tuma ujumbe WhatsApp"
+
+msgid "Send message to seller"
+msgstr "Tuma ujumbe kwa muuzaji"
+
+msgid "Share product to others"
+msgstr "Shiriki bidhaa kwa wengine"
+
+msgid "Other informations"
+msgstr "Taarifa nyingine"
+
+msgid "Views"
+msgstr "Mionekano"
+
+msgid "Like"
+msgstr "Penda"
+
+msgid "Dislike"
+msgstr "Sipendi"
+
+msgid "Customers comment on %(product_title)s"
+msgstr "Maoni ya wateja kuhusu %(product_title)s"
+
+msgid "Write your comment ..."
+msgstr "Andika maoni yako ..."
+
+msgid "Submit"
+msgstr "Tuma"
+
+msgid "No comments!"
+msgstr "Hakuna maoni!"
+
+msgid "Copied successfully!"
+msgstr "Imenakiliwa kwa mafanikio!"
+
+msgid "Failed to copy."
+msgstr "Imeshindikana kunakili."
+
+msgid "Unable to load product image."
+msgstr "Imeshindikana kupakia picha ya bidhaa."
+
+msgid "Product information and link copied successfully."
+msgstr "Taarifa za bidhaa na kiungo vimenakiliwa kwa mafanikio."
+
+msgid "Unable to share this product."
+msgstr "Imeshindikana kushiriki bidhaa hii."
+
+msgid "WingaStock Share Error:"
+msgstr "Hitilafu ya kushiriki WingaStock:"
+
+msgid "WingaStock Share Fallback Error:"
+msgstr "Hitilafu ya ziada ya kushiriki WingaStock:"
+
+msgid "No description provided."
+msgstr "Hakuna maelezo yaliyotolewa."
+
+msgid "Not provided"
+msgstr "Haijatolewa"
+
+msgid "Price:"
+msgstr "Bei:"
+
+msgid "Description:"
+msgstr "Maelezo:"
+
+msgid "Seller:"
+msgstr "Muuzaji:"
+
+msgid "Contact:"
+msgstr "Mawasiliano:"
+
+msgid "Uploaded:"
+msgstr "Imepakiwa:"
+
+msgid "View this product on WingaStock:"
+msgstr "Tazama bidhaa hii kwenye WingaStock:"
+
+msgid "Find more products on WingaStock."
+msgstr "Pata bidhaa zaidi kwenye WingaStock."
+
+msgid "Hello, I am interested in"
+msgstr "Habari, ninavutiwa na"
+
+msgid "Wingastock | Online marketplace"
+msgstr "Wingastock | Soko la mtandaoni"
+
+msgid "Wingastock"
+msgstr "Wingastock"
+
+msgid "Online marketplace"
+msgstr "Soko la mtandaoni"
