@@ -16,7 +16,8 @@
 
         <div class="close-holder-2001">
 
-            <button type="button" class="auth-close" onclick="open_login_modal(0)" aria-label="{% translate 'Close' %}">
+            <button type="button" class="auth-close" style="float: right;" onclick="open_login_modal(0)"
+                aria-label="{% translate 'Close' %}">
                 <i class="fas fa-times"></i>
             </button>
 
@@ -150,8 +151,8 @@
                             <i class="fas fa-lock input-icon"></i>
 
                             <input type="password" name="password" id="login_password"
-                                placeholder="{% translate 'Enter your password' %}"
-                                autocomplete="current-password" required>
+                                placeholder="{% translate 'Enter your password' %}" autocomplete="current-password"
+                                required>
 
 
                             <button type="button" class="password-toggle-2001" onclick="togglePassword(
@@ -301,8 +302,7 @@
                             <i class="fas fa-lock input-icon"></i>
 
                             <input type="password" name="password" id="register_password"
-                                placeholder="{% translate 'Create a password' %}"
-                                autocomplete="new-password" required>
+                                placeholder="{% translate 'Create a password' %}" autocomplete="new-password" required>
 
 
                             <button type="button" class="password-toggle-2001" onclick="togglePassword(
@@ -1358,43 +1358,23 @@
 <!-- =========================================================
      JAVASCRIPT
 ========================================================= -->
-
-
 <script>
-
     /* =========================================================
-       TRANSLATION VARIABLES
+       ENGLISH MESSAGES
     ========================================================= */
 
-    const showPasswordText =
-        "{{ show_password_text|escapejs }}";
-
-    const hidePasswordText =
-        "{{ hide_password_text|escapejs }}";
-
-    const loggingInText =
-        "{{ logging_in_text|escapejs }}";
-
-    const creatingAccountText =
-        "{{ creating_account_text|escapejs }}";
-
-    const invalidServerResponseText =
-        "{{ invalid_server_response_text|escapejs }}";
-
-    const loginSuccessfulText =
-        "{{ login_successful_text|escapejs }}";
-
-    const invalidLoginText =
-        "{{ invalid_login_text|escapejs }}";
-
+    const showPasswordText = "Show password";
+    const hidePasswordText = "Hide password";
+    const loggingInText = "Logging in...";
+    const creatingAccountText = "Creating account...";
+    const invalidServerResponseText = "Invalid server response.";
+    const loginSuccessfulText = "Login successful.";
+    const invalidLoginText = "Invalid email or password.";
     const serverConnectionErrorText =
-        "{{ server_connection_error_text|escapejs }}";
-
-    const accountCreatedText =
-        "{{ account_created_text|escapejs }}";
-
-    const registrationFailedText =
-        "{{ registration_failed_text|escapejs }}";
+        "Unable to connect to the server. Please try again.";
+    const accountCreatedText = "Account created successfully.";
+    const registrationFailedText = "Registration failed.";
+    const csrfMissingText = "CSRF token missing.";
 
 
     /* =========================================================
@@ -1433,9 +1413,7 @@
                     );
 
                 if (email) {
-
                     email.focus();
-
                 }
 
             }, 250);
@@ -1453,9 +1431,7 @@
             document.body.classList.remove(
                 "auth-modal-open"
             );
-
         }
-
     }
 
 
@@ -1488,9 +1464,7 @@
             !loginButton ||
             !registerButton
         ) {
-
             return;
-
         }
 
 
@@ -1520,13 +1494,10 @@
                     );
 
                 if (email) {
-
                     email.focus();
-
                 }
 
             }, 150);
-
         }
 
 
@@ -1558,15 +1529,11 @@
                     );
 
                 if (email) {
-
                     email.focus();
-
                 }
 
             }, 150);
-
         }
-
     }
 
 
@@ -1595,6 +1562,7 @@
 
             input.type = "text";
 
+
             icon.classList.remove(
                 "fa-eye"
             );
@@ -1602,6 +1570,7 @@
             icon.classList.add(
                 "fa-eye-slash"
             );
+
 
             button.setAttribute(
                 "aria-label",
@@ -1613,6 +1582,7 @@
 
             input.type = "password";
 
+
             icon.classList.remove(
                 "fa-eye-slash"
             );
@@ -1621,18 +1591,17 @@
                 "fa-eye"
             );
 
+
             button.setAttribute(
                 "aria-label",
                 showPasswordText
             );
-
         }
-
     }
 
 
     /* =========================================================
-       CSRF
+       CSRF TOKEN
     ========================================================= */
 
     function getCSRFToken(form) {
@@ -1644,9 +1613,7 @@
 
 
         if (csrfInput) {
-
             return csrfInput.value;
-
         }
 
 
@@ -1672,14 +1639,11 @@
                         "csrftoken=".length
                     )
                 );
-
             }
-
         }
 
 
         return "";
-
     }
 
 
@@ -1702,13 +1666,21 @@
 
         if (type) {
 
-            element.classList.add(type);
-
+            element.classList.add(
+                type
+            );
         }
 
 
-        element.innerHTML = message || "";
+        element.style.display = "block";
 
+        element.style.visibility = "visible";
+
+        element.style.opacity = "1";
+
+
+        element.innerHTML =
+            message || "";
     }
 
 
@@ -1717,13 +1689,15 @@
         const element =
             document.getElementById(id);
 
+
         if (!element) return;
+
 
         element.className =
             "footer-201 auth-message-2001";
 
-        element.innerHTML = "";
 
+        element.innerHTML = "";
     }
 
 
@@ -1745,6 +1719,7 @@
                 ".button-text"
             );
 
+
         const loader =
             button.querySelector(
                 ".button-loading"
@@ -1758,8 +1733,8 @@
 
             if (text) {
 
-                text.style.display = "none";
-
+                text.style.display =
+                    "none";
             }
 
 
@@ -1767,14 +1742,17 @@
 
                 loader.style.display =
                     "inline-flex";
-
             }
 
 
-            if (loader && loadingText) {
+            if (
+                loader &&
+                loadingText
+            ) {
 
                 const nodes =
                     loader.childNodes;
+
 
                 for (
                     let node of nodes
@@ -1791,11 +1769,8 @@
                             loadingText;
 
                         break;
-
                     }
-
                 }
-
             }
 
 
@@ -1805,7 +1780,6 @@
 
                 text.style.display =
                     "inline-flex";
-
             }
 
 
@@ -1813,11 +1787,8 @@
 
                 loader.style.display =
                     "none";
-
             }
-
         }
-
     }
 
 
@@ -1829,6 +1800,7 @@
 
         const formData =
             new FormData(form);
+
 
         const data = {};
 
@@ -1842,152 +1814,91 @@
                 ) {
 
                     data[key] = value;
-
                 }
-
             }
         );
 
 
         return data;
-
     }
 
 
     /* =========================================================
-       LOGIN
+       INITIALIZE AUTH SYSTEM
     ========================================================= */
 
-    const loginForm =
-        document.getElementById(
-            "customer_login_form"
-        );
+    function initializeAuth() {
+
+        const loginForm =
+            document.getElementById(
+                "customer_login_form"
+            );
 
 
-    if (loginForm) {
-
-        loginForm.addEventListener(
-            "submit",
-            async function (event) {
-
-                event.preventDefault();
+        const registerForm =
+            document.getElementById(
+                "customer_register_form"
+            );
 
 
-                const button =
-                    document.getElementById(
-                        "login_submit"
+        const authModal =
+            document.getElementById(
+                "login_container"
+            );
+
+
+        /* =====================================================
+           LOGIN
+        ===================================================== */
+
+        if (loginForm) {
+
+            loginForm.addEventListener(
+                "submit",
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    const button =
+                        document.getElementById(
+                            "login_submit"
+                        );
+
+
+                    const message =
+                        document.getElementById(
+                            "login_message"
+                        );
+
+
+                    setButtonLoading(
+                        button,
+                        true,
+                        loggingInText
                     );
 
-                const message =
-                    document.getElementById(
-                        "login_message"
+
+                    showAuthMessage(
+                        message,
+                        "",
+                        ""
                     );
 
 
-                setButtonLoading(
-                    button,
-                    true,
-                    loggingInText
-                );
-
-
-                showAuthMessage(
-                    message,
-                    "",
-                    ""
-                );
-
-
-                try {
-
-                    const response =
-                        await fetch(
-                            loginForm.action,
-                            {
-                                method: "POST",
-
-                                headers: {
-
-                                    "Content-Type":
-                                        "application/json",
-
-                                    "X-CSRFToken":
-                                        getCSRFToken(
-                                            loginForm
-                                        ),
-
-                                    "X-Requested-With":
-                                        "XMLHttpRequest"
-
-                                },
-
-                                credentials:
-                                    "same-origin",
-
-                                body:
-                                    JSON.stringify(
-                                        getFormJSON(
-                                            loginForm
-                                        )
-                                    )
-
-                            }
+                    const csrfToken =
+                        getCSRFToken(
+                            loginForm
                         );
 
 
-                    let result;
-
-
-                    try {
-
-                        result =
-                            await response.json();
-
-                    } catch (jsonError) {
-
-                        throw new Error(
-                            invalidServerResponseText
-                        );
-
-                    }
-
-
-                    if (
-                        response.ok &&
-                        result.success
-                    ) {
-
-                        showAuthMessage(
-                            message,
-                            "success",
-                            '<i class="fas fa-check-circle"></i> ' +
-                            (
-                                result.message ||
-                                loginSuccessfulText
-                            )
-                        );
-
-
-                        setTimeout(
-                            function () {
-
-                                window.location.reload();
-
-                            },
-                            700
-                        );
-
-
-                    } else {
+                    if (!csrfToken) {
 
                         showAuthMessage(
                             message,
                             "error",
                             '<i class="fas fa-exclamation-circle"></i> ' +
-                            (
-                                result.message ||
-                                invalidLoginText
-                            )
+                            csrfMissingText
                         );
 
 
@@ -1996,196 +1907,121 @@
                             false
                         );
 
+
+                        return;
                     }
-
-
-                } catch (error) {
-
-                    console.error(
-                        "Login error:",
-                        error
-                    );
-
-
-                    showAuthMessage(
-                        message,
-                        "error",
-                        '<i class="fas fa-exclamation-circle"></i> ' +
-                        serverConnectionErrorText
-                    );
-
-
-                    setButtonLoading(
-                        button,
-                        false
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =========================================================
-       REGISTER
-    ========================================================= */
-
-    const registerForm =
-        document.getElementById(
-            "customer_register_form"
-        );
-
-
-    if (registerForm) {
-
-        registerForm.addEventListener(
-            "submit",
-            async function (event) {
-
-                event.preventDefault();
-
-
-                const button =
-                    document.getElementById(
-                        "register_submit"
-                    );
-
-                const message =
-                    document.getElementById(
-                        "register_message"
-                    );
-
-
-                setButtonLoading(
-                    button,
-                    true,
-                    creatingAccountText
-                );
-
-
-                showAuthMessage(
-                    message,
-                    "",
-                    ""
-                );
-
-
-                try {
-
-                    const response =
-                        await fetch(
-                            registerForm.action,
-                            {
-                                method: "POST",
-
-                                headers: {
-
-                                    "Content-Type":
-                                        "application/json",
-
-                                    "X-CSRFToken":
-                                        getCSRFToken(
-                                            registerForm
-                                        ),
-
-                                    "X-Requested-With":
-                                        "XMLHttpRequest"
-
-                                },
-
-                                credentials:
-                                    "same-origin",
-
-                                body:
-                                    JSON.stringify(
-                                        getFormJSON(
-                                            registerForm
-                                        )
-                                    )
-
-                            }
-                        );
-
-
-                    let result;
 
 
                     try {
 
-                        result =
-                            await response.json();
+                        const response =
+                            await fetch(
+                                loginForm.action,
+                                {
+                                    method: "POST",
 
-                    } catch (jsonError) {
+                                    headers: {
 
-                        throw new Error(
-                            invalidServerResponseText
-                        );
+                                        "Content-Type":
+                                            "application/json",
 
-                    }
+                                        "X-CSRFToken":
+                                            csrfToken,
 
+                                        "X-Requested-With":
+                                            "XMLHttpRequest"
+                                    },
 
-                    if (
-                        response.ok &&
-                        result.success
-                    ) {
+                                    credentials:
+                                        "same-origin",
 
-                        showAuthMessage(
-                            message,
-                            "success",
-                            '<i class="fas fa-check-circle"></i> ' +
-                            (
-                                result.message ||
-                                accountCreatedText
-                            )
-                        );
-
-
-                        setTimeout(
-                            function () {
-
-                                choose_type(1);
-
-
-                                const email =
-                                    document.getElementById(
-                                        "register_email"
-                                    );
-
-                                const password =
-                                    document.getElementById(
-                                        "register_password"
-                                    );
-
-
-                                if (email) {
-
-                                    email.value = "";
-
+                                    body:
+                                        JSON.stringify(
+                                            getFormJSON(
+                                                loginForm
+                                            )
+                                        )
                                 }
+                            );
 
 
-                                if (password) {
+                        let result;
 
-                                    password.value = "";
 
-                                }
+                        try {
 
-                            },
-                            1000
+                            result =
+                                await response.json();
+
+                        } catch (jsonError) {
+
+                            throw new Error(
+                                invalidServerResponseText
+                            );
+                        }
+
+
+                        if (
+                            response.ok &&
+                            result.success
+                        ) {
+
+                            showAuthMessage(
+                                message,
+                                "success",
+                                '<i class="fas fa-check-circle"></i> ' +
+                                (
+                                    result.message ||
+                                    loginSuccessfulText
+                                )
+                            );
+
+
+                            setTimeout(
+                                function () {
+
+                                    window.location.reload();
+
+                                },
+                                700
+                            );
+
+
+                        } else {
+
+                            showAuthMessage(
+                                message,
+                                "error",
+                                '<i class="fas fa-exclamation-circle"></i> ' +
+                                (
+                                    result.message ||
+                                    invalidLoginText
+                                )
+                            );
+
+
+                            setButtonLoading(
+                                button,
+                                false
+                            );
+                        }
+
+
+                    } catch (error) {
+
+                        console.error(
+                            "Login error:",
+                            error
                         );
 
-
-                    } else {
 
                         showAuthMessage(
                             message,
                             "error",
                             '<i class="fas fa-exclamation-circle"></i> ' +
                             (
-                                result.message ||
-                                registrationFailedText
+                                error.message ||
+                                serverConnectionErrorText
                             )
                         );
 
@@ -2194,118 +2030,301 @@
                             button,
                             false
                         );
-
                     }
 
+                }
+            );
+        }
 
-                } catch (error) {
 
-                    console.error(
-                        "Registration error:",
-                        error
+        /* =====================================================
+           REGISTER
+        ===================================================== */
+
+        if (registerForm) {
+
+            registerForm.addEventListener(
+                "submit",
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    const button =
+                        document.getElementById(
+                            "register_submit"
+                        );
+
+
+                    const message =
+                        document.getElementById(
+                            "register_message"
+                        );
+
+
+                    setButtonLoading(
+                        button,
+                        true,
+                        creatingAccountText
                     );
 
 
                     showAuthMessage(
                         message,
-                        "error",
-                        '<i class="fas fa-exclamation-circle"></i> ' +
-                        serverConnectionErrorText
+                        "",
+                        ""
                     );
 
 
-                    setButtonLoading(
-                        button,
-                        false
-                    );
+                    const csrfToken =
+                        getCSRFToken(
+                            registerForm
+                        );
+
+
+                    if (!csrfToken) {
+
+                        showAuthMessage(
+                            message,
+                            "error",
+                            '<i class="fas fa-exclamation-circle"></i> ' +
+                            csrfMissingText
+                        );
+
+
+                        setButtonLoading(
+                            button,
+                            false
+                        );
+
+
+                        return;
+                    }
+
+
+                    try {
+
+                        const response =
+                            await fetch(
+                                registerForm.action,
+                                {
+                                    method: "POST",
+
+                                    headers: {
+
+                                        "Content-Type":
+                                            "application/json",
+
+                                        "X-CSRFToken":
+                                            csrfToken,
+
+                                        "X-Requested-With":
+                                            "XMLHttpRequest"
+                                    },
+
+                                    credentials:
+                                        "same-origin",
+
+                                    body:
+                                        JSON.stringify(
+                                            getFormJSON(
+                                                registerForm
+                                            )
+                                        )
+                                }
+                            );
+
+
+                        let result;
+
+
+                        try {
+
+                            result =
+                                await response.json();
+
+                        } catch (jsonError) {
+
+                            throw new Error(
+                                invalidServerResponseText
+                            );
+                        }
+
+
+                        /* =====================================
+                           ACCOUNT CREATED SUCCESSFULLY
+                        ===================================== */
+
+                        if (
+                            response.ok &&
+                            result.success
+                        ) {
+
+                            showAuthMessage(
+                                message,
+                                "success",
+                                '<i class="fas fa-check-circle"></i> ' +
+                                (
+                                    result.message ||
+                                    accountCreatedText
+                                )
+                            );
+
+
+                            /*
+                             * Refresh the page after the
+                             * success message is displayed.
+                             */
+                            setTimeout(
+                                function () {
+
+                                    window.location.reload();
+
+                                },
+                                1500
+                            );
+
+
+                            return;
+                        }
+
+
+                        /* =====================================
+                           REGISTRATION FAILED
+                        ===================================== */
+
+                        else {
+
+                            showAuthMessage(
+                                message,
+                                "error",
+                                '<i class="fas fa-exclamation-circle"></i> ' +
+                                (
+                                    result.message ||
+                                    registrationFailedText
+                                )
+                            );
+
+
+                            setButtonLoading(
+                                button,
+                                false
+                            );
+                        }
+
+
+                    } catch (error) {
+
+                        console.error(
+                            "Registration error:",
+                            error
+                        );
+
+
+                        showAuthMessage(
+                            message,
+                            "error",
+                            '<i class="fas fa-exclamation-circle"></i> ' +
+                            (
+                                error.message ||
+                                serverConnectionErrorText
+                            )
+                        );
+
+
+                        setButtonLoading(
+                            button,
+                            false
+                        );
+                    }
 
                 }
-
-            }
-        );
-
-    }
+            );
+        }
 
 
-    /* =========================================================
-       CLICK OUTSIDE MODAL
-    ========================================================= */
+        /* =====================================================
+           CLICK OUTSIDE MODAL
+        ===================================================== */
 
-    const authModal =
-        document.getElementById(
-            "login_container"
-        );
+        if (authModal) {
+
+            authModal.addEventListener(
+                "click",
+                function (event) {
+
+                    if (
+                        event.target ===
+                        authModal
+                    ) {
+
+                        open_login_modal(0);
+                    }
+                }
+            );
+        }
 
 
-    if (authModal) {
+        /* =====================================================
+           ESCAPE KEY
+        ===================================================== */
 
-        authModal.addEventListener(
-            "click",
+        document.addEventListener(
+            "keydown",
             function (event) {
 
                 if (
-                    event.target ===
-                    authModal
+                    event.key !==
+                    "Escape"
+                ) {
+
+                    return;
+                }
+
+
+                const modal =
+                    document.getElementById(
+                        "login_container"
+                    );
+
+
+                if (
+                    modal &&
+                    modal.style.display ===
+                    "flex"
                 ) {
 
                     open_login_modal(0);
-
                 }
-
             }
         );
 
+
+        /* =====================================================
+           INITIAL STATE
+        ===================================================== */
+
+        choose_type(1);
     }
 
 
     /* =========================================================
-       ESCAPE KEY
+       DOM READY
     ========================================================= */
 
-    document.addEventListener(
-        "keydown",
-        function (event) {
+    if (
+        document.readyState ===
+        "loading"
+    ) {
 
-            if (
-                event.key !== "Escape"
-            ) {
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeAuth
+        );
 
-                return;
+    } else {
 
-            }
-
-
-            const modal =
-                document.getElementById(
-                    "login_container"
-                );
-
-
-            if (
-                modal &&
-                modal.style.display ===
-                "flex"
-            ) {
-
-                open_login_modal(0);
-
-            }
-
-        }
-    );
-
-
-    /* =========================================================
-       INITIAL STATE
-    ========================================================= */
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        function () {
-
-            choose_type(1);
-
-        }
-    );
+        initializeAuth();
+    }
 
 </script>

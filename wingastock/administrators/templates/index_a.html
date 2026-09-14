@@ -56,6 +56,12 @@
                     </ul>
 
                     <ul>
+                        <a href="{% url 'admin_customers' %}">
+                            <li>Customers</li>
+                        </a>
+                    </ul>
+
+                    <ul>
                         <a href="{% url 'admin_payment_requests' %}">
                             <li>Payment reviews</li>
                         </a>
@@ -101,6 +107,16 @@
                             <b style="font-size: 30px;">{{ total_seller }}</b>
                             <br><br><br>
                             <p>Total sellers</p>
+                        </button>
+                    </div>
+
+
+                    <div class="card-201">
+                        <button type="button">
+                            <span>Customers</span><br>
+                            <b style="font-size: 30px;">{{ total_customers }}</b>
+                            <br><br><br>
+                            <p>Total customers</p>
                         </button>
                     </div>
 

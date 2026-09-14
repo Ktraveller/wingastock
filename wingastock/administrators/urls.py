@@ -2,7 +2,7 @@ from django.urls import path
 from administrators.views_a.login_admin import admin_login, admin_logout
 from administrators.views_a.index import admin_home
 from administrators.views_a.products import admin_products, delete_product, preview_p
-from administrators.views_a.sellers import sellers, delete_seller
+from administrators.views_a.sellers import sellers, delete_seller, customers, delete_customer
 from administrators.views_a.payments import payment_requests, review_payment_request
 from administrators.views_a.delivery import delivery_requests, review_delivery_request
 from administrators.views_a.mail import admin_mail
@@ -19,6 +19,9 @@ urlpatterns = [
     path('mail/', admin_mail, name='admin_mail'),
     path('privilege_a/preview/<int:id>', preview_p, name='admin_preview_p'),
     path('privilege_a/delete-product/<int:id>', delete_product, name='delete_product'),
+
+    path('customers-a/', customers, name="admin_customers"),
+    path('delete-customer/<int:id>/', delete_customer, name="delete_customer"),
 
     # Authentications
     path('login_a/', admin_login, name='login_admin'),

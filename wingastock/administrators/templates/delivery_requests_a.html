@@ -10,8 +10,7 @@
 
     <title>Wingastock | Delivery reviews</title>
 
-    <link rel="stylesheet"
-          href="{% static 'admin_css/admin_style.css' %}?v=20260910">
+    <link rel="stylesheet" href="{% static 'admin_css/admin_style.css' %}?v=20260910">
 
     <style>
         /* ================================
@@ -464,209 +463,206 @@
 
 <body>
 
-<div class="row-holder">
+    <div class="row-holder">
 
-    <!-- ================================
+        <!-- ================================
          ADMIN HEADER
     ================================= -->
 
-    <div class="header-holder-100">
+        <div class="header-holder-100">
 
-        <div class="header-100">
+            <div class="header-100">
 
-            <div class="action-holder-101">
+                <div class="action-holder-101">
 
-                <button type="button"
-                        id="menu1"
-                        onclick="open_menu('open')">
-                    m
-                </button>
+                    <button type="button" id="menu1" onclick="open_menu('open')">
+                        m
+                    </button>
 
-                <button type="button"
-                        id="menu2"
-                        style="display:none"
-                        onclick="open_menu('close')">
-                    c
-                </button>
-
-            </div>
-
-            <div class="title-holder-101">
-                <button type="button">
-                    Wingastock | Admin
-                </button>
-            </div>
-
-            <div class="title-holder-101"
-                 style="float:right">
-
-                <button type="button">
-                    {{ user.username }}
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ================================
-         CENTER
-    ================================= -->
-
-    <div class="center-content-200">
-
-
-        <!-- ================================
-             LEFT NAVIGATION
-        ================================= -->
-
-        <div class="left-holder-201" id="nav">
-
-            <div class="nav-bar-holder-202">
-
-                <p style="text-align:center;font-weight:bold">
-                    Options
-                </p>
-
-                <ul>
-                    <a href="{% url 'admin_home' %}">
-                        <li>Dashboard</li>
-                    </a>
-                </ul>
-
-                <ul>
-                    <a href="{% url 'admin_products' %}">
-                        <li>Products</li>
-                    </a>
-                </ul>
-
-                <ul>
-                    <a href="{% url 'admin_sellers' %}">
-                        <li>Sellers</li>
-                    </a>
-                </ul>
-
-                <ul>
-                    <a href="{% url 'admin_payment_requests' %}">
-                        <li>Payment reviews</li>
-                    </a>
-                </ul>
-
-                <ul>
-                    <a href="{% url 'admin_delivery_requests' %}">
-                        <li class="active-0">
-                            Delivery requests
-                        </li>
-                    </a>
-                </ul>
-
-                <ul>
-                    <a href="{% url 'mail_home_a' %}">
-                        <li>Mail</li>
-                    </a>
-                </ul>
-
-                <ul>
-                    <a href="{% url 'logout_admin' %}">
-                        <li>Exit</li>
-                    </a>
-                </ul>
-
-            </div>
-
-        </div>
-
-
-        <!-- ================================
-             RIGHT CONTENT
-        ================================= -->
-
-        <div class="right-holder-201">
-
-            <div class="delivery-review-page">
-
-
-                <!-- PAGE HEADER -->
-
-                <div class="delivery-review-heading">
-
-                    <span>DELIVERY REQUESTS</span>
-
-                    <h1>
-                        Delivery requests
-                    </h1>
-
-                    <p>
-                        Review customer delivery requests and update
-                        their processing status.
-                    </p>
+                    <button type="button" id="menu2" style="display:none" onclick="open_menu('close')">
+                        c
+                    </button>
 
                 </div>
 
+                <div class="title-holder-101">
+                    <button type="button">
+                        Wingastock | Admin
+                    </button>
+                </div>
 
-                <!-- DJANGO MESSAGES -->
+                <div class="title-holder-101" style="float:right">
 
-                {% if messages %}
+                    <button type="button">
+                        {{ user.username }}
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+         CENTER
+    ================================= -->
+
+        <div class="center-content-200">
+
+
+            <!-- ================================
+             LEFT NAVIGATION
+        ================================= -->
+
+            <div class="left-holder-201" id="nav">
+
+                <div class="nav-bar-holder-202">
+
+                    <p style="text-align:center;font-weight:bold">
+                        Options
+                    </p>
+
+                    <ul>
+                        <a href="{% url 'admin_home' %}">
+                            <li>Dashboard</li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'admin_products' %}">
+                            <li>Products</li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'admin_sellers' %}">
+                            <li>Sellers</li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'admin_customers' %}">
+                            <li>Customers</li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'admin_payment_requests' %}">
+                            <li>Payment reviews</li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'admin_delivery_requests' %}">
+                            <li class="active-0">
+                                Delivery requests
+                            </li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'mail_home_a' %}">
+                            <li>Mail</li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'logout_admin' %}">
+                            <li>Exit</li>
+                        </a>
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================
+             RIGHT CONTENT
+        ================================= -->
+
+            <div class="right-holder-201">
+
+                <div class="delivery-review-page">
+
+
+                    <!-- PAGE HEADER -->
+
+                    <div class="delivery-review-heading">
+
+                        <span>DELIVERY REQUESTS</span>
+
+                        <h1>
+                            Delivery requests
+                        </h1>
+
+                        <p>
+                            Review customer delivery requests and update
+                            their processing status.
+                        </p>
+
+                    </div>
+
+
+                    <!-- DJANGO MESSAGES -->
+
+                    {% if messages %}
 
                     {% for message in messages %}
 
-                        <div class="delivery-review-message">
-                            {{ message }}
-                        </div>
+                    <div class="delivery-review-message">
+                        {{ message }}
+                    </div>
 
                     {% endfor %}
 
-                {% endif %}
+                    {% endif %}
 
 
-                <!-- REQUEST LIST -->
+                    <!-- REQUEST LIST -->
 
-                <div class="delivery-review-list">
+                    <div class="delivery-review-list">
 
-                    {% for request in delivery_requests %}
+                        {% for request in delivery_requests %}
 
-                    <article class="delivery-review-card">
-
-
-                        <!-- REQUEST META -->
-
-                        <div class="delivery-review-meta">
-
-                            <strong>
-                                {{ request.customer.email }}
-                            </strong>
-
-                            <span>
-                                {{ request.created_at|date:"d M Y, H:i" }}
-                            </span>
-
-                            <b class="delivery-review-status status-{{ request.status }}">
-                                {{ request.get_status_display }}
-                            </b>
-
-                        </div>
+                        <article class="delivery-review-card">
 
 
-                        <!-- MAIN REQUEST -->
+                            <!-- REQUEST META -->
 
-                        <div class="delivery-review-main">
+                            <div class="delivery-review-meta">
+
+                                <strong>
+                                    {{ request.customer.email }}
+                                </strong>
+
+                                <span>
+                                    {{ request.created_at|date:"d M Y, H:i" }}
+                                </span>
+
+                                <b class="delivery-review-status status-{{ request.status }}">
+                                    {{ request.get_status_display }}
+                                </b>
+
+                            </div>
 
 
-                            <!-- IMAGE -->
+                            <!-- MAIN REQUEST -->
 
-                            <div>
+                            <div class="delivery-review-main">
 
-                                {% if request.image %}
 
-                                    <a class="delivery-review-image"
-                                       href="{{ request.image.url }}"
-                                       target="_blank"
-                                       rel="noopener">
+                                <!-- IMAGE -->
 
-                                        <img src="{{ request.image.url }}"
-                                             alt="{{ request.title }}">
+                                <div>
+
+                                    {% if request.image %}
+
+                                    <a class="delivery-review-image" href="{{ request.image.url }}" target="_blank"
+                                        rel="noopener">
+
+                                        <img src="{{ request.image.url }}" alt="{{ request.title }}">
 
                                         <span>
                                             Open full image
@@ -674,7 +670,7 @@
 
                                     </a>
 
-                                {% else %}
+                                    {% else %}
 
                                     <div class="delivery-review-image">
 
@@ -692,79 +688,79 @@
 
                                     </div>
 
-                                {% endif %}
+                                    {% endif %}
 
-                            </div>
-
-
-                            <!-- CONTENT -->
-
-                            <div class="delivery-review-content">
-
-                                <h2>
-                                    {{ request.title }}
-                                </h2>
-
-                                <div class="customer">
-                                    Customer:
-                                    <strong>
-                                        {{ request.customer.email }}
-                                    </strong>
                                 </div>
 
 
-                                <!-- DETAILS -->
+                                <!-- CONTENT -->
 
-                                <div class="delivery-review-details">
+                                <div class="delivery-review-content">
 
-                                    <div class="delivery-review-detail-box">
+                                    <h2>
+                                        {{ request.title }}
+                                    </h2>
 
-                                        <small>
-                                            Category
-                                        </small>
-
+                                    <div class="customer">
+                                        Customer:
                                         <strong>
-                                            {{ request.category|default:"Not provided" }}
+                                            {{ request.customer.email }}
                                         </strong>
-
                                     </div>
 
 
-                                    <div class="delivery-review-detail-box">
+                                    <!-- DETAILS -->
 
-                                        <small>
-                                            Price
-                                        </small>
+                                    <div class="delivery-review-details">
 
-                                        <strong>
-                                            {% if request.price %}
+                                        <div class="delivery-review-detail-box">
+
+                                            <small>
+                                                Category
+                                            </small>
+
+                                            <strong>
+                                                {{ request.category|default:"Not provided" }}
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="delivery-review-detail-box">
+
+                                            <small>
+                                                Price
+                                            </small>
+
+                                            <strong>
+                                                {% if request.price %}
                                                 {{ request.price|floatformat:0 }} TSh
-                                            {% else %}
+                                                {% else %}
                                                 Not provided
-                                            {% endif %}
-                                        </strong>
+                                                {% endif %}
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="delivery-review-detail-box">
+
+                                            <small>
+                                                Status
+                                            </small>
+
+                                            <strong>
+                                                {{ request.get_status_display }}
+                                            </strong>
+
+                                        </div>
 
                                     </div>
 
 
-                                    <div class="delivery-review-detail-box">
+                                    <!-- ADMIN NOTE -->
 
-                                        <small>
-                                            Status
-                                        </small>
-
-                                        <strong>
-                                            {{ request.get_status_display }}
-                                        </strong>
-
-                                    </div>
-
-                                </div>
-
-
-                                <!-- ADMIN NOTE -->
-
-                                {% if request.customer_note %}
+                                    {% if request.customer_note %}
 
                                     <div class="delivery-review-note">
 
@@ -778,37 +774,31 @@
 
                                     </div>
 
-                                {% endif %}
+                                    {% endif %}
 
+
+                                </div>
 
                             </div>
 
-                        </div>
+
+                            <!-- REVIEW FORM -->
+
+                            <form method="post" action="{% url 'admin_review_delivery' request.id %}"
+                                class="delivery-review-form">
+
+                                {% csrf_token %}
+
+                                <textarea name="admin_note" disabled
+                                    placeholder="Optional note from the customer...">{{ request.customer_note }}</textarea>
 
 
-                        <!-- REVIEW FORM -->
-
-                        <form method="post"
-                              action="{% url 'admin_review_delivery' request.id %}"
-                              class="delivery-review-form">
-
-                            {% csrf_token %}
-
-                            <textarea
-                                name="admin_note"
-                                disabled
-                                placeholder="Optional note from the customer..."
-                            >{{ request.customer_note }}</textarea>
+                                <div class="delivery-review-actions">
 
 
-                            <div class="delivery-review-actions">
+                                    {% if request.status == "pending" %}
 
-
-                                {% if request.status == "pending" %}
-
-                                    <button type="button"
-                                            class="delivery-process"
-                                            onclick="openDeliveryModal(
+                                    <button type="button" class="delivery-process" onclick="openDeliveryModal(
                                                 this,
                                                 'processing',
                                                 'Start processing this delivery request?'
@@ -818,14 +808,12 @@
 
                                     </button>
 
-                                {% endif %}
+                                    {% endif %}
 
 
-                                {% if request.status == "processing" %}
+                                    {% if request.status == "processing" %}
 
-                                    <button type="button"
-                                            class="delivery-processed"
-                                            onclick="openDeliveryModal(
+                                    <button type="button" class="delivery-processed" onclick="openDeliveryModal(
                                                 this,
                                                 'processed',
                                                 'Mark this delivery request as processed?'
@@ -835,14 +823,12 @@
 
                                     </button>
 
-                                {% endif %}
+                                    {% endif %}
 
 
-                                {% if request.status != "rejected" %}
+                                    {% if request.status != "rejected" %}
 
-                                    <button type="button"
-                                            class="delivery-reject"
-                                            onclick="openDeliveryModal(
+                                    <button type="button" class="delivery-reject" onclick="openDeliveryModal(
                                                 this,
                                                 'rejected',
                                                 'Are you sure you want to reject this delivery request?'
@@ -852,14 +838,12 @@
 
                                     </button>
 
-                                {% endif %}
+                                    {% endif %}
 
 
-                                {% if request.status == "rejected" %}
+                                    {% if request.status == "rejected" %}
 
-                                    <button type="button"
-                                            class="delivery-process"
-                                            onclick="openDeliveryModal(
+                                    <button type="button" class="delivery-process" onclick="openDeliveryModal(
                                                 this,
                                                 'processing',
                                                 'Move this rejected request back to processing?'
@@ -869,25 +853,27 @@
 
                                     </button>
 
-                                {% endif %}
+                                    {% endif %}
 
 
-                            </div>
+                                </div>
 
-                        </form>
+                            </form>
 
-                    </article>
+                        </article>
 
 
-                    {% empty %}
+                        {% empty %}
 
-                    <div class="delivery-review-empty">
+                        <div class="delivery-review-empty">
 
-                        No delivery requests yet.
+                            No delivery requests yet.
+
+                        </div>
+
+                        {% endfor %}
 
                     </div>
-
-                    {% endfor %}
 
                 </div>
 
@@ -897,175 +883,183 @@
 
     </div>
 
-</div>
 
-
-<!-- ================================
+    <!-- ================================
      CONFIRMATION MODAL
 ================================= -->
 
-<div class="delivery-modal-overlay"
-     id="deliveryModal">
+    <div class="delivery-modal-overlay" id="deliveryModal">
 
-    <div class="delivery-modal">
+        <div class="delivery-modal">
 
-        <div class="delivery-modal-icon">
-            !
-        </div>
+            <div class="delivery-modal-icon">
+                !
+            </div>
 
-        <h3>
-            Confirm action
-        </h3>
+            <h3>
+                Confirm action
+            </h3>
 
-        <p id="deliveryModalMessage">
-            Are you sure?
-        </p>
+            <p id="deliveryModalMessage">
+                Are you sure?
+            </p>
 
 
-        <div class="delivery-modal-buttons">
+            <div class="delivery-modal-buttons">
 
-            <button type="button"
-                    class="modal-cancel"
-                    onclick="closeDeliveryModal()">
+                <button type="button" class="modal-cancel" onclick="closeDeliveryModal()">
 
-                Cancel
+                    Cancel
 
-            </button>
+                </button>
 
-            <button type="button"
-                    class="modal-confirm"
-                    onclick="confirmDeliveryAction()">
+                <button type="button" class="modal-confirm" onclick="confirmDeliveryAction()">
 
-                Confirm
+                    Confirm
 
-            </button>
+                </button>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
 
-
-<!-- ================================
+    <!-- ================================
      JAVASCRIPT
 ================================= -->
 
-<script>
+    <script>
 
-    /*
-     * Existing admin menu
-     */
+        /*
+         * Existing admin menu
+         */
 
-    function open_menu(click) {
+        function open_menu(click) {
 
-        const nav = document.getElementById("nav");
+            const nav = document.getElementById("nav");
 
-        document.getElementById("menu1").style.display =
-            click === "open"
-                ? "none"
-                : "inline-block";
+            document.getElementById("menu1").style.display =
+                click === "open"
+                    ? "none"
+                    : "inline-block";
 
-        document.getElementById("menu2").style.display =
-            click === "open"
-                ? "inline-block"
-                : "none";
+            document.getElementById("menu2").style.display =
+                click === "open"
+                    ? "inline-block"
+                    : "none";
 
-        nav.style.display =
-            click === "open"
-                ? "inline-block"
-                : "none";
-    }
-
-
-    /*
-     * Delivery review modal
-     */
-
-    let selectedDeliveryForm = null;
-    let selectedDeliveryStatus = null;
+            nav.style.display =
+                click === "open"
+                    ? "inline-block"
+                    : "none";
+        }
 
 
-    function openDeliveryModal(button, status, message) {
+        /*
+         * Delivery review modal
+         */
 
-        selectedDeliveryForm = button.closest("form");
-
-        selectedDeliveryStatus = status;
-
-        document.getElementById("deliveryModalMessage").innerText =
-            message;
-
-        document.getElementById("deliveryModal").classList.add("active");
-    }
+        let selectedDeliveryForm = null;
+        let selectedDeliveryStatus = null;
 
 
-    function closeDeliveryModal() {
+        function openDeliveryModal(button, status, message) {
 
-        selectedDeliveryForm = null;
+            selectedDeliveryForm = button.closest("form");
 
-        selectedDeliveryStatus = null;
+            selectedDeliveryStatus = status;
+
+            document.getElementById("deliveryModalMessage").innerText =
+                message;
+
+            document.getElementById("deliveryModal").classList.add("active");
+        }
+
+
+        function closeDeliveryModal() {
+
+            selectedDeliveryForm = null;
+
+            selectedDeliveryStatus = null;
+
+            document.getElementById("deliveryModal")
+                .classList.remove("active");
+        }
+
+
+        function confirmDeliveryAction() {
+
+            if (!selectedDeliveryForm || !selectedDeliveryStatus) {
+                return;
+            }
+
+
+            /*
+             * Remove old hidden status input
+             * if one already exists.
+             */
+
+            const oldStatus =
+                selectedDeliveryForm.querySelector(
+                    'input[name="status"]'
+                );
+
+            if (oldStatus) {
+                oldStatus.remove();
+            }
+
+
+            /*
+             * Create status input.
+             */
+
+            const statusInput =
+                document.createElement("input");
+
+            statusInput.type = "hidden";
+
+            statusInput.name = "status";
+
+            statusInput.value =
+                selectedDeliveryStatus;
+
+
+            selectedDeliveryForm.appendChild(statusInput);
+
+
+            /*
+             * Submit Django form.
+             */
+
+            selectedDeliveryForm.submit();
+        }
+
+
+        /*
+         * Close modal when clicking outside.
+         */
 
         document.getElementById("deliveryModal")
-            .classList.remove("active");
-    }
+            .addEventListener("click", function (event) {
 
+                if (event.target === this) {
 
-    function confirmDeliveryAction() {
+                    closeDeliveryModal();
 
-        if (!selectedDeliveryForm || !selectedDeliveryStatus) {
-            return;
-        }
+                }
 
-
-        /*
-         * Remove old hidden status input
-         * if one already exists.
-         */
-
-        const oldStatus =
-            selectedDeliveryForm.querySelector(
-                'input[name="status"]'
-            );
-
-        if (oldStatus) {
-            oldStatus.remove();
-        }
+            });
 
 
         /*
-         * Create status input.
+         * ESC key closes modal.
          */
 
-        const statusInput =
-            document.createElement("input");
+        document.addEventListener("keydown", function (event) {
 
-        statusInput.type = "hidden";
-
-        statusInput.name = "status";
-
-        statusInput.value =
-            selectedDeliveryStatus;
-
-
-        selectedDeliveryForm.appendChild(statusInput);
-
-
-        /*
-         * Submit Django form.
-         */
-
-        selectedDeliveryForm.submit();
-    }
-
-
-    /*
-     * Close modal when clicking outside.
-     */
-
-    document.getElementById("deliveryModal")
-        .addEventListener("click", function(event) {
-
-            if (event.target === this) {
+            if (event.key === "Escape") {
 
                 closeDeliveryModal();
 
@@ -1073,23 +1067,9 @@
 
         });
 
-
-    /*
-     * ESC key closes modal.
-     */
-
-    document.addEventListener("keydown", function(event) {
-
-        if (event.key === "Escape") {
-
-            closeDeliveryModal();
-
-        }
-
-    });
-
-</script>
+    </script>
 
 </body>
+
 </html>
 ```
