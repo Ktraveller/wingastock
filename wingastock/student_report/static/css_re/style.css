@@ -1,0 +1,776 @@
+* {
+    box-sizing: border-box;
+    font-size: 12px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: white;
+}
+
+.row-holder {
+    width: 100%;
+    height: auto;
+}
+
+.header-holder-100 {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.header-100 {
+    width: 100%;
+    height: 100%;
+    background: white;
+}
+
+.header-100>div {
+    float: left;
+}
+
+.action-holder-101 {
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+}
+
+.action-holder-101>button {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border-radius: 5px;
+    outline: none;
+    color: rgb(1, 65, 98);
+    text-align: center;
+    border-style: none;
+    font-size: 18px;
+}
+
+.action-holder-101>button>i {
+    font-size: inherit;
+}
+
+
+.title-holder-101 {
+    width: auto;
+    padding: 5px;
+    background: transparent;
+    height: 50px;
+}
+
+.title-holder-101>button {
+    width: auto;
+    height: 40px;
+    border-style: none;
+    outline: none;
+    background: transparent;
+    font-weight: bold;
+}
+
+.title-holder-101>button>span {
+    font-size: 15px;
+    color: rgb(1, 65, 98);
+}
+
+.title-holder-101>button>i {
+    background: rgb(1, 65, 98);
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 50%;
+    color: white;
+}
+
+.center-content-200 {
+    width: 100%;
+    height: auto;
+    margin-top: 50px;
+}
+
+.center-content-200>div {
+    float: left;
+}
+
+.left-holder-201 {
+    width: 100%;
+    height: auto;
+    display: none;
+}
+
+.nav-bar-holder-202 {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    padding: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul>a {
+    text-decoration: none;
+    color: black;
+}
+
+ul>a>li {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+}
+
+ul>a>li>i {
+    float: right;
+}
+
+.active-0 {
+    background: rgb(1, 65, 98);
+    border-radius: 50px;
+    padding: 15px;
+    color: white;
+}
+
+ul>a>li:hover {
+    background: whitesmoke;
+    border: 1px solid rgba(1, 66, 98, 0.233);
+    border-radius: 50px;
+    padding: 15px;
+    color: rgb(1, 65, 98);
+}
+
+.right-holder-201 {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.card-holder-201 {
+    width: 100%;
+    height: auto;
+}
+
+.card-holder-201>div {
+    float: left;
+    width: 50%;
+    height: auto;
+    padding: 10px;
+}
+
+.card-holder-201>.full-201 {
+    width: 100%;
+    max-height: 500px;
+}
+
+
+.full-201>button>ul>a>li {
+    border-radius: 5px;
+    margin-bottom: 2px;
+}
+
+.list-title-201 {
+    font-weight: 500;
+    display: block;
+}
+
+.mail-time-201 {
+    float: right;
+}
+
+.card-holder-201>div>button {
+    width: 100%;
+    height: 100%;
+    border-style: none;
+    background: transparent;
+    text-align: left;
+    padding: 10px;
+    color: white;
+    background: rgb(1, 65, 98);
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.211);
+}
+
+.table-holder-100 {
+    width: 100%;
+    height: 100vh;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.233);
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    height: auto;
+    border-collapse: collapse;
+}
+
+.id {
+    width: 40px;
+}
+
+th,
+td {
+    height: 40px;
+    width: auto;
+    padding: 10px;
+}
+
+.btn-edit {
+    background: rgba(0, 128, 0, 0.57);
+    padding: 5px;
+    border-style: none;
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid green;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+}
+
+.btn-edit:hover {
+    background: green;
+    border: 2px solid rgba(0, 128, 0, 0.753);
+}
+
+.btn-delete {
+    background: rgba(255, 0, 0, 0.6);
+    padding: 5px;
+    border-style: none;
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid red;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+}
+
+.btn-delete:hover {
+    background: red;
+    border: 2px solid rgba(255, 0, 0, 0.707);
+}
+
+.delete-product-modal-106 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.307);
+    z-index: 999;
+    display: none;
+}
+
+.delete-product-modal-106>div {
+    width: 300px;
+    height: 120px;
+    background: white;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 10%;
+    padding: 15px;
+    text-align: left;
+}
+
+.delete-product-modal-106>div>button {
+    width: auto;
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-style: none;
+    outline: none;
+    border-radius: 5px;
+    background: whitesmoke;
+    color: rgb(1, 65, 98);
+    margin-left: 5px;
+    float: right;
+    cursor: pointer;
+}
+
+.delete-product-modal-106>div>button:hover {
+    opacity: 0.7;
+    background: rgba(1, 66, 98, 0.493);
+}
+
+.view-103 {
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    background: lightseagreen;
+    float: right;
+}
+
+.view-104 {
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    background: rgb(1, 65, 98);
+    cursor: pointer;
+}
+
+.view-104:hover {
+    opacity: 0.7;
+}
+
+.filter-holder-202 {
+    width: 100%;
+    height: 50px;
+}
+
+.filter-holder-202>div {
+    width: 50%;
+    float: left;
+    height: 40px;
+}
+
+.filter-holder-202>div>input {
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
+    border-style: none;
+    outline: none;
+    background: transparent;
+    border-bottom: 2px solid rgb(1, 65, 98);
+}
+
+.filter-holder-202>div>input:hover {
+    border: 1px solid rgba(0, 0, 0, 0.271);
+    border-radius: 5px;
+    border-bottom: 2px solid rgb(1, 65, 98);
+}
+
+.products-202 {
+    padding: 10px;
+}
+
+
+.preview-102 {
+    width: 100%;
+    height: auto;
+    float: left;
+}
+
+
+.product-image-holder-103 {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.product-image-103>h1 {
+    font-size: 15px;
+    color: rgb(1, 65, 98);
+}
+
+.product-image-103 {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% auto;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.203);
+}
+
+
+.product-details-holder-103 {
+    width: 100%;
+    height: auto;
+    margin-bottom: 50px;
+    float: left;
+}
+
+.product-details-holder-103>div {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    float: left;
+}
+
+
+.product-details-holder-103>div>div {
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.189);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.des-103 {
+    border-style: none;
+    outline: none;
+    width: 100%;
+    max-height: 300px;
+    background: whitesmoke;
+    border-radius: 5px;
+    border-style: none;
+    outline: none;
+    padding: 10px;
+    text-align: left;
+}
+
+.other-103 {
+    width: 100%;
+    height: auto;
+}
+
+.other-103>button {
+    width: auto;
+    height: 50px;
+    border-style: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.255);
+    margin-right: 10px;
+    background: white;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.comments-holder-103 {
+    width: 100%;
+    max-height: 400px;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+.comments-holder-103>ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comments-holder-103>ul>li {
+    width: 100%;
+    height: auto;
+    background: whitesmoke;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.actions-holder-103 {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+.actions-holder-103>div {
+    width: 50%;
+    height: auto;
+    float: left;
+    padding: 10px;
+}
+
+.actions-holder-103>div>button {
+    width: 100%;
+    height: 40px;
+    border-style: none;
+    outline: none;
+    background: rgb(1, 65, 98);
+    color: white;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.actions-holder-103>div>button:hover {
+    opacity: 0.7;
+}
+
+.close-205 {
+    width: 150px;
+    height: 40px;
+    background: rgb(1, 65, 98);
+    outline: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.202);
+    border-style: none;
+    position: fixed;
+    right: 10px;
+    bottom: 15px;
+    color: white;
+}
+
+.close-205:hover {
+    background: rgb(1, 65, 98);
+}
+
+.input-holder-203 {
+    width: 100%;
+    height: 85px;
+    padding: 5px;
+    background: transparent;
+}
+
+.input-holder-203>div {
+    width: 100%;
+    height: 35px;
+}
+
+
+
+.input-holder-203>div>input,
+select,
+textarea,
+button {
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
+    border-style: none;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.267);
+    border-radius: 5px;
+}
+
+.input-holder-203>div>input:hover {
+    border: 1px solid rgba(0, 0, 0, 0.219);
+    border-bottom: 2px solid rgb(1, 65, 98);
+    border-radius: 5px;
+}
+
+.input-holder-203>div>select:hover {
+    border: 1px solid rgba(0, 0, 0, 0.219);
+    border-bottom: 2px solid rgb(1, 65, 98);
+    border-radius: 5px;
+}
+
+.input-holder-203>div>textarea {
+    border: 1px solid rgba(0, 0, 0, 0.151);
+    border-radius: 5px;
+}
+
+.input-holder-203>div>textarea:hover {
+    border: 1px solid rgba(0, 0, 0, 0.219);
+    border-bottom: 2px solid rgb(1, 65, 98);
+    border-radius: 5px;
+}
+
+.submit-203 {
+    margin-top: 20px;
+}
+
+.submit-203>div>button {
+    background: rgb(1, 65, 98);
+    color: white;
+    font-weight: bold;
+}
+
+.submit-203>div>button:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+
+/* Terms, conditions and declarations */
+.terms-holder-202 {
+    width: 100%;
+    height: auto;
+}
+
+.terms-holder-202>div {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+
+.next-holder-202 {
+    width: 100%;
+    height: 50px;
+    text-align: right;
+}
+
+.next-holder-202>button {
+    width: auto;
+    height: 40px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background: rgb(1, 65, 98);
+    color: white;
+    border-style: none;
+    outline: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.next-holder-202>button:hover {
+    background: rgba(1, 66, 98, 0.459);
+}
+
+.seller-summary {
+    width: 100%;
+    height: auto;
+}
+
+.notify-card-201 {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+.notify-card-201>div {
+    width: 100%;
+    height: auto;
+    background: rgb(1, 65, 98);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+/* Placement add */
+.placement-holder-100 {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.267);
+    display: none;
+}
+
+.placement-100 {
+    width: 80%;
+    margin: auto;
+    margin-top: 50px;
+    background: white;
+    border-radius: 10px;
+    padding: 40px;
+}
+
+.placement-inputs-holder-100 {
+    width: 100%;
+    height: auto;
+}
+
+.placement-inputs-holder-100>div {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.placement-inputs-holder-100>div>input {
+    width: 100%;
+    height: 40px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.522);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.placement-inputs-holder-100>div>input:hover {
+    border: 1px solid rgb(1, 65, 98);
+}
+
+.button-place-100 {
+    text-align: right;
+}
+
+.button-place-100>button {
+    height: 40px;
+    border-style: none;
+    outline: none;
+    color: white;
+    font-weight: bold;
+    width: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.button-place-100>button:hover {
+    background: rgba(1, 66, 98, 0.53);
+    cursor: pointer;
+}
+
+.b100 {
+    background: red;
+}
+
+.b101 {
+    background: rgb(1, 65, 98);
+}
+
+
+.actions-holder-1001 {
+    width: 100%;
+    height: auto;
+}
+
+.actions-holder-1001>div {
+    float: left;
+    width: 50%;
+    padding: 5px;
+}
+
+.actions-1001>button {
+    width: 100%;
+    height: 40px;
+    background: rgb(1, 65, 98);
+    color: white;
+    font-weight: bold;
+    border-style: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.actions-1001>button:hover {
+    background: rgba(1, 66, 98, 0.455);
+}
+
+@media only screen and (min-width: 768px) {
+    .action-holder-101 {
+        display: none;
+    }
+
+    .left-holder-201 {
+        width: 20%;
+        height: 100vh;
+        display: inline-block;
+    }
+
+    .right-holder-201 {
+        width: 80%;
+        height: 100vh;
+        padding: 10px;
+    }
+
+    .card-holder-201>div {
+        width: 50%;
+    }
+
+    .card-holder-201>.full-201 {
+        width: 50%;
+    }
+
+    .filter-holder-202>div {
+        width: 30%;
+    }
+
+    .small-image-103 {
+        width: 200px;
+        height: 200px;
+        margin-top: 140px;
+        margin-left: 20px;
+    }
+
+    .placement-100 {
+        width: 50%;
+    }
+
+    .actions-holder-1001>div {
+        width: 25%;
+        padding: 10px;
+    }
+}

@@ -1,0 +1,499 @@
+{% load static %}
+{% load humanize %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Report | Summary</title>
+    <link rel="shortcut icon" href="{% static 'logo1.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css_re/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        .messages {
+            margin: 20px 0;
+        }
+
+        .alert {
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .success {
+            background: #28a745;
+        }
+
+        .error {
+            background: #dc3545;
+        }
+
+        .warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .info {
+            background: #17a2b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="row-holder">
+
+        <!-- Header -->
+        <div class="header-holder-100">
+            <div class="header-100">
+                <div class="action-holder-101">
+                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+                            class="fas fa-times"></i></button>
+                </div>
+                <div class="title-holder-101">
+                    <button type="button"><span>Report Summary</span></button>
+                </div>
+                <div class="title-holder-101" style="float: right;">
+                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- center content -->
+        <div class="center-content-200">
+
+            <div class="left-holder-201" id="nav">
+                <div class="nav-bar-holder-202">
+
+                    <ul>
+                        <a href="{% url 'report_home' %}">
+                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'placements_list' %}">
+                            <li class="active-0">Reports <i class="fas fa-file-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'user_account' %}">
+                            <li>Account <i class="fas fa-user"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'home' %}">
+                            <li>Back Wingastock <i class="fas fa-home"></i></li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="right-holder-201">
+                <div class="products-202">
+
+                    <div class="preview-102">
+
+                        <!-- Report Header -->
+                        <div class="product-image-holder-103">
+                            <div class="product-image-103"
+                                style="background: linear-gradient(135deg, #1e90ff, #1565c0);">
+
+                                <h1>Reports Summary</h1>
+
+                            </div>
+                        </div>
+
+
+                        <!-- Report Details -->
+                        <div class="product-details-holder-103">
+
+                            <div>
+
+                                <div style="float: left; width: 100%;">
+
+                                    <!-- Page Title -->
+                                    <p style="font-weight: bold;">
+                                        <i class="fas fa-file-alt"></i>
+                                        Weekly Reports
+                                    </p>
+
+
+                                    <!-- Messages -->
+                                    {% if messages %}
+                                    <div class="messages">
+
+                                        {% for message in messages %}
+
+                                        <div class="alert {{ message.tags }}">
+                                            {{ message }}
+                                        </div>
+
+                                        {% endfor %}
+
+                                    </div>
+                                    {% endif %}
+
+
+
+                                    <!-- ================================= -->
+                                    <!-- WEEKLY REPORTS -->
+                                    <!-- ================================= -->
+
+                                    {% for week in weekly_reports %}
+
+                                    <div style="
+                    margin-top: 35px;
+                    padding: 15px;
+                    border-radius: 8px;
+                    background: #f5f5f5;
+                ">
+
+                                        <!-- Week Header -->
+
+                                        <p style="font-weight: bold; margin-bottom: 5px;">
+
+                                            <i class="fas fa-calendar-week"></i>
+
+                                            Week {{ forloop.counter }}
+
+                                        </p>
+
+
+                                        <p style="margin-top: 5px; color: #666;">
+
+                                            {{ week.week_start|date:"d M Y" }}
+
+                                            -
+
+                                            {{ week.week_end|date:"d M Y" }}
+
+                                        </p>
+
+                                    </div>
+
+
+                                    <!-- Daily Reports In This Week -->
+
+                                    {% for report in week.reports %}
+
+                                    <div style="
+                    margin-top: 25px;
+                    padding-bottom: 25px;
+                    border-bottom: 1px solid #ddd;
+                ">
+
+
+                                        <!-- Report Title -->
+
+                                        <div class="des-103">
+
+                                            <h2>
+                                                {{ report.title }}
+                                            </h2>
+
+                                        </div>
+
+
+                                        <!-- Activities -->
+
+                                        <div style="margin-top: 25px;">
+
+                                            <p style="font-weight: bold;">
+
+                                                <i class="fas fa-tasks"></i>
+
+                                                Activities Performed
+
+                                            </p>
+
+
+                                            <div class="des-103">
+
+                                                {{ report.activities|linebreaks }}
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- Skills Learned -->
+
+                                        <div style="margin-top: 25px;">
+
+                                            <p style="font-weight: bold;">
+
+                                                <i class="fas fa-lightbulb"></i>
+
+                                                Skills & Knowledge Learned
+
+                                            </p>
+
+
+                                            <div class="des-103">
+
+                                                {% if report.skills_learned %}
+
+                                                {{ report.skills_learned|linebreaks }}
+
+                                                {% else %}
+
+                                                <span style="color: #888;">
+
+                                                    No skills or knowledge recorded.
+
+                                                </span>
+
+                                                {% endif %}
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- Challenges -->
+
+                                        <div style="margin-top: 25px;">
+
+                                            <p style="font-weight: bold;">
+
+                                                <i class="fas fa-exclamation-triangle"></i>
+
+                                                Challenges Encountered
+
+                                            </p>
+
+
+                                            <div class="des-103">
+
+                                                {% if report.challenges %}
+
+                                                {{ report.challenges|linebreaks }}
+
+                                                {% else %}
+
+                                                <span style="color: #888;">
+
+                                                    No challenges recorded.
+
+                                                </span>
+
+                                                {% endif %}
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- Solutions -->
+
+                                        <div style="margin-top: 25px;">
+
+                                            <p style="font-weight: bold;">
+
+                                                <i class="fas fa-tools"></i>
+
+                                                Solutions
+
+                                            </p>
+
+
+                                            <div class="des-103">
+
+                                                {% if report.solutions %}
+
+                                                {{ report.solutions|linebreaks }}
+
+                                                {% else %}
+
+                                                <span style="color: #888;">
+
+                                                    No solutions recorded.
+
+                                                </span>
+
+                                                {% endif %}
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- Remarks -->
+
+                                        <div style="margin-top: 25px;">
+
+                                            <p style="font-weight: bold;">
+
+                                                <i class="fas fa-sticky-note"></i>
+
+                                                Remarks
+
+                                            </p>
+
+
+                                            <div class="des-103">
+
+                                                {% if report.remarks %}
+
+                                                {{ report.remarks|linebreaks }}
+
+                                                {% else %}
+
+                                                <span style="color: #888;">
+
+                                                    No remarks.
+
+                                                </span>
+
+                                                {% endif %}
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- Supervisor Comment -->
+
+                                        <div style="margin-top: 25px;">
+
+                                            <p style="font-weight: bold;">
+
+                                                <i class="fas fa-user-tie"></i>
+
+                                                Supervisor Comment
+
+                                            </p>
+
+
+                                            <div class="des-103">
+
+                                                {% if report.supervisor_comment %}
+
+                                                {{ report.supervisor_comment|linebreaks }}
+
+                                                {% else %}
+
+                                                <span style="color: #888;">
+
+                                                    No supervisor comment yet.
+
+                                                </span>
+
+                                                {% endif %}
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                    {% endfor %}
+
+
+                                    <!-- No reports in week -->
+
+                                    {% empty %}
+
+                                    <div style="
+                    margin-top: 25px;
+                    padding: 20px;
+                    text-align: center;
+                ">
+
+                                        <i class="fas fa-file-alt"></i>
+
+                                        <p>
+                                            No reports summary available.
+                                        </p>
+
+                                    </div>
+
+                                    {% endfor %}
+
+
+                                    <!-- Actions -->
+
+                                    <div class="actions-holder-103">
+
+                                        <div>
+
+                                            <button type="button"
+                                                onclick="window.location.href=`{% url 'reports_list' placement.id %}`">
+
+                                                <i class="fas fa-arrow-left"></i>
+
+                                                Back to Reports
+
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+        function open_menu(click) {
+            let menu1 = document.getElementById('menu1');
+            let menu2 = document.getElementById('menu2');
+            let nav = document.getElementById('nav');
+
+            if (click == 'open') {
+                menu1.style.display = 'none';
+                menu2.style.display = 'inline-block';
+                nav.style.display = 'inline-block';
+            }
+            else {
+                menu1.style.display = 'inline-block';
+                menu2.style.display = 'none';
+                nav.style.display = 'none';
+            }
+        }
+    </script>
+
+
+    <script>
+        setTimeout(function () {
+            document.querySelectorAll(".alert").forEach(function (alert) {
+                alert.style.transition = "opacity 0.5s";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 4000);
+    </script>
+
+
+
+</body>
+
+</html>

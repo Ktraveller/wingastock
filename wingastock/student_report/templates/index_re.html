@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Report | Home</title>
+    <link rel="shortcut icon" href="{% static 'logo1.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css_re/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        .messages {
+            margin: 20px 0;
+        }
+
+        .alert {
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .success {
+            background: #28a745;
+        }
+
+        .error {
+            background: #dc3545;
+        }
+
+        .warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .info {
+            background: #17a2b8;
+        }
+
+        .mail-time-201 {
+            padding-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="row-holder">
+
+        <!-- Header -->
+        <div class="header-holder-100">
+            <div class="header-100">
+                <div class="action-holder-101">
+                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+                            class="fas fa-times"></i></button>
+                </div>
+                <div class="title-holder-101">
+                    <button type="button"><span>
+                            Dashboard
+                        </span></button>
+                </div>
+                <div class="title-holder-101" style="float: right;">
+                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- center content -->
+        <div class="center-content-200">
+
+            <div class="left-holder-201" id="nav">
+                <div class="nav-bar-holder-202">
+
+                    <ul>
+                        <a href="{% url 'report_home' %}">
+                            <li class="active-0">Dashboard <i class="fas fa-tachometer-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'placements_list' %}">
+                            <li>Reports <i class="fas fa-file-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'user_account' %}">
+                            <li>Account <i class="fas fa-user"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'home' %}">
+                            <li>Back Wingastock <i class="fas fa-home"></i></li>
+                        </a>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="right-holder-201">
+
+                <!-- Login message -->
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="card-holder-201">
+
+                    <div class="card-201">
+                        <button type="button">
+                            <span><i class="fas fa-calendar-day"></i> Daily reports</span><br>
+                            <b style="font-size: 30px;">{{ total_daily_reports }}</b>
+                            <br>
+                            <p>Total daily report</p>
+                        </button>
+                    </div>
+
+
+                    <div class="card-201">
+                        <button type="button">
+                            <span><i class="fas fa-calendar-week"></i> Weekly reports</span><br>
+                            <b style="font-size: 30px;">{{ total_weekly_reports }}</b>
+                            <br>
+                            <p>Total weekly reports</p>
+                        </button>
+                    </div>
+
+                    <!-- recently saved reports -->
+                    <div class="card-201 full-201" style="width: 100%;">
+                        <button type="button" style="background: white; color: black;">
+
+                            <p style="font-weight: bold;">
+                                <i class="fas fa-bookmark"></i>
+                                This week's reports
+                            </p>
+
+                            <ul>
+
+                                {% for report in this_week_reports %}
+
+                                <a href="{% url 'report_preview' report.id %}">
+                                    <li>
+
+                                        <span class="list-title-201">
+                                            <strong>
+                                                {{ report.title }}
+                                            </strong>
+                                        </span>
+
+                                        <span>
+                                            {{ report.placement.organization }}
+                                        </span>
+
+                                        <span class="mail-time-201">
+                                            <i class="fas fa-clock"></i>
+                                            {{ report.date|date:"d M Y" }}
+                                        </span>
+
+                                    </li>
+                                </a>
+
+                                {% empty %}
+
+                                <p>No reports saved this week!</p>
+
+                                {% endfor %}
+
+                            </ul>
+
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+        function open_menu(click) {
+            let menu1 = document.getElementById('menu1');
+            let menu2 = document.getElementById('menu2');
+            let nav = document.getElementById('nav');
+
+            if (click == 'open') {
+                menu1.style.display = 'none';
+                menu2.style.display = 'inline-block';
+                nav.style.display = 'inline-block';
+            }
+            else {
+                menu1.style.display = 'inline-block';
+                menu2.style.display = 'none';
+                nav.style.display = 'none';
+            }
+        }
+    </script>
+
+    <script>
+        setTimeout(function () {
+            document.querySelectorAll(".alert").forEach(function (alert) {
+                alert.style.transition = "opacity 0.5s";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 4000);
+            });
+        }, 4000);
+    </script>
+</body>
+
+</html>

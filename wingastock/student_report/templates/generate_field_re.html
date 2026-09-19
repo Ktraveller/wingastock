@@ -1,0 +1,3224 @@
+{% load static %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Field Practical Training Report
+    </title>
+
+    <link
+        rel="icon"
+        href="{% static 'logo1.png' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css_re/style.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
+
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    font-family: Arial, sans-serif;
+
+    background: #f1f3f4;
+}
+
+
+/* =========================================================
+   TOP TITLE BAR
+========================================================= */
+
+.word-titlebar {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 42px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #dadce0;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 12px;
+
+    z-index: 10000;
+}
+
+
+.word-title-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    min-width: 250px;
+}
+
+
+.word-logo {
+
+    width: 27px;
+    height: 27px;
+
+    object-fit: contain;
+}
+
+
+.document-name {
+
+    font-size: 14px;
+
+    color: #333;
+
+    white-space: nowrap;
+}
+
+
+.save-status {
+
+    font-size: 11px;
+
+    color: #777;
+
+    margin-left: 4px;
+}
+
+
+.word-title-center {
+
+    flex: 1;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    color: #666;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.word-title-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+}
+
+
+.title-button {
+
+    width: 34px;
+    height: 32px;
+
+    border: none;
+
+    background: transparent;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    color: #444;
+}
+
+
+.title-button:hover {
+
+    background: #f1f3f4;
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+.word-tabs {
+
+    position: fixed;
+
+    top: 42px;
+
+    left: 0;
+    right: 0;
+
+    height: 36px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #dadce0;
+
+    display: flex;
+
+    align-items: center;
+
+    padding-left: 10px;
+
+    z-index: 9999;
+}
+
+
+.word-tab {
+
+    height: 36px;
+
+    padding: 0 18px;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    color: #444;
+
+    font-size: 13px;
+
+    position: relative;
+}
+
+
+.word-tab:hover {
+
+    background: #f5f5f5;
+}
+
+
+.word-tab.active {
+
+    color: #1a73e8;
+
+    font-weight: 600;
+}
+
+
+.word-tab.active::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 10px;
+    right: 10px;
+
+    bottom: 0;
+
+    height: 3px;
+
+    background: #1a73e8;
+}
+
+
+/* =========================================================
+   RIBBON
+========================================================= */
+
+.word-ribbon {
+
+    position: fixed;
+
+    top: 78px;
+
+    left: 0;
+    right: 0;
+
+    height: 88px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #dadce0;
+
+    z-index: 9998;
+}
+
+
+.ribbon-content {
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: stretch;
+
+    gap: 5px;
+
+    padding: 5px 8px;
+
+    overflow-x: auto;
+
+    overflow-y: hidden;
+}
+
+
+.ribbon-group {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 2px;
+
+    padding: 0 8px;
+
+    border-right: 1px solid #e1e1e1;
+
+    flex-shrink: 0;
+}
+
+
+.ribbon-button {
+
+    min-width: 42px;
+
+    height: 62px;
+
+    border: none;
+
+    background: transparent;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color: #444;
+
+    font-size: 10px;
+}
+
+
+.ribbon-button i {
+
+    font-size: 16px;
+}
+
+
+.ribbon-button:hover {
+
+    background: #f1f3f4;
+}
+
+
+.ribbon-button.active {
+
+    background: #e8f0fe;
+
+    color: #1a73e8;
+}
+
+
+.ribbon-select {
+
+    height: 32px;
+
+    border: 1px solid #dadce0;
+
+    border-radius: 4px;
+
+    background: white;
+
+    padding: 0 6px;
+
+    outline: none;
+
+    font-size: 12px;
+}
+
+
+.font-size-input {
+
+    width: 50px;
+
+    height: 32px;
+
+    border: 1px solid #dadce0;
+
+    border-radius: 4px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   WORKSPACE
+========================================================= */
+
+.document-workspace {
+
+    position: fixed;
+
+    top: 166px;
+
+    left: 0;
+    right: 0;
+
+    bottom: 29px;
+
+    background: #e5e5e5;
+
+    overflow: auto;
+
+    padding: 30px 15px 50px;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   REPORT EDITOR
+========================================================= */
+
+#reportEditor {
+
+    width: 100%;
+
+    min-height: 100%;
+
+    outline: none;
+}
+
+
+/* =========================================================
+   A4 PAGE
+========================================================= */
+
+.report-page {
+
+    width: 210mm;
+
+    min-height: 297mm;
+
+    height: 297mm;
+
+    margin: 0 auto 25px;
+
+    background: white;
+
+    padding:
+
+        25mm
+
+        22mm
+
+        25mm
+
+        22mm;
+
+    box-shadow:
+
+        0 2px 10px rgba(0,0,0,.18);
+
+    position: relative;
+
+    overflow: hidden;
+
+    outline: none;
+
+    font-family:
+
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size: 12pt;
+
+    line-height: 1.6;
+
+    color: #111;
+}
+
+
+/* =========================================================
+   REPORT TEXT
+========================================================= */
+
+.report-page h1 {
+
+    font-size: 20pt;
+
+    text-align: center;
+
+    margin-top: 0;
+
+    margin-bottom: 20px;
+}
+
+
+.report-page h2 {
+
+    font-size: 17pt;
+
+    margin-top: 10px;
+
+    margin-bottom: 14px;
+}
+
+
+.report-page h3 {
+
+    font-size: 14pt;
+
+    margin-top: 10px;
+
+    margin-bottom: 10px;
+}
+
+
+.report-page p {
+
+    margin:
+
+        0 0 10px;
+
+    text-align: justify;
+}
+
+
+.report-page .center {
+
+    text-align: center;
+}
+
+
+.report-page .left {
+
+    text-align: left;
+}
+
+
+.report-page .right {
+
+    text-align: right;
+}
+
+
+.report-page .bold {
+
+    font-weight: bold;
+}
+
+
+.report-page .spacer {
+
+    height: 18px;
+}
+
+
+/* =========================================================
+   COVER
+========================================================= */
+
+.cover-page {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+
+.cover-page .institution {
+
+    font-size: 18pt;
+
+    font-weight: bold;
+
+    margin-bottom: 35px;
+}
+
+
+.cover-page .report-title {
+
+    font-size: 20pt;
+
+    font-weight: bold;
+
+    line-height: 1.5;
+
+    margin:
+
+        30px 0;
+}
+
+
+.cover-page .student-details {
+
+    margin-top: 30px;
+
+    line-height: 2;
+}
+
+
+.cover-page .date {
+
+    margin-top: 45px;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.report-page table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin: 15px 0;
+}
+
+
+.report-page th,
+.report-page td {
+
+    border: 1px solid #333;
+
+    padding: 7px;
+
+    vertical-align: top;
+}
+
+
+.report-page th {
+
+    font-weight: bold;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   LIST
+========================================================= */
+
+.report-page ul,
+.report-page ol {
+
+    margin-top: 5px;
+
+    margin-bottom: 12px;
+
+    padding-left: 30px;
+}
+
+
+/* =========================================================
+   SIGNATURE
+========================================================= */
+
+.signature-space {
+
+    height: 45px;
+}
+
+
+/* =========================================================
+   TOOLBAR SEPARATOR
+========================================================= */
+
+.toolbar-separator {
+
+    width: 1px;
+
+    height: 48px;
+
+    background: #ddd;
+
+    margin: 0 4px;
+}
+
+
+/* =========================================================
+   STATUS BAR
+========================================================= */
+
+.status-bar {
+
+    position: fixed;
+
+    bottom: 0;
+
+    left: 0;
+    right: 0;
+
+    height: 29px;
+
+    background: white;
+
+    border-top: 1px solid #dadce0;
+
+    z-index: 10000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 12px;
+
+    font-size: 11px;
+
+    color: #666;
+}
+
+
+.status-left,
+.status-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+
+/* =========================================================
+   ZOOM
+========================================================= */
+
+#reportCanvas {
+
+    transform-origin: top center;
+
+    transition: transform .15s ease;
+}
+
+
+/* =========================================================
+   RIBBON HIDDEN
+========================================================= */
+
+body.ribbon-hidden .word-tabs,
+body.ribbon-hidden .word-ribbon {
+
+    transform: translateY(-100%);
+
+    transition: transform .2s ease;
+}
+
+
+body.ribbon-hidden .document-workspace {
+
+    top: 42px;
+
+    transition: top .2s ease;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.toast {
+
+    position: fixed;
+
+    right: 20px;
+
+    bottom: 50px;
+
+    background: #222;
+
+    color: white;
+
+    padding: 11px 17px;
+
+    border-radius: 5px;
+
+    font-size: 12px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform: translateY(10px);
+
+    transition: .25s;
+
+    z-index: 30000;
+}
+
+
+.toast.show {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .word-titlebar {
+
+        height: 40px;
+    }
+
+    .word-title-center {
+
+        display: none;
+    }
+
+    .word-title-left {
+
+        min-width: auto;
+    }
+
+    .document-name {
+
+        font-size: 12px;
+    }
+
+    .word-tabs {
+
+        top: 40px;
+
+        height: 34px;
+
+        overflow-x: auto;
+    }
+
+    .word-tab {
+
+        height: 34px;
+
+        padding: 0 12px;
+
+        font-size: 11px;
+    }
+
+    .word-ribbon {
+
+        top: 74px;
+
+        height: 74px;
+    }
+
+    .document-workspace {
+
+        top: 148px;
+
+        padding:
+
+            15px
+
+            5px
+
+            30px;
+    }
+
+    .report-page {
+
+        transform-origin: top center;
+
+        margin-bottom: 15px;
+    }
+
+    .ribbon-button {
+
+        height: 60px;
+
+        min-width: 38px;
+
+        font-size: 9px;
+    }
+
+    .ribbon-button i {
+
+        font-size: 14px;
+    }
+
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+
+    @page {
+
+        size: A4;
+
+        margin: 0;
+    }
+
+    html,
+    body {
+
+        overflow: visible;
+
+        background: white;
+    }
+
+    .word-titlebar,
+    .word-tabs,
+    .word-ribbon,
+    .status-bar,
+    .toast {
+
+        display: none !important;
+    }
+
+    .document-workspace {
+
+        position: static;
+
+        padding: 0;
+
+        overflow: visible;
+
+        background: white;
+    }
+
+    #reportEditor {
+
+        transform: none !important;
+    }
+
+    .report-page {
+
+        margin: 0;
+
+        box-shadow: none;
+
+        page-break-after: always;
+
+        break-after: page;
+    }
+
+    .report-page:last-child {
+
+        page-break-after: auto;
+
+        break-after: auto;
+    }
+}
+
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     TITLE BAR
+========================================================= -->
+
+<div class="word-titlebar">
+
+    <div class="word-title-left">
+
+        <img
+            src="{% static 'logo1.png' %}"
+            class="word-logo"
+            alt="Logo"
+        >
+
+        <span class="document-name">
+            Field Practical Training Report
+        </span>
+
+        <span
+            class="save-status"
+            id="saveStatus"
+        >
+            Saved
+        </span>
+
+    </div>
+
+
+    <div class="word-title-center">
+
+        {{ placement.student.get_full_name|default:placement.student.username }}
+
+        —
+
+        {{ placement.organization }}
+
+    </div>
+
+
+    <div class="word-title-right">
+
+        <button
+            type="button"
+            class="title-button"
+            title="Save"
+            onclick="saveReport()"
+        >
+            <i class="fas fa-save"></i>
+        </button>
+
+        <button
+            type="button"
+            class="title-button"
+            title="Download DOCX"
+            onclick="downloadDocx()"
+        >
+            <i class="fas fa-file-word"></i>
+        </button>
+
+        <button
+            type="button"
+            class="title-button"
+            title="Print"
+            onclick="printReport()"
+        >
+            <i class="fas fa-print"></i>
+        </button>
+
+        <button
+            type="button"
+            class="title-button"
+            title="Close"
+            onclick="closeReport()"
+        >
+            <i class="fas fa-times"></i>
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     TABS
+========================================================= -->
+
+<div class="word-tabs">
+
+    <button
+        type="button"
+        class="word-tab active"
+    >
+        Home
+    </button>
+
+    <button
+        type="button"
+        class="word-tab"
+        onclick="showMessage('Use Insert tools inside the report editor.')"
+    >
+        Insert
+    </button>
+
+    <button
+        type="button"
+        class="word-tab"
+        onclick="showMessage('A4 page layout is already enabled.')"
+    >
+        Layout
+    </button>
+
+    <button
+        type="button"
+        class="word-tab"
+        onclick="showMessage('Review your report before submitting it.')"
+    >
+        Review
+    </button>
+
+    <button
+        type="button"
+        class="word-tab"
+        onclick="toggleRibbon()"
+    >
+        View
+    </button>
+
+</div>
+
+
+
+<!-- =========================================================
+     RIBBON
+========================================================= -->
+
+<div class="word-ribbon">
+
+    <div class="ribbon-content">
+
+
+        <!-- Clipboard -->
+
+        <div class="ribbon-group">
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="execCommand('cut')"
+            >
+                <i class="fas fa-cut"></i>
+                <span>Cut</span>
+            </button>
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="execCommand('copy')"
+            >
+                <i class="fas fa-copy"></i>
+                <span>Copy</span>
+            </button>
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="execCommand('paste')"
+            >
+                <i class="fas fa-paste"></i>
+                <span>Paste</span>
+            </button>
+
+        </div>
+
+
+
+        <!-- Font -->
+
+        <div class="ribbon-group">
+
+            <select
+                id="fontName"
+                class="ribbon-select"
+                onchange="formatFont(this.value)"
+            >
+
+                <option value="Times New Roman">
+                    Times New Roman
+                </option>
+
+                <option value="Arial">
+                    Arial
+                </option>
+
+                <option value="Calibri">
+                    Calibri
+                </option>
+
+                <option value="Georgia">
+                    Georgia
+                </option>
+
+            </select>
+
+
+            <input
+                id="fontSize"
+                class="font-size-input"
+                type="number"
+                min="8"
+                max="72"
+                value="12"
+                onchange="formatFontSize(this.value)"
+            >
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="execCommand('bold')"
+            >
+                <i class="fas fa-bold"></i>
+                <span>Bold</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="execCommand('italic')"
+            >
+                <i class="fas fa-italic"></i>
+                <span>Italic</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="execCommand('underline')"
+            >
+                <i class="fas fa-underline"></i>
+                <span>Underline</span>
+            </button>
+
+        </div>
+
+
+
+        <!-- Paragraph -->
+
+        <div class="ribbon-group">
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="execCommand('justifyLeft')"
+            >
+                <i class="fas fa-align-left"></i>
+                <span>Left</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="execCommand('justifyCenter')"
+            >
+                <i class="fas fa-align-center"></i>
+                <span>Center</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="execCommand('justifyRight')"
+            >
+                <i class="fas fa-align-right"></i>
+                <span>Right</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="execCommand('justifyFull')"
+            >
+                <i class="fas fa-align-justify"></i>
+                <span>Justify</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="execCommand('insertUnorderedList')"
+            >
+                <i class="fas fa-list-ul"></i>
+                <span>Bullets</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="execCommand('insertOrderedList')"
+            >
+                <i class="fas fa-list-ol"></i>
+                <span>Numbering</span>
+            </button>
+
+        </div>
+
+
+
+        <!-- Editing -->
+
+        <div class="ribbon-group">
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="execCommand('undo')"
+            >
+                <i class="fas fa-undo"></i>
+                <span>Undo</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="execCommand('redo')"
+            >
+                <i class="fas fa-redo"></i>
+                <span>Redo</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="removeFormatting()"
+            >
+                <i class="fas fa-eraser"></i>
+                <span>Clear</span>
+            </button>
+
+        </div>
+
+
+
+        <!-- Report -->
+
+        <div class="ribbon-group">
+
+            <button
+                type="button"
+                class="ribbon-button active"
+                onclick="generateReport()"
+            >
+                <i class="fas fa-file-alt"></i>
+                <span>Generate</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="saveReport()"
+            >
+                <i class="fas fa-save"></i>
+                <span>Save</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="downloadDocx()"
+            >
+                <i class="fas fa-file-word"></i>
+                <span>DOCX</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="printReport()"
+            >
+                <i class="fas fa-print"></i>
+                <span>Print</span>
+            </button>
+
+        </div>
+
+
+
+        <!-- Zoom -->
+
+        <div class="ribbon-group">
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="zoomOut()"
+            >
+                <i class="fas fa-search-minus"></i>
+                <span>Zoom -</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="resetZoom()"
+            >
+                <i class="fas fa-compress"></i>
+                <span>100%</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="zoomIn()"
+            >
+                <i class="fas fa-search-plus"></i>
+                <span>Zoom +</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="ribbon-button"
+                onclick="toggleRibbon()"
+            >
+                <i class="fas fa-chevron-up"></i>
+                <span>Hide</span>
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     DOCUMENT WORKSPACE
+========================================================= -->
+
+<div
+    class="document-workspace"
+    id="documentWorkspace"
+>
+
+    <div id="reportCanvas">
+
+        <div
+            id="reportEditor"
+            contenteditable="true"
+            spellcheck="true"
+        >
+
+        {% if saved_report and saved_report.report_html %}
+
+            {{ saved_report.report_html|safe }}
+
+        {% else %}
+
+            <!-- =================================================
+                 COVER
+            ================================================= -->
+
+            <div class="report-page cover-page">
+
+                <div class="institution">
+
+                    {{ placement.organization|upper }}
+
+                </div>
+
+
+                <div class="spacer"></div>
+
+
+                <div class="report-title">
+
+                    FIELD PRACTICAL TRAINING REPORT
+
+                </div>
+
+
+                <p class="center">
+
+                    A report submitted in partial fulfillment
+                    of the requirements for field practical training.
+
+                </p>
+
+
+                <div class="spacer"></div>
+
+
+                <div class="student-details">
+
+                    <strong>STUDENT NAME</strong><br>
+
+                    {{ placement.student.get_full_name|default:placement.student.username }}
+
+                    <br><br>
+
+
+                    <strong>ORGANIZATION</strong><br>
+
+                    {{ placement.organization }}
+
+                    <br><br>
+
+
+                    <strong>DEPARTMENT</strong><br>
+
+                    {{ placement.department|default:"N/A" }}
+
+                    <br><br>
+
+
+                    <strong>FIELD SUPERVISOR</strong><br>
+
+                    {{ placement.supervisor_name }}
+
+                    <br><br>
+
+
+                    <strong>TRAINING PERIOD</strong><br>
+
+                    {{ placement.start_date|date:"d F Y" }}
+
+                    &nbsp; — &nbsp;
+
+                    {{ placement.end_date|date:"d F Y" }}
+
+                </div>
+
+
+                <div class="date">
+
+                    {{ placement.end_date|date:"F Y" }}
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 DECLARATION
+            ================================================= -->
+
+            <div class="report-page">
+
+                <h1>
+                    DECLARATION
+                </h1>
+
+                <p>
+                    I hereby declare that this Field Practical Training
+                    Report is my own work and that the information
+                    presented in this report is based on the activities,
+                    experiences and knowledge acquired during my field
+                    practical training.
+                </p>
+
+                <p>
+                    To the best of my knowledge, this report has not been
+                    submitted elsewhere for academic assessment without
+                    appropriate acknowledgement.
+                </p>
+
+                <br><br>
+
+                <p>
+                    Student Name:
+                    <strong>
+                        {{ placement.student.get_full_name|default:placement.student.username }}
+                    </strong>
+                </p>
+
+                <div class="signature-space"></div>
+
+                <p>
+                    Signature: ______________________________
+                </p>
+
+                <p>
+                    Date: __________________________________
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CERTIFICATION
+            ================================================= -->
+
+            <div class="report-page">
+
+                <h1>
+                    CERTIFICATION
+                </h1>
+
+                <p>
+                    This is to certify that
+                    <strong>
+                        {{ placement.student.get_full_name|default:placement.student.username }}
+                    </strong>
+                    undertook field practical training at
+                    <strong>
+                        {{ placement.organization }}
+                    </strong>
+                    under the supervision of
+                    <strong>
+                        {{ placement.supervisor_name }}
+                    </strong>.
+                </p>
+
+                <p>
+                    The student participated in practical activities
+                    related to the assigned department and gained
+                    practical knowledge and experience during the
+                    training period.
+                </p>
+
+                <br><br>
+
+                <p>
+                    Supervisor Name:
+                    <strong>
+                        {{ placement.supervisor_name }}
+                    </strong>
+                </p>
+
+                <div class="signature-space"></div>
+
+                <p>
+                    Supervisor Signature:
+                    ______________________________
+                </p>
+
+                <p>
+                    Date:
+                    ______________________________
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ACKNOWLEDGEMENT
+            ================================================= -->
+
+            <div class="report-page">
+
+                <h1>
+                    ACKNOWLEDGEMENT
+                </h1>
+
+                <p>
+                    I would like to express my sincere appreciation to
+                    everyone who contributed to the success of my field
+                    practical training.
+                </p>
+
+                <p>
+                    I am grateful to the management and staff of
+                    <strong>
+                        {{ placement.organization }}
+                    </strong>
+                    for providing me with the opportunity to undertake
+                    practical training and for their guidance throughout
+                    the training period.
+                </p>
+
+                <p>
+                    Special appreciation goes to my field supervisor,
+                    <strong>
+                        {{ placement.supervisor_name }}
+                    </strong>,
+                    for the support, advice and knowledge provided
+                    throughout the training.
+                </p>
+
+                <p>
+                    I also appreciate my institution, lecturers,
+                    colleagues, friends and family for their continued
+                    support and encouragement.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ABSTRACT
+            ================================================= -->
+
+            <div class="report-page">
+
+                <h1>
+                    ABSTRACT
+                </h1>
+
+                <p>
+                    This report presents the experiences, activities,
+                    knowledge and skills acquired during field practical
+                    training at
+                    <strong>
+                        {{ placement.organization }}
+                    </strong>.
+                </p>
+
+                <p>
+                    The training provided an opportunity to connect
+                    theoretical knowledge gained in the classroom with
+                    practical activities performed in a real working
+                    environment.
+                </p>
+
+                <p>
+                    The report describes the organization, activities
+                    performed, skills acquired, challenges encountered,
+                    solutions applied and general observations made
+                    during the training period.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TABLE OF CONTENTS
+            ================================================= -->
+
+            <div class="report-page">
+
+                <h1>
+                    TABLE OF CONTENTS
+                </h1>
+
+                <table>
+
+                    <tr>
+                        <th>
+                            Section
+                        </th>
+
+                        <th>
+                            Page
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Declaration
+                        </td>
+
+                        <td>
+                            1
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Certification
+                        </td>
+
+                        <td>
+                            2
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Acknowledgement
+                        </td>
+
+                        <td>
+                            3
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Abstract
+                        </td>
+
+                        <td>
+                            4
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Chapter One
+                        </td>
+
+                        <td>
+                            5
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Chapter Two
+                        </td>
+
+                        <td>
+                            6
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Chapter Three
+                        </td>
+
+                        <td>
+                            7
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Chapter Four
+                        </td>
+
+                        <td>
+                            8
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            References
+                        </td>
+
+                        <td>
+                            9
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Appendices
+                        </td>
+
+                        <td>
+                            10
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CHAPTER ONE
+            ================================================= -->
+
+            <div class="report-page">
+
+                <h1>
+                    CHAPTER ONE
+                </h1>
+
+                <h2>
+                    INTRODUCTION
+                </h2>
+
+                <h3>
+                    1.1 Background
+                </h3>
+
+                <p>
+                    Field practical training is an important part of
+                    academic development because it provides students
+                    with an opportunity to gain practical experience
+                    in a real working environment.
+                </p>
+
+                <p>
+                    The training was conducted at
+                    <strong>
+                        {{ placement.organization }}
+                    </strong>
+                    in the
+                    <strong>
+                        {{ placement.department|default:"assigned department" }}
+                    </strong>
+                    department.
+                </p>
+
+                <h3>
+                    1.2 Objectives of the Training
+                </h3>
+
+                <ol>
+
+                    <li>
+                        To gain practical experience.
+                    </li>
+
+                    <li>
+                        To apply theoretical knowledge in a real
+                        working environment.
+                    </li>
+
+                    <li>
+                        To develop professional and technical skills.
+                    </li>
+
+                    <li>
+                        To understand workplace procedures and
+                        responsibilities.
+                    </li>
+
+                    <li>
+                        To develop communication and teamwork skills.
+                    </li>
+
+                </ol>
+
+
+                <h3>
+                    1.3 Organization
+                </h3>
+
+                <p>
+                    The organization where the field practical training
+                    was conducted was
+                    <strong>
+                        {{ placement.organization }}
+                    </strong>.
+                </p>
+
+                <p>
+                    The student was supervised by
+                    <strong>
+                        {{ placement.supervisor_name }}
+                    </strong>.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CHAPTER TWO
+            ================================================= -->
+
+            <div class="report-page">
+
+                <h1>
+                    CHAPTER TWO
+                </h1>
+
+                <h2>
+                    ACTIVITIES PERFORMED DURING TRAINING
+                </h2>
+
+
+                {% if reports %}
+
+                    {% for report in reports %}
+
+                        <h3>
+
+                            {{ forloop.counter }}.
+
+                            {{ report.title }}
+
+                        </h3>
+
+                        <p>
+
+                            <strong>
+                                Date:
+                            </strong>
+
+                            {{ report.date|date:"d F Y" }}
+
+                        </p>
+
+
+                        <p>
+
+                            <strong>
+                                Activities:
+                            </strong>
+
+                            {{ report.activities }}
+
+                        </p>
+
+
+                        {% if report.skills_learned %}
+
+                            <p>
+
+                                <strong>
+                                    Skills Learned:
+                                </strong>
+
+                                {{ report.skills_learned }}
+
+                            </p>
+
+                        {% endif %}
+
+
+                        {% if report.challenges %}
+
+                            <p>
+
+                                <strong>
+                                    Challenges:
+                                </strong>
+
+                                {{ report.challenges }}
+
+                            </p>
+
+                        {% endif %}
+
+
+                        {% if report.solutions %}
+
+                            <p>
+
+                                <strong>
+                                    Solutions:
+                                </strong>
+
+                                {{ report.solutions }}
+
+                            </p>
+
+                        {% endif %}
+
+
+                        {% if report.remarks %}
+
+                            <p>
+
+                                <strong>
+                                    Remarks:
+                                </strong>
+
+                                {{ report.remarks }}
+
+                            </p>
+
+                        {% endif %}
+
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <p>
+                        No daily field reports have been recorded yet.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CHAPTER THREE
+            ================================================= -->
+
+            <div class="report-page">
+
+                <h1>
+                    CHAPTER THREE
+                </h1>
+
+                <h2>
+                    SKILLS AND KNOWLEDGE ACQUIRED
+                </h2>
+
+                <p>
+                    During the field practical training, various
+                    technical, professional and interpersonal skills
+                    were acquired through participation in practical
+                    activities.
+                </p>
+
+                <h3>
+                    3.1 Technical Skills
+                </h3>
+
+                <p>
+                    The student gained practical knowledge related to
+                    the assigned duties and responsibilities within
+                    the organization.
+                </p>
+
+                <h3>
+                    3.2 Communication Skills
+                </h3>
+
+                <p>
+                    The training provided an opportunity to improve
+                    communication with supervisors, employees,
+                    customers and other stakeholders.
+                </p>
+
+                <h3>
+                    3.3 Teamwork
+                </h3>
+
+                <p>
+                    Working with other employees provided experience
+                    in cooperation, responsibility and teamwork.
+                </p>
+
+                <h3>
+                    3.4 Professional Development
+                </h3>
+
+                <p>
+                    The student gained a better understanding of
+                    professional conduct, workplace responsibilities,
+                    time management and organizational procedures.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CHAPTER FOUR
+            ================================================= -->
+
+            <div class="report-page">
+
+                <h1>
+                    CHAPTER FOUR
+                </h1>
+
+                <h2>
+                    CONCLUSION AND RECOMMENDATIONS
+                </h2>
+
+                <h3>
+                    4.1 Conclusion
+                </h3>
+
+                <p>
+                    The field practical training provided valuable
+                    practical experience and an opportunity to apply
+                    academic knowledge in a real working environment.
+                </p>
+
+                <p>
+                    The training also contributed to the development
+                    of technical, communication, teamwork and
+                    professional skills.
+                </p>
+
+                <h3>
+                    4.2 Challenges
+                </h3>
+
+                <p>
+                    Various challenges may be experienced during field
+                    practical training, including adapting to new
+                    working procedures, limited experience and
+                    unfamiliar technical environments.
+                </p>
+
+                <h3>
+                    4.3 Recommendations
+                </h3>
+
+                <ol>
+
+                    <li>
+                        Students should be given adequate practical
+                        exposure.
+                    </li>
+
+                    <li>
+                        Supervisors should provide continuous
+                        guidance.
+                    </li>
+
+                    <li>
+                        Organizations should provide students with
+                        opportunities to participate in practical
+                        activities.
+                    </li>
+
+                    <li>
+                        Institutions should maintain communication
+                        with field supervisors throughout the training
+                        period.
+                    </li>
+
+                </ol>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 REFERENCES
+            ================================================= -->
+
+            <div class="report-page">
+
+                <h1>
+                    REFERENCES
+                </h1>
+
+                <p>
+                    References used during the field practical training
+                    should be listed in this section.
+                </p>
+
+                <ol>
+
+                    <li>
+                        Organization documents and internal materials.
+                    </li>
+
+                    <li>
+                        Academic notes and course materials.
+                    </li>
+
+                    <li>
+                        Relevant textbooks and professional resources.
+                    </li>
+
+                </ol>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 APPENDICES
+            ================================================= -->
+
+            <div class="report-page">
+
+                <h1>
+                    APPENDICES
+                </h1>
+
+                <h2>
+                    Appendix I: Daily Field Reports
+                </h2>
+
+                {% if reports %}
+
+                    <table>
+
+                        <tr>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Activity
+                            </th>
+
+                        </tr>
+
+                        {% for report in reports %}
+
+                            <tr>
+
+                                <td>
+                                    {{ report.date|date:"d/m/Y" }}
+                                </td>
+
+                                <td>
+                                    {{ report.title }}
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </table>
+
+                {% endif %}
+
+
+                <h2>
+                    Appendix II: Supervisor Information
+                </h2>
+
+                <p>
+
+                    <strong>
+                        Supervisor:
+                    </strong>
+
+                    {{ placement.supervisor_name }}
+
+                </p>
+
+
+                {% if placement.supervisor_phone %}
+
+                    <p>
+
+                        <strong>
+                            Phone:
+                        </strong>
+
+                        {{ placement.supervisor_phone }}
+
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     STATUS BAR
+========================================================= -->
+
+<div class="status-bar">
+
+    <div class="status-left">
+
+        <span id="pageCounter">
+            Page 1
+        </span>
+
+        <span id="wordCounter">
+            0 words
+        </span>
+
+        <span>
+            A4
+        </span>
+
+    </div>
+
+
+    <div class="status-right">
+
+        <span id="zoomText">
+            100%
+        </span>
+
+        <span>
+            Times New Roman
+        </span>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+"use strict";
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+const editor =
+    document.getElementById("reportEditor");
+
+const reportCanvas =
+    document.getElementById("reportCanvas");
+
+const workspace =
+    document.getElementById("documentWorkspace");
+
+const saveStatus =
+    document.getElementById("saveStatus");
+
+const pageCounter =
+    document.getElementById("pageCounter");
+
+const wordCounter =
+    document.getElementById("wordCounter");
+
+const zoomText =
+    document.getElementById("zoomText");
+
+const toast =
+    document.getElementById("toast");
+
+
+const SAVE_URL =
+    "{% url 'save_field_report' placement.id %}";
+
+const DOWNLOAD_URL =
+    "{% url 'download_field_report_docx' placement.id %}";
+
+
+let zoomLevel = 1;
+
+let saveTimer = null;
+
+let isSaving = false;
+
+
+/* =========================================================
+   CSRF
+========================================================= */
+
+function getCookie(name) {
+
+    let cookieValue = null;
+
+    if (document.cookie && document.cookie !== "") {
+
+        const cookies =
+            document.cookie.split(";");
+
+        for (
+            let i = 0;
+            i < cookies.length;
+            i++
+        ) {
+
+            const cookie =
+                cookies[i].trim();
+
+            if (
+                cookie.substring(
+                    0,
+                    name.length + 1
+                ) === name + "="
+            ) {
+
+                cookieValue =
+                    decodeURIComponent(
+                        cookie.substring(
+                            name.length + 1
+                        )
+                    );
+
+                break;
+            }
+        }
+    }
+
+    return cookieValue;
+}
+
+
+const csrftoken =
+    getCookie("csrftoken");
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+async function saveReport(showMessage = true) {
+
+    if (isSaving) {
+        return;
+    }
+
+    const html =
+        editor.innerHTML.trim();
+
+    if (!html) {
+
+        showToast(
+            "Report cannot be empty."
+        );
+
+        return;
+    }
+
+
+    isSaving = true;
+
+    saveStatus.textContent =
+        "Saving...";
+
+
+    const formData =
+        new FormData();
+
+    formData.append(
+        "report_html",
+        html
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                SAVE_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "X-CSRFToken":
+                            csrftoken,
+
+                        "X-Requested-With":
+                            "XMLHttpRequest"
+                    },
+
+                    body: formData,
+
+                    credentials: "same-origin"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to save report."
+            );
+        }
+
+
+        saveStatus.textContent =
+            "Saved";
+
+
+        if (showMessage) {
+
+            showToast(
+                data.message ||
+                "Report saved successfully."
+            );
+        }
+
+        updateCounters();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        saveStatus.textContent =
+            "Save failed";
+
+        showToast(
+            error.message ||
+            "Unable to save report."
+        );
+
+
+    } finally {
+
+        isSaving = false;
+
+    }
+
+}
+
+
+/* =========================================================
+   AUTOSAVE
+========================================================= */
+
+editor.addEventListener(
+    "input",
+    function() {
+
+        saveStatus.textContent =
+            "Unsaved changes";
+
+
+        clearTimeout(
+            saveTimer
+        );
+
+
+        saveTimer =
+            setTimeout(
+                function() {
+
+                    saveReport(false);
+
+                },
+                2500
+            );
+
+
+        updateCounters();
+
+    }
+);
+
+
+/* =========================================================
+   GENERATE REPORT
+========================================================= */
+
+async function generateReport() {
+
+    const confirmed =
+        confirm(
+            "Generate a new report from your daily field reports? " +
+            "Any unsaved changes currently in the editor will be replaced."
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    /*
+     * Reload the current Django page.
+     *
+     * This causes Django to rebuild the report from:
+     *
+     * FieldPlacement
+     * DailyFieldReport
+     *
+     * If a saved report already exists, Django will load that saved
+     * version instead.
+     *
+     * To regenerate a fresh report, first delete the GeneratedFieldReport
+     * record or use a dedicated regenerate endpoint later.
+     */
+
+    window.location.reload();
+
+}
+
+
+/* =========================================================
+   FORMATTING
+========================================================= */
+
+function execCommand(command, value = null) {
+
+    editor.focus();
+
+    try {
+
+        document.execCommand(
+            command,
+            false,
+            value
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Formatting error:",
+            error
+        );
+
+    }
+
+    updateCounters();
+
+}
+
+
+function formatFont(font) {
+
+    editor.focus();
+
+    document.execCommand(
+        "fontName",
+        false,
+        font
+    );
+
+    updateCounters();
+
+}
+
+
+function formatFontSize(size) {
+
+    editor.focus();
+
+    const numericSize =
+        parseInt(size, 10);
+
+
+    if (
+        isNaN(numericSize)
+        ||
+        numericSize < 8
+        ||
+        numericSize > 72
+    ) {
+
+        return;
+    }
+
+
+    /*
+     * execCommand fontSize uses
+     * browser values from 1 to 7.
+     *
+     * We use a temporary font tag and
+     * replace it with a CSS font size.
+     */
+
+    document.execCommand(
+        "fontSize",
+        false,
+        "7"
+    );
+
+
+    const fonts =
+        editor.querySelectorAll(
+            'font[size="7"]'
+        );
+
+
+    fonts.forEach(
+        function(font) {
+
+            font.removeAttribute(
+                "size"
+            );
+
+            font.style.fontSize =
+                numericSize + "pt";
+
+        }
+    );
+
+
+    updateCounters();
+
+}
+
+
+function removeFormatting() {
+
+    editor.focus();
+
+    document.execCommand(
+        "removeFormat",
+        false,
+        null
+    );
+
+    updateCounters();
+
+}
+
+
+/* =========================================================
+   ZOOM
+========================================================= */
+
+function applyZoom() {
+
+    reportCanvas.style.transform =
+        "scale(" + zoomLevel + ")";
+
+
+    reportCanvas.style.transformOrigin =
+        "top center";
+
+
+    zoomText.textContent =
+        Math.round(
+            zoomLevel * 100
+        ) + "%";
+
+
+    /*
+     * Give the workspace enough room
+     * for the transformed document.
+     */
+
+    reportCanvas.style.marginBottom =
+        Math.max(
+            0,
+            (zoomLevel - 1) * 100
+        ) + "px";
+
+}
+
+
+function zoomIn() {
+
+    if (zoomLevel < 1.5) {
+
+        zoomLevel += 0.1;
+
+        applyZoom();
+
+    }
+
+}
+
+
+function zoomOut() {
+
+    if (zoomLevel > 0.6) {
+
+        zoomLevel -= 0.1;
+
+        applyZoom();
+
+    }
+
+}
+
+
+function resetZoom() {
+
+    zoomLevel = 1;
+
+    applyZoom();
+
+}
+
+
+/* =========================================================
+   RIBBON
+========================================================= */
+
+function toggleRibbon() {
+
+    document.body.classList.toggle(
+        "ribbon-hidden"
+    );
+
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+async function printReport() {
+
+    /*
+     * Save before printing.
+     */
+
+    await saveReport(false);
+
+    window.print();
+
+}
+
+
+/* =========================================================
+   DOWNLOAD DOCX
+========================================================= */
+
+async function downloadDocx() {
+
+    /*
+     * First save current changes.
+     */
+
+    await saveReport(false);
+
+
+    const form =
+        document.createElement(
+            "form"
+        );
+
+
+    form.method =
+        "POST";
+
+
+    form.action =
+        DOWNLOAD_URL;
+
+
+    form.style.display =
+        "none";
+
+
+    const csrf =
+        document.createElement(
+            "input"
+        );
+
+
+    csrf.type =
+        "hidden";
+
+
+    csrf.name =
+        "csrfmiddlewaretoken";
+
+
+    csrf.value =
+        csrftoken;
+
+
+    form.appendChild(
+        csrf
+    );
+
+
+    document.body.appendChild(
+        form
+    );
+
+
+    form.submit();
+
+
+    setTimeout(
+        function() {
+
+            form.remove();
+
+        },
+        1000
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE
+========================================================= */
+
+function closeReport() {
+
+    if (
+        document.referrer
+        &&
+        document.referrer !== window.location.href
+    ) {
+
+        window.history.back();
+
+    } else {
+
+        window.location.href =
+            "{% url 'reports_list' placement.id %}";
+
+    }
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer = null;
+
+
+function showToast(message) {
+
+    toast.textContent =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            function() {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            3000
+        );
+
+}
+
+
+/* =========================================================
+   COUNTERS
+========================================================= */
+
+function updateCounters() {
+
+    const pages =
+        editor.querySelectorAll(
+            ".report-page"
+        );
+
+
+    pageCounter.textContent =
+        "Pages " + pages.length;
+
+
+    const text =
+        editor.innerText
+            .replace(
+                /\s+/g,
+                " "
+            )
+            .trim();
+
+
+    const words =
+        text
+            ? text.split(" ").length
+            : 0;
+
+
+    wordCounter.textContent =
+        words + " words";
+
+}
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            (event.ctrlKey || event.metaKey)
+            &&
+            event.key.toLowerCase() === "s"
+        ) {
+
+            event.preventDefault();
+
+            saveReport();
+
+        }
+
+
+        if (
+            (event.ctrlKey || event.metaKey)
+            &&
+            event.key.toLowerCase() === "p"
+        ) {
+
+            /*
+             * Allow browser print.
+             */
+
+            return;
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   HIDE RIBBON WHILE SCROLLING
+========================================================= */
+
+let lastScrollTop = 0;
+
+let scrollTimer = null;
+
+
+workspace.addEventListener(
+    "scroll",
+    function() {
+
+        const currentScroll =
+            workspace.scrollTop;
+
+
+        /*
+         * Only hide ribbon after
+         * user has moved down.
+         */
+
+        if (
+            currentScroll >
+            lastScrollTop + 15
+        ) {
+
+            document.body.classList.add(
+                "ribbon-hidden"
+            );
+
+        }
+
+
+        /*
+         * Show ribbon when scrolling
+         * upward.
+         */
+
+        if (
+            currentScroll <
+            lastScrollTop - 15
+        ) {
+
+            document.body.classList.remove(
+                "ribbon-hidden"
+            );
+
+        }
+
+
+        lastScrollTop =
+            Math.max(
+                currentScroll,
+                0
+            );
+
+
+        clearTimeout(
+            scrollTimer
+        );
+
+
+        scrollTimer =
+            setTimeout(
+                function() {
+
+                    if (
+                        currentScroll <= 10
+                    ) {
+
+                        document.body.classList.remove(
+                            "ribbon-hidden"
+                        );
+
+                    }
+
+                },
+                300
+            );
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        updateCounters();
+
+        applyZoom();
+
+    }
+);
+
+
+/* =========================================================
+   BEFORE LEAVING
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    function(event) {
+
+        if (
+            saveStatus.textContent ===
+            "Unsaved changes"
+        ) {
+
+            event.preventDefault();
+
+            event.returnValue = "";
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

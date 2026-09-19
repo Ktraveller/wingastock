@@ -1,0 +1,651 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Report | Reports</title>
+    <link rel="shortcut icon" href="{% static 'logo1.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css_re/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        .messages {
+            margin: 20px 0;
+        }
+
+        .alert {
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .success {
+            background: #28a745;
+        }
+
+        .error {
+            background: #dc3545;
+        }
+
+        .warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .info {
+            background: #17a2b8;
+        }
+
+        /* Report list item */
+        #reportList .report-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            min-height: 70px;
+            padding: 15px 55px 15px 18px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        /* Report content */
+        #reportList .report-content {
+            flex: 1;
+            min-width: 0;
+            padding-right: 15px;
+        }
+
+        /* Delete button */
+        #reportList .delete-report-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: none;
+            border-radius: 50%;
+            background: transparent;
+            color: #dc143c;
+
+            cursor: pointer;
+            font-size: 15px;
+
+            transition: all 0.2s ease;
+        }
+
+        .report-item:hover {
+            border: 1px solid rgba(1, 66, 98, 0.435);
+            background: rgba(1, 66, 98, 0.031);
+        }
+
+        /* Delete hover */
+        #reportList .delete-report-btn:hover {
+            background: rgba(220, 20, 60, 0.10);
+            color: #b01030;
+        }
+
+        /* Delete active */
+        #reportList .delete-report-btn:active {
+            transform: translateY(-50%) scale(0.92);
+        }
+
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            #reportList .report-item {
+                min-height: 65px;
+                padding: 12px 50px 12px 14px;
+            }
+
+            #reportList .delete-report-btn {
+                right: 10px;
+                width: 34px;
+                height: 34px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="row-holder">
+
+        <!-- Header -->
+        <div class="header-holder-100">
+            <div class="header-100">
+                <div class="action-holder-101">
+                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+                            class="fas fa-times"></i></button>
+                </div>
+                <div class="title-holder-101">
+                    <button type="button"><span>Reports</span></button>
+                </div>
+                <div class="title-holder-101" style="float: right;">
+                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- center content -->
+        <div class="center-content-200">
+
+            <div class="left-holder-201" id="nav">
+                <div class="nav-bar-holder-202">
+
+                    <ul>
+                        <a href="{% url 'report_home' %}">
+                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'placements_list' %}">
+                            <li class="active-0">Reports <i class="fas fa-file-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'user_account' %}">
+                            <li>Account <i class="fas fa-user"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'home' %}">
+                            <li>Back Wingastock <i class="fas fa-home"></i></li>
+                        </a>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="right-holder-201">
+                <div class="card-holder-201 products-202">
+
+
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="alert {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+
+                    <div class="table-holder-100" style="width: 100%;">
+                        <h1 style="font-size: 20px; text-align: center;">
+                            {{ organization }}
+                        </h1>
+
+                        <div class="actions-holder-1001">
+                            <div class="actions-1001">
+                                <button type="button"
+                                    onclick="window.location.href=`{% url 'add_new_report' placement %}`">Add
+                                    daily report</button>
+                            </div>
+
+                            <div class="actions-1001">
+                                <button type="button"
+                                    onclick="window.location.href=`{% url 'report_preview_weekly' placement %}`">Open
+                                    weekly report</button>
+                            </div>
+
+                            <div class="actions-1001">
+                                <button type="button"
+                                    onclick="window.location.href=`{% url 'report_summary' placement %}`">Report
+                                    summary</button>
+                            </div>
+
+                            <div class="actions-1001">
+                                <button type="button"
+                                    onclick="window.location.href=`{% url 'generate_field_report' placement %}`">Generate field
+                                    report</button>
+                            </div>
+                        </div>
+
+                        <!-- Search -->
+                        <div class="filter-holder-202" style="float: left; width: 100%; margin-top: 50px;">
+
+                            <div>
+
+                                <input type="text" id="searchReportInput" placeholder="Search report..."
+                                    autocomplete="off">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Reports List -->
+                        <ul id="reportList">
+
+                            {% for reports in report_list %}
+
+                            <li class="report-item" data-report-id="{{ reports.id }}"
+                                onclick="window.location.href=`{% url 'report_preview' reports.id %}`">
+
+                                <div class="report-content">
+
+                                    <span class="list-title-201">
+                                        <strong>{{ reports.title }}</strong>
+                                    </span>
+
+                                    <span>
+                                        <i class="fas fa-clock"></i>
+                                        {{ reports.date|date:"d M Y" }}
+                                    </span>
+
+                                </div>
+
+
+                                <button type="button" class="delete-report-btn" title="Delete report" onclick="
+                                    event.stopPropagation();
+
+                                    deleteReport(
+                                        {{ reports.id }},
+                                        `{% url 'delete_report' reports.id %}` ); ">
+                                    <i class=" fas fa-trash-alt"></i>
+                                </button>
+
+                            </li>
+
+                            {% empty %}
+
+                            <p>No saved report!</p>
+
+                            {% endfor %}
+
+                        </ul>
+
+
+
+                        <!-- No Search Results -->
+                        <p id="noReportSearchResults" style="
+                            display: none;
+                            float: left;
+                            width: 100%;
+                            text-align: center;
+                        ">
+                            No report found.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+        function open_menu(click) {
+            let menu1 = document.getElementById('menu1');
+            let menu2 = document.getElementById('menu2');
+            let nav = document.getElementById('nav');
+
+            if (click == 'open') {
+                menu1.style.display = 'none';
+                menu2.style.display = 'inline-block';
+                nav.style.display = 'inline-block';
+            }
+            else {
+                menu1.style.display = 'inline-block';
+                menu2.style.display = 'none';
+                nav.style.display = 'none';
+            }
+        }
+    </script>
+
+
+    <script>
+        setTimeout(function () {
+            document.querySelectorAll(".alert").forEach(function (alert) {
+                alert.style.transition = "opacity 0.5s";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 4000);
+    </script>
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const searchInput = document.getElementById(
+                "searchReportInput"
+            );
+
+            const reportItems = document.querySelectorAll(
+                "#reportList .report-item"
+            );
+
+            const noResults = document.getElementById(
+                "noReportSearchResults"
+            );
+
+
+            searchInput.addEventListener("input", function () {
+
+                const filter = this.value
+                    .toLowerCase()
+                    .trim();
+
+                let visibleReports = 0;
+
+
+                reportItems.forEach(function (item) {
+
+                    /*
+                     * Search all text inside the report.
+                     *
+                     * This includes:
+                     * - Report title
+                     * - Skills learned
+                     * - Updated date
+                     */
+
+                    const text = item.textContent
+                        .toLowerCase()
+                        .trim();
+
+
+                    if (text.includes(filter)) {
+
+                        item.style.display = "";
+
+                        visibleReports++;
+
+                    } else {
+
+                        item.style.display = "none";
+
+                    }
+
+                });
+
+
+                /*
+                 * Show message when the search
+                 * does not match any report.
+                 */
+
+                if (
+                    filter !== "" &&
+                    visibleReports === 0 &&
+                    reportItems.length > 0
+                ) {
+
+                    noResults.style.display = "block";
+
+                } else {
+
+                    noResults.style.display = "none";
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+
+    <script>
+        /*
+        =====================================================
+        DELETE REPORT
+        =====================================================
+        */
+
+        function deleteReport(reportId, deleteUrl) {
+
+
+            /*
+            Ask for confirmation
+            */
+
+            const confirmed = confirm(
+                "Are you sure you want to delete this report?"
+            );
+
+
+            if (!confirmed) {
+                return;
+            }
+
+
+            /*
+            Get CSRF token directly from Django
+            */
+
+            const csrfToken =
+                "{{ csrf_token }}";
+
+
+            /*
+            Find the report item
+            */
+
+            const reportItem =
+                document.querySelector(
+                    `[data-report-id="${reportId}"]`
+                );
+
+
+            /*
+            Find delete button
+            */
+
+            const deleteButton =
+                reportItem
+                    ? reportItem.querySelector(".delete-report-btn")
+                    : null;
+
+
+            /*
+            Prevent double clicking
+            */
+
+            if (deleteButton) {
+
+                deleteButton.disabled = true;
+
+                deleteButton.innerHTML =
+                    '<i class="fas fa-spinner fa-spin"></i>';
+
+            }
+
+
+            /*
+            Send POST request to Django
+            */
+
+            fetch(deleteUrl, {
+
+                method: "POST",
+
+                headers: {
+
+                    "X-CSRFToken": csrfToken,
+
+                    "X-Requested-With":
+                        "XMLHttpRequest"
+
+                }
+
+            })
+
+
+                /*
+                Check response
+                */
+
+                .then(function (response) {
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            "HTTP error: " + response.status
+                        );
+
+                    }
+
+                    return response.json();
+
+                })
+
+
+                /*
+                Handle Django response
+                */
+
+                .then(function (data) {
+
+
+                    if (data.success) {
+
+
+                        /*
+                        Remove report from page
+                        */
+
+                        if (reportItem) {
+
+                            reportItem.remove();
+
+                        }
+
+
+                        /*
+                        Check if there are
+                        no reports remaining
+                        */
+
+                        const reportList =
+                            document.getElementById(
+                                "reportList"
+                            );
+
+
+                        if (reportList) {
+
+                            const remainingReports =
+                                reportList.querySelectorAll(
+                                    ".report-item"
+                                );
+
+
+                            if (
+                                remainingReports.length === 0
+                            ) {
+
+                                reportList.innerHTML = `
+                            <p>No saved report!</p>
+                        `;
+
+                            }
+
+                        }
+
+
+                        /*
+                        Show success message
+                        */
+
+                        alert(
+                            data.message ||
+                            "Report deleted successfully."
+                        );
+
+
+                    } else {
+
+
+                        /*
+                        Restore button
+                        */
+
+                        if (deleteButton) {
+
+                            deleteButton.disabled = false;
+
+                            deleteButton.innerHTML =
+                                '<i class="fas fa-trash-alt"></i>';
+
+                        }
+
+
+                        alert(
+                            data.message ||
+                            "Failed to delete report."
+                        );
+
+                    }
+
+                })
+
+
+                /*
+                Handle errors
+                */
+
+                .catch(function (error) {
+
+
+                    console.error(
+                        "Delete error:",
+                        error
+                    );
+
+
+                    /*
+                    Restore button
+                    */
+
+                    if (deleteButton) {
+
+                        deleteButton.disabled = false;
+
+                        deleteButton.innerHTML =
+                            '<i class="fas fa-trash-alt"></i>';
+
+                    }
+
+
+                    alert(
+                        "Something went wrong while deleting the report."
+                    );
+
+                });
+
+        }
+
+    </script>
+</body>
+
+</html>

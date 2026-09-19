@@ -1,0 +1,1211 @@
+{% load static %}
+{% load humanize %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Report | Report preview</title>
+    <link rel="shortcut icon" href="{% static 'logo1.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css_re/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        .messages {
+            margin: 20px 0;
+        }
+
+        .alert {
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .success {
+            background: #28a745;
+        }
+
+        .error {
+            background: #dc3545;
+        }
+
+        .warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .info {
+            background: #17a2b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="row-holder">
+
+        <!-- Header -->
+        <div class="header-holder-100">
+            <div class="header-100">
+                <div class="action-holder-101">
+                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
+                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
+                            class="fas fa-times"></i></button>
+                </div>
+                <div class="title-holder-101">
+                    <button type="button"><span>Report Preview</span></button>
+                </div>
+                <div class="title-holder-101" style="float: right;">
+                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- center content -->
+        <div class="center-content-200">
+
+            <div class="left-holder-201" id="nav">
+                <div class="nav-bar-holder-202">
+
+                    <ul>
+                        <a href="{% url 'report_home' %}">
+                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'placements_list' %}">
+                            <li class="active-0">Reports <i class="fas fa-file-alt"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'user_account' %}">
+                            <li>Account <i class="fas fa-user"></i></li>
+                        </a>
+                    </ul>
+
+                    <ul>
+                        <a href="{% url 'home' %}">
+                            <li>Back Wingastock <i class="fas fa-home"></i></li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="right-holder-201">
+                <div class="products-202">
+
+                    <div class="preview-102">
+
+                        <!-- Report Header -->
+                        <div class="product-image-holder-103">
+                            <div class="product-image-103"
+                                style="background: linear-gradient(135deg, #1e90ff, #1565c0);">
+
+                                <h1>{{ report.title }}</h1>
+
+                            </div>
+                        </div>
+
+
+                        <!-- Report Details -->
+                        <div class="product-details-holder-103">
+
+                            <!-- Main Information -->
+                            <div>
+                                <div style="float: left;">
+
+                                    <p style="font-weight: bold;">
+                                        <i class="fas fa-file-alt"></i>
+                                        Daily Field Report
+                                    </p>
+
+
+                                    <!-- Messages -->
+                                    {% if messages %}
+                                    <div class="messages">
+                                        {% for message in messages %}
+                                        <div class="alert {{ message.tags }}">
+                                            {{ message }}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+
+
+                                    <!-- Report Title -->
+                                    <div class="des-103">
+                                        <h2>{{ report.title }}</h2>
+                                    </div>
+
+
+                                    <!-- Report Information -->
+                                    <table>
+
+                                        <tr>
+                                            <td>
+                                                <i class="fas fa-calendar-alt"></i>
+                                                Report Date
+                                            </td>
+                                            <td>
+                                                {{ report.date|date:"d M Y" }}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <i class="fas fa-user-graduate"></i>
+                                                Student
+                                            </td>
+                                            <td>
+                                                {{ report.placement.student }}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <i class="fas fa-building"></i>
+                                                Placement
+                                            </td>
+                                            <td>
+                                                {{ report.placement.organization }}
+                                               - {{ report.placement.department }}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <i class="fas fa-clock"></i>
+                                                Submitted
+                                            </td>
+                                            <td>
+                                                {{ report.created_at|date:"d M Y H:i" }}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <i class="fas fa-sync-alt"></i>
+                                                Last Updated
+                                            </td>
+                                            <td>
+                                                {{ report.updated_at|date:"d M Y H:i" }}
+                                            </td>
+                                        </tr>
+
+
+                                    </table>
+
+
+                                    <!-- Activities -->
+                                    <div style="margin-top: 25px;">
+
+                                        <p style="font-weight: bold;">
+                                            <i class="fas fa-tasks"></i>
+                                            Activities Performed
+                                        </p>
+
+                                        <div class="des-103">
+                                            {{ report.activities|linebreaks }}
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- Skills Learned -->
+                                    <div style="margin-top: 25px;">
+
+                                        <p style="font-weight: bold;">
+                                            <i class="fas fa-lightbulb"></i>
+                                            Skills & Knowledge Learned
+                                        </p>
+
+                                        <div class="des-103">
+                                            {% if report.skills_learned %}
+                                            {{ report.skills_learned|linebreaks }}
+                                            {% else %}
+                                            <span style="color: #888;">
+                                                No skills or knowledge recorded.
+                                            </span>
+                                            {% endif %}
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- Challenges -->
+                                    <div style="margin-top: 25px;">
+
+                                        <p style="font-weight: bold;">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                            Challenges Encountered
+                                        </p>
+
+                                        <div class="des-103">
+                                            {% if report.challenges %}
+                                            {{ report.challenges|linebreaks }}
+                                            {% else %}
+                                            <span style="color: #888;">
+                                                No challenges recorded.
+                                            </span>
+                                            {% endif %}
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- Solutions -->
+                                    <div style="margin-top: 25px;">
+
+                                        <p style="font-weight: bold;">
+                                            <i class="fas fa-tools"></i>
+                                            Solutions
+                                        </p>
+
+                                        <div class="des-103">
+                                            {% if report.solutions %}
+                                            {{ report.solutions|linebreaks }}
+                                            {% else %}
+                                            <span style="color: #888;">
+                                                No solutions recorded.
+                                            </span>
+                                            {% endif %}
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- Remarks -->
+                                    <div style="margin-top: 25px;">
+
+                                        <p style="font-weight: bold;">
+                                            <i class="fas fa-sticky-note"></i>
+                                            Remarks
+                                        </p>
+
+                                        <div class="des-103">
+                                            {% if report.remarks %}
+                                            {{ report.remarks|linebreaks }}
+                                            {% else %}
+                                            <span style="color: #888;">
+                                                No remarks.
+                                            </span>
+                                            {% endif %}
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- Actions -->
+                                    <div class="actions-holder-103">
+
+                                        <div>
+                                            <button type="button"
+                                                onclick="window.location.href=`{% url 'reports_list' report.placement.id %}`">
+
+                                                <i class="fas fa-arrow-left"></i>
+                                                Back to Reports
+
+                                            </button>
+                                        </div>
+
+                                        {% if not report.supervisor_approved %}
+                                        <div>
+                                            <button type="button" style="background: dodgerblue;"
+                                                onclick="window.location.href=`{% url 'edit_report' report.id %}`">
+
+                                                <i class="fas fa-edit"></i>
+                                                Edit Report
+
+                                            </button>
+                                        </div>
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+        function open_menu(click) {
+            let menu1 = document.getElementById('menu1');
+            let menu2 = document.getElementById('menu2');
+            let nav = document.getElementById('nav');
+
+            if (click == 'open') {
+                menu1.style.display = 'none';
+                menu2.style.display = 'inline-block';
+                nav.style.display = 'inline-block';
+            }
+            else {
+                menu1.style.display = 'inline-block';
+                menu2.style.display = 'none';
+                nav.style.display = 'none';
+            }
+        }
+    </script>
+
+
+    <script>
+        setTimeout(function () {
+            document.querySelectorAll(".alert").forEach(function (alert) {
+                alert.style.transition = "opacity 0.5s";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 4000);
+    </script>
+
+
+
+    <script>
+        const shareBtn = document.getElementById("shareBtn");
+
+        shareBtn.addEventListener("click", async () => {
+            try {
+                // =====================================================
+                // PRODUCT DATA
+                // =====================================================
+
+                const imageUrl = "{{ product.image.url|escapejs }}"
+                    .replace(/^http:\/\//i, "https://");
+
+                const productTitle = "{{ product.title|escapejs }}";
+                const productPrice = "{{ product.price|floatformat:0|intcomma }}";
+
+                const sellerLocation =
+                    "{{ product.owner.seller.seller_address|escapejs }}";
+
+                const sellerPhone =
+                    "{{ product.owner.seller.seller_phone|escapejs }}";
+
+                // Direct product link
+                const productLink =
+                    "https://wingastock.onrender.com/p/{{ product.id }}";
+
+                // =====================================================
+                // COLORS
+                // =====================================================
+
+                const crimson = "#DC143C";
+                const darkCrimson = "#B01030";
+                const white = "#FFFFFF";
+                const softWhite = "#FFF5F7";
+                const transparentWhite =
+                    "rgba(255,255,255,0.18)";
+
+                // =====================================================
+                // LOAD PRODUCT IMAGE
+                // =====================================================
+
+                const productImage = new Image();
+
+                productImage.crossOrigin = "anonymous";
+                productImage.src = imageUrl;
+
+                await new Promise((resolve, reject) => {
+
+                    productImage.onload = resolve;
+
+                    productImage.onerror = () => reject(
+                        new Error(
+                            "Unable to load product image."
+                        )
+                    );
+                });
+
+                // =====================================================
+                // LOAD LOGO
+                // =====================================================
+
+                const logo = new Image();
+
+                logo.src = "{% static 'logo.png' %}";
+
+                await new Promise((resolve) => {
+
+                    logo.onload = resolve;
+                    logo.onerror = resolve;
+
+                });
+
+                // =====================================================
+                // CANVAS SETTINGS
+                // =====================================================
+
+                const canvas =
+                    document.createElement("canvas");
+
+                const width = 1080;
+
+                const headerHeight = 150;
+                const productHeight = 760;
+                const detailsHeight = 1050;
+
+                canvas.width = width;
+
+                canvas.height =
+                    headerHeight +
+                    productHeight +
+                    detailsHeight;
+
+                const ctx =
+                    canvas.getContext("2d");
+
+                // =====================================================
+                // HELPER: ROUNDED RECTANGLE
+                // =====================================================
+
+                function roundedRect(
+                    ctx,
+                    x,
+                    y,
+                    width,
+                    height,
+                    radius
+                ) {
+
+                    ctx.beginPath();
+
+                    ctx.moveTo(
+                        x + radius,
+                        y
+                    );
+
+                    ctx.lineTo(
+                        x + width - radius,
+                        y
+                    );
+
+                    ctx.quadraticCurveTo(
+                        x + width,
+                        y,
+                        x + width,
+                        y + radius
+                    );
+
+                    ctx.lineTo(
+                        x + width,
+                        y + height - radius
+                    );
+
+                    ctx.quadraticCurveTo(
+                        x + width,
+                        y + height,
+                        x + width - radius,
+                        y + height
+                    );
+
+                    ctx.lineTo(
+                        x + radius,
+                        y + height
+                    );
+
+                    ctx.quadraticCurveTo(
+                        x,
+                        y + height,
+                        x,
+                        y + height - radius
+                    );
+
+                    ctx.lineTo(
+                        x,
+                        y + radius
+                    );
+
+                    ctx.quadraticCurveTo(
+                        x,
+                        y,
+                        x + radius,
+                        y
+                    );
+
+                    ctx.closePath();
+                }
+
+                // =====================================================
+                // HELPER: WRAPPED TEXT
+                // =====================================================
+
+                function drawWrappedText(
+                    text,
+                    x,
+                    y,
+                    maxWidth,
+                    lineHeight,
+                    maxLines
+                ) {
+
+                    const words =
+                        text.split(" ");
+
+                    let line = "";
+                    const lines = [];
+
+                    for (
+                        let i = 0;
+                        i < words.length;
+                        i++
+                    ) {
+
+                        const testLine =
+                            line +
+                            words[i] +
+                            " ";
+
+                        const metrics =
+                            ctx.measureText(testLine);
+
+                        if (
+                            metrics.width >
+                            maxWidth &&
+                            i > 0
+                        ) {
+
+                            lines.push(
+                                line.trim()
+                            );
+
+                            line =
+                                words[i] + " ";
+
+                        } else {
+
+                            line = testLine;
+                        }
+                    }
+
+                    if (line.trim()) {
+                        lines.push(
+                            line.trim()
+                        );
+                    }
+
+                    lines
+                        .slice(0, maxLines)
+                        .forEach(
+                            (lineText, index) => {
+
+                                ctx.fillText(
+                                    lineText,
+                                    x,
+                                    y +
+                                    index *
+                                    lineHeight
+                                );
+                            }
+                        );
+                }
+
+                // =====================================================
+                // CRIMSON GRADIENT BACKGROUND
+                // =====================================================
+
+                const gradient =
+                    ctx.createLinearGradient(
+                        0,
+                        0,
+                        width,
+                        canvas.height
+                    );
+
+                gradient.addColorStop(
+                    0,
+                    crimson
+                );
+
+                gradient.addColorStop(
+                    0.5,
+                    darkCrimson
+                );
+
+                gradient.addColorStop(
+                    1,
+                    crimson
+                );
+
+                ctx.fillStyle = gradient;
+
+                ctx.fillRect(
+                    0,
+                    0,
+                    width,
+                    canvas.height
+                );
+
+                // =====================================================
+                // HEADER
+                // =====================================================
+
+                if (
+                    logo.complete &&
+                    logo.naturalWidth > 0
+                ) {
+
+                    const logoHeight = 90;
+
+                    const logoRatio =
+                        logo.width /
+                        logo.height;
+
+                    const logoWidth =
+                        logoHeight *
+                        logoRatio;
+
+                    ctx.drawImage(
+                        logo,
+                        55,
+                        30,
+                        logoWidth,
+                        logoHeight
+                    );
+
+                    ctx.fillStyle = white;
+
+                    ctx.font =
+                        "bold 48px Arial";
+
+                    ctx.fillText(
+                        "Wingastock",
+                        55 +
+                        logoWidth +
+                        25,
+                        88
+                    );
+
+                } else {
+
+                    ctx.fillStyle = white;
+
+                    ctx.font =
+                        "bold 50px Arial";
+
+                    ctx.fillText(
+                        "Wingastock",
+                        55,
+                        88
+                    );
+                }
+
+                ctx.fillStyle = softWhite;
+
+                ctx.font =
+                    "24px Arial";
+
+                ctx.textAlign = "right";
+
+                ctx.fillText(
+                    "Nunua • Uza • Fanya Biashara",
+                    width - 55,
+                    82
+                );
+
+                ctx.textAlign = "left";
+
+                // =====================================================
+                // PRODUCT IMAGE CARD
+                // =====================================================
+
+                const imageX = 40;
+                const imageY =
+                    headerHeight + 30;
+
+                const imageWidth =
+                    width - 80;
+
+                const imageCardHeight =
+                    productHeight - 60;
+
+                ctx.shadowColor =
+                    "rgba(0,0,0,0.25)";
+
+                ctx.shadowBlur = 25;
+                ctx.shadowOffsetY = 10;
+
+                roundedRect(
+                    ctx,
+                    imageX,
+                    imageY,
+                    imageWidth,
+                    imageCardHeight,
+                    35
+                );
+
+                ctx.fillStyle = white;
+                ctx.fill();
+
+                ctx.shadowColor =
+                    "transparent";
+
+                ctx.shadowBlur = 0;
+                ctx.shadowOffsetY = 0;
+
+                // =====================================================
+                // CROP PRODUCT IMAGE
+                // =====================================================
+
+                const imageRatio =
+                    productImage.width /
+                    productImage.height;
+
+                const cardRatio =
+                    imageWidth /
+                    imageCardHeight;
+
+                let sourceWidth =
+                    productImage.width;
+
+                let sourceHeight =
+                    productImage.height;
+
+                let sourceX = 0;
+                let sourceY = 0;
+
+                if (
+                    imageRatio >
+                    cardRatio
+                ) {
+
+                    sourceWidth =
+                        productImage.height *
+                        cardRatio;
+
+                    sourceX =
+                        (
+                            productImage.width -
+                            sourceWidth
+                        ) / 2;
+
+                } else {
+
+                    sourceHeight =
+                        productImage.width /
+                        cardRatio;
+
+                    sourceY =
+                        (
+                            productImage.height -
+                            sourceHeight
+                        ) / 2;
+                }
+
+                ctx.save();
+
+                roundedRect(
+                    ctx,
+                    imageX,
+                    imageY,
+                    imageWidth,
+                    imageCardHeight,
+                    35
+                );
+
+                ctx.clip();
+
+                ctx.drawImage(
+                    productImage,
+                    sourceX,
+                    sourceY,
+                    sourceWidth,
+                    sourceHeight,
+                    imageX,
+                    imageY,
+                    imageWidth,
+                    imageCardHeight
+                );
+
+                ctx.restore();
+
+                // =====================================================
+                // DETAILS SECTION
+                // =====================================================
+
+                const detailsY =
+                    headerHeight +
+                    productHeight;
+
+                ctx.fillStyle =
+                    transparentWhite;
+
+                ctx.fillRect(
+                    50,
+                    detailsY + 10,
+                    width - 100,
+                    3
+                );
+
+                // =====================================================
+                // PRODUCT TITLE
+                // =====================================================
+
+                ctx.fillStyle = white;
+
+                ctx.font =
+                    "bold 52px Arial";
+
+                let title = productTitle;
+
+                if (title.length > 42) {
+
+                    title =
+                        title.substring(
+                            0,
+                            42
+                        ) + "...";
+                }
+
+                ctx.fillText(
+                    title,
+                    55,
+                    detailsY + 85
+                );
+
+                // =====================================================
+                // PRICE
+                // =====================================================
+
+                const priceX = 55;
+
+                const priceY =
+                    detailsY + 120;
+
+                const priceWidth = 430;
+                const priceHeight = 85;
+
+                roundedRect(
+                    ctx,
+                    priceX,
+                    priceY,
+                    priceWidth,
+                    priceHeight,
+                    22
+                );
+
+                ctx.fillStyle = white;
+                ctx.fill();
+
+                ctx.fillStyle = crimson;
+
+                ctx.font =
+                    "bold 42px Arial";
+
+                ctx.fillText(
+                    productPrice +
+                    " Tsh",
+                    priceX + 30,
+                    priceY + 57
+                );
+
+                // =====================================================
+                // SELLER LOCATION
+                // =====================================================
+
+                ctx.fillStyle = white;
+
+                ctx.font =
+                    "bold 29px Arial";
+
+                ctx.fillText(
+                    "📍 Anuani ya muuzaji",
+                    55,
+                    detailsY + 255
+                );
+
+                ctx.font =
+                    "28px Arial";
+
+                drawWrappedText(
+                    sellerLocation ||
+                    "Haijawekwa",
+                    55,
+                    detailsY + 300,
+                    width - 110,
+                    38,
+                    2
+                );
+
+                // =====================================================
+                // SELLER PHONE
+                // =====================================================
+
+                ctx.fillStyle = white;
+
+                ctx.font =
+                    "bold 30px Arial";
+
+                ctx.fillText(
+                    "💬 WhatsApp / Simu",
+                    55,
+                    detailsY + 390
+                );
+
+                ctx.font =
+                    "bold 34px Arial";
+
+                ctx.fillText(
+                    sellerPhone ||
+                    "Haijawekwa",
+                    55,
+                    detailsY + 435
+                );
+
+                // =====================================================
+                // WINGASTOCK DESCRIPTION
+                // =====================================================
+
+                const aboutY =
+                    detailsY + 500;
+
+                roundedRect(
+                    ctx,
+                    45,
+                    aboutY,
+                    width - 90,
+                    375,
+                    28
+                );
+
+                ctx.fillStyle =
+                    "rgba(255,255,255,0.12)";
+
+                ctx.fill();
+
+                // Heading
+                ctx.fillStyle = white;
+
+                ctx.font =
+                    "bold 32px Arial";
+
+                ctx.fillText(
+                    "Kwa nini Wingastock?",
+                    75,
+                    aboutY + 55
+                );
+
+                // Kiswahili description
+                ctx.fillStyle = softWhite;
+
+                ctx.font =
+                    "24px Arial";
+
+                const wingastockDescription =
+                    "Nunua na uuze bidhaa za elektroniki kama " +
+                    "simu janja, laptop, TV, kompyuta, vifaa vya " +
+                    "ziada na vifaa vingine vya kielektroniki. " +
+                    "Gundua samani bora, vifaa vya nyumbani, vyumba, " +
+                    "nyumba na bidhaa mbalimbali kutoka kwa wauzaji " +
+                    "wanaoaminika kupitia Wingastock. Jukwaa letu " +
+                    "linarahisisha kutafuta, kutangaza, kununua na " +
+                    "kuuza bidhaa mtandaoni, likiwaunganisha " +
+                    "wateja na wafanyabiashara katika soko moja " +
+                    "rahisi na linaloaminika.";
+
+                drawWrappedText(
+                    wingastockDescription,
+                    75,
+                    aboutY + 105,
+                    width - 150,
+                    35,
+                    7
+                );
+
+                // =====================================================
+                // CALL TO ACTION
+                // =====================================================
+
+                const ctaY =
+                    aboutY + 405;
+
+                roundedRect(
+                    ctx,
+                    55,
+                    ctaY,
+                    width - 110,
+                    90,
+                    25
+                );
+
+                ctx.fillStyle = white;
+                ctx.fill();
+
+                ctx.fillStyle = crimson;
+
+                ctx.font =
+                    "bold 30px Arial";
+
+                ctx.textAlign = "center";
+
+                ctx.fillText(
+                    "🛒 TEMBELEA WINGASTOCK",
+                    width / 2,
+                    ctaY + 42
+                );
+
+                ctx.font =
+                    "bold 25px Arial";
+
+                ctx.fillText(
+                    "https://wingastock.onrender.com/",
+                    width / 2,
+                    ctaY + 75
+                );
+
+                // =====================================================
+                // SEARCH ENGINE MESSAGE
+                // =====================================================
+
+                ctx.fillStyle = white;
+
+                ctx.font =
+                    "bold 27px Arial";
+
+                ctx.textAlign = "center";
+
+                ctx.fillText(
+                    'Au tafuta "Wingastock" kwenye Google au Bing',
+                    width / 2,
+                    ctaY + 140
+                );
+
+                ctx.font =
+                    "23px Arial";
+
+                ctx.fillStyle = softWhite;
+
+                ctx.fillText(
+                    "Pata bidhaa zaidi • Tangaza bidhaa zako • Nunua kwa urahisi",
+                    width / 2,
+                    ctaY + 180
+                );
+
+                ctx.textAlign = "left";
+
+                // =====================================================
+                // CREATE FINAL IMAGE
+                // =====================================================
+
+                const combinedBlob =
+                    await new Promise(
+                        (resolve, reject) => {
+
+                            canvas.toBlob(
+                                (blob) => {
+
+                                    if (blob) {
+                                        resolve(blob);
+                                    } else {
+                                        reject(
+                                            new Error(
+                                                "Could not create image."
+                                            )
+                                        );
+                                    }
+
+                                },
+                                "image/jpeg",
+                                0.93
+                            );
+                        }
+                    );
+
+                // =====================================================
+                // CREATE SHARE FILE
+                // =====================================================
+
+                const file = new File(
+                    [combinedBlob],
+                    "wingastock-product.jpg",
+                    {
+                        type: "image/jpeg"
+                    }
+                );
+
+                // =====================================================
+                // SHARE
+                // =====================================================
+
+                if (
+                    navigator.share &&
+                    navigator.canShare &&
+                    navigator.canShare({
+                        files: [file]
+                    })
+                ) {
+
+                    await navigator.share({
+
+                        title: productTitle,
+
+                        // Caption contains ONLY the product link
+                        text: productLink,
+
+                        // Actual clickable product URL
+                        url: productLink,
+
+                        files: [file]
+                    });
+
+                } else if (navigator.share) {
+
+                    await navigator.share({
+
+                        title: productTitle,
+
+                        // ONLY the link
+                        text: productLink,
+
+                        url: productLink
+                    });
+
+                } else {
+
+                    alert(
+                        "Sharing is not supported on this browser."
+                    );
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Share failed:",
+                    error
+                );
+
+                if (
+                    error.name === "AbortError"
+                ) {
+                    return;
+                }
+
+                alert(
+                    "Unable to share this product. Please try again."
+                );
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,659 +1,329 @@
-<!-- ================================
-     WINGASTOCK NOTIFICATION SLIDESHOW
-================================= -->
-
-<div class="winga-notification-wrapper" style="width: 100%;">
-
-    <div class="winga-notification-slider" id="wingaNotificationSlider">
-
-        <!-- SLIDE 1 -->
-        <div class="winga-notification-card active">
-
-            <div class="winga-notification-icon">
-                <i class="fas fa-bullhorn"></i>
-            </div>
-
-            <div class="winga-notification-content">
-
-                <div class="winga-notification-title">
-                    <i class="fas fa-exclamation-circle"></i>
-                    Important!
-                </div>
-
-                <p>
-                    Hello! We invite <strong>sellers, winga, madalali</strong>
-                    and everyone dealing with selling products such as
-                    <strong>clothes, electronics, accessories, furniture,
-                    food</strong> and many other products.
-                </p>
-
-                <p>
-                    Create your <strong>free seller account today</strong>
-                    and start posting your products to reach more customers
-                    through Wingastock.
-                </p>
-
-                <button type="button" class="winga-notification-btn"
-                        onclick="window.location.href='/seller/register/'">
-                    <i class="fas fa-user-plus"></i>
-                    Become a Seller
-                </button>
-
-            </div>
-        </div>
+{% load static %}
+{% load humanize %}
+{% load i18n %}
 
 
-        <!-- SLIDE 2 -->
-        <div class="winga-notification-card">
+<section class="marketplace-hero">
 
-            <div class="winga-notification-icon">
+    <!-- CARD 1: MARKETPLACE -->
+    <div class="marketplace-ad-card active">
+
+        <div>
+            <span class="eyebrow">
                 <i class="fas fa-store"></i>
-            </div>
+                {% translate "Tanzania's smarter marketplace" %}
+            </span>
 
-            <div class="winga-notification-content">
+            <h2>
+                {% translate "Find something" %}
+                <em>{% translate "great" %}</em>
+                {% translate "today." %}
+            </h2>
 
-                <div class="winga-notification-title">
-                    <i class="fas fa-shopping-bag"></i>
-                    What is Wingastock?
-                </div>
+            <p>
+                {% translate "Discover products from trusted mawinga and business owners and connect with them directly." %}
+            </p>
 
-                <p>
-                    <strong>Wingastock</strong> is an online marketplace
-                    designed to connect customers with sellers and make it
-                    easier to discover products in one place.
-                </p>
+            <div class="hero-actions">
 
-                <p>
-                    Sellers can showcase their products while customers can
-                    browse different categories, discover products and
-                    connect with sellers.
-                </p>
+                <a href="{% url 'search' %}" class="hero-primary">
+                    {% translate "Explore products" %}
+                    <i class="fas fa-arrow-right"></i>
+                </a>
 
-                <a href="https://wingastock.onrender.com/"
-                   class="winga-notification-btn"
-                   style="display: inline-block; text-decoration: none;">
-                    <i class="fas fa-info-circle"></i>
-                    Learn More
+                <a href="{% url 'shop_list' %}" class="hero-secondary">
+                    {% translate "Browse shops" %}
                 </a>
 
             </div>
         </div>
 
+        <div class="hero-trust">
+            <i class="fas fa-shield-alt"></i>
 
-        <!-- SLIDE 3 -->
-        <div class="winga-notification-card">
+            <span>
+                <strong>{% translate "Trusted sellers" %}</strong><br>
+                {% translate "Shop with confidence" %}
+            </span>
+        </div>
 
-            <div class="winga-notification-icon spin-icon">
+    </div>
+
+
+    <!-- CARD 2: WINGA / MFANYABIASHARA -->
+    <div class="marketplace-ad-card">
+
+        <div>
+            <span class="eyebrow">
+                <i class="fas fa-bullhorn"></i>
+                {% translate "For mawinga and business owners" %}
+            </span>
+
+            <h2>
+                {% translate "Reach more" %}
+                <em>{% translate "customers." %}</em>
+            </h2>
+
+            <p>
+                {% translate "Post your products on WingaStock and make your business easier for customers to discover." %}
+            </p>
+
+            <div class="hero-actions">
+
+                <a
+                    href="{% url 'seller_terms' %}"
+                    class="hero-primary"
+                >
+                    {% translate "Create account" %}
+                    <i class="fas fa-user-plus"></i>
+                </a>
+
+                <a
+                    href="{% url 'login_seller' %}"
+                    class="hero-secondary"
+                >
+                    {% translate "Seller login" %}
+                </a>
+
+            </div>
+        </div>
+
+        <div class="hero-trust">
+            <i class="fas fa-users"></i>
+
+            <span>
+                <strong>{% translate "Grow your business" %}</strong><br>
+                {% translate "Connect with more customers" %}
+            </span>
+        </div>
+
+    </div>
+
+
+    <!-- CARD 3: SPIN & WIN -->
+    <div class="marketplace-ad-card">
+
+        <div>
+            <span class="eyebrow">
                 <i class="fas fa-gift"></i>
-            </div>
+                {% translate "Spin & Win" %}
+            </span>
 
-            <div class="winga-notification-content">
+            <h2>
+                {% translate "Play and" %}
+                <em>{% translate "win rewards." %}</em>
+            </h2>
 
-                <div class="winga-notification-title">
-                    <i class="fas fa-star"></i>
-                    Spin & Win!
-                </div>
+            <p>
+                {% translate "Visit WingaStock and take part in Spin & Win for a chance to win rewards." %}
+            </p>
 
-                <p>
-                    Did you know that Wingastock can give customers a chance
-                    to <strong>spin and win exciting rewards?</strong>
-                </p>
+            <div class="hero-actions">
 
-                <p>
-                    Visit the Spin & Win section, take your chance and see
-                    what you can win. You could be our next lucky customer!
-                </p>
+                <a
+                    href="{% url 'spin' %}"
+                    class="hero-primary"
+                >
+                    {% translate "Spin & Win" %}
+                    <i class="fas fa-gift"></i>
+                </a>
 
-                <button type="button"
-                        class="winga-notification-btn"
-                        onclick="window.location.href='/spin/'">
-                    <i class="fas fa-sync-alt"></i>
-                    Spin Now
-                </button>
-
-            </div>
-        </div>
-
-
-        <!-- SLIDE 4 -->
-        <div class="winga-notification-card">
-
-            <div class="winga-notification-icon">
-                <i class="fas fa-search"></i>
-            </div>
-
-            <div class="winga-notification-content">
-
-                <div class="winga-notification-title">
-                    <i class="fas fa-shopping-cart"></i>
-                    Discover Products
-                </div>
-
-                <p>
-                    Looking for something to buy?
-                    <strong>Wingastock makes product discovery easier.</strong>
-                </p>
-
-                <p>
-                    Explore different products, compare what is available
-                    and find sellers offering the products you need.
-                </p>
-
-                <a href="/"
-                   class="winga-notification-btn"
-                   style="display: inline-block; text-decoration: none;">
-                    <i class="fas fa-search"></i>
-                    Explore Products
+                <a
+                    href="{% url 'search' %}"
+                    class="hero-secondary"
+                >
+                    {% translate "Explore products" %}
                 </a>
 
             </div>
         </div>
 
-    </div>
+        <div class="hero-trust">
+            <i class="fas fa-star"></i>
 
-
-    <!-- SLIDER CONTROLS -->
-
-    <button class="winga-slider-control winga-prev"
-            onclick="wingaChangeSlide(-1)"
-            aria-label="Previous notification">
-        <i class="fas fa-chevron-left"></i>
-    </button>
-
-    <button class="winga-slider-control winga-next"
-            onclick="wingaChangeSlide(1)"
-            aria-label="Next notification">
-        <i class="fas fa-chevron-right"></i>
-    </button>
-
-
-    <!-- DOTS -->
-
-    <div class="winga-slider-dots">
-
-        <span class="winga-dot active"
-              onclick="wingaGoToSlide(0)"></span>
-
-        <span class="winga-dot"
-              onclick="wingaGoToSlide(1)"></span>
-
-        <span class="winga-dot"
-              onclick="wingaGoToSlide(2)"></span>
-
-        <span class="winga-dot"
-              onclick="wingaGoToSlide(3)"></span>
+            <span>
+                <strong>{% translate "Spin & Win" %}</strong><br>
+                {% translate "Play and enjoy the experience" %}
+            </span>
+        </div>
 
     </div>
 
-</div>
+
+    <!-- CARD 4: DELIVER -->
+    <div class="marketplace-ad-card">
+
+        <div>
+            <span class="eyebrow">
+                <i class="fas fa-truck"></i>
+                {% translate "Product delivery service" %}
+            </span>
+
+            <h2>
+                {% translate "Can't find it" %}
+                <em>{% translate "on WingaStock?" %}</em>
+            </h2>
+
+            <p>
+                {% translate "Request a delivery for products that are not available on the website and let us help you get them." %}
+            </p>
+
+            <div class="hero-actions">
+
+                <a
+                    href="{% url 'delivery_home' %}"
+                    class="hero-primary"
+                >
+                    {% translate "Request delivery" %}
+                    <i class="fas fa-truck"></i>
+                </a>
+
+                <a
+                    href="{% url 'how_to_deliver' %}"
+                    class="hero-secondary"
+                >
+                    {% translate "How it works" %}
+                </a>
+
+            </div>
+        </div>
+
+        <div class="hero-trust">
+            <i class="fas fa-box-open"></i>
+
+            <span>
+                <strong>{% translate "Need a product?" %}</strong><br>
+                {% translate "We can help you get it" %}
+            </span>
+        </div>
+
+    </div>
+
+
+    <!-- CARD 5: FIELD REPORT -->
+    <div class="marketplace-ad-card">
+
+        <div>
+            <span class="eyebrow">
+                <i class="fas fa-file-alt"></i>
+                {% translate "For students" %}
+            </span>
+
+            <h2>
+                {% translate "Write your" %}
+                <em>{% translate "field report free." %}</em>
+            </h2>
+
+            <p>
+                {% translate "Students can write, save, edit and download their field reports in Word format for free." %}
+            </p>
+
+            <div class="hero-actions">
+
+                <a
+                    href="{% url 'report_home' %}"
+                    class="hero-primary"
+                >
+                    {% translate "Write field report" %}
+                    <i class="fas fa-pen"></i>
+                </a>
+
+                <a
+                    href="{% url 'report_home' %}"
+                    class="hero-secondary"
+                >
+                    {% translate "Learn more" %}
+                </a>
+
+            </div>
+        </div>
+
+        <div class="hero-trust">
+            <i class="fas fa-graduation-cap"></i>
+
+            <span>
+                <strong>{% translate "Free for students" %}</strong><br>
+                {% translate "Write and download your report" %}
+            </span>
+        </div>
+
+    </div>
+
+</section>
 
 
 <style>
+    /* =========================================
+   WINGASTOCK AD CARDS - ONE AT A TIME
+   ========================================= */
 
-/* =================================
-   MAIN SLIDESHOW
-================================= */
+.marketplace-hero > .marketplace-ad-card {
+    display: none !important;
+}
 
-.winga-notification-wrapper {
+/* Card inayotakiwa kuonekana */
+.marketplace-hero > .marketplace-ad-card.active {
+    display: flex !important;
     width: 100%;
-    margin: 15px auto;
+    align-items: flex-end;
+    justify-content: space-between;
     position: relative;
-    overflow: hidden;
-    border-radius: 5px;
-    box-sizing: border-box;
-    margin-top: 70px;
-    float: left;
+    z-index: 1;
 }
 
-
-/* =================================
-   SLIDER
-================================= */
-
-.winga-notification-slider {
-    width: 100%;
+/* Hakikisha content ya card iko juu ya background decoration */
+.marketplace-hero > .marketplace-ad-card.active > div:first-child,
+.marketplace-hero > .marketplace-ad-card.active > .hero-trust {
     position: relative;
-    min-height: 230px;
+    z-index: 1;
 }
 
-
-/* =================================
-   CARD
-================================= */
-
-.winga-notification-card {
-    width: 100%;
-    min-height: 230px;
-
-    display: none;
-    align-items: center;
-
-    box-sizing: border-box;
-    padding: 28px 55px;
-
-    background: linear-gradient(
-        135deg,
-        #ffffff,
-        #fff7f8
-    );
-
-    border: 1px solid rgba(220, 20, 60, 0.15);
-
-    border-radius: 5px;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.08);
-
-    animation: wingaSlideIn 0.5s ease;
-}
-
-
-/* ACTIVE CARD */
-
-.winga-notification-card.active {
-    display: flex;
-}
-
-
-/* =================================
-   ICON
-================================= */
-
-.winga-notification-icon {
-    width: 75px;
-    min-width: 75px;
-    height: 75px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-right: 25px;
-
-    border-radius: 50%;
-
-    background: crimson;
-    color: white;
-
-    font-size: 30px;
-
-    box-shadow:
-        0 7px 18px rgba(220, 20, 60, 0.25);
-}
-
-
-.winga-notification-icon.spin-icon {
-    animation: wingaSpinIcon 2s infinite linear;
-}
-
-
-/* =================================
-   CONTENT
-================================= */
-
-.winga-notification-content {
-    flex: 1;
-}
-
-
-.winga-notification-title {
-    font-size: 21px;
-    font-weight: bold;
-    color: crimson;
-    margin-bottom: 12px;
-}
-
-
-.winga-notification-title i {
-    margin-right: 6px;
-}
-
-
-.winga-notification-content p {
-    margin: 7px 0;
-    line-height: 1.6;
-    font-size: 14px;
-    color: #444;
-}
-
-
-.winga-notification-content strong {
-    color: #222;
-}
-
-
-/* =================================
-   BUTTON
-================================= */
-
-.winga-notification-btn {
-    margin-top: 12px;
-
-    padding: 9px 16px;
-
-    border: none;
-    border-radius: 7px;
-
-    background: crimson;
-    color: white;
-
-    font-size: 13px;
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition: 0.25s ease;
-}
-
-
-.winga-notification-btn:hover {
-    background: #a90025;
-    transform: translateY(-2px);
-}
-
-
-.winga-notification-btn i {
-    margin-right: 5px;
-}
-
-
-/* =================================
-   ARROWS
-================================= */
-
-.winga-slider-control {
-    position: absolute;
-
-    top: 50%;
-    transform: translateY(-50%);
-
-    width: 36px;
-    height: 36px;
-
-    border: none;
-    border-radius: 50%;
-
-    background: rgba(220, 20, 60, 0.9);
-    color: white;
-
-    cursor: pointer;
-
-    z-index: 10;
-
-    transition: 0.2s;
-}
-
-
-.winga-slider-control:hover {
-    background: crimson;
-    transform: translateY(-50%) scale(1.08);
-}
-
-
-.winga-prev {
-    left: 20px;
-}
-
-
-.winga-next {
-    right: 20px;
-}
-
-
-/* =================================
-   DOTS
-================================= */
-
-.winga-slider-dots {
-    position: absolute;
-
-    bottom: 40px;
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    display: flex;
-    gap: 7px;
-}
-
-
-.winga-dot {
-    width: 8px;
-    height: 8px;
-
-    border-radius: 50%;
-
-    background: rgba(0, 0, 0, 0.2);
-
-    cursor: pointer;
-
-    transition: 0.3s;
-}
-
-
-.winga-dot.active {
-    width: 22px;
-    border-radius: 10px;
-    background: crimson;
-}
-
-
-/* =================================
-   ANIMATIONS
-================================= */
-
-@keyframes wingaSlideIn {
-
-    from {
-        opacity: 0;
-        transform: translateX(25px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-
-}
-
-
-@keyframes wingaSpinIcon {
-
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-
-}
-
-
-/* =================================
-   MOBILE
-================================= */
-
-@media (max-width: 600px) {
-
-    .winga-notification-card {
-        min-height: 300px;
-
-        padding: 25px 42px;
-
-        align-items: flex-start;
-    }
-
-    .winga-notification-icon {
-        width: 52px;
-        min-width: 52px;
-        height: 52px;
-
-        margin-right: 15px;
-
-        font-size: 20px;
-    }
-
-    .winga-notification-title {
-        font-size: 17px;
-    }
-
-    .winga-notification-content p {
-        font-size: 13px;
-        line-height: 1.5;
-    }
-
-    .winga-slider-control {
-        width: 30px;
-        height: 30px;
-    }
-
-}
-
-
-.mobile {
-    display: inline-block;
-}
-
-@media only screen and (min-width: 768px) {
-    .mobile {
-        display: none;
-    }
-}
-
-/* VERY SMALL SCREENS */
-
-@media (max-width: 400px) {
-
-    .winga-notification-card {
-        display: none;
-        flex-direction: column;
-        text-align: center;
-
-        padding: 20px 35px 30px;
-    }
-
-    .winga-notification-card.active {
-        display: flex;
-    }
-
-    .winga-notification-icon {
-        margin: 0 auto 12px;
-    }
-
-    .winga-notification-content {
+/* MOBILE */
+@media (max-width: 767px) {
+
+    .marketplace-hero > .marketplace-ad-card.active {
+        display: flex !important;
         width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
     }
 
 }
-
 </style>
 
-
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
 
-/* =================================
-   WINGASTOCK NOTIFICATION SLIDER
-================================= */
+    const cards = document.querySelectorAll(".marketplace-ad-card");
 
-let wingaCurrentSlide = 0;
+    if (cards.length === 0) return;
 
-const wingaSlides =
-    document.querySelectorAll(".winga-notification-card");
+    let current = 0;
 
-const wingaDots =
-    document.querySelectorAll(".winga-dot");
-
-
-function wingaShowSlide(index) {
-
-    if (index >= wingaSlides.length) {
-        wingaCurrentSlide = 0;
-    }
-
-    else if (index < 0) {
-        wingaCurrentSlide = wingaSlides.length - 1;
-    }
-
-    else {
-        wingaCurrentSlide = index;
-    }
-
-
-    wingaSlides.forEach(function(slide, i) {
-
-        slide.classList.toggle(
-            "active",
-            i === wingaCurrentSlide
-        );
-
+    // Show only the first card
+    cards.forEach(function (card, index) {
+        card.style.display = index === 0 ? "flex" : "none";
     });
 
+    // Switch cards
+    setInterval(function () {
 
-    wingaDots.forEach(function(dot, i) {
+        // Hide current card
+        cards[current].style.display = "none";
 
-        dot.classList.toggle(
-            "active",
-            i === wingaCurrentSlide
-        );
+        // Move to next card
+        current++;
 
-    });
+        // Return to first card after the last one
+        if (current >= cards.length) {
+            current = 0;
+        }
 
-}
+        // Show next card
+        cards[current].style.display = "flex";
 
-
-function wingaChangeSlide(direction) {
-
-    wingaShowSlide(
-        wingaCurrentSlide + direction
-    );
-
-}
-
-
-function wingaGoToSlide(index) {
-
-    wingaShowSlide(index);
-
-}
-
-
-/* =================================
-   AUTOMATIC SLIDESHOW
-================================= */
-
-let wingaAutoSlide =
-    setInterval(function() {
-
-        wingaChangeSlide(1);
-
-    }, 6000);
-
-
-/* =================================
-   PAUSE WHEN MOUSE IS OVER CARD
-================================= */
-
-const wingaSlider =
-    document.getElementById("wingaNotificationSlider");
-
-
-wingaSlider.addEventListener("mouseenter", function() {
-
-    clearInterval(wingaAutoSlide);
+    }, 7000);
 
 });
-
-
-wingaSlider.addEventListener("mouseleave", function() {
-
-    wingaAutoSlide =
-        setInterval(function() {
-
-            wingaChangeSlide(1);
-
-        }, 6000);
-
-});
-
 </script>

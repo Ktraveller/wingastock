@@ -280,6 +280,34 @@
             {% endif %}
 
 
+            <!-- Report writing -->
+             <button
+                type="button"
+                class="other-option-item-100"
+                onclick="window.location.href=`{% url 'report_home' %}`"
+
+                >
+
+                <span class="other-option-icon-100">
+                    <i class="fas fa-file-alt"></i>
+                </span>
+
+                <span class="other-option-info-100">
+
+                    <strong>{% translate "Write Report" %}</strong>
+
+                    <small>
+                        {% translate "Write and manage your field practical training reports" %}
+                    </small>
+
+                </span>
+
+                <i class="fas fa-chevron-right other-option-arrow-100"></i>
+
+            </button>
+
+
+
             <!-- SETTINGS -->
             <button
                 type="button"

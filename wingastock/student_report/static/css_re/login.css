@@ -1,0 +1,214 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 15px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: white;
+}
+
+/* MAIN CONTAINER */
+.login-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* RIGHT SIDE */
+.login-right {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.27);
+}
+
+.login-right>div {
+  float: left;
+}
+
+.advertise-201 {
+  width: 100%;
+  height: 50%;
+  padding: 20px;
+}
+
+
+.login-form-201 {
+  width: 100%;
+  height: 50%;
+  background: transparent;
+  padding: 25px;
+  border-radius: 5px;
+}
+
+.login-form-201>div {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.885);
+  border-bottom: 2px solid crimson;
+  margin: auto;
+  padding: 10px;
+  border-radius: 0px;
+}
+
+form {
+  width: 100%;
+  height: auto;
+}
+
+.form-divider-201 {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+.form-divider-201>div {
+  float: left;
+  width: 100%;
+}
+
+.input-holder-201 {
+  padding: 10px;
+}
+
+.footer-201 {
+  width: 100%;
+  height: auto;
+  float: left;
+  padding-left: 30px;
+}
+
+form h2 {
+  color: crimson;
+  font-size: 18px;
+  padding-left: 10px;
+}
+
+label {
+  display: block;
+  color: crimson;
+  font-size: 13px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 50px;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.711);
+  outline: none;
+  font-weight: bold;
+  border: 1px solid crimson;
+}
+
+button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 50px;
+  background: crimson;
+  color: white;
+  border: 1px solid white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.7;
+}
+
+#error {
+  margin-top: 10px;
+  color: #ef4444;
+  font-size: 13px;
+}
+
+
+
+.typing-container {
+  text-align: center;
+  margin-top: 10%;
+}
+
+.typing-container>h1 {
+  color: crimson;
+  font-size: 25px;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.24);
+}
+
+#typing {
+  font-size: 25px;
+}
+
+.typing-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #333;
+
+  width: 0;
+  animation:
+    typing 3s steps(20, end) forwards,
+    blink 0.7s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 11ch;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+/* RESPONSIVE */
+@media only screen and (min-width: 768px) {
+  .login-form-201>div {
+    width: 60%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.885);
+    border-bottom: 2px solid crimson;
+    margin: auto;
+    padding: 20px;
+    border-radius: 200px;
+  }
+
+  .form-divider-201>div {
+    float: left;
+    width: 33.33333333%;
+  }
+
+  .advertise-201 {
+    width: 100%;
+    height: 60%;
+  }
+
+
+  .login-form-201 {
+    width: 100%;
+    height: 40%;
+    background: transparent;
+    padding: 25px;
+    border-radius: 5px;
+  }
+}

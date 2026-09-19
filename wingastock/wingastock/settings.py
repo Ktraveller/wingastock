@@ -91,6 +91,7 @@ INSTALLED_APPS = [
     "sellers",
     "mails",
     "deliver",
+    "student_report"
 ]
 
 
