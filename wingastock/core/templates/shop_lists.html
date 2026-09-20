@@ -1,0 +1,178 @@
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <link rel="stylesheet" href="{% static 'css/heading.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <title>Wingastock - Buy &amp; Sell Products in Tanzania</title>
+
+    <meta name="description"
+        content="Buy and sell electronics, phones, laptops, furniture, homes, and more on Wingastock, Tanzania's online marketplace.">
+
+    <meta property="og:title" content="Wingastock - Buy &amp; Sell Products in Tanzania">
+
+    <meta property="og:description"
+        content="Buy and sell electronics, phones, laptops, furniture, homes, and more on Wingastock, Tanzania's online marketplace.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wingastock.onrender.com/">
+    <meta property="og:site_name" content="Wingastock">
+
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://wingastock.onrender.com/">
+
+
+    <meta property="og:image" content="/static/logo.png">
+
+    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-STT2EJ7H54');
+    </script>
+
+</head>
+
+<body>
+
+    <div class="page-loader-holder-000">
+        <div>
+            <button type="button">
+                <h1>
+                    <img src="{% static 'logo.png' %}" alt="logo"> <br>
+                    <span>Wingastock</span>
+                </h1>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="row-holder-001">
+
+        <!-- Inlude heading -->
+        {% if user.email %}
+        {% include 'header_s.html' %}
+        {% else %}
+        {% include 'heading.html' %}
+        {% endif %}
+
+
+
+        <div class="content-holder-002">
+
+            <div class="shops-page-heading">
+                <div>
+                    <span class="eyebrow">
+                        <i class="fas fa-store"></i>
+                        {% translate "Marketplace community" %}
+                    </span>
+
+                    <h1>{% translate "Discover trusted shops" %}</h1>
+
+                    <p>
+                        {% translate "Browse local sellers and find products from businesses you can connect with directly." %}
+                    </p>
+                </div>
+
+                <div class="shops-page-stat">
+                    <strong>{{ shops|length }}</strong>
+                    <span>{% translate "shops available" %}</span>
+                </div>
+            </div>
+
+            <!-- Shops -->
+            <div class="shop-card-holder-1001">
+                <div class="shop-card-1002">
+
+                    {% for shop in shops %}
+                    {% include 'shops-container.html' %}
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <div style="width: 100%; height: 100px; float: left;"></div>
+
+        </div>
+
+
+
+        <!-- How to -->
+        {% include 'how-to.html' %}
+
+        <div class="footer-holder-1003">
+            <div>
+                <p>Wingastock | Online marketplace</p>
+            </div>
+        </div>
+
+
+        <!-- Nav bar -->
+        {% include 'navbar.html' %}
+
+        <!-- Login and register modal-->
+        {% include 'login-container.html' %}
+
+    </div>
+
+
+    <script>
+        window.addEventListener("load", function () {
+
+            const loader = document.querySelector(
+                ".page-loader-holder-000"
+            );
+
+            if (loader) {
+
+                // Fade out the loader
+                loader.classList.add("hidden");
+
+                // Remove it completely after the animation
+                setTimeout(function () {
+                    loader.remove();
+                }, 500);
+            }
+
+        });
+    </script>
+
+
+    <script>
+        function menu_bar(click) {
+            let menu_div = document.getElementById('menu_div');
+            let button1 = document.getElementById('button1');
+            let button2 = document.getElementById('button2');
+
+            if (click == 'open') {
+                menu_div.style.display = 'inline-block';
+                button1.style.display = 'none';
+                button2.style.display = 'inline-block';
+            }
+            else {
+                menu_div.style.display = 'none';
+                button2.style.display = 'none';
+                button1.style.display = 'inline-block';
+            }
+        }
+    </script>
+
+</body>
+
+</html>

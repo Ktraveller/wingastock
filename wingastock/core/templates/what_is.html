@@ -1,0 +1,319 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wingastock</title>
+  <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/heading.css' %}">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    .messages {
+      margin: 20px 0;
+    }
+
+    .alert {
+      padding: 12px 18px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      color: #fff; 
+      font-weight: 500;
+    }
+
+    .success {
+      background: #28a745;
+    }
+
+    .error {
+      background: #dc3545;
+    }
+
+    .warning {
+      background: #ffc107;
+      color: #000;
+    }
+
+    .info {
+      background: #17a2b8;
+    }
+
+    ol>li {
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page-loader-holder-000">
+    <div>
+      <button type="button">
+        <h1>
+          <img src="{% static 'logo.png' %}" alt="logo"> <br>
+          <span>Wingastock</span>
+        </h1>
+      </button>
+    </div>
+  </div>
+
+  <div class="row-holder">
+
+    <!-- Header -->
+    <div class="header-holder-100">
+      <div class="header-100">
+        <div class="action-holder-101">
+          <button type="button" id="menu1" onclick="open_menu('open')">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="title-holder-101">
+          <button type="button">
+            <span>Wingastock</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- center content -->
+    <div class="center-content-200">
+
+      <div class="left-holder-201" id="nav">
+        <div class="nav-bar-holder-202">
+
+          <ul>
+            <a href="{% url 'how1' %}">
+              <li class="active-0">
+                {% translate "What is wingastock" %}
+                <i class="fas fa-file-contract"></i>
+              </li>
+            </a>
+          </ul>
+
+          <ul>
+            <a href="{% url 'how2' %}">
+              <li>
+                {% translate "How to get seller contacts" %}
+                <i class="fas fa-user"></i>
+              </li>
+            </a>
+          </ul>
+
+          <ul>
+            <a href="{% url 'how3' %}">
+              <li>
+                {% translate "How to register as seller" %}
+                <i class="fas fa-file-signature"></i>
+              </li>
+            </a>
+          </ul>
+
+        </div>
+      </div>
+
+
+      <div class="right-holder-201">
+        <div class="products-202">
+
+          <div class="terms-holder-202">
+
+            <div>
+
+              <p style="font-weight: bold;">
+                {% translate "What is wingastock" %}
+              </p>
+
+              <div class="how-to-use-0004">
+
+                <p>
+                  <strong>{% translate "Welcome to Wingastock!" %}</strong>
+                  {% translate "Wingastock is an online marketplace that makes it easy to discover, advertise, buy and sell a wide range of products and services. You can find electronics such as smartphones, laptops, TVs, computers and accessories, as well as furniture, home appliances, rooms, houses and many other products from sellers on the platform." %}
+                </p>
+
+                <p>
+                  {% translate "Whether you are looking to buy something or want to advertise and sell your products, the following guide explains how to use Wingastock:" %}
+                </p>
+
+                <ol>
+
+                  <li>
+                    <strong>{% translate "Create an Account:" %}</strong>
+                    {% translate "Register for a Wingastock account using your required personal or business information. Make sure the information you provide is accurate and up to date." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Complete Your Profile:" %}</strong>
+                    {% translate "After creating your account, complete your profile with the relevant information. A complete profile helps other users know who they are dealing with and makes communication easier." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Browse Products:" %}</strong>
+                    {% translate "Explore products available on Wingastock by browsing different categories. You can discover electronics, phones, laptops, TVs, computers, accessories, furniture, home appliances, rooms, houses and other products." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Search for Products:" %}</strong>
+                    {% translate "Use the search feature to quickly find a specific product you are looking for. You can search using product names, keywords or other relevant information." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "View Product Details:" %}</strong>
+                    {% translate "Select a product to view its available information, including the product name, description, price, images, specifications, seller information and other details provided by the seller." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Contact the Seller:" %}</strong>
+                    {% translate "If you need more information before buying, use the available communication options to contact the seller. You may ask about the product condition, availability, specifications, location, price or other relevant details." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Buy a Product:" %}</strong>
+                    {% translate "When you find a product you want to purchase, follow the available purchasing or ordering process on Wingastock. Review the product, price and other order information carefully before confirming your purchase." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Sell or Advertise a Product:" %}</strong>
+                    {% translate "Sellers can advertise their products on Wingastock by creating a listing. Provide accurate information about the product, including its name, description, price, images, condition, quantity and other important details." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Create an Accurate Listing:" %}</strong>
+                    {% translate "Make sure your product listing clearly represents what you are selling. Use clear photographs and provide honest information so potential buyers can make informed decisions." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Set Your Price:" %}</strong>
+                    {% translate "Sellers are responsible for setting the price of their products. Make sure the advertised price is accurate and clearly communicate any additional charges that may apply." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Manage Your Products:" %}</strong>
+                    {% translate "Sellers should regularly manage their listings and keep product information, prices and stock availability up to date. Remove or update listings when a product is no longer available." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Communicate With Customers:" %}</strong>
+                    {% translate "Sellers should respond to customer questions and enquiries professionally and provide accurate information about their products." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Complete Orders:" %}</strong>
+                    {% translate "When a customer purchases a product, the seller should prepare and fulfil the order according to the agreed or communicated delivery, collection or fulfilment process." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Delivery or Collection:" %}</strong>
+                    {% translate "Depending on the available options, products may be delivered or collected according to the arrangements provided by Wingastock, the seller and the customer." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Check Products Before Buying:" %}</strong>
+                    {% translate "Buyers should carefully review product descriptions, images, prices and seller information before completing a purchase. For used or second-hand products, buyers should pay particular attention to the stated condition of the item." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Keep Your Account Secure:" %}</strong>
+                    {% translate "Protect your Wingastock account information and do not share your password or other sensitive account details with other people." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Use Wingastock Responsibly:" %}</strong>
+                    {% translate "Users must not use the platform to advertise illegal, stolen, counterfeit, fraudulent, dangerous or otherwise prohibited products. All users are expected to comply with applicable laws and Wingastock policies." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Report Problems:" %}</strong>
+                    {% translate "If you encounter a suspicious listing, fraudulent activity, misleading information or another problem, report it through the appropriate Wingastock support or reporting channel." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Resolve Issues Professionally:" %}</strong>
+                    {% translate "If there is a problem with an order, product or transaction, buyers and sellers should communicate in good faith and cooperate with Wingastock's applicable complaint or dispute-resolution process." %}
+                  </li>
+
+                  <li>
+                    <strong>{% translate "Keep Your Information Updated:" %}</strong>
+                    {% translate "Sellers should keep their product listings, contact information, prices and availability up to date. Buyers should also keep their account information accurate where necessary." %}
+                  </li>
+
+                </ol>
+
+                <p>
+                  <strong>{% translate "In Simple Terms:" %}</strong>
+                  {% translate "Wingastock connects buyers and sellers in one convenient online marketplace. Buyers can search, compare, contact sellers and purchase products, while sellers can advertise their products, communicate with customers and manage their listings and sales." %}
+                </p>
+
+                <p>
+                  <strong>{% translate "Stay Safe:" %}</strong>
+                  {% translate "Always review product information carefully, communicate responsibly and be cautious when dealing with unfamiliar sellers or buyers. Never provide sensitive account or payment information to someone unless you are certain that the request is legitimate." %}
+                </p>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+    window.addEventListener("load", function () {
+
+      const loader = document.querySelector(
+        ".page-loader-holder-000"
+      );
+
+      if (loader) {
+
+        // Fade out the loader
+        loader.classList.add("hidden");
+
+        // Remove it completely after the animation
+        setTimeout(function () {
+          loader.remove();
+        }, 500);
+      }
+
+    });
+  </script>
+
+
+  <script>
+    function open_menu(click) {
+      let menu1 = document.getElementById('menu1');
+      let menu2 = document.getElementById('menu2');
+      let nav = document.getElementById('nav');
+
+      if (click == 'open') {
+        menu1.style.display = 'none';
+        menu2.style.display = 'inline-block';
+        nav.style.display = 'inline-block';
+      }
+      else {
+        menu1.style.display = 'inline-block';
+        menu2.style.display = 'none';
+        nav.style.display = 'none';
+      }
+    }
+  </script>
+
+</body>
+
+</html>
