@@ -1,6 +1,6 @@
 from django.urls import path
 from student_report.views_r.index import report_index
-from student_report.views_r.reports import add_placement, placements, add_report, edit_report, reports, report_detail, report_detail_weekly, report_summary, delete_report, delete_placement, edit_placement, generate_field_report, save_field_report, download_field_report_docx
+from student_report.views_r.reports import add_placement, placements, add_report, edit_report, reports, report_detail, report_detail_weekly, report_summary, delete_report, delete_placement, edit_placement, generate_field_report, save_field_report, download_field_report_docx, construction_message
 from student_report.views_r.account import account_report
 
 
@@ -63,5 +63,8 @@ urlpatterns = [
 
     # User Account
     path('account/', account_report, name='user_account'),
+
+    # Message
+    path('construction-message/', construction_message, name="construction_message")
 
 ]

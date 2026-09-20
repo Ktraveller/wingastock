@@ -2566,3 +2566,11 @@ def download_field_report_docx(request, id):
             },
             status=500
         )
+
+
+
+
+# Construction message
+@login_required(login_url="home")
+def construction_message(request):
+    return render(request, 'wait_message.html')
