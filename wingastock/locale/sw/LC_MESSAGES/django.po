@@ -3003,3 +3003,12 @@ msgstr "Mpigie Muuzaji"
 
 msgid "Discover products and trusted sellers on Wingastock."
 msgstr "Gundua bidhaa na wauzaji wanaoaminika kwenye Wingastock."
+
+msgid "Explore More"
+msgstr "Gundua Zaidi"
+
+msgid "Discover more products, shops, and great deals on Wingastock."
+msgstr "Gundua bidhaa zaidi, maduka, na ofa nzuri kwenye Wingastock."
+
+msgid "Explore products"
+msgstr "Gundua bidhaa"

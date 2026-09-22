@@ -876,6 +876,37 @@
 
                     {% endfor %}
 
+                    <!-- =================================================
+                        EXPLORE MORE CARD
+                    ================================================= -->
+
+                    <article
+                        class="product-card explore-more-card"
+                        onclick="window.location.href=`{% url 'products' %}`">
+
+                        <div class="explore-more-content">
+
+                            <div class="explore-more-icon">
+                                <i class="fas fa-compass"></i>
+                            </div>
+
+                            <h3>
+                                {% translate "Explore More" %}
+                            </h3>
+
+                            <p>
+                                {% translate "Discover more products, shops, and great deals on Wingastock." %}
+                            </p>
+
+                            <span class="explore-more-button">
+                                {% translate "Explore products" %}
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+
+                        </div>
+
+                    </article>
+
 
                 </div>
 
