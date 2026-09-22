@@ -51,6 +51,7 @@
         type="image/x-icon"
     >
 
+    {% include "seo_head.html" with seo_title="Wingastock | Product Categories" seo_description="Explore product categories on Wingastock including electronics, smartphones, laptops, TVs, furniture, home appliances, rooms, houses, and more." seo_canonical="https://wingastock.onrender.com/categories/" seo_type="website" %}
 </head>
 
 
@@ -1452,7 +1453,7 @@ function showSearchHistory() {
     if (!history.length) {
 
         alert(
-            "{% translate 'You don\\'t have any recently viewed categories.' %}"
+            "You don\\'t have any recently viewed categories."
         );
 
         return;

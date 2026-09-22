@@ -14,16 +14,13 @@
     <title>{% translate "Wingastock" %}</title>
 
     <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <!-- CSS -->
-    <link
-        rel="stylesheet"
-        href="{% static 'css/home.css' %}"
-    >
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+
+    {% include "seo_head.html" with seo_title="Wingastock - Buy &amp; Sell Products in Tanzania" seo_description="Buy and sell electronics such as smartphones, laptops, TVs, computers, accessories, furniture, home appliances, rooms, houses, and other products from trusted sellers on Wingastock." seo_canonical="https://wingastock.onrender.com/" seo_type="website" %}
 
 </head>
 
@@ -49,17 +46,10 @@
                 <!-- LOGO + LANGUAGE -->
                 <div class="store-logo-area">
 
-                    <button
-                        type="button"
-                        class="store-logo-button"
-                        onclick="window.location.href='{% url 'home' %}'"
-                        aria-label="{% translate 'Wingastock' %}"
-                    >
+                    <button type="button" class="store-logo-button" onclick="window.location.href='{% url 'home' %}'"
+                        aria-label="{% translate 'Wingastock' %}">
 
-                        <img
-                            src="{% static 'logo.png' %}"
-                            alt="{% translate 'Wingastock' %}"
-                        >
+                        <img src="{% static 'logo.png' %}" alt="{% translate 'Wingastock' %}">
 
                     </button>
 
@@ -72,12 +62,8 @@
                     <!-- LANGUAGE -->
                     <div class="language-switcher">
 
-                        <button
-                            type="button"
-                            class="language-button"
-                            onclick="toggleLanguageMenu(event)"
-                            aria-label="{% translate 'Change language' %}"
-                        >
+                        <button type="button" class="language-button" onclick="toggleLanguageMenu(event)"
+                            aria-label="{% translate 'Change language' %}">
 
                             <i class="fas fa-globe"></i>
 
@@ -86,9 +72,9 @@
                                 {% get_current_language as LANGUAGE_CODE %}
 
                                 {% if LANGUAGE_CODE == 'sw' %}
-                                    SW
+                                SW
                                 {% else %}
-                                    EN
+                                EN
                                 {% endif %}
 
                             </span>
@@ -98,31 +84,17 @@
                         </button>
 
 
-                        <div
-                            class="language-dropdown"
-                            id="languageDropdown"
-                        >
+                        <div class="language-dropdown" id="languageDropdown">
 
-                            <form
-                                action="{% url 'set_language' %}"
-                                method="post"
-                            >
+                            <form action="{% url 'set_language' %}" method="post">
 
                                 {% csrf_token %}
 
-                                <input
-                                    type="hidden"
-                                    name="next"
-                                    value="{{ request.get_full_path }}"
-                                >
+                                <input type="hidden" name="next" value="{{ request.get_full_path }}">
 
 
-                                <button
-                                    type="submit"
-                                    name="language"
-                                    value="en"
-                                    class="{% if LANGUAGE_CODE == 'en' %}active{% endif %}"
-                                >
+                                <button type="submit" name="language" value="en"
+                                    class="{% if LANGUAGE_CODE == 'en' %}active{% endif %}">
 
                                     <span class="language-code">
                                         EN
@@ -133,18 +105,14 @@
                                     </span>
 
                                     {% if LANGUAGE_CODE == 'en' %}
-                                        <i class="fas fa-check"></i>
+                                    <i class="fas fa-check"></i>
                                     {% endif %}
 
                                 </button>
 
 
-                                <button
-                                    type="submit"
-                                    name="language"
-                                    value="sw"
-                                    class="{% if LANGUAGE_CODE == 'sw' %}active{% endif %}"
-                                >
+                                <button type="submit" name="language" value="sw"
+                                    class="{% if LANGUAGE_CODE == 'sw' %}active{% endif %}">
 
                                     <span class="language-code">
                                         SW
@@ -155,7 +123,7 @@
                                     </span>
 
                                     {% if LANGUAGE_CODE == 'sw' %}
-                                        <i class="fas fa-check"></i>
+                                    <i class="fas fa-check"></i>
                                     {% endif %}
 
                                 </button>
@@ -172,10 +140,7 @@
                 <!-- DESKTOP NAV -->
                 <nav class="store-desktop-nav">
 
-                    <button
-                        type="button"
-                        onclick="window.location.href='{% url 'products' %}'"
-                    >
+                    <button type="button" onclick="window.location.href='{% url 'products' %}'">
 
                         <i class="fas fa-shopping-bag"></i>
 
@@ -184,10 +149,7 @@
                     </button>
 
 
-                    <button
-                        type="button"
-                        onclick="window.location.href='{% url 'categories' %}'"
-                    >
+                    <button type="button" onclick="window.location.href='{% url 'categories' %}'">
 
                         <i class="fas fa-th-large"></i>
 
@@ -196,10 +158,7 @@
                     </button>
 
 
-                    <button
-                        type="button"
-                        onclick="window.location.href='{% url 'favorities' %}'"
-                    >
+                    <button type="button" onclick="window.location.href='{% url 'favorities' %}'">
 
                         <i class="fas fa-tags"></i>
 
@@ -208,10 +167,7 @@
                     </button>
 
 
-                    <button
-                        type="button"
-                        onclick="window.location.href='{% url 'shop_list' %}'"
-                    >
+                    <button type="button" onclick="window.location.href='{% url 'shop_list' %}'">
 
                         <i class="fas fa-store-alt"></i>
 
@@ -226,12 +182,9 @@
                 <div class="store-header-actions">
 
                     <!-- NOTIFICATION -->
-                    <button
-                        type="button"
-                        class="header-notification-button"
+                    <button type="button" class="header-notification-button"
                         onclick="window.location.href=`{% url 'customer_notification' %}`"
-                        aria-label="{% translate 'Notifications' %}"
-                    >
+                        aria-label="{% translate 'Notifications' %}">
 
                         <i class="fas fa-bell"></i>
 
@@ -241,12 +194,9 @@
                     {% if user.is_authenticated %}
 
                     <!-- LOGGED IN -->
-                    <button
-                        type="button"
-                        class="header-user-button"
+                    <button type="button" class="header-user-button"
                         onclick="window.location.href='{% url 'customer_account' %}'"
-                        aria-label="{% translate 'Account' %}"
-                    >
+                        aria-label="{% translate 'Account' %}">
 
                         <span class="header-user-icon">
 
@@ -271,11 +221,7 @@
                     {% else %}
 
                     <!-- NOT LOGGED IN -->
-                    <button
-                        type="button"
-                        class="header-login-button"
-                        onclick="open_login_modal(1)"
-                    >
+                    <button type="button" class="header-login-button" onclick="open_login_modal(1)">
 
                         <i class="fas fa-sign-in-alt"></i>
 
@@ -286,11 +232,7 @@
                     </button>
 
 
-                    <button
-                        type="button"
-                        class="header-register-button"
-                        onclick="open_login_modal(1), choose_type(2)"
-                    >
+                    <button type="button" class="header-register-button" onclick="open_login_modal(1), choose_type(2)">
 
                         <i class="fas fa-user-plus"></i>
 
@@ -310,11 +252,8 @@
             <!-- SEARCH -->
             <div class="store-search">
 
-                <button
-                    type="button"
-                    onclick="window.location.href='{% url 'search' %}'"
-                    aria-label="{% translate 'Search products, shops and more' %}"
-                >
+                <button type="button" onclick="window.location.href='{% url 'search' %}'"
+                    aria-label="{% translate 'Search products, shops and more' %}">
 
                     <i class="fas fa-search"></i>
 
@@ -349,10 +288,7 @@
                         {% translate "Categories" %}
                     </h2>
 
-                    <button
-                        type="button"
-                        onclick="window.location.href='{% url 'categories' %}'"
-                    >
+                    <button type="button" onclick="window.location.href='{% url 'categories' %}'">
 
                         {% translate "See all" %}
 
@@ -365,11 +301,8 @@
 
 
                     <!-- Phones -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'phones' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'phones' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-mobile-alt"></i>
@@ -383,11 +316,8 @@
 
 
                     <!-- Computers -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'computers' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'computers' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-laptop"></i>
@@ -401,11 +331,8 @@
 
 
                     <!-- Electronics -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'electronics' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'electronics' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-tv"></i>
@@ -419,11 +346,8 @@
 
 
                     <!-- Fashion -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'fashion' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'fashion' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-tshirt"></i>
@@ -437,11 +361,8 @@
 
 
                     <!-- Shoes -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'shoes' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'shoes' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-shoe-prints"></i>
@@ -455,11 +376,8 @@
 
 
                     <!-- Beauty -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'beauty' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'beauty' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-spa"></i>
@@ -473,11 +391,8 @@
 
 
                     <!-- Food -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'food' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'food' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-shopping-basket"></i>
@@ -491,11 +406,8 @@
 
 
                     <!-- Drinks -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'drinks' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'drinks' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-glass-martini-alt"></i>
@@ -509,11 +421,8 @@
 
 
                     <!-- Furniture -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'furniture' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'furniture' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-couch"></i>
@@ -527,11 +436,8 @@
 
 
                     <!-- Home -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'home' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'home' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-home"></i>
@@ -545,11 +451,8 @@
 
 
                     <!-- Appliances -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'appliances' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'appliances' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-blender"></i>
@@ -563,11 +466,8 @@
 
 
                     <!-- Vehicles -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'vehicles' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'vehicles' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-car"></i>
@@ -581,11 +481,8 @@
 
 
                     <!-- Vehicle Parts -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'parts' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'parts' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-cogs"></i>
@@ -599,11 +496,8 @@
 
 
                     <!-- Sports -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'sports' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'sports' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-futbol"></i>
@@ -617,11 +511,8 @@
 
 
                     <!-- Books -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'books' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'books' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-book"></i>
@@ -635,11 +526,8 @@
 
 
                     <!-- Toys -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'toys' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'toys' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-gamepad"></i>
@@ -653,11 +541,8 @@
 
 
                     <!-- Baby -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'baby' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'baby' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-baby"></i>
@@ -671,11 +556,8 @@
 
 
                     <!-- Services -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'services' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'services' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-concierge-bell"></i>
@@ -689,11 +571,8 @@
 
 
                     <!-- Jobs -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'jobs' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'jobs' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-briefcase"></i>
@@ -707,11 +586,8 @@
 
 
                     <!-- Property -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'property' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'property' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-building"></i>
@@ -725,11 +601,8 @@
 
 
                     <!-- Other -->
-                    <button
-                        class="category-item"
-                        type="button"
-                        onclick="window.location.href='{% url 'filter_products' 'other' %}'"
-                    >
+                    <button class="category-item" type="button"
+                        onclick="window.location.href='{% url 'filter_products' 'other' %}'">
 
                         <span class="category-icon">
                             <i class="fas fa-th-large"></i>
@@ -760,10 +633,7 @@
                         {% translate "Top products" %}
                     </h2>
 
-                    <button
-                        type="button"
-                        onclick="window.location.href='{% url 'products' %}'"
-                    >
+                    <button type="button" onclick="window.location.href='{% url 'products' %}'">
 
                         {% translate "See all" %}
 
@@ -775,13 +645,11 @@
                 <div class="product-horizontal-scroll">
 
 
-                    {% for product in products|slice:":6" %}
+                    {% for product in products|slice:":10" %}
 
 
-                    <article
-                        class="product-mini-card"
-                        onclick="window.location.href=`{% url 'product_details' product.id product.title %}`"
-                    >
+                    <article class="product-mini-card"
+                        onclick="window.location.href=`{% url 'product_details' product.id product.title %}`">
 
 
                         <div class="product-image">
@@ -789,11 +657,7 @@
 
                             {% if product.image %}
 
-                            <img
-                                src="{{ product.image.url }}"
-                                alt="{{ product.title }}"
-                                loading="lazy"
-                            >
+                            <img src="{{ product.image.url }}" alt="{{ product.title }}" loading="lazy">
 
                             {% else %}
 
@@ -806,12 +670,9 @@
                             {% endif %}
 
 
-                            <button
-                                class="favorite-button"
-                                type="button"
+                            <button class="favorite-button" type="button"
                                 onclick="event.stopPropagation(); toggleFavorite(this)"
-                                aria-label="{% translate 'Add to favorites' %}"
-                            >
+                                aria-label="{% translate 'Add to favorites' %}">
 
                                 <i class="far fa-heart"></i>
 
@@ -897,10 +758,7 @@
                     </p>
 
 
-                    <button
-                        type="button"
-                        onclick="window.location.href='{% url 'products' %}'"
-                    >
+                    <button type="button" onclick="window.location.href='{% url 'products' %}'">
 
                         {% translate "Explore marketplace" %}
 
@@ -925,10 +783,7 @@
                     </h2>
 
 
-                    <button
-                        type="button"
-                        onclick="window.location.href='{% url 'products' %}'"
-                    >
+                    <button type="button" onclick="window.location.href='{% url 'products' %}'">
 
                         {% translate "See all" %}
 
@@ -940,13 +795,11 @@
                 <div class="product-grid">
 
 
-                    {% for product in products|slice:":8" %}
+                    {% for product in products|slice:":15" %}
 
 
-                    <article
-                        class="product-card"
-                        onclick="window.location.href=`{% url 'product_details' product.id product.title %}`"
-                    >
+                    <article class="product-card"
+                        onclick="window.location.href=`{% url 'product_details' product.id product.title %}`">
 
 
                         <div class="product-card-image">
@@ -954,11 +807,7 @@
 
                             {% if product.image %}
 
-                            <img
-                                src="{{ product.image.url }}"
-                                alt="{{ product.title }}"
-                                loading="lazy"
-                            >
+                            <img src="{{ product.image.url }}" alt="{{ product.title }}" loading="lazy">
 
                             {% else %}
 
@@ -971,12 +820,9 @@
                             {% endif %}
 
 
-                            <button
-                                type="button"
-                                class="favorite-button"
+                            <button type="button" class="favorite-button"
                                 onclick="event.stopPropagation(); toggleFavorite(this)"
-                                aria-label="{% translate 'Add to favorites' %}"
-                            >
+                                aria-label="{% translate 'Add to favorites' %}">
 
                                 <i class="far fa-heart"></i>
 
@@ -1047,11 +893,7 @@
         <nav class="mobile-bottom-nav">
 
 
-            <button
-                type="button"
-                class="active"
-                onclick="window.location.href='{% url 'products' %}'"
-            >
+            <button type="button" class="active" onclick="window.location.href='{% url 'products' %}'">
 
                 <i class="fas fa-shopping-bag"></i>
 
@@ -1062,10 +904,7 @@
             </button>
 
 
-            <button
-                type="button"
-                onclick="window.location.href='{% url 'favorities' %}'"
-            >
+            <button type="button" onclick="window.location.href='{% url 'favorities' %}'">
 
                 <i class="far fa-heart"></i>
 
@@ -1076,10 +915,7 @@
             </button>
 
 
-            <button
-                type="button"
-                onclick="window.location.href='{% url 'shop_list' %}'"
-            >
+            <button type="button" onclick="window.location.href='{% url 'shop_list' %}'">
 
                 <i class="fas fa-store-alt"></i>
 
@@ -1090,10 +926,7 @@
             </button>
 
 
-            <button
-                type="button"
-                onclick="window.location.href='{% url 'customer_account' %}'"
-            >
+            <button type="button" onclick="window.location.href='{% url 'customer_account' %}'">
 
                 <i class="far fa-user"></i>
 

@@ -22,6 +22,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <link rel="stylesheet" href="{% static 'css/shop_details.css' %}">
+
+    {% if shop.seller_dp %}
+
+    {% include "seo_head.html" with seo_title=shop.seller_name seo_description=shop.seller_description seo_canonical=request.build_absolute_uri seo_type="profile" seo_image=shop.seller_dp.url %}
+
+    {% else %}
+
+    {% include "seo_head.html" with seo_title=shop.seller_name seo_description=shop.seller_description seo_canonical=request.build_absolute_uri seo_type="profile" %}
+
+    {% endif %}
 </head>
 
 <body>

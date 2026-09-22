@@ -16,27 +16,6 @@
   </title>
 
   <!-- =====================================================
-         SEO
-    ====================================================== -->
-
-  <meta name="description" content="{{ product.title }} - {{ product.description|truncatechars:155 }}">
-
-  <meta property="og:title" content="{{ product.title }} | Wingastock">
-
-  <meta property="og:description" content="{{ product.description|truncatechars:155 }}">
-
-  {% if product.image %}
-  <meta property="og:image" content="{{ product.image.url }}">
-  {% endif %}
-
-  <meta property="og:type" content="product">
-
-  <meta property="og:url" content="{{ request.build_absolute_uri }}">
-
-  <link rel="canonical" href="{{ request.build_absolute_uri }}">
-
-
-  <!-- =====================================================
          FONT AWESOME
     ====================================================== -->
 
@@ -56,6 +35,16 @@
 
   <link rel="stylesheet" href="{% static 'css/product-preview.css' %}">
 
+
+  {% if product.image %}
+
+      {% include "seo_head.html" with seo_title=product.title seo_description=product.description seo_canonical=request.build_absolute_uri seo_type="product" seo_image=product.image.url %}
+
+  {% else %}
+
+      {% include "seo_head.html" with seo_title=product.title seo_description=product.description seo_canonical=request.build_absolute_uri seo_type="product" %}
+
+  {% endif %}
 </head>
 
 

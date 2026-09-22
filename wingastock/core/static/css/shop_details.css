@@ -48,6 +48,9 @@
 *::after {
 
     box-sizing: border-box;
+    font-family:
+        "Poppins",
+        sans-serif;
 
 }
 
@@ -406,17 +409,13 @@ section {
     width: 100%;
 
     padding:
-        clamp(105px, 11vw, 145px)
-        clamp(14px, 4vw, 30px)
-        clamp(55px, 7vw, 90px);
+        clamp(105px, 11vw, 145px) clamp(14px, 4vw, 30px) clamp(55px, 7vw, 90px);
 
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             #ffffff 0%,
             #fff7f8 48%,
-            #f8fafc 100%
-        );
+            #f8fafc 100%);
 
     border-bottom:
         1px solid var(--portfolio-border);
@@ -463,8 +462,7 @@ section {
     display: grid;
 
     grid-template-columns:
-        minmax(0, 1fr)
-        minmax(300px, 380px);
+        minmax(0, 1fr) minmax(300px, 380px);
 
     align-items: center;
 
@@ -740,8 +738,7 @@ section {
     min-width: 0;
 
     padding:
-        clamp(24px, 4vw, 35px)
-        clamp(18px, 3vw, 28px);
+        clamp(24px, 4vw, 35px) clamp(18px, 3vw, 28px);
 
     text-align: center;
 
@@ -876,7 +873,7 @@ section {
 }
 
 
-.portfolio-profile-card > p {
+.portfolio-profile-card>p {
 
     margin:
         0 0 22px;
@@ -907,7 +904,7 @@ section {
 }
 
 
-.portfolio-profile-stats > div {
+.portfolio-profile-stats>div {
 
     min-width: 0;
 
@@ -1065,8 +1062,7 @@ section {
 .portfolio-about {
 
     padding:
-        clamp(55px, 8vw, 90px)
-        clamp(14px, 4vw, 30px);
+        clamp(55px, 8vw, 90px) clamp(14px, 4vw, 30px);
 
 }
 
@@ -1076,8 +1072,7 @@ section {
     display: grid;
 
     grid-template-columns:
-        minmax(0, 1.15fr)
-        minmax(280px, 0.85fr);
+        minmax(0, 1.15fr) minmax(280px, 0.85fr);
 
     gap:
         clamp(30px, 6vw, 70px);
@@ -1197,7 +1192,7 @@ section {
 }
 
 
-.portfolio-detail-item > div:last-child {
+.portfolio-detail-item>div:last-child {
 
     min-width: 0;
 
@@ -1291,7 +1286,7 @@ section {
 }
 
 
-.portfolio-feature-card > i {
+.portfolio-feature-card>i {
 
     width: 42px;
 
@@ -1354,8 +1349,7 @@ section {
     width: 100%;
 
     padding:
-        clamp(25px, 5vw, 45px)
-        clamp(14px, 4vw, 30px);
+        clamp(25px, 5vw, 45px) clamp(14px, 4vw, 30px);
 
     background:
         #ffffff;
@@ -1474,8 +1468,7 @@ section {
 .portfolio-products {
 
     padding:
-        clamp(55px, 8vw, 90px)
-        clamp(14px, 4vw, 30px);
+        clamp(55px, 8vw, 90px) clamp(14px, 4vw, 30px);
 
 }
 
@@ -1496,7 +1489,7 @@ section {
 }
 
 
-.portfolio-products-heading > div {
+.portfolio-products-heading>div {
 
     min-width: 0;
 
@@ -1664,8 +1657,7 @@ section {
 }
 
 
-.portfolio-product-card:hover
-.portfolio-product-image img {
+.portfolio-product-card:hover .portfolio-product-image img {
 
     transform:
         scale(1.045);
@@ -1673,8 +1665,7 @@ section {
 }
 
 
-.portfolio-product-image
-.portfolio-profile-placeholder {
+.portfolio-product-image .portfolio-profile-placeholder {
 
     width: 100%;
 
@@ -1881,7 +1872,7 @@ section {
 }
 
 
-.portfolio-empty-products > i {
+.portfolio-empty-products>i {
 
     margin-bottom: 13px;
 
@@ -1925,8 +1916,7 @@ section {
 .portfolio-location {
 
     padding:
-        clamp(55px, 8vw, 90px)
-        clamp(14px, 4vw, 30px);
+        clamp(55px, 8vw, 90px) clamp(14px, 4vw, 30px);
 
 }
 
@@ -1940,8 +1930,7 @@ section {
     display: grid;
 
     grid-template-columns:
-        minmax(280px, 0.8fr)
-        minmax(0, 1.2fr);
+        minmax(280px, 0.8fr) minmax(0, 1.2fr);
 
     overflow: hidden;
 
@@ -2196,7 +2185,7 @@ section {
 }
 
 
-.portfolio-location-empty > i {
+.portfolio-location-empty>i {
 
     margin-bottom: 13px;
 
@@ -2240,9 +2229,7 @@ section {
 .portfolio-contact {
 
     padding:
-        20px
-        clamp(14px, 4vw, 30px)
-        clamp(60px, 8vw, 90px);
+        20px clamp(14px, 4vw, 30px) clamp(60px, 8vw, 90px);
 
 }
 
@@ -2327,7 +2314,7 @@ section {
     border-radius: 15px;
 
     background:
-        rgba(255,255,255,0.10);
+        rgba(255, 255, 255, 0.10);
 
     color:
         #ffffff;
@@ -2538,15 +2525,12 @@ section {
 .portfolio-footer-grid {
 
     padding:
-        45px
-        clamp(14px, 4vw, 30px)
-        30px;
+        45px clamp(14px, 4vw, 30px) 30px;
 
     display: grid;
 
     grid-template-columns:
-        minmax(0, 1fr)
-        auto;
+        minmax(0, 1fr) auto;
 
     gap: 35px;
 
@@ -2636,8 +2620,7 @@ section {
 .portfolio-footer-bottom {
 
     padding:
-        17px
-        clamp(14px, 4vw, 30px);
+        17px clamp(14px, 4vw, 30px);
 
     display: flex;
 
@@ -2732,8 +2715,7 @@ section {
     .portfolio-hero-content {
 
         grid-template-columns:
-            minmax(0, 1fr)
-            minmax(270px, 330px);
+            minmax(0, 1fr) minmax(270px, 330px);
 
         gap: 35px;
 
@@ -2751,8 +2733,7 @@ section {
     .portfolio-location-card {
 
         grid-template-columns:
-            minmax(260px, 0.85fr)
-            minmax(0, 1.15fr);
+            minmax(260px, 0.85fr) minmax(0, 1.15fr);
 
     }
 
@@ -2997,7 +2978,7 @@ section {
         border-radius: 13px;
 
         background:
-            rgba(255,255,255,0.98);
+            rgba(255, 255, 255, 0.98);
 
         box-shadow:
             0 15px 35px rgba(15, 23, 42, 0.13);
@@ -3172,7 +3153,7 @@ section {
     }
 
 
-    .portfolio-profile-card > p {
+    .portfolio-profile-card>p {
 
         font-size: 10px;
 
@@ -3667,13 +3648,13 @@ section {
         gap: 7px;
 
         background:
-            rgba(255,255,255,0.97);
+            rgba(255, 255, 255, 0.97);
 
         border-top:
             1px solid var(--portfolio-border);
 
         box-shadow:
-            0 -5px 20px rgba(15,23,42,0.08);
+            0 -5px 20px rgba(15, 23, 42, 0.08);
 
         backdrop-filter:
             blur(12px);
@@ -3886,9 +3867,7 @@ section {
    LANDSCAPE MOBILE
 ========================================================= */
 
-@media only screen
-and (max-width: 767px)
-and (orientation: landscape) {
+@media only screen and (max-width: 767px) and (orientation: landscape) {
 
     .portfolio-hero {
 
@@ -3900,8 +3879,7 @@ and (orientation: landscape) {
     .portfolio-hero-content {
 
         grid-template-columns:
-            minmax(0, 1fr)
-            minmax(230px, 300px);
+            minmax(0, 1fr) minmax(230px, 300px);
 
         align-items: center;
 
