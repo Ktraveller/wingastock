@@ -1,14 +1,25 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wingastock | Mails</title>
+
+    <title>Wingastock | {% translate "Mails" %}</title>
+
     <link rel="stylesheet" href="{% static 'mail_css/style1.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
     {% if opened_message %}
     <style>
@@ -21,232 +32,621 @@
     {% endif %}
 </head>
 
+
 <body>
 
-    <!-- Page Loader -->
-<div id="page-loader">
-    <div class="loader-content">
-        <div class="spinner"></div>
-        <div class="loading-text">Loading<span class="dots"></span></div>
-    </div>
-</div>
+    <!-- =====================================================
+         PAGE LOADER
+         ===================================================== -->
+    <div id="page-loader">
 
-    <form action="" method="post">
-        {% csrf_token %}
+        <div class="loader-content">
 
-        <div class="row-holder-100">
+            <div class="spinner"></div>
 
-            <div class="left-holder-101" id="left-holder-101">
-                <div class="left-content-holder-102">
-
-
-                    <div class="nav-bar-holder-102">
-                        <div>
-                            <ul>
-                                <a href="{% url 'home' %}">
-                                    <li>Home <i class="fas fa-home"></i></li>
-                                </a>
-
-                                <a href="{% url 'unreaded_c' %}">
-                                    <li>Unreaded mails <i class="fas fa-envelope"></i></li>
-                                </a>
-
-                                <a href="{% url 'readed_c' %}">
-                                    <li>Readed mails <i class="fas fa-envelope-open"></i></li>
-                                </a>
-
-                                <a href="{% url 'sent_mails_c' %}">
-                                    <li>Sent mails <i class="fas fa-paper-plane"></i></li>
-                                </a>
-
-                                <a href="{% url 'mail_settings_c' %}">
-                                    <li>Settings <i class="fas fa-cog"></i></li>
-                                </a>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Recent messages -->
-                    <div class="messages-list-holder-102">
-                        <div>
-                            <p><i class="fas fa-clock"></i> Recent Senders</p>
-
-                            <!-- Back top -->
-                            <button class="back-102" onclick="window.location.href='#head'">
-                                <i class="fas fa-arrow-up"></i>
-                            </button>
-
-                            <div>
-                                <ul>
-                                    {% for sender in senders %}
-                                    <a href="{% url 'mail_read_c' sender.sender_id %}">
-                                        <li class="opened_message"><i class="fas fa-user"></i> {{ sender.sender_id }} <i
-                                                class="fas fa-clock sender-100"></i></li>
-                                    </a>
-                                    {% empty %}
-                                    <li class="mail-empty-state">
-                                        <i class="fas fa-users"></i>
-                                        <strong>No recent senders</strong>
-                                        <span>Your conversations will appear here.</span>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="right-holder-101" id="right-holder-101">
-
-                <div class="center-header-holder-102">
-                    <h1><i class="fas fa-envelope"></i> Wingastock Mail System (WMS)</h1>
-                    <button type="button" onclick="toggleLeftPanel()"><i class="fas fa-bars"></i></button>
-                </div>
-
-                <div class="center-content-holder-102">
-
-                    <!-- Mail content will be displayed here -->
-                    <div class="mail-display-holder-103">
-                        <div style="overflow-y: scroll; height: 500px;">
-
-                            <div class="top-message-details-103">
-                                <button type="button"><i class="fas fa-user"></i></button>
-                                <span>{{ m_receiver }}</span>
-                                <button type="button" class="read-actions-103" id="delete_icon1"
-                                    onclick="show_delete(1)">
-                                    <i class="fas fa-trash"></i></button>
-                                <button type="button" class="read-actions-103" style="display: none;" id="delete_icon2"
-                                    onclick="show_delete(0)">
-                                    <i class="fas fa-times"></i></button>
-                                <button type="button" class="read-actions-103" style="margin-right: 10px;"
-                                    onclick="document.getElementById('clear').style.display='inline-block'">
-                                    <i class="fas fa-broom"></i>
-                                </button>
-                            </div>
-
-                            <!-- Clear all messages modal -->
-                            <div class="clear-modal-holder" id="clear">
-                                <div>
-                                    <p>Delete all messages</p>
-                                    <button type="button"
-                                        onclick="window.location.href=`{% url 'clear_mails_c' m_receiver %}`">Okay,
-                                        delete</button>
-                                    <button type="button" style="background: whitesmoke; color: crimson;"
-                                        onclick="document.getElementById('clear').style.display='none'">Cancel</button>
-                                </div>
-                            </div>
-
-                            {% for message in messages %}
-
-
-                            {% if message.sender_id == m_receiver %}
-                            <table>
-                                <tr>
-                                    <td>
-                                        <button type="button" id="trash"
-                                            onclick="window.location.href=`{% url 'delete_mail_c' message.id %}`"><i
-                                                class="fas fa-trash"></i></button>
-                                        <button type="button" class="received-100">{{ message.message }}</button>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                            </table>
-                            {% endif %}
-
-
-                            {% if message.receiver_id == m_receiver %}
-                            <table>
-                                <tr>
-                                    <td></td>
-                                    <td style="text-align: right;"><button type="button" class="sent-100">
-                                            {{ message.message }}</button>
-                                        <button type="button" id="trash"
-                                            onclick="window.location.href=`{% url 'delete_mail_c' message.id %}`"><i
-                                                class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            </table>
-                            {% endif %}
-
-                            {% endfor %}
-
-                        </div>
-                    </div>
-
-                    <!-- Reply box -->
-                    <div class="reply-box-104">
-                        <div class="reply-content-104">
-                            <div class="inputs-holder-104">
-                                <textarea name="message" id="" placeholder="Write text to reply ..."></textarea>
-                            </div>
-                            <div class="send-holder-104">
-                                <button type="submit">Send <i class="fas fa-paper-plane"
-                                        style="padding-left: 5px;"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="loading-text">
+                {% translate "Loading" %}<span class="dots"></span>
             </div>
 
         </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN FORM
+         ===================================================== -->
+    <form action="" method="post">
+
+        {% csrf_token %}
+
+
+        <!-- =================================================
+             MAIN APPLICATION
+             ================================================= -->
+        <div class="row-holder-100">
+
+
+            <!-- =================================================
+                 LEFT SIDEBAR
+                 ================================================= -->
+            <div
+                class="left-holder-101"
+                id="left-holder-101"
+            >
+
+                <div class="left-content-holder-102">
+
+
+                    <!-- =================================================
+                         NAVIGATION
+                         ================================================= -->
+                    <div class="nav-bar-holder-102">
+
+                        <div>
+
+                            <ul>
+
+                                <a href="{% url 'seller_home' %}">
+                                    <li class="active-page">
+                                        {% translate "Home" %}
+                                        <i class="fas fa-home"></i>
+                                    </li>
+                                </a>
+
+
+                                <a href="{% url 'unreaded' %}">
+                                    <li>
+                                        {% translate "Unreaded mails" %}
+                                        <i class="fas fa-envelope"></i>
+                                    </li>
+                                </a>
+
+
+                                <a href="{% url 'readed' %}">
+                                    <li>
+                                        {% translate "Readed mails" %}
+                                        <i class="fas fa-envelope-open"></i>
+                                    </li>
+                                </a>
+
+
+                                <a href="{% url 'sent_mails' %}">
+                                    <li>
+                                        {% translate "Sent mails" %}
+                                        <i class="fas fa-paper-plane"></i>
+                                    </li>
+                                </a>
+
+
+                                <a href="{% url 'mail_settings' %}">
+                                    <li>
+                                        {% translate "Settings" %}
+                                        <i class="fas fa-cog"></i>
+                                    </li>
+                                </a>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         RECENT MESSAGES
+                         ================================================= -->
+                    <div class="messages-list-holder-102">
+
+                        <div>
+
+                            <p>
+                                <i class="fas fa-clock"></i>
+                                {% translate "Recent Senders" %}
+                            </p>
+
+
+                            <!-- Back to top -->
+                            <button
+                                type="button"
+                                class="back-102"
+                                onclick="window.location.href='#head'"
+                            >
+                                <i class="fas fa-arrow-up"></i>
+                            </button>
+
+
+                            <div>
+
+                                <ul>
+
+                                    {% for sender in senders %}
+
+                                    <a href="{% url 'mail_read' sender.sender_id %}">
+
+                                        <li class="opened_message">
+
+                                            <i class="fas fa-user"></i>
+
+                                            {{ sender.sender_id }}
+
+                                            <i class="fas fa-clock sender-100"></i>
+
+                                        </li>
+
+                                    </a>
+
+                                    {% empty %}
+
+                                    <li class="mail-empty-state">
+
+                                        <i class="fas fa-users"></i>
+
+                                        <strong>
+                                            {% translate "No recent senders" %}
+                                        </strong>
+
+                                        <span>
+                                            {% translate "Your conversations will appear here." %}
+                                        </span>
+
+                                    </li>
+
+                                    {% endfor %}
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 RIGHT APPLICATION
+                 ================================================= -->
+            <div
+                class="right-holder-101"
+                id="right-holder-101"
+            >
+
+
+                <!-- =================================================
+                     MAIN HEADER
+                     ================================================= -->
+                <div class="center-header-holder-102">
+
+                    <h1>
+
+                        <i class="fas fa-envelope"></i>
+
+                        {% translate "Wingastock Mail System (WMS)" %}
+
+                    </h1>
+
+
+                    <!-- Mobile menu -->
+                    <button
+                        type="button"
+                        onclick="toggleLeftPanel()"
+                        aria-label="{% translate 'Open menu' %}"
+                    >
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                </div>
+
+
+                <!-- =================================================
+                     MAIN MESSAGE AREA
+
+                     IMPORTANT:
+                     Reply box is NOT inside this container.
+                     ================================================= -->
+                <div class="center-content-holder-102">
+
+
+                    <!-- =================================================
+                         MESSAGE CONTAINER
+                         ================================================= -->
+                    <div class="mail-display-holder-103">
+
+                        <div class="mail-list-103">
+
+
+                            <!-- =================================================
+                                 CONVERSATION HEADER
+                                 ================================================= -->
+                            <div class="top-message-details-103">
+
+                                <button type="button">
+                                    <i class="fas fa-user"></i>
+                                </button>
+
+
+                                <span>
+                                    {{ m_receiver }}
+                                </span>
+
+
+                                <!-- Delete mode -->
+                                <button
+                                    type="button"
+                                    class="read-actions-103"
+                                    id="delete_icon1"
+                                    onclick="show_delete(1)"
+                                    aria-label="{% translate 'Show delete buttons' %}"
+                                >
+                                    <i class="fas fa-trash"></i>
+                                </button>
+
+
+                                <!-- Close delete mode -->
+                                <button
+                                    type="button"
+                                    class="read-actions-103"
+                                    style="display: none;"
+                                    id="delete_icon2"
+                                    onclick="show_delete(0)"
+                                    aria-label="{% translate 'Hide delete buttons' %}"
+                                >
+                                    <i class="fas fa-times"></i>
+                                </button>
+
+
+                                <!-- Clear conversation -->
+                                <button
+                                    type="button"
+                                    class="read-actions-103"
+                                    style="margin-right: 10px;"
+                                    onclick="document.getElementById('clear').style.display='flex'"
+                                    aria-label="{% translate 'Clear conversation' %}"
+                                >
+                                    <i class="fas fa-broom"></i>
+                                </button>
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 CLEAR ALL MESSAGES MODAL
+                                 ================================================= -->
+                            <div
+                                class="clear-modal-holder"
+                                id="clear"
+                            >
+
+                                <div>
+
+                                    <p>
+                                        {% translate "Delete all messages" %}
+                                    </p>
+
+
+                                    <button
+                                        type="button"
+                                        onclick="window.location.href=`{% url 'clear_mails' m_receiver %}`"
+                                    >
+                                        {% translate "Okay, delete" %}
+                                    </button>
+
+
+                                    <button
+                                        type="button"
+                                        style="background: whitesmoke; color: crimson;"
+                                        onclick="document.getElementById('clear').style.display='none'"
+                                    >
+                                        {% translate "Cancel" %}
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 MESSAGES
+                                 ================================================= -->
+                            {% for message in messages %}
+
+
+                                <!-- =================================================
+                                     RECEIVED MESSAGE
+                                     ================================================= -->
+                                {% if message.sender_id == m_receiver %}
+
+                                <table>
+
+                                    <tr>
+
+                                        <td>
+
+                                            <button
+                                                type="button"
+                                                id="trash"
+                                                onclick="window.location.href=`{% url 'delete_mail' message.id %}`"
+                                                aria-label="{% translate 'Delete message' %}"
+                                            >
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+
+
+                                            <button
+                                                type="button"
+                                                class="received-100"
+                                            >
+                                                {{ message.message }}
+                                            </button>
+
+                                        </td>
+
+                                        <td></td>
+
+                                    </tr>
+
+                                </table>
+
+                                {% endif %}
+
+
+                                <!-- =================================================
+                                     SENT MESSAGE
+                                     ================================================= -->
+                                {% if message.receiver_id == m_receiver %}
+
+                                <table>
+
+                                    <tr>
+
+                                        <td></td>
+
+                                        <td style="text-align: right;">
+
+                                            <button
+                                                type="button"
+                                                class="sent-100"
+                                            >
+                                                {{ message.message }}
+                                            </button>
+
+
+                                            <button
+                                                type="button"
+                                                id="trash"
+                                                onclick="window.location.href=`{% url 'delete_mail' message.id %}`"
+                                                aria-label="{% translate 'Delete message' %}"
+                                            >
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+
+                                        </td>
+
+                                    </tr>
+
+                                </table>
+
+                                {% endif %}
+
+
+                            {% endfor %}
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <!-- END center-content-holder-102 -->
+
+
+                <!-- =================================================
+                     REPLY BOX
+
+                     IMPORTANT:
+                     This is OUTSIDE center-content-holder-102.
+
+                     Its width is controlled by:
+                     --mail-content-gap
+
+                     Therefore it aligns exactly with
+                     .mail-display-holder-103.
+                     ================================================= -->
+                <div class="reply-box-104">
+
+                    <div class="reply-content-104">
+
+
+                        <!-- =================================================
+                             MESSAGE INPUT
+                             ================================================= -->
+                        <div class="inputs-holder-104">
+
+                            <textarea
+                                name="message"
+                                id="reply-message"
+                                placeholder="{% translate 'Write text to reply ...' %}"
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             SEND BUTTON
+                             ================================================= -->
+                        <div class="send-holder-104">
+
+                            <button
+                                type="submit"
+                                aria-label="{% translate 'Send message' %}"
+                            >
+                                {% translate "Send" %}
+
+                                <i class="fas fa-paper-plane"></i>
+
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <!-- END reply-box-104 -->
+
+
+            </div>
+            <!-- END right-holder-101 -->
+
+
+        </div>
+        <!-- END row-holder-100 -->
+
+
     </form>
 
+
+    <!-- =====================================================
+         PAGE LOADER
+         ===================================================== -->
     <script>
-    window.addEventListener("load", function () {
 
-        const loader = document.getElementById("page-loader");
+        window.addEventListener("load", function () {
 
-        if (loader) {
-            loader.classList.add("hidden");
+            const loader = document.getElementById("page-loader");
 
-            setTimeout(function () {
-                loader.remove();
-            }, 400);
-        }
+            if (loader) {
 
-    });
-</script>
+                loader.classList.add("hidden");
 
-    <script>
-        function toggleLeftPanel() {
-            const leftPanel = document.getElementById('left-holder-101');
-            const rightPanel = document.getElementById('right-holder-101');
+                setTimeout(function () {
 
-            if (leftPanel.style.display === 'none') {
-                leftPanel.style.display = 'inline-block';
-                leftPanel.style.width = '100%';
-                rightPanel.style.display = 'none';
+                    loader.remove();
 
-            } else {
-                leftPanel.style.display = 'none';
-                rightPanel.style.width = '100%';
-                rightPanel.style.display = 'inline-block';
+                }, 400);
+
             }
-        }
 
-        function show_delete(click) {
-            const delete_buttons = document.querySelectorAll('#trash');
-            const delete_icon1 = document.getElementById('delete_icon1');
-            const delete_icon2 = document.getElementById('delete_icon2');
-
-            delete_buttons.forEach(function (delete_button) {
-                if (click == "1") {
-                    delete_button.style.display = 'inline-block';
-                    delete_icon1.style.display = 'none';
-                    delete_icon2.style.display = 'inline-block';
-                } else {
-                    delete_button.style.display = 'none';
-                    delete_icon2.style.display = 'none';
-                    delete_icon1.style.display = 'inline-block';
-                }
-            });
-        }
-
+        });
 
     </script>
+
+
+    <!-- =====================================================
+         MAIL UI FUNCTIONS
+         ===================================================== -->
+    <script>
+
+        function toggleLeftPanel() {
+
+            const leftPanel =
+                document.getElementById("left-holder-101");
+
+            const rightPanel =
+                document.getElementById("right-holder-101");
+
+
+            if (!leftPanel || !rightPanel) {
+                return;
+            }
+
+
+            const isMobile =
+                window.innerWidth <= 767;
+
+
+            if (!isMobile) {
+                return;
+            }
+
+
+            const currentDisplay =
+                window.getComputedStyle(leftPanel).display;
+
+
+            if (currentDisplay === "none") {
+
+                leftPanel.style.display = "block";
+
+                rightPanel.style.display = "none";
+
+            } else {
+
+                leftPanel.style.display = "none";
+
+                rightPanel.style.display = "flex";
+
+                rightPanel.style.width = "100%";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           DELETE MESSAGE BUTTONS
+           ===================================================== */
+
+        function show_delete(click) {
+
+            const delete_buttons =
+                document.querySelectorAll("#trash");
+
+            const delete_icon1 =
+                document.getElementById("delete_icon1");
+
+            const delete_icon2 =
+                document.getElementById("delete_icon2");
+
+
+            delete_buttons.forEach(function (delete_button) {
+
+                if (String(click) === "1") {
+
+                    delete_button.style.display =
+                        "inline-block";
+
+                    if (delete_icon1) {
+                        delete_icon1.style.display = "none";
+                    }
+
+                    if (delete_icon2) {
+                        delete_icon2.style.display = "flex";
+                    }
+
+                } else {
+
+                    delete_button.style.display = "none";
+
+                    if (delete_icon2) {
+                        delete_icon2.style.display = "none";
+                    }
+
+                    if (delete_icon1) {
+                        delete_icon1.style.display = "flex";
+                    }
+
+                }
+
+            });
+
+        }
+
+    </script>
+
+
+    <!-- =====================================================
+         EXISTING MAIL JAVASCRIPT
+         ===================================================== -->
     <script src="{% static 'mail_js/mail.js' %}"></script>
+
+
 </body>
 
 </html>

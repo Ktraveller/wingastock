@@ -1,15 +1,22 @@
 {% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wingastock | Edit product</title>
+
+    <title>{% translate "Edit product" %}</title>
+
     <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
         .messages {
@@ -49,185 +56,506 @@
     <div id="page-loader">
         <div class="loader-content">
             <div class="spinner"></div>
-            <div class="loading-text">Loading<span class="dots"></span></div>
+
+            <div class="loading-text">
+                {% translate "Loading" %}<span class="dots"></span>
+            </div>
         </div>
     </div>
+
 
     <div class="row-holder">
 
         <!-- Header -->
         <div class="header-holder-100">
+
             <div class="header-100">
+
                 <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-                            class="fas fa-times"></i></button>
+
+                    <button type="button"
+                        id="menu1"
+                        onclick="open_menu('open')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <button type="button"
+                        id="menu2"
+                        style="display: none;"
+                        onclick="open_menu('close')">
+                        <i class="fas fa-times"></i>
+                    </button>
+
                 </div>
+
+
                 <div class="title-holder-101">
-                    <button type="button"><span>Wingastock | Seller</span></button>
+
+                    <button type="button">
+                        <span>{% translate "Edit product" %}</span>
+                    </button>
+
                 </div>
+
+
                 {% include 'profile_s.html' %}
+
             </div>
+
         </div>
 
 
-        <!-- center content -->
+        <!-- Center content -->
         <div class="center-content-200">
 
+
             <div class="left-holder-201" id="nav">
+
                 <div class="nav-bar-holder-202">
+
 
                     <ul>
                         <a href="{% url 'seller_home' %}">
-                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
+                            <li>
+                                {% translate "Dashboard" %}
+                                <i class="fas fa-tachometer-alt"></i>
+                            </li>
                         </a>
                     </ul>
+
 
                     <ul>
                         <a href="{% url 'seller_products' %}">
-                            <li class="active-0">Products <i class="fas fa-shopping-bag"></i></li>
+                            <li class="active-0">
+                                {% translate "Products" %}
+                                <i class="fas fa-shopping-bag"></i>
+                            </li>
                         </a>
                     </ul>
+
 
                     <ul>
                         <a href="{% url 'mail_home' %}">
-                            <li>Mails <i class="fas fa-envelope"></i></li>
+                            <li>
+                                {% translate "Mails" %}
+                                <i class="fas fa-envelope"></i>
+                            </li>
                         </a>
                     </ul>
+
 
                     <ul>
                         <a href="{% url 'seller_account' %}">
-                            <li>Account <i class="fas fa-user"></i></li>
+                            <li>
+                                {% translate "Account" %}
+                                <i class="fas fa-user"></i>
+                            </li>
                         </a>
                     </ul>
+
 
                     <ul>
                         <a href="{% url 'seller_terms_conditions' %}">
-                            <li>Terms and condtions <i class="fas fa-file-contract"></i></li>
+                            <li>
+                                {% translate "Terms and conditions" %}
+                                <i class="fas fa-file-contract"></i>
+                            </li>
                         </a>
                     </ul>
+
 
                     <ul>
                         <a href="{% url 'logout_seller' %}">
-                            <li>Exit <i class="fas fa-sign-out-alt"></i></li>
+                            <li>
+                                {% translate "Exit" %}
+                                <i class="fas fa-sign-out-alt"></i>
+                            </li>
                         </a>
                     </ul>
+
+
                 </div>
+
             </div>
 
+
             <div class="right-holder-201">
+
                 <div class="products-202">
 
+
                     <div class="seller-page-heading">
+
                         <div>
-                            <span class="seller-kicker">PRODUCT STUDIO</span>
-                            <h1>Edit product</h1>
-                            <p>Refresh your product details, image and pricing without leaving your workspace.</p>
+
+                            <span class="seller-kicker">
+                                {% translate "PRODUCT STUDIO" %}
+                            </span>
+
+                            <h1>
+                                {% translate "Edit product" %}
+                            </h1>
+
+                            <p>
+                                {% translate "Refresh your product details, image and pricing without leaving your workspace." %}
+                            </p>
+
                         </div>
-                        <a class="seller-secondary-action" href="{% url 'seller_products' %}">
-                            <i class="fas fa-arrow-left"></i> Back to products
+
+
+                        <a class="seller-secondary-action"
+                            href="{% url 'seller_products' %}">
+
+                            <i class="fas fa-arrow-left"></i>
+
+                            {% translate "Back to products" %}
+
                         </a>
+
                     </div>
 
+
                     {% if messages %}
+
                     <div class="messages">
+
                         {% for message in messages %}
+
                         <div class="alert {{ message.tags }}">
                             {{ message }}
                         </div>
+
                         {% endfor %}
+
                     </div>
+
                     {% endif %}
 
-                    <form class="seller-product-form" action="{% url 'seller_edit_product' selected.id %}"
-                        enctype="multipart/form-data" method="post">
+
+                    <form
+                        class="seller-product-form"
+                        action="{% url 'seller_edit_product' selected.id %}"
+                        enctype="multipart/form-data"
+                        method="post">
+
                         {% csrf_token %}
 
+
                         <div class="seller-upload-layout">
+
+
                             <div class="seller-photo-panel">
-                                <label class="seller-photo-drop" for="product-image">
+
+                                <label
+                                    class="seller-photo-drop"
+                                    for="product-image">
+
+
                                     <span class="seller-photo-placeholder{% if selected.image %} is-hidden{% endif %}">
+
                                         <i class="fas fa-camera"></i>
-                                        <b>Update product photo</b>
-                                        <small>Tap to upload a replacement</small>
+
+                                        <b>
+                                            {% translate "Update product photo" %}
+                                        </b>
+
+                                        <small>
+                                            {% translate "Tap to upload a replacement" %}
+                                        </small>
+
                                     </span>
+
+
                                     {% if selected.image %}
-                                    <img id="product-image-preview" class="is-visible" src="{{ selected.image.url }}"
+
+                                    <img
+                                        id="product-image-preview"
+                                        class="is-visible"
+                                        src="{{ selected.image.url }}"
                                         alt="{{ selected.title }}">
+
                                     {% else %}
-                                    <img id="product-image-preview" alt="Product preview">
+
+                                    <img
+                                        id="product-image-preview"
+                                        alt="{% translate 'Product preview' %}">
+
                                     {% endif %}
-                                    <input id="product-image" type="file" name="image" accept="image/*">
+
+
+                                    <input
+                                        id="product-image"
+                                        type="file"
+                                        name="image"
+                                        accept="image/*">
+
                                 </label>
-                                <small class="seller-photo-help">Leave unchanged to keep the current image · JPG, PNG or WEBP</small>
+
+
+                                <small class="seller-photo-help">
+
+                                    {% translate "Leave unchanged to keep the current image · JPG, PNG or WEBP" %}
+
+                                </small>
+
                             </div>
+
 
                             <div class="seller-details-panel">
-                                <div class="input-holder-203">
-                                    <p><i class="fas fa-heading"></i> Product name</p>
-                                    <div>
-                                        <input type="text" name="title" placeholder="e.g iPhone 12"
-                                            value="{{ selected.title }}" required>
-                                    </div>
-                                </div>
+
+
+                                <!-- PRODUCT NAME -->
 
                                 <div class="input-holder-203">
-                                    <p><i class="fas fa-tags"></i> Category</p>
+
+                                    <p>
+                                        <i class="fas fa-heading"></i>
+                                        {% translate "Product name" %}
+                                    </p>
+
                                     <div>
+
+                                        <input
+                                            type="text"
+                                            name="title"
+                                            placeholder="{% translate 'e.g iPhone 12' %}"
+                                            value="{{ selected.title }}"
+                                            required>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- CATEGORY -->
+
+                                <div class="input-holder-203">
+
+                                    <p>
+                                        <i class="fas fa-tags"></i>
+                                        {% translate "Category" %}
+                                    </p>
+
+
+                                    <div>
+
                                         <select name="category" required>
-                                            <option value="">Choose category</option>
-                                            <option value="electronics" {% if selected.category == "electronics" %}selected{% endif %}>📱 Electronics</option>
-                                            <option value="phones" {% if selected.category == "phones" %}selected{% endif %}>📱 Phones & Tablets</option>
-                                            <option value="computers" {% if selected.category == "computers" %}selected{% endif %}>💻 Computers & Laptops</option>
-                                            <option value="fashion" {% if selected.category == "fashion" %}selected{% endif %}>👕 Fashion</option>
-                                            <option value="shoes" {% if selected.category == "shoes" %}selected{% endif %}>👟 Shoes</option>
-                                            <option value="beauty" {% if selected.category == "beauty" %}selected{% endif %}>💄 Beauty & Personal Care</option>
-                                            <option value="food" {% if selected.category == "food" %}selected{% endif %}>🍔 Food & Groceries</option>
-                                            <option value="drinks" {% if selected.category == "drinks" %}selected{% endif %}>🥤 Drinks & Beverages</option>
-                                            <option value="furniture" {% if selected.category == "furniture" %}selected{% endif %}>🛋️ Furniture</option>
-                                            <option value="home" {% if selected.category == "home" %}selected{% endif %}>🏠 Home & Garden</option>
-                                            <option value="appliances" {% if selected.category == "appliances" %}selected{% endif %}>🔌 Home Appliances</option>
-                                            <option value="vehicles" {% if selected.category == "vehicles" %}selected{% endif %}>🚗 Vehicles</option>
-                                            <option value="parts" {% if selected.category == "parts" %}selected{% endif %}>🔧 Vehicle Parts & Accessories</option>
-                                            <option value="sports" {% if selected.category == "sports" %}selected{% endif %}>⚽ Sports & Fitness</option>
-                                            <option value="books" {% if selected.category == "books" %}selected{% endif %}>📚 Books & Education</option>
-                                            <option value="toys" {% if selected.category == "toys" %}selected{% endif %}>🧸 Toys & Games</option>
-                                            <option value="baby" {% if selected.category == "baby" %}selected{% endif %}>👶 Baby & Kids</option>
-                                            <option value="services" {% if selected.category == "services" %}selected{% endif %}>🛠️ Services</option>
-                                            <option value="jobs" {% if selected.category == "jobs" %}selected{% endif %}>💼 Jobs</option>
-                                            <option value="property" {% if selected.category == "property" %}selected{% endif %}>🏠 Property</option>
-                                            <option value="other" {% if selected.category == "other" %}selected{% endif %}>📦 Other</option>
+
+                                            <option value="">
+                                                {% translate "Choose category" %}
+                                            </option>
+
+
+                                            <option value="electronics"
+                                                {% if selected.category == "electronics" %}selected{% endif %}>
+                                                📱 {% translate "Electronics" %}
+                                            </option>
+
+
+                                            <option value="phones"
+                                                {% if selected.category == "phones" %}selected{% endif %}>
+                                                📱 {% translate "Phones & Tablets" %}
+                                            </option>
+
+
+                                            <option value="computers"
+                                                {% if selected.category == "computers" %}selected{% endif %}>
+                                                💻 {% translate "Computers & Laptops" %}
+                                            </option>
+
+
+                                            <option value="fashion"
+                                                {% if selected.category == "fashion" %}selected{% endif %}>
+                                                👕 {% translate "Fashion" %}
+                                            </option>
+
+
+                                            <option value="shoes"
+                                                {% if selected.category == "shoes" %}selected{% endif %}>
+                                                👟 {% translate "Shoes" %}
+                                            </option>
+
+
+                                            <option value="beauty"
+                                                {% if selected.category == "beauty" %}selected{% endif %}>
+                                                💄 {% translate "Beauty & Personal Care" %}
+                                            </option>
+
+
+                                            <option value="food"
+                                                {% if selected.category == "food" %}selected{% endif %}>
+                                                🍔 {% translate "Food & Groceries" %}
+                                            </option>
+
+
+                                            <option value="drinks"
+                                                {% if selected.category == "drinks" %}selected{% endif %}>
+                                                🥤 {% translate "Drinks & Beverages" %}
+                                            </option>
+
+
+                                            <option value="furniture"
+                                                {% if selected.category == "furniture" %}selected{% endif %}>
+                                                🛋️ {% translate "Furniture" %}
+                                            </option>
+
+
+                                            <option value="home"
+                                                {% if selected.category == "home" %}selected{% endif %}>
+                                                🏠 {% translate "Home & Garden" %}
+                                            </option>
+
+
+                                            <option value="appliances"
+                                                {% if selected.category == "appliances" %}selected{% endif %}>
+                                                🔌 {% translate "Home Appliances" %}
+                                            </option>
+
+
+                                            <option value="vehicles"
+                                                {% if selected.category == "vehicles" %}selected{% endif %}>
+                                                🚗 {% translate "Vehicles" %}
+                                            </option>
+
+
+                                            <option value="parts"
+                                                {% if selected.category == "parts" %}selected{% endif %}>
+                                                🔧 {% translate "Vehicle Parts & Accessories" %}
+                                            </option>
+
+
+                                            <option value="sports"
+                                                {% if selected.category == "sports" %}selected{% endif %}>
+                                                ⚽ {% translate "Sports & Fitness" %}
+                                            </option>
+
+
+                                            <option value="books"
+                                                {% if selected.category == "books" %}selected{% endif %}>
+                                                📚 {% translate "Books & Education" %}
+                                            </option>
+
+
+                                            <option value="toys"
+                                                {% if selected.category == "toys" %}selected{% endif %}>
+                                                🧸 {% translate "Toys & Games" %}
+                                            </option>
+
+
+                                            <option value="baby"
+                                                {% if selected.category == "baby" %}selected{% endif %}>
+                                                👶 {% translate "Baby & Kids" %}
+                                            </option>
+
+
+                                            <option value="services"
+                                                {% if selected.category == "services" %}selected{% endif %}>
+                                                🛠️ {% translate "Services" %}
+                                            </option>
+
+
+                                            <option value="jobs"
+                                                {% if selected.category == "jobs" %}selected{% endif %}>
+                                                💼 {% translate "Jobs" %}
+                                            </option>
+
+
+                                            <option value="property"
+                                                {% if selected.category == "property" %}selected{% endif %}>
+                                                🏠 {% translate "Property" %}
+                                            </option>
+
+
+                                            <option value="other"
+                                                {% if selected.category == "other" %}selected{% endif %}>
+                                                📦 {% translate "Other" %}
+                                            </option>
+
+
                                         </select>
+
                                     </div>
+
                                 </div>
 
-                                <div class="input-holder-203" style="height: 250px;">
-                                    <p><i class="fas fa-align-left"></i> Description</p>
+
+                                <!-- DESCRIPTION -->
+
+                                <div
+                                    class="input-holder-203"
+                                    style="height: 250px;">
+
+                                    <p>
+                                        <i class="fas fa-align-left"></i>
+                                        {% translate "Description" %}
+                                    </p>
+
+
                                     <div style="height: 200px;">
-                                        <textarea name="description" required
-                                            placeholder="Describe your product clearly">{{ selected.description }}</textarea>
+
+                                        <textarea
+                                            name="description"
+                                            required
+                                            placeholder="{% translate 'Describe your product clearly' %}">{{ selected.description }}</textarea>
+
                                     </div>
+
                                 </div>
+
+
+                                <!-- PRICE -->
 
                                 <div class="input-holder-203">
-                                    <p><i class="fas fa-dollar-sign"></i> Price</p>
+
+                                    <p>
+                                        <i class="fas fa-dollar-sign"></i>
+                                        {% translate "Price" %}
+                                    </p>
+
+
                                     <div>
-                                        <input type="number" name="price" min="1" step="0.01"
-                                            value="{{ selected.price }}" required>
+
+                                        <input
+                                            type="number"
+                                            name="price"
+                                            min="1"
+                                            step="0.01"
+                                            value="{{ selected.price }}"
+                                            required>
+
                                     </div>
+
                                 </div>
+
+
+                                <!-- SAVE -->
 
                                 <div class="input-holder-203 submit-203">
+
                                     <div>
-                                        <button type="submit"><i class="fas fa-save"></i> Save product update</button>
+
+                                        <button type="submit">
+
+                                            <i class="fas fa-save"></i>
+
+                                            {% translate "Save product update" %}
+
+                                        </button>
+
                                     </div>
+
                                 </div>
+
+
                             </div>
+
                         </div>
+
                     </form>
 
 
                 </div>
+
             </div>
 
         </div>
@@ -236,59 +564,129 @@
 
 
     <script>
-        const imageInput = document.getElementById("product-image");
-        const imagePreview = document.getElementById("product-image-preview");
-        const photoPlaceholder = document.querySelector(".seller-photo-placeholder");
+
+        const imageInput =
+            document.getElementById("product-image");
+
+        const imagePreview =
+            document.getElementById("product-image-preview");
+
+        const photoPlaceholder =
+            document.querySelector(".seller-photo-placeholder");
+
+
         imageInput?.addEventListener("change", function () {
-            const file = this.files && this.files[0];
+
+            const file =
+                this.files && this.files[0];
+
             if (!file) return;
-            imagePreview.src = URL.createObjectURL(file);
+
+
+            imagePreview.src =
+                URL.createObjectURL(file);
+
             imagePreview.classList.add("is-visible");
+
             photoPlaceholder?.classList.add("is-hidden");
+
         });
+
 
         window.addEventListener("load", function () {
 
-            const loader = document.getElementById("page-loader");
+            const loader =
+                document.getElementById("page-loader");
+
 
             if (loader) {
+
                 loader.classList.add("hidden");
 
+
                 setTimeout(function () {
+
                     loader.remove();
+
                 }, 400);
+
             }
 
         });
+
     </script>
 
+
     <script>
+
         function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
+
+            let menu1 =
+                document.getElementById('menu1');
+
+            let menu2 =
+                document.getElementById('menu2');
+
+            let nav =
+                document.getElementById('nav');
+
 
             if (click == 'open') {
+
                 menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
+
+                menu2.style.display =
+                    'inline-block';
+
+                nav.style.display =
+                    'inline-block';
+
             }
+
             else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
-                nav.style.display = 'none';
+
+                menu1.style.display =
+                    'inline-block';
+
+                menu2.style.display =
+                    'none';
+
+                nav.style.display =
+                    'none';
+
             }
+
         }
+
     </script>
+
+
     <script>
+
         setTimeout(function () {
-            document.querySelectorAll(".alert").forEach(function (alert) {
-                alert.style.transition = "opacity 0.5s";
-                alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 500);
-            });
+
+            document
+                .querySelectorAll(".alert")
+                .forEach(function (alert) {
+
+                    alert.style.transition =
+                        "opacity 0.5s";
+
+                    alert.style.opacity =
+                        "0";
+
+                    setTimeout(
+                        () => alert.remove(),
+                        500
+                    );
+
+                });
+
         }, 4000);
+
     </script>
+
+
 </body>
 
 </html>

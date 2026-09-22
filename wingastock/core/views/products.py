@@ -3,116 +3,26 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from mails.models import Mails
-from sellers.models import Product, Product_informations, Product_comments, ProductReaction
+from sellers.models import Product, Product_informations, Product_comments, ProductReaction, UserLocation
 
 
 
 # Products
 def products(request):
     products = Product.objects.filter(status='visible').order_by('?')
-    other_products = Product.objects.filter(status='visible').order_by('?')
-
-    if request.user.is_authenticated:
-        mails = Mails.objects.filter(
-            receiver_id=request.user.email,
-            status='unread'
-        ).order_by('-id')
-
-
-        return render(request, 'products.html', {
-        'products': products,
-        'other_products': other_products,
-        'mails': mails
-    })
+    top_products = Product.objects.filter(status='visible').order_by('?')
+    recommended_products = Product.objects.filter(status='visible').order_by('?')
     
     return render(request, 'products.html', {
         'products': products,
-        'other_products': other_products,
+        'top_products': top_products,
+        'recommended_product': recommended_products,
     })
-
 
 
 
 # Preview products
 def preview_products(request, id, title):
-
-
-    if request.user.is_authenticated:
-
-        product = get_object_or_404(
-            Product,
-            id=id,
-            status='visible'
-        )
-
-        # Make sure session exists
-        if not request.session.session_key:
-            request.session.create()
-
-        # -------------------------
-        # PRODUCT INFORMATION
-        # -------------------------
-
-        product_informations, _ = Product_informations.objects.get_or_create(
-            product=product,
-            defaults={
-                'views': 0,
-                'likes': 0,
-                'dislikes': 0,
-            }
-        )
-
-        # -------------------------
-        # VIEW COUNT
-        # -------------------------
-
-        viewed_products = request.session.get('viewed_products', {})
-
-        # Fix old session data if it was a list
-        if not isinstance(viewed_products, dict):
-            viewed_products = {}
-
-        now = timezone.now().timestamp()
-
-        last_view = viewed_products.get(str(product.id))
-
-        # Count once every 24 hours
-        if not last_view or now - last_view >= 86400:
-
-            product_informations.views += 1
-
-            product_informations.save(
-                update_fields=['views']
-            )
-
-            viewed_products[str(product.id)] = now
-
-            request.session['viewed_products'] = viewed_products
-
-        # -------------------------
-        # CURRENT REACTION
-        # -------------------------
-
-        session_key = request.session.session_key
-
-        reaction = ProductReaction.objects.filter(
-            product=product,
-            session_key=session_key
-        ).first()
-
-
-        mails = Mails.objects.filter(
-            receiver_id=request.user.email,
-            status='unread'
-        ).order_by('-id')
-
-
-        return render(request, 'product_details.html', {
-        'product': product,
-        'mails': mails,
-        'product_informations': product_informations,
-        'reaction': reaction,
-    })
 
     product = get_object_or_404(
         Product,
@@ -141,7 +51,10 @@ def preview_products(request, id, title):
     # VIEW COUNT
     # -------------------------
 
-    viewed_products = request.session.get('viewed_products', {})
+    viewed_products = request.session.get(
+        'viewed_products',
+        {}
+    )
 
     # Fix old session data if it was a list
     if not isinstance(viewed_products, dict):
@@ -149,7 +62,9 @@ def preview_products(request, id, title):
 
     now = timezone.now().timestamp()
 
-    last_view = viewed_products.get(str(product.id))
+    last_view = viewed_products.get(
+        str(product.id)
+    )
 
     # Count once every 24 hours
     if not last_view or now - last_view >= 86400:
@@ -164,6 +79,8 @@ def preview_products(request, id, title):
 
         request.session['viewed_products'] = viewed_products
 
+        request.session.modified = True
+
     # -------------------------
     # CURRENT REACTION
     # -------------------------
@@ -175,12 +92,33 @@ def preview_products(request, id, title):
         session_key=session_key
     ).first()
 
-    return render(request, 'product_details.html', {
-        'product': product,
-        'product_informations': product_informations,
-        'reaction': reaction,
-    })
+    # -------------------------
+    # SELLER LOCATION
+    # -------------------------
 
+    seller_location = None
+
+    try:
+        seller_location = product.owner.location
+    except UserLocation.DoesNotExist:
+        seller_location = None
+
+    # -------------------------
+    # RETURN PAGE
+    # -------------------------
+
+    return render(
+        request,
+        'product_details.html',
+        {
+            'product': product,
+            'product_informations': product_informations,
+            'reaction': reaction,
+
+            # Map/location data
+            'seller_location': seller_location,
+        }
+    )
 
 
 
@@ -312,25 +250,13 @@ def delete_comment(request, id):
 # Filter products
 def filter_products(request, category):
     products = Product.objects.order_by('?').filter(category=category, status='visible')
-    other_products = Product.objects.order_by('?').filter(status='visible').exclude(category=category)
-
-    if request.user.is_authenticated:
-        mails = Mails.objects.filter(
-            receiver_id=request.user.email,
-            status='unread'
-        ).order_by('-id')
-
-
-        return render(request, 'products.html', {
-        'products': products,
-        'other_products': other_products,
-        'mails': mails,
-        'category': category
-    })
+    top_products = Product.objects.order_by('?').filter(status='visible').exclude(category=category)
+    recommended_products = Product.objects.order_by('?').filter(status='visible').exclude(category=category)
 
     return render(request, 'products.html', {
         'products': products,
-        'other_products': other_products,
+        'top_products': top_products,
+        'recommended_product': recommended_products,
         'category': category
     })
 

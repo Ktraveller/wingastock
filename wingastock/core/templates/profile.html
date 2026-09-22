@@ -1,0 +1,516 @@
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Wingastock | {% translate "My Profile" %}
+    </title>
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
+
+
+    <!-- =====================================================
+         BASE STYLESHEET
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/home.css' %}"
+    >
+
+
+    <!-- =====================================================
+         ACCOUNT SHARED STYLE
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/account.css' %}"
+    >
+
+
+    <!-- =====================================================
+         PROFILE PAGE STYLE
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/profile.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="profile-page">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="profile-header">
+
+
+        <!-- BACK -->
+
+        <button
+            type="button"
+            class="profile-back-button"
+            onclick="history.back()"
+            aria-label="{% translate 'Go back' %}"
+        >
+
+            <i class="fas fa-arrow-left"></i>
+
+        </button>
+
+
+
+        <!-- HEADING -->
+
+        <div class="profile-heading">
+
+            <h1>
+                {% translate "My Profile" %}
+            </h1>
+
+        </div>
+
+
+
+        <!-- EDIT -->
+
+        <button
+            type="button"
+            class="profile-edit-button"
+            id="profileEditButton"
+            aria-label="{% translate 'Edit profile' %}"
+        >
+
+            <i class="fas fa-edit"></i>
+
+        </button>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         PROFILE SUMMARY
+    ====================================================== -->
+
+    <section class="profile-summary">
+
+
+        <div class="profile-avatar-large">
+
+            <i class="far fa-user"></i>
+
+        </div>
+
+
+        <div class="profile-summary-info">
+
+            <h2 id="profileName">
+
+                {% if request.user.first_name or request.user.last_name %}
+
+                    {{ request.user.first_name }}
+                    {{ request.user.last_name }}
+
+                {% else %}
+
+                    {{ request.user.username }}
+
+                {% endif %}
+
+            </h2>
+
+
+            <p id="profileEmail">
+
+                {{ request.user.email }}
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PROFILE INFORMATION
+    ====================================================== -->
+
+    <main class="profile-content">
+
+
+        <!-- =================================================
+             PERSONAL INFORMATION
+        ================================================== -->
+
+        <section class="profile-section">
+
+
+            <div class="profile-section-heading">
+
+                <span>
+                    {% translate "Personal" %}
+                </span>
+
+                <h2>
+                    {% translate "Personal information" %}
+                </h2>
+
+            </div>
+
+
+
+            <div class="profile-form-card">
+
+
+                <!-- FULL NAME -->
+
+                <div class="profile-field">
+
+                    <label for="fullName">
+                        {% translate "Full name" %}
+                    </label>
+
+
+                    <div class="profile-input-holder">
+
+                        <i class="far fa-user"></i>
+
+
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="full_name"
+                            value="{% if request.user.first_name or request.user.last_name %}{{ request.user.first_name }} {{ request.user.last_name }}{% else %}{{ request.user.username }}{% endif %}"
+                            placeholder="{% translate 'Enter your full name' %}"
+                            disabled
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="profile-field">
+
+                    <label for="email">
+                        {% translate "Email address" %}
+                    </label>
+
+
+                    <div class="profile-input-holder">
+
+                        <i class="far fa-envelope"></i>
+
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value="{{ request.user.email }}"
+                            placeholder="{% translate 'Enter your email' %}"
+                            disabled
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PHONE -->
+
+                <div class="profile-field">
+
+                    <label for="phone">
+                        {% translate "Phone number" %}
+                    </label>
+
+
+                    <div class="profile-input-holder">
+
+                        <i class="fas fa-phone-alt"></i>
+
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="{% translate 'Enter your phone number' %}"
+                            disabled
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- LOCATION -->
+
+                <div class="profile-field">
+
+                    <label for="location">
+                        {% translate "Location" %}
+                    </label>
+
+
+                    <div class="profile-input-holder">
+
+                        <i class="fas fa-map-marker-alt"></i>
+
+
+                        <input
+                            type="text"
+                            id="location"
+                            name="location"
+                            placeholder="{% translate 'Enter your location' %}"
+                            disabled
+                        >
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACCOUNT INFORMATION
+        ================================================== -->
+
+        <section class="profile-section">
+
+
+            <div class="profile-section-heading">
+
+                <span>
+                    {% translate "Account" %}
+                </span>
+
+                <h2>
+                    {% translate "Account information" %}
+                </h2>
+
+            </div>
+
+
+
+            <div class="profile-menu">
+
+
+                <!-- CHANGE PASSWORD -->
+
+                <button
+                    type="button"
+                    class="profile-menu-item"
+                    id="changePasswordButton"
+                >
+
+                    <span class="profile-menu-icon">
+
+                        <i class="fas fa-lock"></i>
+
+                    </span>
+
+
+                    <span class="profile-menu-text">
+
+                        <strong>
+                            {% translate "Change password" %}
+                        </strong>
+
+                        <small>
+                            {% translate "Update your account password" %}
+                        </small>
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right profile-menu-arrow"></i>
+
+                </button>
+
+
+
+                <!-- SECURITY -->
+
+                <button
+                    type="button"
+                    class="profile-menu-item"
+                    id="securityButton"
+                >
+
+                    <span class="profile-menu-icon">
+
+                        <i class="fas fa-shield-alt"></i>
+
+                    </span>
+
+
+                    <span class="profile-menu-text">
+
+                        <strong>
+                            {% translate "Security" %}
+                        </strong>
+
+                        <small>
+                            {% translate "Manage your account security" %}
+                        </small>
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right profile-menu-arrow"></i>
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SAVE
+        ================================================== -->
+
+        <section class="profile-save-section">
+
+            <button
+                type="button"
+                class="profile-save-button"
+                id="saveProfileButton"
+            >
+
+                <i class="fas fa-save"></i>
+
+                {% translate "Save changes" %}
+
+            </button>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         MOBILE BOTTOM NAVIGATION
+    ====================================================== -->
+
+    <nav class="mobile-bottom-nav">
+
+
+        <button
+            type="button"
+            class="active"
+            onclick="window.location.href='{% url 'products' %}'"
+        >
+
+            <i class="fas fa-shopping-bag"></i>
+
+            <span>
+                {% translate "Products" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'favorities' %}'"
+        >
+
+            <i class="far fa-heart"></i>
+
+            <span>
+                {% translate "Favorites" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'shop_list' %}'"
+        >
+
+            <i class="fas fa-store-alt"></i>
+
+            <span>
+                {% translate "Shops" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'customer_account' %}'"
+        >
+
+            <i class="far fa-user"></i>
+
+            <span>
+                {% translate "Account" %}
+            </span>
+
+        </button>
+
+
+    </nav>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     PROFILE JAVASCRIPT
+====================================================== -->
+
+<script src="{% static 'js/profile.js' %}"></script>
+
+
+</body>
+
+</html>

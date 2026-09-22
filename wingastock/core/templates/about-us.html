@@ -1,0 +1,736 @@
+{% load static %}
+{% load i18n %}
+{% load humanize %}
+
+{% translate "About Us" as about_title %}
+{% translate "About Wingastock" as about_wingastock_text %}
+{% translate "Go back" as go_back_text %}
+{% translate "Learn more" as learn_more_text %}
+
+{% translate "Welcome to Wingastock" as welcome_text %}
+{% translate "Your trusted online marketplace" as trusted_marketplace_text %}
+{% translate "Wingastock is a marketplace that connects buyers and sellers, making it easier to discover, buy and sell products online." as welcome_description_text %}
+
+{% translate "What is Wingastock?" as what_is_wingastock_text %}
+{% translate "Wingastock is an online marketplace where people can discover products from different sellers and connect directly with them." as what_is_description_text %}
+
+{% translate "Our mission" as our_mission_text %}
+{% translate "Our mission is to make buying and selling simple, accessible and convenient for everyone." as mission_description_text %}
+
+{% translate "Our vision" as our_vision_text %}
+{% translate "We aim to build a trusted marketplace where buyers can easily find what they need and sellers can reach more customers." as vision_description_text %}
+
+{% translate "What you can do on Wingastock" as what_you_can_do_text %}
+
+{% translate "Discover Products" as discover_products_text %}
+{% translate "Explore products from different categories and find what you need." as discover_products_description_text %}
+
+{% translate "Buy from Sellers" as buy_from_sellers_text %}
+{% translate "View product information and contact sellers directly using the available contact options." as buy_from_sellers_description_text %}
+
+{% translate "Sell Your Products" as sell_products_text %}
+{% translate "Create your seller presence and showcase your products to potential customers." as sell_products_description_text %}
+
+{% translate "Request a Product" as request_product_text %}
+{% translate "Can't find what you are looking for? Send us a product request and we will help you find it." as request_product_description_text %}
+
+{% translate "Why Wingastock?" as why_wingastock_text %}
+{% translate "Simple marketplace experience" as simple_experience_text %}
+{% translate "Find products, sellers and shops through a simple and easy-to-use marketplace." as simple_experience_description_text %}
+
+{% translate "Connect directly" as connect_directly_text %}
+{% translate "Communicate directly with sellers using the contact information provided on their listings." as connect_directly_description_text %}
+
+{% translate "Growing marketplace community" as growing_community_text %}
+{% translate "Wingastock brings buyers and sellers together in one growing marketplace community." as growing_community_description_text %}
+
+{% translate "Need help?" as need_help_text %}
+{% translate "If you have questions, experience a problem or need assistance, you can contact the Wingastock support team." as need_help_description_text %}
+{% translate "Contact Support" as contact_support_text %}
+
+{% translate "Products" as products_text %}
+{% translate "Favorites" as favorites_text %}
+{% translate "Shops" as shops_text %}
+{% translate "Account" as account_text %}
+
+<!DOCTYPE html>
+
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Wingastock | {{ about_title }}
+    </title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
+
+    <!-- Shared styles -->
+    <link
+        rel="stylesheet"
+        href="{% static 'css/home.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/account.css' %}"
+    >
+
+    <!-- Existing page styles -->
+    <link
+        rel="stylesheet"
+        href="{% static 'css/support.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="support-page">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="support-header">
+
+        <button
+            type="button"
+            class="support-back-button"
+            onclick="history.back()"
+            aria-label="{{ go_back_text }}"
+        >
+
+            <i class="fas fa-arrow-left"></i>
+
+        </button>
+
+
+        <div class="support-heading">
+
+            <h1>
+                {{ about_title }}
+            </h1>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="support-help-button"
+            id="aboutInfoButton"
+            aria-label="{{ about_wingastock_text }}"
+        >
+
+            <i class="fas fa-info"></i>
+
+        </button>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         ABOUT HERO
+    ====================================================== -->
+
+    <section class="support-hero">
+
+        <div class="support-hero-icon">
+
+            <i class="fas fa-store"></i>
+
+        </div>
+
+
+        <div class="support-hero-content">
+
+            <span>
+                {{ trusted_marketplace_text }}
+            </span>
+
+            <h2>
+                {{ welcome_text }}
+            </h2>
+
+            <p>
+                {{ welcome_description_text }}
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ABOUT CONTENT
+    ====================================================== -->
+
+    <main class="support-content">
+
+
+        <!-- =================================================
+             WHAT IS WINGASTOCK
+        ================================================== -->
+
+        <section class="support-section">
+
+            <div class="support-section-heading">
+
+                <div>
+
+                    <span>
+                        {{ about_wingastock_text }}
+                    </span>
+
+                    <h2>
+                        {{ what_is_wingastock_text }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="support-note">
+
+                <div class="support-note-icon">
+
+                    <i class="fas fa-store"></i>
+
+                </div>
+
+
+                <div>
+
+                    <p>
+                        {{ what_is_description_text }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MISSION & VISION
+        ================================================== -->
+
+        <section class="support-section">
+
+            <div class="support-section-heading">
+
+                <div>
+
+                    <span>
+                        {{ about_wingastock_text }}
+                    </span>
+
+                    <h2>
+                        {{ our_mission_text }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="support-contact-grid">
+
+
+                <!-- Mission -->
+
+                <div class="support-contact-card">
+
+                    <div class="support-contact-icon">
+
+                        <i class="fas fa-bullseye"></i>
+
+                    </div>
+
+
+                    <div class="support-contact-text">
+
+                        <strong>
+                            {{ our_mission_text }}
+                        </strong>
+
+                        <span>
+                            {{ mission_description_text }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Vision -->
+
+                <div class="support-contact-card">
+
+                    <div class="support-contact-icon">
+
+                        <i class="fas fa-eye"></i>
+
+                    </div>
+
+
+                    <div class="support-contact-text">
+
+                        <strong>
+                            {{ our_vision_text }}
+                        </strong>
+
+                        <span>
+                            {{ vision_description_text }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             WHAT YOU CAN DO
+        ================================================== -->
+
+        <section class="support-section">
+
+            <div class="support-section-heading">
+
+                <div>
+
+                    <span>
+                        {{ about_wingastock_text }}
+                    </span>
+
+                    <h2>
+                        {{ what_you_can_do_text }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="support-contact-grid">
+
+
+                <!-- Discover Products -->
+
+                <div class="support-contact-card">
+
+                    <div class="support-contact-icon">
+
+                        <i class="fas fa-search"></i>
+
+                    </div>
+
+
+                    <div class="support-contact-text">
+
+                        <strong>
+                            {{ discover_products_text }}
+                        </strong>
+
+                        <span>
+                            {{ discover_products_description_text }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Buy -->
+
+                <div class="support-contact-card">
+
+                    <div class="support-contact-icon">
+
+                        <i class="fas fa-shopping-bag"></i>
+
+                    </div>
+
+
+                    <div class="support-contact-text">
+
+                        <strong>
+                            {{ buy_from_sellers_text }}
+                        </strong>
+
+                        <span>
+                            {{ buy_from_sellers_description_text }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Sell -->
+
+                <div class="support-contact-card">
+
+                    <div class="support-contact-icon">
+
+                        <i class="fas fa-store-alt"></i>
+
+                    </div>
+
+
+                    <div class="support-contact-text">
+
+                        <strong>
+                            {{ sell_products_text }}
+                        </strong>
+
+                        <span>
+                            {{ sell_products_description_text }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Request -->
+
+                <div class="support-contact-card">
+
+                    <div class="support-contact-icon">
+
+                        <i class="fas fa-box-open"></i>
+
+                    </div>
+
+
+                    <div class="support-contact-text">
+
+                        <strong>
+                            {{ request_product_text }}
+                        </strong>
+
+                        <span>
+                            {{ request_product_description_text }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             WHY WINGASTOCK
+        ================================================== -->
+
+        <section class="support-section">
+
+            <div class="support-section-heading">
+
+                <div>
+
+                    <span>
+                        {{ about_wingastock_text }}
+                    </span>
+
+                    <h2>
+                        {{ why_wingastock_text }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="support-contact-grid">
+
+
+                <!-- Simple -->
+
+                <div class="support-contact-card">
+
+                    <div class="support-contact-icon">
+
+                        <i class="fas fa-mobile-alt"></i>
+
+                    </div>
+
+
+                    <div class="support-contact-text">
+
+                        <strong>
+                            {{ simple_experience_text }}
+                        </strong>
+
+                        <span>
+                            {{ simple_experience_description_text }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Direct -->
+
+                <div class="support-contact-card">
+
+                    <div class="support-contact-icon">
+
+                        <i class="fas fa-comments"></i>
+
+                    </div>
+
+
+                    <div class="support-contact-text">
+
+                        <strong>
+                            {{ connect_directly_text }}
+                        </strong>
+
+                        <span>
+                            {{ connect_directly_description_text }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Community -->
+
+                <div class="support-contact-card">
+
+                    <div class="support-contact-icon">
+
+                        <i class="fas fa-users"></i>
+
+                    </div>
+
+
+                    <div class="support-contact-text">
+
+                        <strong>
+                            {{ growing_community_text }}
+                        </strong>
+
+                        <span>
+                            {{ growing_community_description_text }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             CONTACT SUPPORT
+        ================================================== -->
+
+        <section class="support-note">
+
+            <div class="support-note-icon">
+
+                <i class="fas fa-headset"></i>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    {{ need_help_text }}
+                </strong>
+
+                <p>
+                    {{ need_help_description_text }}
+                </p>
+
+
+                <button
+                    type="button"
+                    id="contactSupportButton"
+                    style="
+                        border: none;
+                        background: crimson;
+                        color: #fff;
+                        padding: 10px 16px;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        font-family: inherit;
+                        font-weight: 600;
+                        margin-top: 8px;
+                    "
+                >
+
+                    <i class="fas fa-headset"></i>
+
+                    {{ contact_support_text }}
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         MOBILE BOTTOM NAVIGATION
+    ====================================================== -->
+
+    <nav class="mobile-bottom-nav">
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'products' %}'"
+        >
+
+            <i class="fas fa-shopping-bag"></i>
+
+            <span>
+                {{ products_text }}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'favorities' %}'"
+        >
+
+            <i class="far fa-heart"></i>
+
+            <span>
+                {{ favorites_text }}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'shop_list' %}'"
+        >
+
+            <i class="fas fa-store-alt"></i>
+
+            <span>
+                {{ shops_text }}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="active"
+            onclick="window.location.href='{% url 'customer_account' %}'"
+        >
+
+            <i class="far fa-user"></i>
+
+            <span>
+                {{ account_text }}
+            </span>
+
+        </button>
+
+
+    </nav>
+
+</div>
+
+
+<!-- =====================================================
+     CONTACT SUPPORT
+     WhatsApp
+====================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const contactButton = document.getElementById("contactSupportButton");
+
+    if (contactButton) {
+
+        contactButton.addEventListener("click", function () {
+
+            const message = prompt(
+                "Contact Support\n\n" +
+                "Please enter your message:"
+            );
+
+            if (message && message.trim() !== "") {
+
+                const whatsappNumber = "255622652290";
+
+                const whatsappMessage =
+                    "Hello WingaStock Support,\n\n" +
+                    message.trim();
+
+                const whatsappUrl =
+                    "https://wa.me/" +
+                    whatsappNumber +
+                    "?text=" +
+                    encodeURIComponent(whatsappMessage);
+
+                window.open(whatsappUrl, "_blank");
+
+            }
+
+        });
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>

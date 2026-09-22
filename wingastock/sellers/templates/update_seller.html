@@ -1,15 +1,20 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wingastock | Dashboard</title>
+
+    <title>{% translate "Update account" %}</title>
+
     <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
         .messages {
@@ -53,26 +58,48 @@
     <div id="page-loader">
         <div class="loader-content">
             <div class="spinner"></div>
-            <div class="loading-text">Loading<span class="dots"></span></div>
+
+            <div class="loading-text">
+                {% translate "Loading" %}
+                <span class="dots"></span>
+            </div>
         </div>
     </div>
+
 
     <div class="row-holder">
 
         <!-- Header -->
         <div class="header-holder-100">
             <div class="header-100">
+
                 <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-                            class="fas fa-times"></i></button>
+
+                    <button type="button"
+                        id="menu1"
+                        onclick="open_menu('open')">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <button type="button"
+                        id="menu2"
+                        style="display: none;"
+                        onclick="open_menu('close')">
+                        <i class="fas fa-times"></i>
+                    </button>
+
                 </div>
+
                 <div class="title-holder-101">
-                    <button type="button"><span>
-                            Wingastock | Seller
-                        </span></button>
+                    <button type="button">
+                        <span>
+                            {% translate "Update Account" %}
+                        </span>
+                    </button>
                 </div>
+
                 {% include 'profile_s.html' %}
+
             </div>
         </div>
 
@@ -81,91 +108,145 @@
         <div class="center-content-200">
 
             <div class="left-holder-201" id="nav">
+
                 <div class="nav-bar-holder-202">
 
                     <ul>
                         <a href="{% url 'seller_home' %}">
-                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
+                            <li>
+                                {% translate "Dashboard" %}
+                                <i class="fas fa-tachometer-alt"></i>
+                            </li>
                         </a>
                     </ul>
+
 
                     <ul>
                         <a href="{% url 'seller_products' %}">
-                            <li>Products <i class="fas fa-shopping-bag"></i></li>
+                            <li>
+                                {% translate "Products" %}
+                                <i class="fas fa-shopping-bag"></i>
+                            </li>
                         </a>
                     </ul>
+
 
                     <ul>
                         <a href="{% url 'mail_home' %}">
-                            <li>Mails <i class="fas fa-envelope"></i></li>
+                            <li>
+                                {% translate "Mails" %}
+                                <i class="fas fa-envelope"></i>
+                            </li>
                         </a>
                     </ul>
+
 
                     <ul>
                         <a href="{% url 'seller_account' %}">
-                            <li class="active-0">Account <i class="fas fa-user"></i></li>
+                            <li class="active-0">
+                                {% translate "Account" %}
+                                <i class="fas fa-user"></i>
+                            </li>
                         </a>
                     </ul>
+
 
                     <ul>
                         <a href="{% url 'seller_terms_conditions' %}">
-                            <li>Terms and condtions <i class="fas fa-file-contract"></i></li>
+                            <li>
+                                {% translate "Terms and conditions" %}
+                                <i class="fas fa-file-contract"></i>
+                            </li>
                         </a>
                     </ul>
 
+
                     <ul>
                         <a href="{% url 'logout_seller' %}">
-                            <li>Exit <i class="fas fa-sign-out-alt"></i></li>
+                            <li>
+                                {% translate "Exit" %}
+                                <i class="fas fa-sign-out-alt"></i>
+                            </li>
                         </a>
                     </ul>
+
                 </div>
             </div>
+
 
             <div class="right-holder-201" style="padding: 20px;">
 
                 {% if messages %}
+
                 <div class="messages">
+
                     {% for message in messages %}
+
                     <div class="alert {{ message.tags }}">
                         {{ message }}
                     </div>
+
                     {% endfor %}
+
                 </div>
+
                 {% endif %}
 
+
                 <form method="POST" action="" enctype="multipart/form-data">
+
                     {% csrf_token %}
 
+
                     <div class="input-holder-203" style="height: auto;">
+
                         <p>
                             <i class="fas fa-camera"></i>
-                            Upload profile picture
+                            {% translate "Upload profile picture" %}
                         </p>
 
-                        <div id="sellerImagePreview" style="margin-top:10px; height: auto;">
+
+                        <div id="sellerImagePreview"
+                            style="margin-top:10px; height: auto;">
 
                             {% if user.seller.seller_dp %}
-                            <img id="sellerPreview" src="{{ user.seller.seller_dp.url }}" alt="Seller profile picture"
+
+                            <img id="sellerPreview"
+                                src="{{ user.seller.seller_dp.url }}"
+                                alt="{% translate 'Seller profile picture' %}"
                                 style="width:100px;height:100px;object-fit:cover;border-radius:50%;">
+
                             {% else %}
-                            <i class="fas fa-user-circle" style="font-size:80px;"></i>
-                            Not uploaded
+
+                            <i class="fas fa-user-circle"
+                                style="font-size:80px;"></i>
+
+                            {% translate "Not uploaded" %}
+
                             {% endif %}
 
                         </div>
 
+
                         <div style="width: 200px;">
-                            <input type="file" name="seller_dp" id="sellerDpInput"
-                                accept="image/jpeg,image/png,image/webp" onchange="previewSellerImage(event)"
+
+                            <input type="file"
+                                name="seller_dp"
+                                id="sellerDpInput"
+                                accept="image/jpeg,image/png,image/webp"
+                                onchange="previewSellerImage(event)"
                                 style="padding: 7px;">
+
                         </div>
 
                     </div>
+
 
                     <script>
                         function previewSellerImage(event) {
 
                             const input = event.target;
+
                             const previewContainer =
                                 document.getElementById("sellerImagePreview");
 
@@ -178,9 +259,13 @@
 
                                 // Make sure it is an image
                                 if (!file.type.startsWith("image/")) {
-                                    alert("Please select an image file.");
+
+                                    alert("{% translate 'Please select an image file.' %}");
+
                                     input.value = "";
+
                                     previewContainer.style.display = "none";
+
                                     return;
                                 }
 
@@ -190,7 +275,9 @@
 
                                     preview.src = e.target.result;
 
-                                    previewContainer.style.display = "inline-block";
+                                    previewContainer.style.display =
+                                        "inline-block";
+
                                 };
 
                                 reader.readAsDataURL(file);
@@ -198,87 +285,328 @@
                             } else {
 
                                 preview.src = "";
+
                                 previewContainer.style.display = "none";
+
                             }
                         }
                     </script>
 
 
                     <div class="input-holder-203">
-                        <p><i class="fas fa-user"></i>
-                            Seller name</p>
+
+                        <p>
+                            <i class="fas fa-user"></i>
+                            {% translate "Seller name" %}
+                        </p>
+
                         <div>
-                            <input type="text" name="seller_name" placeholder="{{ user.seller.seller_name }}">
+                            <input type="text"
+                                name="seller_name"
+                                placeholder="{{ user.seller.seller_name }}">
                         </div>
+
                     </div>
 
 
                     <div class="input-holder-203">
-                        <p><i class="fas fa-envelope"></i>
-                            Seller email</p>
+
+                        <p>
+                            <i class="fas fa-envelope"></i>
+                            {% translate "Seller email" %}
+                        </p>
+
                         <div>
-                            <input type="text" name="seller_email_s" value="{{ user.email }}" disabled>
+
+                            <input type="text"
+                                name="seller_email_s"
+                                value="{{ user.email }}"
+                                disabled>
+
                         </div>
+
                     </div>
 
 
                     <div class="input-holder-203">
-                        <p><i class="fas fa-phone"></i> Phone number</p>
+
+                        <p>
+                            <i class="fas fa-phone"></i>
+                            {% translate "Phone number" %}
+                        </p>
+
                         <div>
-                            <input type="number" name="seller_phone" placeholder="{{ user.seller.seller_phone }}">
+
+                            <input type="number"
+                                name="seller_phone"
+                                placeholder="{{ user.seller.seller_phone }}">
+
                         </div>
+
                     </div>
 
-                    <div class="input-holder-203">
-                        <p><i class="fas fa-map-marker-alt"></i> Address</p>
-                        <div>
-                            <input type="tex" name="seller_address" placeholder="{{ user.seller.seller_address }}">
-                        </div>
-                    </div>
 
+                    <div class="input-holder-203"
+                        style="height: 250px;">
 
-                    <div class="input-holder-203" style="height: 250px;">
-                        <p><i class="fas fa-align-left"></i> Descriptions</p>
+                        <p>
+                            <i class="fas fa-align-left"></i>
+                            {% translate "Descriptions" %}
+                        </p>
+
                         <div style="height: 200px;">
+
                             <textarea name="seller_description"
                                 placeholder="{{ user.seller.seller_description }}"></textarea>
+
                         </div>
-                    </div>
 
-
-                    <p style="font-weight: bold; margin-top: 100px;">Change account password</p>
-
-                    <div class="input-holder-203">
-                        <p><i class="fas fa-key"></i> Write current password</p>
-                        <div>
-                            <input type="password" name="current_password" placeholder="Current password">
-                        </div>
-                    </div>
-
-                    <div class="input-holder-203">
-                        <p><i class="fas fa-key"></i> Write new password</p>
-                        <div>
-                            <input type="password" name="new_password" placeholder="New password">
-                        </div>
                     </div>
 
 
                     <div class="input-holder-203">
-                        <p><i class="fas fa-key"></i> Confirm new password</p>
+
+                        <p>
+                            <i class="fas fa-map-marker-alt"></i>
+                            {% translate "Address" %}
+                        </p>
+
                         <div>
-                            <input type="password" name="confirm_password" placeholder="Confirm new password">
+
+                            <input type="tex"
+                                name="seller_address"
+                                placeholder="{{ user.seller.seller_address }}">
+
                         </div>
+
+                    </div>
+
+
+                    <div class="location-holder-203">
+
+                        {% if user.location %}
+
+                        {% if user.location.latitude is not None and user.location.longitude is not None %}
+
+                        <div>
+
+                            <iframe width="100%"
+                                height="100%"
+                                style="border:0; border-radius:inherit;"
+                                loading="lazy"
+                                allowfullscreen
+                                referrerpolicy="no-referrer-when-downgrade"
+                                src="https://www.google.com/maps?q={{ user.location.latitude }},{{ user.location.longitude }}&output=embed">
+                            </iframe>
+
+                        </div>
+
+
+                        <div>
+
+                            <!-- Hidden location fields -->
+
+                            <input type="hidden"
+                                name="latitude"
+                                id="latitude">
+
+                            <input type="hidden"
+                                name="longitude"
+                                id="longitude">
+
+
+                            <!-- Get current location -->
+
+                            <button type="button"
+                                style="width: auto; border-style: none; outline: none;"
+                                class="location-add-btn-203"
+                                id="getLocationBtn">
+
+                                <i class="fas fa-location-arrow"></i>
+
+                                {% translate "Add new Location" %}
+
+                            </button>
+
+                        </div>
+
+
+                        {% else %}
+
+                        <div class="location-empty-203">
+
+                            <div>
+
+                                <i class="fas fa-map-marker-alt"></i>
+
+                                <h3>
+                                    {% translate "Location not added" %}
+                                </h3>
+
+                                <p>
+                                    {% translate "Add your location so customers can find you." %}
+                                </p>
+
+
+                                <!-- Hidden location fields -->
+
+                                <input type="hidden"
+                                    name="latitude"
+                                    id="latitude">
+
+                                <input type="hidden"
+                                    name="longitude"
+                                    id="longitude">
+
+
+                                <!-- Get current location -->
+
+                                <button type="button"
+                                    style="width: auto;"
+                                    class="location-add-btn-203"
+                                    id="getLocationBtn">
+
+                                    <i class="fas fa-location-arrow"></i>
+
+                                    {% translate "Add Location" %}
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        {% else %}
+
+                        <div class="location-empty-203">
+
+                            <div>
+
+                                <i class="fas fa-map-marker-alt"></i>
+
+                                <h3>
+                                    {% translate "Location not added" %}
+                                </h3>
+
+                                <p>
+                                    {% translate "Add your location so customers can find you." %}
+                                </p>
+
+
+                                <!-- Hidden location fields -->
+
+                                <input type="hidden"
+                                    name="latitude"
+                                    id="latitude">
+
+                                <input type="hidden"
+                                    name="longitude"
+                                    id="longitude">
+
+
+                                <!-- Get current location -->
+
+                                <button type="button"
+                                    style="width: auto;"
+                                    class="location-add-btn-203"
+                                    id="getLocationBtn">
+
+                                    <i class="fas fa-location-arrow"></i>
+
+                                    {% translate "Add Location" %}
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <p style="font-weight: bold; margin-top: 100px;">
+
+                        {% translate "Change account password" %}
+
+                    </p>
+
+
+                    <div class="input-holder-203">
+
+                        <p>
+                            <i class="fas fa-key"></i>
+                            {% translate "Write current password" %}
+                        </p>
+
+                        <div>
+
+                            <input type="password"
+                                name="current_password"
+                                placeholder="{% translate 'Current password' %}">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-holder-203">
+
+                        <p>
+                            <i class="fas fa-key"></i>
+                            {% translate "Write new password" %}
+                        </p>
+
+                        <div>
+
+                            <input type="password"
+                                name="new_password"
+                                placeholder="{% translate 'New password' %}">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-holder-203">
+
+                        <p>
+                            <i class="fas fa-key"></i>
+                            {% translate "Confirm new password" %}
+                        </p>
+
+                        <div>
+
+                            <input type="password"
+                                name="confirm_password"
+                                placeholder="{% translate 'Confirm new password' %}">
+
+                        </div>
+
                     </div>
 
 
                     <div class="input-holder-203 submit-203">
+
                         <div>
-                            <button type="submit"><i class="fas fa-save"></i> Save updates</button>
+
+                            <button type="submit">
+
+                                <i class="fas fa-save"></i>
+
+                                {% translate "Save updates" %}
+
+                            </button>
+
                         </div>
+
                     </div>
 
                 </form>
-
 
             </div>
 
@@ -293,44 +621,211 @@
             const loader = document.getElementById("page-loader");
 
             if (loader) {
+
                 loader.classList.add("hidden");
 
                 setTimeout(function () {
                     loader.remove();
                 }, 400);
+
             }
 
         });
     </script>
 
+
     <script>
         function open_menu(click) {
+
             let menu1 = document.getElementById('menu1');
             let menu2 = document.getElementById('menu2');
             let nav = document.getElementById('nav');
 
             if (click == 'open') {
+
                 menu1.style.display = 'none';
                 menu2.style.display = 'inline-block';
                 nav.style.display = 'inline-block';
+
             }
             else {
+
                 menu1.style.display = 'inline-block';
                 menu2.style.display = 'none';
                 nav.style.display = 'none';
+
             }
         }
     </script>
 
+
     <script>
         setTimeout(function () {
+
             document.querySelectorAll(".alert").forEach(function (alert) {
+
                 alert.style.transition = "opacity 0.5s";
                 alert.style.opacity = "0";
+
                 setTimeout(() => alert.remove(), 4000);
+
             });
+
         }, 4000);
     </script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const locationBtn =
+                document.getElementById("getLocationBtn");
+
+            const latitudeInput =
+                document.getElementById("latitude");
+
+            const longitudeInput =
+                document.getElementById("longitude");
+
+
+            if (!locationBtn ||
+                !latitudeInput ||
+                !longitudeInput) {
+
+                return;
+
+            }
+
+
+            locationBtn.addEventListener("click", function (event) {
+
+                event.preventDefault();
+
+
+                if (!navigator.geolocation) {
+
+                    alert(
+                        "{% translate 'Your browser does not support location services.' %}"
+                    );
+
+                    return;
+                }
+
+
+                locationBtn.innerHTML = `
+                    <i class="fas fa-spinner fa-spin"></i>
+                    {% translate "Getting location..." %}
+                `;
+
+                locationBtn.style.pointerEvents = "none";
+
+
+                navigator.geolocation.getCurrentPosition(
+
+                    function (position) {
+
+                        // Get coordinates
+
+                        const latitude =
+                            position.coords.latitude;
+
+                        const longitude =
+                            position.coords.longitude;
+
+
+                        // Put them into the existing hidden inputs
+
+                        latitudeInput.value = latitude;
+
+                        longitudeInput.value = longitude;
+
+
+                        console.log(
+                            "Latitude:",
+                            latitude
+                        );
+
+                        console.log(
+                            "Longitude:",
+                            longitude
+                        );
+
+
+                        // Restore button
+
+                        locationBtn.innerHTML = `
+                            <i class="fas fa-check"></i>
+                            {% translate "Location detected" %}
+                        `;
+
+                        locationBtn.style.pointerEvents = "auto";
+
+                    },
+
+
+                    function (error) {
+
+                        locationBtn.innerHTML = `
+                            <i class="fas fa-location-arrow"></i>
+                            {% translate "Add Location" %}
+                        `;
+
+                        locationBtn.style.pointerEvents = "auto";
+
+
+                        if (error.code === error.PERMISSION_DENIED) {
+
+                            alert(
+                                "{% translate 'Please allow location access in your browser.' %}"
+                            );
+
+                        }
+
+                        else if (
+                            error.code ===
+                            error.POSITION_UNAVAILABLE
+                        ) {
+
+                            alert(
+                                "{% translate 'Your location could not be determined.' %}"
+                            );
+
+                        }
+
+                        else if (
+                            error.code === error.TIMEOUT
+                        ) {
+
+                            alert(
+                                "{% translate 'Getting your location timed out. Please try again.' %}"
+                            );
+
+                        }
+
+                        else {
+
+                            alert(
+                                "{% translate 'Unable to get your location.' %}"
+                            );
+
+                        }
+
+                    },
+
+
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 15000,
+                        maximumAge: 0
+                    }
+
+                );
+
+            });
+
+        });
+    </script>
+
 </body>
 
 </html>

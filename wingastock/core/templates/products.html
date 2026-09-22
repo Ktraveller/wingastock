@@ -1,209 +1,1120 @@
 {% load static %}
-{% load i18n %}
 {% load humanize %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-    <link rel="stylesheet" href="{% static 'css/search.css' %}">
-    <link rel="stylesheet" href="{% static 'css/heading.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <title>Wingastock | Products</title>
+    <title>
+        Wingastock | {% translate "Products" %}
+    </title>
 
-    <meta name="description" content="Buy and sell electronics such as smartphones, laptops, TVs, computers, accessories, 
-        and other electronic devices. Discover quality furniture, home appliances, rooms, houses, 
-        and a wide range of products from trusted sellers on Wingastock. 
-        Our platform makes it easy to find, advertise, buy, and sell products online, 
-        connecting customers and businesses in one convenient marketplace.">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
 
-    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
 
-    <link rel="canonical" href="https://wingastock.onrender.com/">
-
-    <meta property="og:title" content="Wingastock | Products">
-
-    <meta property="og:description"
-        content="Wingastock is an online marketplace in Tanzania where you can buy and sell electronics,
-         smartphones, laptops, TVs, furniture, home appliances, rooms, houses, and a wide range of products. 
-         Connect with trusted sellers, discover great deals, and grow your business by reaching more customers online.">
-
-    <meta property="og:type" content="website">
-
-    <meta property="og:image" content="/static/logo.png">
-
-    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
-
-    <meta name="google-site-verification" content="cBo6MO_R0NHmkbNtZ4TbAd5KcLYgqPdt0XB-BgMYi1o" />
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-STT2EJ7H54"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-STT2EJ7H54');
-    </script>
 </head>
+
 
 <body>
 
-    <div class="page-loader-holder-000">
-        <div>
-            <button type="button">
-                <h1>
-                    <img src="{% static 'logo.png' %}" alt="logo"> <br>
-                    <span>Wingastock</span>
-                </h1>
+
+    <main class="store-mobile">
+
+
+        <!-- =========================================================
+             HEADER
+        ========================================================== -->
+
+        <header class="profile-header">
+
+
+            <button
+                type="button"
+                class="profile-back-button"
+                onclick="history.back()"
+                aria-label="{% translate 'Go back' %}"
+            >
+
+                <i class="fas fa-arrow-left"></i>
+
             </button>
-        </div>
-    </div>
-
-    <div class="row-holder-001">
-
-        <!-- Inlude heading -->
-        {% if user.email %}
-        {% include 'header_s.html' %}
-        {% else %}
-        {% include 'heading.html' %}
-        {% endif %}
-
-        <div class="content-holder-002 category-page-{{ category|default:'all' }}">
 
 
-            <!-- Center content -->
+            <div class="profile-heading">
 
-            <div class="product-card-holder-1001">
+                <h1>
+                    {% translate "All Products" %}
+                </h1>
 
-                <!-- Product categories -->
-                {% include 'side-category.html' %}
+            </div>
 
-                <div class="product-card-1002" style="width: 100%;">
-                    <div class="section-heading category-results-heading">
-                        <div>
-                            <span class="eyebrow">{% translate "Browse by category" %}</span>
 
-                            <h2>
-                                <span style="text-transform: capitalize; font-size: inherit;">{{ category }}</span>
-                                {% translate "products" %}
-                            </h2>
-                        </div>
+            <!-- =====================================================
+                 SORT DROPDOWN
+            ====================================================== -->
 
-                        <a href="{% url 'search' %}">
-                            {% translate "See all" %}
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
+            <div class="profile-sort-wrapper">
 
-                    {% for product in products %}
-                    {% include 'product-container.html' %}
 
-                    {% empty %}
-                    <div class="products-empty-state"
-                        style="width: 100%; padding: 50px; text-align: center; color: #555;">
-                        <i class="fas fa-box-open" style="font-size: 50px;"></i>
+                <button
+                    type="button"
+                    class="profile-edit-button"
+                    id="profileSortButton"
+                    aria-label="{% translate 'Sort products' %}"
+                    aria-expanded="false"
+                    onclick="toggleProfileSort(event)"
+                >
 
-                        <strong>{% translate "No products found in this category." %}</strong>
+                    <i class="fas fa-ellipsis-v"></i>
 
-                        <span>{% translate "Try another category or explore all products." %}</span>
-                    </div>
-                    {% endfor %}
+                </button>
+
+
+                <div
+                    class="profile-sort-dropdown"
+                    id="profileSortDropdown"
+                >
+
+
+                    <button
+                        type="button"
+                        onclick="sortProducts('name')"
+                    >
+
+                        <i class="fas fa-sort-alpha-down"></i>
+
+                        <span>
+                            {% translate "Sort by Name" %}
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        onclick="sortProducts('date')"
+                    >
+
+                        <i class="fas fa-calendar-alt"></i>
+
+                        <span>
+                            {% translate "Sort by Date" %}
+                        </span>
+
+                    </button>
+
+
                 </div>
 
             </div>
 
 
+        </header>
 
-            <div style="width: 100%; height: 100px; float: left;"></div>
+
+        <!-- =========================================================
+             CONTENT
+        ========================================================== -->
+
+        <div class="store-content">
+
+
+            <!-- =====================================================
+                 PRODUCTS
+            ====================================================== -->
+
+            <section class="store-section">
+
+
+                <div class="section-heading">
+
+
+                    <h2>
+
+                        {% if category %}
+
+                            {{ category|title }}
+
+                        {% else %}
+
+                            {% translate "Products" %}
+
+                        {% endif %}
+
+                    </h2>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     PRODUCT GRID
+                ================================================== -->
+
+                <div
+                    class="product-grid"
+                    id="productsGrid"
+                >
+
+
+                    {% for product in products %}
+
+
+                    <article
+                        class="product-card"
+                        data-name="{{ product.title|lower }}"
+                        data-date="{{ product.created_at|date:'U' }}"
+                        onclick="window.location.href=`{% url 'product_details' product.id product.title %}`"
+                    >
+
+
+                        <!-- PRODUCT IMAGE -->
+
+                        <div class="product-card-image">
+
+
+                            {% if product.image %}
+
+                            <img
+                                src="{{ product.image.url }}"
+                                alt="{{ product.title }}"
+                                loading="lazy"
+                            >
+
+                            {% else %}
+
+                            <div class="product-image-placeholder">
+
+                                <i class="fas fa-image"></i>
+
+                            </div>
+
+                            {% endif %}
+
+
+                            <!-- FAVORITE -->
+
+                            <button
+                                type="button"
+                                class="favorite-button"
+                                onclick="event.stopPropagation(); toggleFavorite(this)"
+                                aria-label="{% translate 'Add to favorites' %}"
+                            >
+
+                                <i class="far fa-heart"></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                        <!-- PRODUCT INFORMATION -->
+
+                        <div class="product-card-info">
+
+
+                            <h3>
+                                {{ product.title }}
+                            </h3>
+
+
+                            <strong>
+
+                                TZS
+                                {{ product.price|floatformat:0|intcomma }}
+
+                            </strong>
+
+
+                            <p>
+
+                                <i class="fas fa-store"></i>
+
+                                {{ product.owner.seller.seller_name }}
+
+                            </p>
+
+
+                        </div>
+
+
+                    </article>
+
+
+                    {% empty %}
+
+
+                    <div class="empty-products">
+
+                        <i class="fas fa-box-open"></i>
+
+                        <p>
+                            {% translate "No products available yet." %}
+                        </p>
+
+                    </div>
+
+
+                    {% endfor %}
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 CATEGORIES
+            ====================================================== -->
+
+            <section class="store-section">
+
+
+                <div class="section-heading">
+
+
+                    <h2>
+                        {% translate "Categories" %}
+                    </h2>
+
+
+                    <button
+                        type="button"
+                        onclick="window.location.href='{% url 'categories' %}'"
+                    >
+
+                        {% translate "See all" %}
+
+                    </button>
+
+
+                </div>
+
+
+                <div class="category-scroll">
+
+
+                    <!-- PHONES -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'phones' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Phones" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- COMPUTERS -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'computers' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-laptop"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Laptops" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- ELECTRONICS -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'electronics' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-tv"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Electronics" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- FASHION -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'fashion' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Fashion" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- SHOES -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'shoes' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-shoe-prints"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Shoes" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- BEAUTY -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'beauty' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-spa"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Beauty" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- FOOD -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'food' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-shopping-basket"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Food" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- DRINKS -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'drinks' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-glass-martini-alt"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Drinks" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- FURNITURE -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'furniture' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-couch"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Furniture" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- HOME -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'home' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-home"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Home" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- APPLIANCES -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'appliances' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-blender"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Appliances" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- VEHICLES -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'vehicles' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-car"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Vehicles" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- PARTS -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'parts' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-cogs"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Parts" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- SPORTS -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'sports' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-futbol"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Sports" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- BOOKS -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'books' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-book"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Books" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- TOYS -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'toys' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Toys" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- BABY -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'baby' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-baby"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Baby & Kids" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- SERVICES -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'services' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-concierge-bell"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Services" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- JOBS -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'jobs' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Jobs" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- PROPERTY -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'property' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-building"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Property" %}
+                        </span>
+
+                    </button>
+
+
+                    <!-- OTHER -->
+
+                    <button
+                        type="button"
+                        class="category-item"
+                        onclick="window.location.href=`{% url 'filter_products' 'other' %}`"
+                    >
+
+                        <span class="category-icon">
+                            <i class="fas fa-th-large"></i>
+                        </span>
+
+                        <span>
+                            {% translate "Other" %}
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =============================================
+                 TOP PRODUCTS
+            ============================================== -->
+
+            <section class="store-section">
+
+
+                <div class="section-heading">
+
+                    <h2>
+                        {% translate "Top products" %}
+                    </h2>
+
+                    <button
+                        type="button"
+                        onclick="window.location.href='{% url 'products' %}'"
+                    >
+                        {% translate "See all" %}
+                    </button>
+
+                </div>
+
+
+                <div class="product-horizontal-scroll">
+
+
+                    {% for product in top_products|slice:":6" %}
+
+
+                    <article
+                        class="product-mini-card"
+                        onclick="window.location.href=`{% url 'product_details' product.id product.title %}`"
+                    >
+
+
+                        <div class="product-image">
+
+
+                            {% if product.image %}
+
+                            <img
+                                src="{{ product.image.url }}"
+                                alt="{{ product.title }}"
+                                loading="lazy"
+                            >
+
+                            {% else %}
+
+                            <div class="product-image-placeholder">
+
+                                <i class="fas fa-image"></i>
+
+                            </div>
+
+                            {% endif %}
+
+
+                            <button
+                                class="favorite-button"
+                                type="button"
+                                onclick="event.stopPropagation(); toggleFavorite(this)"
+                                aria-label="{% translate 'Add to favorites' %}"
+                            >
+
+                                <i class="far fa-heart"></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                        <div class="product-info">
+
+
+                            <h3>
+                                {{ product.title }}
+                            </h3>
+
+
+                            <p class="product-price">
+
+                                TZS
+                                {{ product.price|floatformat:0|intcomma }}
+
+                            </p>
+
+
+                            <p class="product-location">
+
+                                <i class="fas fa-map-marker-alt"></i>
+
+                                {{ product.owner.seller.seller_address }}
+
+                            </p>
+
+
+                        </div>
+
+
+                    </article>
+
+
+                    {% empty %}
+
+
+                    <div class="empty-products">
+
+                        <i class="fas fa-box-open"></i>
+
+                        <p>
+                            {% translate "No products available yet." %}
+                        </p>
+
+                    </div>
+
+
+                    {% endfor %}
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =============================================
+                 RECOMMENDED
+            ============================================== -->
+
+            <section class="store-section">
+
+
+                <div class="section-heading">
+
+                    <h2>
+                        {% translate "Recommended for you" %}
+                    </h2>
+
+
+                    <button
+                        type="button"
+                        onclick="window.location.href='{% url 'products' %}'"
+                    >
+
+                        {% translate "See all" %}
+
+                    </button>
+
+                </div>
+
+
+                <div class="product-grid">
+
+
+                    {% for product in recommended_product|slice:":8" %}
+
+
+                    <article
+                        class="product-card"
+                        onclick="window.location.href=`{% url 'product_details' product.id product.title %}`"
+                    >
+
+
+                        <div class="product-card-image">
+
+
+                            {% if product.image %}
+
+                            <img
+                                src="{{ product.image.url }}"
+                                alt="{{ product.title }}"
+                                loading="lazy"
+                            >
+
+                            {% else %}
+
+                            <div class="product-image-placeholder">
+
+                                <i class="fas fa-image"></i>
+
+                            </div>
+
+                            {% endif %}
+
+
+                            <button
+                                type="button"
+                                class="favorite-button"
+                                onclick="event.stopPropagation(); toggleFavorite(this)"
+                                aria-label="{% translate 'Add to favorites' %}"
+                            >
+
+                                <i class="far fa-heart"></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                        <div class="product-card-info">
+
+
+                            <h3>
+                                {{ product.title }}
+                            </h3>
+
+
+                            <strong>
+
+                                TZS
+                                {{ product.price|floatformat:0|intcomma }}
+
+                            </strong>
+
+
+                            <p>
+
+                                {{ product.owner.seller.seller_name }}
+
+                            </p>
+
+
+                        </div>
+
+
+                    </article>
+
+
+                    {% empty %}
+
+
+                    <div class="empty-products">
+
+                        <i class="fas fa-box-open"></i>
+
+                        <p>
+                            {% translate "No products available yet." %}
+                        </p>
+
+                    </div>
+
+
+                    {% endfor %}
+
+
+                </div>
+
+            </section>
 
 
         </div>
 
 
-        <div class="footer-holder-1003">
-            <div>
-                <p>Wingastock | Online marketplace</p>
+        <!-- =========================================================
+             MOBILE BOTTOM NAV
+        ========================================================== -->
+
+        <nav class="mobile-bottom-nav">
+
+
+            <button
+                type="button"
+                class="active"
+                onclick="window.location.href='{% url 'products' %}'"
+            >
+
+                <i class="fas fa-shopping-bag"></i>
+
+                <span>
+                    {% translate "Products" %}
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                onclick="window.location.href='{% url 'favorities' %}'"
+            >
+
+                <i class="far fa-heart"></i>
+
+                <span>
+                    {% translate "Favorites" %}
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                onclick="window.location.href='{% url 'shop_list' %}'"
+            >
+
+                <i class="fas fa-store-alt"></i>
+
+                <span>
+                    {% translate "Shops" %}
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                onclick="window.location.href='{% url 'customer_account' %}'"
+            >
+
+                <i class="far fa-user"></i>
+
+                <span>
+                    {% translate "Account" %}
+                </span>
+
+            </button>
+
+
+        </nav>
+
+
+    </main>
+
+
+    <!-- =========================================================
+         ACCOUNT MODAL
+    ========================================================== -->
+
+    <div
+        id="accountModal"
+        class="account-modal"
+        aria-hidden="true"
+    >
+
+
+        <div
+            class="account-modal-overlay"
+            onclick="closeAccountModal()"
+        ></div>
+
+
+        <div class="account-modal-content">
+
+
+            <button
+                type="button"
+                class="account-modal-close"
+                onclick="closeAccountModal()"
+                aria-label="{% translate 'Close' %}"
+            >
+
+                <i class="fas fa-times"></i>
+
+            </button>
+
+
+            <div class="account-modal-icon">
+
+                <i class="far fa-user"></i>
+
             </div>
+
+
+            <h2>
+                {% translate "Your account" %}
+            </h2>
+
+
+            <p>
+                {% translate "Login or create an account to continue." %}
+            </p>
+
+
+            <a
+                href="{% url 'customer_login' %}"
+                class="account-modal-button"
+            >
+
+                {% translate "Login" %}
+
+            </a>
+
+
+            <a
+                href="{% url 'customer_register' %}"
+                class="account-modal-button secondary"
+            >
+
+                {% translate "Register" %}
+
+            </a>
+
+
         </div>
-
-        <!-- Nav bar -->
-        {% include 'navbar.html' %}
-
-        <!-- Login and register modal-->
-        {% include 'login-container.html' %}
 
     </div>
 
-    <script>
-        window.addEventListener("load", function () {
 
-            const loader = document.querySelector(
-                ".page-loader-holder-000"
-            );
+    <script src="{% static 'js/product.js' %}"></script>
 
-            if (loader) {
 
-                // Fade out the loader
-                loader.classList.add("hidden");
-
-                // Remove it completely after the animation
-                setTimeout(function () {
-                    loader.remove();
-                }, 500);
-            }
-
-        });
-    </script>
-
-    <script>
-        function menu_bar(click) {
-            let menu_div = document.getElementById('menu_div');
-            let button1 = document.getElementById('button1');
-            let button2 = document.getElementById('button2');
-
-            if (click == 'open') {
-                menu_div.style.display = 'inline-block';
-                button1.style.display = 'none';
-                button2.style.display = 'inline-block';
-            }
-            else {
-                menu_div.style.display = 'none';
-                button2.style.display = 'none';
-                button1.style.display = 'inline-block';
-            }
-        }
-    </script>
-
-    <script>
-        document.querySelectorAll(".product-card").forEach(card => {
-
-            const product = card.querySelector(".product-1002");
-            const loader = card.querySelector(".loader");
-
-            const img = new Image();
-
-            img.onload = function () {
-                product.style.backgroundImage = `url('${this.src}')`;
-                loader.remove();
-            };
-
-            img.onerror = function () {
-                // Hide loader but keep the card visible
-                loader.remove();
-
-                // Optional placeholder
-                product.style.background = "#f2f2f2";
-            };
-
-            img.src = product.dataset.bg;
-        });
-    </script>
 </body>
 
 </html>

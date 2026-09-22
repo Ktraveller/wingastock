@@ -1,0 +1,648 @@
+{% load static %}
+{% load i18n %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Wingastock | {% translate "Support" %}
+    </title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
+
+    <!-- Shared styles -->
+    <link
+        rel="stylesheet"
+        href="{% static 'css/home.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/account.css' %}"
+    >
+
+    <!-- Page styles -->
+    <link
+        rel="stylesheet"
+        href="{% static 'css/support.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="support-page">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="support-header">
+
+        <button
+            type="button"
+            class="support-back-button"
+            onclick="history.back()"
+            aria-label="{% translate 'Go back' %}"
+        >
+
+            <i class="fas fa-arrow-left"></i>
+
+        </button>
+
+
+        <div class="support-heading">
+
+            <h1>
+                {% translate "Support" %}
+            </h1>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="support-help-button"
+            id="supportHelpButton"
+            aria-label="{% translate 'Help' %}"
+        >
+
+            <i class="fas fa-question"></i>
+
+        </button>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         SUPPORT HERO
+    ====================================================== -->
+
+    <section class="support-hero">
+
+        <div class="support-hero-icon">
+
+            <i class="fas fa-headset"></i>
+
+        </div>
+
+
+        <div class="support-hero-content">
+
+            <span>
+                {% translate "We're here to help" %}
+            </span>
+
+            <h2>
+                {% translate "How can we help you?" %}
+            </h2>
+
+            <p>
+                {% translate "Find answers, get assistance, or contact the Wingastock support team." %}
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SUPPORT SEARCH
+    ====================================================== -->
+
+    <section class="support-search-section">
+
+        <div class="support-search-box">
+
+            <i class="fas fa-search"></i>
+
+            <input
+                type="search"
+                id="supportSearchInput"
+                placeholder="{% translate 'Search for help...' %}"
+                autocomplete="off"
+            >
+
+            <button
+                type="button"
+                id="clearSupportSearch"
+                aria-label="{% translate 'Clear search' %}"
+            >
+
+                <i class="fas fa-times"></i>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         QUICK SUPPORT
+    ====================================================== -->
+
+    <main class="support-content">
+
+
+        <section class="support-section">
+
+            <div class="support-section-heading">
+
+                <div>
+
+                    <span>
+                        {% translate "Get assistance" %}
+                    </span>
+
+                    <h2>
+                        {% translate "Contact Support" %}
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="support-contact-grid">
+
+
+                <!-- Contact -->
+
+                <button
+                    type="button"
+                    class="support-contact-card"
+                    id="contactSupportButton"
+                >
+
+                    <div class="support-contact-icon">
+
+                        <i class="fas fa-headset"></i>
+
+                    </div>
+
+
+                    <div class="support-contact-text">
+
+                        <strong>
+                            {% translate "Contact Support" %}
+                        </strong>
+
+                        <span>
+                            {% translate "Get help from our team" %}
+                        </span>
+
+                    </div>
+
+
+                    <i class="fas fa-chevron-right support-contact-arrow"></i>
+
+                </button>
+
+
+
+                <!-- Report -->
+
+                <button
+                    type="button"
+                    class="support-contact-card"
+                    id="reportProblemButton"
+                >
+
+                    <div class="support-contact-icon">
+
+                        <i class="fas fa-exclamation-circle"></i>
+
+                    </div>
+
+
+                    <div class="support-contact-text">
+
+                        <strong>
+                            {% translate "Report a Problem" %}
+                        </strong>
+
+                        <span>
+                            {% translate "Tell us about an issue" %}
+                        </span>
+
+                    </div>
+
+
+                    <i class="fas fa-chevron-right support-contact-arrow"></i>
+
+                </button>
+
+
+
+                <!-- Feedback -->
+
+                <button
+                    type="button"
+                    class="support-contact-card"
+                    id="feedbackButton"
+                >
+
+                    <div class="support-contact-icon">
+
+                        <i class="far fa-comment-alt"></i>
+
+                    </div>
+
+
+                    <div class="support-contact-text">
+
+                        <strong>
+                            {% translate "Send Feedback" %}
+                        </strong>
+
+                        <span>
+                            {% translate "Help us improve Wingastock" %}
+                        </span>
+
+                    </div>
+
+
+                    <i class="fas fa-chevron-right support-contact-arrow"></i>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FAQ
+        ================================================== -->
+
+        <section class="support-section faq-section">
+
+            <div class="support-section-heading">
+
+                <div>
+
+                    <span>
+                        {% translate "Frequently asked" %}
+                    </span>
+
+                    <h2>
+                        {% translate "Help & FAQs" %}
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="faq-list" id="faqList">
+
+
+                <!-- FAQ 1 -->
+
+                <div
+                    class="faq-item"
+                    data-question="how do i buy a product"
+                >
+
+                    <button
+                        type="button"
+                        class="faq-question"
+                    >
+
+                        <span>
+                            {% translate "How do I buy a product?" %}
+                        </span>
+
+                        <i class="fas fa-chevron-down"></i>
+
+                    </button>
+
+
+                    <div class="faq-answer">
+
+                        <p>
+                            {% translate "Browse products on Wingastock, open the product you are interested in, and use the available seller contact information to communicate directly with the seller." %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FAQ 2 -->
+
+                <div
+                    class="faq-item"
+                    data-question="how do i contact a seller"
+                >
+
+                    <button
+                        type="button"
+                        class="faq-question"
+                    >
+
+                        <span>
+                            {% translate "How do I contact a seller?" %}
+                        </span>
+
+                        <i class="fas fa-chevron-down"></i>
+
+                    </button>
+
+
+                    <div class="faq-answer">
+
+                        <p>
+                            {% translate "Open the product listing and check the seller contact options provided on the product page." %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FAQ 3 -->
+
+                <div
+                    class="faq-item"
+                    data-question="how do delivery requests work"
+                >
+
+                    <button
+                        type="button"
+                        class="faq-question"
+                    >
+
+                        <span>
+                            {% translate "How do delivery requests work?" %}
+                        </span>
+
+                        <i class="fas fa-chevron-down"></i>
+
+                    </button>
+
+
+                    <div class="faq-answer">
+
+                        <p>
+                            {% translate "Submit the product details and your delivery information through a delivery request. You can then track the request status from your account." %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FAQ 4 -->
+
+                <div
+                    class="faq-item"
+                    data-question="how do i remove a favorite"
+                >
+
+                    <button
+                        type="button"
+                        class="faq-question"
+                    >
+
+                        <span>
+                            {% translate "How do I remove a favorite product?" %}
+                        </span>
+
+                        <i class="fas fa-chevron-down"></i>
+
+                    </button>
+
+
+                    <div class="faq-answer">
+
+                        <p>
+                            {% translate "Open your Favorites page and select the remove option on the product you no longer want to keep." %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FAQ 5 -->
+
+                <div
+                    class="faq-item"
+                    data-question="how do i update my profile"
+                >
+
+                    <button
+                        type="button"
+                        class="faq-question"
+                    >
+
+                        <span>
+                            {% translate "How do I update my profile?" %}
+                        </span>
+
+                        <i class="fas fa-chevron-down"></i>
+
+                    </button>
+
+
+                    <div class="faq-answer">
+
+                        <p>
+                            {% translate "Go to Account, open My Profile, and select the edit option to update your account information." %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FAQ 6 -->
+
+                <div
+                    class="faq-item"
+                    data-question="is wingastock free"
+                >
+
+                    <button
+                        type="button"
+                        class="faq-question"
+                    >
+
+                        <span>
+                            {% translate "Is Wingastock free to use?" %}
+                        </span>
+
+                        <i class="fas fa-chevron-down"></i>
+
+                    </button>
+
+
+                    <div class="faq-answer">
+
+                        <p>
+                            {% translate "You can browse marketplace listings and explore available products. Any applicable service or seller charges depend on the specific service." %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- No search results -->
+
+            <div
+                class="faq-no-results"
+                id="faqNoResults"
+            >
+
+                <i class="fas fa-search"></i>
+
+                <strong>
+                    {% translate "No results found" %}
+                </strong>
+
+                <span>
+                    {% translate "Try searching for another question." %}
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SUPPORT NOTE
+        ================================================== -->
+
+        <section class="support-note">
+
+            <div class="support-note-icon">
+
+                <i class="fas fa-info"></i>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    {% translate "Need more help?" %}
+                </strong>
+
+                <p>
+                    {% translate "If you cannot find the answer you need, contact our support team and we'll help you." %}
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         MOBILE BOTTOM NAVIGATION
+    ====================================================== -->
+
+    <nav class="mobile-bottom-nav">
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'products' %}'"
+        >
+
+            <i class="fas fa-shopping-bag"></i>
+
+            <span>
+                {% translate "Products" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'favorities' %}'"
+        >
+
+            <i class="far fa-heart"></i>
+
+            <span>
+                {% translate "Favorites" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'shop_list' %}'"
+        >
+
+            <i class="fas fa-store-alt"></i>
+
+            <span>
+                {% translate "Shops" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="active"
+            onclick="window.location.href='{% url 'customer_account' %}'"
+        >
+
+            <i class="far fa-user"></i>
+
+            <span>
+                {% translate "Account" %}
+            </span>
+
+        </button>
+
+
+    </nav>
+
+</div>
+
+
+<script src="{% static 'js/support.js' %}"></script>
+
+</body>
+
+</html>

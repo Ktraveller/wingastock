@@ -1,0 +1,1295 @@
+/* =========================================================
+   DELIVERY PAGE
+========================================================= */
+
+.delivery-page {
+    width: 100%;
+    min-height: 100vh;
+    padding-bottom: 85px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.delivery-header {
+    width: 100%;
+    min-height: 64px;
+    padding: 8px 14px;
+
+    background: #fff;
+
+    border-bottom: 1px solid rgba(220, 20, 60, 0.10);
+
+    display: flex;
+    align-items: center;
+}
+
+
+.delivery-back-button {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    margin-right: 8px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #444;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.delivery-back-button:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+
+.delivery-back-button:active {
+    transform: scale(0.94);
+}
+
+
+.delivery-back-button i {
+    font-size: 17px;
+}
+
+
+.delivery-heading {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.delivery-eyebrow {
+    color: crimson;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    line-height: 1;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+
+.delivery-heading h1 {
+    margin: 0;
+
+    color: #222;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+.delivery-filter-button {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    margin-left: 8px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 50%;
+
+    background: #f5f5f5;
+
+    color: #444;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.delivery-filter-button:hover {
+    background: #ededed;
+}
+
+
+.delivery-filter-button:active {
+    transform: scale(0.94);
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.delivery-summary {
+    width: calc(100% - 28px);
+
+    margin: 16px 14px 0;
+
+    padding: 15px 8px;
+
+    background: #fff;
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+
+    border-radius: 15px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.035);
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+
+.delivery-summary-item {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+.delivery-summary-item + .delivery-summary-item {
+    border-left: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+
+.delivery-summary-number {
+    color: #222;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+.delivery-summary-label {
+    margin-top: 4px;
+
+    color: #888;
+
+    font-size: 9px;
+    font-weight: 500;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+.delivery-filters {
+    width: 100%;
+
+    padding: 14px 14px 2px;
+
+    display: flex;
+
+    gap: 8px;
+
+    overflow-x: auto;
+
+    scrollbar-width: none;
+}
+
+
+.delivery-filters::-webkit-scrollbar {
+    display: none;
+}
+
+
+.delivery-filter {
+    flex-shrink: 0;
+
+    min-height: 34px;
+
+    padding: 0 14px;
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    border-radius: 20px;
+
+    background: #fff;
+
+    color: #666;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.delivery-filter:hover {
+    background: #f7f7f7;
+}
+
+
+.delivery-filter:active {
+    transform: scale(0.96);
+}
+
+
+.delivery-filter.active {
+    background: crimson;
+
+    border-color: crimson;
+
+    color: #fff;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.delivery-content {
+    width: 100%;
+
+    padding: 0 14px;
+}
+
+
+.delivery-list {
+    width: 100%;
+
+    margin-top: 14px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+/* =========================================================
+   DELIVERY CARD
+========================================================= */
+
+.delivery-card {
+    width: 100%;
+
+    padding: 14px;
+
+    background: #fff;
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+
+    border-radius: 16px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.035);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.delivery-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+}
+
+
+/* =========================================================
+   CARD TOP
+========================================================= */
+
+.delivery-card-top {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+
+.delivery-request-number {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.delivery-request-number span {
+    color: #999;
+
+    font-size: 9px;
+    font-weight: 500;
+}
+
+
+.delivery-request-number strong {
+    color: #222;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.delivery-status {
+    flex-shrink: 0;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+
+/* Status colors */
+
+.delivery-status.pending {
+    background: rgba(255, 165, 0, 0.10);
+    color: #d98200;
+}
+
+
+.delivery-status.processing {
+    background: rgba(0, 123, 255, 0.10);
+    color: #0073df;
+}
+
+
+.delivery-status.processed {
+    background: rgba(40, 167, 69, 0.10);
+    color: #24963b;
+}
+
+
+.delivery-status.rejected {
+    background: rgba(220, 20, 60, 0.10);
+    color: crimson;
+}
+
+
+/* =========================================================
+   PRODUCT
+========================================================= */
+
+.delivery-product {
+    margin-top: 14px;
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+.delivery-image {
+    width: 68px;
+    height: 68px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background: #f5f5f5;
+}
+
+
+.delivery-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+.delivery-product-info {
+    min-width: 0;
+
+    margin-left: 12px;
+}
+
+
+.delivery-product-info h3 {
+    margin: 0;
+
+    color: #222;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    line-height: 1.3;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.delivery-category {
+    margin: 4px 0 0;
+
+    color: #888;
+
+    font-size: 10px;
+}
+
+
+.delivery-price {
+    display: block;
+
+    margin-top: 6px;
+
+    color: crimson;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   NOTE
+========================================================= */
+
+.delivery-note {
+    margin-top: 13px;
+
+    padding-top: 12px;
+
+    border-top: 1px solid rgba(0, 0, 0, 0.055);
+}
+
+
+.delivery-note span {
+    color: #999;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+}
+
+
+.delivery-note p {
+    margin: 4px 0 0;
+
+    color: #555;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   CARD FOOTER
+========================================================= */
+
+.delivery-card-footer {
+    margin-top: 13px;
+
+    padding-top: 11px;
+
+    border-top: 1px solid rgba(0, 0, 0, 0.055);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+
+.delivery-date {
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color: #888;
+
+    font-size: 9px;
+}
+
+
+.delivery-date i {
+    color: #aaa;
+
+    font-size: 11px;
+}
+
+
+.delivery-view-button {
+    flex-shrink: 0;
+
+    min-height: 34px;
+
+    padding: 0 11px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 18px;
+
+    background: rgba(220, 20, 60, 0.08);
+
+    color: crimson;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.delivery-view-button:hover {
+    background: rgba(220, 20, 60, 0.14);
+}
+
+
+.delivery-view-button:active {
+    transform: scale(0.95);
+}
+
+
+.delivery-view-button i {
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.delivery-empty {
+    width: 100%;
+
+    min-height: 330px;
+
+    padding: 30px 20px;
+
+    display: none;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+.delivery-empty-icon {
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    background: rgba(220, 20, 60, 0.08);
+
+    color: crimson;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.delivery-empty-icon i {
+    font-size: 26px;
+}
+
+
+.delivery-empty h2 {
+    margin: 17px 0 0;
+
+    color: #222;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+.delivery-empty p {
+    max-width: 300px;
+
+    margin: 7px 0 0;
+
+    color: #888;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+.delivery-browse-button {
+    min-height: 42px;
+
+    margin-top: 18px;
+
+    padding: 0 18px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 22px;
+
+    background: crimson;
+
+    color: #fff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.delivery-browse-button:hover {
+    background: #c9001f;
+}
+
+
+.delivery-browse-button:active {
+    transform: scale(0.96);
+}
+
+
+
+/* =========================================================
+   DESKTOP — MICROSOFT STORE INSPIRED
+   Mobile remains unchanged
+========================================================= */
+
+@media (min-width: 900px) {
+
+    .delivery-page {
+        width: 100%;
+        max-width: 1600px;
+
+        margin: 0 auto;
+
+        padding-bottom: 40px;
+    }
+
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    .delivery-header {
+        min-height: 72px;
+
+        padding: 0 38px;
+
+        background: #ffffff;
+
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+
+    .delivery-back-button {
+        width: 42px;
+        height: 42px;
+
+        margin-right: 16px;
+
+        border-radius: 2px;
+
+        background: transparent;
+
+        color: #333;
+    }
+
+
+    .delivery-back-button:hover {
+        background: #f2f2f2;
+    }
+
+
+    .delivery-back-button i {
+        font-size: 16px;
+    }
+
+
+    /* =====================================================
+       HEADING
+    ===================================================== */
+
+    .delivery-heading {
+        gap: 3px;
+    }
+
+
+    .delivery-eyebrow {
+        font-size: 9px;
+
+        letter-spacing: 1.2px;
+    }
+
+
+    .delivery-heading h1 {
+        font-size: 25px;
+
+        font-weight: 600;
+
+        letter-spacing: -0.3px;
+    }
+
+
+    /* =====================================================
+       FILTER BUTTON
+    ===================================================== */
+
+    .delivery-filter-button {
+        width: 42px;
+        height: 42px;
+
+        margin-left: 16px;
+
+        border-radius: 2px;
+
+        background: transparent;
+
+        color: #333;
+    }
+
+
+    .delivery-filter-button:hover {
+        background: #f2f2f2;
+    }
+
+
+    .delivery-filter-button i {
+        font-size: 15px;
+    }
+
+
+    /* =====================================================
+       SUMMARY
+    ===================================================== */
+
+    .delivery-summary {
+        width: calc(100% - 76px);
+
+        margin: 24px 38px 0;
+
+        padding: 0;
+
+        min-height: 105px;
+
+        background: #ffffff;
+
+        border: 1px solid #e1e1e1;
+
+        border-radius: 3px;
+
+        box-shadow: none;
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+
+    .delivery-summary-item {
+        padding: 22px 20px;
+
+        align-items: flex-start;
+
+        justify-content: center;
+
+        text-align: left;
+    }
+
+
+    .delivery-summary-item + .delivery-summary-item {
+        border-left: 1px solid #e5e5e5;
+    }
+
+
+    .delivery-summary-number {
+        font-size: 27px;
+
+        font-weight: 600;
+
+        line-height: 1.1;
+    }
+
+
+    .delivery-summary-label {
+        margin-top: 7px;
+
+        font-size: 10px;
+
+        color: #777;
+
+        letter-spacing: 0.7px;
+    }
+
+
+    /* =====================================================
+       FILTERS
+    ===================================================== */
+
+    .delivery-filters {
+        width: calc(100% - 76px);
+
+        margin: 24px 38px 0;
+
+        padding: 0;
+
+        gap: 0;
+
+        overflow: visible;
+
+        border-bottom: 1px solid #e1e1e1;
+    }
+
+
+    .delivery-filter {
+        min-height: 42px;
+
+        padding: 0 17px;
+
+        border: none;
+
+        border-radius: 0;
+
+        background: transparent;
+
+        color: #555;
+
+        font-size: 12px;
+
+        font-weight: 600;
+
+        position: relative;
+    }
+
+
+    .delivery-filter:hover {
+        background: #f5f5f5;
+
+        color: #222;
+    }
+
+
+    .delivery-filter:active {
+        transform: none;
+    }
+
+
+    .delivery-filter.active {
+        background: transparent;
+
+        border: none;
+
+        color: crimson;
+    }
+
+
+    .delivery-filter.active::after {
+        content: "";
+
+        position: absolute;
+
+        left: 14px;
+        right: 14px;
+        bottom: -1px;
+
+        height: 3px;
+
+        background: crimson;
+    }
+
+
+    /* =====================================================
+       CONTENT
+    ===================================================== */
+
+    .delivery-content {
+        width: calc(100% - 76px);
+
+        margin: 0 38px;
+
+        padding: 0;
+    }
+
+
+    /* =====================================================
+       DELIVERY LIST
+    ===================================================== */
+
+    .delivery-list {
+        margin-top: 24px;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        gap: 18px;
+    }
+
+
+    /* =====================================================
+       DELIVERY CARD
+    ===================================================== */
+
+    .delivery-card {
+        padding: 18px;
+
+        border-radius: 3px;
+
+        border: 1px solid #e1e1e1;
+
+        box-shadow: none;
+
+        background: #ffffff;
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            border-color 0.2s ease;
+    }
+
+
+    .delivery-card:hover {
+        transform: translateY(-3px);
+
+        border-color: #d5d5d5;
+
+        box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* =====================================================
+       CARD TOP
+    ===================================================== */
+
+    .delivery-card-top {
+        gap: 15px;
+    }
+
+
+    .delivery-request-number {
+        gap: 3px;
+    }
+
+
+    .delivery-request-number span {
+        font-size: 9px;
+
+        color: #888;
+    }
+
+
+    .delivery-request-number strong {
+        font-size: 13px;
+    }
+
+
+    .delivery-status {
+        padding: 5px 9px;
+
+        border-radius: 2px;
+
+        font-size: 9px;
+    }
+
+
+    /* =====================================================
+       PRODUCT
+    ===================================================== */
+
+    .delivery-product {
+        margin-top: 17px;
+    }
+
+
+    .delivery-image {
+        width: 86px;
+        height: 86px;
+
+        border-radius: 2px;
+
+        background: #f4f4f4;
+    }
+
+
+    .delivery-product-info {
+        margin-left: 15px;
+    }
+
+
+    .delivery-product-info h3 {
+        font-size: 15px;
+
+        font-weight: 600;
+    }
+
+
+    .delivery-category {
+        margin-top: 5px;
+
+        font-size: 10px;
+
+        color: #777;
+    }
+
+
+    .delivery-price {
+        margin-top: 7px;
+
+        font-size: 13px;
+
+        font-weight: 700;
+    }
+
+
+    /* =====================================================
+       NOTE
+    ===================================================== */
+
+    .delivery-note {
+        margin-top: 16px;
+
+        padding-top: 14px;
+
+        border-top: 1px solid #e7e7e7;
+    }
+
+
+    .delivery-note span {
+        font-size: 9px;
+
+        letter-spacing: 0.6px;
+    }
+
+
+    .delivery-note p {
+        margin-top: 5px;
+
+        font-size: 11px;
+
+        line-height: 1.55;
+
+        color: #555;
+    }
+
+
+    /* =====================================================
+       CARD FOOTER
+    ===================================================== */
+
+    .delivery-card-footer {
+        margin-top: 15px;
+
+        padding-top: 13px;
+
+        border-top: 1px solid #e7e7e7;
+    }
+
+
+    .delivery-date {
+        font-size: 10px;
+
+        color: #777;
+    }
+
+
+    .delivery-date i {
+        font-size: 11px;
+
+        color: #999;
+    }
+
+
+    .delivery-view-button {
+        min-height: 36px;
+
+        padding: 0 14px;
+
+        border-radius: 2px;
+
+        background: rgba(220, 20, 60, 0.07);
+
+        color: crimson;
+
+        font-size: 10px;
+    }
+
+
+    .delivery-view-button:hover {
+        background: rgba(220, 20, 60, 0.12);
+    }
+
+
+    .delivery-view-button i {
+        font-size: 8px;
+    }
+
+
+    /* =====================================================
+       EMPTY STATE
+    ===================================================== */
+
+    .delivery-empty {
+        min-height: 420px;
+
+        padding: 50px 20px;
+    }
+
+
+    .delivery-empty-icon {
+        width: 76px;
+        height: 76px;
+
+        border-radius: 50%;
+    }
+
+
+    .delivery-empty-icon i {
+        font-size: 27px;
+    }
+
+
+    .delivery-empty h2 {
+        margin-top: 20px;
+
+        font-size: 20px;
+
+        font-weight: 600;
+    }
+
+
+    .delivery-empty p {
+        max-width: 420px;
+
+        margin-top: 8px;
+
+        font-size: 12px;
+    }
+
+
+    .delivery-browse-button {
+        min-height: 44px;
+
+        margin-top: 20px;
+
+        padding: 0 20px;
+
+        border-radius: 2px;
+
+        font-size: 11px;
+    }
+
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1200px) {
+
+    .delivery-list {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================================
+   EXTRA LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1500px) {
+
+    .delivery-list {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+    }
+
+}

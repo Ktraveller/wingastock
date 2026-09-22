@@ -1,165 +1,1497 @@
 {% load static %}
 {% load humanize %}
+{% load i18n %}
 
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-    <link rel="stylesheet" href="{% static 'css/search.css' %}">
-    <link rel="stylesheet" href="{% static 'css/heading.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <title>Wingastock | Product Categories</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <meta name="description" content="Buy and sell electronics such as smartphones, laptops, TVs, computers, accessories, 
-        and other electronic devices. Discover quality furniture, home appliances, rooms, houses, 
-        and a wide range of products from trusted sellers on Wingastock. 
-        Our platform makes it easy to find, advertise, buy, and sell products online, 
-        connecting customers and businesses in one convenient marketplace.">
+    <title>
+        {% translate "Wingastock | Categories" %}
+    </title>
 
-    <meta name="robots" content="index, follow">
 
-    <link rel="canonical" href="https://wingastock.onrender.com/">
+    <!-- =================================================
+         FONT AWESOME
+    ================================================== -->
 
-    <meta property="og:title" content="Wingastock | Product Categories">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
 
-    <meta property="og:description"
-        content="Wingastock is an online marketplace in Tanzania where you can buy and sell electronics,
-         smartphones, laptops, TVs, furniture, home appliances, rooms, houses, and a wide range of products. 
-         Connect with trusted sellers, discover great deals, and grow your business by reaching more customers online.">
 
-    <meta property="og:type" content="website">
+    <!-- =================================================
+         CSS
+    ================================================== -->
 
-    <meta property="og:image" content="/static/logo.png">
+    <link
+        rel="stylesheet"
+        href="{% static 'css/home.css' %}"
+    >
 
-    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+    <link
+        rel="stylesheet"
+        href="{% static 'css/search.css' %}"
+    >
 
-    <meta name="google-site-verification" content="cBo6MO_R0NHmkbNtZ4TbAd5KcLYgqPdt0XB-BgMYi1o" />
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-STT2EJ7H54"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+    <link
+        rel="shortcut icon"
+        href="{% static 'logo.png' %}"
+        type="image/x-icon"
+    >
 
-        gtag('config', 'G-STT2EJ7H54');
-    </script>
 </head>
+
 
 <body>
 
-    <div class="page-loader-holder-000">
-        <div>
-            <button type="button">
-                <h1>
-                    <img src="{% static 'logo.png' %}" alt="logo"> <br>
-                    <span>Wingastock</span>
-                </h1>
+
+<div class="search-page">
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="search-header">
+
+
+        <!-- BACK -->
+
+        <button
+            type="button"
+            class="back-button"
+            onclick="history.back()"
+            aria-label="{% translate 'Go back' %}"
+        >
+
+            <i class="fas fa-arrow-left"></i>
+
+        </button>
+
+
+
+        <!-- TITLE -->
+
+        <h1>
+            {% translate "Categories" %}
+        </h1>
+
+
+
+        <!-- CATEGORY OPTIONS -->
+
+        <div class="search-options">
+
+
+            <button
+                type="button"
+                class="search-options-button"
+                id="searchOptionsButton"
+                aria-label="{% translate 'Category options' %}"
+            >
+
+                <i class="fas fa-ellipsis-v"></i>
+
             </button>
+
+
+
+            <div
+                class="search-options-dropdown"
+                id="searchOptionsDropdown"
+            >
+
+
+                <!-- CATEGORY HISTORY -->
+
+                <button
+                    type="button"
+                    class="search-option"
+                    id="searchHistoryButton"
+                >
+
+                    <span class="search-option-icon">
+
+                        <i class="fas fa-history"></i>
+
+                    </span>
+
+
+                    <span class="search-option-text">
+
+                        <strong>
+                            {% translate "Category history" %}
+                        </strong>
+
+                        <small>
+                            {% translate "View your recently viewed categories" %}
+                        </small>
+
+                    </span>
+
+                </button>
+
+
+
+                <!-- REQUEST PRODUCT -->
+
+                <button
+                    type="button"
+                    class="search-option"
+                    id="requestProductButton"
+                >
+
+                    <span class="search-option-icon">
+
+                        <i class="fas fa-box-open"></i>
+
+                    </span>
+
+
+                    <span class="search-option-text">
+
+                        <strong>
+                            {% translate "Request product" %}
+                        </strong>
+
+                        <small>
+                            {% translate "Can't find a product you need?" %}
+                        </small>
+
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
         </div>
-    </div>
-
-    <div class="row-holder-001">
-
-        <!-- Inlude heading -->
-        {% if user.email %}
-        {% include 'header_s.html' %}
-        {% else %}
-        {% include 'heading.html' %}
-        {% endif %}
 
 
-        <div class="content-holder-002">
+    </header>
 
-            <!-- Favorite product cards -->
-            <div class="favorite-product-holder-003">
 
-                <div class="product-card-holder-0004">
-                    <div>
 
-                        <!-- Phones and PCs -->
-                        {% include 'phones.html' %}
+    <!-- =========================================
+         CATEGORY SEARCH / BROWSE
+    ========================================== -->
 
-                        <!-- Electronics -->
-                        {% include 'electronics.html' %}
+    <section class="search-area">
 
-                        <!-- Clothing -->
-                        {% include 'clothes.html' %}
 
-                        <!-- Furnitures -->
-                        {% include 'furnitures.html' %}
+        <form
+            class="search-form"
+            id="searchForm"
+            method="GET"
+            action="{% url 'search' %}"
+        >
 
-                        <!-- Foods -->
-                        {% include 'foods.html' %}
 
-                    </div>
+            <i class="fas fa-search"></i>
+
+
+
+            <input
+                type="search"
+                id="searchInput"
+                name="search"
+                value="{{ request.GET.search|default:'' }}"
+                placeholder="{% translate 'Search categories and products...' %}"
+                autocomplete="off"
+            >
+
+
+
+            <!-- CLEAR -->
+
+            <button
+                type="button"
+                id="clearSearch"
+                class="clear-search"
+                aria-label="{% translate 'Clear search' %}"
+            >
+
+                <i class="fas fa-times"></i>
+
+            </button>
+
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="search-submit"
+                aria-label="{% translate 'Search categories' %}"
+            >
+
+                <i class="fas fa-arrow-right"></i>
+
+            </button>
+
+
+        </form>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         CONTENT
+    ========================================== -->
+
+    <main class="search-content">
+
+
+        <!-- =====================================
+             CATEGORIES
+        ====================================== -->
+
+        <section class="categories-section">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <span>
+                        {% translate "Browse" %}
+                    </span>
+
+                    <h2>
+                        {% translate "All categories" %}
+                    </h2>
+
                 </div>
 
+
+
+                <button
+                    type="button"
+                    class="see-all"
+                    id="seeAllCategories"
+                >
+
+                    {% translate "See all" %}
+
+                </button>
+
+
             </div>
 
-            <div style="width: 100%; height: 100px; float: left;"></div>
 
-        </div>
 
-        <div class="footer-holder-1003">
-            <div>
-                <p>Wingastock | Online marketplace</p>
+            <!-- =================================
+                 CATEGORY BUTTONS
+            ================================== -->
+
+            <div class="category-list">
+
+
+                <!-- ELECTRONICS -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="electronics"
+                    onclick="window.location.href=`{% url 'filter_products' 'electronics' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-tv"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Electronics" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- PHONES -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="phones"
+                    onclick="window.location.href=`{% url 'filter_products' 'phones' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-mobile-alt"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Phones & Tablets" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- COMPUTERS -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="computers"
+                    onclick="window.location.href=`{% url 'filter_products' 'computers' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-laptop"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Computers & Laptops" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- FASHION -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="fashion"
+                    onclick="window.location.href=`{% url 'filter_products' 'fashion' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-tshirt"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Fashion" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- SHOES -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="shoes"
+                    onclick="window.location.href=`{% url 'filter_products' 'shoes' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-shoe-prints"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Shoes" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- BEAUTY -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="beauty"
+                    onclick="window.location.href=`{% url 'filter_products' 'beauty' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-spa"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Beauty & Personal Care" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- FOOD -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="food"
+                    onclick="window.location.href=`{% url 'filter_products' 'food' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-shopping-basket"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Food & Groceries" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- DRINKS -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="drinks"
+                    onclick="window.location.href=`{% url 'filter_products' 'drinks' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-glass-martini-alt"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Drinks & Beverages" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- FURNITURE -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="furniture"
+                    onclick="window.location.href=`{% url 'filter_products' 'furniture' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-couch"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Furniture" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- HOME -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="home"
+                    onclick="window.location.href=`{% url 'filter_products' 'home' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-home"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Home & Garden" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- APPLIANCES -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="appliances"
+                    onclick="window.location.href=`{% url 'filter_products' 'appliances' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-blender"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Home Appliances" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- VEHICLES -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="vehicles"
+                    onclick="window.location.href=`{% url 'filter_products' 'vehicles' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-car"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Vehicles" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- VEHICLE PARTS -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="parts"
+                    onclick="window.location.href=`{% url 'filter_products' 'parts' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-cogs"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Vehicle Parts & Accessories" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- SPORTS -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="sports"
+                    onclick="window.location.href=`{% url 'filter_products' 'sports' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-futbol"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Sports & Fitness" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- BOOKS -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="books"
+                    onclick="window.location.href=`{% url 'filter_products' 'books' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-book"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Books & Education" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- TOYS -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="toys"
+                    onclick="window.location.href=`{% url 'filter_products' 'toys' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-gamepad"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Toys & Games" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- BABY -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="baby"
+                    onclick="window.location.href=`{% url 'filter_products' 'baby' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-baby"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Baby & Kids" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- SERVICES -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="services"
+                    onclick="window.location.href=`{% url 'filter_products' 'services' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-concierge-bell"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Services" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- JOBS -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="jobs"
+                    onclick="window.location.href=`{% url 'filter_products' 'jobs' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-briefcase"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Jobs" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- PROPERTY -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="property"
+                    onclick="window.location.href=`{% url 'filter_products' 'property' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-building"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Property" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
+
+                <!-- OTHER -->
+
+                <button
+                    type="button"
+                    class="category-button"
+                    data-category="other"
+                    onclick="window.location.href=`{% url 'filter_products' 'other' %}`"
+                >
+
+                    <span class="category-icon">
+
+                        <i class="fas fa-th-large"></i>
+
+                    </span>
+
+
+                    <span class="category-text">
+
+                        {% translate "Other" %}
+
+                    </span>
+
+
+                    <i class="fas fa-chevron-right arrow"></i>
+
+                </button>
+
+
             </div>
-        </div>
-
-        <!-- Nav bar -->
-        {% include 'navbar.html' %}
-
-        <!-- Login and register modal-->
-        {% include 'login-container.html' %}
-
-    </div>
 
 
-    <script>
-        window.addEventListener("load", function () {
+        </section>
 
-            const loader = document.querySelector(
-                ".page-loader-holder-000"
+
+
+        <!-- =====================================
+             POPULAR CATEGORIES
+        ====================================== -->
+
+        <section class="popular-section">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <span>
+                        {% translate "Explore" %}
+                    </span>
+
+                    <h2>
+                        {% translate "Popular categories" %}
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="popular-list">
+
+
+                <button
+                    type="button"
+                    data-search="Electronics"
+                >
+                    {% translate "Electronics" %}
+                </button>
+
+
+                <button
+                    type="button"
+                    data-search="Phones"
+                >
+                    {% translate "Phones" %}
+                </button>
+
+
+                <button
+                    type="button"
+                    data-search="Laptops"
+                >
+                    {% translate "Laptops" %}
+                </button>
+
+
+                <button
+                    type="button"
+                    data-search="Fashion"
+                >
+                    {% translate "Fashion" %}
+                </button>
+
+
+                <button
+                    type="button"
+                    data-search="Furniture"
+                >
+                    {% translate "Furniture" %}
+                </button>
+
+
+                <button
+                    type="button"
+                    data-search="Vehicles"
+                >
+                    {% translate "Vehicles" %}
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================================
+         MOBILE BOTTOM NAVIGATION
+    ========================================== -->
+
+    <nav class="mobile-bottom-nav">
+
+
+        <button
+            type="button"
+            class="active"
+            onclick="window.location.href='{% url 'products' %}'"
+        >
+
+            <i class="fas fa-shopping-bag"></i>
+
+            <span>
+                {% translate "Products" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'favorities' %}'"
+        >
+
+            <i class="far fa-heart"></i>
+
+            <span>
+                {% translate "Favorites" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'shop_list' %}'"
+        >
+
+            <i class="fas fa-store-alt"></i>
+
+            <span>
+                {% translate "Shops" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'customer_account' %}'"
+        >
+
+            <i class="far fa-user"></i>
+
+            <span>
+                {% translate "Account" %}
+            </span>
+
+        </button>
+
+
+    </nav>
+
+
+</div>
+
+
+
+<!-- =================================================
+     LOGIN / REGISTER
+================================================== -->
+
+{% include 'login-container.html' %}
+
+
+
+<!-- =================================================
+     JAVASCRIPT
+================================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        /* =================================================
+           ELEMENTS
+        ================================================== */
+
+        const searchForm =
+            document.getElementById("searchForm");
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const clearSearch =
+            document.getElementById("clearSearch");
+
+        const optionsButton =
+            document.getElementById("searchOptionsButton");
+
+        const optionsDropdown =
+            document.getElementById("searchOptionsDropdown");
+
+
+
+        /* =================================================
+           CATEGORY OPTIONS
+        ================================================== */
+
+        if (optionsButton && optionsDropdown) {
+
+            optionsButton.addEventListener(
+                "click",
+                function (event) {
+
+                    event.stopPropagation();
+
+                    optionsDropdown.classList.toggle("show");
+
+                }
             );
 
-            if (loader) {
 
-                // Fade out the loader
-                loader.classList.add("hidden");
+            document.addEventListener(
+                "click",
+                function () {
 
-                // Remove it completely after the animation
-                setTimeout(function () {
-                    loader.remove();
-                }, 500);
-            }
+                    optionsDropdown.classList.remove("show");
 
-        });
-    </script>
+                }
+            );
 
-    <script>
-        function menu_bar(click) {
-            let menu_div = document.getElementById('menu_div');
-            let button1 = document.getElementById('button1');
-            let button2 = document.getElementById('button2');
 
-            if (click == 'open') {
-                menu_div.style.display = 'inline-block';
-                button1.style.display = 'none';
-                button2.style.display = 'inline-block';
-            }
-            else {
-                menu_div.style.display = 'none';
-                button2.style.display = 'none';
-                button1.style.display = 'inline-block';
-            }
+            optionsDropdown.addEventListener(
+                "click",
+                function (event) {
+
+                    event.stopPropagation();
+
+                }
+            );
+
         }
-    </script>
+
+
+
+        /* =================================================
+           CLEAR SEARCH
+        ================================================== */
+
+        function updateClearButton() {
+
+            if (!clearSearch) {
+                return;
+            }
+
+
+            if (searchInput.value.trim() !== "") {
+
+                clearSearch.classList.add("show");
+
+            } else {
+
+                clearSearch.classList.remove("show");
+
+            }
+
+        }
+
+
+        if (searchInput) {
+
+            searchInput.addEventListener(
+                "input",
+                updateClearButton
+            );
+
+        }
+
+
+        if (clearSearch) {
+
+            clearSearch.addEventListener(
+                "click",
+                function () {
+
+                    searchInput.value = "";
+
+                    searchInput.focus();
+
+                    updateClearButton();
+
+                }
+            );
+
+        }
+
+
+        updateClearButton();
+
+
+
+        /* =================================================
+           SEARCH SUBMIT
+        ================================================== */
+
+        if (searchForm) {
+
+            searchForm.addEventListener(
+                "submit",
+                function (event) {
+
+                    const value =
+                        searchInput.value.trim();
+
+
+                    if (!value) {
+
+                        event.preventDefault();
+
+                        searchInput.focus();
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * Save category/product search locally.
+                     */
+
+                    saveSearch(value);
+
+                }
+            );
+
+        }
+
+
+
+        /* =================================================
+           POPULAR CATEGORIES
+        ================================================== */
+
+        document
+            .querySelectorAll("[data-search]")
+            .forEach(function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        const value =
+                            this.dataset.search;
+
+
+                        searchInput.value = value;
+
+
+                        updateClearButton();
+
+
+                        saveSearch(value);
+
+
+                        searchForm.submit();
+
+                    }
+                );
+
+            });
+
+
+
+        /* =================================================
+           CATEGORY HISTORY
+        ================================================== */
+
+        const historyButton =
+            document.getElementById(
+                "searchHistoryButton"
+            );
+
+
+        if (historyButton) {
+
+            historyButton.addEventListener(
+                "click",
+                function () {
+
+                    showSearchHistory();
+
+                }
+            );
+
+        }
+
+
+
+        /* =================================================
+           REQUEST PRODUCT
+        ================================================== */
+
+        const requestProductButton =
+            document.getElementById(
+                "requestProductButton"
+            );
+
+
+        if (requestProductButton) {
+
+            requestProductButton.addEventListener(
+                "click",
+                function () {
+
+                    /*
+                     * Change this URL to your actual
+                     * product-request URL if you have one.
+                     */
+
+                    window.location.href =
+                        "{% url 'home' %}";
+
+                }
+            );
+
+        }
+
+
+
+        /* =================================================
+           SEE ALL CATEGORIES
+        ================================================== */
+
+        const seeAll =
+            document.getElementById(
+                "seeAllCategories"
+            );
+
+
+        if (seeAll) {
+
+            seeAll.addEventListener(
+                "click",
+                function () {
+
+                    document
+                        .querySelectorAll(
+                            ".category-button"
+                        )
+                        .forEach(function (button) {
+
+                            button.style.display =
+                                "flex";
+
+                        });
+
+                }
+            );
+
+        }
+
+
+    }
+);
+
+
+
+/* =========================================================
+   CATEGORY HISTORY
+========================================================= */
+
+function saveSearch(value) {
+
+    if (!value) {
+        return;
+    }
+
+
+    let history =
+        JSON.parse(
+            localStorage.getItem(
+                "wingastock_search_history"
+            ) || "[]"
+        );
+
+
+    /*
+     * Remove duplicate
+     */
+
+    history =
+        history.filter(
+            item =>
+                item.toLowerCase() !==
+                value.toLowerCase()
+        );
+
+
+    /*
+     * Add newest item first
+     */
+
+    history.unshift(value);
+
+
+    /*
+     * Keep only last 10 items
+     */
+
+    history =
+        history.slice(0, 10);
+
+
+    localStorage.setItem(
+        "wingastock_search_history",
+        JSON.stringify(history)
+    );
+
+}
+
+
+
+/* =========================================================
+   SHOW CATEGORY HISTORY
+========================================================= */
+
+function showSearchHistory() {
+
+    const history =
+        JSON.parse(
+            localStorage.getItem(
+                "wingastock_search_history"
+            ) || "[]"
+        );
+
+
+    if (!history.length) {
+
+        alert(
+            "{% translate 'You don\\'t have any recently viewed categories.' %}"
+        );
+
+        return;
+
+    }
+
+
+    const selected =
+        prompt(
+            "{% translate 'Recent categories:' %}\n\n" +
+            history
+                .map(
+                    (item, index) =>
+                        `${index + 1}. ${item}`
+                )
+                .join("\n") +
+            "\n\n{% translate 'Enter a category or search term:' %}"
+        );
+
+
+    if (!selected) {
+        return;
+    }
+
+
+    document.getElementById(
+        "searchInput"
+    ).value = selected;
+
+
+    document.getElementById(
+        "searchForm"
+    ).submit();
+
+}
+
+</script>
+
+
 </body>
 
 </html>

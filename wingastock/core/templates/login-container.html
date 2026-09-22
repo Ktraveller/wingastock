@@ -1,5 +1,4 @@
 {% load static %}
-{% load static %}
 {% load i18n %}
 
 
@@ -10,30 +9,31 @@
 
     <div class="register-modal-2001" role="dialog" aria-modal="true" aria-labelledby="auth_modal_title">
 
-        <!-- =================================================
-             CLOSE BUTTON
-        ================================================== -->
-
+        <!-- CLOSE BUTTON -->
         <div class="close-holder-2001">
 
-            <button type="button" class="auth-close" style="float: right;" onclick="open_login_modal(0)"
-                aria-label="{% translate 'Close' %}">
+            <button
+                type="button"
+                class="auth-close"
+                style="float: right;"
+                onclick="open_login_modal(0)"
+                aria-label="{% translate 'Close' %}"
+            >
                 <i class="fas fa-times"></i>
             </button>
 
         </div>
 
 
-
-        <!-- =================================================
-             BRAND
-        ================================================== -->
-
+        <!-- BRAND -->
         <div class="auth-brand-2001">
 
             <div class="auth-logo-2001">
 
-                <img src="{% static 'logo.png' %}" alt="Wingastock">
+                <img
+                    src="{% static 'logo.png' %}"
+                    alt="{% translate 'Wingastock' %}"
+                >
 
             </div>
 
@@ -52,19 +52,26 @@
         </div>
 
 
-        <!-- =================================================
-             LOGIN / REGISTER TABS
-        ================================================== -->
-
+        <!-- LOGIN / REGISTER TABS -->
         <div class="choose-holder-2001">
 
-            <button type="button" id="login_button" class="auth-tab active" onclick="choose_type(1)">
+            <button
+                type="button"
+                id="login_button"
+                class="auth-tab active"
+                onclick="choose_type(1)"
+            >
                 <i class="fas fa-sign-in-alt"></i>
                 <span>{% translate "Login" %}</span>
             </button>
 
 
-            <button type="button" id="register_button" class="auth-tab" onclick="choose_type(2)">
+            <button
+                type="button"
+                id="register_button"
+                class="auth-tab"
+                onclick="choose_type(2)"
+            >
                 <i class="fas fa-user-plus"></i>
                 <span>{% translate "Register" %}</span>
             </button>
@@ -72,18 +79,16 @@
         </div>
 
 
-        <!-- =================================================
-             LOGIN
-        ================================================== -->
-
-        <div class="form-holder-login-2001 auth-form active" id="login">
+        <!-- LOGIN -->
+        <div
+            class="form-holder-login-2001 auth-form active"
+            id="login"
+        >
 
             <div class="auth-heading-2001">
 
                 <div class="auth-icon-2001">
-
                     <i class="fas fa-user"></i>
-
                 </div>
 
                 <div>
@@ -103,13 +108,16 @@
 
             <div class="form-login-2001">
 
-                <form method="post" action="{% url 'customer_login' %}" id="customer_login_form">
+                <form
+                    method="post"
+                    action="{% url 'customer_login' %}"
+                    id="customer_login_form"
+                >
 
                     {% csrf_token %}
 
 
                     <!-- EMAIL -->
-
                     <div class="auth-field-2001">
 
                         <label for="login_email">
@@ -125,8 +133,14 @@
 
                             <i class="fas fa-envelope input-icon"></i>
 
-                            <input type="email" name="email" id="login_email" placeholder="juma@mail.com"
-                                autocomplete="email" required>
+                            <input
+                                type="email"
+                                name="email"
+                                id="login_email"
+                                placeholder="juma@mail.com"
+                                autocomplete="email"
+                                required
+                            >
 
                         </div>
 
@@ -134,7 +148,6 @@
 
 
                     <!-- PASSWORD -->
-
                     <div class="auth-field-2001">
 
                         <label for="login_password">
@@ -150,15 +163,22 @@
 
                             <i class="fas fa-lock input-icon"></i>
 
-                            <input type="password" name="password" id="login_password"
-                                placeholder="{% translate 'Enter your password' %}" autocomplete="current-password"
-                                required>
+                            <input
+                                type="password"
+                                name="password"
+                                id="login_password"
+                                placeholder="{% translate 'Enter your password' %}"
+                                autocomplete="current-password"
+                                required
+                            >
 
 
-                            <button type="button" class="password-toggle-2001" onclick="togglePassword(
-                                    'login_password',
-                                    this
-                                )" aria-label="{{ show_password_text }}">
+                            <button
+                                type="button"
+                                class="password-toggle-2001"
+                                onclick="togglePassword('login_password', this)"
+                                aria-label="{% translate 'Show password' %}"
+                            >
 
                                 <i class="fas fa-eye"></i>
 
@@ -170,10 +190,12 @@
 
 
                     <!-- SUBMIT -->
-
                     <div class="auth-submit-2001">
 
-                        <button type="submit" id="login_submit">
+                        <button
+                            type="submit"
+                            id="login_submit"
+                        >
 
                             <span class="button-text">
 
@@ -184,11 +206,14 @@
                             </span>
 
 
-                            <span class="button-loading" style="display:none;">
+                            <span
+                                class="button-loading"
+                                style="display:none;"
+                            >
 
                                 <i class="fas fa-spinner fa-spin"></i>
 
-                                {{ logging_in_text }}
+                                {% translate "Logging in..." %}
 
                             </span>
 
@@ -202,19 +227,24 @@
 
 
             <!-- MESSAGE -->
-
-            <div class="footer-201 auth-message-2001" id="login_message" aria-live="polite"></div>
+            <div
+                class="footer-201 auth-message-2001"
+                id="login_message"
+                aria-live="polite"
+            ></div>
 
 
             <!-- SWITCH -->
-
             <div class="auth-switch-2001">
 
                 <span>
                     {% translate "Don't have an account?" %}
                 </span>
 
-                <button type="button" onclick="choose_type(2)">
+                <button
+                    type="button"
+                    onclick="choose_type(2)"
+                >
                     {% translate "Create one" %}
                 </button>
 
@@ -223,18 +253,16 @@
         </div>
 
 
-        <!-- =================================================
-             REGISTER
-        ================================================== -->
-
-        <div class="form-holder-login-2001 auth-form" id="signup">
+        <!-- REGISTER -->
+        <div
+            class="form-holder-login-2001 auth-form"
+            id="signup"
+        >
 
             <div class="auth-heading-2001">
 
                 <div class="auth-icon-2001">
-
                     <i class="fas fa-user-plus"></i>
-
                 </div>
 
                 <div>
@@ -254,13 +282,16 @@
 
             <div class="form-login-2001">
 
-                <form method="post" action="{% url 'customer_register' %}" id="customer_register_form">
+                <form
+                    method="post"
+                    action="{% url 'customer_register' %}"
+                    id="customer_register_form"
+                >
 
                     {% csrf_token %}
 
 
                     <!-- EMAIL -->
-
                     <div class="auth-field-2001">
 
                         <label for="register_email">
@@ -276,8 +307,14 @@
 
                             <i class="fas fa-envelope input-icon"></i>
 
-                            <input type="email" name="email" id="register_email" placeholder="juma@mail.com"
-                                autocomplete="email" required>
+                            <input
+                                type="email"
+                                name="email"
+                                id="register_email"
+                                placeholder="juma@mail.com"
+                                autocomplete="email"
+                                required
+                            >
 
                         </div>
 
@@ -285,7 +322,6 @@
 
 
                     <!-- PASSWORD -->
-
                     <div class="auth-field-2001">
 
                         <label for="register_password">
@@ -301,14 +337,22 @@
 
                             <i class="fas fa-lock input-icon"></i>
 
-                            <input type="password" name="password" id="register_password"
-                                placeholder="{% translate 'Create a password' %}" autocomplete="new-password" required>
+                            <input
+                                type="password"
+                                name="password"
+                                id="register_password"
+                                placeholder="{% translate 'Create a password' %}"
+                                autocomplete="new-password"
+                                required
+                            >
 
 
-                            <button type="button" class="password-toggle-2001" onclick="togglePassword(
-                                    'register_password',
-                                    this
-                                )" aria-label="{{ show_password_text }}">
+                            <button
+                                type="button"
+                                class="password-toggle-2001"
+                                onclick="togglePassword('register_password', this)"
+                                aria-label="{% translate 'Show password' %}"
+                            >
 
                                 <i class="fas fa-eye"></i>
 
@@ -320,10 +364,12 @@
 
 
                     <!-- SUBMIT -->
-
                     <div class="auth-submit-2001">
 
-                        <button type="submit" id="register_submit">
+                        <button
+                            type="submit"
+                            id="register_submit"
+                        >
 
                             <span class="button-text">
 
@@ -334,11 +380,14 @@
                             </span>
 
 
-                            <span class="button-loading" style="display:none;">
+                            <span
+                                class="button-loading"
+                                style="display:none;"
+                            >
 
                                 <i class="fas fa-spinner fa-spin"></i>
 
-                                {{ creating_account_text }}
+                                {% translate "Creating account..." %}
 
                             </span>
 
@@ -352,19 +401,24 @@
 
 
             <!-- MESSAGE -->
-
-            <div class="footer-201 auth-message-2001" id="register_message" aria-live="polite"></div>
+            <div
+                class="footer-201 auth-message-2001"
+                id="register_message"
+                aria-live="polite"
+            ></div>
 
 
             <!-- SWITCH -->
-
             <div class="auth-switch-2001">
 
                 <span>
                     {% translate "Already have an account?" %}
                 </span>
 
-                <button type="button" onclick="choose_type(1)">
+                <button
+                    type="button"
+                    onclick="choose_type(1)"
+                >
                     {% translate "Login" %}
                 </button>
 
@@ -383,11 +437,10 @@
 
 <style>
     /* =========================================================
-   GLOBAL AUTH VARIABLES
-========================================================= */
+       GLOBAL AUTH VARIABLES
+    ========================================================= */
 
     :root {
-
         --auth-primary: #e60023;
         --auth-primary-dark: #c9001f;
 
@@ -403,20 +456,16 @@
         --auth-success: #16803c;
 
         --auth-error: #d92d20;
-
     }
 
 
     /* =========================================================
-   MODAL BACKDROP
-========================================================= */
+       MODAL BACKDROP
+    ========================================================= */
 
     .register-modal-holder-2001 {
-
         position: fixed;
-
         inset: 0;
-
         width: 100%;
         height: 100%;
 
@@ -426,35 +475,35 @@
         justify-content: center;
 
         padding: 20px;
-
         box-sizing: border-box;
 
         background:
-            radial-gradient(circle at 20% 20%,
+            radial-gradient(
+                circle at 20% 20%,
                 rgba(230, 0, 35, .10),
-                transparent 30%),
-            radial-gradient(circle at 80% 80%,
+                transparent 30%
+            ),
+            radial-gradient(
+                circle at 80% 80%,
                 rgba(23, 32, 51, .12),
-                transparent 30%),
+                transparent 30%
+            ),
             rgba(10, 15, 25, .72);
 
         backdrop-filter: blur(10px);
-
         -webkit-backdrop-filter: blur(10px);
 
         z-index: 999999;
 
         overflow-y: auto;
-
     }
 
 
     /* =========================================================
-   MODAL CARD
-========================================================= */
+       MODAL CARD
+    ========================================================= */
 
     .register-modal-2001 {
-
         position: relative;
 
         width: min(460px, 100%);
@@ -478,124 +527,88 @@
         box-sizing: border-box;
 
         animation: authModalIn .28s ease both;
-
     }
 
 
     @keyframes authModalIn {
-
         from {
-
             opacity: 0;
-
-            transform:
-                translateY(25px) scale(.96);
-
+            transform: translateY(25px) scale(.96);
         }
 
         to {
-
             opacity: 1;
-
-            transform:
-                translateY(0) scale(1);
-
+            transform: translateY(0) scale(1);
         }
-
     }
 
 
     /* =========================================================
-   CLOSE BUTTON
-========================================================= */
+       CLOSE BUTTON
+    ========================================================= */
 
     .close-holder-2001 {
-
         position: absolute;
-
         top: 16px;
-
         right: 16px;
-
         z-index: 10;
-
     }
 
 
     .close-holder-2001 button {
-
         width: 38px;
-
         height: 38px;
 
         display: flex;
-
         align-items: center;
-
         justify-content: center;
 
         border: 0;
-
         border-radius: 50%;
 
         background: #f3f4f6;
-
         color: #555e6d;
 
         cursor: pointer;
-
         font-size: 15px;
 
         transition:
             background .2s ease,
             color .2s ease,
             transform .2s ease;
-
     }
 
 
     .close-holder-2001 button:hover {
-
         background: #fee2e2;
-
         color: var(--auth-primary);
-
         transform: rotate(90deg);
-
     }
 
 
     /* =========================================================
-   BRAND
-========================================================= */
+       BRAND
+    ========================================================= */
 
     .auth-brand-2001 {
-
         display: flex;
-
         align-items: center;
-
         justify-content: center;
 
         gap: 12px;
 
         margin: 4px 35px 25px 0;
-
     }
 
 
     .auth-logo-2001 {
-
         width: 52px;
-
         height: 52px;
 
         flex-shrink: 0;
 
         display: flex;
-
         align-items: center;
-
         justify-content: center;
 
         background: #fff1f2;
@@ -603,53 +616,43 @@
         border-radius: 15px;
 
         overflow: hidden;
-
     }
 
 
     .auth-logo-2001 img {
-
         width: 40px;
-
         height: 40px;
 
         object-fit: contain;
-
     }
 
 
     .auth-brand-text-2001 h2 {
-
         margin: 0;
 
         color: var(--auth-text);
 
         font-size: 22px;
-
         font-weight: 800;
 
         line-height: 1.1;
-
     }
 
 
     .auth-brand-text-2001 p {
-
         margin: 4px 0 0;
 
         color: var(--auth-muted);
 
         font-size: 12px;
-
     }
 
 
     /* =========================================================
-   LOGIN / REGISTER TABS
-========================================================= */
+       LOGIN / REGISTER TABS
+    ========================================================= */
 
     .choose-holder-2001 {
-
         display: grid;
 
         grid-template-columns: 1fr 1fr;
@@ -663,34 +666,27 @@
         background: #f3f4f6;
 
         border-radius: 14px;
-
     }
 
 
     .auth-tab {
-
         min-height: 44px;
 
         display: flex;
-
         align-items: center;
-
         justify-content: center;
 
         gap: 8px;
 
         border: 0;
-
         border-radius: 10px;
 
         background: transparent;
-
         color: #697386;
 
         font-family: inherit;
 
         font-size: 14px;
-
         font-weight: 700;
 
         cursor: pointer;
@@ -700,106 +696,80 @@
             color .2s ease,
             box-shadow .2s ease,
             transform .2s ease;
-
     }
 
 
     .auth-tab:hover {
-
         color: var(--auth-text);
-
     }
 
 
     .auth-tab.active {
-
         background: #ffffff;
 
         color: var(--auth-primary);
 
         box-shadow:
             0 3px 10px rgba(0, 0, 0, .08);
-
     }
 
 
     .auth-tab.active i {
-
         color: var(--auth-primary);
-
     }
 
 
     /* =========================================================
-   FORM
-========================================================= */
+       FORM
+    ========================================================= */
 
     .auth-form {
-
         display: none;
-
     }
 
 
     .auth-form.active {
-
         display: block;
 
         animation: authFormIn .25s ease both;
-
     }
 
 
     @keyframes authFormIn {
-
         from {
-
             opacity: 0;
-
             transform: translateX(10px);
-
         }
 
         to {
-
             opacity: 1;
-
             transform: translateX(0);
-
         }
-
     }
 
 
     /* =========================================================
-   FORM HEADING
-========================================================= */
+       FORM HEADING
+    ========================================================= */
 
     .auth-heading-2001 {
-
         display: flex;
-
         align-items: center;
 
         gap: 13px;
 
         margin-bottom: 24px;
-
     }
 
 
     .auth-icon-2001 {
-
         width: 46px;
-
         height: 46px;
 
         flex-shrink: 0;
 
         display: flex;
-
         align-items: center;
-
         justify-content: center;
 
         border-radius: 13px;
@@ -809,49 +779,39 @@
         color: var(--auth-primary);
 
         font-size: 17px;
-
     }
 
 
     .auth-heading-2001 h3 {
-
         margin: 0;
 
         color: var(--auth-text);
 
         font-size: 20px;
-
         font-weight: 800;
-
     }
 
 
     .auth-heading-2001 p {
-
         margin: 4px 0 0;
 
         color: var(--auth-muted);
 
         font-size: 12px;
-
         line-height: 1.4;
-
     }
 
 
     /* =========================================================
-   FIELD
-========================================================= */
+       FIELD
+    ========================================================= */
 
     .auth-field-2001 {
-
         margin-bottom: 18px;
-
     }
 
 
     .auth-field-2001 label {
-
         display: block;
 
         margin-bottom: 8px;
@@ -859,40 +819,32 @@
         color: var(--auth-text);
 
         font-size: 13px;
-
         font-weight: 700;
-
     }
 
 
     .auth-field-2001 label i {
-
         margin-right: 5px;
 
         color: var(--auth-primary);
-
     }
 
 
     /* =========================================================
-   INPUT
-========================================================= */
+       INPUT
+    ========================================================= */
 
     .auth-input-2001 {
-
         position: relative;
 
         width: 100%;
-
     }
 
 
     .auth-input-2001 .input-icon {
-
         position: absolute;
 
         left: 15px;
-
         top: 50%;
 
         transform: translateY(-50%);
@@ -904,20 +856,17 @@
         pointer-events: none;
 
         z-index: 2;
-
     }
 
 
     .auth-input-2001 input {
-
         width: 100%;
 
         height: 50px;
 
         box-sizing: border-box;
 
-        padding:
-            0 45px 0 42px;
+        padding: 0 45px 0 42px;
 
         border: 1px solid var(--auth-border);
 
@@ -937,58 +886,46 @@
             border-color .2s ease,
             background .2s ease,
             box-shadow .2s ease;
-
     }
 
 
     .auth-input-2001 input::placeholder {
-
         color: #a5acb8;
-
     }
 
 
     .auth-input-2001 input:hover {
-
         border-color: #d3d7df;
-
     }
 
 
     .auth-input-2001 input:focus {
-
         background: #ffffff;
 
         border-color: var(--auth-primary);
 
         box-shadow:
             0 0 0 4px rgba(230, 0, 35, .08);
-
     }
 
 
     /* =========================================================
-   PASSWORD TOGGLE
-========================================================= */
+       PASSWORD TOGGLE
+    ========================================================= */
 
     .password-toggle-2001 {
-
         position: absolute;
 
         top: 50%;
-
         right: 8px;
 
         transform: translateY(-50%);
 
         width: 35px;
-
         height: 35px;
 
         display: flex;
-
         align-items: center;
-
         justify-content: center;
 
         border: 0;
@@ -1000,40 +937,31 @@
         color: #8b94a3;
 
         cursor: pointer;
-
     }
 
 
     .password-toggle-2001:hover {
-
         background: #f3f4f6;
-
         color: var(--auth-primary);
-
     }
 
 
     /* =========================================================
-   SUBMIT
-========================================================= */
+       SUBMIT
+    ========================================================= */
 
     .auth-submit-2001 {
-
         margin-top: 25px;
-
     }
 
 
     .auth-submit-2001 button {
-
         width: 100%;
 
         min-height: 51px;
 
         display: flex;
-
         align-items: center;
-
         justify-content: center;
 
         gap: 8px;
@@ -1043,16 +971,17 @@
         border-radius: 12px;
 
         background:
-            linear-gradient(135deg,
+            linear-gradient(
+                135deg,
                 #e60023,
-                #c9001f);
+                #c9001f
+            );
 
         color: #ffffff;
 
         font-family: inherit;
 
         font-size: 14px;
-
         font-weight: 800;
 
         cursor: pointer;
@@ -1064,54 +993,41 @@
             transform .2s ease,
             box-shadow .2s ease,
             opacity .2s ease;
-
     }
 
 
     .auth-submit-2001 button:hover:not(:disabled) {
-
         transform: translateY(-2px);
 
         box-shadow:
             0 12px 26px rgba(230, 0, 35, .28);
-
     }
 
 
     .auth-submit-2001 button:active:not(:disabled) {
-
         transform: translateY(0);
-
     }
 
 
     .auth-submit-2001 button:disabled {
-
         opacity: .7;
-
         cursor: not-allowed;
-
     }
 
 
     .button-text,
     .button-loading {
-
         align-items: center;
-
         justify-content: center;
-
         gap: 8px;
-
     }
 
 
     /* =========================================================
-   MESSAGE
-========================================================= */
+       MESSAGE
+    ========================================================= */
 
     .auth-message-2001 {
-
         min-height: 0;
 
         margin-top: 14px;
@@ -1121,53 +1037,43 @@
         border-radius: 10px;
 
         font-size: 13px;
-
         font-weight: 600;
 
         line-height: 1.4;
-
     }
 
 
     .auth-message-2001:not(:empty) {
-
         padding: 11px 13px;
-
     }
 
 
     .auth-message-2001.success {
-
         color: var(--auth-success);
 
         background: #ecfdf3;
 
         border: 1px solid #bbf7d0;
-
     }
 
 
     .auth-message-2001.error {
-
         color: var(--auth-error);
 
         background: #fff1f2;
 
         border: 1px solid #fecdd3;
-
     }
 
 
     /* =========================================================
-   BOTTOM SWITCH
-========================================================= */
+       BOTTOM SWITCH
+    ========================================================= */
 
     .auth-switch-2001 {
-
         display: flex;
 
         align-items: center;
-
         justify-content: center;
 
         flex-wrap: wrap;
@@ -1181,12 +1087,10 @@
         font-size: 12px;
 
         text-align: center;
-
     }
 
 
     .auth-switch-2001 button {
-
         padding: 0;
 
         border: 0;
@@ -1198,157 +1102,119 @@
         font-family: inherit;
 
         font-size: 12px;
-
         font-weight: 800;
 
         cursor: pointer;
-
     }
 
 
     .auth-switch-2001 button:hover {
-
         text-decoration: underline;
-
     }
 
 
     /* =========================================================
-   BODY LOCK
-========================================================= */
+       BODY LOCK
+    ========================================================= */
 
     body.auth-modal-open {
-
         overflow: hidden;
-
     }
 
 
     /* =========================================================
-   MOBILE
-========================================================= */
+       MOBILE
+    ========================================================= */
 
     @media (max-width: 600px) {
 
         .register-modal-holder-2001 {
-
             align-items: flex-end;
-
             padding: 0;
-
         }
 
 
         .register-modal-2001 {
-
             width: 100%;
 
             max-height: 92vh;
 
             padding: 24px 20px;
 
-            border-radius:
-                24px 24px 0 0;
+            border-radius: 24px 24px 0 0;
 
             animation:
                 authMobileIn .28s ease both;
-
         }
 
 
         @keyframes authMobileIn {
 
             from {
-
                 opacity: 0;
-
                 transform: translateY(100%);
-
             }
 
             to {
-
                 opacity: 1;
-
                 transform: translateY(0);
-
             }
 
         }
 
 
         .auth-brand-2001 {
-
             margin-right: 40px;
-
             margin-bottom: 20px;
-
         }
 
 
         .auth-brand-text-2001 h2 {
-
             font-size: 20px;
-
         }
 
 
         .auth-heading-2001 h3 {
-
             font-size: 18px;
-
         }
 
 
         .auth-input-2001 input {
-
             height: 48px;
-
         }
 
 
         .auth-submit-2001 button {
-
             min-height: 49px;
-
         }
 
     }
 
 
     /* =========================================================
-   VERY SMALL SCREENS
-========================================================= */
+       VERY SMALL SCREENS
+    ========================================================= */
 
     @media (max-width: 360px) {
 
         .register-modal-2001 {
-
             padding: 20px 15px;
-
         }
 
 
         .auth-heading-2001 {
-
             gap: 9px;
-
         }
 
 
         .auth-icon-2001 {
-
             width: 40px;
-
             height: 40px;
-
         }
 
 
         .auth-heading-2001 h3 {
-
             font-size: 17px;
-
         }
 
     }
@@ -1358,23 +1224,45 @@
 <!-- =========================================================
      JAVASCRIPT
 ========================================================= -->
+
 <script>
+
     /* =========================================================
-       ENGLISH MESSAGES
+       TRANSLATED MESSAGES
     ========================================================= */
 
-    const showPasswordText = "Show password";
-    const hidePasswordText = "Hide password";
-    const loggingInText = "Logging in...";
-    const creatingAccountText = "Creating account...";
-    const invalidServerResponseText = "Invalid server response.";
-    const loginSuccessfulText = "Login successful.";
-    const invalidLoginText = "Invalid email or password.";
+    const showPasswordText =
+        "{% translate 'Show password' %}";
+
+    const hidePasswordText =
+        "{% translate 'Hide password' %}";
+
+    const loggingInText =
+        "{% translate 'Logging in...' %}";
+
+    const creatingAccountText =
+        "{% translate 'Creating account...' %}";
+
+    const invalidServerResponseText =
+        "{% translate 'Invalid server response.' %}";
+
+    const loginSuccessfulText =
+        "{% translate 'Login successful.' %}";
+
+    const invalidLoginText =
+        "{% translate 'Invalid email or password.' %}";
+
     const serverConnectionErrorText =
-        "Unable to connect to the server. Please try again.";
-    const accountCreatedText = "Account created successfully.";
-    const registrationFailedText = "Registration failed.";
-    const csrfMissingText = "CSRF token missing.";
+        "{% translate 'Unable to connect to the server. Please try again.' %}";
+
+    const accountCreatedText =
+        "{% translate 'Account created successfully.' %}";
+
+    const registrationFailedText =
+        "{% translate 'Registration failed.' %}";
+
+    const csrfMissingText =
+        "{% translate 'CSRF token missing.' %}";
 
 
     /* =========================================================
@@ -1448,14 +1336,10 @@
             document.getElementById("signup");
 
         const loginButton =
-            document.getElementById(
-                "login_button"
-            );
+            document.getElementById("login_button");
 
         const registerButton =
-            document.getElementById(
-                "register_button"
-            );
+            document.getElementById("register_button");
 
 
         if (
@@ -1621,9 +1505,7 @@
             document.cookie.split(";");
 
 
-        for (
-            let cookie of cookies
-        ) {
+        for (let cookie of cookies) {
 
             cookie = cookie.trim();
 
@@ -1732,16 +1614,12 @@
         if (loading) {
 
             if (text) {
-
-                text.style.display =
-                    "none";
+                text.style.display = "none";
             }
 
 
             if (loader) {
-
-                loader.style.display =
-                    "inline-flex";
+                loader.style.display = "inline-flex";
             }
 
 
@@ -1754,9 +1632,7 @@
                     loader.childNodes;
 
 
-                for (
-                    let node of nodes
-                ) {
+                for (let node of nodes) {
 
                     if (
                         node.nodeType ===
@@ -1777,16 +1653,12 @@
         } else {
 
             if (text) {
-
-                text.style.display =
-                    "inline-flex";
+                text.style.display = "inline-flex";
             }
 
 
             if (loader) {
-
-                loader.style.display =
-                    "none";
+                loader.style.display = "none";
             }
         }
     }
@@ -2151,9 +2023,7 @@
                         }
 
 
-                        /* =====================================
-                           ACCOUNT CREATED SUCCESSFULLY
-                        ===================================== */
+                        /* ACCOUNT CREATED SUCCESSFULLY */
 
                         if (
                             response.ok &&
@@ -2171,10 +2041,6 @@
                             );
 
 
-                            /*
-                             * Refresh the page after the
-                             * success message is displayed.
-                             */
                             setTimeout(
                                 function () {
 
@@ -2189,9 +2055,7 @@
                         }
 
 
-                        /* =====================================
-                           REGISTRATION FAILED
-                        ===================================== */
+                        /* REGISTRATION FAILED */
 
                         else {
 
@@ -2277,7 +2141,6 @@
                     event.key !==
                     "Escape"
                 ) {
-
                     return;
                 }
 
@@ -2300,9 +2163,7 @@
         );
 
 
-        /* =====================================================
-           INITIAL STATE
-        ===================================================== */
+        /* INITIAL STATE */
 
         choose_type(1);
     }

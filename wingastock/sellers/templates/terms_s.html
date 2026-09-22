@@ -1,17 +1,36 @@
 {% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wingastock | Signup</title>
-  <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
-  <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <title>
+    {% translate "Terms" %}
+  </title>
+
+  <link rel="shortcut icon"
+    href="{% static 'logo.png' %}"
+    type="image/x-icon">
+
+  <link rel="stylesheet"
+    href="{% static 'seller_css/sellers_style.css' %}">
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
 
   <style>
+
     .messages {
       margin: 20px 0;
     }
@@ -41,321 +60,617 @@
       background: #17a2b8;
     }
 
-    ol>li {
+    ol > li {
       padding: 10px;
     }
+
   </style>
+
 </head>
+
 
 <body>
 
 
   <!-- Page Loader -->
+
   <div id="page-loader">
+
     <div class="loader-content">
+
       <div class="spinner"></div>
-      <div class="loading-text">Loading<span class="dots"></span></div>
+
+      <div class="loading-text">
+
+        {% translate "Loading" %}
+
+        <span class="dots"></span>
+
+      </div>
+
     </div>
+
   </div>
+
+
 
   <div class="row-holder">
 
+
     <!-- Header -->
+
     <div class="header-holder-100">
+
       <div class="header-100">
+
+
         <div class="action-holder-101">
-          <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-          <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-              class="fas fa-times"></i></button>
-        </div>
-        <div class="title-holder-101">
-          <button type="button"><span>Wingastock | Signup</span></button>
+
+          <button type="button"
+            id="menu1"
+            onclick="open_menu('open')">
+
+            <i class="fas fa-bars"></i>
+
+          </button>
+
+
+          <button type="button"
+            id="menu2"
+            style="display: none;"
+            onclick="open_menu('close')">
+
+            <i class="fas fa-times"></i>
+
+          </button>
+
         </div>
 
+
+        <div class="title-holder-101">
+
+          <button type="button">
+
+            <span>
+              {% translate "Terms" %}
+            </span>
+
+          </button>
+
+        </div>
+
+
       </div>
+
     </div>
 
 
+
     <!-- center content -->
+
     <div class="center-content-200">
 
-      <div class="left-holder-201" id="nav">
+
+      <div class="left-holder-201"
+        id="nav">
+
+
         <div class="nav-bar-holder-202">
 
+
           <ul>
+
             <a href="{% url 'seller_terms' %}">
-              <li class="active-0">Terms and conditions <i class="fas fa-file-contract"></i></li>
+
+              <li class="active-0">
+
+                {% translate "Terms and conditions" %}
+
+                <i class="fas fa-file-contract"></i>
+
+              </li>
+
             </a>
+
           </ul>
 
+
           <ul>
+
             <a href="">
-              <li>Seller informations <i class="fas fa-user"></i></li>
+
+              <li>
+
+                {% translate "Seller information" %}
+
+                <i class="fas fa-user"></i>
+
+              </li>
+
             </a>
+
           </ul>
 
+
           <ul>
+
             <a href="">
-              <li>Declarations <i class="fas fa-file-signature"></i></li>
+
+              <li>
+
+                {% translate "Declarations" %}
+
+                <i class="fas fa-file-signature"></i>
+
+              </li>
+
             </a>
+
           </ul>
 
+
           <ul>
+
             <a href="{% url 'login_seller' %}">
-              <li>Login <i class="fas fa-sign-in-alt"></i></li>
+
+              <li>
+
+                {% translate "Login" %}
+
+                <i class="fas fa-sign-in-alt"></i>
+
+              </li>
+
             </a>
+
           </ul>
+
 
         </div>
+
       </div>
 
+
+
       <div class="right-holder-201">
+
+
         <div class="products-202">
+
 
           <div class="terms-holder-202">
 
+
             <div>
-              <h1 style="font-size: 20px; color: crimson; text-align: center;">Welcome wingastock | Create seller
-                account</h1><br>
+
+
+              <h1 style="font-size: 20px; color: crimson; text-align: center;">
+
+                {% translate "Welcome wingastock | Create seller account" %}
+
+              </h1>
+
+              <br>
+
+
               <p style="font-weight: bold;">
-                <span style="font-weight: 100;">Before proceeding please read carefully</span><br>
-                Seller Terms and Conditions
+
+                <span style="font-weight: 100;">
+
+                  {% translate "Before proceeding please read carefully" %}
+
+                </span>
+
+                <br>
+
+                {% translate "Seller Terms and Conditions" %}
+
               </p>
+
+
 
               <div class="seller-terms-0004">
 
+
                 <p>
-                  By registering as a seller on this platform, you agree to comply
-                  with the following Seller Terms and Conditions:
+
+                  {% translate "By registering as a seller on this platform, you agree to comply with the following Seller Terms and Conditions:" %}
+
                 </p>
+
+
 
                 <ol>
 
-                  <li>
-                    <strong>Seller Information:</strong>
-                    You must provide accurate, complete and up-to-date information
-                    when creating and maintaining your seller account. You are
-                    responsible for keeping your account information secure.
-                  </li>
 
                   <li>
-                    <strong>Legal Compliance:</strong>
-                    Sellers must comply with all applicable laws and regulations
-                    of Tanzania, including laws relating to businesses, consumer
-                    protection, taxation, product safety, intellectual property,
-                    advertising and electronic commerce.
+
+                    <strong>
+                      {% translate "Seller Information:" %}
+                    </strong>
+
+                    {% translate "You must provide accurate, complete and up-to-date information when creating and maintaining your seller account. You are responsible for keeping your account information secure." %}
+
                   </li>
 
-                  <li>
-                    <strong>Product Authenticity:</strong>
-                    All products listed must be genuine, legal and accurately
-                    described. Counterfeit, stolen, fake, illegally imported or
-                    misleading products are prohibited.
-                  </li>
+
 
                   <li>
-                    <strong>Product Information:</strong>
-                    Sellers must provide accurate product names, descriptions,
-                    specifications, sizes, colours, quantities, images and other
-                    information necessary for customers to make informed purchasing
-                    decisions.
+
+                    <strong>
+                      {% translate "Legal Compliance:" %}
+                    </strong>
+
+                    {% translate "Sellers must comply with all applicable laws and regulations of Tanzania, including laws relating to businesses, consumer protection, taxation, product safety, intellectual property, advertising and electronic commerce." %}
+
                   </li>
 
-                  <li>
-                    <strong>Pricing:</strong>
-                    Sellers are responsible for setting accurate prices and
-                    ensuring that advertised prices are honoured. Any applicable
-                    fees, delivery charges or other costs must be clearly disclosed
-                    to customers.
-                  </li>
+
 
                   <li>
-                    <strong>Stock Availability:</strong>
-                    Sellers must keep product stock information reasonably
-                    accurate. Products that are unavailable should be removed or
-                    marked as out of stock.
+
+                    <strong>
+                      {% translate "Product Authenticity:" %}
+                    </strong>
+
+                    {% translate "All products listed must be genuine, legal and accurately described. Counterfeit, stolen, fake, illegally imported or misleading products are prohibited." %}
+
                   </li>
 
-                  <li>
-                    <strong>Orders:</strong>
-                    Sellers are responsible for processing accepted orders within
-                    the required time and must not deliberately cancel orders
-                    without a valid reason.
-                  </li>
+
 
                   <li>
-                    <strong>Delivery:</strong>
-                    Sellers must package products appropriately and cooperate with
-                    the platform's delivery or collection procedures. Products
-                    should be delivered within the time communicated to the
-                    customer.
+
+                    <strong>
+                      {% translate "Product Information:" %}
+                    </strong>
+
+                    {% translate "Sellers must provide accurate product names, descriptions, specifications, sizes, colours, quantities, images and other information necessary for customers to make informed purchasing decisions." %}
+
                   </li>
 
-                  <li>
-                    <strong>Product Quality:</strong>
-                    Products must correspond with their descriptions and must not
-                    be defective, unsafe or materially different from what was
-                    advertised.
-                  </li>
+
 
                   <li>
-                    <strong>Returns and Refunds:</strong>
-                    Sellers must comply with applicable consumer protection
-                    requirements and the platform's return, refund and dispute
-                    policies. Where a seller is responsible for an incorrect,
-                    defective or materially misrepresented product, the seller
-                    may be responsible for the applicable return or refund costs.
+
+                    <strong>
+                      {% translate "Pricing:" %}
+                    </strong>
+
+                    {% translate "Sellers are responsible for setting accurate prices and ensuring that advertised prices are honoured. Any applicable fees, delivery charges or other costs must be clearly disclosed to customers." %}
+
                   </li>
 
-                  <li>
-                    <strong>Prohibited Products:</strong>
-                    Sellers must not list products that are illegal, stolen,
-                    counterfeit, dangerous or otherwise prohibited by law or by
-                    the platform. Regulated products may only be sold where the
-                    seller has all legally required licences and permissions.
-                  </li>
+
 
                   <li>
-                    <strong>Intellectual Property:</strong>
-                    Sellers must have the right to use product photographs,
-                    descriptions, trademarks, logos and other content uploaded
-                    to the platform. Sellers must not infringe another person's
-                    copyright, trademark, patent or other intellectual property
-                    rights.
+
+                    <strong>
+                      {% translate "Stock Availability:" %}
+                    </strong>
+
+                    {% translate "Sellers must keep product stock information reasonably accurate. Products that are unavailable should be removed or marked as out of stock." %}
+
                   </li>
 
-                  <li>
-                    <strong>Customer Conduct:</strong>
-                    Sellers must communicate with customers professionally and
-                    must not engage in harassment, discrimination, threats,
-                    deception or fraudulent activities.
-                  </li>
+
 
                   <li>
-                    <strong>Off-Platform Transactions:</strong>
-                    Sellers must not use customer information obtained through the
-                    platform to unlawfully redirect customers to unauthorized
-                    transactions or services outside the platform.
+
+                    <strong>
+                      {% translate "Orders:" %}
+                    </strong>
+
+                    {% translate "Sellers are responsible for processing accepted orders within the required time and must not deliberately cancel orders without a valid reason." %}
+
                   </li>
 
-                  <li>
-                    <strong>Taxes and Licences:</strong>
-                    Sellers are responsible for obtaining any business licences,
-                    permits, registrations and tax obligations applicable to their
-                    business and products.
-                  </li>
+
 
                   <li>
-                    <strong>Payments:</strong>
-                    Sellers must provide correct payment and payout information.
-                    Any applicable platform commissions, transaction charges or
-                    other agreed fees may be deducted from seller payouts.
+
+                    <strong>
+                      {% translate "Delivery:" %}
+                    </strong>
+
+                    {% translate "Sellers must package products appropriately and cooperate with the platform's delivery or collection procedures. Products should be delivered within the time communicated to the customer." %}
+
                   </li>
 
-                  <li>
-                    <strong>Fraud and Manipulation:</strong>
-                    Sellers must not create fake orders, fake reviews, manipulate
-                    ratings, misuse promotions, engage in payment fraud or
-                    otherwise attempt to manipulate the platform.
-                  </li>
+
 
                   <li>
-                    <strong>Customer Privacy:</strong>
-                    Sellers must protect customer information received through the
-                    platform and must only use such information for legitimate
-                    purposes connected with fulfilling the customer's order and
-                    complying with applicable law.
+
+                    <strong>
+                      {% translate "Product Quality:" %}
+                    </strong>
+
+                    {% translate "Products must correspond with their descriptions and must not be defective, unsafe or materially different from what was advertised." %}
+
                   </li>
 
-                  <li>
-                    <strong>Platform Monitoring:</strong>
-                    The platform may review listings, orders, complaints and seller
-                    activity to protect customers and maintain marketplace
-                    standards.
-                  </li>
+
 
                   <li>
-                    <strong>Suspension or Termination:</strong>
-                    The platform may restrict, suspend or terminate a seller
-                    account where the seller violates these terms, applicable law,
-                    customer protection requirements or marketplace policies.
+
+                    <strong>
+                      {% translate "Returns and Refunds:" %}
+                    </strong>
+
+                    {% translate "Sellers must comply with applicable consumer protection requirements and the platform's return, refund and dispute policies. Where a seller is responsible for an incorrect, defective or materially misrepresented product, the seller may be responsible for the applicable return or refund costs." %}
+
                   </li>
 
-                  <li>
-                    <strong>Disputes:</strong>
-                    Sellers agree to cooperate in good faith with investigations,
-                    customer complaints and dispute-resolution procedures
-                    established by the platform.
-                  </li>
+
 
                   <li>
-                    <strong>Changes to These Terms:</strong>
-                    These Seller Terms and Conditions may be updated from time to
-                    time. Sellers will be expected to comply with the version
-                    applicable to their use of the platform.
+
+                    <strong>
+                      {% translate "Prohibited Products:" %}
+                    </strong>
+
+                    {% translate "Sellers must not list products that are illegal, stolen, counterfeit, dangerous or otherwise prohibited by law or by the platform. Regulated products may only be sold where the seller has all legally required licences and permissions." %}
+
                   </li>
+
+
+
+                  <li>
+
+                    <strong>
+                      {% translate "Intellectual Property:" %}
+                    </strong>
+
+                    {% translate "Sellers must have the right to use product photographs, descriptions, trademarks, logos and other content uploaded to the platform. Sellers must not infringe another person's copyright, trademark, patent or other intellectual property rights." %}
+
+                  </li>
+
+
+
+                  <li>
+
+                    <strong>
+                      {% translate "Customer Conduct:" %}
+                    </strong>
+
+                    {% translate "Sellers must communicate with customers professionally and must not engage in harassment, discrimination, threats, deception or fraudulent activities." %}
+
+                  </li>
+
+
+
+                  <li>
+
+                    <strong>
+                      {% translate "Off-Platform Transactions:" %}
+                    </strong>
+
+                    {% translate "Sellers must not use customer information obtained through the platform to unlawfully redirect customers to unauthorized transactions or services outside the platform." %}
+
+                  </li>
+
+
+
+                  <li>
+
+                    <strong>
+                      {% translate "Taxes and Licences:" %}
+                    </strong>
+
+                    {% translate "Sellers are responsible for obtaining any business licences, permits, registrations and tax obligations applicable to their business and products." %}
+
+                  </li>
+
+
+
+                  <li>
+
+                    <strong>
+                      {% translate "Payments:" %}
+                    </strong>
+
+                    {% translate "Sellers must provide correct payment and payout information. Any applicable platform commissions, transaction charges or other agreed fees may be deducted from seller payouts." %}
+
+                  </li>
+
+
+
+                  <li>
+
+                    <strong>
+                      {% translate "Fraud and Manipulation:" %}
+                    </strong>
+
+                    {% translate "Sellers must not create fake orders, fake reviews, manipulate ratings, misuse promotions, engage in payment fraud or otherwise attempt to manipulate the platform." %}
+
+                  </li>
+
+
+
+                  <li>
+
+                    <strong>
+                      {% translate "Customer Privacy:" %}
+                    </strong>
+
+                    {% translate "Sellers must protect customer information received through the platform and must only use such information for legitimate purposes connected with fulfilling the customer's order and complying with applicable law." %}
+
+                  </li>
+
+
+
+                  <li>
+
+                    <strong>
+                      {% translate "Platform Monitoring:" %}
+                    </strong>
+
+                    {% translate "The platform may review listings, orders, complaints and seller activity to protect customers and maintain marketplace standards." %}
+
+                  </li>
+
+
+
+                  <li>
+
+                    <strong>
+                      {% translate "Suspension or Termination:" %}
+                    </strong>
+
+                    {% translate "The platform may restrict, suspend or terminate a seller account where the seller violates these terms, applicable law, customer protection requirements or marketplace policies." %}
+
+                  </li>
+
+
+
+                  <li>
+
+                    <strong>
+                      {% translate "Disputes:" %}
+                    </strong>
+
+                    {% translate "Sellers agree to cooperate in good faith with investigations, customer complaints and dispute-resolution procedures established by the platform." %}
+
+                  </li>
+
+
+
+                  <li>
+
+                    <strong>
+                      {% translate "Changes to These Terms:" %}
+                    </strong>
+
+                    {% translate "These Seller Terms and Conditions may be updated from time to time. Sellers will be expected to comply with the version applicable to their use of the platform." %}
+
+                  </li>
+
 
                 </ol>
 
+
+
                 <p>
-                  <strong>Seller Declaration:</strong>
-                  By clicking "Register", "Create Seller Account" or otherwise
-                  registering as a seller, you confirm that you have read,
-                  understood and agree to these Seller Terms and Conditions.
+
+                  <strong>
+                    {% translate "Seller Declaration:" %}
+                  </strong>
+
+                  {% translate 'By clicking "Register", "Create Seller Account" or otherwise registering as a seller, you confirm that you have read, understood and agree to these Seller Terms and Conditions.' %}
+
                 </p>
 
+
               </div>
+
             </div>
 
+
+
             <div class="next-holder-202">
-              <button type="button" style="padding-left: 30px; height: 50px; padding-right: 30px;"
-                onclick="window.location.href=`{% url 'signup_seller' %}`">I understood, proceed <i
-                  class="fas fa-arrow-right"></i></button>
+
+              <button type="button"
+                style="padding-left: 30px; height: 50px; padding-right: 30px;"
+                onclick="window.location.href=`{% url 'signup_seller' %}`">
+
+                {% translate "I understood, proceed" %}
+
+                <i class="fas fa-arrow-right"></i>
+
+              </button>
+
             </div>
+
+
           </div>
 
         </div>
+
       </div>
+
 
     </div>
 
   </div>
 
 
+
+  <!-- Page Loader -->
+
   <script>
+
     window.addEventListener("load", function () {
 
-      const loader = document.getElementById("page-loader");
+      const loader =
+        document.getElementById("page-loader");
+
 
       if (loader) {
+
         loader.classList.add("hidden");
 
+
         setTimeout(function () {
+
           loader.remove();
+
         }, 400);
+
       }
 
     });
+
   </script>
+
+
+
+  <!-- Mobile Menu -->
 
   <script>
+
     function open_menu(click) {
-      let menu1 = document.getElementById('menu1');
-      let menu2 = document.getElementById('menu2');
-      let nav = document.getElementById('nav');
+
+      let menu1 =
+        document.getElementById('menu1');
+
+      let menu2 =
+        document.getElementById('menu2');
+
+      let nav =
+        document.getElementById('nav');
+
 
       if (click == 'open') {
-        menu1.style.display = 'none';
-        menu2.style.display = 'inline-block';
-        nav.style.display = 'inline-block';
+
+        menu1.style.display =
+          'none';
+
+        menu2.style.display =
+          'inline-block';
+
+        nav.style.display =
+          'inline-block';
+
       }
+
       else {
-        menu1.style.display = 'inline-block';
-        menu2.style.display = 'none';
-        nav.style.display = 'none';
+
+        menu1.style.display =
+          'inline-block';
+
+        menu2.style.display =
+          'none';
+
+        nav.style.display =
+          'none';
+
       }
+
     }
+
   </script>
+
+
 </body>
 
 </html>

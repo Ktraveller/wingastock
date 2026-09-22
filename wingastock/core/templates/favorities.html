@@ -1,163 +1,581 @@
 {% load static %}
-{% load i18n %}
 {% load humanize %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-    <link rel="stylesheet" href="{% static 'css/search.css' %}">
-    <link rel="stylesheet" href="{% static 'css/heading.css' %}">
+    <title>
+        {% translate "Favorite Products | WingaStock" %}
+    </title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        rel="stylesheet"
+        href="{% static 'css/home.css' %}"
+    >
 
-    <title>Wingastock | Favorite Products</title>
+    <link
+        rel="stylesheet"
+        href="{% static 'css/favorite.css' %}"
+    >
+
 </head>
+
 
 <body>
 
-    <!-- PAGE LOADER -->
-    <div class="page-loader-holder-000" id="pageLoader">
-        <div>
-            <button type="button">
-                <h1>
-                    <img src="{% static 'logo.png' %}" alt="Wingastock logo">
-                    <br>
-                    <span>Wingastock</span>
-                </h1>
+
+    <div class="favorites-page">
+
+
+        <!-- =====================================================
+             HEADER
+        ====================================================== -->
+
+        <header class="favorites-header">
+
+
+            <!-- Back -->
+
+            <button
+                type="button"
+                class="favorites-back-button"
+                onclick="window.history.back()"
+                aria-label="{% translate 'Go back' %}"
+            >
+
+                <i class="fas fa-arrow-left"></i>
+
             </button>
+
+
+            <!-- Heading -->
+
+            <div class="favorites-heading">
+
+                <h1>
+                    {% translate "Favorite Products" %}
+                </h1>
+
+            </div>
+
+
+            <!-- Filter -->
+
+            <button
+                type="button"
+                class="favorites-filter-button"
+                id="favoritesFilterButton"
+                aria-label="{% translate 'Filter favorites' %}"
+            >
+
+                <i class="fas fa-sliders-h"></i>
+
+            </button>
+
+
+        </header>
+
+
+
+        <!-- =====================================================
+             TOOLBAR
+        ====================================================== -->
+
+        <div class="favorites-toolbar">
+
+
+            <div>
+
+                <strong id="favoritesCount">
+                    {{ favorite_products|length }}
+                </strong>
+
+                <span>
+                    {% translate "Favorite products" %}
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="clear-favorites-button"
+                id="clearFavoritesButton"
+            >
+
+                <i class="fas fa-trash-alt"></i>
+
+                {% translate "Clear all" %}
+
+            </button>
+
+
         </div>
-    </div>
 
-    <div class="row-holder-001">
 
-        <!-- Header -->
-        {% if user.is_authenticated %}
-        {% include 'header_s.html' %}
-        {% else %}
-        {% include 'heading.html' %}
-        {% endif %}
 
-        <!-- Content -->
-        <div class="content-holder-002">
+        <!-- =====================================================
+             FILTERS
+        ====================================================== -->
 
-            <section class="favorites-page product-card-holder-1001">
+        <div
+            class="favorites-filters"
+            id="favoritesFilters"
+        >
 
-                {% include 'side-category.html' %}
+            <button
+                type="button"
+                class="favorite-filter active"
+                data-sort="default"
+            >
 
-                <div class="product-card-1002 favorites-grid" style="width: 100%;">
+                <i class="fas fa-th-large"></i>
 
-                    <div class="section-heading">
+                {% translate "Default" %}
 
-                        <div>
-                            <span class="eyebrow">{% translate "Curated for you" %}</span>
-                            <h2>{% translate "Favorite products" %}</h2>
+            </button>
+
+
+            <button
+                type="button"
+                class="favorite-filter"
+                data-sort="name"
+            >
+
+                <i class="fas fa-sort-alpha-down"></i>
+
+                {% translate "Name A-Z" %}
+
+            </button>
+
+
+            <button
+                type="button"
+                class="favorite-filter"
+                data-sort="date"
+            >
+
+                <i class="fas fa-clock"></i>
+
+                {% translate "Newest" %}
+
+            </button>
+
+
+            <button
+                type="button"
+                class="favorite-filter"
+                data-sort="price-low"
+            >
+
+                <i class="fas fa-arrow-up"></i>
+
+                {% translate "Price Low" %}
+
+            </button>
+
+
+            <button
+                type="button"
+                class="favorite-filter"
+                data-sort="price-high"
+            >
+
+                <i class="fas fa-arrow-down"></i>
+
+                {% translate "Price High" %}
+
+            </button>
+
+
+            <button
+                type="button"
+                class="favorite-filter"
+                data-sort="views"
+            >
+
+                <i class="fas fa-eye"></i>
+
+                {% translate "Most Viewed" %}
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             CONTENT
+        ====================================================== -->
+
+        <main class="favorites-content">
+
+
+            {% if favorite_products %}
+
+
+            <!-- =================================================
+                 PRODUCT GRID
+            ================================================== -->
+
+            <section
+                class="favorites-grid show"
+                id="favoritesGrid"
+            >
+
+
+                {% for product in favorite_products %}
+
+
+                <article
+                    class="favorite-product-card"
+                    data-product-id="{{ product.id }}"
+                    data-name="{{ product.title|lower|escapejs }}"
+                    data-date="{{ product.created_at|date:'U' }}"
+                    data-price="{{ product.price }}"
+                    data-views="{{ product.product_information.views|default:0 }}"
+                    onclick="window.location.href=`{% url 'product_details' product.id product.title %}`"
+                >
+
+
+                    <!-- =========================================
+                         PRODUCT IMAGE
+                    ========================================== -->
+
+                    <div class="favorite-product-image">
+
+
+                        {% if product.image %}
+
+                        <img
+                            src="{{ product.image.url }}"
+                            alt="{{ product.title }}"
+                            loading="lazy"
+                        >
+
+                        {% else %}
+
+                        <div class="favorite-no-image">
+
+                            <i class="fas fa-image"></i>
+
+                            <span>
+                                {% translate "No image" %}
+                            </span>
+
+                        </div>
+
+                        {% endif %}
+
+
+
+                        <!-- Remove favorite -->
+
+                        <button
+                            type="button"
+                            class="remove-favorite"
+                            data-product-id="{{ product.id }}"
+                            aria-label="{% translate 'Remove favorite' %}"
+                            title="{% translate 'Remove from favorites' %}"
+                            onclick="event.stopPropagation();"
+                        >
+
+                            <i class="fas fa-heart"></i>
+
+                        </button>
+
+
+                    </div>
+
+
+
+                    <!-- =========================================
+                         PRODUCT DETAILS
+                    ========================================== -->
+
+                    <div class="favorite-product-details">
+
+
+                        <!-- Category -->
+
+                        <div class="favorite-product-category">
+
+                            {{ product.get_category_display }}
+
                         </div>
 
 
-                        <span class="favorites-count">
-                            {{ favorite_products|length }} saved
-                        </span>
-                    </div>
 
-                    {% for product in favorite_products %}
+                        <!-- Title -->
 
-                    {% include 'product-container.html' %}
+                        <h3>
 
-                    {% empty %}
+                            {{ product.title }}
 
-                    <div class="favorites-empty">
-                        <i class="far fa-heart" style="font-size: 50px;"></i>
+                        </h3>
 
-                        <h2>No favorites yet</h2>
 
-                        <p>
-                            Tap the heart on a product to save it here.
+
+                        <!-- Short Description -->
+
+                        <p class="favorite-product-description">
+
+                            {{ product.description|truncatechars:80 }}
+
                         </p>
 
-                        <a href="{% url 'index' %}">
-                            Explore products
-                        </a>
+
+
+                        <!-- Price -->
+
+                        <div class="favorite-product-price">
+
+                            {{ product.price|floatformat:0|intcomma }}
+
+                            <small>
+                                {% translate "TSh" %}
+                            </small>
+
+                        </div>
+
+
+
+                        <!-- Seller -->
+
+                        <div class="favorite-product-seller">
+
+                            <i class="fas fa-store"></i>
+
+                            <span>
+
+                                {% if product.owner.seller.seller_name %}
+
+                                {{ product.owner.seller.seller_name }}
+
+                                {% else %}
+
+                                {{ product.owner.username }}
+
+                                {% endif %}
+
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- =====================================
+                             PRODUCT FOOTER
+                        ====================================== -->
+
+                        <div class="favorite-product-footer">
+
+
+                            <!-- Views -->
+
+                            <span>
+
+                                <i class="fas fa-eye"></i>
+
+                                {{ product.product_information.views|default:0 }}
+
+                                {% translate "views" %}
+
+                            </span>
+
+
+
+                            <!-- Date -->
+
+                            <span>
+
+                                <i class="far fa-clock"></i>
+
+                                {{ product.created_at|date:"d M Y" }}
+
+                            </span>
+
+
+
+                            <!-- View -->
+
+                            <button
+                                type="button"
+                                class="view-product-button"
+                                title="{% translate 'View product' %}"
+                                onclick="
+                                    event.stopPropagation();
+                                    window.location.href=`{% url 'product_details' product.id product.title %}`;
+                                "
+                            >
+
+                                <i class="fas fa-arrow-right"></i>
+
+                            </button>
+
+
+                        </div>
+
+
                     </div>
 
-                    {% endfor %}
 
-                </div>
+                </article>
+
+
+                {% endfor %}
+
 
             </section>
 
-            <div style="width:100%; height:100px; float:left;"></div>
 
-        </div>
+            {% else %}
 
-        <!-- Footer -->
-        <div class="footer-holder-1003">
-            <div>
-                <p>Wingastock | Online marketplace</p>
-            </div>
-        </div>
 
-        <!-- Navigation -->
-        {% include 'navbar.html' %}
+            <!-- =================================================
+                 EMPTY STATE
+            ================================================== -->
 
-        <!-- Login -->
-        {% include 'login-container.html' %}
+            <section
+                class="favorites-empty"
+                id="favoritesEmpty"
+            >
+
+
+                <div class="empty-icon">
+
+                    <i class="far fa-heart"></i>
+
+                </div>
+
+
+                <h2>
+
+                    {% translate "No Favorite Products" %}
+
+                </h2>
+
+
+                <p>
+
+                    {% translate "You have not added any products to your favorites yet." %}
+
+                </p>
+
+
+                <a
+                    href="{% url 'products' %}"
+                    class="browse-products-button"
+                >
+
+                    <i class="fas fa-shopping-bag"></i>
+
+                    {% translate "Browse Products" %}
+
+                </a>
+
+
+            </section>
+
+
+            {% endif %}
+
+
+        </main>
+
+
+        <!-- =================================================
+             MOBILE BOTTOM NAVIGATION
+        ================================================== -->
+
+        <nav class="mobile-bottom-nav">
+
+
+            <button
+                type="button"
+                onclick="window.location.href='{% url 'products' %}'"
+            >
+
+                <i class="fas fa-shopping-bag"></i>
+
+                <span>
+                    {% translate "Products" %}
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="active"
+                onclick="window.location.href='{% url 'favorities' %}'"
+            >
+
+                <i class="far fa-heart"></i>
+
+                <span>
+                    {% translate "Favorites" %}
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                onclick="window.location.href='{% url 'shop_list' %}'"
+            >
+
+                <i class="fas fa-store-alt"></i>
+
+                <span>
+                    {% translate "Shops" %}
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                onclick="window.location.href='{% url 'customer_account' %}'"
+            >
+
+                <i class="far fa-user"></i>
+
+                <span>
+                    {% translate "Account" %}
+                </span>
+
+            </button>
+
+
+        </nav>
+
 
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
 
-            const loader = document.getElementById("pageLoader");
-
-            if (!loader) {
-                return;
-            }
-
-            setTimeout(function () {
-
-                loader.classList.add("hidden");
-
-                setTimeout(function () {
-                    loader.remove();
-                }, 500);
-
-            }, 200);
-
-        });
-    </script>
+    <div
+        id="appData"
+        style="display: none;"
+        data-products-url="{% url 'products' %}"
+    >
+    </div>
 
 
-    <script>
-        document.querySelectorAll(".product-card").forEach(card => {
+    <script src="{% static 'js/favorite.js' %}"></script>
 
-            const product = card.querySelector(".product-1002");
-            const loader = card.querySelector(".loader");
-
-            const img = new Image();
-
-            img.onload = function () {
-                product.style.backgroundImage = `url('${this.src}')`;
-                loader.remove();
-            };
-
-            img.onerror = function () {
-                // Hide loader but keep the card visible
-                loader.remove();
-
-                // Optional placeholder
-                product.style.background = "#f2f2f2";
-            };
-
-            img.src = product.dataset.bg;
-        });
-    </script>
 </body>
 
 </html>

@@ -6,958 +6,1114 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-  <link rel="stylesheet" href="{% static 'css/style2.css' %}">
-  <link rel="stylesheet" href="{% static 'css/heading.css' %}">
 
-  <link rel="stylesheet" href="{% static 'css/search.css' %}">
+  <title>
+    {% translate "Wingastock" %} | {{ product.title }}
+  </title>
+
+  <!-- =====================================================
+         SEO
+    ====================================================== -->
+
+  <meta name="description" content="{{ product.title }} - {{ product.description|truncatechars:155 }}">
+
+  <meta property="og:title" content="{{ product.title }} | Wingastock">
+
+  <meta property="og:description" content="{{ product.description|truncatechars:155 }}">
+
+  {% if product.image %}
+  <meta property="og:image" content="{{ product.image.url }}">
+  {% endif %}
+
+  <meta property="og:type" content="product">
+
+  <meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+  <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+
+  <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <title>Wingastock | {{ product.title }}</title>
 
-  <meta name="description" content="Buy and sell electronics such as smartphones, laptops, TVs, computers, accessories, 
-        and other electronic devices. Discover quality furniture, home appliances, rooms, houses, 
-        and a wide range of products from trusted sellers on Wingastock. 
-        Our platform makes it easy to find, advertise, buy, and sell products online, 
-        connecting customers and businesses in one convenient marketplace.">
+  <!-- =====================================================
+         BASE STYLES
+    ====================================================== -->
 
-  <meta name="robots" content="index, follow">
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
 
-  <link rel="canonical" href="https://wingastock.onrender.com/">
 
-  <meta property="og:title" content="Wingastock | {{ product.title }}">
+  <!-- =====================================================
+         PRODUCT PAGE
+    ====================================================== -->
 
-  <meta property="og:description"
-    content="Wingastock is an online marketplace in Tanzania where you can buy and sell electronics,
-         smartphones, laptops, TVs, furniture, home appliances, rooms, houses, and a wide range of products. 
-         Connect with trusted sellers, discover great deals, and grow your business by reaching more customers online.">
+  <link rel="stylesheet" href="{% static 'css/product-preview.css' %}">
 
-  <meta property="og:type" content="website">
-
-  <meta property="og:image" content="/static/logo.png">
-
-  <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
-
-  <meta name="google-site-verification" content="cBo6MO_R0NHmkbNtZ4TbAd5KcLYgqPdt0XB-BgMYi1o" />
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-STT2EJ7H54"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-STT2EJ7H54');
-  </script>
-
-  <style>
-    .actions-holder-103>div>button {
-      padding: 20px;
-      height: auto;
-      border-radius: 5px;
-    }
-
-    .reaction-btn {
-      border: 1px solid #ddd;
-      background: white;
-      padding: 10px 18px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 15px;
-      transition: 0.2s;
-    }
-
-    .reaction-btn:hover {
-      background: #f5f5f5;
-    }
-
-    .reaction-btn.active {
-      background: #007bff;
-      color: white;
-      border-color: #007bff;
-    }
-  </style>
 </head>
+
 
 <body>
 
-  <div class="page-loader-holder-000">
-    <div>
-      <button type="button">
-        <h1>
-          <img src="{% static 'logo.png' %}" alt="logo"> <br>
-          <span>Wingastock</span>
-        </h1>
+
+  <div class="product-page">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="product-header">
+
+
+      <button type="button" style="background: transparent;" class="product-back-button" id="backButton"
+        aria-label="{% translate 'Go back' %}" onclick="history.back()">
+
+        <i class="fas fa-arrow-left"></i>
+
       </button>
-    </div>
-  </div>
 
-  <div class="row-holder-001">
 
-    <!-- Inlude heading -->
-    {% if user.email %}
-    {% include 'header_s.html' %}
-    {% else %}
-    {% include 'heading.html' %}
-    {% endif %}
+      <div class="product-heading">
 
+        <h1>
+          {{ product.title }}
+        </h1>
 
-    <div class="content-holder-002">
-
-      <!-- Preview product -->
-      <div class="preview-product-holder-003">
-
-        <div class="product-breadcrumb">
-          <a href="{% url 'home' %}">{% translate "Home" %}</a>
-          <i class="fas fa-chevron-right"></i>
-          {{ product.get_category_display }}
-        </div>
-
-        <div class="preview-product-004">
-
-          <div class="preview-102">
-
-            <div class="product-details-holder-103">
-
-              <!-- product image -->
-              <div class="product-image-holder-103">
-                <div class="product-image-103" style="padding: 0px; box-shadow: unset;">
-                  <img src="{{ product.image.url }}" alt="{{ product.title }}">
-                </div>
-              </div>
-
-
-              <div class="product-summary">
-                <div class="product-summary-content">
-
-                  <span class="product-detail-category">
-                    {{ product.get_category_display }}
-                  </span>
+      </div>
 
-                  <h1 class="product-detail-title">{{ product.title }}</h1>
-
-                  <div class="product-detail-seller">
-                    <i class="fas fa-store"></i>
-                    {{ product.owner.seller.seller_name }}
 
-                    <span>
-                      <i class="fas fa-map-marker-alt"></i>
-                      {{ product.owner.seller.seller_address }}
-                    </span>
-                  </div>
+      <div class="product-header-actions">
 
-                  <div class="product-detail-price">
-                    {{ product.price|floatformat:0|intcomma }} <small>TSh</small>
-                  </div>
 
-                  <p style="font-weight: bold;">
-                    <i class="fas fa-align-left"></i>
-                    {% translate "Descriptions" %}
-                  </p>
+        <!-- SHARE -->
 
+        <button type="button" class="product-header-button" id="shareButton"
+          aria-label="{% translate 'Share product' %}">
 
-                  {% if messages %}
-                  <div class="messages">
-                    {% for message in messages %}
-                    <div class="alert {{ message.tags }}">
-                      {{ message }}
-                    </div>
-                    {% endfor %}
-                  </div>
-                  {% endif %}
+          <i class="fas fa-share-alt"></i>
 
+        </button>
 
-                  <div type="button" class="des-103">
-                    {{ product.description }}
-                  </div>
 
+        <!-- FAVORITE -->
 
-                  <table>
+        <button type="button" class="product-header-button" id="favoriteButton" data-product-id="{{ product.id }}"
+          aria-label="{% translate 'Add to favorites' %}">
 
-                    <tr>
-                      <td>
-                        <i class="fas fa-box-open"></i>
-                        {% translate "Product" %}
-                      </td>
-                      <td>{{ product.title }}</td>
-                    </tr>
+          <i class="far fa-heart"></i>
 
-                    <tr>
-                      <td>
-                        <i class="fas fa-tags"></i>
-                        {% translate "Category" %}
-                      </td>
-                      <td>{{ product.get_category_display }}</td>
-                    </tr>
+        </button>
 
-                    <tr>
-                      <td>
-                        <i class="fas fa-dollar-sign"></i>
-                        {% translate "Price" %}
-                      </td>
-                      <td>
-                        {{ product.price|floatformat:0|intcomma }} TSh
-                      </td>
-                    </tr>
 
-                    <tr>
-                      <td>
-                        <i class="fas fa-calendar-alt"></i>
-                        {% translate "Uploaded date" %}
-                      </td>
-                      <td>{{ product.created_at }}</td>
-                    </tr>
+      </div>
 
-                    <tr>
-                      <td>
-                        <i class="fas fa-store"></i>
-                        {% translate "Seller" %}
-                      </td>
-                      <td>{{ product.owner.seller.seller_name }}</td>
-                    </tr>
+    </header>
 
-                    <tr>
-                      <td>
-                        <i class="fas fa-map-marker-alt"></i>
-                        {% translate "Location" %}
-                      </td>
-                      <td>{{ product.owner.seller.seller_address }}</td>
-                    </tr>
 
-                  </table>
 
+    <!-- =====================================================
+         MAIN PRODUCT AREA
+    ====================================================== -->
 
-                  <div class="actions-holder-103">
+    <main class="product-content">
 
-                    <div>
 
-                      <button type="button" style="background: green;" onclick="open_whatsapp(1)">
+      <!-- =================================================
+             TOP PRODUCT LAYOUT
+        ================================================== -->
 
-                        <i class="fab fa-whatsapp"></i>
-                        {% translate "Get seller whatsapp number" %}
+      <section class="product-layout">
 
-                      </button>
 
+        <!-- =============================================
+                 PRODUCT GALLERY
+            ============================================== -->
 
-                      <!-- Whatsapp number modal -->
-                      <div class="whatsapp-modal-holder-1004" id="w_modal">
+        <section class="product-gallery">
 
-                        <div class="whatsapp-modal-1004">
 
-                          <button type="button" class="close-1004" onclick="open_whatsapp(0)">
+          <div class="product-main-image">
 
-                            <i class="fas fa-times" style="font-size: inherit;"></i>
 
-                          </button>
+            {% if product.image %}
 
-                          <br><br>
+            <img id="mainProductImage" src="{{ product.image.url }}" alt="{{ product.title }}">
 
-                          <p class="t-1004">
+            {% else %}
 
-                            <i class="fas fa-store" style="font-size: 50px;"></i>
+            <div id="mainProductImage" class="product-image-placeholder">
 
-                            <br><br>
-
-                            {{ product.owner.seller.seller_name }}
-
-                          </p>
-
-
-                          <p class="n-1004">
-
-                            <i class="fab fa-whatsapp" style="font-size: inherit;"></i>
-
-                            +{{ product.owner.seller.seller_phone }}
-
-                          </p>
-
-
-                          <div style="text-align: right;">
-
-                            <button type="button" class="copy-1004"
-                              onclick="copyText('+{{ product.owner.seller.seller_phone }}')">
-
-                              <i class="fas fa-copy" style="font-size: inherit;"></i>
-
-                            </button>
-
-
-                            <button type="button" class="send-1004" onclick="sendWhatsApp('{{ product.owner.seller.seller_phone }}', 
-                          'Hello, I am interested in {{ product.title }}.')">
-
-                              <i class="fas fa-comment-dots"></i>
-                              {% translate "Send message whatsapp" %}
-
-                            </button>
-
-                            <br><br><br>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
-
-                    <div>
-
-                      {% if user.email %}
-
-                      <button type="button" onclick="window.location.href=`{% url 'compose_m_c' product.owner.email %}`"
-                        style="background: lightseagreen;">
-
-                        <i class="fas fa-paper-plane"></i>
-                        {% translate "Send message to seller" %}
-
-                      </button>
-
-                      {% else %}
-
-                      <button type="button"
-                        style="background: white; color: crimson; border: 1px solid rgba(220, 20, 60, 0.511);"
-                        onclick="open_login_modal(1)">
-
-                        <i class="fas fa-paper-plane"></i>
-                        {% translate "Send message to seller" %}
-
-                      </button>
-
-                      {% endif %}
-
-                    </div>
-
-
-                    <div>
-
-                      <button type="button" style="background: dodgerblue;" id="shareBtn">
-
-                        <i class="fas fa-share-alt"></i>
-                        {% translate "Share product to others" %}
-
-                      </button>
-
-                    </div>
-
-                  </div>
-
-                </div>
-              </div>
-
-
-              <div class="activity-panel">
-
-                <div>
-
-                  <p style="font-weight: bold;">
-                    {% translate "Other informations" %}
-                  </p>
-
-
-                  <div class="other-103">
-
-                    <button type="button" style="margin-bottom: 15px;">
-
-                      <i class="fas fa-eye"></i>
-                      {% translate "Views" %}:
-                      <span>{{ product_informations.views }}</span>
-
-                    </button>
-
-
-                    <button type="button" id="like-btn"
-                      class="reaction-btn {% if reaction and reaction.reaction == 'like' %}active{% endif %}"
-                      onclick="reactToProduct('like')">
-
-                      <i class="fas fa-thumbs-up"></i>
-                      {% translate "Like" %}:
-
-                      <span id="like-count">
-                        {{ product_informations.likes }}
-                      </span>
-
-                    </button>
-
-
-                    <button type="button" id="dislike-btn"
-                      class="reaction-btn {% if reaction and reaction.reaction == 'dislike' %}active{% endif %}"
-                      onclick="reactToProduct('dislike')">
-
-                      <i class="fas fa-thumbs-down"></i>
-                      {% translate "Dislike" %}:
-
-                      <span id="dislike-count">
-                        {{ product_informations.dislikes }}
-                      </span>
-
-                    </button>
-
-                  </div>
-
-
-                  <div class="comments-holder-103">
-
-                    <p style="font-weight: bold;">
-
-                      <i class="fas fa-comments"></i>
-
-                      {% blocktranslate with product_title=product.title %}
-                      Customers comment on {{ product_title }}
-                      {% endblocktranslate %}
-
-                    </p>
-
-
-                    <form action="{% url 'submit_comments' product.id %}" method="post">
-
-                      {% csrf_token %}
-
-                      <div class="comments-holder-104">
-
-                        <div style="width: 80%;">
-
-                          <textarea name="comments" id="" placeholder="{% translate 'Write your comment ...' %}"
-                            required></textarea>
-
-                        </div>
-
-
-                        <div style="width: 20%; padding: 5px; padding-top: 60px;">
-
-                          <button type="submit">
-
-                            <i class="fas fa-paper-plane"></i>
-                            {% translate "Submit" %}
-
-                          </button>
-
-                        </div>
-
-                      </div>
-
-                    </form>
-
-
-                    <ul>
-
-                      {% for comment in product.product_id.all %}
-
-                      <li style="font-weight: 100;">
-
-                        <strong style="display: block;">
-                          {{ comment.customer.username }}
-                        </strong>
-
-                        <span>{{ comment.comment }}</span>
-
-
-                        {% if comment.customer.username == user.email %}
-
-                        <button type="button" class="comment-delete-104"
-                          onclick="window.location.href=`{% url 'delete_comment' comment.id %}`">
-
-                          <i class="fas fa-trash"></i>
-
-                        </button>
-
-                        {% endif %}
-
-
-                        <span style="float: right;">
-                          {{ comment.saved_at|date:"d M Y H:i" }}
-                        </span>
-
-                      </li>
-
-                      {% empty %}
-
-                      <p style="text-align: center;">
-                        {% translate "No comments!" %}
-                      </p>
-
-                      {% endfor %}
-
-                    </ul>
-
-                  </div>
-
-                </div>
-
-              </div>
+              <i class="fas fa-image"></i>
 
             </div>
 
+            {% endif %}
+
+
+            <div class="product-image-badge">
+
+              <i class="fas fa-check-circle"></i>
+
+              {% translate "WingaStock listing" %}
+
+            </div>
+
+
+            <div class="product-image-counter">
+
+              <i class="fas fa-images"></i>
+
+              <span id="imageCounter">
+                1 / 1
+              </span>
+
+            </div>
+
+
           </div>
+
+
+
+          <!-- =================================================
+                     THUMBNAILS
+                ================================================== -->
+
+          {% if product.image %}
+
+          <div class="product-thumbnails">
+
+
+            <button type="button" class="product-thumbnail active" data-image="{{ product.image.url }}">
+
+              <img src="{{ product.image.url }}" alt="{{ product.title }}">
+
+            </button>
+
+
+          </div>
+
+          {% endif %}
+
+
+        </section>
+
+
+
+        <!-- =============================================
+                 PRODUCT INFORMATION
+            ============================================== -->
+
+        <section class="product-information">
+
+
+          <!-- CATEGORY -->
+
+          <div class="product-category">
+
+            <i class="fas fa-tag"></i>
+
+            {{ product.get_category_display }}
+
+          </div>
+
+
+          <!-- TITLE -->
+
+          <h2>
+            {{ product.title }}
+          </h2>
+
+
+          <!-- PRICE -->
+
+          <div class="product-price">
+
+            <span>
+              TSh
+            </span>
+
+            {{ product.price|floatformat:0|intcomma }}
+
+          </div>
+
+
+          <!-- LOCATION -->
+
+          <div class="product-location">
+
+            <i class="fas fa-map-marker-alt"></i>
+
+            <span>
+              {{ product.owner.seller.seller_address }}
+            </span>
+
+          </div>
+
+
+          <!-- META -->
+
+          <div class="product-meta">
+
+
+            <span>
+
+              <i class="far fa-clock"></i>
+
+              {{ product.created_at|date:"d M Y" }}
+
+            </span>
+
+
+            <span>
+
+              <i class="fas fa-eye"></i>
+
+              {{ product_informations.views|default:0 }}
+
+              {% translate "views" %}
+
+            </span>
+
+
+          </div>
+
+
+
+          <!-- =========================================
+                     ACTIONS
+                ========================================== -->
+
+          <div class="product-actions">
+
+
+            <button type="button" class="product-primary-button" id="whatsappButton" onclick="sendWhatsApp()">
+
+              <i class="fab fa-whatsapp"></i>
+
+              {% translate "WhatsApp Seller" %}
+
+            </button>
+
+
+            <button type="button" class="product-secondary-button" id="messageButton" {% if user.is_authenticated %}
+              onclick="window.location.href=`{% url 'compose_m_c' product.owner.email %}`" {% else %}
+              onclick="open_login_modal(1)" {% endif %}>
+
+              <i class="fas fa-comment"></i>
+
+              {% translate "Message" %}
+
+            </button>
+
+
+          </div>
+
+
+
+          <!-- =========================================
+                     SELLER CARD
+                ========================================== -->
+
+          <section class="seller-card" style="cursor: pointer;"
+            onclick="window.location.href=`{% url 'shop_preview' product.owner.seller.id %}`">
+
+
+            <div class="seller-header">
+
+
+              <div class="seller-avatar">
+
+                <i class="fas fa-store"></i>
+
+              </div>
+
+
+              <div class="seller-info">
+
+
+                <span>
+                  {% translate "Seller" %}
+                </span>
+
+
+                <h3>
+                  {{ product.owner.seller.seller_name }}
+                </h3>
+
+
+                <p>
+
+                  <i class="fas fa-check-circle"></i>
+
+                  {% translate "Wingastock seller" %}
+
+                </p>
+
+
+              </div>
+
+
+              <button type="button" class="seller-arrow" id="sellerButton" aria-label="{% translate 'View seller' %}">
+
+                <i class="fas fa-chevron-right"></i>
+
+              </button>
+
+
+            </div>
+
+
+
+            <div class="seller-footer">
+
+
+              <span>
+
+                <i class="fas fa-map-marker-alt"></i>
+
+                {{ product.owner.seller.seller_address }}
+
+              </span>
+
+
+              <span>
+
+                <i class="fas fa-box"></i>
+
+                {% translate "Seller" %}
+
+              </span>
+
+
+            </div>
+
+
+          </section>
+
+
+        </section>
+
+
+      </section>
+
+
+
+      <!-- =================================================
+             DESCRIPTION
+        ================================================== -->
+
+      <section class="product-section">
+
+
+        <div class="product-section-heading">
+
+          <span>
+            {% translate "Description" %}
+          </span>
+
+          <h2>
+            {% translate "About this product" %}
+          </h2>
 
         </div>
 
-      </div>
 
-      <div style="width: 100%; height: 100px; float: left;"></div>
+        <div class="product-description">
 
-    </div>
+          <p>
+            {{ product.description|linebreaksbr }}
+          </p>
+
+        </div>
 
 
-    <div class="footer-holder-1003">
-      <div>
-        <p>Wingastock | Online marketplace</p>
-      </div>
-    </div>
+      </section>
 
-    <!-- Nav bar -->
-    {% include 'navbar.html' %}
 
-    <!-- Login and register modal-->
+
+      <!-- =================================================
+             DETAILS
+        ================================================== -->
+
+      <section class="product-section">
+
+
+        <div class="product-section-heading">
+
+          <span>
+            {% translate "Information" %}
+          </span>
+
+          <h2>
+            {% translate "Product details" %}
+          </h2>
+
+        </div>
+
+
+        <div class="product-details">
+
+
+          <!-- TITLE -->
+
+          <div class="product-detail-row">
+
+            <span>
+              {% translate "Product" %}
+            </span>
+
+            <strong>
+              {{ product.title }}
+            </strong>
+
+          </div>
+
+
+          <!-- CATEGORY -->
+
+          <div class="product-detail-row">
+
+            <span>
+              {% translate "Category" %}
+            </span>
+
+            <strong>
+              {{ product.get_category_display }}
+            </strong>
+
+          </div>
+
+
+          <!-- PRICE -->
+
+          <div class="product-detail-row">
+
+            <span>
+              {% translate "Price" %}
+            </span>
+
+            <strong>
+              {{ product.price|floatformat:0|intcomma }} TSh
+            </strong>
+
+          </div>
+
+
+          <!-- SELLER -->
+
+          <div class="product-detail-row">
+
+            <span>
+              {% translate "Seller" %}
+            </span>
+
+            <strong>
+              {{ product.owner.seller.seller_name }}
+            </strong>
+
+          </div>
+
+
+          <!-- LOCATION -->
+
+          <div class="product-detail-row">
+
+            <span>
+              {% translate "Location" %}
+            </span>
+
+            <strong>
+              {{ product.owner.seller.seller_address }}
+            </strong>
+
+          </div>
+
+
+          <!-- DATE -->
+
+          <div class="product-detail-row">
+
+            <span>
+              {% translate "Uploaded" %}
+            </span>
+
+            <strong>
+              {{ product.created_at|date:"d M Y H:i" }}
+            </strong>
+
+          </div>
+
+
+        </div>
+
+
+      </section>
+
+
+
+      <!-- =================================================
+     SELLER LOCATION / GOOGLE MAP
+================================================== -->
+
+      <section class="product-section">
+
+        <div class="product-section-heading">
+
+          <span>
+            <i class="fas fa-map-marker-alt"></i>
+            {% translate "Seller Location" %}
+          </span>
+
+          <h2>
+            {% translate "Find Seller Location" %}
+          </h2>
+
+        </div>
+
+
+        {% if seller_location and seller_location.latitude and seller_location.longitude %}
+
+        <div class="product-location-card">
+
+
+          <!-- =============================================
+         LOCATION INFORMATION
+    ============================================== -->
+
+          <div class="product-location-info">
+
+
+            <div class="product-location-icon">
+
+              <i class="fas fa-map-marker-alt"></i>
+
+            </div>
+
+
+            {% if seller_location.address %}
+
+            <div class="product-location-address">
+
+              <span>
+                {% translate "Address" %}
+              </span>
+
+              <strong>
+                {{ seller_location.address }}
+              </strong>
+
+            </div>
+
+            {% endif %}
+
+
+            <a href="{{ seller_location.google_maps_url }}" target="_blank" rel="noopener noreferrer"
+              class="product-location-button">
+
+              <i class="fas fa-directions"></i>
+
+              {% translate "Open in Google Maps" %}
+
+            </a>
+
+
+          </div>
+
+
+          <!-- =============================================
+         GOOGLE MAP
+    ============================================== -->
+
+          <div class="product-location-map">
+
+            <iframe
+              src="https://www.google.com/maps?q={{ seller_location.latitude }},{{ seller_location.longitude }}&output=embed"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+              title="{% translate 'Seller location on Google Maps' %}"></iframe>
+
+          </div>
+
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- =============================================
+       LOCATION NOT AVAILABLE
+  ============================================== -->
+
+        <div class="product-location-empty">
+
+          <i class="fas fa-map-location-dot"></i>
+
+          <h3>
+            {% translate "Seller location not available" %}
+          </h3>
+
+          <p>
+            {% translate "The seller has not added a map location yet." %}
+          </p>
+
+        </div>
+
+        {% endif %}
+
+      </section>
+
+
+
+      <!-- =================================================
+             TRUST
+        ================================================== -->
+
+      <section class="product-trust">
+
+
+        <div class="trust-icon">
+
+          <i class="fas fa-shield-alt"></i>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            {% translate "Safety" %}
+          </span>
+
+          <h3>
+            {% translate "Shop with confidence" %}
+          </h3>
+
+
+          <p>
+            {% translate "Check the product before making payment and communicate with the seller through Wingastock." %}
+          </p>
+
+        </div>
+
+
+      </section>
+
+
+
+      <!-- =================================================
+             REACTIONS
+        ================================================== -->
+
+      <section class="product-section">
+
+
+        <div class="product-section-heading">
+
+          <span>
+            {% translate "Activity" %}
+          </span>
+
+          <h2>
+            {% translate "Product reactions" %}
+          </h2>
+
+        </div>
+
+
+        <div class="product-reactions">
+
+
+          <button type="button" id="like-btn"
+            class="reaction-btn {% if reaction and reaction.reaction == 'like' %}active{% endif %}"
+            onclick="reactToProduct('like')">
+
+            <i class="fas fa-thumbs-up"></i>
+
+            <span id="like-count">
+              {{ product_informations.likes|default:0 }}
+            </span>
+
+          </button>
+
+
+          <button type="button" id="dislike-btn"
+            class="reaction-btn {% if reaction and reaction.reaction == 'dislike' %}active{% endif %}"
+            onclick="reactToProduct('dislike')">
+
+            <i class="fas fa-thumbs-down"></i>
+
+            <span id="dislike-count">
+              {{ product_informations.dislikes|default:0 }}
+            </span>
+
+          </button>
+
+
+        </div>
+
+
+      </section>
+
+
+
+      <!-- =================================================
+             COMMENTS
+        ================================================== -->
+
+      <section class="product-section">
+
+
+        <div class="product-section-heading comments-heading">
+
+          <div>
+
+            <span>
+              {% translate "Community" %}
+            </span>
+
+            <h2>
+              {% translate "Comments" %}
+            </h2>
+
+          </div>
+
+
+          <span class="comment-count" id="commentCount">
+            {{ product.product_id.all|length }}
+          </span>
+
+        </div>
+
+
+
+        <!-- COMMENT FORM -->
+
+        <form class="comment-form" id="commentForm" method="POST" action="{% url 'submit_comments' product.id %}">
+
+          {% csrf_token %}
+
+
+          <textarea id="commentInput" name="comments"
+            placeholder="{% translate 'Ask something about this product...' %}" maxlength="500" required></textarea>
+
+
+          {% if user.is_authenticated %}
+
+          <button type="submit">
+
+            <i class="fas fa-paper-plane"></i>
+
+            {% translate "Post" %}
+
+          </button>
+
+          {% else %}
+
+          <button type="button" onclick="open_login_modal(1)">
+
+            <i class="fas fa-paper-plane"></i>
+
+            {% translate "Post" %}
+
+          </button>
+
+          {% endif %}
+
+
+        </form>
+
+
+
+        <!-- COMMENTS -->
+
+        <div class="comments-list" id="commentsList">
+
+
+          {% for comment in product.product_id.all %}
+
+
+          <div class="comment-item">
+
+
+            <div class="comment-content">
+
+
+              <strong>
+                {{ comment.customer.username }}
+              </strong>
+
+
+              <p>
+                {{ comment.comment }}
+              </p>
+
+
+              <span class="comment-date">
+
+                {{ comment.saved_at|date:"d M Y H:i" }}
+
+              </span>
+
+
+            </div>
+
+
+            {% if comment.customer.username == user.email %}
+
+            <button type="button" class="delete-comment"
+              onclick="window.location.href=`{% url 'delete_comment' comment.id %}`"
+              aria-label="{% translate 'Delete comment' %}">
+
+              <i class="fas fa-trash"></i>
+
+            </button>
+
+            {% endif %}
+
+
+          </div>
+
+
+          {% empty %}
+
+
+          <div class="no-comments">
+
+
+            <i class="far fa-comments"></i>
+
+
+            <h4>
+              {% translate "No comments yet" %}
+            </h4>
+
+
+            <p>
+              {% translate "Be the first person to ask about this product." %}
+            </p>
+
+
+          </div>
+
+
+          {% endfor %}
+
+
+        </div>
+
+
+      </section>
+
+
+
+      <!-- =================================================
+             RELATED PRODUCTS
+        ================================================== -->
+
+      {% if related_products %}
+
+      <section class="related-section">
+
+
+        <div class="related-heading">
+
+
+          <div>
+
+            <span>
+              {% translate "YOU MAY ALSO LIKE" %}
+            </span>
+
+            <h2>
+              {% translate "More products" %}
+            </h2>
+
+          </div>
+
+
+          <button type="button" id="viewMoreButton" onclick="window.location.href=`{% url 'search' %}`">
+
+            {% translate "View all" %}
+
+            <i class="fas fa-arrow-right"></i>
+
+          </button>
+
+
+        </div>
+
+
+
+        <div class="related-products">
+
+
+          {% for related_product in related_products %}
+
+
+          <article class="related-product"
+            onclick="window.location.href=`{% url 'product_details' related_product.id related_product.title %}`">
+
+
+            <div class="related-image">
+
+
+              {% if related_product.image %}
+
+              <img src="{{ related_product.image.url }}" alt="{{ related_product.title }}" loading="lazy">
+
+              {% else %}
+
+              <div class="related-image-placeholder">
+
+                <i class="fas fa-image"></i>
+
+              </div>
+
+              {% endif %}
+
+
+              <button type="button" class="related-favorite" onclick="event.stopPropagation();"
+                aria-label="{% translate 'Add to favorites' %}">
+
+                <i class="far fa-heart"></i>
+
+              </button>
+
+
+            </div>
+
+
+            <div class="related-content">
+
+
+              <h3>
+                {{ related_product.title }}
+              </h3>
+
+
+              <strong>
+
+                {{ related_product.price|floatformat:0|intcomma }}
+
+                TSh
+
+              </strong>
+
+
+              <span>
+                {{ related_product.owner.seller.seller_address }}
+              </span>
+
+
+            </div>
+
+
+          </article>
+
+
+          {% endfor %}
+
+
+        </div>
+
+
+      </section>
+
+      {% endif %}
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         MOBILE BOTTOM NAV
+    ====================================================== -->
+
+    <nav class="mobile-bottom-nav">
+
+
+      <button type="button" class="active" onclick="window.location.href='{% url 'products' %}'">
+
+        <i class="fas fa-shopping-bag"></i>
+
+        <span>
+          {% translate "Products" %}
+        </span>
+
+      </button>
+
+
+      <button type="button" onclick="window.location.href='{% url 'favorities' %}'">
+
+        <i class="far fa-heart"></i>
+
+        <span>
+          {% translate "Favorites" %}
+        </span>
+
+      </button>
+
+
+      <button type="button" onclick="window.location.href='{% url 'shop_list' %}'">
+
+        <i class="fas fa-store-alt"></i>
+
+        <span>
+          {% translate "Shops" %}
+        </span>
+
+      </button>
+
+
+      <button type="button" onclick="window.location.href='{% url 'customer_account' %}'">
+
+        <i class="far fa-user"></i>
+
+        <span>
+          {% translate "Account" %}
+        </span>
+
+      </button>
+
+
+    </nav>
+
+
+    <!-- Login modal -->
+
     {% include 'login-container.html' %}
+
+
+    <!-- Data for external js -->
+
+    <div style="display: none;" id="productData" data-react-url="{% url 'react_product' product.id %}"
+      data-title="{{ product.title|escapejs }}" data-description="{{ product.description|striptags|escapejs }}"
+      data-price="{{ product.price|floatformat:0|intcomma|escapejs }} TSh"
+      data-seller="{{ product.owner.seller.seller_name|escapejs }}"
+      data-phone="+{{ product.owner.seller.seller_phone|escapejs }}"
+      data-location="{{ product.owner.seller.seller_address|escapejs }}"
+      data-uploaded="{{ product.created_at|date:'d M Y H:i'|escapejs }}"
+      data-image="{% if product.image %}{{ product.image.url }}{% endif %}">
+    </div>
+
 
   </div>
 
 
-  <script>
-    window.addEventListener("load", function () {
 
-      const loader = document.querySelector(
-        ".page-loader-holder-000"
-      );
+  <!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
 
-      if (loader) {
-
-        // Fade out the loader
-        loader.classList.add("hidden");
-
-        // Remove it completely after the animation
-        setTimeout(function () {
-          loader.remove();
-        }, 500);
-      }
-
-    });
-  </script>
-
-
-  <script>
-    function menu_bar(click) {
-      let menu_div = document.getElementById('menu_div');
-      let button1 = document.getElementById('button1');
-      let button2 = document.getElementById('button2');
-
-      if (click == 'open') {
-        menu_div.style.display = 'inline-block';
-        button1.style.display = 'none';
-        button2.style.display = 'inline-block';
-      }
-      else {
-        menu_div.style.display = 'none';
-        button2.style.display = 'none';
-        button1.style.display = 'inline-block';
-      }
-    }
-
-
-    // Whatsapp modal
-    function open_whatsapp(click) {
-      modal = document.getElementById('w_modal');
-
-      if (click == 1) {
-        modal.style.display = 'inline-block';
-      }
-      else {
-        modal.style.display = 'none';
-      }
-    }
-
-    // Copy whatsapp number
-    function copyText(text) {
-      navigator.clipboard.writeText(text)
-        .then(() => {
-          alert("Copied successfully!");
-        })
-        .catch(() => {
-          alert("Failed to copy.");
-        });
-    }
-
-    // Send whatsapp message
-    function sendWhatsApp(phone, message) {
-
-      // Remove spaces, +, -, and other characters
-      phone = phone.replace(/\D/g, '');
-
-      const whatsappUrl =
-        `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-      window.open(whatsappUrl, '_blank');
-    }
-  </script>
-
-
-  <script>
-    function getCookie(name) {
-      let cookieValue = null;
-
-      if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-
-        for (let cookie of cookies) {
-          cookie = cookie.trim();
-
-          if (cookie.substring(0, name.length + 1) === name + '=') {
-            cookieValue = decodeURIComponent(
-              cookie.substring(name.length + 1)
-            );
-            break;
-          }
-        }
-      }
-
-      return cookieValue;
-    }
-
-
-    function reactToProduct(reaction) {
-
-      const csrfToken = getCookie('csrftoken');
-
-      fetch("{% url 'react_product' product.id %}", {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "X-CSRFToken": csrfToken,
-          "X-Requested-With": "XMLHttpRequest"
-        },
-
-        body: new URLSearchParams({
-          reaction: reaction
-        })
-      })
-
-        .then(response => response.json())
-
-        .then(data => {
-
-          if (!data.success) {
-            alert(data.message);
-            return;
-          }
-
-          // Update counts
-          document.getElementById('like-count').textContent = data.likes;
-          document.getElementById('dislike-count').textContent = data.dislikes;
-
-          // Remove active class
-          document.getElementById('like-btn').classList.remove('active');
-          document.getElementById('dislike-btn').classList.remove('active');
-
-          // Highlight current reaction
-          if (data.reaction === 'like') {
-            document.getElementById('like-btn').classList.add('active');
-          }
-
-          if (data.reaction === 'dislike') {
-            document.getElementById('dislike-btn').classList.add('active');
-          }
-
-        })
-
-        .catch(error => {
-          console.error('Reaction error:', error);
-        });
-    }
-  </script>
-
-
-
-
-
-
-  <script>
-    const shareBtn = document.getElementById("shareBtn");
-
-    shareBtn.addEventListener("click", async () => {
-
-      try {
-
-        // =====================================================
-        // PRODUCT INFORMATION
-        // =====================================================
-
-        const imageUrl =
-          "{{ product.image.url|escapejs }}"
-            .replace(/^http:\/\//i, "https://");
-
-        const productTitle =
-          "{{ product.title|escapejs }}";
-
-        const productPrice =
-          "{{ product.price|floatformat:0|intcomma|escapejs }}";
-
-        const productDescription =
-          "{{ product.description|default:'No description provided.'|escapejs }}";
-
-        const sellerName =
-          "{{ product.owner.seller.seller_name|default:product.owner.get_full_name|default:product.owner.username|escapejs }}";
-
-        const sellerPhone =
-          "{{ product.owner.seller.seller_phone|default:'Not provided'|escapejs }}";
-
-        const sellerLocation =
-          "{{ product.owner.seller.seller_address|default:'Not provided'|escapejs }}";
-
-
-        // =====================================================
-        // UPLOADED DATE
-        // =====================================================
-
-        const uploadedDate =
-          "{{ product.created_at|date:'d M Y'|default:'Not provided'|escapejs }}";
-
-
-        // =====================================================
-        // PRODUCT LINK
-        // =====================================================
-
-        const productLink =
-          window.location.href;
-
-
-        // =====================================================
-        // SHARE TEXT WITH ICONS
-        // =====================================================
-
-        const shareText =
-          `🛍️ ${productTitle}
-
-💰 Price: TSh ${productPrice}
-
-📝 Description:
-${productDescription}
-
-👤 Seller:
-${sellerName}
-
-📞 Contact:
-${sellerPhone}
-
-📍 Location:
-${sellerLocation}
-
-📅 Uploaded:
-${uploadedDate}
-
-🔗 View this product on WingaStock:
-${productLink}
-
-🛒 Find more products on WingaStock.`;
-
-
-        // =====================================================
-        // LOAD PRODUCT IMAGE
-        // =====================================================
-
-        const response =
-          await fetch(imageUrl, {
-            mode: "cors"
-          });
-
-        if (!response.ok) {
-          throw new Error(
-            "Unable to load product image."
-          );
-        }
-
-        const blob =
-          await response.blob();
-
-
-        // =====================================================
-        // CREATE IMAGE FILE
-        // =====================================================
-
-        let extension = "jpg";
-
-        if (blob.type === "image/png") {
-          extension = "png";
-        }
-        else if (blob.type === "image/webp") {
-          extension = "webp";
-        }
-
-        const imageFile =
-          new File(
-            [blob],
-            "wingastock-product." + extension,
-            {
-              type: blob.type
-            }
-          );
-
-
-        // =====================================================
-        // NATIVE SHARE
-        // =====================================================
-
-        if (
-          navigator.share &&
-          navigator.canShare &&
-          navigator.canShare({
-            files: [imageFile]
-          })
-        ) {
-
-          await navigator.share({
-
-            title:
-              productTitle,
-
-            text:
-              shareText,
-
-            files: [
-              imageFile
-            ]
-
-          });
-
-        }
-
-
-        // =====================================================
-        // FALLBACK: TEXT + LINK
-        // =====================================================
-
-        else if (navigator.share) {
-
-          await navigator.share({
-
-            title:
-              productTitle,
-
-            text:
-              shareText,
-
-            url:
-              productLink
-
-          });
-
-        }
-
-
-        // =====================================================
-        // BROWSER DOES NOT SUPPORT SHARE
-        // =====================================================
-
-        else {
-
-          await navigator.clipboard.writeText(
-            shareText
-          );
-
-          alert(
-            "Product information and link copied successfully."
-          );
-
-        }
-
-      } catch (error) {
-
-        // =====================================================
-        // USER CANCELLED SHARE
-        // =====================================================
-
-        if (
-          error.name === "AbortError"
-        ) {
-          return;
-        }
-
-
-        console.error(
-          "WingaStock Share Error:",
-          error
-        );
-
-
-        // =====================================================
-        // FALLBACK SHARE
-        // =====================================================
-
-        try {
-
-          const fallbackText =
-            `🛍️ ${productTitle}
-
-💰 Price: TSh ${productPrice}
-
-📝 Description:
-${productDescription}
-
-👤 Seller:
-${sellerName}
-
-📞 Contact:
-${sellerPhone}
-
-📍 Location:
-${sellerLocation}
-
-📅 Uploaded:
-${uploadedDate}
-
-🔗 View this product on WingaStock:
-${productLink}`;
-
-
-          if (navigator.share) {
-
-            await navigator.share({
-
-              title:
-                productTitle,
-
-              text:
-                fallbackText,
-
-              url:
-                productLink
-
-            });
-
-          }
-          else {
-
-            await navigator.clipboard.writeText(
-              fallbackText
-            );
-
-            alert(
-              "Product information and link copied successfully."
-            );
-
-          }
-
-        } catch (fallbackError) {
-
-          console.error(
-            "WingaStock Share Fallback Error:",
-            fallbackError
-          );
-
-          alert(
-            "Unable to share this product."
-          );
-
-        }
-
-      }
-
-    });
-  </script>
+  <script src="{% static 'js/product-preview.js' %}"></script>
 
 
 </body>

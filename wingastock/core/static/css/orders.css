@@ -1,0 +1,1284 @@
+/* =========================================================
+   WINGASTOCK MY ORDERS PAGE
+   Extends:
+   - mobile-style.css
+   - account.css
+========================================================= */
+
+.orders-page {
+    width: 100%;
+    min-height: 100vh;
+
+    padding-bottom: 85px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.orders-header {
+    width: 100%;
+
+    min-height: 64px;
+
+    padding: 8px 14px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid rgba(220, 20, 60, 0.10);
+
+    display: flex;
+    align-items: center;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.orders-back-button {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    margin-right: 8px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #444;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.orders-back-button:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+
+.orders-back-button:active {
+    transform: scale(0.92);
+}
+
+
+.orders-back-button i {
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.orders-heading {
+    flex: 1;
+
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.orders-eyebrow {
+    color: crimson;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    line-height: 1;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+
+.orders-heading h1 {
+    margin: 0;
+
+    color: #222;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   FILTER BUTTON
+========================================================= */
+
+.orders-filter-button {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    margin-left: 8px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 50%;
+
+    background: #f5f5f5;
+
+    color: #444;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.orders-filter-button:hover {
+    background: #eeeeee;
+}
+
+
+.orders-filter-button:active {
+    transform: scale(0.92);
+}
+
+
+.orders-filter-button i {
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.orders-summary {
+    width: calc(100% - 28px);
+
+    margin: 16px 14px;
+
+    padding: 15px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+
+    border-radius: 15px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.035);
+}
+
+
+.orders-summary-item {
+    min-width: 0;
+
+    text-align: center;
+}
+
+
+.orders-summary-item + .orders-summary-item {
+    border-left: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+
+.orders-summary-item strong {
+    display: block;
+
+    color: #222;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+.orders-summary-item span {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #888;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+.orders-filters {
+    width: 100%;
+
+    padding: 0 14px 15px;
+
+    display: none;
+
+    gap: 8px;
+
+    overflow-x: auto;
+
+    scrollbar-width: none;
+}
+
+
+.orders-filters::-webkit-scrollbar {
+    display: none;
+}
+
+
+.orders-filters.show {
+    display: flex;
+}
+
+
+.order-filter {
+    flex-shrink: 0;
+
+    padding: 9px 15px;
+
+    border: 1px solid rgba(220, 20, 60, 0.18);
+
+    border-radius: 22px;
+
+    background: #ffffff;
+
+    color: #555;
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.order-filter:hover {
+    border-color: rgba(220, 20, 60, 0.35);
+}
+
+
+.order-filter:active {
+    transform: scale(0.96);
+}
+
+
+.order-filter.active {
+    background: crimson;
+
+    border-color: crimson;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.orders-content {
+    width: 100%;
+
+    padding: 0 14px;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.orders-empty {
+    width: 100%;
+
+    min-height: 390px;
+
+    padding: 30px 20px;
+
+    display: none;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+.orders-empty.show {
+    display: flex;
+}
+
+
+.orders-empty-icon {
+    width: 78px;
+    height: 78px;
+
+    margin-bottom: 18px;
+
+    border-radius: 50%;
+
+    background: rgba(220, 20, 60, 0.08);
+
+    color: crimson;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.orders-empty-icon i {
+    font-size: 31px;
+}
+
+
+.orders-empty h2 {
+    margin: 0 0 8px;
+
+    color: #222;
+
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+.orders-empty p {
+    max-width: 290px;
+
+    margin: 0 0 20px;
+
+    color: #888;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+.browse-orders-button {
+    padding: 12px 18px;
+
+    border: none;
+
+    border-radius: 25px;
+
+    background: crimson;
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    cursor: pointer;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.browse-orders-button:hover {
+    opacity: 0.92;
+}
+
+
+.browse-orders-button:active {
+    transform: scale(0.97);
+}
+
+
+/* =========================================================
+   ORDER LIST
+========================================================= */
+
+.orders-list {
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+/* =========================================================
+   ORDER CARD
+========================================================= */
+
+.order-card {
+    width: 100%;
+
+    padding: 13px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.035);
+}
+
+
+/* =========================================================
+   ORDER TOP
+========================================================= */
+
+.order-card-top {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding-bottom: 11px;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.055);
+}
+
+
+.order-number {
+    display: block;
+
+    color: #222;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+.order-date {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #999;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   ORDER STATUS
+========================================================= */
+
+.order-status {
+    flex-shrink: 0;
+
+    padding: 6px 9px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+    font-weight: 600;
+}
+
+
+.order-status.processing {
+    background: rgba(255, 165, 0, 0.10);
+
+    color: #c47b00;
+}
+
+
+.order-status.completed {
+    background: rgba(40, 167, 69, 0.10);
+
+    color: #27853e;
+}
+
+
+.order-status.pending {
+    background: rgba(0, 123, 255, 0.10);
+
+    color: #0875dc;
+}
+
+
+.order-status.cancelled {
+    background: rgba(220, 20, 60, 0.09);
+
+    color: crimson;
+}
+
+
+/* =========================================================
+   ORDER PRODUCT
+========================================================= */
+
+.order-product {
+    padding: 13px 0;
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+.order-product-image {
+    width: 72px;
+    height: 72px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    border-radius: 11px;
+
+    background: #f4f4f4;
+}
+
+
+.order-product-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+.order-product-info {
+    min-width: 0;
+
+    flex: 1;
+
+    margin-left: 11px;
+}
+
+
+.order-product-info h3 {
+    margin: 0;
+
+    color: #222;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    display: -webkit-box;
+
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+
+.order-product-info p {
+    margin: 5px 0;
+
+    color: #888;
+
+    font-size: 9px;
+}
+
+
+.order-product-info strong {
+    color: #222;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ORDER BOTTOM
+========================================================= */
+
+.order-card-bottom {
+    padding-top: 11px;
+
+    border-top: 1px solid rgba(0, 0, 0, 0.055);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+
+.order-total span {
+    display: block;
+
+    color: #999;
+
+    font-size: 9px;
+}
+
+
+.order-total strong {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #222;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.order-view-button {
+    flex-shrink: 0;
+
+    padding: 8px 11px;
+
+    border: none;
+
+    border-radius: 20px;
+
+    background: rgba(220, 20, 60, 0.08);
+
+    color: crimson;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    cursor: pointer;
+}
+
+
+.order-view-button:active {
+    transform: scale(0.96);
+}
+
+
+.order-view-button i {
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   HIDDEN ORDER
+========================================================= */
+
+.order-card[hidden] {
+    display: none;
+}
+
+
+/* =========================================================
+   DESKTOP — MICROSOFT STORE INSPIRED
+   Mobile design remains unchanged
+========================================================= */
+
+@media (min-width: 900px) {
+
+    .orders-page {
+        width: 100%;
+        max-width: 1600px;
+
+        margin: 0 auto;
+
+        padding-bottom: 40px;
+    }
+
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    .orders-header {
+        min-height: 72px;
+
+        padding: 0 38px;
+
+        background: #ffffff;
+
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+
+    .orders-back-button {
+        width: 42px;
+        height: 42px;
+
+        margin-right: 16px;
+
+        border-radius: 2px;
+
+        background: transparent;
+
+        color: #333;
+    }
+
+
+    .orders-back-button:hover {
+        background: #f2f2f2;
+    }
+
+
+    .orders-back-button:active {
+        transform: none;
+    }
+
+
+    .orders-back-button i {
+        font-size: 16px;
+    }
+
+
+    /* =====================================================
+       HEADING
+    ===================================================== */
+
+    .orders-heading {
+        gap: 3px;
+    }
+
+
+    .orders-eyebrow {
+        font-size: 9px;
+
+        letter-spacing: 1.2px;
+    }
+
+
+    .orders-heading h1 {
+        font-size: 25px;
+
+        font-weight: 600;
+
+        letter-spacing: -0.3px;
+    }
+
+
+    /* =====================================================
+       FILTER BUTTON
+    ===================================================== */
+
+    .orders-filter-button {
+        width: 42px;
+        height: 42px;
+
+        margin-left: 16px;
+
+        border-radius: 2px;
+
+        background: transparent;
+
+        color: #333;
+    }
+
+
+    .orders-filter-button:hover {
+        background: #f2f2f2;
+    }
+
+
+    .orders-filter-button:active {
+        transform: none;
+    }
+
+
+    .orders-filter-button i {
+        font-size: 15px;
+    }
+
+
+    /* =====================================================
+       SUMMARY
+    ===================================================== */
+
+    .orders-summary {
+        width: calc(100% - 76px);
+
+        margin: 24px 38px 0;
+
+        padding: 0;
+
+        min-height: 105px;
+
+        background: #ffffff;
+
+        border: 1px solid #e1e1e1;
+
+        border-radius: 3px;
+
+        box-shadow: none;
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+
+    .orders-summary-item {
+        padding: 22px 20px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        align-items: flex-start;
+
+        text-align: left;
+    }
+
+
+    .orders-summary-item + .orders-summary-item {
+        border-left: 1px solid #e5e5e5;
+    }
+
+
+    .orders-summary-item strong {
+        font-size: 27px;
+
+        font-weight: 600;
+
+        line-height: 1.1;
+    }
+
+
+    .orders-summary-item span {
+        margin-top: 7px;
+
+        font-size: 10px;
+
+        color: #777;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.6px;
+    }
+
+
+    /* =====================================================
+       FILTERS
+    ===================================================== */
+
+    .orders-filters {
+        width: calc(100% - 76px);
+
+        margin: 24px 38px 0;
+
+        padding: 0;
+
+        min-height: 48px;
+
+        display: none;
+
+        align-items: center;
+
+        gap: 0;
+
+        overflow: visible;
+
+        border-bottom: 1px solid #e1e1e1;
+    }
+
+
+    .orders-filters.show {
+        display: flex;
+    }
+
+
+    .order-filter {
+        position: relative;
+
+        min-height: 48px;
+
+        padding: 0 17px;
+
+        border: none;
+
+        border-radius: 0;
+
+        background: transparent;
+
+        color: #555;
+
+        font-size: 12px;
+
+        font-weight: 600;
+    }
+
+
+    .order-filter:hover {
+        background: #f5f5f5;
+
+        border-color: transparent;
+
+        color: #222;
+    }
+
+
+    .order-filter:active {
+        transform: none;
+    }
+
+
+    .order-filter.active {
+        background: transparent;
+
+        border-color: transparent;
+
+        color: crimson;
+    }
+
+
+    .order-filter.active::after {
+        content: "";
+
+        position: absolute;
+
+        left: 14px;
+        right: 14px;
+
+        bottom: -1px;
+
+        height: 3px;
+
+        background: crimson;
+    }
+
+
+    /* =====================================================
+       CONTENT
+    ===================================================== */
+
+    .orders-content {
+        width: calc(100% - 76px);
+
+        margin: 0 38px;
+
+        padding: 0;
+
+        display: block;
+    }
+
+
+    /* =====================================================
+       ORDER LIST
+    ===================================================== */
+
+    .orders-list {
+        width: 100%;
+
+        margin-top: 26px;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        gap: 18px;
+    }
+
+
+    /* =====================================================
+       ORDER CARD
+    ===================================================== */
+
+    .order-card {
+        width: 100%;
+
+        padding: 18px;
+
+        background: #ffffff;
+
+        border: 1px solid #e1e1e1;
+
+        border-radius: 3px;
+
+        box-shadow: none;
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            border-color 0.2s ease;
+    }
+
+
+    .order-card:hover {
+        transform: translateY(-3px);
+
+        border-color: #d2d2d2;
+
+        box-shadow:
+            0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* =====================================================
+       ORDER TOP
+    ===================================================== */
+
+    .order-card-top {
+        padding-bottom: 13px;
+
+        gap: 15px;
+
+        border-bottom: 1px solid #e7e7e7;
+    }
+
+
+    .order-number {
+        font-size: 12px;
+
+        font-weight: 600;
+    }
+
+
+    .order-date {
+        margin-top: 5px;
+
+        font-size: 10px;
+
+        color: #888;
+    }
+
+
+    /* =====================================================
+       STATUS
+    ===================================================== */
+
+    .order-status {
+        padding: 5px 9px;
+
+        border-radius: 2px;
+
+        font-size: 9px;
+
+        font-weight: 700;
+    }
+
+
+    /* =====================================================
+       PRODUCT
+    ===================================================== */
+
+    .order-product {
+        padding: 16px 0;
+    }
+
+
+    .order-product-image {
+        width: 88px;
+        height: 88px;
+
+        border-radius: 2px;
+
+        background: #f3f3f3;
+    }
+
+
+    .order-product-info {
+        margin-left: 15px;
+    }
+
+
+    .order-product-info h3 {
+        font-size: 15px;
+
+        font-weight: 600;
+
+        line-height: 1.4;
+    }
+
+
+    .order-product-info p {
+        margin: 6px 0;
+
+        font-size: 10px;
+
+        color: #777;
+    }
+
+
+    .order-product-info strong {
+        font-size: 13px;
+
+        font-weight: 700;
+    }
+
+
+    /* =====================================================
+       ORDER BOTTOM
+    ===================================================== */
+
+    .order-card-bottom {
+        padding-top: 13px;
+
+        border-top: 1px solid #e7e7e7;
+    }
+
+
+    .order-total span {
+        font-size: 9px;
+
+        color: #888;
+    }
+
+
+    .order-total strong {
+        margin-top: 4px;
+
+        font-size: 13px;
+    }
+
+
+    .order-view-button {
+        min-height: 36px;
+
+        padding: 0 14px;
+
+        border-radius: 2px;
+
+        background: rgba(220, 20, 60, 0.07);
+
+        color: crimson;
+
+        font-size: 10px;
+
+        font-weight: 700;
+    }
+
+
+    .order-view-button:hover {
+        background: rgba(220, 20, 60, 0.13);
+    }
+
+
+    .order-view-button:active {
+        transform: scale(0.96);
+    }
+
+
+    /* =====================================================
+       EMPTY STATE
+    ===================================================== */
+
+    .orders-empty {
+        width: 100%;
+
+        min-height: 500px;
+
+        padding: 60px 20px;
+    }
+
+
+    .orders-empty-icon {
+        width: 82px;
+        height: 82px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .orders-empty-icon i {
+        font-size: 34px;
+    }
+
+
+    .orders-empty h2 {
+        font-size: 21px;
+
+        font-weight: 600;
+    }
+
+
+    .orders-empty p {
+        max-width: 400px;
+
+        font-size: 12px;
+    }
+
+
+    .browse-orders-button {
+        min-height: 44px;
+
+        padding: 0 20px;
+
+        border-radius: 2px;
+
+        font-size: 11px;
+    }
+
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1200px) {
+
+    .orders-list {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        gap: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   EXTRA LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1500px) {
+
+    .orders-list {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+
+        gap: 20px;
+    }
+
+}

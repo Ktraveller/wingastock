@@ -1,78 +1,289 @@
 {% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wingastock | Product publishing packages</title>
+
+    <title>{% translate "Product publishing packages" %}</title>
+
     <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="seller-modern-page">
+
 <main class="seller-payment-page">
-    <a class="seller-back-link" href="{% url 'seller_products' %}"><i class="fas fa-arrow-left"></i> Back to products</a>
+
+    <a class="seller-back-link" href="{% url 'seller_products' %}">
+        <i class="fas fa-arrow-left"></i>
+        {% translate "Back to products" %}
+    </a>
+
     <section class="seller-payment-hero">
+
         <div>
-            <span class="seller-kicker">GROW YOUR STORE</span>
-            <h1>Keep publishing products</h1>
-            <p>Your first 5 product posts are included. Choose another package when you are ready to reach more customers.</p>
+
+            <span class="seller-kicker">
+                {% translate "GROW YOUR STORE" %}
+            </span>
+
+            <h1>
+                {% translate "Keep publishing products" %}
+            </h1>
+
+            <p>
+                {% translate "Your first 5 product posts are included. Choose another package when you are ready to reach more customers." %}
+            </p>
+
         </div>
-        <div class="seller-payment-stat"><strong>{{ approved_products|add:5 }}</strong><span>posts available</span></div>
+
+        <div class="seller-payment-stat">
+            <strong>{{ approved_products|add:5 }}</strong>
+            <span>
+                {% translate "posts available" %}
+            </span>
+        </div>
+
     </section>
+
 
     {% if messages %}
-    <div class="seller-messages">{% for message in messages %}<div class="seller-message {{ message.tags }}">{{ message }}</div>{% endfor %}</div>
+
+    <div class="seller-messages">
+
+        {% for message in messages %}
+
+        <div class="seller-message {{ message.tags }}">
+            {{ message }}
+        </div>
+
+        {% endfor %}
+
+    </div>
+
     {% endif %}
 
+
     {% if pending_request %}
+
     <section class="seller-review-card">
+
         <i class="fas fa-hourglass-half"></i>
-        <div><strong>Payment under review</strong><p>Your request for {{ pending_request.requested_products }} posts was sent {{ pending_request.created_at|date:"d M Y, H:i" }}. You can continue once an admin approves it.</p></div>
-        <span class="seller-status-pill">Pending</span>
-    </section>
-    {% else %}
-    <section class="seller-payment-grid">
-        <div class="seller-payment-card">
-            <span class="seller-card-icon"><i class="fas fa-store"></i></span>
-            <h2>Choose your posting space</h2>
-            <p class="seller-muted">Packages are added to your current 5 free posts.</p>
-            <div class="seller-package-price"><strong id="package-price">1,000</strong> <span>TSh</span></div>
-            <form method="post" enctype="multipart/form-data" class="seller-payment-form">
-                {% csrf_token %}
-                <label>Number of products</label>
-                <select name="requested_products" id="requested-products" required>
-                    <option value="5">5 products — 1,000 TSh</option>
-                    <option value="10">10 products — 2,000 TSh</option>
-                    <option value="15">15 products — 3,000 TSh</option>
-                    <option value="20">20 products — 4,000 TSh</option>
-                    <option value="25">25 products — 5,000 TSh</option>
-                </select>
-                <label>Payment reference <span>(optional)</span></label>
-                <input name="payment_reference" placeholder="Transaction ID or payer name">
-                <label>Payment screenshot</label>
-                <input type="file" name="screenshot" accept="image/*" required>
-                <button type="submit"><i class="fas fa-paper-plane"></i> Submit for review</button>
-            </form>
-        </div>
-        <aside class="seller-payment-info">
-            <div class="seller-pay-number"><span>Pay via </span><strong> 15187207 - <b style="color: blue;">YAS LIPA NAMBA</b> <br>
-                <span>Name: KARIM HAMISI</span>
+
+        <div>
+
+            <strong>
+                {% translate "Payment under review" %}
             </strong>
-                <small>Use this number, then upload the confirmation screenshot.</small></div>
-            <h3>How it works</h3>
-            <ol><li>Choose a product package.</li><li>Pay the displayed amount.</li><li>Upload your payment screenshot.</li><li>Admin reviews and unlocks your quota.</li></ol>
-            <p class="seller-safe-note"><i class="fas fa-shield-alt"></i> Your screenshot is visible only to the review team.</p>
-        </aside>
+
+            <p>
+                {% blocktranslate with products=pending_request.requested_products date=pending_request.created_at|date:"d M Y, H:i" %}
+                Your request for {{ products }} posts was sent {{ date }}. You can continue once an admin approves it.
+                {% endblocktranslate %}
+            </p>
+
+        </div>
+
+        <span class="seller-status-pill">
+            {% translate "Pending" %}
+        </span>
+
     </section>
+
+
+    {% else %}
+
+    <section class="seller-payment-grid">
+
+        <div class="seller-payment-card">
+
+            <span class="seller-card-icon">
+                <i class="fas fa-store"></i>
+            </span>
+
+            <h2>
+                {% translate "Choose your posting space" %}
+            </h2>
+
+            <p class="seller-muted">
+                {% translate "Packages are added to your current 5 free posts." %}
+            </p>
+
+            <div class="seller-package-price">
+                <strong id="package-price">1,000</strong>
+                <span>TSh</span>
+            </div>
+
+
+            <form method="post"
+                  enctype="multipart/form-data"
+                  class="seller-payment-form">
+
+                {% csrf_token %}
+
+                <label>
+                    {% translate "Number of products" %}
+                </label>
+
+                <select name="requested_products"
+                        id="requested-products"
+                        required>
+
+                    <option value="5">
+                        {% translate "5 products" %} — 1,000 TSh
+                    </option>
+
+                    <option value="10">
+                        {% translate "10 products" %} — 2,000 TSh
+                    </option>
+
+                    <option value="15">
+                        {% translate "15 products" %} — 3,000 TSh
+                    </option>
+
+                    <option value="20">
+                        {% translate "20 products" %} — 4,000 TSh
+                    </option>
+
+                    <option value="25">
+                        {% translate "25 products" %} — 5,000 TSh
+                    </option>
+
+                </select>
+
+
+                <label>
+                    {% translate "Payment reference" %}
+                    <span>
+                        ({% translate "optional" %})
+                    </span>
+                </label>
+
+                <input
+                    name="payment_reference"
+                    placeholder="{% translate 'Transaction ID or payer name' %}"
+                >
+
+
+                <label>
+                    {% translate "Payment screenshot" %}
+                </label>
+
+                <input
+                    type="file"
+                    name="screenshot"
+                    accept="image/*"
+                    required
+                >
+
+
+                <button type="submit">
+
+                    <i class="fas fa-paper-plane"></i>
+
+                    {% translate "Submit for review" %}
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <aside class="seller-payment-info">
+
+            <div class="seller-pay-number">
+
+                <span>
+                    {% translate "Pay via" %}
+                </span>
+
+                <strong>
+                    15187207 -
+                    <b style="color: blue;">
+                        YAS LIPA NAMBA
+                    </b>
+                    <br>
+
+                    <span>
+                        {% translate "Name" %}: KARIM HAMISI
+                    </span>
+
+                </strong>
+
+                <small>
+                    {% translate "Use this number, then upload the confirmation screenshot." %}
+                </small>
+
+            </div>
+
+
+            <h3>
+                {% translate "How it works" %}
+            </h3>
+
+            <ol>
+
+                <li>
+                    {% translate "Choose a product package." %}
+                </li>
+
+                <li>
+                    {% translate "Pay the displayed amount." %}
+                </li>
+
+                <li>
+                    {% translate "Upload your payment screenshot." %}
+                </li>
+
+                <li>
+                    {% translate "Admin reviews and unlocks your quota." %}
+                </li>
+
+            </ol>
+
+
+            <p class="seller-safe-note">
+
+                <i class="fas fa-shield-alt"></i>
+
+                {% translate "Your screenshot is visible only to the review team." %}
+
+            </p>
+
+        </aside>
+
+    </section>
+
     {% endif %}
+
 </main>
+
+
 <script>
+
 const picker = document.getElementById("requested-products");
 const price = document.getElementById("package-price");
-if (picker && price) picker.addEventListener("change", () => {
-    price.textContent = (Number(picker.value) / 5 * {{ price_per_package }}).toLocaleString();
-});
+
+if (picker && price) {
+
+    picker.addEventListener("change", () => {
+
+        price.textContent =
+            (Number(picker.value) / 5 * {{ price_per_package }}).toLocaleString();
+
+    });
+
+}
+
 </script>
+
 </body>
 </html>

@@ -35,16 +35,24 @@
 {% translate "Have the product picture ready? Submit your request and WingaStock will take it from there." as helper_request_text %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wingastock | {% translate "Products" %}</title>
+
+    <title>
+        Wingastock | {% translate "Products" %}
+    </title>
+
     <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
+
+    <link rel="stylesheet"
+        href="{% static 'seller_css/sellers_style.css' %}">
+
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
         rel="stylesheet">
 
@@ -82,10 +90,9 @@
             background: #17a2b8;
         }
 
-
         /* =========================================================
-   WINGASTOCK - DELIVER EMPTY STATE
-   ========================================================= */
+           WINGASTOCK - DELIVER EMPTY STATE
+        ========================================================= */
 
         .deliver-empty-state-1001 {
             width: 100%;
@@ -104,11 +111,6 @@
             box-sizing: border-box;
         }
 
-
-        /* =========================================================
-   MAIN ICON
-   ========================================================= */
-
         .deliver-empty-icon-1001 {
             width: 78px;
             height: 78px;
@@ -125,17 +127,11 @@
             border-radius: 50%;
 
             font-size: 34px;
-
         }
 
         .deliver-empty-icon-1001 i {
             font-size: inherit;
         }
-
-
-        /* =========================================================
-   TITLE
-   ========================================================= */
 
         .deliver-empty-title-1001 {
             display: block;
@@ -149,11 +145,6 @@
             line-height: 1.3;
         }
 
-
-        /* =========================================================
-   DESCRIPTION
-   ========================================================= */
-
         .deliver-empty-description-1001 {
             display: block;
 
@@ -166,11 +157,6 @@
             font-size: 14px;
             line-height: 1.7;
         }
-
-
-        /* =========================================================
-   DOWNLOAD PRODUCT CARD
-   ========================================================= */
 
         .deliver-download-card-1001 {
             width: 100%;
@@ -212,11 +198,6 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
         }
 
-
-        /* =========================================================
-   DOWNLOAD ICON
-   ========================================================= */
-
         .deliver-download-icon-1001 {
             min-width: 52px;
             width: 52px;
@@ -234,11 +215,6 @@
 
             font-size: 22px;
         }
-
-
-        /* =========================================================
-   DOWNLOAD CONTENT
-   ========================================================= */
 
         .deliver-download-content-1001 {
             flex: 1;
@@ -267,11 +243,6 @@
             line-height: 1.5;
         }
 
-
-        /* =========================================================
-   ARROW
-   ========================================================= */
-
         .deliver-download-arrow-1001 {
             flex-shrink: 0;
 
@@ -289,11 +260,6 @@
 
             transform: translateX(4px);
         }
-
-
-        /* =========================================================
-   REQUEST BUTTON
-   ========================================================= */
 
         .deliver-request-button-1001 {
             width: 100%;
@@ -330,22 +296,14 @@
 
         .deliver-request-button-1001:hover {
             background: #b9002b;
-
             color: #ffffff;
-
             transform: translateY(-2px);
-
             box-shadow: 0 8px 20px rgba(220, 20, 60, 0.25);
         }
 
         .deliver-request-button-1001 i {
             font-size: 17px;
         }
-
-
-        /* =========================================================
-   HELPER TEXT
-   ========================================================= */
 
         .deliver-empty-helper-1001 {
             display: flex;
@@ -375,27 +333,18 @@
             font-size: 12px;
         }
 
-
-        /* =========================================================
-   TABLET
-   ========================================================= */
-
         @media (max-width: 768px) {
 
             .deliver-empty-state-1001 {
                 max-width: 95%;
-
                 margin: 20px auto;
-
                 padding: 28px 20px;
-
                 border-radius: 16px;
             }
 
             .deliver-empty-icon-1001 {
                 width: 68px;
                 height: 68px;
-
                 font-size: 29px;
             }
 
@@ -406,32 +355,21 @@
             .deliver-empty-description-1001 {
                 font-size: 13px;
             }
-
         }
-
-
-        /* =========================================================
-   MOBILE
-   ========================================================= */
 
         @media (max-width: 480px) {
 
             .deliver-empty-state-1001 {
                 width: calc(100% - 20px);
-
                 margin: 15px auto;
-
                 padding: 25px 15px;
-
                 border-radius: 14px;
             }
 
             .deliver-empty-icon-1001 {
                 width: 62px;
                 height: 62px;
-
                 margin-bottom: 15px;
-
                 font-size: 26px;
             }
 
@@ -441,17 +379,13 @@
 
             .deliver-empty-description-1001 {
                 margin-bottom: 20px;
-
                 font-size: 12px;
-
                 line-height: 1.65;
             }
 
             .deliver-download-card-1001 {
                 gap: 11px;
-
                 padding: 13px;
-
                 border-radius: 12px;
             }
 
@@ -459,9 +393,7 @@
                 min-width: 44px;
                 width: 44px;
                 height: 44px;
-
                 font-size: 18px;
-
                 border-radius: 10px;
             }
 
@@ -479,39 +411,28 @@
 
             .deliver-request-button-1001 {
                 min-height: 47px;
-
                 font-size: 13px;
             }
 
             .deliver-empty-helper-1001 {
                 font-size: 10px;
-
                 line-height: 1.5;
             }
         }
 
-
-
-
         /* =========================================
-   WINGASTOCK DELIVER - REQUEST ACTIONS
-   ========================================= */
+           WINGASTOCK DELIVER - REQUEST ACTIONS
+        ========================================= */
 
         .deliver-request-row-1001 {
             position: relative;
         }
-
-
-        /* ACTIONS */
 
         .deliver-request-actions-1001 {
             display: flex;
             align-items: center;
             justify-content: flex-end;
         }
-
-
-        /* DELETE BUTTON */
 
         .deliver-delete-btn-1001 {
             display: inline-flex;
@@ -544,11 +465,6 @@
             font-size: 13px;
         }
 
-
-        /* =========================================
-   DELETE MODAL
-   ========================================= */
-
         .deliver-delete-modal-1001 {
             position: fixed !important;
 
@@ -566,9 +482,6 @@
 
             z-index: 99999;
         }
-
-
-        /* DELETE BOX */
 
         .deliver-delete-box-1001 {
             width: min(420px, calc(100% - 30px));
@@ -597,11 +510,7 @@
                 opacity: 1;
                 transform: scale(1);
             }
-
         }
-
-
-        /* ICON */
 
         .deliver-delete-icon-1001 {
             width: 55px;
@@ -622,18 +531,12 @@
             font-size: 22px;
         }
 
-
-        /* TITLE */
-
         .deliver-delete-box-1001 h3 {
             margin: 0 0 10px;
 
             font-size: 20px;
             color: #222;
         }
-
-
-        /* MESSAGE */
 
         .deliver-delete-box-1001 p {
             margin: 0 auto 7px;
@@ -657,9 +560,6 @@
             margin-bottom: 22px;
         }
 
-
-        /* BUTTON AREA */
-
         .deliver-delete-buttons-1001 {
             display: flex;
 
@@ -671,9 +571,6 @@
         .deliver-delete-buttons-1001 form {
             margin: 0;
         }
-
-
-        /* CONFIRM */
 
         .deliver-confirm-delete-1001,
         .deliver-cancel-delete-1001 {
@@ -709,9 +606,6 @@
             background: #b00020;
         }
 
-
-        /* CANCEL */
-
         .deliver-cancel-delete-1001 {
             background: #eeeeee;
             color: #333;
@@ -720,9 +614,6 @@
         .deliver-cancel-delete-1001:hover {
             background: #dddddd;
         }
-
-
-        /* ADMIN NOTE */
 
         .deliver-admin-note-1001 {
             width: 100%;
@@ -750,17 +641,9 @@
             margin-top: 2px;
         }
 
-
-        /* EMPTY */
-
         .deliver-empty-requests-1001 {
             width: 100%;
         }
-
-
-        /* =========================================
-   MOBILE
-   ========================================= */
 
         @media (max-width: 700px) {
 
@@ -786,7 +669,6 @@
 
             .deliver-request-actions-1001 {
                 width: 100%;
-
                 justify-content: flex-start;
             }
 
@@ -806,19 +688,20 @@
             .deliver-cancel-delete-1001 {
                 width: 100%;
             }
-
         }
     </style>
 </head>
 
 <body>
 
-
     <!-- Page Loader -->
     <div id="page-loader">
         <div class="loader-content">
             <div class="spinner"></div>
-            <div class="loading-text">{{ loading_text }}<span class="dots"></span></div>
+
+            <div class="loading-text">
+                {{ loading_text }}<span class="dots"></span>
+            </div>
         </div>
     </div>
 
@@ -827,12 +710,18 @@
         <!-- Header -->
         <div class="header-holder-100">
             <div class="header-100">
+
                 <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')">
+                    <button type="button"
+                        id="menu1"
+                        onclick="open_menu('open')">
                         <i class="fas fa-bars"></i>
                     </button>
 
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')">
+                    <button type="button"
+                        id="menu2"
+                        style="display: none;"
+                        onclick="open_menu('close')">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -843,19 +732,25 @@
                     </button>
                 </div>
 
-                <div class="title-holder-101" style="float: right;">
+                <div class="title-holder-101"
+                    style="float: right;">
+
                     <button type="button">
-                        <i class="fas fa-user"></i> {{ user.email }}
+                        <i class="fas fa-user"></i>
+                        {{ user.email }}
                     </button>
+
                 </div>
+
             </div>
         </div>
 
-
-        <!-- center content -->
+        <!-- CENTER CONTENT -->
         <div class="center-content-200">
 
+            <!-- LEFT NAVIGATION -->
             <div class="left-holder-201" id="nav">
+
                 <div class="nav-bar-holder-202">
 
                     <ul>
@@ -897,48 +792,76 @@
                 </div>
             </div>
 
+            <!-- RIGHT CONTENT -->
             <div class="right-holder-201">
+
                 <div class="card-holder-201 products-202">
 
-                    <div class="seller-products-heading" style="width: 100%; float: left;">
+                    <div class="seller-products-heading"
+                        style="width: 100%; float: left;">
+
                         <div>
+
                             <span class="seller-kicker">
+
                                 {{ hello_text }}
-                                <i style="font-weight: 100;">{{ user.email }}</i>
+
+                                <i style="font-weight: 100;">
+                                    {{ user.email }}
+                                </i>
+
                             </span>
 
-                            <p>{{ request_description_text }}</p>
+                            <p>
+                                {{ request_description_text }}
+                            </p>
+
                         </div>
+
                     </div>
 
-
                     {% if messages %}
+
                     <div class="messages">
+
                         {% for message in messages %}
+
                         <div class="alert {{ message.tags }}">
                             {{ message }}
                         </div>
+
                         {% endfor %}
+
                     </div>
+
                     {% endif %}
 
-
-
                     <div class="seller-products-list-wrap">
+
                         {% if delivery_requests %}
-                        <div class="filter-holder-202" style="width: 100%; float: left;">
+
+                        <div class="filter-holder-202"
+                            style="width: 100%; float: left;">
+
                             <div>
+
                                 <input type="text"
                                     id="searchInput"
                                     placeholder="{{ search_products_text }}"
                                     aria-label="{{ search_products_label }}">
+
                             </div>
+
                         </div>
+
                         {% else %}
+
                         <div></div>
+
                         {% endif %}
 
-                        <div class="seller-product-list" id="productTable">
+                        <div class="seller-product-list"
+                            id="productTable">
 
                             {% for product_data in delivery_requests %}
 
@@ -951,9 +874,14 @@
                                     <span class="seller-product-thumb deliver-request-thumb-1001">
 
                                         {% if product_data.image %}
-                                        <img src="{{ product_data.image.url }}" alt="{{ product_data.title }}">
+
+                                        <img src="{{ product_data.image.url }}"
+                                            alt="{{ product_data.title }}">
+
                                         {% else %}
+
                                         <i class="fas fa-image"></i>
+
                                         {% endif %}
 
                                     </span>
@@ -965,47 +893,60 @@
                                         </strong>
 
                                         <small>
+
                                             {% if product_data.category %}
+
                                             {{ product_data.category|title }}
+
                                             {% else %}
+
                                             {{ category_not_provided_text }}
+
                                             {% endif %}
 
                                             · #{{ product_data.id }}
+
                                         </small>
 
                                     </span>
 
                                 </div>
 
-
                                 <!-- PRICE -->
                                 <span class="seller-product-fact deliver-request-fact-1001">
 
-                                    <small>{{ price_text }}</small>
+                                    <small>
+                                        {{ price_text }}
+                                    </small>
 
                                     <strong>
+
                                         {% if product_data.price %}
+
                                         {{ product_data.price }} Tsh
+
                                         {% else %}
+
                                         {{ not_provided_text }}
+
                                         {% endif %}
+
                                     </strong>
 
                                 </span>
 
-
                                 <!-- ADDED DATE -->
                                 <span class="seller-product-fact deliver-request-fact-1001">
 
-                                    <small>{{ added_text }}</small>
+                                    <small>
+                                        {{ added_text }}
+                                    </small>
 
                                     <strong>
                                         {{ product_data.created_at|date:"d M Y" }}
                                     </strong>
 
                                 </span>
-
 
                                 <!-- STATUS -->
                                 <span class="seller-product-status deliver-request-status-1001">
@@ -1039,11 +980,9 @@
 
                                 </span>
 
-
                                 <!-- ACTIONS -->
                                 <span class="seller-product-actions deliver-request-actions-1001">
 
-                                    <!-- DELETE BUTTON -->
                                     <button type="button"
                                         class="btn-delete deliver-delete-btn-1001"
                                         onclick="document.getElementById('delete-modal{{ product_data.id }}').style.display='flex'">
@@ -1057,7 +996,6 @@
                                     </button>
 
                                 </span>
-
 
                                 <!-- DELETE MODAL -->
                                 <div class="delete-product-modal-106 deliver-delete-modal-1001"
@@ -1076,13 +1014,16 @@
 
                                         <p>
                                             {{ are_you_sure_delete_text }}
-                                            <strong>{{ product_data.title }}</strong>?
+
+                                            <strong>
+                                                {{ product_data.title }}
+                                            </strong>?
+
                                         </p>
 
                                         <small>
                                             {{ cannot_undo_text }}
                                         </small>
-
 
                                         <div class="deliver-delete-buttons-1001">
 
@@ -1103,7 +1044,6 @@
 
                                             </form>
 
-
                                             <!-- CANCEL -->
                                             <button type="button"
                                                 class="deliver-cancel-delete-1001"
@@ -1120,7 +1060,6 @@
                                     </div>
 
                                 </div>
-
 
                                 <!-- ADMIN NOTE -->
                                 {% if product_data.customer_note %}
@@ -1148,25 +1087,22 @@
 
                             {% empty %}
 
+                            <!-- EMPTY STATE -->
                             <div class="seller-empty-products deliver-empty-state-1001">
 
-                                <!-- ICON -->
                                 <div class="deliver-empty-icon-1001">
                                     <i class="fas fa-truck-loading"></i>
                                 </div>
 
-                                <!-- TITLE -->
                                 <strong class="deliver-empty-title-1001">
                                     {{ ready_find_product_text }}
                                 </strong>
 
-                                <!-- DESCRIPTION -->
                                 <span class="deliver-empty-description-1001">
                                     {{ no_delivery_request_text }}
                                 </span>
 
-
-                                <!-- DOWNLOAD PICTURE CARD -->
+                                <!-- DOWNLOAD PICTURE -->
                                 <a href="{% url 'how_to_deliver' %}"
                                     class="deliver-download-card-1001">
 
@@ -1190,8 +1126,7 @@
 
                                 </a>
 
-
-                                <!-- REQUEST BUTTON -->
+                                <!-- REQUEST PRODUCT -->
                                 <a href="{% url 'deliver_product' %}"
                                     class="deliver-request-button-1001">
 
@@ -1203,8 +1138,7 @@
 
                                 </a>
 
-
-                                <!-- HELPER TEXT -->
+                                <!-- HELPER -->
                                 <small class="deliver-empty-helper-1001">
 
                                     <i class="fas fa-info-circle"></i>
@@ -1219,8 +1153,12 @@
 
                         </div>
 
-                        <p class="seller-search-empty" id="searchEmpty" hidden>
+                        <p class="seller-search-empty"
+                            id="searchEmpty"
+                            hidden>
+
                             {{ no_search_match_text }}
+
                         </p>
 
                     </div>
@@ -1231,53 +1169,64 @@
 
     </div>
 
-
+    <!-- PAGE LOADER -->
     <script>
         window.addEventListener("load", function () {
 
             const loader = document.getElementById("page-loader");
 
             if (loader) {
+
                 loader.classList.add("hidden");
 
                 setTimeout(function () {
                     loader.remove();
                 }, 400);
+
             }
 
         });
     </script>
 
-
+    <!-- MENU -->
     <script>
         function open_menu(click) {
+
             let menu1 = document.getElementById('menu1');
             let menu2 = document.getElementById('menu2');
             let nav = document.getElementById('nav');
 
             if (click == 'open') {
+
                 menu1.style.display = 'none';
                 menu2.style.display = 'inline-block';
                 nav.style.display = 'inline-block';
-            }
-            else {
+
+            } else {
+
                 menu1.style.display = 'inline-block';
                 menu2.style.display = 'none';
                 nav.style.display = 'none';
+
             }
         }
     </script>
 
+    <!-- ALERT AUTO HIDE -->
     <script>
         setTimeout(function () {
+
             document.querySelectorAll(".alert").forEach(function (alert) {
+
                 alert.style.transition = "opacity 0.5s";
                 alert.style.opacity = "0";
+
                 setTimeout(() => alert.remove(), 500);
+
             });
+
         }, 4000);
     </script>
-
 
     {% if whatsapp_url %}
 

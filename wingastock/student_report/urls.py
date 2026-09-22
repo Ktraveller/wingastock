@@ -1,6 +1,6 @@
 from django.urls import path
 from student_report.views_r.index import report_index
-from student_report.views_r.reports import add_placement, placements, add_report, edit_report, reports, report_detail, report_detail_weekly, report_summary, delete_report, delete_placement, edit_placement, generate_field_report, save_field_report, download_field_report_docx, construction_message
+from student_report.views_r.reports import add_placement, placements, add_report, edit_report, reports, report_detail, report_detail_weekly, report_summary, delete_report, delete_placement, edit_placement, generate_field_report, save_field_report, download_field_report_docx, construction_message, refresh_field_report_data
 from student_report.views_r.account import account_report
 
 
@@ -58,6 +58,12 @@ urlpatterns = [
         "field-report/<int:id>/download-docx/",
         download_field_report_docx,
         name="download_field_report_docx",
+    ),
+
+    path(
+        "field-report/<int:id>/refresh-data/",
+        refresh_field_report_data,
+        name="refresh_field_report_data",
     ),
 
 

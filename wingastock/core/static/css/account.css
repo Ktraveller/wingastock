@@ -1,0 +1,1153 @@
+/* =========================================================
+   WINGASTOCK ACCOUNT PAGE
+   Extends: mobile-style.css
+========================================================= */
+
+.account-page {
+    width: 100%;
+    min-height: 100vh;
+    padding-bottom: 85px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.account-header {
+    width: 100%;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid rgba(220, 20, 60, 0.10);
+}
+
+
+/* =========================================================
+   HEADER TOP
+========================================================= */
+
+.account-header-top {
+    width: 100%;
+
+    min-height: 64px;
+
+    padding: 8px 14px;
+
+    display: flex;
+    align-items: center;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.account-back-button {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    margin-right: 8px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #444;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.account-back-button:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+
+.account-back-button:active {
+    transform: scale(0.92);
+}
+
+
+.account-back-button i {
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   ACCOUNT HEADING
+========================================================= */
+
+.account-heading {
+    flex: 1;
+
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 2px;
+}
+
+
+.account-eyebrow {
+    color: crimson;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    line-height: 1;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+
+.account-heading h1 {
+    margin: 0;
+
+    color: #222;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   SETTINGS BUTTON
+========================================================= */
+
+.account-settings-button {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    margin-left: 8px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 50%;
+
+    background: #f5f5f5;
+
+    color: #444;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.account-settings-button:hover {
+    background: #eeeeee;
+}
+
+
+.account-settings-button:active {
+    transform: scale(0.92);
+}
+
+
+.account-settings-button i {
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.account-profile {
+    width: calc(100% - 28px);
+
+    margin: 0 14px 16px;
+
+    padding: 14px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(220, 20, 60, 0.08),
+            rgba(220, 20, 60, 0.025)
+        );
+
+    border: 1px solid rgba(220, 20, 60, 0.10);
+
+    display: flex;
+    align-items: center;
+
+    gap: 0;
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+.account-avatar {
+    width: 52px;
+    height: 52px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: crimson;
+
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.account-avatar i {
+    font-size: 21px;
+}
+
+
+/* =========================================================
+   PROFILE INFORMATION
+========================================================= */
+
+.account-profile-info {
+    min-width: 0;
+
+    flex: 1;
+
+    margin-left: 12px;
+}
+
+
+.account-profile-info h2 {
+    margin: 0;
+
+    color: #222;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    line-height: 1.4;
+}
+
+
+.account-profile-info p {
+    margin: 3px 0 0;
+
+    color: #888;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   PROFILE ARROW
+========================================================= */
+
+.profile-arrow {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    margin-left: 8px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.profile-arrow:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+
+.profile-arrow:active {
+    transform: scale(0.92);
+}
+
+
+.profile-arrow i {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.account-content {
+    width: 100%;
+
+    padding: 0 14px;
+}
+
+
+/* =========================================================
+   ACCOUNT SECTION
+========================================================= */
+
+.account-section {
+    width: 100%;
+
+    margin-top: 22px;
+}
+
+
+.account-section-heading {
+    margin-bottom: 10px;
+}
+
+
+.account-section-heading span {
+    color: crimson;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+
+.account-section-heading h2 {
+    margin: 3px 0 0;
+
+    color: #222;
+
+    font-size: 17px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+.account-menu {
+    width: 100%;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.035);
+}
+
+
+.account-menu-item {
+    width: 100%;
+
+    min-height: 68px;
+
+    padding: 9px 12px;
+
+    border: none;
+    outline: none;
+
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: background 0.15s ease;
+}
+
+
+.account-menu-item + .account-menu-item {
+    border-top: 1px solid rgba(0, 0, 0, 0.055);
+}
+
+
+.account-menu-item:hover {
+    background: #fafafa;
+}
+
+
+.account-menu-item:active {
+    background: #f5f5f5;
+}
+
+
+/* =========================================================
+   MENU ICON
+========================================================= */
+
+.account-menu-icon {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    background: rgba(220, 20, 60, 0.08);
+
+    color: crimson;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.account-menu-icon i {
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   MENU TEXT
+========================================================= */
+
+.account-menu-text {
+    min-width: 0;
+
+    flex: 1;
+
+    margin-left: 11px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.account-menu-text strong {
+    color: #222;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    line-height: 1.3;
+}
+
+
+.account-menu-text small {
+    color: #888;
+
+    font-size: 10px;
+    font-weight: 400;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   MENU ARROW
+========================================================= */
+
+.account-menu-arrow {
+    margin-left: 8px;
+
+    color: #aaa;
+
+    font-size: 10px;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   LOGIN CARD
+========================================================= */
+
+.account-login-card {
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 16px;
+
+    border-radius: 16px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(220, 20, 60, 0.13);
+
+    display: flex;
+    align-items: center;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =========================================================
+   LOGIN ICON
+========================================================= */
+
+.account-login-icon {
+    width: 43px;
+    height: 43px;
+
+    flex-shrink: 0;
+
+    border-radius: 12px;
+
+    background: rgba(220, 20, 60, 0.08);
+
+    color: crimson;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.account-login-icon i {
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   LOGIN CONTENT
+========================================================= */
+
+.account-login-content {
+    flex: 1;
+
+    min-width: 0;
+
+    margin-left: 11px;
+}
+
+
+.account-login-content h3 {
+    margin: 0;
+
+    color: #222;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.account-login-content p {
+    margin: 4px 0 0;
+
+    color: #888;
+
+    font-size: 9px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.account-login-button {
+    flex-shrink: 0;
+
+    margin-left: 8px;
+
+    padding: 9px 13px;
+
+    border: none;
+
+    border-radius: 20px;
+
+    background: crimson;
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.account-login-button:hover {
+    opacity: 0.92;
+}
+
+
+.account-login-button:active {
+    transform: scale(0.96);
+}
+
+
+/* =========================================================
+   VERSION
+========================================================= */
+
+.account-version {
+    padding: 22px 0 10px;
+
+    text-align: center;
+
+    color: #aaa;
+
+    font-size: 9px;
+}
+
+
+
+/* =========================================================
+   DESKTOP — MICROSOFT STORE INSPIRED
+   Mobile design remains unchanged
+========================================================= */
+
+@media (min-width: 900px) {
+
+    .account-page {
+        width: 100%;
+        max-width: 1600px;
+
+        margin: 0 auto;
+
+        padding-bottom: 40px;
+    }
+
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    .account-header {
+        background: #ffffff;
+
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+
+    .account-header-top {
+        min-height: 72px;
+
+        padding: 0 38px;
+
+        display: flex;
+        align-items: center;
+    }
+
+
+    /* =====================================================
+       BACK BUTTON
+    ===================================================== */
+
+    .account-back-button {
+        width: 42px;
+        height: 42px;
+
+        margin-right: 16px;
+
+        border-radius: 2px;
+
+        background: transparent;
+
+        color: #333;
+    }
+
+
+    .account-back-button:hover {
+        background: #f2f2f2;
+    }
+
+
+    .account-back-button i {
+        font-size: 16px;
+    }
+
+
+    /* =====================================================
+       HEADING
+    ===================================================== */
+
+    .account-heading {
+        gap: 3px;
+    }
+
+
+    .account-eyebrow {
+        font-size: 9px;
+
+        letter-spacing: 1.2px;
+    }
+
+
+    .account-heading h1 {
+        font-size: 25px;
+
+        font-weight: 600;
+
+        letter-spacing: -0.3px;
+    }
+
+
+    /* =====================================================
+       SETTINGS
+    ===================================================== */
+
+    .account-settings-button {
+        width: 42px;
+        height: 42px;
+
+        margin-left: 16px;
+
+        border-radius: 2px;
+
+        background: transparent;
+
+        color: #333;
+    }
+
+
+    .account-settings-button:hover {
+        background: #f2f2f2;
+    }
+
+
+    .account-settings-button i {
+        font-size: 15px;
+    }
+
+
+    /* =====================================================
+       PROFILE HERO
+    ===================================================== */
+
+    .account-profile {
+        width: calc(100% - 76px);
+
+        margin: 24px 38px 30px;
+
+        padding: 24px 26px;
+
+        border-radius: 3px;
+
+        background:
+            linear-gradient(
+                100deg,
+                rgba(220, 20, 60, 0.075),
+                rgba(220, 20, 60, 0.018)
+            );
+
+        border: 1px solid rgba(220, 20, 60, 0.12);
+
+        min-height: 105px;
+    }
+
+
+    .account-avatar {
+        width: 62px;
+        height: 62px;
+
+        border-radius: 50%;
+
+        background: crimson;
+    }
+
+
+    .account-avatar i {
+        font-size: 23px;
+    }
+
+
+    .account-profile-info {
+        margin-left: 17px;
+    }
+
+
+    .account-profile-info h2 {
+        font-size: 17px;
+
+        font-weight: 600;
+    }
+
+
+    .account-profile-info p {
+        margin-top: 5px;
+
+        font-size: 12px;
+    }
+
+
+    .profile-arrow {
+        width: 40px;
+        height: 40px;
+
+        margin-left: 15px;
+
+        border-radius: 2px;
+
+        background: transparent;
+    }
+
+
+    .profile-arrow:hover {
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+
+    .profile-arrow i {
+        font-size: 12px;
+    }
+
+
+    /* =====================================================
+       CONTENT
+    ===================================================== */
+
+    .account-content {
+        width: calc(100% - 76px);
+
+        margin: 0 38px;
+
+        padding: 0;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 32px;
+    }
+
+
+    /* =====================================================
+       SECTIONS
+    ===================================================== */
+
+    .account-section {
+        margin-top: 0;
+    }
+
+
+    .account-section-heading {
+        margin-bottom: 13px;
+    }
+
+
+    .account-section-heading span {
+        font-size: 9px;
+
+        letter-spacing: 1.1px;
+    }
+
+
+    .account-section-heading h2 {
+        margin-top: 4px;
+
+        font-size: 20px;
+
+        font-weight: 600;
+
+        letter-spacing: -0.2px;
+    }
+
+
+    /* =====================================================
+       MENU
+    ===================================================== */
+
+    .account-menu {
+        border-radius: 3px;
+
+        border: 1px solid #e1e1e1;
+
+        box-shadow: none;
+
+        background: #ffffff;
+    }
+
+
+    .account-menu-item {
+        min-height: 72px;
+
+        padding: 12px 16px;
+
+        border-radius: 0;
+    }
+
+
+    .account-menu-item:hover {
+        background: #f7f7f7;
+    }
+
+
+    .account-menu-item:active {
+        background: #eeeeee;
+    }
+
+
+    .account-menu-item + .account-menu-item {
+        border-top: 1px solid #e5e5e5;
+    }
+
+
+    /* =====================================================
+       MENU ICON
+    ===================================================== */
+
+    .account-menu-icon {
+        width: 44px;
+        height: 44px;
+
+        border-radius: 2px;
+
+        background: rgba(220, 20, 60, 0.07);
+    }
+
+
+    .account-menu-icon i {
+        font-size: 16px;
+    }
+
+
+    /* =====================================================
+       MENU TEXT
+    ===================================================== */
+
+    .account-menu-text {
+        margin-left: 14px;
+
+        gap: 4px;
+    }
+
+
+    .account-menu-text strong {
+        font-size: 14px;
+
+        font-weight: 600;
+    }
+
+
+    .account-menu-text small {
+        font-size: 11px;
+
+        color: #777;
+    }
+
+
+    /* =====================================================
+       MENU ARROW
+    ===================================================== */
+
+    .account-menu-arrow {
+        margin-left: 15px;
+
+        color: #777;
+
+        font-size: 10px;
+    }
+
+
+    /* =====================================================
+       LOGIN CARD
+    ===================================================== */
+
+    .account-login-card {
+        grid-column: 1 / -1;
+
+        margin-top: 0;
+
+        min-height: 86px;
+
+        padding: 18px 22px;
+
+        border-radius: 3px;
+
+        border: 1px solid #e1e1e1;
+
+        box-shadow: none;
+
+        background: #ffffff;
+    }
+
+
+    .account-login-icon {
+        width: 46px;
+        height: 46px;
+
+        border-radius: 2px;
+
+        background: rgba(220, 20, 60, 0.07);
+    }
+
+
+    .account-login-content {
+        margin-left: 14px;
+    }
+
+
+    .account-login-content h3 {
+        font-size: 14px;
+
+        font-weight: 600;
+    }
+
+
+    .account-login-content p {
+        margin-top: 5px;
+
+        font-size: 10px;
+
+        color: #777;
+    }
+
+
+    /* =====================================================
+       LOGIN BUTTON
+    ===================================================== */
+
+    .account-login-button {
+        margin-left: 20px;
+
+        min-width: 100px;
+
+        padding: 10px 18px;
+
+        border-radius: 2px;
+
+        background: crimson;
+
+        font-size: 12px;
+    }
+
+
+    .account-login-button:hover {
+        opacity: 1;
+
+        background: #c9001f;
+    }
+
+
+    /* =====================================================
+       VERSION
+    ===================================================== */
+
+    .account-version {
+        grid-column: 1 / -1;
+
+        padding: 8px 0 0;
+
+        font-size: 10px;
+
+        color: #999;
+    }
+
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1300px) {
+
+    .account-header-top {
+        padding-left: 48px;
+        padding-right: 48px;
+    }
+
+
+    .account-profile {
+        width: calc(100% - 96px);
+
+        margin-left: 48px;
+        margin-right: 48px;
+    }
+
+
+    .account-content {
+        width: calc(100% - 96px);
+
+        margin-left: 48px;
+        margin-right: 48px;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 36px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1500px) {
+
+    .account-content {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+
+    .account-login-card {
+        grid-column: 1 / -1;
+    }
+
+
+    .account-version {
+        grid-column: 1 / -1;
+    }
+
+}

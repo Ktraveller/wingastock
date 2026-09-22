@@ -1,182 +1,199 @@
 {% load static %}
 {% load humanize %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-    <link rel="stylesheet" href="{% static 'css/search.css' %}">
-    <link rel="stylesheet" href="{% static 'css/heading.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <title>Wingastock - Buy &amp; Sell Products in Tanzania</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <meta name="description"
-        content="Buy and sell electronics, phones, laptops, furniture, homes, and more on Wingastock, Tanzania's online marketplace.">
+    <title>
+        {% translate "Wingastock | Server Error" %}
+    </title>
 
-    <meta property="og:title" content="Wingastock - Buy &amp; Sell Products in Tanzania">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
 
-    <meta property="og:description"
-        content="Buy and sell electronics, phones, laptops, furniture, homes, and more on Wingastock, Tanzania's online marketplace.">
+    <link
+        rel="stylesheet"
+        href="{% static 'css/home.css' %}"
+    >
 
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://wingastock.onrender.com/">
-    <meta property="og:site_name" content="Wingastock">
+    <link
+        rel="stylesheet"
+        href="{% static 'css/account.css' %}"
+    >
 
-
-    <meta name="robots" content="index, follow">
-
-    <link rel="canonical" href="https://wingastock.onrender.com/">
-
-
-    <meta property="og:image" content="/static/logo.png">
-
-    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
-
-    <meta name="google-site-verification" content="cBo6MO_R0NHmkbNtZ4TbAd5KcLYgqPdt0XB-BgMYi1o" />
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-STT2EJ7H54"></script>
-    <!-- Microsoft tag -->
-    <meta name="msvalidate.01" content="24C554194C77E0084DA5450B14850A0F" />
-
-
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-STT2EJ7H54');
-    </script>
+    <link
+        rel="stylesheet"
+        href="{% static 'css/search-history.css' %}"
+    >
 
 </head>
 
 <body>
 
-    <div class="page-loader-holder-000">
-        <div>
-            <button type="button">
-                <h1>
-                    <img src="{% static 'logo.png' %}" alt="logo"> <br>
-                    <span>Wingastock</span>
-                </h1>
+<div class="search-history-page">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="search-history-header">
+
+        <button
+            type="button"
+            class="search-history-back-button"
+            onclick="history.back()"
+            aria-label="{% translate 'Go back' %}"
+        >
+            <i class="fas fa-arrow-left"></i>
+        </button>
+
+
+        <div class="search-history-heading">
+
+            <h1>
+                {% translate "Server Error" %}
+            </h1>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="search-history-clear-button"
+            aria-label="{% translate 'Back home' %}"
+            onclick="window.location.href='{% url 'home' %}'"
+        >
+            <i class="fas fa-home"></i>
+        </button>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         500 ERROR CONTENT
+    ====================================================== -->
+
+    <main class="search-history-content">
+
+        <section
+            class="history-empty"
+            id="serverError"
+            style="display:flex;"
+        >
+
+            <div class="history-empty-icon">
+
+                <i class="fas fa-server"></i>
+
+            </div>
+
+
+            <h2>
+                {% translate "500 - Internal Server Error" %}
+            </h2>
+
+
+            <p>
+                {% translate "Something went wrong on our server. We are working to fix the problem. Please try again later." %}
+            </p>
+
+
+            <button
+                type="button"
+                class="history-browse-button"
+                onclick="window.location.href='{% url 'home' %}'"
+            >
+
+                <i class="fas fa-home"></i>
+
+                {% translate "Back Home" %}
+
             </button>
-        </div>
-    </div>
 
-    <div class="row-holder-001">
+        </section>
 
-        <!-- Inlude heading -->
-        {% if user.email %}
-        {% include 'header_s.html' %}
-        {% else %}
-        {% include 'heading.html' %}
-        {% endif %}
+    </main>
 
 
-        <div class="content-holder-002">
 
-            <!-- Center content -->
-            <div class="product-card-holder-1001">
-                <div class="product-card-1002">
+    <!-- =====================================================
+         MOBILE BOTTOM NAVIGATION
+    ====================================================== -->
 
-                    {% for product in products %}
-                    {% include 'product-container.html' %}
-                    {% endfor %}
+    <nav class="mobile-bottom-nav">
 
-                </div>
-            </div>
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'products' %}'"
+        >
 
+            <i class="fas fa-shopping-bag"></i>
 
-            <div style="width: 100%; height: 100px; float: left;"></div>
+            <span>
+                {% translate "Products" %}
+            </span>
 
-        </div>
-
-        <!-- 500 -->
-        <div class="seller-signup-holder-1002" id="seller_ad">
-            <div>
-
-                <div>
-                    <p style="font-weight: bold; font-size: 15px;">Platform Alert</p>
-                    <p>500 - Server Error</p>
-                    <p>
-                        Oops! Something went wrong.
-                        We're experiencing a temporary problem on our side. Please try
-                        again in a moment. Your Wingastock account and information are safe.
-
-                    </p>
-                </div>
-
-                <button type="button" class="register-1002" onclick="window.location.href=`{% url 'home' %}`">
-                    <i class="fas fa-home"></i>
-                    Back Home
-                </button>
-            </div>
-        </div>
-
-        <!-- How to -->
-        {% include 'how-to.html' %}
-
-        <div class="footer-holder-1003">
-            <div>
-                <p>Wingastock | Online marketplace</p>
-            </div>
-        </div>
+        </button>
 
 
-        <!-- Nav bar -->
-        {% include 'navbar.html' %}
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'favorities' %}'"
+        >
 
-        <!-- Login and register modal-->
-        {% include 'login-container.html' %}
+            <i class="far fa-heart"></i>
 
-    </div>
+            <span>
+                {% translate "Favorites" %}
+            </span>
 
-
-    <script>
-        window.addEventListener("load", function () {
-
-            const loader = document.querySelector(
-                ".page-loader-holder-000"
-            );
-
-            if (loader) {
-
-                // Fade out the loader
-                loader.classList.add("hidden");
-
-                // Remove it completely after the animation
-                setTimeout(function () {
-                    loader.remove();
-                }, 500);
-            }
-
-        });
-    </script>
+        </button>
 
 
-    <script>
-        function menu_bar(click) {
-            let menu_div = document.getElementById('menu_div');
-            let button1 = document.getElementById('button1');
-            let button2 = document.getElementById('button2');
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'shop_list' %}'"
+        >
 
-            if (click == 'open') {
-                menu_div.style.display = 'inline-block';
-                button1.style.display = 'none';
-                button2.style.display = 'inline-block';
-            }
-            else {
-                menu_div.style.display = 'none';
-                button2.style.display = 'none';
-                button1.style.display = 'inline-block';
-            }
-        }
-    </script>
+            <i class="fas fa-store-alt"></i>
+
+            <span>
+                {% translate "Shops" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'customer_account' %}'"
+        >
+
+            <i class="far fa-user"></i>
+
+            <span>
+                {% translate "Account" %}
+            </span>
+
+        </button>
+
+    </nav>
+
+</div>
 
 </body>
 

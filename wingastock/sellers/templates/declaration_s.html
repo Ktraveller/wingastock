@@ -1,15 +1,21 @@
 {% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wingastock | Add product</title>
+
+  <title>{% translate "Declaration" %}</title>
+
   <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
   <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
 
   <style>
     .messages {
@@ -58,84 +64,140 @@
   <div id="page-loader">
     <div class="loader-content">
       <div class="spinner"></div>
-      <div class="loading-text">Loading<span class="dots"></span></div>
+
+      <div class="loading-text">
+        {% translate "Loading" %}<span class="dots"></span>
+      </div>
     </div>
   </div>
+
 
   <div class="row-holder">
 
     <!-- Header -->
     <div class="header-holder-100">
+
       <div class="header-100">
+
         <div class="action-holder-101">
-          <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-          <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-              class="fas fa-times"></i></button>
+
+          <button type="button"
+            id="menu1"
+            onclick="open_menu('open')">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <button type="button"
+            id="menu2"
+            style="display: none;"
+            onclick="open_menu('close')">
+            <i class="fas fa-times"></i>
+          </button>
+
         </div>
+
         <div class="title-holder-101">
-          <button type="button"><span>Wingastock | Signup</span></button>
+
+          <button type="button">
+            <span>
+              {% translate "Wingastock | Declaration" %}
+            </span>
+          </button>
+
         </div>
 
       </div>
+
     </div>
 
 
     <!-- center content -->
     <div class="center-content-200">
 
+
       <div class="left-holder-201" id="nav">
+
         <div class="nav-bar-holder-202">
 
           <ul>
             <a href="{% url 'seller_terms' %}">
-              <li>Terms and conditions <i class="fas fa-file-contract"></i></li>
+              <li>
+                {% translate "Terms and conditions" %}
+                <i class="fas fa-file-contract"></i>
+              </li>
             </a>
           </ul>
+
 
           <ul>
             <a href="{% url 'signup_seller' %}">
-              <li>Seller informations <i class="fas fa-user"></i></li>
+              <li>
+                {% translate "Seller information" %}
+                <i class="fas fa-user"></i>
+              </li>
             </a>
           </ul>
+
 
           <ul>
             <a href="{% url 'seller_declaration' %}">
-              <li class="active-0">Declarations <i class="fas fa-file-signature"></i></li>
+              <li class="active-0">
+                {% translate "Declaration" %}
+                <i class="fas fa-file-signature"></i>
+              </li>
             </a>
           </ul>
 
+
           <ul>
             <a href="{% url 'login_seller' %}">
-              <li>Login <i class="fas fa-sign-in-alt"></i></li>
+              <li>
+                {% translate "Login" %}
+                <i class="fas fa-sign-in-alt"></i>
+              </li>
             </a>
           </ul>
 
         </div>
+
       </div>
 
+
       <div class="right-holder-201">
+
         <div class="products-202">
 
           <div class="terms-holder-202">
+
             <div>
 
 
-
               <div class="card-header">
-                <h4>Seller Account Declaration</h4>
+
+                <h4>
+                  {% translate "Seller Account Declaration" %}
+                </h4>
+
               </div>
 
 
               <div class="card-body">
 
+
                 {% if messages %}
+
                 <div class="messages">
+
                   {% for message in messages %}
+
                   <div class="alert {{ message.tags }}">
                     {{ message }}
                   </div>
+
                   {% endfor %}
+
                 </div>
+
                 {% endif %}
 
 
@@ -144,51 +206,94 @@
                 <div class="seller-summary">
 
                   <div class="user-info-holder-1000">
+
                     <div>
+
                       <table>
 
+
                         <tr>
+
                           <td style="font-weight: bold;">
+
                             <i class="fas fa-store"></i>
-                            Name (Shop name):
+
+                            {% translate "Name (Shop name)" %}:
+
                           </td>
-                          <td>{{ seller.seller_name }}</td>
+
+                          <td>
+                            {{ seller.seller_name }}
+                          </td>
+
                         </tr>
 
+
                         <tr>
+
                           <td style="font-weight: bold;">
+
                             <i class="fas fa-phone"></i>
-                            Phone:
+
+                            {% translate "Phone" %}:
+
                           </td>
-                          <td>{{ seller.seller_phone }}</td>
+
+                          <td>
+                            {{ seller.seller_phone }}
+                          </td>
+
                         </tr>
 
 
                         <tr>
+
                           <td style="font-weight: bold;">
+
                             <i class="fas fa-map-marker-alt"></i>
-                            Address:
+
+                            {% translate "Address" %}:
+
                           </td>
-                          <td>{{ seller.seller_address }}</td>
+
+                          <td>
+                            {{ seller.seller_address }}
+                          </td>
+
                         </tr>
 
+
                         <tr>
+
                           <td style="font-weight: bold;">
+
                             <i class="fas fa-envelope"></i>
-                            Wingastock Email:
+
+                            {% translate "Wingastock Email" %}:
+
                           </td>
-                          <td style="font-size: 15px; font-weight: bold;">{{ seller.seller_email }}</td>
+
+                          <td style="font-size: 15px; font-weight: bold;">
+                            {{ seller.seller_email }}
+                          </td>
+
                         </tr>
+
+
                       </table>
 
-                      <p>Save the email you can only login or access seller account using that email</p>
+
+                      <p>
+                        {% translate "Save the email because you can only login or access your seller account using that email." %}
+                      </p>
+
                       <br>
+
                     </div>
+
                   </div>
 
-
                 </div>
-
 
 
                 <form method="POST">
@@ -198,18 +303,31 @@
 
                   <!-- PASSWORD -->
 
-                  <p style="font-weight: bold; margin-top: 30px;">Create account password</p>
+                  <p style="font-weight: bold; margin-top: 30px;">
+
+                    {% translate "Create account password" %}
+
+                  </p>
+
 
                   <div class="input-holder-203">
 
                     <p>
+
                       <i class="fas fa-lock"></i>
-                      Password
+
+                      {% translate "Password" %}
+
                     </p>
+
 
                     <div>
 
-                      <input type="password" name="password" placeholder="Enter password" required>
+                      <input
+                        type="password"
+                        name="password"
+                        placeholder="{% translate 'Enter password' %}"
+                        required>
 
                     </div>
 
@@ -221,13 +339,21 @@
                   <div class="input-holder-203">
 
                     <p>
+
                       <i class="fas fa-lock"></i>
-                      Confirm password
+
+                      {% translate "Confirm password" %}
+
                     </p>
+
 
                     <div>
 
-                      <input type="password" name="confirm_password" placeholder="Confirm password" required>
+                      <input
+                        type="password"
+                        name="confirm_password"
+                        placeholder="{% translate 'Confirm password' %}"
+                        required>
 
                     </div>
 
@@ -235,15 +361,23 @@
 
 
                   <!-- DECLARATION -->
+
                   <br>
+
                   <div class="form-check mt-3">
 
-                    <input class="form-check-input" type="checkbox" id="declaration" required>
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="declaration"
+                      required>
 
-                    <label class="form-check-label" for="declaration">
 
-                      I confirm that the information
-                      provided is correct.
+                    <label
+                      class="form-check-label"
+                      for="declaration">
+
+                      {% translate "I confirm that the information provided is correct." %}
 
                     </label>
 
@@ -253,37 +387,50 @@
                   <div class="input-holder-203 submit-203">
 
                     <div>
-                      <button type="submit" class="btn btn-success">
+
+                      <button
+                        type="submit"
+                        class="btn btn-success">
 
                         <i class="fas fa-check"></i>
 
-                        Create Seller Account
+                        {% translate "Create Seller Account" %}
 
                       </button>
+
                     </div>
 
                   </div>
 
+
                 </form>
+
 
               </div>
 
-
-
             </div>
+
+
             <!--
             <div class="next-holder-202">
-              <button type="button" onclick="window.location.href=`{% url 'seller_home' %}`">Yes I declared that,
-                proceed <i class="fas fa-arrow-right"></i></button>
-            </div> -->
+              <button type="button"
+                onclick="window.location.href=`{% url 'seller_home' %}`">
+                {% translate "Yes I declared that, proceed" %}
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+            -->
+
           </div>
 
         </div>
+
       </div>
 
     </div>
 
   </div>
+
 
   <script>
     window.addEventListener("load", function () {
@@ -291,43 +438,62 @@
       const loader = document.getElementById("page-loader");
 
       if (loader) {
+
         loader.classList.add("hidden");
 
         setTimeout(function () {
           loader.remove();
         }, 400);
+
       }
 
     });
   </script>
 
+
   <script>
     function open_menu(click) {
+
       let menu1 = document.getElementById('menu1');
       let menu2 = document.getElementById('menu2');
       let nav = document.getElementById('nav');
 
       if (click == 'open') {
+
         menu1.style.display = 'none';
         menu2.style.display = 'inline-block';
         nav.style.display = 'inline-block';
+
       }
+
       else {
+
         menu1.style.display = 'inline-block';
         menu2.style.display = 'none';
         nav.style.display = 'none';
+
       }
+
     }
   </script>
+
+
   <script>
     setTimeout(function () {
+
       document.querySelectorAll(".alert").forEach(function (alert) {
+
         alert.style.transition = "opacity 0.5s";
         alert.style.opacity = "0";
+
         setTimeout(() => alert.remove(), 2000);
+
       });
+
     }, 4000);
   </script>
+
+
 </body>
 
 </html>

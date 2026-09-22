@@ -160,3 +160,50 @@ class ProductReaction(models.Model):
                 name='unique_product_reaction_per_session'
             )
         ]
+
+
+
+# Location save
+class UserLocation(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name="location"
+    )
+
+    latitude = models.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        blank=True,
+        null=True
+    )
+
+    longitude = models.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        blank=True,
+        null=True
+    )
+
+    address = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    def __str__(self):
+        return f"{self.user.username} Location"
+
+    @property
+    def google_maps_url(self):
+        if self.latitude is not None and self.longitude is not None:
+            return (
+                f"https://www.google.com/maps?q="
+                f"{self.latitude},{self.longitude}"
+            )
+
+        return None

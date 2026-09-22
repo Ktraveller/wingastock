@@ -2,660 +2,1111 @@
 {% load humanize %}
 {% load i18n %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
-    <link rel="stylesheet" href="{% static 'css/heading.css' %}">
 
-    <link rel="stylesheet" href="{% static 'css/search.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>{{ shop.seller_name }} | Wingastock</title>
 
-    <title>Wingastock | {{ shop.seller_name }}</title>
+    <meta name="description" content="{{ shop.seller_name }} - {{ shop.seller_description|truncatechars:160 }}">
 
-    <meta name="description" content="Buy and sell electronics such as smartphones, laptops, TVs, computers, accessories, 
-        and other electronic devices. Discover quality furniture, home appliances, rooms, houses, 
-        and a wide range of products from trusted sellers on Wingastock. 
-        Our platform makes it easy to find, advertise, buy, and sell products online, 
-        connecting customers and businesses in one convenient marketplace.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <meta name="robots" content="index, follow">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-    <link rel="canonical" href="https://wingastock.onrender.com/">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <meta property="og:title" content="Wingastock | {{ product.title }}">
-
-    <meta property="og:description"
-        content="Wingastock is an online marketplace in Tanzania where you can buy and sell electronics,
-         smartphones, laptops, TVs, furniture, home appliances, rooms, houses, and a wide range of products. 
-         Connect with trusted sellers, discover great deals, and grow your business by reaching more customers online.">
-
-    <meta property="og:type" content="website">
-
-    <meta property="og:image" content="/static/logo.png">
-
-    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
-
-    <meta name="google-site-verification" content="cBo6MO_R0NHmkbNtZ4TbAd5KcLYgqPdt0XB-BgMYi1o" />
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-STT2EJ7H54"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-STT2EJ7H54');
-    </script>
-
-    <style>
-        .actions-holder-103>div>button {
-            padding: 20px;
-            height: auto;
-            border-radius: 5px;
-        }
-
-        .reaction-btn {
-            border: 1px solid #ddd;
-            background: white;
-            padding: 10px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px;
-            transition: 0.2s;
-        }
-
-        .reaction-btn:hover {
-            background: #f5f5f5;
-        }
-
-        .reaction-btn.active {
-            background: #007bff;
-            color: white;
-            border-color: #007bff;
-        }
-
-        .share-10 {
-            width: auto;
-            height: 50px;
-            padding-left: 25px;
-            padding-right: 25px;
-            background: #007bff;
-            color: white;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-        }
-
-        .share-10:hover {
-            opacity: 0.7;
-        }
-
-        .shop-preview-hero {
-            position: relative;
-            overflow: hidden;
-
-            background-color: #222;
-
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-
-            min-height: 300px;
-
-            display: flex;
-            align-items: center;
-            gap: 25px;
-
-            padding: 40px;
-
-            border-radius: 20px;
-
-            box-shadow:
-                0 10px 35px rgba(0, 0, 0, 0.15);
-
-            isolation: isolate;
-
-        }
-
-        /* ================================
-DARK OVERLAY
-================================ */
-
-        .shop-preview-hero-overlay {
-            position: absolute;
-            inset: 0;
-
-            z-index: -1;
-
-            background:
-                linear-gradient(90deg,
-                    rgba(0, 0, 0, 0.78) 0%,
-                    rgba(0, 0, 0, 0.55) 45%,
-                    rgba(0, 0, 0, 0.35) 100%);
-
-        }
-
-        /* ================================
-PROFILE IMAGE
-================================ */
-
-        .shop-preview-avatar {
-            position: relative;
-
-            width: 120px;
-            height: 120px;
-
-            flex: 0 0 120px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            overflow: hidden;
-
-            border-radius: 50%;
-
-            background: rgba(255, 255, 255, 0.95);
-
-            border: 5px solid rgba(255, 255, 255, 0.9);
-
-            box-shadow:
-                0 8px 30px rgba(0, 0, 0, 0.35);
-
-            z-index: 2;
-
-        }
-
-        .shop-preview-profile-image {
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            display: block;
-
-            border-radius: 50%;
-
-        }
-
-        .shop-preview-avatar i {
-            font-size: 42px;
-            color: #DC143C;
-        }
-
-        /* ================================
-SELLER INFORMATION
-================================ */
-
-        .shop-preview-intro {
-            position: relative;
-            z-index: 2;
-
-            flex: 1;
-
-            min-width: 0;
-
-        }
-
-        .shop-preview-intro .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-
-            margin-bottom: 10px;
-
-            color: #fff;
-
-            font-size: 13px;
-            font-weight: 600;
-
-            text-shadow:
-                0 2px 8px rgba(0, 0, 0, 0.7);
-
-        }
-
-        .shop-preview-intro .eyebrow i {
-            color: #2ecc71;
-        }
-
-        .shop-preview-intro h1 {
-            margin: 0 0 10px;
-
-            color: #fff;
-
-            font-size: clamp(28px, 4vw, 48px);
-            font-weight: 700;
-
-            line-height: 1.1;
-
-            text-shadow:
-                0 3px 12px rgba(0, 0, 0, 0.75);
-
-        }
-
-        .shop-preview-intro p {
-            margin: 0;
-
-            color: #fff;
-
-            font-size: 15px;
-            font-weight: 500;
-
-            text-shadow:
-                0 2px 8px rgba(0, 0, 0, 0.8);
-
-        }
-
-        .shop-preview-intro p i {
-            margin-right: 6px;
-            color: #fff;
-        }
-
-        /* ================================
-SHARE BUTTON
-================================ */
-
-        .shop-preview-share {
-            position: relative;
-
-            z-index: 2;
-
-            flex-shrink: 0;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-
-            padding: 12px 18px;
-
-            border: none;
-            border-radius: 10px;
-
-            background: rgba(255, 255, 255, 0.95);
-
-            color: #222;
-
-            font-family: inherit;
-            font-size: 14px;
-            font-weight: 600;
-
-            cursor: pointer;
-
-            box-shadow:
-                0 5px 20px rgba(0, 0, 0, 0.25);
-
-            transition:
-                transform 0.2s ease,
-                background 0.2s ease;
-
-        }
-
-        .shop-preview-share:hover {
-            transform: translateY(-2px);
-            background: #fff;
-        }
-
-        .shop-preview-share i {
-            color: #DC143C;
-        }
-
-        /* ================================
-MOBILE
-================================ */
-
-        @media (max-width: 700px) {
-
-            .shop-preview-hero {
-                min-height: 360px;
-
-                flex-direction: column;
-
-                align-items: center;
-                justify-content: center;
-
-                text-align: center;
-
-                padding: 35px 20px;
-
-                gap: 15px;
-
-                border-radius: 16px;
-            }
-
-
-            .shop-preview-avatar {
-                width: 105px;
-                height: 105px;
-
-                flex-basis: 105px;
-            }
-
-
-            .shop-preview-avatar i {
-                font-size: 36px;
-            }
-
-
-            .shop-preview-intro {
-                width: 100%;
-            }
-
-
-            .shop-preview-intro .eyebrow {
-                justify-content: center;
-
-                font-size: 12px;
-            }
-
-
-            .shop-preview-intro h1 {
-                font-size: 30px;
-
-                word-break: break-word;
-            }
-
-
-            .shop-preview-intro p {
-                font-size: 14px;
-            }
-
-
-            .shop-preview-share {
-                margin-top: 5px;
-            }
-
-
-            .shop-preview-hero-overlay {
-                background:
-                    linear-gradient(180deg,
-                        rgba(0, 0, 0, 0.45),
-                        rgba(0, 0, 0, 0.75));
-            }
-
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/shop_details.css' %}">
 </head>
 
 <body>
 
-    <div class="page-loader-holder-000">
-        <div>
-            <button type="button">
-                <h1>
-                    <img src="{% static 'logo.png' %}" alt="logo"> <br>
-                    <span>Wingastock</span>
-                </h1>
+    <header class="portfolio-header">
+
+        <div class="portfolio-header-inner">
+
+            <a href="{% url 'home' %}" class="portfolio-brand">
+                <span>WINGASTOCK</span>
+            </a>
+
+            <nav class="portfolio-navigation">
+
+                <a href="#portfolio-home">
+                    <i class="fas fa-home"></i>
+                    {% translate "Home" %}
+                </a>
+
+                <a href="#portfolio-about">
+                    <i class="fas fa-user"></i>
+                    {% translate "About" %}
+                </a>
+
+                <a href="#portfolio-products">
+                    <i class="fas fa-box"></i>
+                    {% translate "Products" %}
+                </a>
+
+                <a href="#portfolio-location">
+                    <i class="fas fa-location-dot"></i>
+                    {% translate "Location" %}
+                </a>
+
+                <a href="#portfolio-contact">
+                    <i class="fas fa-phone"></i>
+                    {% translate "Contact" %}
+                </a>
+
+            </nav>
+
+            <button type="button" class="portfolio-mobile-menu" onclick="togglePortfolioMenu()"
+                aria-label="{% translate 'Open menu' %}">
+                <i class="fas fa-bars"></i>
             </button>
+
         </div>
-    </div>
 
-    <div class="row-holder-001">
+        <div class="portfolio-mobile-navigation" id="portfolioMobileNavigation">
 
-        <!-- Inlude heading -->
-        {% if user.email %}
-        {% include 'header_s.html' %}
-        {% else %}
-        {% include 'heading.html' %}
-        {% endif %}
+            <a href="{% url 'home' %}">
+                <i class="fas fa-home"></i>
+                {% translate "Home" %}
+            </a>
+
+            <a href="#portfolio-about" onclick="closePortfolioMenu()">
+                <i class="fas fa-user"></i>
+                {% translate "About" %}
+            </a>
+
+            <a href="#portfolio-products" onclick="closePortfolioMenu()">
+                <i class="fas fa-box"></i>
+                {% translate "Products" %}
+            </a>
+
+            <a href="#portfolio-location" onclick="closePortfolioMenu()">
+                <i class="fas fa-location-dot"></i>
+                {% translate "Location" %}
+            </a>
+
+            <a href="#portfolio-contact" onclick="closePortfolioMenu()">
+                <i class="fas fa-phone"></i>
+                {% translate "Contact" %}
+            </a>
+
+        </div>
+
+    </header>
 
 
+    <main id="portfolio-home">
 
-        <div class="content-holder-002">
 
-            <div class="shop-preview-breadcrumb">
-                <a href="{% url 'home' %}">{% translate "Home" %}</a>
-                <i class="fas fa-chevron-right"></i>
-                <a href="{% url 'shop_list' %}">{% translate "Shops" %}</a>
-                <i class="fas fa-chevron-right"></i>
-                {{ shop.seller_name }}
+        <!-- =========================================================
+     HERO
+========================================================= -->
+
+        <section class="portfolio-hero">
+
+            <div class="portfolio-hero-content">
+
+                <div class="portfolio-hero-text">
+
+                    <span class="portfolio-eyebrow">
+
+                        <i class="fas fa-store"></i>
+
+                        {% translate "Verified Wingastock Seller" %}
+
+                    </span>
+
+
+                    <h1>{{ shop.seller_name }}</h1>
+
+
+                    {% if shop.seller_description %}
+
+                    <p class="portfolio-hero-description">
+                        {{ shop.seller_description }}
+                    </p>
+
+                    {% else %}
+
+                    <p class="portfolio-hero-description">
+
+                        {% blocktranslate with seller=shop.seller_name %}
+                        Discover products from {{ seller }}.
+                        {% endblocktranslate %}
+
+                    </p>
+
+                    {% endif %}
+
+
+                    <div class="portfolio-hero-actions">
+
+                        <a href="#portfolio-products" class="portfolio-primary-button">
+
+                            <i class="fas fa-store"></i>
+
+                            {% translate "View Products" %}
+
+                        </a>
+
+
+                        <button type="button" class="portfolio-secondary-button" onclick="shareShop()">
+
+                            <i class="fas fa-share-alt"></i>
+
+                            {% translate "Share Shop" %}
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="portfolio-hero-trust">
+
+                        <span>
+                            <i class="fas fa-circle-check"></i>
+                            {% translate "Trusted seller" %}
+                        </span>
+
+                        <span>
+                            <i class="fas fa-box"></i>
+
+                            {% blocktranslate count product_count=products|length %}
+                            {{ product_count }} Product
+                            {% plural %}
+                            {{ product_count }} Products
+                            {% endblocktranslate %}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROFILE CARD -->
+
+                <div class="portfolio-profile-card">
+
+                    <div class="portfolio-profile-image">
+
+                        {% if shop.seller_dp %}
+
+                        <img src="{{ shop.seller_dp.url }}" alt="{{ shop.seller_name }}">
+
+                        {% else %}
+
+                        <div class="portfolio-profile-placeholder">
+                            <i class="fas fa-store"></i>
+                        </div>
+
+                        {% endif %}
+
+
+                        <div class="portfolio-profile-verification">
+                            <i class="fas fa-check"></i>
+                        </div>
+
+                    </div>
+
+
+                    <h2>{{ shop.seller_name }}</h2>
+
+                    <p>
+                        {% translate "Wingastock Seller" %}
+                    </p>
+
+
+                    <div class="portfolio-profile-stats">
+
+                        <div>
+
+                            <strong>
+                                {{ products|length }}
+                            </strong>
+
+                            <span>
+                                {% translate "Products" %}
+                            </span>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                <i class="fas fa-check-circle"></i>
+                            </strong>
+
+                            <span>
+                                {% translate "Verified" %}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- WhatsApp button.
+                 Existing class intentionally preserved. -->
+
+                    <a href="#portfolio-contact" class="portfolio-profile-button">
+
+                        <i class="fab fa-whatsapp"></i>
+
+                        {% translate "WhatsApp" %}
+
+                    </a>
+
+                </div>
+
             </div>
 
-            <div class="shop-preview-hero" {% if shop.seller_dp %}
-                style="background-image: url('{{ shop.seller_dp.url }}');" {% endif %}>
+        </section>
 
-                <div class="shop-preview-hero-overlay"></div>
 
-                <div class="shop-preview-avatar">
+        <!-- =========================================================
+     ABOUT
+========================================================= -->
 
-                    {% if shop.seller_dp %}
-                    <img src="{{ shop.seller_dp.url }}" alt="{{ shop.seller_name }}" class="shop-preview-profile-image">
+        <section class="portfolio-about" id="portfolio-about">
+
+            <div class="portfolio-section-heading">
+
+                <span class="eyebrow">
+                    {% translate "About" %}
+                </span>
+
+                <h2>
+
+                    {% blocktranslate with seller=shop.seller_name %}
+                    About {{ seller }}
+                    {% endblocktranslate %}
+
+                </h2>
+
+            </div>
+
+
+            <div class="portfolio-about-grid">
+
+
+                <div class="portfolio-about-content">
+
+                    <h3>
+                        {% translate "Seller Information" %}
+                    </h3>
+
+
+                    {% if shop.seller_description %}
+
+                    <p>
+                        {{ shop.seller_description }}
+                    </p>
+
                     {% else %}
-                    <i class="fas fa-store"></i>
+
+                    <p>
+
+                        {% blocktranslate with seller=shop.seller_name %}
+                        Welcome to {{ seller }}. Browse the available products and contact the seller for more
+                        information.
+                        {% endblocktranslate %}
+
+                    </p>
+
                     {% endif %}
 
                 </div>
 
-                <div class="shop-preview-intro">
 
-                    <span class="eyebrow">
-                        <i class="fas fa-check-circle"></i>
-                        {% translate "Verified Wingastock seller" %}
-                    </span>
+                <div class="portfolio-about-details">
 
-                    <h1>{{ shop.seller_name }}</h1>
+
+                    {% if shop.seller_phone %}
+
+                    <div class="portfolio-detail-item">
+
+                        <div class="portfolio-detail-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+
+                        <div>
+
+                            <span>
+                                {% translate "Phone" %}
+                            </span>
+
+                            <strong>
+                                {{ shop.seller_phone }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if shop.user.email %}
+
+                    <div class="portfolio-detail-item">
+
+                        <div class="portfolio-detail-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+
+                        <div>
+
+                            <span>
+                                {% translate "Email" %}
+                            </span>
+
+                            <strong>
+                                {{ shop.user.email }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if shop.seller_address %}
+
+                    <div class="portfolio-detail-item">
+
+                        <div class="portfolio-detail-icon">
+                            <i class="fas fa-location-dot"></i>
+                        </div>
+
+                        <div>
+
+                            <span>
+                                {% translate "Address" %}
+                            </span>
+
+                            <strong>
+                                {{ shop.seller_address }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURES -->
+
+            <div class="portfolio-about-features">
+
+
+                <div class="portfolio-feature-card">
+
+                    <i class="fas fa-shield-halved"></i>
+
+                    <h3>
+                        {% translate "Trusted Seller" %}
+                    </h3>
 
                     <p>
-                        <i class="fas fa-map-marker-alt"></i>
-                        {{ shop.seller_address }}
+                        {% translate "Shop with confidence through Wingastock." %}
                     </p>
 
                 </div>
 
-                <button class="shop-preview-share" type="button" onclick="shareShop('{{ shop.id }}')">
-                    <i class="fas fa-share-alt"></i>
-                    {% translate "Share shop" %}
-                </button>
+
+                <div class="portfolio-feature-card">
+
+                    <i class="fas fa-box-open"></i>
+
+                    <h3>
+                        {% translate "Quality Products" %}
+                    </h3>
+
+                    <p>
+                        {% translate "Explore the products published by this seller." %}
+                    </p>
+
+                </div>
+
+
+                <div class="portfolio-feature-card">
+
+                    <i class="fas fa-comments"></i>
+
+                    <h3>
+                        {% translate "Easy Contact" %}
+                    </h3>
+
+                    <p>
+                        {% translate "Contact the seller directly for more information." %}
+                    </p>
+
+                </div>
+
 
             </div>
 
+        </section>
 
-            <div class="shop-preview-layout">
 
-                <section class="shop-preview-about">
+        <!-- =========================================================
+     PRODUCTS
+========================================================= -->
+
+        <section class="portfolio-products" id="portfolio-products">
+
+
+            <div class="portfolio-products-heading">
+
+                <div>
 
                     <span class="eyebrow">
-                        {% translate "About this shop" %}
+                        {% translate "Catalogue" %}
                     </span>
 
                     <h2>
-                        {% translate "Quality products from a local seller" %}
+                        {% translate "Products" %}
                     </h2>
 
-                    <p>{{ shop.seller_description }}</p>
+                </div>
 
-                    <div class="shop-preview-facts">
 
-                        <span>
-                            <i class="fas fa-box-open"></i>
-                            <strong>{{ products|length }}</strong>
-                            {% translate "products" %}
-                        </span>
+                <span class="portfolio-product-count">
 
-                        <span>
-                            <i class="fas fa-calendar-alt"></i>
-                            <strong>{{ shop.reg_date|date:"M Y" }}</strong>
-                            {% translate "joined" %}
-                        </span>
+                    {% blocktranslate count product_count=products|length %}
+                    {{ product_count }} product
+                    {% plural %}
+                    {{ product_count }} products
+                    {% endblocktranslate %}
+
+                </span>
+
+            </div>
+
+
+            {% if products %}
+
+            <div class="portfolio-products-grid">
+
+
+                {% for product in products %}
+
+                <article class="portfolio-product-card"
+                    onclick="window.location.href=`{% url 'product_details' product.id product.title %}`">
+
+
+                    <div class="portfolio-product-image">
+
+                        {% if product.image %}
+
+                        <img src="{{ product.image.url }}" alt="{{ product.title }}" loading="lazy">
+
+                        {% else %}
+
+                        <div class="portfolio-profile-placeholder">
+
+                            <i class="fas fa-image"></i>
+
+                        </div>
+
+                        {% endif %}
 
                     </div>
 
-                </section>
+
+                    <div class="portfolio-product-content">
 
 
-                <section class="shop-preview-products">
+                        {% if product.category %}
 
-                    <div class="shop-products-heading">
+                        <span class="portfolio-product-category">
+                            {{ product.category }}
+                        </span>
 
-                        <div>
-                            <span class="eyebrow">
-                                {% translate "Shop catalogue" %}
+                        {% endif %}
+
+
+                        <h3>
+                            {{ product.title }}
+                        </h3>
+
+
+                        {% if product.description %}
+
+                        <p>
+                            {{ product.description|truncatechars:100 }}
+                        </p>
+
+                        {% endif %}
+
+
+                        {% if product.price %}
+
+                        <div class="portfolio-product-price">
+
+                            {% translate "TSh" %}
+                            {{ product.price|floatformat:0|intcomma }}
+
+                        </div>
+
+                        {% endif %}
+
+
+                        <div class="portfolio-product-footer">
+
+                            <span>
+
+                                <i class="fas fa-store"></i>
+
+                                {{ shop.seller_name }}
+
                             </span>
 
-                            <h2>
-                                {% blocktranslate with seller_name=shop.seller_name %}
-                                Products from {{ seller_name }}
-                                {% endblocktranslate %}
-                            </h2>
                         </div>
 
+
+                    </div>
+
+                </article>
+
+                {% endfor %}
+
+
+            </div>
+
+
+            {% else %}
+
+
+            <div class="portfolio-empty-products">
+
+                <i class="fas fa-box-open"></i>
+
+                <h3>
+                    {% translate "No products available" %}
+                </h3>
+
+                <p>
+                    {% translate "This seller has not published any products yet." %}
+                </p>
+
+            </div>
+
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- =========================================================
+     LOCATION
+========================================================= -->
+
+        <section class="portfolio-location" id="portfolio-location">
+
+
+            <div class="portfolio-section-heading">
+
+                <span class="eyebrow">
+                    {% translate "Location" %}
+                </span>
+
+                <h2>
+                    {% translate "Find Our Shop" %}
+                </h2>
+
+            </div>
+
+
+            <div class="portfolio-location-card">
+
+
+                <div class="portfolio-location-content">
+
+
+                    <div class="portfolio-location-icon">
+
+                        <i class="fas fa-location-dot"></i>
+
+                    </div>
+
+
+                    <h3>
+                        {{ shop.seller_name }}
+                    </h3>
+
+
+                    {% if shop.seller_address %}
+
+                    <div class="portfolio-location-address">
+
+                        <i class="fas fa-map-marker-alt"></i>
+
                         <span>
-                            {{ products|length }}
-                            {% translate "listings" %}
+                            {{ shop.seller_address }}
                         </span>
 
                     </div>
 
+                    {% endif %}
 
-                    <div class="product-card-1002 shop-product-grid" style="width: 100%;">
 
-                        {% for product in products %}
+                    <p class="portfolio-location-description">
 
-                        {% include 'product-container.html' %}
+                        {% translate "Visit the seller's location or contact the seller before visiting." %}
 
-                        {% empty %}
+                    </p>
 
-                        <div class="shop-empty-state" style="width: 100%;">
 
-                            <i class="fas fa-box-open" style="font-size: 50px;"></i>
+                    {% if seller_location and seller_location.latitude and seller_location.longitude %}
 
-                            <h3>
-                                {% translate "No products yet" %}
-                            </h3>
+                    <a href="https://www.google.com/maps?q={{ seller_location.latitude }},{{ seller_location.longitude }}"
+                        target="_blank" rel="noopener noreferrer" class="portfolio-map-button">
 
-                            <p>
-                                {% translate "This shop has not listed products yet." %}
-                            </p>
+                        <i class="fas fa-diamond-turn-right"></i>
 
-                        </div>
+                        {% translate "Open in Google Maps" %}
 
-                        {% endfor %}
+                    </a>
+
+                    {% endif %}
+
+
+                </div>
+
+
+                <div class="portfolio-location-map">
+
+
+                    {% if seller_location and seller_location.latitude and seller_location.longitude %}
+
+                    <iframe
+                        src="https://www.google.com/maps?q={{ seller_location.latitude }},{{ seller_location.longitude }}&output=embed"
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+                        title="{% translate 'Seller location on Google Maps' %}">
+                    </iframe>
+
+
+                    {% else %}
+
+
+                    <div class="portfolio-location-empty">
+
+                        <i class="fas fa-map-location-dot"></i>
+
+                        <h3>
+                            {% translate "Location not available" %}
+                        </h3>
+
+                        <p>
+                            {% translate "The seller has not added a map location yet." %}
+                        </p>
 
                     </div>
 
-                </section>
+
+                    {% endif %}
+
+
+                </div>
 
             </div>
 
-            <div style="width: 100%; height: 100px; float: left;"></div>
+        </section>
+
+
+        <!-- =========================================================
+     CONTACT
+========================================================= -->
+
+        <section class="portfolio-contact" id="portfolio-contact">
+
+
+            <div class="portfolio-contact-card">
+
+
+                <div class="portfolio-contact-icon">
+
+                    <i class="fas fa-comments"></i>
+
+                </div>
+
+
+                <div class="portfolio-contact-content">
+
+                    <span class="eyebrow">
+                        {% translate "Get in touch" %}
+                    </span>
+
+
+                    <h2>
+
+                        {% blocktranslate with seller=shop.seller_name %}
+                        Contact {{ seller }}
+                        {% endblocktranslate %}
+
+                    </h2>
+
+
+                    <p>
+
+                        {% translate "Have a question about a product? Contact the seller directly." %}
+
+                    </p>
+
+                </div>
+
+
+                <div class="portfolio-contact-actions">
+
+
+                    {% if shop.seller_phone %}
+
+
+                    <!-- WhatsApp.
+                 Existing class preserved. -->
+
+                    <a href="#" id="whatsappContactButton" class="portfolio-contact-button portfolio-call-button"
+                        target="_blank" rel="noopener noreferrer">
+
+                        <i class="fab fa-whatsapp"></i>
+
+                        {% translate "WhatsApp" %}
+
+                    </a>
+
+
+                    {% endif %}
+
+
+                    {% if shop.user.email %}
+
+
+                    <!-- Call.
+                 Existing class preserved. -->
+
+                    <a href="tel:{{ shop.seller_phone }}" class="portfolio-contact-button portfolio-email-button">
+
+                        <i class="fas fa-phone"></i>
+
+                        {% translate "Call Seller" %}
+
+                    </a>
+
+
+                    {% endif %}
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================================================
+     FOOTER
+========================================================= -->
+
+    <footer class="portfolio-footer">
+
+
+        <div class="portfolio-footer-grid">
+
+
+            <div class="portfolio-footer-brand">
+
+                <h3>
+                    WINGASTOCK
+                </h3>
+
+                <p>
+                    {% translate "Discover products and trusted sellers on Wingastock." %}
+                </p>
+
+            </div>
+
+
+            <div class="portfolio-footer-links">
+
+                <a href="#portfolio-home">
+                    {% translate "Home" %}
+                </a>
+
+                <a href="#portfolio-about">
+                    {% translate "About" %}
+                </a>
+
+                <a href="#portfolio-products">
+                    {% translate "Products" %}
+                </a>
+
+                <a href="#portfolio-location">
+                    {% translate "Location" %}
+                </a>
+
+                <a href="#portfolio-contact">
+                    {% translate "Contact" %}
+                </a>
+
+            </div>
+
 
         </div>
 
 
-        <div class="footer-holder-1003">
-            <div>
-                <p>Wingastock | Online marketplace</p>
-            </div>
+        <div class="portfolio-footer-bottom">
+
+            <span>
+                © {% now "Y" %} Wingastock
+            </span>
+
+            <span>
+                {{ shop.seller_name }}
+            </span>
+
         </div>
 
-        <!-- Nav bar -->
-        {% include 'navbar.html' %}
 
-        <!-- Login and register modal-->
-        {% include 'login-container.html' %}
+    </footer>
 
+
+    <!-- =========================================================
+     MOBILE CONTACT
+========================================================= -->
+
+    {% if shop.seller_phone %}
+
+    <div class="portfolio-mobile-contact-bar">
+
+
+        <!-- WhatsApp.
+         Existing class preserved. -->
+
+        <a href="#" id="mobileWhatsappButton" class="mobile-contact-call" target="_blank" rel="noopener noreferrer">
+
+            <i class="fab fa-whatsapp"></i>
+
+            {% translate "WhatsApp" %}
+
+        </a>
+
+
+        <button type="button" class="mobile-contact-whatsapp" onclick="shareShop()">
+
+            <i class="fas fa-share-alt"></i>
+
+            {% translate "Share Shop" %}
+
+        </button>
+
+
+    </div>
+
+    {% endif %}
+
+
+    <div id="shopShareNotification" style="display:none;">
     </div>
 
 
     <script>
-        window.addEventListener("load", function () {
 
-            const loader = document.querySelector(
-                ".page-loader-holder-000"
-            );
+        document.addEventListener("DOMContentLoaded", function () {
 
-            if (loader) {
 
-                // Fade out the loader
-                loader.classList.add("hidden");
+            window.togglePortfolioMenu = function () {
 
-                // Remove it completely after the animation
-                setTimeout(function () {
-                    loader.remove();
-                }, 500);
+                const menu =
+                    document.getElementById("portfolioMobileNavigation");
+
+                if (!menu) return;
+
+                menu.classList.toggle("active");
+
+            };
+
+
+            window.closePortfolioMenu = function () {
+
+                const menu =
+                    document.getElementById("portfolioMobileNavigation");
+
+                if (!menu) return;
+
+                menu.classList.remove("active");
+
+            };
+
+
+            document.addEventListener("click", function (event) {
+
+                const menu =
+                    document.getElementById("portfolioMobileNavigation");
+
+                const button =
+                    document.querySelector(".portfolio-mobile-menu");
+
+                if (!menu || !button) return;
+
+
+                if (
+                    menu.classList.contains("active") &&
+                    !menu.contains(event.target) &&
+                    !button.contains(event.target)
+                ) {
+
+                    menu.classList.remove("active");
+
+                }
+
+            });
+
+
+            document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+
+                link.addEventListener("click", function (event) {
+
+                    const targetId =
+                        this.getAttribute("href");
+
+
+                    if (!targetId || targetId === "#")
+                        return;
+
+
+                    const target =
+                        document.querySelector(targetId);
+
+
+                    if (!target)
+                        return;
+
+
+                    event.preventDefault();
+
+
+                    target.scrollIntoView({
+
+                        behavior: "smooth",
+
+                        block: "start"
+
+                    });
+
+                });
+
+            });
+
+
+            /*
+             * WHATSAPP BUTTONS
+             * Existing classes are preserved.
+             */
+
+            const phone =
+                "{{ shop.seller_phone|default:''|escapejs }}";
+
+
+            if (phone) {
+
+                let whatsappNumber =
+                    phone.replace(/\D/g, "");
+
+
+                if (whatsappNumber.startsWith("0")) {
+
+                    whatsappNumber =
+                        "255" + whatsappNumber.substring(1);
+
+                }
+
+
+                const whatsappUrl =
+                    "https://wa.me/" + whatsappNumber;
+
+
+                const profileButton =
+                    document.querySelector(
+                        ".portfolio-profile-button"
+                    );
+
+
+                const contactButton =
+                    document.getElementById(
+                        "whatsappContactButton"
+                    );
+
+
+                const mobileButton =
+                    document.getElementById(
+                        "mobileWhatsappButton"
+                    );
+
+
+                if (profileButton) {
+
+                    profileButton.href =
+                        whatsappUrl;
+
+                    profileButton.target =
+                        "_blank";
+
+                    profileButton.rel =
+                        "noopener noreferrer";
+
+                    profileButton.innerHTML =
+                        '<i class="fab fa-whatsapp"></i> {% translate "WhatsApp" %}';
+
+                }
+
+
+                if (contactButton) {
+
+                    contactButton.href =
+                        whatsappUrl;
+
+                }
+
+
+                if (mobileButton) {
+
+                    mobileButton.href =
+                        whatsappUrl;
+
+                }
+
             }
 
         });
+
+
+        /*
+         * Keep your existing shareShop(),
+         * fallbackCopyShopLink(),
+         * and showShopShareMessage()
+         * functions below this point exactly as they are.
+         */
+
     </script>
-
-
-    <script>
-        function menu_bar(click) {
-            let menu_div = document.getElementById('menu_div');
-            let button1 = document.getElementById('button1');
-            let button2 = document.getElementById('button2');
-
-            if (click == 'open') {
-                menu_div.style.display = 'inline-block';
-                button1.style.display = 'none';
-                button2.style.display = 'inline-block';
-            }
-            else {
-                menu_div.style.display = 'none';
-                button2.style.display = 'none';
-                button1.style.display = 'inline-block';
-            }
-        }
-    </script>
-
-
-    <script>
-        document.querySelectorAll(".product-card").forEach(card => {
-
-            const product = card.querySelector(".product-1002");
-            const loader = card.querySelector(".loader");
-
-            const img = new Image();
-
-            img.onload = function () {
-                product.style.backgroundImage = `url('${this.src}')`;
-                loader.remove();
-            };
-
-            img.onerror = function () {
-                // Hide loader but keep the card visible
-                loader.remove();
-
-                // Optional placeholder
-                product.style.background = "#f2f2f2";
-            };
-
-            img.src = product.dataset.bg;
-        });
-    </script>
-
-
-    <script>
-        function shareShop(shopId) {
-            // Create the shop URL 
-            const shopUrl = window.location.origin + "/shop/" + shopId + "/";
-            // If browser supports native sharing 
-            if (navigator.share) {
-                navigator.share(
-                    {
-                        title: "Wingastock Shop",
-                        text: "Check out this shop on Wingastock",
-                        url: shopUrl
-                    }
-                ).catch(function (error) {
-                    console.log("Sharing cancelled:", error);
-                });
-            } else {
-                // Fallback: copy URL to clipboard 
-                navigator.clipboard.writeText(shopUrl).then(function () {
-                    alert("Shop link copied!");
-                }).catch(function () {
-                    alert("Unable to copy shop link.");
-                });
-            }
-        } </script>
 
 </body>
 

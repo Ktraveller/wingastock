@@ -1,0 +1,310 @@
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Wingastock | {% translate "Search History" %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/home.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/account.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/search-history.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="search-history-page">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="search-history-header">
+
+        <button
+            type="button"
+            class="search-history-back-button"
+            onclick="history.back()"
+            aria-label="{% translate 'Go back' %}"
+        >
+            <i class="fas fa-arrow-left"></i>
+        </button>
+
+
+        <div class="search-history-heading">
+
+            <h1>
+                {% translate "Search History" %}
+            </h1>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="search-history-clear-button"
+            id="clearHistoryButton"
+            aria-label="{% translate 'Clear search history' %}"
+        >
+            <i class="fas fa-trash-alt"></i>
+        </button>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         SEARCH BAR
+    ====================================================== -->
+
+    <section class="search-history-search">
+
+        <div class="search-history-search-box">
+
+            <i class="fas fa-search"></i>
+
+            <input
+                type="search"
+                id="historySearchInput"
+                placeholder="{% translate 'Search your history...' %}"
+                autocomplete="off"
+            >
+
+            <button
+                type="button"
+                id="clearSearchButton"
+                aria-label="{% translate 'Clear search' %}"
+            >
+                <i class="fas fa-times"></i>
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         QUICK INFO
+    ====================================================== -->
+
+    <section class="search-history-info">
+
+        <div class="search-history-info-icon">
+
+            <i class="fas fa-history"></i>
+
+        </div>
+
+
+        <div>
+
+            <strong>
+                {% translate "Recent searches" %}
+            </strong>
+
+            <p>
+                {% translate "Quickly find products you've searched for before." %}
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CONTENT
+    ====================================================== -->
+
+    <main class="search-history-content">
+
+
+        <!-- =================================================
+             HISTORY LIST
+        ================================================== -->
+
+        <section
+            class="history-list"
+            id="historyList"
+        >
+
+            <!-- JavaScript will create history items here -->
+
+        </section>
+
+
+
+        <!-- =================================================
+             EMPTY STATE
+        ================================================== -->
+
+        <section
+            class="history-empty"
+            id="historyEmpty"
+            style="display:none;"
+        >
+
+            <div class="history-empty-icon">
+
+                <i class="fas fa-history"></i>
+
+            </div>
+
+
+            <h2>
+                {% translate "No search history" %}
+            </h2>
+
+
+            <p>
+                {% translate "Searches you make will appear here." %}
+            </p>
+
+
+            <button
+                type="button"
+                class="history-browse-button"
+                onclick="window.location.href='{% url 'search' %}'"
+            >
+
+                <i class="fas fa-search"></i>
+
+                {% translate "Start Searching" %}
+
+            </button>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         MOBILE BOTTOM NAVIGATION
+    ====================================================== -->
+
+    <nav class="mobile-bottom-nav">
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'products' %}'"
+        >
+
+            <i class="fas fa-shopping-bag"></i>
+
+            <span>
+                {% translate "Products" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'favorities' %}'"
+        >
+
+            <i class="far fa-heart"></i>
+
+            <span>
+                {% translate "Favorites" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'shop_list' %}'"
+        >
+
+            <i class="fas fa-store-alt"></i>
+
+            <span>
+                {% translate "Shops" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="active"
+            onclick="window.location.href='{% url 'customer_account' %}'"
+        >
+
+            <i class="far fa-user"></i>
+
+            <span>
+                {% translate "Account" %}
+            </span>
+
+        </button>
+
+
+    </nav>
+
+</div>
+
+
+
+<!-- =====================================================
+     DJANGO URLS FOR EXTERNAL JS
+====================================================== -->
+
+<script>
+
+    /*
+     * These are Django URLs.
+     * The actual history is handled completely by JS.
+     */
+
+    window.WINGASTOCK_SEARCH_URL =
+        "{% url 'search' %}";
+
+</script>
+
+
+<!-- =====================================================
+     EXTERNAL JAVASCRIPT
+====================================================== -->
+
+<script src="{% static 'js/search-history.js' %}"></script>
+
+
+</body>
+
+</html>

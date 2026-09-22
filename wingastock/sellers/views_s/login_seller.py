@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
-from sellers.models import Seller
+from sellers.models import Seller, UserLocation
 import random
 import cloudinary.uploader
 import string
@@ -645,20 +645,27 @@ def seller_account(request):
 
 
 
-
 # Seller update informations
 @login_required(login_url="login_seller")
 def update_seller_information(request):
 
-    # User must have a Seller profile
+    # ==========================================
+    # USER MUST HAVE SELLER PROFILE
+    # ==========================================
+
     if not hasattr(request.user, "seller"):
-        return redirect("login_seller")
+
+        return redirect(
+            "login_seller"
+        )
+
 
     # ==========================================
     # GET CURRENT SELLER
     # ==========================================
 
     try:
+
         seller = request.user.seller
 
     except Seller.DoesNotExist:
@@ -668,7 +675,24 @@ def update_seller_information(request):
             'Seller information was not found.'
         )
 
-        return redirect('seller_home')
+        return redirect(
+            'seller_home'
+        )
+
+
+    # ==========================================
+    # GET REQUEST
+    # ==========================================
+
+    if request.method == 'GET':
+
+        return render(
+            request,
+            'update_seller.html',
+            {
+                'seller': seller,
+            }
+        )
 
 
     # ==========================================
@@ -678,7 +702,7 @@ def update_seller_information(request):
     if request.method == 'POST':
 
         # ==========================================
-        # GET SUBMITTED VALUES
+        # GET SUBMITTED SELLER VALUES
         # ==========================================
 
         seller_name = request.POST.get(
@@ -701,6 +725,11 @@ def update_seller_information(request):
             ''
         ).strip()
 
+
+        # ==========================================
+        # PASSWORD VALUES
+        # ==========================================
+
         current_password = request.POST.get(
             'current_password',
             ''
@@ -718,6 +747,21 @@ def update_seller_information(request):
 
 
         # ==========================================
+        # LOCATION VALUES
+        # ==========================================
+
+        latitude = request.POST.get(
+            'latitude',
+            ''
+        ).strip()
+
+        longitude = request.POST.get(
+            'longitude',
+            ''
+        ).strip()
+
+
+        # ==========================================
         # PROFILE PICTURE
         # ==========================================
 
@@ -726,14 +770,17 @@ def update_seller_information(request):
         )
 
 
+        # ==========================================
+        # ERRORS
+        # ==========================================
+
         errors = []
 
 
         # ==========================================
-        # VALIDATE SELLER INFORMATION
+        # VALIDATE SELLER NAME
         # ==========================================
 
-        # Seller name
         if seller_name:
 
             if len(seller_name) < 2:
@@ -743,7 +790,10 @@ def update_seller_information(request):
                 )
 
 
-        # Phone
+        # ==========================================
+        # VALIDATE PHONE
+        # ==========================================
+
         if seller_phone:
 
             if not re.match(
@@ -757,7 +807,10 @@ def update_seller_information(request):
                 )
 
 
-        # Address
+        # ==========================================
+        # VALIDATE ADDRESS
+        # ==========================================
+
         if seller_address:
 
             if len(seller_address) < 3:
@@ -767,7 +820,10 @@ def update_seller_information(request):
                 )
 
 
-        # Description
+        # ==========================================
+        # VALIDATE DESCRIPTION
+        # ==========================================
+
         if seller_description:
 
             if len(seller_description) < 10:
@@ -778,18 +834,78 @@ def update_seller_information(request):
 
 
         # ==========================================
+        # VALIDATE LOCATION
+        # ==========================================
+
+        latitude_value = None
+        longitude_value = None
+
+        if latitude or longitude:
+
+            # Both are required
+            if not latitude or not longitude:
+
+                errors.append(
+                    'Both latitude and longitude are required.'
+                )
+
+            else:
+
+                try:
+
+                    latitude_value = float(
+                        latitude
+                    )
+
+                    longitude_value = float(
+                        longitude
+                    )
+
+
+                    # Latitude must be between -90 and 90
+                    if not (
+                        -90 <= latitude_value <= 90
+                    ):
+
+                        errors.append(
+                            'Invalid latitude value.'
+                        )
+
+
+                    # Longitude must be between -180 and 180
+                    if not (
+                        -180 <= longitude_value <= 180
+                    ):
+
+                        errors.append(
+                            'Invalid longitude value.'
+                        )
+
+
+                except (
+                    ValueError,
+                    TypeError
+                ):
+
+                    errors.append(
+                        'Invalid location coordinates.'
+                    )
+
+
+        # ==========================================
         # VALIDATE PROFILE PICTURE
         # ==========================================
 
         if seller_dp:
 
-            # Check file type
             allowed_types = [
                 'image/jpeg',
                 'image/png',
                 'image/webp'
             ]
 
+
+            # Check file type
             if seller_dp.content_type not in allowed_types:
 
                 errors.append(
@@ -819,6 +935,7 @@ def update_seller_information(request):
                 pk=seller.pk
             ).exists()
 
+
             if phone_exists:
 
                 errors.append(
@@ -836,6 +953,7 @@ def update_seller_information(request):
             or confirm_password
         ):
 
+            # Current password
             if not current_password:
 
                 errors.append(
@@ -843,6 +961,7 @@ def update_seller_information(request):
                 )
 
 
+            # New password
             if not new_password:
 
                 errors.append(
@@ -850,6 +969,7 @@ def update_seller_information(request):
                 )
 
 
+            # Confirm password
             if not confirm_password:
 
                 errors.append(
@@ -857,7 +977,10 @@ def update_seller_information(request):
                 )
 
 
-            # Check current password
+            # ======================================
+            # CHECK CURRENT PASSWORD
+            # ======================================
+
             if current_password:
 
                 if not check_password(
@@ -870,17 +993,27 @@ def update_seller_information(request):
                     )
 
 
-            # Check new password confirmation
-            if new_password and confirm_password:
+            # ======================================
+            # CHECK PASSWORD CONFIRMATION
+            # ======================================
+
+            if (
+                new_password
+                and confirm_password
+            ):
 
                 if new_password != confirm_password:
 
                     errors.append(
-                        'New password and confirmation password do not match.'
+                        'New password and confirmation password '
+                        'do not match.'
                     )
 
 
-            # Password length
+            # ======================================
+            # PASSWORD LENGTH
+            # ======================================
+
             if new_password:
 
                 if len(new_password) < 8:
@@ -890,8 +1023,14 @@ def update_seller_information(request):
                     )
 
 
-            # Prevent using same password
-            if current_password and new_password:
+            # ======================================
+            # PREVENT SAME PASSWORD
+            # ======================================
+
+            if (
+                current_password
+                and new_password
+            ):
 
                 if check_password(
                     new_password,
@@ -899,7 +1038,8 @@ def update_seller_information(request):
                 ):
 
                     errors.append(
-                        'Your new password must be different from your current password.'
+                        'Your new password must be different '
+                        'from your current password.'
                     )
 
 
@@ -915,6 +1055,7 @@ def update_seller_information(request):
                     request,
                     error
                 )
+
 
             return render(
                 request,
@@ -994,16 +1135,20 @@ def update_seller_information(request):
 
                 old_public_id = None
 
+
                 if seller_dp:
 
-                    # Save old Cloudinary public_id
+                    # Get old Cloudinary public ID
                     if seller.seller_dp:
 
                         try:
+
                             old_public_id = (
                                 seller.seller_dp.public_id
                             )
+
                         except Exception:
+
                             old_public_id = None
 
 
@@ -1016,7 +1161,7 @@ def update_seller_information(request):
 
 
                 # ==================================
-                # SAVE SELLER INFORMATION
+                # SAVE SELLER
                 # ==================================
 
                 if update_fields:
@@ -1030,7 +1175,10 @@ def update_seller_information(request):
                 # DELETE OLD PROFILE PICTURE
                 # ==================================
 
-                if seller_dp and old_public_id:
+                if (
+                    seller_dp
+                    and old_public_id
+                ):
 
                     try:
 
@@ -1048,10 +1196,39 @@ def update_seller_information(request):
 
 
                 # ==================================
+                # UPDATE LOCATION
+                # ==================================
+
+                location_changed = False
+
+
+                if (
+                    latitude
+                    and longitude
+                    and latitude_value is not None
+                    and longitude_value is not None
+                ):
+
+                    UserLocation.objects.update_or_create(
+
+                        user=request.user,
+
+                        defaults={
+                            'latitude': latitude_value,
+                            'longitude': longitude_value,
+                        }
+                    )
+
+
+                    location_changed = True
+
+
+                # ==================================
                 # UPDATE PASSWORD
                 # ==================================
 
                 password_changed = False
+
 
                 if new_password:
 
@@ -1059,11 +1236,13 @@ def update_seller_information(request):
                         new_password
                     )
 
+
                     request.user.save(
                         update_fields=[
                             'password'
                         ]
                     )
+
 
                     password_changed = True
 
@@ -1082,6 +1261,43 @@ def update_seller_information(request):
                 if (
                     update_fields
                     and password_changed
+                    and location_changed
+                ):
+
+                    messages.success(
+                        request,
+                        'Your seller information, location '
+                        'and password have been updated successfully.'
+                    )
+
+
+                elif (
+                    update_fields
+                    and location_changed
+                ):
+
+                    messages.success(
+                        request,
+                        'Your seller information and location '
+                        'have been updated successfully.'
+                    )
+
+
+                elif (
+                    password_changed
+                    and location_changed
+                ):
+
+                    messages.success(
+                        request,
+                        'Your location and password '
+                        'have been updated successfully.'
+                    )
+
+
+                elif (
+                    update_fields
+                    and password_changed
                 ):
 
                     messages.success(
@@ -1090,19 +1306,33 @@ def update_seller_information(request):
                         'have been updated successfully.'
                     )
 
+
                 elif update_fields:
 
                     messages.success(
                         request,
-                        'Your seller information has been updated successfully.'
+                        'Your seller information has been '
+                        'updated successfully.'
                     )
+
 
                 elif password_changed:
 
                     messages.success(
                         request,
-                        'Your password has been updated successfully.'
+                        'Your password has been '
+                        'updated successfully.'
                     )
+
+
+                elif location_changed:
+
+                    messages.success(
+                        request,
+                        'Your location has been '
+                        'updated successfully.'
+                    )
+
 
                 else:
 
@@ -1112,10 +1342,18 @@ def update_seller_information(request):
                     )
 
 
+            # ======================================
+            # SUCCESS REDIRECT
+            # ======================================
+
             return redirect(
                 'seller_account'
             )
 
+
+        # ==========================================
+        # ERROR DURING UPDATE
+        # ==========================================
 
         except Exception as e:
 
@@ -1123,11 +1361,13 @@ def update_seller_information(request):
                 f"Seller update error: {e}"
             )
 
+
             messages.error(
                 request,
                 'Something went wrong while updating your '
                 'seller information. Please try again.'
             )
+
 
             return render(
                 request,
@@ -1139,7 +1379,7 @@ def update_seller_information(request):
 
 
     # ==========================================
-    # GET REQUEST
+    # FALLBACK RESPONSE
     # ==========================================
 
     return render(
@@ -1149,7 +1389,6 @@ def update_seller_information(request):
             'seller': seller,
         }
     )
-
 
 
 

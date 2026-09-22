@@ -1,0 +1,305 @@
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% translate "Wingastock | Notifications" %}
+    </title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Existing CSS -->
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/account.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search-history.css' %}">
+
+</head>
+
+<body>
+
+    <div class="search-history-page">
+
+        <!-- HEADER -->
+
+        <header class="search-history-header">
+
+            <!-- Back -->
+            <button
+                type="button"
+                class="search-history-back-button"
+                onclick="history.back()"
+                aria-label="{% translate 'Go back' %}"
+            >
+                <i class="fas fa-arrow-left"></i>
+            </button>
+
+            <!-- Heading -->
+            <div class="search-history-heading">
+
+                <h1>
+                    {% translate "Notifications" %}
+                </h1>
+
+            </div>
+
+            <!-- Clear -->
+            <button
+                type="button"
+                class="search-history-clear-button"
+                id="clearHistoryButton"
+                aria-label="{% translate 'Clear notifications' %}"
+            >
+                <i class="fas fa-trash-alt"></i>
+            </button>
+
+        </header>
+
+
+        <!-- SEARCH NOTIFICATIONS -->
+
+        <section class="search-history-search">
+
+            <div class="search-history-search-box">
+
+                <i class="fas fa-bell"></i>
+
+                <input
+                    type="search"
+                    id="historySearchInput"
+                    placeholder="{% translate 'Search notifications...' %}"
+                    autocomplete="off"
+                >
+
+                <button
+                    type="button"
+                    id="clearSearchButton"
+                    aria-label="{% translate 'Clear search' %}"
+                >
+                    <i class="fas fa-times"></i>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- INFORMATION -->
+
+        <section class="search-history-info">
+
+            <div class="search-history-info-icon">
+
+                <i class="fas fa-bell"></i>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    {% translate "Recent notifications" %}
+                </strong>
+
+                <p>
+                    {% translate "Stay updated with the latest activity on Wingastock." %}
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- NOTIFICATIONS CONTENT -->
+
+        <main class="search-history-content">
+
+            <!-- NOTIFICATION LIST -->
+
+            <section class="history-list" id="historyList">
+
+                {% for mail in mails %}
+
+                <div
+                    class="history-item"
+                    data-search="{{ mail.message|lower }} {{ mail.sender_id|lower }}"
+                >
+
+                    <!-- Notification Icon -->
+                    <div class="history-item-icon">
+
+                        <i class="fas fa-bell"></i>
+
+                    </div>
+
+
+                    <!-- Notification Content -->
+                    <div class="history-item-content">
+
+                        <strong>
+                            {% translate "Notification" %}
+                        </strong>
+
+                        <span>
+                            {{ mail.message }}
+                        </span>
+
+                        <small>
+
+                            {% translate "From:" %}
+                            {{ mail.sender_id }}
+
+                            ·
+
+                            {{ mail.sent_at|date:"d M Y · H:i" }}
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- View -->
+                    <button
+                        type="button"
+                        class="history-search-again"
+                        aria-label="{% translate 'View notification' %}"
+                    >
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+
+
+                    <!-- Remove -->
+                    <button
+                        type="button"
+                        class="history-delete"
+                        aria-label="{% translate 'Remove notification' %}"
+                    >
+                        <i class="fas fa-times"></i>
+                    </button>
+
+                </div>
+
+                {% empty %}
+
+                <div style="padding: 20px;">
+
+                    <!-- Bell -->
+                    <div class="history-empty-icon">
+
+                        <i class="far fa-bell"></i>
+
+                    </div>
+
+
+                    <!-- Title -->
+                    <h2 style="font-size: 12px;">
+                        {% translate "No notifications" %}
+                    </h2>
+
+
+                    <!-- Message -->
+                    <p style="font-size: 10px;">
+                        {% translate "You're all caught up. New notifications will appear here." %}
+                    </p>
+
+
+                    <!-- Continue -->
+                    <button
+                        type="button"
+                        class="history-browse-button"
+                        style="font-size: 12px;"
+                        id="browseButton"
+                        onclick="window.location.href='{% url 'home' %}'"
+                    >
+
+                        <i class="fas fa-store"></i>
+
+                        {% translate "Continue Shopping" %}
+
+                    </button>
+
+                </div>
+
+                {% endfor %}
+
+            </section>
+
+        </main>
+
+
+        <!-- MOBILE BOTTOM NAVIGATION -->
+
+        <nav class="mobile-bottom-nav">
+
+            <button
+                type="button"
+                onclick="window.location.href='{% url 'products' %}'"
+            >
+
+                <i class="fas fa-shopping-bag"></i>
+
+                <span>
+                    {% translate "Products" %}
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                onclick="window.location.href='{% url 'favorities' %}'"
+            >
+
+                <i class="far fa-heart"></i>
+
+                <span>
+                    {% translate "Favorites" %}
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                onclick="window.location.href='{% url 'shop_list' %}'"
+            >
+
+                <i class="fas fa-store-alt"></i>
+
+                <span>
+                    {% translate "Shops" %}
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="active"
+                onclick="window.location.href='{% url 'customer_account' %}'"
+            >
+
+                <i class="far fa-user"></i>
+
+                <span>
+                    {% translate "Account" %}
+                </span>
+
+            </button>
+
+        </nav>
+
+    </div>
+
+</body>
+
+</html>

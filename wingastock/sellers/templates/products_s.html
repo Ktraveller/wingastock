@@ -1,17 +1,36 @@
 {% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wingastock | Products</title>
-    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'seller_css/sellers_style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% translate "Products" %}
+    </title>
+
+    <link rel="shortcut icon"
+        href="{% static 'logo.png' %}"
+        type="image/x-icon">
+
+    <link rel="stylesheet"
+        href="{% static 'seller_css/sellers_style.css' %}">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
 
     <style>
+
         table {
             width: 1000px;
         }
@@ -44,246 +63,753 @@
         .info {
             background: #17a2b8;
         }
+
     </style>
+
 </head>
+
 
 <body>
 
 
     <!-- Page Loader -->
+
     <div id="page-loader">
+
         <div class="loader-content">
+
             <div class="spinner"></div>
-            <div class="loading-text">Loading<span class="dots"></span></div>
+
+            <div class="loading-text">
+
+                {% translate "Loading" %}
+
+                <span class="dots"></span>
+
+            </div>
+
         </div>
+
     </div>
+
 
     <div class="row-holder">
 
+
         <!-- Header -->
+
         <div class="header-holder-100">
+
             <div class="header-100">
+
+
                 <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-                            class="fas fa-times"></i></button>
+
+                    <button type="button"
+                        id="menu1"
+                        onclick="open_menu('open')">
+
+                        <i class="fas fa-bars"></i>
+
+                    </button>
+
+
+                    <button type="button"
+                        id="menu2"
+                        style="display: none;"
+                        onclick="open_menu('close')">
+
+                        <i class="fas fa-times"></i>
+
+                    </button>
+
                 </div>
+
+
                 <div class="title-holder-101">
-                    <button type="button"><span>Wingastock | Seller</span></button>
+
+                    <button type="button">
+
+                        <span>
+                            {% translate "Products" %}
+                        </span>
+
+                    </button>
+
                 </div>
+
+
                 {% include 'profile_s.html' %}
+
             </div>
+
         </div>
 
 
+
         <!-- center content -->
+
         <div class="center-content-200">
 
-            <div class="left-holder-201" id="nav">
+
+            <div class="left-holder-201"
+                id="nav">
+
+
                 <div class="nav-bar-holder-202">
 
+
                     <ul>
+
                         <a href="{% url 'seller_home' %}">
-                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
+
+                            <li>
+
+                                {% translate "Dashboard" %}
+
+                                <i class="fas fa-tachometer-alt"></i>
+
+                            </li>
+
                         </a>
+
                     </ul>
 
+
                     <ul>
+
                         <a href="{% url 'seller_products' %}">
-                            <li class="active-0">Products <i class="fas fa-shopping-bag"></i></li>
+
+                            <li class="active-0">
+
+                                {% translate "Products" %}
+
+                                <i class="fas fa-shopping-bag"></i>
+
+                            </li>
+
                         </a>
+
                     </ul>
 
+
                     <ul>
+
                         <a href="{% url 'mail_home' %}">
-                            <li>Mails <i class="fas fa-envelope"></i></li>
+
+                            <li>
+
+                                {% translate "Mails" %}
+
+                                <i class="fas fa-envelope"></i>
+
+                            </li>
+
                         </a>
+
                     </ul>
 
+
                     <ul>
+
                         <a href="{% url 'seller_account' %}">
-                            <li>Account <i class="fas fa-user"></i></li>
+
+                            <li>
+
+                                {% translate "Account" %}
+
+                                <i class="fas fa-user"></i>
+
+                            </li>
+
                         </a>
+
                     </ul>
 
+
                     <ul>
+
                         <a href="{% url 'seller_terms_conditions' %}">
-                            <li>Terms and condtions <i class="fas fa-file-contract"></i></li>
+
+                            <li>
+
+                                {% translate "Terms and conditions" %}
+
+                                <i class="fas fa-file-contract"></i>
+
+                            </li>
+
                         </a>
+
                     </ul>
 
+
                     <ul>
+
                         <a href="{% url 'logout_seller' %}">
-                            <li>Exit <i class="fas fa-sign-out-alt"></i></li>
+
+                            <li>
+
+                                {% translate "Exit" %}
+
+                                <i class="fas fa-sign-out-alt"></i>
+
+                            </li>
+
                         </a>
+
                     </ul>
+
+
                 </div>
+
             </div>
 
+
+
             <div class="right-holder-201">
+
+
                 <div class="card-holder-201 products-202">
+
+
                     <div class="seller-products-heading">
-                        <div><span class="seller-kicker">CATALOGUE</span>
-                            <h1>Your products</h1>
-                            <p>Manage visibility, pricing and customer reach from one place.</p>
+
+
+                        <div>
+
+                            <span class="seller-kicker">
+
+                                {% translate "CATALOGUE" %}
+
+                            </span>
+
+
+                            <h1>
+
+                                {% translate "Your products" %}
+
+                            </h1>
+
+
+                            <p>
+
+                                {% translate "Manage visibility, pricing and customer reach from one place." %}
+
+                            </p>
+
                         </div>
-                        <a class="seller-primary-action" href="{% url 'seller_add_product' %}"><i
-                                class="fas fa-plus"></i> Add product</a>
-                    </div>
-                    <div class="seller-products-progress"><span><strong>{{ products|length }}</strong> of
-                           {{ product_limit }} spaces used</span>
-                        <div class="seller-progress-track"><span style="width: {{ product_progress }}%"></span></div><a
-                            href="{% url 'seller_payment_alert' %}">Get more space</a>
+
+
+                        <a class="seller-primary-action"
+                            href="{% url 'seller_add_product' %}">
+
+                            <i class="fas fa-plus"></i>
+
+                            {% translate "Add product" %}
+
+                        </a>
+
+
                     </div>
 
-                    {% if messages %}
-                    <div class="messages">
-                        {% for message in messages %}
-                        <div class="alert {{ message.tags }}">
-                            {{ message }}
+
+
+                    <div class="seller-products-progress">
+
+
+                        <span>
+
+                            <strong>
+                                {{ products|length }}
+                            </strong>
+
+                            {% translate "of" %}
+
+                            {{ product_limit }}
+
+                            {% translate "spaces used" %}
+
+                        </span>
+
+
+                        <div class="seller-progress-track">
+
+                            <span style="width: {{ product_progress }}%"></span>
+
                         </div>
-                        {% endfor %}
+
+
+                        <a href="{% url 'seller_payment_alert' %}">
+
+                            {% translate "Get more space" %}
+
+                        </a>
+
+
                     </div>
+
+
+
+                    {% if messages %}
+
+                    <div class="messages">
+
+                        {% for message in messages %}
+
+                        <div class="alert {{ message.tags }}">
+
+                            {{ message }}
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
                     {% endif %}
 
 
+
                     <div class="seller-products-list-wrap">
+
+
                         <div class="filter-holder-202">
-                            <div><input type="text" id="searchInput" placeholder="Search products..."
-                                    aria-label="Search products"></div>
-                        </div>
 
-                        <div class="seller-product-list" id="productTable">
-                            {% for product_data in products %}
-                            <article class="seller-product-row"
-                                data-search="{{ product_data.title|lower }} {{ product_data.category|lower }} {{ product_data.status|lower }} {{ product_data.price }}">
-                                <a class="seller-product-main" href="{% url 'seller_preview_p' product_data.id %}">
-                                    <span class="seller-product-thumb">
-                                        {% if product_data.image %}
-                                        <img src="{{ product_data.image.url }}"
-                                            alt="{{ product_data.title }}">
-                                        {% endif %}
-                                    </span>
-                                    <span class="seller-product-copy">
-                                        <strong>{{ product_data.title }}</strong>
-                                        <small>{{ product_data.category|title }} · #{{ product_data.id }}</small>
-                                    </span>
-                                </a>
-                                <span class="seller-product-fact"><small>Price</small><strong>{{ product_data.price }}
-                                        Tsh</strong></span>
-                                <span class="seller-product-fact"><small>Views</small><strong><i class="fas fa-eye"></i>
-                                        {{ product_data.product_information.views|default:0 }}</strong></span>
-                                <span class="seller-product-fact"><small>Added</small><strong>
-                                       {{ product_data.created_at|date:"d M Y" }}</strong></span>
-                                <span class="seller-product-status">
-                                    {% if product_data.status == 'saved' %}
-                                    <i class="fas fa-eye-slash"></i> Hidden
-                                    {% else %}
-                                    <i class="fas fa-eye"></i> Live
-                                    {% endif %}
-                                </span>
-                                <span class="seller-product-actions">
-                                    <button class="btn-edit"
-                                        onclick="window.location.href=`{% url 'seller_edit_product' product_data.id %}`"><i
-                                            class="fas fa-edit"></i><span>Edit</span></button>
-                                    <button class="btn-delete"
-                                        onclick="document.getElementById('delete-modal{{ product_data.id }}').style.display='inline-block'"><i
-                                            class="fas fa-trash"></i><span>Delete</span></button>
-                                </span>
 
-                                <!-- Delete product modal -->
-                                <div class="delete-product-modal-106" id="delete-modal{{ product_data.id }}">
-                                    <div>
-                                        <p>Sure want to delete <b>{{ product_data.title }}</b></p>
+                            <div>
 
-                                        <button type="button" style="background: crimson; color: white;"
-                                            onclick="window.location.href=`{% url 'seller_delete_product' product_data.id %}`">Yes,
-                                            delete</button>
-                                        <button type="button"
-                                            onclick="document.getElementById('delete-modal{{ product_data.id }}').style.display='none'">Cancel</button>
-                                    </div>
-                                </div>
-                            </article>
+                                <input type="text"
+                                    id="searchInput"
+                                    placeholder="{% translate 'Search products...' %}"
+                                    aria-label="{% translate 'Search products' %}">
 
-                            {% empty %}
-                            <div class="seller-empty-products"><i class="fas fa-box-open"></i><strong>No products
-                                    found</strong><span>Add your first product to start building your catalogue.</span>
                             </div>
 
-                            {% endfor %}
+
                         </div>
-                        <p class="seller-list-hint">Click a product card to preview it.</p>
-                        <p class="seller-search-empty" id="searchEmpty" hidden>No products match your search.</p>
+
+
+
+                        <div class="seller-product-list"
+                            id="productTable">
+
+
+                            {% for product_data in products %}
+
+
+                            <article class="seller-product-row"
+                                data-search="{{ product_data.title|lower }} {{ product_data.category|lower }} {{ product_data.status|lower }} {{ product_data.price }}">
+
+
+                                <a class="seller-product-main"
+                                    href="{% url 'seller_preview_p' product_data.id %}">
+
+
+                                    <span class="seller-product-thumb">
+
+                                        {% if product_data.image %}
+
+                                        <img src="{{ product_data.image.url }}"
+                                            alt="{{ product_data.title }}">
+
+                                        {% endif %}
+
+                                    </span>
+
+
+                                    <span class="seller-product-copy">
+
+                                        <strong>
+                                            {{ product_data.title }}
+                                        </strong>
+
+
+                                        <small>
+
+                                            {{ product_data.category|title }}
+
+                                            · #{{ product_data.id }}
+
+                                        </small>
+
+                                    </span>
+
+
+                                </a>
+
+
+
+                                <span class="seller-product-fact">
+
+                                    <small>
+                                        {% translate "Price" %}
+                                    </small>
+
+                                    <strong>
+
+                                        {{ product_data.price }}
+                                        Tsh
+
+                                    </strong>
+
+                                </span>
+
+
+
+                                <span class="seller-product-fact">
+
+                                    <small>
+                                        {% translate "Views" %}
+                                    </small>
+
+                                    <strong>
+
+                                        <i class="fas fa-eye"></i>
+
+                                        {{ product_data.product_information.views|default:0 }}
+
+                                    </strong>
+
+                                </span>
+
+
+
+                                <span class="seller-product-fact">
+
+                                    <small>
+                                        {% translate "Added" %}
+                                    </small>
+
+                                    <strong>
+
+                                        {{ product_data.created_at|date:"d M Y" }}
+
+                                    </strong>
+
+                                </span>
+
+
+
+                                <span class="seller-product-status">
+
+
+                                    {% if product_data.status == 'saved' %}
+
+                                    <i class="fas fa-eye-slash"></i>
+
+                                    {% translate "Hidden" %}
+
+
+                                    {% else %}
+
+                                    <i class="fas fa-eye"></i>
+
+                                    {% translate "Live" %}
+
+                                    {% endif %}
+
+
+                                </span>
+
+
+
+                                <span class="seller-product-actions">
+
+
+                                    <button class="btn-edit"
+                                        onclick="window.location.href=`{% url 'seller_edit_product' product_data.id %}`">
+
+                                        <i class="fas fa-edit"></i>
+
+                                        <span>
+                                            {% translate "Edit" %}
+                                        </span>
+
+                                    </button>
+
+
+
+                                    <button class="btn-delete"
+                                        onclick="document.getElementById('delete-modal{{ product_data.id }}').style.display='inline-block'">
+
+                                        <i class="fas fa-trash"></i>
+
+                                        <span>
+                                            {% translate "Delete" %}
+                                        </span>
+
+                                    </button>
+
+
+                                </span>
+
+
+
+                                <!-- Delete product modal -->
+
+                                <div class="delete-product-modal-106"
+                                    id="delete-modal{{ product_data.id }}">
+
+
+                                    <div>
+
+
+                                        <p>
+
+                                            {% translate "Sure want to delete" %}
+
+                                            <b>
+                                                {{ product_data.title }}
+                                            </b>
+
+                                        </p>
+
+
+
+                                        <button type="button"
+                                            style="background: crimson; color: white;"
+                                            onclick="window.location.href=`{% url 'seller_delete_product' product_data.id %}`">
+
+                                            {% translate "Yes, delete" %}
+
+                                        </button>
+
+
+
+                                        <button type="button"
+                                            onclick="document.getElementById('delete-modal{{ product_data.id }}').style.display='none'">
+
+                                            {% translate "Cancel" %}
+
+                                        </button>
+
+
+                                    </div>
+
+                                </div>
+
+
+                            </article>
+
+
+
+                            {% empty %}
+
+
+                            <div class="seller-empty-products">
+
+
+                                <i class="fas fa-box-open"></i>
+
+
+                                <strong>
+
+                                    {% translate "No products found" %}
+
+                                </strong>
+
+
+                                <span>
+
+                                    {% translate "Add your first product to start building your catalogue." %}
+
+                                </span>
+
+
+                            </div>
+
+
+                            {% endfor %}
+
+
+                        </div>
+
+
+                        <p class="seller-list-hint">
+
+                            {% translate "Click a product card to preview it." %}
+
+                        </p>
+
+
+                        <p class="seller-search-empty"
+                            id="searchEmpty"
+                            hidden>
+
+                            {% translate "No products match your search." %}
+
+                        </p>
+
 
                     </div>
+
+
                 </div>
+
             </div>
+
 
         </div>
 
     </div>
 
 
+
+    <!-- Page loader -->
+
     <script>
+
         window.addEventListener("load", function () {
 
-            const loader = document.getElementById("page-loader");
+            const loader =
+                document.getElementById("page-loader");
 
             if (loader) {
+
                 loader.classList.add("hidden");
 
                 setTimeout(function () {
+
                     loader.remove();
+
                 }, 400);
+
             }
 
         });
+
     </script>
 
 
+
+    <!-- Mobile menu -->
+
     <script>
+
         function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
+
+            let menu1 =
+                document.getElementById('menu1');
+
+            let menu2 =
+                document.getElementById('menu2');
+
+            let nav =
+                document.getElementById('nav');
+
 
             if (click == 'open') {
-                menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
+
+                menu1.style.display =
+                    'none';
+
+                menu2.style.display =
+                    'inline-block';
+
+                nav.style.display =
+                    'inline-block';
+
             }
+
             else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
-                nav.style.display = 'none';
+
+                menu1.style.display =
+                    'inline-block';
+
+                menu2.style.display =
+                    'none';
+
+                nav.style.display =
+                    'none';
+
             }
+
         }
+
     </script>
 
+
+
+    <!-- Product search -->
+
     <script>
-        const searchInput = document.getElementById("searchInput");
-        const productRows = document.querySelectorAll(".seller-product-row");
-        const searchEmpty = document.getElementById("searchEmpty");
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const productRows =
+            document.querySelectorAll(".seller-product-row");
+
+        const searchEmpty =
+            document.getElementById("searchEmpty");
+
+
         searchInput.addEventListener("input", function () {
-            const filter = this.value.trim().toLowerCase();
+
+            const filter =
+                this.value.trim().toLowerCase();
+
             let visible = 0;
+
+
             productRows.forEach(row => {
-                const match = row.dataset.search.includes(filter);
-                row.hidden = !match;
-                if (match) visible += 1;
+
+                const match =
+                    row.dataset.search.includes(filter);
+
+                row.hidden =
+                    !match;
+
+
+                if (match) {
+
+                    visible += 1;
+
+                }
+
             });
-            searchEmpty.hidden = visible !== 0 || productRows.length === 0;
+
+
+            searchEmpty.hidden =
+                visible !== 0 ||
+                productRows.length === 0;
+
         });
+
     </script>
+
+
+
+    <!-- Message alerts -->
+
     <script>
+
         setTimeout(function () {
-            document.querySelectorAll(".alert").forEach(function (alert) {
-                alert.style.transition = "opacity 0.5s";
-                alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 500);
-            });
+
+            document
+                .querySelectorAll(".alert")
+                .forEach(function (alert) {
+
+                    alert.style.transition =
+                        "opacity 0.5s";
+
+                    alert.style.opacity =
+                        "0";
+
+
+                    setTimeout(
+                        () => alert.remove(),
+                        500
+                    );
+
+                });
+
         }, 4000);
+
     </script>
+
+
 </body>
 
 </html>

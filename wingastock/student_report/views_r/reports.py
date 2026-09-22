@@ -1305,1237 +1305,1213 @@ def save_field_report(request, id):
 
 
 
-# Download report
+
+# Refresh
+@login_required(login_url="home")
+def refresh_field_report_data(request, id):
+
+    placement = get_object_or_404(
+        FieldPlacement,
+        id=id
+    )
+
+    # Security check
+    if placement.student != request.user:
+        return JsonResponse(
+            {
+                "success": False,
+                "message": "You are not authorized to refresh this report."
+            },
+            status=403
+        )
+
+    # Get all daily reports belonging to this placement
+    reports = placement.daily_reports.all().order_by("date")
+
+    report_data = []
+
+    for report in reports:
+
+        report_data.append(
+            {
+                "id": report.id,
+                "date": report.date.strftime("%d %B %Y"),
+                "title": report.title,
+                "activities": report.activities,
+                "skills_learned": report.skills_learned,
+                "challenges": report.challenges,
+                "solutions": report.solutions,
+                "remarks": report.remarks,
+            }
+        )
+
+    return JsonResponse(
+        {
+            "success": True,
+            "message": "Daily reports refreshed successfully.",
+            "reports": report_data,
+            "total_reports": len(report_data),
+        }
+    )
+
+
+
+
+# Download docx
+from io import BytesIO
+
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_POST
+
+from docx import Document
+from docx.shared import Mm, Pt, Inches
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.section import WD_SECTION
+from docx.enum.table import WD_TABLE_ALIGNMENT, WD_CELL_VERTICAL_ALIGNMENT
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
+
+
+def set_cell_text(cell, text, bold=False):
+    """
+    Safely write text into a DOCX table cell.
+    """
+
+    cell.text = ""
+
+    paragraph = cell.paragraphs[0]
+
+    run = paragraph.add_run(
+        str(text) if text is not None else ""
+    )
+
+    run.bold = bold
+    run.font.name = "Times New Roman"
+    run.font.size = Pt(11)
+
+    paragraph.paragraph_format.space_after = Pt(0)
+    paragraph.paragraph_format.line_spacing = 1.15
+
+    cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
+
+
+def set_cell_shading(cell, fill="E7E6E6"):
+    """
+    Add background color to a table cell.
+    """
+
+    tc_pr = cell._tc.get_or_add_tcPr()
+
+    shd = OxmlElement("w:shd")
+    shd.set(qn("w:fill"), fill)
+
+    tc_pr.append(shd)
+
+
+def set_cell_width(cell, width_mm):
+    """
+    Set table cell width.
+    """
+
+    tc = cell._tc
+    tc_pr = tc.get_or_add_tcPr()
+
+    tc_w = tc_pr.first_child_found_in("w:tcW")
+
+    if tc_w is None:
+        tc_w = OxmlElement("w:tcW")
+        tc_pr.append(tc_w)
+
+    tc_w.set(qn("w:w"), str(int(width_mm * 56.7)))
+    tc_w.set(qn("w:type"), "dxa")
+
+
+def set_repeat_table_header(row):
+    """
+    Make table header repeat on next pages.
+    """
+
+    tr_pr = row._tr.get_or_add_trPr()
+
+    tbl_header = OxmlElement("w:tblHeader")
+    tbl_header.set(qn("w:val"), "true")
+
+    tr_pr.append(tbl_header)
+
+
+def set_paragraph_format(paragraph):
+    """
+    Standard report paragraph formatting.
+    """
+
+    paragraph.paragraph_format.line_spacing = 1.6
+    paragraph.paragraph_format.space_after = Pt(6)
+    paragraph.paragraph_format.first_line_indent = Mm(10)
+
+    for run in paragraph.runs:
+        run.font.name = "Times New Roman"
+        run.font.size = Pt(12)
+
+
+def add_body_paragraph(document, text):
+    """
+    Add normal report paragraph.
+    """
+
+    text = str(text or "").strip()
+
+    if not text:
+        return
+
+    paragraph = document.add_paragraph()
+
+    run = paragraph.add_run(text)
+
+    run.font.name = "Times New Roman"
+    run.font.size = Pt(12)
+
+    set_paragraph_format(paragraph)
+
+    return paragraph
+
+
+def add_heading(document, text, level=1):
+    """
+    Add report heading.
+    """
+
+    paragraph = document.add_paragraph()
+
+    paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
+
+    run = paragraph.add_run(str(text))
+
+    run.bold = True
+    run.font.name = "Times New Roman"
+
+    if level == 1:
+        run.font.size = Pt(14)
+    else:
+        run.font.size = Pt(12)
+
+    paragraph.paragraph_format.space_before = Pt(10)
+    paragraph.paragraph_format.space_after = Pt(8)
+    paragraph.paragraph_format.line_spacing = 1.15
+
+    return paragraph
+
+
+def add_center_heading(document, text, size=14):
+    """
+    Centered heading.
+    """
+
+    paragraph = document.add_paragraph()
+
+    paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+    run = paragraph.add_run(str(text))
+
+    run.bold = True
+    run.font.name = "Times New Roman"
+    run.font.size = Pt(size)
+
+    paragraph.paragraph_format.space_after = Pt(12)
+
+    return paragraph
+
+
+def add_page_break(document):
+    document.add_page_break()
+
+
+def add_page_number(paragraph):
+    """
+    Insert dynamic Word page number.
+    """
+
+    paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+    run = paragraph.add_run()
+
+    fld_char1 = OxmlElement("w:fldChar")
+    fld_char1.set(qn("w:fldCharType"), "begin")
+
+    instr_text = OxmlElement("w:instrText")
+    instr_text.set(qn("xml:space"), "preserve")
+    instr_text.text = "PAGE"
+
+    fld_char2 = OxmlElement("w:fldChar")
+    fld_char2.set(qn("w:fldCharType"), "end")
+
+    run._r.append(fld_char1)
+    run._r.append(instr_text)
+    run._r.append(fld_char2)
+
+    run.font.name = "Times New Roman"
+    run.font.size = Pt(10)
+
+
+def configure_document(document):
+    """
+    Configure the complete Word document.
+    """
+
+    section = document.sections[0]
+
+    # A4
+    section.page_width = Mm(210)
+    section.page_height = Mm(297)
+
+    # Same approximate margins as browser template
+    section.top_margin = Mm(25)
+    section.bottom_margin = Mm(25)
+    section.left_margin = Mm(22)
+    section.right_margin = Mm(22)
+
+    # Default font
+    normal = document.styles["Normal"]
+
+    normal.font.name = "Times New Roman"
+    normal.font.size = Pt(12)
+
+    normal._element.rPr.rFonts.set(
+        qn("w:eastAsia"),
+        "Times New Roman"
+    )
+
+    # Footer
+    footer = section.footer
+
+    paragraph = footer.paragraphs[0]
+
+    add_page_number(paragraph)
+
+
+def build_field_report_docx(placement, reports):
+
+    document = Document()
+
+    configure_document(document)
+
+    # =========================================================
+    # DATA
+    # =========================================================
+
+    student = placement.student
+
+    student_name = (
+        student.get_full_name()
+        or student.username
+    )
+
+    organization = getattr(
+        placement,
+        "organization",
+        ""
+    )
+
+    department = getattr(
+        placement,
+        "department",
+        ""
+    )
+
+    supervisor = getattr(
+        placement,
+        "supervisor_name",
+        ""
+    )
+
+    start_date = getattr(
+        placement,
+        "start_date",
+        None
+    )
+
+    end_date = getattr(
+        placement,
+        "end_date",
+        None
+    )
+
+    # =========================================================
+    # COVER PAGE
+    # =========================================================
+
+    for _ in range(4):
+        document.add_paragraph()
+
+    add_center_heading(
+        document,
+        "FIELD PRACTICAL TRAINING REPORT",
+        18
+    )
+
+    document.add_paragraph()
+
+    add_center_heading(
+        document,
+        student_name,
+        14
+    )
+
+    document.add_paragraph()
+
+    if organization:
+        add_center_heading(
+            document,
+            organization,
+            13
+        )
+
+    if department:
+        add_center_heading(
+            document,
+            department,
+            12
+        )
+
+    document.add_paragraph()
+
+    if supervisor:
+        add_center_heading(
+            document,
+            f"Supervisor: {supervisor}",
+            12
+        )
+
+    if start_date and end_date:
+
+        period = (
+            f"{start_date.strftime('%d %B %Y')} - "
+            f"{end_date.strftime('%d %B %Y')}"
+        )
+
+        add_center_heading(
+            document,
+            period,
+            12
+        )
+
+    add_page_break(document)
+
+    # =========================================================
+    # DECLARATION
+    # =========================================================
+
+    add_center_heading(
+        document,
+        "DECLARATION",
+        14
+    )
+
+    declaration = (
+        "I, "
+        f"{student_name}, "
+        "declare that this Field Practical Training Report "
+        "is my own work and has been prepared based on the "
+        "activities and experiences obtained during my field "
+        "practical training."
+    )
+
+    add_body_paragraph(
+        document,
+        declaration
+    )
+
+    document.add_paragraph()
+    add_body_paragraph(
+        document,
+        f"Student Name: {student_name}"
+    )
+
+    add_body_paragraph(
+        document,
+        "Signature: ______________________________"
+    )
+
+    add_body_paragraph(
+        document,
+        "Date: ___________________________________"
+    )
+
+    add_page_break(document)
+
+    # =========================================================
+    # TABLE OF CONTENTS
+    # =========================================================
+
+    add_center_heading(
+        document,
+        "TABLE OF CONTENTS",
+        14
+    )
+
+    toc_items = [
+        ("Declaration", "2"),
+        ("Table of Contents", "3"),
+        ("List of Tables", "4"),
+        ("List of Figures", "5"),
+        ("Abbreviations", "6"),
+        ("CHAPTER ONE: INTRODUCTION", "7"),
+        ("1.1 Background of Industry/Organization", "7"),
+        ("1.2 Organization Structure", "8"),
+        ("1.3 Vision, Mission and Objectives", "9"),
+        ("CHAPTER TWO: ACTIVITIES PERFORMED", "10"),
+        ("2.1 Overview", "10"),
+        ("2.2 Daily Activities", "10"),
+        ("2.3 General Observations", "11"),
+        ("2.4 Challenges Encountered", "12"),
+        ("2.5 How Challenges Were Solved", "12"),
+        ("CHAPTER THREE", "13"),
+        ("References", "14"),
+        ("Appendices", "15"),
+    ]
+
+    for title, page in toc_items:
+
+        paragraph = document.add_paragraph()
+
+        paragraph.paragraph_format.line_spacing = 1.3
+        paragraph.paragraph_format.space_after = Pt(4)
+
+        run = paragraph.add_run(
+            f"{title} ........................................ {page}"
+        )
+
+        run.font.name = "Times New Roman"
+        run.font.size = Pt(12)
+
+    add_page_break(document)
+
+    # =========================================================
+    # LIST OF TABLES
+    # =========================================================
+
+    add_center_heading(
+        document,
+        "LIST OF TABLES",
+        14
+    )
+
+    tables = [
+        "Table 1: Organization Information",
+        "Table 2: Daily Activities",
+        "Table 3: Skills Acquired",
+    ]
+
+    for item in tables:
+        add_body_paragraph(
+            document,
+            item
+        )
+
+    add_page_break(document)
+
+    # =========================================================
+    # LIST OF FIGURES
+    # =========================================================
+
+    add_center_heading(
+        document,
+        "LIST OF FIGURES",
+        14
+    )
+
+    figures = [
+        "Figure 1: Historical Background",
+        "Figure 2: Organization Structure",
+        "Figure 3: Field Activities",
+    ]
+
+    for item in figures:
+        add_body_paragraph(
+            document,
+            item
+        )
+
+    add_page_break(document)
+
+    # =========================================================
+    # ABBREVIATIONS
+    # =========================================================
+
+    add_center_heading(
+        document,
+        "ABBREVIATIONS",
+        14
+    )
+
+    abbreviation_table = document.add_table(
+        rows=1,
+        cols=2
+    )
+
+    abbreviation_table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    abbreviation_table.style = "Table Grid"
+
+    header = abbreviation_table.rows[0]
+
+    set_cell_text(
+        header.cells[0],
+        "Abbreviation",
+        True
+    )
+
+    set_cell_text(
+        header.cells[1],
+        "Meaning",
+        True
+    )
+
+    set_cell_shading(header.cells[0])
+    set_cell_shading(header.cells[1])
+
+    set_repeat_table_header(header)
+
+    abbreviations = [
+        ("FPT", "Field Practical Training"),
+        ("ICT", "Information and Communication Technology"),
+    ]
+
+    for abbreviation, meaning in abbreviations:
+
+        row = abbreviation_table.add_row()
+
+        set_cell_text(
+            row.cells[0],
+            abbreviation
+        )
+
+        set_cell_text(
+            row.cells[1],
+            meaning
+        )
+
+    add_page_break(document)
+
+    # =========================================================
+    # CHAPTER ONE
+    # =========================================================
+
+    add_center_heading(
+        document,
+        "CHAPTER ONE",
+        15
+    )
+
+    add_center_heading(
+        document,
+        "INTRODUCTION",
+        14
+    )
+
+    # ---------------------------------------------------------
+    # 1.1
+    # ---------------------------------------------------------
+
+    add_heading(
+        document,
+        "1.1 Background of Industry/Organization",
+        2
+    )
+
+    background = getattr(
+        placement,
+        "organization_description",
+        ""
+    )
+
+    if not background:
+
+        background = (
+            f"{organization} provided an environment where "
+            "the student was able to acquire practical "
+            "knowledge and experience related to the field "
+            "of study."
+        )
+
+    add_body_paragraph(
+        document,
+        background
+    )
+
+    # ---------------------------------------------------------
+    # 1.2
+    # ---------------------------------------------------------
+
+    add_heading(
+        document,
+        "1.2 Organization Structure",
+        2
+    )
+
+    structure = getattr(
+        placement,
+        "organization_structure",
+        ""
+    )
+
+    if structure:
+
+        add_body_paragraph(
+            document,
+            structure
+        )
+
+    else:
+
+        add_body_paragraph(
+            document,
+            "The organization structure consists of different "
+            "departments and personnel who work together to "
+            "achieve the organization's objectives."
+        )
+
+    # ---------------------------------------------------------
+    # 1.3
+    # ---------------------------------------------------------
+
+    add_heading(
+        document,
+        "1.3 Vision, Mission and Objectives",
+        2
+    )
+
+    vision = getattr(
+        placement,
+        "vision",
+        ""
+    )
+
+    mission = getattr(
+        placement,
+        "mission",
+        ""
+    )
+
+    if vision:
+
+        add_heading(
+            document,
+            "Vision",
+            2
+        )
+
+        add_body_paragraph(
+            document,
+            vision
+        )
+
+    if mission:
+
+        add_heading(
+            document,
+            "Mission",
+            2
+        )
+
+        add_body_paragraph(
+            document,
+            mission
+        )
+
+    objectives = getattr(
+        placement,
+        "objectives",
+        ""
+    )
+
+    if objectives:
+
+        add_heading(
+            document,
+            "Objectives",
+            2
+        )
+
+        for objective in str(objectives).splitlines():
+
+            objective = objective.strip()
+
+            if objective:
+
+                paragraph = document.add_paragraph(
+                    style="List Number"
+                )
+
+                run = paragraph.add_run(
+                    objective
+                )
+
+                run.font.name = "Times New Roman"
+                run.font.size = Pt(12)
+
+    add_page_break(document)
+
+    # =========================================================
+    # CHAPTER TWO
+    # =========================================================
+
+    add_center_heading(
+        document,
+        "CHAPTER TWO",
+        15
+    )
+
+    add_center_heading(
+        document,
+        "ACTIVITIES PERFORMED",
+        14
+    )
+
+    # ---------------------------------------------------------
+    # 2.1
+    # ---------------------------------------------------------
+
+    add_heading(
+        document,
+        "2.1 Overview",
+        2
+    )
+
+    add_body_paragraph(
+        document,
+        "During the field practical training period, "
+        "various activities were performed in order to "
+        "develop practical skills, professional experience "
+        "and a better understanding of the working environment."
+    )
+
+    # ---------------------------------------------------------
+    # 2.2
+    # ---------------------------------------------------------
+
+    add_heading(
+        document,
+        "2.2 Daily Activities",
+        2
+    )
+
+    # Daily activities table
+
+    table = document.add_table(
+        rows=1,
+        cols=5
+    )
+
+    table.style = "Table Grid"
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+
+    headers = [
+        "Date",
+        "Activity",
+        "Skills Learned",
+        "Challenges",
+        "Solutions",
+    ]
+
+    header_row = table.rows[0]
+
+    for index, header_text in enumerate(headers):
+
+        set_cell_text(
+            header_row.cells[index],
+            header_text,
+            True
+        )
+
+        set_cell_shading(
+            header_row.cells[index]
+        )
+
+    set_repeat_table_header(header_row)
+
+    for report in reports:
+
+        row = table.add_row()
+
+        date_value = getattr(
+            report,
+            "date",
+            None
+        )
+
+        date_text = (
+            date_value.strftime("%d %B %Y")
+            if date_value
+            else ""
+        )
+
+        set_cell_text(
+            row.cells[0],
+            date_text
+        )
+
+        set_cell_text(
+            row.cells[1],
+            getattr(report, "activities", "")
+        )
+
+        set_cell_text(
+            row.cells[2],
+            getattr(report, "skills_learned", "")
+        )
+
+        set_cell_text(
+            row.cells[3],
+            getattr(report, "challenges", "")
+        )
+
+        set_cell_text(
+            row.cells[4],
+            getattr(report, "solutions", "")
+        )
+
+    # ---------------------------------------------------------
+    # 2.3
+    # ---------------------------------------------------------
+
+    add_page_break(document)
+
+    add_heading(
+        document,
+        "2.3 General Observations",
+        2
+    )
+
+    observations = getattr(
+        placement,
+        "general_observations",
+        ""
+    )
+
+    if observations:
+
+        add_body_paragraph(
+            document,
+            observations
+        )
+
+    else:
+
+        add_body_paragraph(
+            document,
+            "The field practical training provided an "
+            "opportunity to observe professional practices, "
+            "workplace procedures and the application of "
+            "theoretical knowledge in practical situations."
+        )
+
+    # ---------------------------------------------------------
+    # 2.4
+    # ---------------------------------------------------------
+
+    add_heading(
+        document,
+        "2.4 Challenges Encountered",
+        2
+    )
+
+    challenges = getattr(
+        placement,
+        "challenges",
+        ""
+    )
+
+    if challenges:
+
+        add_body_paragraph(
+            document,
+            challenges
+        )
+
+    else:
+
+        add_body_paragraph(
+            document,
+            "Some challenges were encountered during the "
+            "training period. These challenges provided "
+            "opportunities for learning and problem solving."
+        )
+
+    # ---------------------------------------------------------
+    # 2.5
+    # ---------------------------------------------------------
+
+    add_heading(
+        document,
+        "2.5 How Challenges Were Solved",
+        2
+    )
+
+    solutions = getattr(
+        placement,
+        "solutions",
+        ""
+    )
+
+    if solutions:
+
+        add_body_paragraph(
+            document,
+            solutions
+        )
+
+    else:
+
+        add_body_paragraph(
+            document,
+            "The challenges were addressed through guidance "
+            "from supervisors, consultation with colleagues, "
+            "research and practical problem-solving."
+        )
+
+    add_page_break(document)
+
+    # =========================================================
+    # CHAPTER THREE
+    # =========================================================
+
+    add_center_heading(
+        document,
+        "CHAPTER THREE",
+        15
+    )
+
+    add_heading(
+        document,
+        "3.1 Conclusion",
+        2
+    )
+
+    conclusion = getattr(
+        placement,
+        "conclusion",
+        ""
+    )
+
+    if conclusion:
+
+        add_body_paragraph(
+            document,
+            conclusion
+        )
+
+    else:
+
+        add_body_paragraph(
+            document,
+            "The field practical training was an important "
+            "part of the student's academic development. "
+            "It provided practical exposure and enabled the "
+            "student to connect classroom knowledge with "
+            "real workplace activities."
+        )
+
+    add_heading(
+        document,
+        "3.2 Recommendations",
+        2
+    )
+
+    recommendations = getattr(
+        placement,
+        "recommendations",
+        ""
+    )
+
+    if recommendations:
+
+        add_body_paragraph(
+            document,
+            recommendations
+        )
+
+    else:
+
+        add_body_paragraph(
+            document,
+            "Students should be given sufficient practical "
+            "exposure and continuous guidance throughout "
+            "their field practical training."
+        )
+
+    add_heading(
+        document,
+        "3.3 Skills and Knowledge Acquired",
+        2
+    )
+
+    skills = set()
+
+    for report in reports:
+
+        value = getattr(
+            report,
+            "skills_learned",
+            ""
+        )
+
+        if value:
+
+            for line in str(value).splitlines():
+
+                line = line.strip()
+
+                if line:
+                    skills.add(line)
+
+    if skills:
+
+        for skill in sorted(skills):
+
+            paragraph = document.add_paragraph(
+                style="List Bullet"
+            )
+
+            run = paragraph.add_run(skill)
+
+            run.font.name = "Times New Roman"
+            run.font.size = Pt(12)
+
+    else:
+
+        add_body_paragraph(
+            document,
+            "Various technical, communication, teamwork and "
+            "problem-solving skills were acquired during the "
+            "field practical training."
+        )
+
+    # =========================================================
+    # REFERENCES
+    # =========================================================
+
+    add_page_break(document)
+
+    add_center_heading(
+        document,
+        "REFERENCES",
+        14
+    )
+
+    references = getattr(
+        placement,
+        "references",
+        ""
+    )
+
+    if references:
+
+        for reference in str(references).splitlines():
+
+            reference = reference.strip()
+
+            if reference:
+
+                add_body_paragraph(
+                    document,
+                    reference
+                )
+
+    else:
+
+        add_body_paragraph(
+            document,
+            "References used during the preparation of this report."
+        )
+
+    # =========================================================
+    # APPENDICES
+    # =========================================================
+
+    add_page_break(document)
+
+    add_center_heading(
+        document,
+        "APPENDICES",
+        14
+    )
+
+    additional_info = getattr(
+        placement,
+        "additional_information",
+        ""
+    )
+
+    if additional_info:
+
+        add_body_paragraph(
+            document,
+            additional_info
+        )
+
+    else:
+
+        add_body_paragraph(
+            document,
+            "Supporting materials and additional information "
+            "related to the field practical training are "
+            "included in this section."
+        )
+
+    return document
+
+
+
 @login_required(login_url="home")
 @require_POST
 def download_field_report_docx(request, id):
 
+    placement = get_object_or_404(
+        FieldPlacement,
+        id=id
+    )
+
+    # =========================================================
+    # SECURITY
+    # =========================================================
+
+    if placement.student != request.user:
+
+        return JsonResponse(
+            {
+                "success": False,
+                "message": "You are not authorized to download this report."
+            },
+            status=403
+        )
+
+    # =========================================================
+    # DAILY REPORTS
+    # =========================================================
+
+    reports = (
+        placement.daily_reports
+        .all()
+        .order_by("date", "id")
+    )
+
     try:
 
-        # =========================================================
-        # GET PLACEMENT
-        # =========================================================
-
-        placement = get_object_or_404(
-            FieldPlacement,
-            id=id
+        document = build_field_report_docx(
+            placement,
+            reports
         )
 
-        # =========================================================
-        # SECURITY
-        # =========================================================
+        # Save DOCX into memory
+        buffer = BytesIO()
 
-        if placement.student != request.user:
+        document.save(buffer)
 
-            return JsonResponse(
-                {
-                    "success": False,
-                    "message": (
-                        "You are not authorized to "
-                        "download this report."
-                    )
-                },
-                status=403
-            )
-
-        # =========================================================
-        # GET SAVED REPORT
-        # =========================================================
-
-        saved_report = GeneratedFieldReport.objects.filter(
-            placement=placement
-        ).first()
-
-        if (
-            not saved_report
-            or not saved_report.report_html.strip()
-        ):
-
-            return JsonResponse(
-                {
-                    "success": False,
-                    "message": (
-                        "Please save the report "
-                        "before downloading it."
-                    )
-                },
-                status=400
-            )
-
-        # =========================================================
-        # CREATE DOCUMENT
-        # =========================================================
-
-        document = Document()
-
-        # =========================================================
-        # A4 PAGE
-        # =========================================================
-
-        section = document.sections[0]
-
-        section.page_width = Inches(8.27)
-        section.page_height = Inches(11.69)
-
-        # These match the web template approximately:
-        #
-        # Web:
-        # padding: 25mm 22mm
-        #
-        # Word:
-        # 25mm top/bottom
-        # 22mm left/right
-
-        section.top_margin = Inches(25 / 25.4)
-        section.bottom_margin = Inches(25 / 25.4)
-
-        section.left_margin = Inches(22 / 25.4)
-        section.right_margin = Inches(22 / 25.4)
-
-        # =========================================================
-        # DEFAULT DOCUMENT FONT
-        # =========================================================
-
-        normal_style = document.styles["Normal"]
-
-        normal_style.font.name = "Times New Roman"
-        normal_style.font.size = Pt(12)
-
-        # Make East Asian font Times New Roman too
-        normal_style._element.rPr.rFonts.set(
-            "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}ascii",
-            "Times New Roman"
-        )
-
-        normal_style._element.rPr.rFonts.set(
-            "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}hAnsi",
-            "Times New Roman"
-        )
-
-        # =========================================================
-        # PARSE HTML
-        # =========================================================
-
-        soup = BeautifulSoup(
-            saved_report.report_html,
-            "html.parser"
-        )
-
-        # Remove web-only elements
-        for element in soup.find_all(
-            [
-                "script",
-                "style",
-                "button",
-                "input",
-                "textarea",
-                "select"
-            ]
-        ):
-
-            element.decompose()
-
-        # =========================================================
-        # CSS HELPER
-        # =========================================================
-
-        def parse_style(element):
-
-            style = element.get(
-                "style",
-                ""
-            )
-
-            result = {}
-
-            for item in style.split(";"):
-
-                if ":" not in item:
-                    continue
-
-                key, value = item.split(
-                    ":",
-                    1
-                )
-
-                result[
-                    key.strip().lower()
-                ] = value.strip().lower()
-
-            return result
-
-        # =========================================================
-        # LENGTH CONVERTER
-        # =========================================================
-
-        def css_to_pt(value, default=12):
-
-            if not value:
-                return default
-
-            value = str(value).strip().lower()
-
-            try:
-
-                if value.endswith("pt"):
-                    return float(
-                        value.replace("pt", "")
-                    )
-
-                if value.endswith("px"):
-                    return float(
-                        value.replace("px", "")
-                    ) * 0.75
-
-                if value.endswith("em"):
-                    return float(
-                        value.replace("em", "")
-                    ) * 12
-
-                if value.endswith("rem"):
-                    return float(
-                        value.replace("rem", "")
-                    ) * 12
-
-                if value.endswith("mm"):
-                    return float(
-                        value.replace("mm", "")
-                    ) * 2.83465
-
-                if value.endswith("cm"):
-                    return float(
-                        value.replace("cm", "")
-                    ) * 28.3465
-
-                return float(value)
-
-            except:
-
-                return default
-
-        # =========================================================
-        # COLOR CONVERTER
-        # =========================================================
-
-        def css_color(value):
-
-            if not value:
-                return None
-
-            value = value.strip().lower()
-
-            # Common colors
-            colors = {
-                "black": "000000",
-                "white": "FFFFFF",
-                "red": "FF0000",
-                "blue": "0000FF",
-                "green": "008000",
-                "gray": "808080",
-                "grey": "808080",
-                "transparent": None,
-            }
-
-            if value in colors:
-                return colors[value]
-
-            # HEX
-            if value.startswith("#"):
-
-                value = value[1:]
-
-                if len(value) == 3:
-
-                    value = "".join(
-                        char * 2
-                        for char in value
-                    )
-
-                if len(value) == 6:
-                    return value.upper()
-
-            # rgb(...)
-            if value.startswith("rgb("):
-
-                try:
-
-                    numbers = (
-                        value
-                        .replace("rgb(", "")
-                        .replace(")", "")
-                        .split(",")
-                    )
-
-                    r = int(numbers[0].strip())
-                    g = int(numbers[1].strip())
-                    b = int(numbers[2].strip())
-
-                    return (
-                        f"{r:02X}"
-                        f"{g:02X}"
-                        f"{b:02X}"
-                    )
-
-                except:
-                    pass
-
-            return None
-
-        # =========================================================
-        # SET RUN FONT
-        # =========================================================
-
-        def configure_run(
-            run,
-            bold=False,
-            italic=False,
-            underline=False,
-            font_size=12,
-            font_name="Times New Roman",
-            color=None
-        ):
-
-            run.font.name = font_name
-            run.font.size = Pt(font_size)
-
-            run.bold = bold
-            run.italic = italic
-            run.underline = underline
-
-            if color:
-
-                try:
-                    run.font.color.rgb = (
-                        __import__(
-                            "docx"
-                        ).shared.RGBColor.from_string(
-                            color
-                        )
-                    )
-
-                except:
-                    pass
-
-            # Ensure Word uses the same font
-            run._element.rPr.rFonts.set(
-                "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}ascii",
-                font_name
-            )
-
-            run._element.rPr.rFonts.set(
-                "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}hAnsi",
-                font_name
-            )
-
-        # =========================================================
-        # INLINE CONTENT
-        # =========================================================
-
-        def add_inline_content(
-            paragraph,
-            element,
-            inherited_bold=False,
-            inherited_italic=False,
-            inherited_underline=False,
-            inherited_size=12,
-            inherited_color=None
-        ):
-
-            # -----------------------------------------------------
-            # Plain text
-            # -----------------------------------------------------
-
-            if isinstance(
-                element,
-                NavigableString
-            ):
-
-                text = str(element)
-
-                if not text:
-                    return
-
-                run = paragraph.add_run(
-                    text
-                )
-
-                configure_run(
-                    run,
-                    bold=inherited_bold,
-                    italic=inherited_italic,
-                    underline=inherited_underline,
-                    font_size=inherited_size,
-                    color=inherited_color
-                )
-
-                return
-
-            # -----------------------------------------------------
-            # Invalid element
-            # -----------------------------------------------------
-
-            if not isinstance(
-                element,
-                Tag
-            ):
-                return
-
-            tag = element.name.lower()
-
-            # -----------------------------------------------------
-            # Ignore web elements
-            # -----------------------------------------------------
-
-            if tag in [
-                "script",
-                "style",
-                "button",
-                "input",
-                "textarea",
-                "select"
-            ]:
-                return
-
-            # -----------------------------------------------------
-            # Line break
-            # -----------------------------------------------------
-
-            if tag == "br":
-
-                paragraph.add_run().add_break()
-
-                return
-
-            # -----------------------------------------------------
-            # Image
-            # -----------------------------------------------------
-
-            if tag == "img":
-
-                # Images can be added here if the HTML contains
-                # local file URLs or accessible image files.
-                #
-                # We intentionally don't download remote images
-                # here because report images are not required
-                # for the document structure.
-
-                return
-
-            # -----------------------------------------------------
-            # Tag formatting
-            # -----------------------------------------------------
-
-            bold = inherited_bold
-            italic = inherited_italic
-            underline = inherited_underline
-
-            if tag in [
-                "strong",
-                "b"
-            ]:
-
-                bold = True
-
-            if tag in [
-                "em",
-                "i"
-            ]:
-
-                italic = True
-
-            if tag == "u":
-
-                underline = True
-
-            # -----------------------------------------------------
-            # Inline CSS
-            # -----------------------------------------------------
-
-            styles = parse_style(
-                element
-            )
-
-            if (
-                styles.get("font-weight")
-                in [
-                    "bold",
-                    "700",
-                    "800",
-                    "900"
-                ]
-            ):
-
-                bold = True
-
-            if (
-                styles.get("font-style")
-                == "italic"
-            ):
-
-                italic = True
-
-            if (
-                "underline"
-                in styles.get(
-                    "text-decoration",
-                    ""
-                )
-            ):
-
-                underline = True
-
-            size = inherited_size
-
-            if styles.get(
-                "font-size"
-            ):
-
-                size = css_to_pt(
-                    styles.get(
-                        "font-size"
-                    ),
-                    inherited_size
-                )
-
-            color = inherited_color
-
-            if styles.get(
-                "color"
-            ):
-
-                color = css_color(
-                    styles.get(
-                        "color"
-                    )
-                )
-
-            # -----------------------------------------------------
-            # Children
-            # -----------------------------------------------------
-
-            for child in element.children:
-
-                add_inline_content(
-                    paragraph,
-                    child,
-                    inherited_bold=bold,
-                    inherited_italic=italic,
-                    inherited_underline=underline,
-                    inherited_size=size,
-                    inherited_color=color
-                )
-
-        # =========================================================
-        # APPLY PARAGRAPH STYLE
-        # =========================================================
-
-        def apply_paragraph_style(
-            paragraph,
-            element
-        ):
-
-            styles = parse_style(
-                element
-            )
-
-            # -----------------------------------------------------
-            # Alignment
-            # -----------------------------------------------------
-
-            alignment = styles.get(
-                "text-align"
-            )
-
-            if not alignment:
-
-                classes = " ".join(
-                    element.get(
-                        "class",
-                        []
-                    )
-                ).lower()
-
-                if "center" in classes:
-                    alignment = "center"
-
-                elif "right" in classes:
-                    alignment = "right"
-
-                elif "justify" in classes:
-                    alignment = "justify"
-
-            if alignment == "center":
-
-                paragraph.alignment = (
-                    WD_ALIGN_PARAGRAPH.CENTER
-                )
-
-            elif alignment == "right":
-
-                paragraph.alignment = (
-                    WD_ALIGN_PARAGRAPH.RIGHT
-                )
-
-            elif alignment == "justify":
-
-                paragraph.alignment = (
-                    WD_ALIGN_PARAGRAPH.JUSTIFY
-                )
-
-            else:
-
-                paragraph.alignment = (
-                    WD_ALIGN_PARAGRAPH.LEFT
-                )
-
-            # -----------------------------------------------------
-            # Line height
-            # -----------------------------------------------------
-
-            line_height = styles.get(
-                "line-height"
-            )
-
-            if line_height:
-
-                if line_height == "normal":
-
-                    paragraph.paragraph_format.line_spacing = 1.0
-
-                elif line_height.endswith("px"):
-
-                    px = css_to_pt(
-                        line_height
-                    )
-
-                    paragraph.paragraph_format.line_spacing = (
-                        px / 12
-                    )
-
-                elif line_height.endswith("pt"):
-
-                    pt_value = css_to_pt(
-                        line_height
-                    )
-
-                    paragraph.paragraph_format.line_spacing = (
-                        pt_value / 12
-                    )
-
-                else:
-
-                    try:
-
-                        paragraph.paragraph_format.line_spacing = (
-                            float(
-                                line_height
-                            )
-                        )
-
-                    except:
-                        pass
-
-            else:
-
-                # Matches:
-                # line-height: 1.6
-
-                paragraph.paragraph_format.line_spacing = 1.6
-
-            # -----------------------------------------------------
-            # Margin top
-            # -----------------------------------------------------
-
-            if styles.get(
-                "margin-top"
-            ):
-
-                paragraph.paragraph_format.space_before = Pt(
-                    css_to_pt(
-                        styles.get(
-                            "margin-top"
-                        ),
-                        0
-                    )
-                )
-
-            # -----------------------------------------------------
-            # Margin bottom
-            # -----------------------------------------------------
-
-            if styles.get(
-                "margin-bottom"
-            ):
-
-                paragraph.paragraph_format.space_after = Pt(
-                    css_to_pt(
-                        styles.get(
-                            "margin-bottom"
-                        ),
-                        0
-                    )
-                )
-
-            # -----------------------------------------------------
-            # Text indentation
-            # -----------------------------------------------------
-
-            if styles.get(
-                "text-indent"
-            ):
-
-                paragraph.paragraph_format.first_line_indent = (
-                    Inches(
-                        css_to_pt(
-                            styles.get(
-                                "text-indent"
-                            ),
-                            0
-                        ) / 72
-                    )
-                )
-
-        # =========================================================
-        # CREATE PARAGRAPH
-        # =========================================================
-
-        def create_paragraph(
-            element,
-            default_size=12
-        ):
-
-            paragraph = document.add_paragraph()
-
-            apply_paragraph_style(
-                paragraph,
-                element
-            )
-
-            add_inline_content(
-                paragraph,
-                element,
-                inherited_size=default_size
-            )
-
-            return paragraph
-
-        # =========================================================
-        # CREATE HEADING
-        # =========================================================
-
-        def create_heading(
-            element
-        ):
-
-            tag = element.name.lower()
-
-            sizes = {
-                "h1": 20,
-                "h2": 18,
-                "h3": 16,
-                "h4": 14,
-                "h5": 12,
-                "h6": 12
-            }
-
-            size = sizes.get(
-                tag,
-                12
-            )
-
-            paragraph = document.add_paragraph()
-
-            apply_paragraph_style(
-                paragraph,
-                element
-            )
-
-            # If HTML doesn't specify alignment,
-            # preserve common heading behavior.
-
-            styles = parse_style(
-                element
-            )
-
-            if "text-align" not in styles:
-
-                paragraph.alignment = (
-                    WD_ALIGN_PARAGRAPH.LEFT
-                )
-
-            add_inline_content(
-                paragraph,
-                element,
-                inherited_bold=True,
-                inherited_size=size
-            )
-
-            return paragraph
-
-        # =========================================================
-        # CREATE TABLE
-        # =========================================================
-
-        def create_table(
-            element
-        ):
-
-            rows = element.find_all(
-                "tr"
-            )
-
-            if not rows:
-                return
-
-            max_columns = 0
-
-            for row in rows:
-
-                cells = row.find_all(
-                    [
-                        "td",
-                        "th"
-                    ],
-                    recursive=False
-                )
-
-                max_columns = max(
-                    max_columns,
-                    len(cells)
-                )
-
-            if max_columns == 0:
-                return
-
-            table = document.add_table(
-                rows=len(rows),
-                cols=max_columns
-            )
-
-            table.style = "Table Grid"
-
-            # -----------------------------------------------------
-            # Process cells
-            # -----------------------------------------------------
-
-            for row_index, row in enumerate(rows):
-
-                cells = row.find_all(
-                    [
-                        "td",
-                        "th"
-                    ],
-                    recursive=False
-                )
-
-                for col_index, cell in enumerate(cells):
-
-                    if col_index >= max_columns:
-                        continue
-
-                    word_cell = table.cell(
-                        row_index,
-                        col_index
-                    )
-
-                    # Clear default text
-                    word_cell.text = ""
-
-                    paragraph = (
-                        word_cell.paragraphs[0]
-                    )
-
-                    apply_paragraph_style(
-                        paragraph,
-                        cell
-                    )
-
-                    # Header cells
-                    is_header = (
-                        cell.name.lower()
-                        == "th"
-                    )
-
-                    add_inline_content(
-                        paragraph,
-                        cell,
-                        inherited_bold=is_header,
-                        inherited_size=11
-                    )
-
-            # -----------------------------------------------------
-            # Keep table together when possible
-            # -----------------------------------------------------
-
-            for row in table.rows:
-
-                for cell in row.cells:
-
-                    for paragraph in cell.paragraphs:
-
-                        paragraph.paragraph_format.space_after = Pt(2)
-                        paragraph.paragraph_format.line_spacing = 1.0
-
-            return table
-
-        # =========================================================
-        # CREATE LIST
-        # =========================================================
-
-        def create_list(
-            element,
-            ordered=False
-        ):
-
-            items = element.find_all(
-                "li",
-                recursive=False
-            )
-
-            for item in items:
-
-                paragraph = document.add_paragraph()
-
-                paragraph.style = (
-                    "List Number"
-                    if ordered
-                    else "List Bullet"
-                )
-
-                paragraph.paragraph_format.line_spacing = 1.6
-
-                add_inline_content(
-                    paragraph,
-                    item
-                )
-
-        # =========================================================
-        # CREATE BLOCKQUOTE
-        # =========================================================
-
-        def create_blockquote(
-            element
-        ):
-
-            paragraph = document.add_paragraph()
-
-            paragraph.paragraph_format.left_indent = (
-                Inches(0.5)
-            )
-
-            paragraph.paragraph_format.line_spacing = 1.6
-
-            add_inline_content(
-                paragraph,
-                element
-            )
-
-            return paragraph
-
-        # =========================================================
-        # PROCESS ELEMENT
-        # =========================================================
-
-        def process_element(
-            element
-        ):
-
-            if not isinstance(
-                element,
-                Tag
-            ):
-                return
-
-            tag = element.name.lower()
-
-            # -----------------------------------------------------
-            # Ignore
-            # -----------------------------------------------------
-
-            if tag in [
-                "script",
-                "style",
-                "button",
-                "input",
-                "textarea",
-                "select"
-            ]:
-                return
-
-            # -----------------------------------------------------
-            # Table
-            # -----------------------------------------------------
-
-            if tag == "table":
-
-                create_table(
-                    element
-                )
-
-                return
-
-            # -----------------------------------------------------
-            # Headings
-            # -----------------------------------------------------
-
-            if tag in [
-                "h1",
-                "h2",
-                "h3",
-                "h4",
-                "h5",
-                "h6"
-            ]:
-
-                create_heading(
-                    element
-                )
-
-                return
-
-            # -----------------------------------------------------
-            # Paragraph
-            # -----------------------------------------------------
-
-            if tag == "p":
-
-                create_paragraph(
-                    element
-                )
-
-                return
-
-            # -----------------------------------------------------
-            # Lists
-            # -----------------------------------------------------
-
-            if tag == "ul":
-
-                create_list(
-                    element,
-                    ordered=False
-                )
-
-                return
-
-            if tag == "ol":
-
-                create_list(
-                    element,
-                    ordered=True
-                )
-
-                return
-
-            # -----------------------------------------------------
-            # Blockquote
-            # -----------------------------------------------------
-
-            if tag == "blockquote":
-
-                create_blockquote(
-                    element
-                )
-
-                return
-
-            # -----------------------------------------------------
-            # DIV / SECTION / ARTICLE
-            # -----------------------------------------------------
-
-            if tag in [
-                "div",
-                "section",
-                "article",
-                "main"
-            ]:
-
-                children = list(
-                    element.children
-                )
-
-                has_block_children = False
-
-                for child in children:
-
-                    if not isinstance(
-                        child,
-                        Tag
-                    ):
-                        continue
-
-                    child_tag = (
-                        child.name.lower()
-                    )
-
-                    if child_tag in [
-                        "p",
-                        "h1",
-                        "h2",
-                        "h3",
-                        "h4",
-                        "h5",
-                        "h6",
-                        "table",
-                        "ul",
-                        "ol",
-                        "blockquote",
-                        "div",
-                        "section",
-                        "article"
-                    ]:
-
-                        has_block_children = True
-
-                        process_element(
-                            child
-                        )
-
-                # If it contains only text
-                if not has_block_children:
-
-                    text = element.get_text(
-                        strip=False
-                    )
-
-                    if text.strip():
-
-                        create_paragraph(
-                            element
-                        )
-
-                return
-
-            # -----------------------------------------------------
-            # Other block elements
-            # -----------------------------------------------------
-
-            if tag in [
-                "header",
-                "footer",
-                "address"
-            ]:
-
-                create_paragraph(
-                    element
-                )
-
-                return
-
-            # -----------------------------------------------------
-            # Fallback
-            # -----------------------------------------------------
-
-            text = element.get_text(
-                strip=False
-            )
-
-            if text.strip():
-
-                create_paragraph(
-                    element
-                )
-
-        # =========================================================
-        # PROCESS REPORT PAGES
-        # =========================================================
-
-        report_pages = soup.select(
-            ".report-page"
-        )
-
-        if report_pages:
-
-            for page_index, page in enumerate(
-                report_pages
-            ):
-
-                # -------------------------------------------------
-                # Every .report-page in the web template becomes
-                # one Word page.
-                # -------------------------------------------------
-
-                if page_index > 0:
-
-                    document.add_page_break()
-
-                # -------------------------------------------------
-                # Process only direct children
-                # -------------------------------------------------
-
-                for element in page.children:
-
-                    if not isinstance(
-                        element,
-                        Tag
-                    ):
-                        continue
-
-                    process_element(
-                        element
-                    )
-
-        else:
-
-            # =====================================================
-            # FALLBACK
-            # =====================================================
-
-            body = soup.body
-
-            if body:
-
-                for element in body.children:
-
-                    if not isinstance(
-                        element,
-                        Tag
-                    ):
-                        continue
-
-                    process_element(
-                        element
-                    )
-
-            else:
-
-                for element in soup.children:
-
-                    if not isinstance(
-                        element,
-                        Tag
-                    ):
-                        continue
-
-                    process_element(
-                        element
-                    )
-
-        # =========================================================
-        # REMOVE EMPTY FINAL PARAGRAPH IF POSSIBLE
-        # =========================================================
-
-        # Word always keeps a final paragraph internally,
-        # so we don't aggressively remove it.
-
-        # =========================================================
-        # SAVE
-        # =========================================================
-
-        output = BytesIO()
-
-        document.save(
-            output
-        )
-
-        output.seek(0)
-
-        # =========================================================
-        # RESPONSE
-        # =========================================================
+        buffer.seek(0)
 
         response = HttpResponse(
-            output.getvalue(),
+            buffer.getvalue(),
             content_type=(
                 "application/vnd.openxmlformats-officedocument."
                 "wordprocessingml.document"
@@ -2551,21 +2527,17 @@ def download_field_report_docx(request, id):
 
     except Exception as e:
 
-        print(
-            "DOCX GENERATION ERROR:",
-            repr(e)
-        )
-
         return JsonResponse(
             {
                 "success": False,
                 "message": (
-                    "Unable to create the Word document."
+                    "Failed to generate DOCX report."
                 ),
-                "error": str(e)
+                "error": str(e),
             },
             status=500
         )
+
 
 
 

@@ -1,0 +1,1170 @@
+/* =========================================================
+   WINGASTOCK MY PROFILE PAGE
+   Extends:
+   - mobile-style.css
+   - account.css
+========================================================= */
+
+.profile-page {
+    width: 100%;
+    min-height: 100vh;
+    padding-bottom: 85px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.profile-header {
+    width: 100%;
+
+    min-height: 64px;
+
+    padding: 8px 14px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid rgba(220, 20, 60, 0.10);
+
+    display: flex;
+    align-items: center;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.profile-back-button {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    margin-right: 8px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #444;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.profile-back-button:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+
+.profile-back-button:active {
+    transform: scale(0.92);
+}
+
+
+.profile-back-button i {
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.profile-heading {
+    flex: 1;
+
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.profile-eyebrow {
+    color: crimson;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    line-height: 1;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+
+.profile-heading h1 {
+    margin: 0;
+
+    color: #222;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   EDIT BUTTON
+========================================================= */
+
+.profile-edit-button {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    margin-left: 8px;
+
+    border: none;
+    outline: none;
+
+    border-radius: 50%;
+
+    background: #f5f5f5;
+
+    color: #444;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.profile-edit-button:hover {
+    background: #eeeeee;
+}
+
+
+.profile-edit-button:active {
+    transform: scale(0.92);
+}
+
+
+.profile-edit-button i {
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   PROFILE SUMMARY
+========================================================= */
+
+.profile-summary {
+    width: calc(100% - 28px);
+
+    margin: 16px 14px;
+
+    padding: 18px;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(220, 20, 60, 0.08),
+            rgba(220, 20, 60, 0.025)
+        );
+
+    border: 1px solid rgba(220, 20, 60, 0.10);
+
+    display: flex;
+    align-items: center;
+}
+
+
+/* =========================================================
+   LARGE AVATAR
+========================================================= */
+
+.profile-avatar-large {
+    width: 62px;
+    height: 62px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: crimson;
+
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.profile-avatar-large i {
+    font-size: 25px;
+}
+
+
+/* =========================================================
+   SUMMARY INFO
+========================================================= */
+
+.profile-summary-info {
+    min-width: 0;
+
+    margin-left: 13px;
+}
+
+
+.profile-summary-info h2 {
+    margin: 0;
+
+    color: #222;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    line-height: 1.35;
+}
+
+
+.profile-summary-info p {
+    margin: 4px 0 0;
+
+    color: #888;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.profile-content {
+    width: 100%;
+
+    padding: 0 14px;
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.profile-section {
+    width: 100%;
+
+    margin-top: 22px;
+}
+
+
+.profile-section-heading {
+    margin-bottom: 10px;
+}
+
+
+.profile-section-heading span {
+    color: crimson;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+
+.profile-section-heading h2 {
+    margin: 3px 0 0;
+
+    color: #222;
+
+    font-size: 17px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   FORM CARD
+========================================================= */
+
+.profile-form-card {
+    width: 100%;
+
+    padding: 15px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.035);
+}
+
+
+/* =========================================================
+   FIELD
+========================================================= */
+
+.profile-field {
+    width: 100%;
+}
+
+
+.profile-field + .profile-field {
+    margin-top: 15px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid rgba(0, 0, 0, 0.055);
+}
+
+
+.profile-field label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #555;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   INPUT HOLDER
+========================================================= */
+
+.profile-input-holder {
+    width: 100%;
+
+    min-height: 43px;
+
+    padding: 0 11px;
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    border-radius: 11px;
+
+    background: #fafafa;
+
+    display: flex;
+    align-items: center;
+}
+
+
+.profile-input-holder i {
+    width: 20px;
+
+    flex-shrink: 0;
+
+    color: #999;
+
+    font-size: 13px;
+
+    text-align: center;
+}
+
+
+.profile-input-holder input {
+    width: 100%;
+
+    min-width: 0;
+
+    margin-left: 8px;
+
+    padding: 10px 0;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: #333;
+
+    font-family: inherit;
+
+    font-size: 11px;
+}
+
+
+.profile-input-holder input::placeholder {
+    color: #aaa;
+}
+
+
+.profile-input-holder input:disabled {
+    color: #555;
+
+    opacity: 1;
+
+    cursor: default;
+}
+
+
+/* =========================================================
+   EDIT MODE
+========================================================= */
+
+.profile-form-card.editing
+.profile-input-holder {
+    background: #ffffff;
+
+    border-color: rgba(220, 20, 60, 0.25);
+}
+
+
+.profile-form-card.editing
+.profile-input-holder input {
+    cursor: text;
+}
+
+
+/* =========================================================
+   ACCOUNT MENU
+========================================================= */
+
+.profile-menu {
+    width: 100%;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.035);
+}
+
+
+.profile-menu-item {
+    width: 100%;
+
+    min-height: 68px;
+
+    padding: 9px 12px;
+
+    border: none;
+    outline: none;
+
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: background 0.15s ease;
+}
+
+
+.profile-menu-item + .profile-menu-item {
+    border-top: 1px solid rgba(0, 0, 0, 0.055);
+}
+
+
+.profile-menu-item:hover {
+    background: #fafafa;
+}
+
+
+.profile-menu-item:active {
+    background: #f5f5f5;
+}
+
+
+/* =========================================================
+   MENU ICON
+========================================================= */
+
+.profile-menu-icon {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    background: rgba(220, 20, 60, 0.08);
+
+    color: crimson;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.profile-menu-icon i {
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   MENU TEXT
+========================================================= */
+
+.profile-menu-text {
+    min-width: 0;
+
+    flex: 1;
+
+    margin-left: 11px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.profile-menu-text strong {
+    color: #222;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.profile-menu-text small {
+    color: #888;
+
+    font-size: 10px;
+
+    line-height: 1.4;
+}
+
+
+.profile-menu-arrow {
+    margin-left: 8px;
+
+    color: #aaa;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   SAVE SECTION
+========================================================= */
+
+.profile-save-section {
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding-bottom: 20px;
+}
+
+
+.profile-save-button {
+    width: 100%;
+
+    min-height: 46px;
+
+    border: none;
+
+    border-radius: 24px;
+
+    background: crimson;
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    cursor: pointer;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.profile-save-button:hover {
+    opacity: 0.92;
+}
+
+
+.profile-save-button:active {
+    transform: scale(0.98);
+}
+
+
+
+
+/* =========================================================
+   DESKTOP — MICROSOFT STORE INSPIRED
+   Mobile design remains unchanged
+========================================================= */
+
+@media (min-width: 900px) {
+
+    /* =====================================================
+       PAGE
+    ===================================================== */
+
+    .profile-page {
+        width: 100%;
+        max-width: 1600px;
+
+        margin: 0 auto;
+
+        padding-bottom: 40px;
+    }
+
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    .profile-header {
+        width: 100%;
+
+        min-height: 72px;
+
+        padding: 0 38px;
+
+        background: #ffffff;
+
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+
+    /* =====================================================
+       BACK BUTTON
+    ===================================================== */
+
+    .profile-back-button {
+        width: 42px;
+        height: 42px;
+
+        margin-right: 16px;
+
+        border-radius: 2px;
+
+        background: transparent;
+
+        color: #333;
+    }
+
+
+    .profile-back-button:hover {
+        background: #f2f2f2;
+    }
+
+
+    .profile-back-button:active {
+        transform: none;
+    }
+
+
+    .profile-back-button i {
+        font-size: 16px;
+    }
+
+
+    /* =====================================================
+       HEADING
+    ===================================================== */
+
+    .profile-heading {
+        gap: 3px;
+    }
+
+
+    .profile-eyebrow {
+        font-size: 9px;
+
+        letter-spacing: 1.2px;
+    }
+
+
+    .profile-heading h1 {
+        font-size: 25px;
+
+        font-weight: 600;
+
+        letter-spacing: -0.3px;
+    }
+
+
+    /* =====================================================
+       EDIT BUTTON
+    ===================================================== */
+
+    .profile-edit-button {
+        width: 42px;
+        height: 42px;
+
+        margin-left: 16px;
+
+        border-radius: 2px;
+
+        background: transparent;
+
+        color: #333;
+    }
+
+
+    .profile-edit-button:hover {
+        background: #f2f2f2;
+    }
+
+
+    .profile-edit-button:active {
+        transform: none;
+    }
+
+
+    .profile-edit-button i {
+        font-size: 15px;
+    }
+
+
+    /* =====================================================
+       PROFILE SUMMARY
+    ===================================================== */
+
+    .profile-summary {
+        width: calc(100% - 76px);
+
+        margin: 24px 38px 30px;
+
+        padding: 24px 26px;
+
+        border-radius: 3px;
+
+        background:
+            linear-gradient(
+                135deg,
+                rgba(220, 20, 60, 0.07),
+                rgba(220, 20, 60, 0.025)
+            );
+
+        border: 1px solid rgba(220, 20, 60, 0.12);
+
+        box-shadow: none;
+    }
+
+
+    /* =====================================================
+       AVATAR
+    ===================================================== */
+
+    .profile-avatar-large {
+        width: 72px;
+        height: 72px;
+
+        border-radius: 50%;
+    }
+
+
+    .profile-avatar-large i {
+        font-size: 28px;
+    }
+
+
+    /* =====================================================
+       SUMMARY INFO
+    ===================================================== */
+
+    .profile-summary-info {
+        margin-left: 16px;
+    }
+
+
+    .profile-summary-info h2 {
+        font-size: 19px;
+
+        font-weight: 600;
+    }
+
+
+    .profile-summary-info p {
+        margin-top: 5px;
+
+        font-size: 11px;
+
+        color: #777;
+    }
+
+
+    /* =====================================================
+       CONTENT
+    ===================================================== */
+
+    .profile-content {
+        width: calc(100% - 76px);
+
+        margin: 0 38px;
+
+        padding: 0;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 24px 28px;
+    }
+
+
+    /* =====================================================
+       SECTION
+    ===================================================== */
+
+    .profile-section {
+        width: 100%;
+
+        margin-top: 0;
+    }
+
+
+    .profile-section-heading {
+        margin-bottom: 12px;
+    }
+
+
+    .profile-section-heading span {
+        font-size: 9px;
+
+        letter-spacing: 1.2px;
+    }
+
+
+    .profile-section-heading h2 {
+        margin-top: 4px;
+
+        font-size: 18px;
+
+        font-weight: 600;
+
+        letter-spacing: -0.2px;
+    }
+
+
+    /* =====================================================
+       FORM CARD
+    ===================================================== */
+
+    .profile-form-card {
+        width: 100%;
+
+        padding: 20px;
+
+        background: #ffffff;
+
+        border: 1px solid #e1e1e1;
+
+        border-radius: 3px;
+
+        box-shadow: none;
+    }
+
+
+    /* =====================================================
+       FIELD
+    ===================================================== */
+
+    .profile-field + .profile-field {
+        margin-top: 18px;
+
+        padding-top: 18px;
+
+        border-top: 1px solid #e7e7e7;
+    }
+
+
+    .profile-field label {
+        margin-bottom: 7px;
+
+        color: #555;
+
+        font-size: 10px;
+
+        font-weight: 600;
+    }
+
+
+    /* =====================================================
+       INPUT HOLDER
+    ===================================================== */
+
+    .profile-input-holder {
+        min-height: 46px;
+
+        padding: 0 12px;
+
+        border: 1px solid #dcdcdc;
+
+        border-radius: 2px;
+
+        background: #fafafa;
+
+        transition:
+            border-color 0.2s ease,
+            background 0.2s ease;
+    }
+
+
+    .profile-input-holder:hover {
+        border-color: #cfcfcf;
+    }
+
+
+    .profile-input-holder i {
+        width: 20px;
+
+        color: #888;
+
+        font-size: 13px;
+    }
+
+
+    .profile-input-holder input {
+        margin-left: 9px;
+
+        padding: 11px 0;
+
+        font-size: 11px;
+    }
+
+
+    /* =====================================================
+       EDIT MODE
+    ===================================================== */
+
+    .profile-form-card.editing
+    .profile-input-holder {
+        background: #ffffff;
+
+        border-color: rgba(220, 20, 60, 0.35);
+    }
+
+
+    /* =====================================================
+       ACCOUNT MENU
+    ===================================================== */
+
+    .profile-menu {
+        width: 100%;
+
+        background: #ffffff;
+
+        border: 1px solid #e1e1e1;
+
+        border-radius: 3px;
+
+        box-shadow: none;
+    }
+
+
+    .profile-menu-item {
+        min-height: 72px;
+
+        padding: 10px 16px;
+
+        background: #ffffff;
+    }
+
+
+    .profile-menu-item + .profile-menu-item {
+        border-top: 1px solid #e7e7e7;
+    }
+
+
+    .profile-menu-item:hover {
+        background: #f7f7f7;
+    }
+
+
+    .profile-menu-item:active {
+        background: #f2f2f2;
+    }
+
+
+    /* =====================================================
+       MENU ICON
+    ===================================================== */
+
+    .profile-menu-icon {
+        width: 42px;
+        height: 42px;
+
+        border-radius: 2px;
+
+        background: rgba(220, 20, 60, 0.07);
+
+        color: crimson;
+    }
+
+
+    .profile-menu-icon i {
+        font-size: 16px;
+    }
+
+
+    /* =====================================================
+       MENU TEXT
+    ===================================================== */
+
+    .profile-menu-text {
+        margin-left: 13px;
+
+        gap: 4px;
+    }
+
+
+    .profile-menu-text strong {
+        font-size: 13px;
+
+        font-weight: 600;
+    }
+
+
+    .profile-menu-text small {
+        font-size: 10px;
+
+        color: #777;
+    }
+
+
+    .profile-menu-arrow {
+        margin-left: 10px;
+
+        color: #999;
+
+        font-size: 10px;
+    }
+
+
+    /* =====================================================
+       SAVE SECTION
+    ===================================================== */
+
+    .profile-save-section {
+        grid-column: 1 / -1;
+
+        width: 100%;
+
+        margin-top: 0;
+
+        padding-bottom: 0;
+    }
+
+
+    .profile-save-button {
+        width: 300px;
+
+        min-height: 44px;
+
+        margin: 0 auto;
+
+        border-radius: 2px;
+
+        background: crimson;
+
+        font-size: 11px;
+
+        font-weight: 600;
+    }
+
+
+    .profile-save-button:hover {
+        opacity: 0.92;
+    }
+
+
+    .profile-save-button:active {
+        transform: none;
+    }
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1300px) {
+
+    .profile-header {
+        padding-left: 48px;
+        padding-right: 48px;
+    }
+
+
+    .profile-summary {
+        width: calc(100% - 96px);
+
+        margin-left: 48px;
+        margin-right: 48px;
+
+        padding: 26px 30px;
+    }
+
+
+    .profile-content {
+        width: calc(100% - 96px);
+
+        margin-left: 48px;
+        margin-right: 48px;
+
+        gap: 28px;
+    }
+}
+
+
+/* =========================================================
+   EXTRA LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1500px) {
+
+    .profile-content {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+
+    .profile-save-section {
+        grid-column: 1 / -1;
+    }
+}

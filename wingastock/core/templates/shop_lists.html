@@ -1,177 +1,845 @@
 {% load static %}
-{% load humanize %}
 {% load i18n %}
+{% load humanize %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-    <link rel="stylesheet" href="{% static 'css/search.css' %}">
-    <link rel="stylesheet" href="{% static 'css/heading.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <title>Wingastock - Buy &amp; Sell Products in Tanzania</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <meta name="description"
-        content="Buy and sell electronics, phones, laptops, furniture, homes, and more on Wingastock, Tanzania's online marketplace.">
-
-    <meta property="og:title" content="Wingastock - Buy &amp; Sell Products in Tanzania">
-
-    <meta property="og:description"
-        content="Buy and sell electronics, phones, laptops, furniture, homes, and more on Wingastock, Tanzania's online marketplace.">
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://wingastock.onrender.com/">
-    <meta property="og:site_name" content="Wingastock">
+    <title>
+        Wingastock | {% translate "Shops" %}
+    </title>
 
 
-    <meta name="robots" content="index, follow">
-
-    <link rel="canonical" href="https://wingastock.onrender.com/">
-
-
-    <meta property="og:image" content="/static/logo.png">
-
-    <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
 
 
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
-        gtag('config', 'G-STT2EJ7H54');
-    </script>
+
+    <!-- Base stylesheet -->
+    <link
+        rel="stylesheet"
+        href="{% static 'css/home.css' %}"
+    >
+
+
+    <!-- Shops stylesheet -->
+    <link
+        rel="stylesheet"
+        href="{% static 'css/shop_lists.css' %}"
+    >
 
 </head>
 
+
 <body>
 
-    <div class="page-loader-holder-000">
-        <div>
-            <button type="button">
-                <h1>
-                    <img src="{% static 'logo.png' %}" alt="logo"> <br>
-                    <span>Wingastock</span>
-                </h1>
-            </button>
+
+<div class="shops-page">
+
+
+    <!-- =========================================================
+         HEADER
+    ========================================================== -->
+
+    <header class="shops-header">
+
+
+        <!-- BACK BUTTON -->
+
+        <button
+            type="button"
+            class="shops-back-button"
+            onclick="history.back()"
+            aria-label="{% translate 'Go back' %}"
+        >
+
+            <i class="fas fa-arrow-left"></i>
+
+        </button>
+
+
+
+        <!-- HEADING -->
+
+        <div class="shops-heading">
+
+            <h1>
+                {% translate "Shops" %}
+            </h1>
+
         </div>
-    </div>
-
-
-    <div class="row-holder-001">
-
-        <!-- Inlude heading -->
-        {% if user.email %}
-        {% include 'header_s.html' %}
-        {% else %}
-        {% include 'heading.html' %}
-        {% endif %}
 
 
 
-        <div class="content-holder-002">
+        <!-- SEARCH / FILTER -->
 
-            <div class="shops-page-heading">
-                <div>
-                    <span class="eyebrow">
-                        <i class="fas fa-store"></i>
-                        {% translate "Marketplace community" %}
-                    </span>
+        <button
+            type="button"
+            class="shops-filter-button"
+            id="shopsFilterButton"
+            aria-label="{% translate 'Search shops' %}"
+        >
 
-                    <h1>{% translate "Discover trusted shops" %}</h1>
+            <i class="fas fa-search"></i>
+
+        </button>
+
+
+    </header>
+
+
+
+    <!-- =========================================================
+         SEARCH
+    ========================================================== -->
+
+    <section
+        class="shops-search-section"
+        id="shopsSearchSection"
+    >
+
+        <div class="shops-search-box">
+
+            <i class="fas fa-search"></i>
+
+            <input
+                type="search"
+                id="shopSearchInput"
+                placeholder="{% translate 'Search shops...' %}"
+                autocomplete="off"
+            >
+
+            <button
+                type="button"
+                id="clearShopSearch"
+                aria-label="{% translate 'Clear search' %}"
+            >
+
+                <i class="fas fa-times"></i>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         TOOLBAR
+    ========================================================== -->
+
+    <section class="shops-toolbar">
+
+        <div>
+
+            <strong id="shopsCount">
+
+                {{ shops|length }}
+
+                {% if shops|length == 1 %}
+                    {% translate "shop" %}
+                {% else %}
+                    {% translate "shops" %}
+                {% endif %}
+
+            </strong>
+
+
+            <span>
+                {% translate "Discover trusted sellers on Wingastock" %}
+            </span>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         SHOPS CONTENT
+    ========================================================== -->
+
+    <main class="shops-content">
+
+
+        <!-- =====================================================
+             SHOP GRID
+        ====================================================== -->
+
+        <section
+            class="shops-grid"
+            id="shopsGrid"
+        >
+
+
+            {% for shop in shops %}
+
+
+                <!-- =================================================
+                     SHOP CARD
+                ================================================== -->
+
+                <article
+                    class="shop-card"
+                    data-shop-name="{{ shop.seller_name|lower }}"
+                    data-shop-location="{{ shop.seller_address|lower }}"
+                >
+
+
+                    <!-- =================================================
+                         SHOP COVER / PROFILE
+                    ================================================== -->
+
+                    <div class="shop-card-top">
+
+
+                        <!-- SHOP IMAGE -->
+
+                        <div class="shop-profile-image">
+
+                            {% if shop.seller_dp %}
+
+                                <img
+                                    src="{{ shop.seller_dp.url }}"
+                                    alt="{{ shop.seller_name }}"
+                                    loading="lazy"
+                                >
+
+                            {% else %}
+
+                                <div class="shop-profile-placeholder">
+
+                                    <i class="fas fa-store"></i>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <!-- VERIFIED -->
+
+                        <div class="shop-verified">
+
+                            <i class="fas fa-check-circle"></i>
+
+                            <span>
+                                {% translate "Verified seller" %}
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         SHOP DETAILS
+                    ================================================== -->
+
+                    <div class="shop-card-body">
+
+
+                        <!-- SHOP NAME -->
+
+                        <h2 class="shop-name">
+
+                            {{ shop.seller_name }}
+
+                        </h2>
+
+
+
+                        <!-- LOCATION -->
+
+                        <div class="shop-location">
+
+                            <i class="fas fa-map-marker-alt"></i>
+
+                            <span>
+                                {{ shop.seller_address }}
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- DESCRIPTION -->
+
+                        {% if shop.seller_description %}
+
+                            <p class="shop-description">
+
+                                {{ shop.seller_description|truncatechars:105 }}
+
+                            </p>
+
+                        {% else %}
+
+                            <p class="shop-description shop-description-empty">
+
+                                {% translate "No shop description available." %}
+
+                            </p>
+
+                        {% endif %}
+
+
+
+                        <!-- =================================================
+                             SHOP STATISTICS
+                        ================================================== -->
+
+                        <div class="shop-stats">
+
+
+                            <!-- PRODUCTS -->
+
+                            <div class="shop-stat">
+
+                                <div class="shop-stat-icon">
+
+                                    <i class="fas fa-box-open"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        {{ shop.user.products.count|intcomma }}
+                                    </strong>
+
+                                    <span>
+                                        {% translate "Products" %}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- PHONE -->
+
+                            <div class="shop-stat">
+
+                                <div class="shop-stat-icon">
+
+                                    <i class="fas fa-phone"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        {{ shop.seller_phone }}
+                                    </strong>
+
+                                    <span>
+                                        {% translate "Contact" %}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             SHOP FOOTER
+                        ================================================== -->
+
+                        <div class="shop-card-footer">
+
+
+                            <span class="shop-member-date">
+
+                                <i class="far fa-calendar-alt"></i>
+
+                                {% translate "Joined" %}
+
+                                {{ shop.reg_date|date:"M Y" }}
+
+                            </span>
+
+
+
+                            <!-- PREVIEW BUTTON -->
+
+                            <button
+                                type="button"
+                                class="view-shop-button"
+                                data-shop-id="{{ shop.id }}"
+                                aria-label="{% translate 'View shop' %}"
+                                onclick="window.location.href=`{% url 'shop_preview' shop.id %}`"
+                            >
+
+                                {% translate "View shop" %}
+
+                                <i class="fas fa-arrow-right"></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </article>
+
+
+            {% empty %}
+
+
+                <!-- =================================================
+                     EMPTY STATE
+                ================================================== -->
+
+                <section
+                    class="shops-empty"
+                    id="shopsEmpty"
+                >
+
+                    <div class="empty-shop-icon">
+
+                        <i class="fas fa-store-slash"></i>
+
+                    </div>
+
+
+                    <h2>
+
+                        {% translate "No shops available" %}
+
+                    </h2>
+
 
                     <p>
-                        {% translate "Browse local sellers and find products from businesses you can connect with directly." %}
+
+                        {% translate "There are no shops available at the moment." %}
+
                     </p>
-                </div>
 
-                <div class="shops-page-stat">
-                    <strong>{{ shops|length }}</strong>
-                    <span>{% translate "shops available" %}</span>
-                </div>
+
+                    <button
+                        type="button"
+                        class="browse-shops-button"
+                        onclick="window.location.href='{% url 'home' %}'"
+                    >
+
+                        <i class="fas fa-store"></i>
+
+                        {% translate "Continue Shopping" %}
+
+                    </button>
+
+                </section>
+
+
+            {% endfor %}
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             SEARCH EMPTY STATE
+        ====================================================== -->
+
+        <section
+            class="shops-empty shops-search-empty"
+            id="shopsSearchEmpty"
+            style="display: none;"
+        >
+
+            <div class="empty-shop-icon">
+
+                <i class="fas fa-search"></i>
+
             </div>
 
-            <!-- Shops -->
-            <div class="shop-card-holder-1001">
-                <div class="shop-card-1002">
 
-                    {% for shop in shops %}
-                    {% include 'shops-container.html' %}
-                    {% endfor %}
+            <h2>
 
-                </div>
-            </div>
+                {% translate "No shops found" %}
 
-            <div style="width: 100%; height: 100px; float: left;"></div>
-
-        </div>
+            </h2>
 
 
+            <p>
 
-        <!-- How to -->
-        {% include 'how-to.html' %}
+                {% translate "Try searching with another shop name or location." %}
 
-        <div class="footer-holder-1003">
-            <div>
-                <p>Wingastock | Online marketplace</p>
-            </div>
-        </div>
+            </p>
+
+        </section>
 
 
-        <!-- Nav bar -->
-        {% include 'navbar.html' %}
-
-        <!-- Login and register modal-->
-        {% include 'login-container.html' %}
-
-    </div>
+    </main>
 
 
-    <script>
-        window.addEventListener("load", function () {
 
-            const loader = document.querySelector(
-                ".page-loader-holder-000"
-            );
+    <!-- =========================================================
+         MOBILE BOTTOM NAVIGATION
+    ========================================================== -->
 
-            if (loader) {
+    <nav class="mobile-bottom-nav">
 
-                // Fade out the loader
-                loader.classList.add("hidden");
 
-                // Remove it completely after the animation
-                setTimeout(function () {
-                    loader.remove();
-                }, 500);
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'products' %}'"
+        >
+
+            <i class="fas fa-shopping-bag"></i>
+
+            <span>
+                {% translate "Products" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'favorities' %}'"
+        >
+
+            <i class="far fa-heart"></i>
+
+            <span>
+                {% translate "Favorites" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="active"
+            onclick="window.location.href='{% url 'shop_list' %}'"
+        >
+
+            <i class="fas fa-store-alt"></i>
+
+            <span>
+                {% translate "Shops" %}
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="window.location.href='{% url 'customer_account' %}'"
+        >
+
+            <i class="far fa-user"></i>
+
+            <span>
+                {% translate "Account" %}
+            </span>
+
+        </button>
+
+
+    </nav>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     LOGIN / REGISTER MODAL
+========================================================== -->
+
+{% include 'login-container.html' %}
+
+
+
+<!-- =========================================================
+     TRANSLATIONS FOR JAVASCRIPT
+========================================================== -->
+
+{% translate "shop" as shop_singular %}
+{% translate "shops" as shop_plural %}
+
+
+<!-- =========================================================
+     SHOPS JAVASCRIPT
+========================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    const searchButton =
+        document.getElementById("shopsFilterButton");
+
+
+    const searchSection =
+        document.getElementById("shopsSearchSection");
+
+
+    const searchInput =
+        document.getElementById("shopSearchInput");
+
+
+    const clearSearch =
+        document.getElementById("clearShopSearch");
+
+
+    const shopCards =
+        document.querySelectorAll(".shop-card");
+
+
+    const searchEmpty =
+        document.getElementById("shopsSearchEmpty");
+
+
+    const shopsCount =
+        document.getElementById("shopsCount");
+
+
+    const shopSingular =
+        "{{ shop_singular|escapejs }}";
+
+
+    const shopPlural =
+        "{{ shop_plural|escapejs }}";
+
+
+
+    /* =========================================================
+       SHOW / HIDE SEARCH
+    ========================================================== */
+
+    if (searchButton && searchSection) {
+
+        searchButton.addEventListener(
+            "click",
+            function () {
+
+                searchSection.classList.toggle("show");
+
+                if (searchSection.classList.contains("show")) {
+
+                    setTimeout(function () {
+
+                        if (searchInput) {
+                            searchInput.focus();
+                        }
+
+                    }, 100);
+
+                }
+
             }
+        );
 
-        });
-    </script>
+    }
 
 
-    <script>
-        function menu_bar(click) {
-            let menu_div = document.getElementById('menu_div');
-            let button1 = document.getElementById('button1');
-            let button2 = document.getElementById('button2');
 
-            if (click == 'open') {
-                menu_div.style.display = 'inline-block';
-                button1.style.display = 'none';
-                button2.style.display = 'inline-block';
+    /* =========================================================
+       SEARCH SHOPS
+    ========================================================== */
+
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            "input",
+            function () {
+
+                const searchValue =
+                    searchInput.value
+                        .trim()
+                        .toLowerCase();
+
+
+                let visibleShops = 0;
+
+
+                shopCards.forEach(
+                    function (card) {
+
+                        const shopName =
+                            card.dataset.shopName || "";
+
+
+                        const shopLocation =
+                            card.dataset.shopLocation || "";
+
+
+                        const matches =
+                            shopName.includes(searchValue) ||
+                            shopLocation.includes(searchValue);
+
+
+                        if (matches) {
+
+                            card.style.display = "";
+
+                            visibleShops++;
+
+                        } else {
+
+                            card.style.display = "none";
+
+                        }
+
+                    }
+                );
+
+
+
+                /* =================================================
+                   SEARCH EMPTY
+                ================================================== */
+
+                if (searchEmpty) {
+
+                    searchEmpty.style.display =
+                        visibleShops === 0
+                            ? "flex"
+                            : "none";
+
+                }
+
+
+
+                /* =================================================
+                   UPDATE COUNT
+                ================================================== */
+
+                if (shopsCount) {
+
+                    if (visibleShops === 1) {
+
+                        shopsCount.textContent =
+                            "1 " + shopSingular;
+
+                    } else {
+
+                        shopsCount.textContent =
+                            visibleShops + " " + shopPlural;
+
+                    }
+
+                }
+
             }
-            else {
-                menu_div.style.display = 'none';
-                button2.style.display = 'none';
-                button1.style.display = 'inline-block';
+        );
+
+    }
+
+
+
+    /* =========================================================
+       CLEAR SEARCH
+    ========================================================== */
+
+    if (clearSearch) {
+
+        clearSearch.addEventListener(
+            "click",
+            function () {
+
+                if (!searchInput) {
+                    return;
+                }
+
+
+                searchInput.value = "";
+
+
+                searchInput.dispatchEvent(
+                    new Event("input")
+                );
+
+
+                searchInput.focus();
+
             }
-        }
-    </script>
+        );
+
+    }
+
+
+
+    /* =========================================================
+       VIEW SHOP
+    ========================================================== */
+
+    document
+        .querySelectorAll(".view-shop-button")
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function (event) {
+
+                        event.preventDefault();
+
+                        event.stopPropagation();
+
+
+                        const shopId =
+                            button.dataset.shopId;
+
+
+                        /*
+                         * Shop preview URL is already connected
+                         * through the button onclick attribute.
+                         */
+
+                        console.log(
+                            "Shop selected:",
+                            shopId
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+});
+
+</script>
+
 
 </body>
 

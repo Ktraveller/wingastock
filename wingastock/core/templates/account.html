@@ -1,0 +1,776 @@
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% translate "Wingastock | Account" %}</title>
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Base CSS -->
+
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+    <!-- Account CSS -->
+
+    <link rel="stylesheet" href="{% static 'css/account.css' %}">
+
+</head>
+
+
+<body>
+
+    <div class="account-page">
+
+
+        <!-- =========================================
+             ACCOUNT HEADER
+        ========================================== -->
+
+        <header class="account-header">
+
+            <div class="account-header-top">
+
+                <!-- BACK BUTTON -->
+
+                <button type="button" class="account-back-button" onclick="history.back()"
+                    aria-label="{% translate 'Go back' %}">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+
+
+                <!-- TITLE -->
+
+                <div class="account-heading">
+
+                    <h1>
+                        {% translate "Account" %}
+                    </h1>
+
+                </div>
+
+
+                <!-- SETTINGS -->
+
+                <button type="button" class="account-settings-button" id="accountSettingsButton"
+                    aria-label="{% translate 'Account settings' %}">
+                    <i class="fas fa-cog"></i>
+                </button>
+
+            </div>
+
+
+            <!-- PROFILE -->
+
+            {% if user.is_authenticated %}
+
+            <div class="account-profile" onclick="window.location.href=`{% url 'customer_profile' %}`">
+
+                <div class="account-avatar">
+                    <i class="far fa-user"></i>
+                </div>
+
+
+                <div class="account-profile-info">
+
+                    <h2>
+                        {% translate "Welcome to Wingastock" %}
+                    </h2>
+
+                    <p>
+                        {{ user.email }}
+                    </p>
+
+                </div>
+
+
+                <button type="button" class="profile-arrow" id="profileButton"
+                    aria-label="{% translate 'Open profile' %}">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+            </div>
+
+            {% else %}
+
+            <div class="account-profile" onclick="open_login_modal(1)">
+
+                <div class="account-avatar">
+                    <i class="far fa-user"></i>
+                </div>
+
+
+                <div class="account-profile-info">
+
+                    <h2>
+                        {% translate "Welcome to Wingastock" %}
+                    </h2>
+
+                    <p>
+                        {% translate "Sign in to manage your account" %}
+                    </p>
+
+                </div>
+
+
+                <button type="button" class="profile-arrow" id="profileButton"
+                    aria-label="{% translate 'Open profile' %}">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+            </div>
+
+            {% endif %}
+
+        </header>
+
+
+
+        <!-- =========================================
+             ACCOUNT CONTENT
+        ========================================== -->
+
+        <main class="account-content">
+
+
+            <!-- =====================================
+                 ACCOUNT ACTIONS
+            ====================================== -->
+
+            <section class="account-section">
+
+                <div class="account-section-heading">
+
+                    <span>
+                        {% translate "Manage" %}
+                    </span>
+
+                    <h2>
+                        {% translate "Your account" %}
+                    </h2>
+
+                </div>
+
+
+                <div class="account-menu">
+
+
+                    <!-- My Profile -->
+
+                    {% if user.is_authenticated %}
+
+                    <button type="button" class="account-menu-item"
+                        onclick="window.location.href=`{% url 'customer_profile' %}`" data-action="profile">
+
+                        <span class="account-menu-icon">
+
+                            <i class="far fa-user"></i>
+
+                        </span>
+
+
+                        <span class="account-menu-text">
+
+                            <strong>
+                                {% translate "My profile" %}
+                            </strong>
+
+                            <small>
+                                {% translate "Manage your personal information" %}
+                            </small>
+
+                        </span>
+
+
+                        <i class="fas fa-chevron-right account-menu-arrow"></i>
+
+                    </button>
+
+                    {% else %}
+
+                    <button type="button" class="account-menu-item" onclick="open_login_modal(1)" data-action="profile">
+
+                        <span class="account-menu-icon">
+
+                            <i class="far fa-user"></i>
+
+                        </span>
+
+
+                        <span class="account-menu-text">
+
+                            <strong>
+                                {% translate "My profile" %}
+                            </strong>
+
+                            <small>
+                                {% translate "Manage your personal information" %}
+                            </small>
+
+                        </span>
+
+
+                        <i class="fas fa-chevron-right account-menu-arrow"></i>
+
+                    </button>
+
+                    {% endif %}
+
+
+
+                    <!-- Delivery Requests -->
+
+                    {% if user.is_authenticated %}
+
+                    <button type="button" class="account-menu-item"
+                        onclick="window.location.href=`{% url 'delivery_home' %}`" data-action="delivery">
+
+                        <span class="account-menu-icon">
+
+                            <i class="fas fa-truck"></i>
+
+                        </span>
+
+
+                        <span class="account-menu-text">
+
+                            <strong>
+                                {% translate "Delivery requests" %}
+                            </strong>
+
+                            <small>
+                                {% translate "Track your delivery requests" %}
+                            </small>
+
+                        </span>
+
+
+                        <i class="fas fa-chevron-right account-menu-arrow"></i>
+
+                    </button>
+
+                    {% else %}
+
+                    <button type="button" class="account-menu-item" onclick="open_login_modal(1)"
+                        data-action="delivery">
+
+                        <span class="account-menu-icon">
+
+                            <i class="fas fa-truck"></i>
+
+                        </span>
+
+
+                        <span class="account-menu-text">
+
+                            <strong>
+                                {% translate "Delivery requests" %}
+                            </strong>
+
+                            <small>
+                                {% translate "Track your delivery requests" %}
+                            </small>
+
+                        </span>
+
+
+                        <i class="fas fa-chevron-right account-menu-arrow"></i>
+
+                    </button>
+
+                    {% endif %}
+
+
+
+                    <!-- Student Field Report -->
+
+                    {% if user.is_authenticated %}
+
+                    <button type="button" class="account-menu-item"
+                        onclick="window.location.href=`{% url 'report_home' %}`" data-action="field-report">
+
+                        <span class="account-menu-icon">
+
+                            <i class="fas fa-file-alt"></i>
+
+                        </span>
+
+                        <span class="account-menu-text">
+
+                            <strong>
+                                {% translate "Student Field Report" %}
+                            </strong>
+
+                            <small>
+                                {% translate "Manage your field training reports" %}
+                            </small>
+
+                        </span>
+
+                        <i class="fas fa-chevron-right account-menu-arrow"></i>
+
+                    </button>
+
+                    {% else %}
+
+                    <button type="button" class="account-menu-item" onclick="open_login_modal(1)"
+                        data-action="field-report">
+
+                        <span class="account-menu-icon">
+
+                            <i class="fas fa-file-alt"></i>
+
+                        </span>
+
+                        <span class="account-menu-text">
+
+                            <strong>
+                                {% translate "Student Field Report" %}
+                            </strong>
+
+                            <small>
+                                {% translate "Manage your field training reports" %}
+                            </small>
+
+                        </span>
+
+                        <i class="fas fa-chevron-right account-menu-arrow"></i>
+
+                    </button>
+
+                    {% endif %}
+
+
+
+                    <!-- Search History -->
+
+                    <button type="button" class="account-menu-item"
+                        onclick="window.location.href=`{% url 'customer_history' %}`" data-action="history">
+
+                        <span class="account-menu-icon">
+
+                            <i class="fas fa-history"></i>
+
+                        </span>
+
+
+                        <span class="account-menu-text">
+
+                            <strong>
+                                {% translate "Search history" %}
+                            </strong>
+
+                            <small>
+                                {% translate "View your recent searches" %}
+                            </small>
+
+                        </span>
+
+
+                        <i class="fas fa-chevron-right account-menu-arrow"></i>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================
+                 SELLING
+            ====================================== -->
+
+            <section class="account-section">
+
+                <div class="account-section-heading">
+
+                    <span>
+                        {% translate "Marketplace" %}
+                    </span>
+
+                    <h2>
+                        {% translate "Sell on Wingastock" %}
+                    </h2>
+
+                </div>
+
+
+                <div class="account-menu">
+
+
+                    <!-- Become Seller -->
+
+                    {% if user.is_authenticated %}
+
+                    <button type="button" class="account-menu-item"
+                        onclick="window.location.href=`{% url 'seller_terms' %}`" data-action="seller">
+
+                        <span class="account-menu-icon">
+
+                            <i class="fas fa-store"></i>
+
+                        </span>
+
+
+                        <span class="account-menu-text">
+
+                            <strong>
+                                {% translate "Become a seller" %}
+                            </strong>
+
+                            <small>
+                                {% translate "Start selling your products" %}
+                            </small>
+
+                        </span>
+
+
+                        <i class="fas fa-chevron-right account-menu-arrow"></i>
+
+                    </button>
+
+                    {% else %}
+
+                    <button type="button" class="account-menu-item" onclick="open_login_modal(1)" data-action="seller">
+
+                        <span class="account-menu-icon">
+
+                            <i class="fas fa-store"></i>
+
+                        </span>
+
+
+                        <span class="account-menu-text">
+
+                            <strong>
+                                {% translate "Become a seller" %}
+                            </strong>
+
+                            <small>
+                                {% translate "Start selling your products" %}
+                            </small>
+
+                        </span>
+
+
+                        <i class="fas fa-chevron-right account-menu-arrow"></i>
+
+                    </button>
+
+                    {% endif %}
+
+
+
+                    <!-- My Listings -->
+
+                    {% if user.is_authenticated %}
+
+                    <button type="button" class="account-menu-item"
+                        onclick="window.location.href=`{% url 'seller_products' %}`" data-action="listings">
+
+                        <span class="account-menu-icon">
+
+                            <i class="fas fa-box"></i>
+
+                        </span>
+
+
+                        <span class="account-menu-text">
+
+                            <strong>
+                                {% translate "My listings" %}
+                            </strong>
+
+                            <small>
+                                {% translate "Manage your products" %}
+                            </small>
+
+                        </span>
+
+
+                        <i class="fas fa-chevron-right account-menu-arrow"></i>
+
+                    </button>
+
+                    {% else %}
+
+                    <button type="button" class="account-menu-item" onclick="open_login_modal(1)"
+                        data-action="listings">
+
+                        <span class="account-menu-icon">
+
+                            <i class="fas fa-box"></i>
+
+                        </span>
+
+
+                        <span class="account-menu-text">
+
+                            <strong>
+                                {% translate "My listings" %}
+                            </strong>
+
+                            <small>
+                                {% translate "Manage your products" %}
+                            </small>
+
+                        </span>
+
+
+                        <i class="fas fa-chevron-right account-menu-arrow"></i>
+
+                    </button>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================
+                 SUPPORT
+            ====================================== -->
+
+            <section class="account-section">
+
+                <div class="account-section-heading">
+
+                    <span>
+                        {% translate "Help" %}
+                    </span>
+
+                    <h2>
+                        {% translate "Support & information" %}
+                    </h2>
+
+                </div>
+
+
+                <div class="account-menu">
+
+
+                    <!-- Help -->
+
+                    <button type="button" class="account-menu-item" data-action="help"
+                        onclick="window.location.href=`{% url 'user_support' %}`">
+
+                        <span class="account-menu-icon">
+
+                            <i class="far fa-question-circle"></i>
+
+                        </span>
+
+
+                        <span class="account-menu-text">
+
+                            <strong>
+                                {% translate "Help center" %}
+                            </strong>
+
+                            <small>
+                                {% translate "Get help using Wingastock" %}
+                            </small>
+
+                        </span>
+
+
+                        <i class="fas fa-chevron-right account-menu-arrow"></i>
+
+                    </button>
+
+
+
+                    <!-- Contact -->
+
+                    <button type="button" class="account-menu-item" data-action="contact">
+
+                        <span class="account-menu-icon">
+
+                            <i class="far fa-comment-dots"></i>
+
+                        </span>
+
+
+                        <span class="account-menu-text">
+
+                            <strong>
+                                {% translate "Contact us" %}
+                            </strong>
+
+                            <small>
+                                {% translate "Talk to the Wingastock team" %}
+                            </small>
+
+                        </span>
+
+
+                        <i class="fas fa-chevron-right account-menu-arrow"></i>
+
+                    </button>
+
+
+
+                    <!-- About -->
+
+                    <button type="button" class="account-menu-item" data-action="about"
+                        onclick="window.location.href=`{% url 'about_us' %}`">
+
+                        <span class="account-menu-icon">
+
+                            <i class="fas fa-info"></i>
+
+                        </span>
+
+
+                        <span class="account-menu-text">
+
+                            <strong>
+                                {% translate "About Wingastock" %}
+                            </strong>
+
+                            <small>
+                                {% translate "Learn more about the marketplace" %}
+                            </small>
+
+                        </span>
+
+
+                        <i class="fas fa-chevron-right account-menu-arrow"></i>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================
+                 SIGN IN
+            ====================================== -->
+
+            {% if user.is_authenticated %}
+
+            {% else %}
+
+            <section class="account-login-card">
+
+                <div class="account-login-icon">
+
+                    <i class="fas fa-user"></i>
+
+                </div>
+
+
+                <div class="account-login-content">
+
+                    <h3>
+                        {% translate "Sign in to Wingastock" %}
+                    </h3>
+
+                    <p>
+                        {% translate "Save favorites, manage orders and access your account." %}
+                    </p>
+
+                </div>
+
+
+                <button type="button" class="account-login-button" onclick="open_login_modal(1)"
+                    id="accountLoginButton">
+
+                    {% translate "Sign in" %}
+
+                </button>
+
+            </section>
+
+            {% endif %}
+
+
+            <p class="account-version">
+                {% translate "Wingastock Marketplace" %}
+            </p>
+
+        </main>
+
+
+
+        <!-- =========================================
+             MOBILE BOTTOM NAVIGATION
+        ========================================== -->
+
+        <nav class="mobile-bottom-nav">
+
+
+            <button type="button" onclick="window.location.href='{% url 'products' %}'">
+
+                <i class="fas fa-shopping-bag"></i>
+
+                <span>
+                    {% translate "Products" %}
+                </span>
+
+            </button>
+
+
+            <button type="button" onclick="window.location.href='{% url 'favorities' %}'">
+
+                <i class="far fa-heart"></i>
+
+                <span>
+                    {% translate "Favorites" %}
+                </span>
+
+            </button>
+
+
+            <button type="button" onclick="window.location.href='{% url 'shop_list' %}'">
+
+                <i class="fas fa-store-alt"></i>
+
+                <span>
+                    {% translate "Shops" %}
+                </span>
+
+            </button>
+
+
+            <button type="button" class="active" onclick="window.location.href='{% url 'customer_account' %}'">
+
+                <i class="far fa-user"></i>
+
+                <span>
+                    {% translate "Account" %}
+                </span>
+
+            </button>
+
+
+        </nav>
+
+
+        <!-- Login modal -->
+
+        {% include 'login-container.html' %}
+
+    </div>
+
+
+    <script src="{% static 'js/account.js' %}"></script>
+
+</body>
+
+</html>
