@@ -19,7 +19,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <link rel="stylesheet" href="{% static 'css/shop_details.css' %}">
 
@@ -32,6 +31,8 @@
     {% include "seo_head.html" with seo_title=shop.seller_name seo_description=shop.seller_description seo_canonical=request.build_absolute_uri seo_type="profile" %}
 
     {% endif %}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -938,186 +939,573 @@
     </div>
 
 
+    
     <script>
 
-        document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
 
 
-            window.togglePortfolioMenu = function () {
+    /* =========================================================
+       MOBILE MENU
+    ========================================================= */
 
-                const menu =
-                    document.getElementById("portfolioMobileNavigation");
+    window.togglePortfolioMenu = function () {
 
-                if (!menu) return;
+        const menu =
+            document.getElementById(
+                "portfolioMobileNavigation"
+            );
 
-                menu.classList.toggle("active");
+        if (!menu) {
+            return;
+        }
 
-            };
+        menu.classList.toggle("active");
+    };
 
 
-            window.closePortfolioMenu = function () {
+    window.closePortfolioMenu = function () {
 
-                const menu =
-                    document.getElementById("portfolioMobileNavigation");
+        const menu =
+            document.getElementById(
+                "portfolioMobileNavigation"
+            );
 
-                if (!menu) return;
+        if (!menu) {
+            return;
+        }
+
+        menu.classList.remove("active");
+    };
+
+
+    /* =========================================================
+       CLOSE MOBILE MENU WHEN CLICKING OUTSIDE
+    ========================================================= */
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const menu =
+                document.getElementById(
+                    "portfolioMobileNavigation"
+                );
+
+            const button =
+                document.querySelector(
+                    ".portfolio-mobile-menu"
+                );
+
+            if (!menu || !button) {
+                return;
+            }
+
+            if (
+                menu.classList.contains("active") &&
+                !menu.contains(event.target) &&
+                !button.contains(event.target)
+            ) {
 
                 menu.classList.remove("active");
-
-            };
-
-
-            document.addEventListener("click", function (event) {
-
-                const menu =
-                    document.getElementById("portfolioMobileNavigation");
-
-                const button =
-                    document.querySelector(".portfolio-mobile-menu");
-
-                if (!menu || !button) return;
+            }
+        }
+    );
 
 
-                if (
-                    menu.classList.contains("active") &&
-                    !menu.contains(event.target) &&
-                    !button.contains(event.target)
-                ) {
+    /* =========================================================
+       SMOOTH SCROLL
+    ========================================================= */
 
-                    menu.classList.remove("active");
+    document
+        .querySelectorAll('a[href^="#"]')
+        .forEach(function (link) {
 
-                }
-
-            });
-
-
-            document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-
-                link.addEventListener("click", function (event) {
+            link.addEventListener(
+                "click",
+                function (event) {
 
                     const targetId =
                         this.getAttribute("href");
 
-
-                    if (!targetId || targetId === "#")
+                    if (
+                        !targetId ||
+                        targetId === "#"
+                    ) {
                         return;
-
+                    }
 
                     const target =
-                        document.querySelector(targetId);
+                        document.querySelector(
+                            targetId
+                        );
 
-
-                    if (!target)
+                    if (!target) {
                         return;
-
+                    }
 
                     event.preventDefault();
 
-
                     target.scrollIntoView({
-
                         behavior: "smooth",
-
                         block: "start"
-
                     });
-
-                });
-
-            });
-
-
-            /*
-             * WHATSAPP BUTTONS
-             * Existing classes are preserved.
-             */
-
-            const phone =
-                "{{ shop.seller_phone|default:''|escapejs }}";
-
-
-            if (phone) {
-
-                let whatsappNumber =
-                    phone.replace(/\D/g, "");
-
-
-                if (whatsappNumber.startsWith("0")) {
-
-                    whatsappNumber =
-                        "255" + whatsappNumber.substring(1);
-
                 }
-
-
-                const whatsappUrl =
-                    "https://wa.me/" + whatsappNumber;
-
-
-                const profileButton =
-                    document.querySelector(
-                        ".portfolio-profile-button"
-                    );
-
-
-                const contactButton =
-                    document.getElementById(
-                        "whatsappContactButton"
-                    );
-
-
-                const mobileButton =
-                    document.getElementById(
-                        "mobileWhatsappButton"
-                    );
-
-
-                if (profileButton) {
-
-                    profileButton.href =
-                        whatsappUrl;
-
-                    profileButton.target =
-                        "_blank";
-
-                    profileButton.rel =
-                        "noopener noreferrer";
-
-                    profileButton.innerHTML =
-                        '<i class="fab fa-whatsapp"></i> {% translate "WhatsApp" %}';
-
-                }
-
-
-                if (contactButton) {
-
-                    contactButton.href =
-                        whatsappUrl;
-
-                }
-
-
-                if (mobileButton) {
-
-                    mobileButton.href =
-                        whatsappUrl;
-
-                }
-
-            }
-
+            );
         });
 
 
-        /*
-         * Keep your existing shareShop(),
-         * fallbackCopyShopLink(),
-         * and showShopShareMessage()
-         * functions below this point exactly as they are.
-         */
+    /* =========================================================
+       WHATSAPP
+    ========================================================= */
 
-    </script>
+    const phone =
+        "{{ shop.seller_phone|default:''|escapejs }}";
 
+
+    if (phone) {
+
+        let whatsappNumber =
+            phone.replace(/\D/g, "");
+
+
+        if (
+            whatsappNumber.startsWith("0")
+        ) {
+
+            whatsappNumber =
+                "255" +
+                whatsappNumber.substring(1);
+        }
+
+
+        if (
+            whatsappNumber.startsWith("+")
+        ) {
+
+            whatsappNumber =
+                whatsappNumber.substring(1);
+        }
+
+
+        const whatsappUrl =
+            "https://wa.me/" +
+            whatsappNumber;
+
+
+        const profileButton =
+            document.querySelector(
+                ".portfolio-profile-button"
+            );
+
+
+        const contactButton =
+            document.getElementById(
+                "whatsappContactButton"
+            );
+
+
+        const mobileButton =
+            document.getElementById(
+                "mobileWhatsappButton"
+            );
+
+
+        if (profileButton) {
+
+            profileButton.href =
+                whatsappUrl;
+
+            profileButton.target =
+                "_blank";
+
+            profileButton.rel =
+                "noopener noreferrer";
+        }
+
+
+        if (contactButton) {
+
+            contactButton.href =
+                whatsappUrl;
+
+            contactButton.target =
+                "_blank";
+
+            contactButton.rel =
+                "noopener noreferrer";
+        }
+
+
+        if (mobileButton) {
+
+            mobileButton.href =
+                whatsappUrl;
+
+            mobileButton.target =
+                "_blank";
+
+            mobileButton.rel =
+                "noopener noreferrer";
+        }
+    }
+
+});
+
+
+/* =========================================================
+   SHOP SHARE
+========================================================= */
+
+async function shareShop() {
+
+    const shopName =
+        "{{ shop.seller_name|escapejs }}";
+
+
+    const shopDescription =
+        "{{ shop.seller_description|default:''|escapejs }}";
+
+
+    const shopPhone =
+        "{{ shop.seller_phone|default:''|escapejs }}";
+
+
+    const shopAddress =
+        "{{ shop.seller_address|default:''|escapejs }}";
+
+
+    const shopUrl =
+        window.location.href;
+
+
+    /* =========================================================
+       SHARE TEXT
+    ========================================================= */
+
+    let shareText =
+        shopName +
+        "\n\n" +
+
+        "Wingastock Seller\n\n";
+
+
+    if (shopDescription) {
+
+        shareText +=
+            "About:\n" +
+            shopDescription +
+            "\n\n";
+    }
+
+
+    if (shopPhone) {
+
+        shareText +=
+            "Phone: " +
+            shopPhone +
+            "\n";
+    }
+
+
+    if (shopAddress) {
+
+        shareText +=
+            "Location: " +
+            shopAddress +
+            "\n";
+    }
+
+
+    shareText +=
+        "\nView this shop on Wingastock:\n" +
+        shopUrl;
+
+
+    /* =========================================================
+       NATIVE SHARE
+    ========================================================= */
+
+    try {
+
+        if (
+            navigator.share
+        ) {
+
+            await navigator.share({
+
+                title:
+                    shopName +
+                    " | Wingastock",
+
+                text:
+                    shareText,
+
+                url:
+                    shopUrl
+            });
+
+
+            return;
+        }
+
+
+        /* =====================================================
+           CLIPBOARD FALLBACK
+        ===================================================== */
+
+        if (
+            navigator.clipboard &&
+            navigator.clipboard.writeText
+        ) {
+
+            await navigator.clipboard.writeText(
+                shareText
+            );
+
+
+            showShopShareMessage(
+                "Shop link copied successfully."
+            );
+
+            return;
+        }
+
+
+        /* =====================================================
+           OLD BROWSER FALLBACK
+        ===================================================== */
+
+        fallbackCopyShopLink(
+            shareText
+        );
+
+    }
+
+    catch (error) {
+
+        /* User cancelled the share dialog */
+
+        if (
+            error &&
+            error.name === "AbortError"
+        ) {
+
+            console.log(
+                "Shop sharing cancelled."
+            );
+
+            return;
+        }
+
+
+        console.error(
+            "Shop sharing failed:",
+            error
+        );
+
+
+        /* Try clipboard */
+
+        try {
+
+            if (
+                navigator.clipboard &&
+                navigator.clipboard.writeText
+            ) {
+
+                await navigator.clipboard.writeText(
+                    shareText
+                );
+
+
+                showShopShareMessage(
+                    "Shop link copied successfully."
+                );
+
+                return;
+            }
+
+        }
+
+        catch (clipboardError) {
+
+            console.error(
+                "Clipboard failed:",
+                clipboardError
+            );
+        }
+
+
+        fallbackCopyShopLink(
+            shareText
+        );
+    }
+}
+
+
+/* =========================================================
+   COPY FALLBACK
+========================================================= */
+
+function fallbackCopyShopLink(text) {
+
+    const textarea =
+        document.createElement("textarea");
+
+
+    textarea.value =
+        text;
+
+
+    textarea.style.position =
+        "fixed";
+
+    textarea.style.left =
+        "-9999px";
+
+    textarea.style.top =
+        "-9999px";
+
+
+    document.body.appendChild(
+        textarea
+    );
+
+
+    textarea.focus();
+
+    textarea.select();
+
+
+    try {
+
+        const successful =
+            document.execCommand(
+                "copy"
+            );
+
+
+        if (successful) {
+
+            showShopShareMessage(
+                "Shop link copied successfully."
+            );
+
+        }
+        else {
+
+            showShopShareMessage(
+                "Copy failed. Please copy the shop link manually."
+            );
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Fallback copy failed:",
+            error
+        );
+
+        showShopShareMessage(
+            "Copy failed. Please copy the shop link manually."
+        );
+
+    }
+
+
+    document.body.removeChild(
+        textarea
+    );
+}
+
+
+/* =========================================================
+   SHARE MESSAGE
+========================================================= */
+
+function showShopShareMessage(message) {
+
+    const notification =
+        document.getElementById(
+            "shopShareNotification"
+        );
+
+
+    if (!notification) {
+
+        alert(message);
+
+        return;
+    }
+
+
+    notification.textContent =
+        message;
+
+
+    notification.style.display =
+        "block";
+
+
+    notification.style.position =
+        "fixed";
+
+
+    notification.style.left =
+        "50%";
+
+
+    notification.style.bottom =
+        "30px";
+
+
+    notification.style.transform =
+        "translateX(-50%)";
+
+
+    notification.style.zIndex =
+        "99999";
+
+
+    notification.style.padding =
+        "12px 20px";
+
+
+    notification.style.borderRadius =
+        "10px";
+
+
+    notification.style.background =
+        "#111827";
+
+
+    notification.style.color =
+        "#ffffff";
+
+
+    notification.style.fontSize =
+        "14px";
+
+
+    notification.style.boxShadow =
+        "0 10px 30px rgba(0,0,0,0.2)";
+
+
+    setTimeout(
+        function () {
+
+            notification.style.display =
+                "none";
+
+        },
+        3000
+    );
+}
+
+</script>
 </body>
 
 </html>

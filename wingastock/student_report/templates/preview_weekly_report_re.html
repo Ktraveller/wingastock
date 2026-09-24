@@ -1,634 +1,2076 @@
 {% load static %}
 {% load humanize %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Field Report | Weekly Report</title>
-    <link rel="shortcut icon" href="{% static 'logo1.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css_re/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <title>Field Training | Weekly Reports</title>
+
+    <link
+        rel="shortcut icon"
+        href="{% static 'logo1.png' %}"
+        type="image/x-icon"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css_re/style.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
+
 
     <style>
-        .messages {
-            margin: 20px 0;
+
+        /* =========================================================
+           WEEKLY REPORTS PAGE
+           ========================================================= */
+
+        .weekly-reports-page-501 {
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto;
+            box-sizing: border-box;
         }
 
-        .alert {
-            padding: 12px 18px;
-            margin-bottom: 10px;
-            border-radius: 5px;
+        .weekly-reports-page-501 *,
+        .weekly-reports-page-501 *::before,
+        .weekly-reports-page-501 *::after {
+            box-sizing: border-box;
+        }
+
+
+        /* =========================================================
+           INTRO / HERO
+           ========================================================= */
+
+        .weekly-hero-501 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+
+            padding: 28px;
+            margin-bottom: 24px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #014162 0%,
+                    #075879 55%,
+                    #0b6d91 100%
+                );
+
             color: #fff;
-            font-weight: 500;
+
+            box-shadow:
+                0 12px 35px rgba(1, 65, 98, 0.18);
+
+            overflow: hidden;
+            position: relative;
         }
 
-        .success {
-            background: #28a745;
+        .weekly-hero-501::after {
+            content: "";
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            right: -80px;
+            top: -90px;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        .error {
-            background: #dc3545;
+        .weekly-hero-content-501 {
+            min-width: 0;
+            position: relative;
+            z-index: 2;
         }
 
-        .warning {
-            background: #ffc107;
-            color: #000;
+        .weekly-hero-content-501 h1 {
+            margin: 0 0 8px;
+
+            font-size: clamp(24px, 3vw, 34px);
+            line-height: 1.2;
+
+            color: #fff;
+            font-weight: 800;
         }
 
-        .info {
-            background: #17a2b8;
+        .weekly-hero-content-501 p {
+            margin: 0;
+
+            color: rgba(255, 255, 255, 0.85);
+
+            font-size: 14px;
+            line-height: 1.7;
         }
+
+        .weekly-hero-icon-501 {
+            width: 70px;
+            height: 70px;
+
+            flex: 0 0 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 18px;
+
+            background: rgba(255, 255, 255, 0.13);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+
+            font-size: 28px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+
+        /* =========================================================
+           MESSAGES
+           ========================================================= */
+
+        .weekly-messages-501 {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .weekly-alert-501 {
+            width: 100%;
+
+            padding: 14px 17px;
+            margin-bottom: 10px;
+
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 14px;
+            line-height: 1.5;
+
+            font-weight: 600;
+
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+        }
+
+        .weekly-alert-501.success {
+            color: #155724;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+
+        .weekly-alert-501.error {
+            color: #721c24;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        .weekly-alert-501.warning {
+            color: #856404;
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+        }
+
+        .weekly-alert-501.info {
+            color: #0c5460;
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+        }
+
+
+        /* =========================================================
+           PLACEMENT CARD
+           ========================================================= */
+
+        .weekly-placement-card-501 {
+            width: 100%;
+
+            background: #fff;
+
+            border: 1px solid #e7edf3;
+            border-radius: 18px;
+
+            margin-bottom: 24px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 28px rgba(16, 38, 56, 0.06);
+        }
+
+        .weekly-card-header-501 {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            padding: 20px 22px;
+
+            border-bottom: 1px solid #edf1f5;
+        }
+
+        .weekly-card-icon-501 {
+            width: 45px;
+            height: 45px;
+
+            flex: 0 0 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background: #eaf4f8;
+            color: #014162;
+
+            font-size: 18px;
+        }
+
+        .weekly-card-title-501 {
+            min-width: 0;
+        }
+
+        .weekly-card-title-501 h2 {
+            margin: 0;
+
+            color: #162b3a;
+
+            font-size: 18px;
+            line-height: 1.4;
+
+            font-weight: 800;
+
+            overflow-wrap: anywhere;
+        }
+
+        .weekly-card-title-501 p {
+            margin: 3px 0 0;
+
+            color: #71808d;
+
+            font-size: 13px;
+            line-height: 1.5;
+
+            overflow-wrap: anywhere;
+        }
+
+
+        /* =========================================================
+           PLACEMENT INFORMATION
+           ========================================================= */
+
+        .weekly-placement-body-501 {
+            padding: 22px;
+        }
+
+        .weekly-placement-grid-501 {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 12px;
+        }
+
+        .weekly-info-item-501 {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+
+            min-width: 0;
+
+            padding: 15px;
+
+            border-radius: 13px;
+
+            background: #f7fafc;
+            border: 1px solid #edf1f4;
+        }
+
+        .weekly-info-icon-501 {
+            width: 35px;
+            height: 35px;
+
+            flex: 0 0 35px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: #fff;
+            color: #014162;
+
+            border: 1px solid #e4ebef;
+
+            font-size: 14px;
+        }
+
+        .weekly-info-content-501 {
+            min-width: 0;
+        }
+
+        .weekly-info-content-501 span {
+            display: block;
+
+            margin-bottom: 3px;
+
+            color: #7b8a96;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .weekly-info-content-501 strong {
+            display: block;
+
+            color: #243746;
+
+            font-size: 14px;
+            line-height: 1.5;
+
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+
+        /* =========================================================
+           WEEK SECTION
+           ========================================================= */
+
+        .weekly-section-501 {
+            width: 100%;
+
+            margin-top: 28px;
+        }
+
+        .weekly-section-header-501 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 16px 18px;
+
+            border-radius: 15px;
+
+            background: #f1f6f9;
+
+            border: 1px solid #e1ebf0;
+        }
+
+        .weekly-section-title-501 {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            min-width: 0;
+        }
+
+        .weekly-section-title-icon-501 {
+            width: 38px;
+            height: 38px;
+
+            flex: 0 0 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: #014162;
+            color: #fff;
+
+            font-size: 14px;
+        }
+
+        .weekly-section-title-501 h3 {
+            margin: 0;
+
+            color: #1d3444;
+
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .weekly-section-date-501 {
+            color: #687b88;
+
+            font-size: 13px;
+            line-height: 1.5;
+
+            text-align: right;
+
+            overflow-wrap: anywhere;
+        }
+
+
+        /* =========================================================
+           DAILY REPORT CARD
+           ========================================================= */
+
+        .weekly-report-card-501 {
+            width: 100%;
+
+            margin-top: 16px;
+
+            padding: 22px;
+
+            border-radius: 17px;
+
+            background: #fff;
+
+            border: 1px solid #e5ebef;
+
+            box-shadow:
+                0 6px 22px rgba(16, 38, 56, 0.045);
+        }
+
+        .weekly-report-header-501 {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+
+            gap: 18px;
+
+            padding-bottom: 18px;
+
+            border-bottom: 1px solid #edf1f4;
+        }
+
+        .weekly-report-heading-501 {
+            min-width: 0;
+        }
+
+        .weekly-report-heading-501 h3 {
+            margin: 0 0 7px;
+
+            color: #173143;
+
+            font-size: 19px;
+            line-height: 1.4;
+
+            font-weight: 800;
+
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .weekly-report-heading-501 p {
+            margin: 0;
+
+            color: #72818c;
+
+            font-size: 13px;
+        }
+
+        .weekly-report-badge-501 {
+            flex: 0 0 auto;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 7px 11px;
+
+            border-radius: 30px;
+
+            background: #eaf4f8;
+            color: #014162;
+
+            border: 1px solid #d9e9ef;
+
+            font-size: 11px;
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================================================
+           REPORT META
+           ========================================================= */
+
+        .weekly-report-meta-501 {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 10px;
+
+            margin-top: 18px;
+        }
+
+        .weekly-meta-item-501 {
+            min-width: 0;
+
+            padding: 13px;
+
+            border-radius: 11px;
+
+            background: #f8fafb;
+
+            border: 1px solid #edf1f3;
+        }
+
+        .weekly-meta-item-501 span {
+            display: block;
+
+            margin-bottom: 4px;
+
+            color: #81909a;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        .weekly-meta-item-501 strong {
+            display: block;
+
+            color: #304655;
+
+            font-size: 12px;
+            line-height: 1.5;
+
+            overflow-wrap: anywhere;
+        }
+
+
+        /* =========================================================
+           REPORT CONTENT
+           ========================================================= */
+
+        .weekly-report-content-501 {
+            margin-top: 24px;
+        }
+
+        .weekly-content-block-501 {
+            margin-top: 22px;
+        }
+
+        .weekly-content-block-501:first-child {
+            margin-top: 0;
+        }
+
+        .weekly-content-label-501 {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            margin-bottom: 9px;
+
+            color: #233b4b;
+
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .weekly-content-label-501 i {
+            color: #014162;
+
+            width: 18px;
+            text-align: center;
+        }
+
+        .weekly-content-text-501 {
+            width: 100%;
+
+            padding: 16px 17px;
+
+            border-radius: 12px;
+
+            background: #f8fafc;
+
+            border: 1px solid #edf1f4;
+
+            color: #4d5e69;
+
+            font-size: 14px;
+            line-height: 1.75;
+
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .weekly-content-text-501 p {
+            margin-top: 0;
+        }
+
+        .weekly-content-text-501 p:last-child {
+            margin-bottom: 0;
+        }
+
+        .weekly-empty-501 {
+            color: #8a969e;
+            font-style: italic;
+        }
+
+
+        /* =========================================================
+           SUPERVISOR COMMENT
+           ========================================================= */
+
+        .weekly-supervisor-501 {
+            margin-top: 24px;
+
+            padding: 17px;
+
+            border-radius: 13px;
+
+            background: #fffaf0;
+
+            border: 1px solid #f1e2bc;
+        }
+
+        .weekly-supervisor-label-501 {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            margin-bottom: 9px;
+
+            color: #765719;
+
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .weekly-supervisor-label-501 i {
+            width: 18px;
+            text-align: center;
+        }
+
+        .weekly-supervisor-text-501 {
+            color: #685b3f;
+
+            font-size: 14px;
+            line-height: 1.75;
+
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+
+        /* =========================================================
+           NO REPORTS
+           ========================================================= */
+
+        .weekly-empty-state-501 {
+            margin-top: 22px;
+
+            padding: 40px 20px;
+
+            text-align: center;
+
+            border: 1px dashed #d6e0e6;
+
+            border-radius: 16px;
+
+            background: #fafcfd;
+        }
+
+        .weekly-empty-state-501 i {
+            display: block;
+
+            margin-bottom: 12px;
+
+            color: #8ba0ad;
+
+            font-size: 34px;
+        }
+
+        .weekly-empty-state-501 p {
+            margin: 0;
+
+            color: #6f7f89;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+           ACTIONS
+           ========================================================= */
+
+        .weekly-actions-501 {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            gap: 12px;
+
+            margin-top: 28px;
+            padding-top: 22px;
+
+            border-top: 1px solid #e9eef1;
+        }
+
+        .weekly-back-button-501 {
+            border: none;
+            outline: none;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+
+            min-height: 44px;
+
+            padding: 0 18px;
+
+            border-radius: 11px;
+
+            background: #014162;
+            color: #fff;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                transform .2s ease,
+                background .2s ease,
+                box-shadow .2s ease;
+        }
+
+        .weekly-back-button-501:hover {
+            background: #00344f;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 7px 18px rgba(1, 65, 98, .18);
+        }
+
+
+        /* =========================================================
+           SAFE OVERFLOW
+           ========================================================= */
+
+        body {
+            overflow-x: hidden;
+        }
+
+        .portal-wrapper,
+        .portal-main,
+        .portal-content {
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        table {
+            width: 100%;
+            max-width: 100%;
+        }
+
+
+        /* =========================================================
+           TABLET
+           ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .weekly-reports-page-501 {
+                max-width: 100%;
+            }
+
+            .weekly-placement-grid-501 {
+                grid-template-columns: 1fr;
+            }
+
+            .weekly-report-meta-501 {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+
+        /* =========================================================
+           MOBILE
+           ========================================================= */
+
+        @media (max-width: 700px) {
+
+            .weekly-hero-501 {
+                padding: 22px;
+
+                border-radius: 16px;
+            }
+
+            .weekly-hero-icon-501 {
+                width: 55px;
+                height: 55px;
+
+                flex-basis: 55px;
+
+                border-radius: 14px;
+
+                font-size: 22px;
+            }
+
+            .weekly-card-header-501 {
+                padding: 17px;
+            }
+
+            .weekly-placement-body-501 {
+                padding: 17px;
+            }
+
+            .weekly-report-card-501 {
+                padding: 17px;
+            }
+
+            .weekly-report-header-501 {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .weekly-report-badge-501 {
+                white-space: normal;
+            }
+
+            .weekly-report-meta-501 {
+                grid-template-columns: 1fr;
+            }
+
+            .weekly-section-header-501 {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .weekly-section-date-501 {
+                text-align: left;
+            }
+
+        }
+
+
+        /* =========================================================
+           SMALL MOBILE
+           ========================================================= */
+
+        @media (max-width: 480px) {
+
+            .weekly-hero-501 {
+                gap: 15px;
+                padding: 18px;
+            }
+
+            .weekly-hero-content-501 h1 {
+                font-size: 23px;
+            }
+
+            .weekly-hero-content-501 p {
+                font-size: 12px;
+            }
+
+            .weekly-hero-icon-501 {
+                display: none;
+            }
+
+            .weekly-card-title-501 h2 {
+                font-size: 16px;
+            }
+
+            .weekly-info-item-501 {
+                padding: 12px;
+            }
+
+            .weekly-section-header-501 {
+                padding: 13px;
+            }
+
+            .weekly-report-card-501 {
+                padding: 14px;
+            }
+
+            .weekly-content-text-501 {
+                padding: 13px;
+                font-size: 13px;
+            }
+
+            .weekly-back-button-501 {
+                width: 100%;
+            }
+
+            .weekly-actions-501 {
+                width: 100%;
+            }
+
+        }
+
+
+        /* =========================================================
+           VERY SMALL DEVICES
+           ========================================================= */
+
+        @media (max-width: 360px) {
+
+            .weekly-card-header-501 {
+                align-items: flex-start;
+            }
+
+            .weekly-card-icon-501 {
+                width: 40px;
+                height: 40px;
+
+                flex-basis: 40px;
+            }
+
+            .weekly-section-title-501 h3 {
+                font-size: 14px;
+            }
+
+            .weekly-report-heading-501 h3 {
+                font-size: 17px;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <div class="row-holder">
 
-        <!-- Header -->
-        <div class="header-holder-100">
-            <div class="header-100">
-                <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-                            class="fas fa-times"></i></button>
+<div class="portal-wrapper">
+
+
+    <!-- =========================================================
+         SIDEBAR OVERLAY
+         ========================================================= -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="closeSidebar()"
+    ></div>
+
+
+    <!-- =========================================================
+         SIDEBAR
+         ========================================================= -->
+
+    <aside
+        class="portal-sidebar"
+        id="portalSidebar"
+    >
+
+        <div class="sidebar-brand">
+
+            <a href="{% url 'report_home' %}">
+
+                <div class="brand-logo">
+
+                    <img
+                        src="{% static 'logo1.png' %}"
+                        alt="Field Report"
+                    >
+
                 </div>
-                <div class="title-holder-101">
-                    <button type="button"><span>Weekly Reports</span></button>
+
+                <div class="brand-text">
+
+                    <strong>Field Training</strong>
+
+                    <span>Student Portal</span>
+
                 </div>
-                <div class="title-holder-101" style="float: right;">
-                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
-                </div>
-            </div>
+
+            </a>
+
         </div>
 
 
-        <!-- center content -->
-        <div class="center-content-200">
+        <nav class="sidebar-navigation">
 
-            <div class="left-holder-201" id="nav">
-                <div class="nav-bar-holder-202">
 
-                    <ul>
-                        <a href="{% url 'report_home' %}">
-                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
-                        </a>
-                    </ul>
+            <!-- MAIN -->
 
-                    <ul>
-                        <a href="{% url 'placements_list' %}">
-                            <li class="active-0">Reports <i class="fas fa-file-alt"></i></li>
-                        </a>
-                    </ul>
+            <div class="navigation-section">
 
-                    <ul>
-                        <a href="{% url 'user_account' %}">
-                            <li>Account <i class="fas fa-user"></i></li>
-                        </a>
-                    </ul>
+                <span class="navigation-label">
+                    MAIN
+                </span>
 
-                    <ul>
-                        <a href="{% url 'home' %}">
-                            <li>Back Wingastock <i class="fas fa-home"></i></li>
-                        </a>
-                    </ul>
-                </div>
+
+                <a
+                    href="{% url 'report_home' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-th-large"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Dashboard
+                        </strong>
+
+                        <small>
+                            Overview of your training
+                        </small>
+
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{% url 'placements_list' %}"
+                    class="navigation-item active"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Field Reports
+                        </strong>
+
+                        <small>
+                            Daily and weekly reports
+                        </small>
+
+                    </span>
+
+                </a>
+
             </div>
 
-            <div class="right-holder-201">
-                <div class="products-202">
 
-                    <div class="preview-102">
+            <!-- ACCOUNT -->
 
-                        <!-- Report Header -->
-                        <div class="product-image-holder-103">
-                            <div class="product-image-103"
-                                style="background: linear-gradient(135deg, #1e90ff, #1565c0);">
+            <div class="navigation-section">
 
-                                <h1>Weekly Field Reports</h1>
+                <span class="navigation-label">
+                    ACCOUNT
+                </span>
 
-                            </div>
+
+                <a
+                    href="{% url 'user_account' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-user"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            My Account
+                        </strong>
+
+                        <small>
+                            Manage your profile
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- WEBSITE -->
+
+            <div class="navigation-section">
+
+                <span class="navigation-label">
+                    WEBSITE
+                </span>
+
+
+                <a
+                    href="{% url 'home' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-external-link-alt"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Back to WingaStock
+                        </strong>
+
+                        <small>
+                            Return to main website
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+        </nav>
+
+
+        <!-- SIDEBAR HELP -->
+
+        <div class="sidebar-help">
+
+            <div class="sidebar-help-icon">
+
+                <i class="fas fa-info-circle"></i>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    Need help?
+                </strong>
+
+                <p>
+                    Complete your daily reports regularly to keep your field training record up to date.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- SIDEBAR FOOTER -->
+
+        <div class="sidebar-footer">
+
+            <span>
+                Field Practical Training
+            </span>
+
+            <small>
+                Student Reporting System
+            </small>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================================
+         MAIN
+         ========================================================= -->
+
+    <main class="portal-main">
+
+
+        <!-- =====================================================
+             HEADER
+             ===================================================== -->
+
+        <header class="portal-header">
+
+            <div class="header-left">
+
+
+                <button
+                    type="button"
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    onclick="toggleSidebar()"
+                    aria-label="Open navigation"
+                >
+
+                    <i class="fas fa-bars"></i>
+
+                </button>
+
+
+                <div class="header-page-title">
+
+                    <span>
+                        Student Portal
+                    </span>
+
+                    <h1>
+                        Weekly Reports
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="header-user">
+
+                    <div class="header-user-icon">
+
+                        <i class="fas fa-user"></i>
+
+                    </div>
+
+                    <div class="header-user-info">
+
+                        <strong>
+                            Student
+                        </strong>
+
+                        <span>
+                            {{ user.email }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             CONTENT
+             ===================================================== -->
+
+        <section class="portal-content">
+
+
+            <div class="weekly-reports-page-501">
+
+
+                <!-- =================================================
+                     HERO
+                     ================================================= -->
+
+                <div class="weekly-hero-501">
+
+                    <div class="weekly-hero-content-501">
+
+                        <h1>
+                            Weekly Field Reports
+                        </h1>
+
+                        <p>
+                            Review your field training activities,
+                            skills, challenges and progress organized by week.
+                        </p>
+
+                    </div>
+
+
+                    <div class="weekly-hero-icon-501">
+
+                        <i class="fas fa-calendar-week"></i>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     MESSAGES
+                     ================================================= -->
+
+                {% if messages %}
+
+                <div class="weekly-messages-501">
+
+                    {% for message in messages %}
+
+                    <div class="weekly-alert-501 {{ message.tags }}">
+
+                        {% if message.tags == "success" %}
+
+                        <i class="fas fa-check-circle"></i>
+
+                        {% elif message.tags == "error" %}
+
+                        <i class="fas fa-times-circle"></i>
+
+                        {% elif message.tags == "warning" %}
+
+                        <i class="fas fa-exclamation-triangle"></i>
+
+                        {% else %}
+
+                        <i class="fas fa-info-circle"></i>
+
+                        {% endif %}
+
+                        <span>
+                            {{ message }}
+                        </span>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     PLACEMENT INFORMATION
+                     ================================================= -->
+
+                <div class="weekly-placement-card-501">
+
+
+                    <div class="weekly-card-header-501">
+
+                        <div class="weekly-card-icon-501">
+
+                            <i class="fas fa-building"></i>
+
                         </div>
 
-
-                        <!-- Report Details -->
-                        <div class="product-details-holder-103">
-
-                            <div>
-
-                                <div style="float: left; width: 100%;">
-
-                                    <!-- Page Title -->
-                                    <p style="font-weight: bold;">
-                                        <i class="fas fa-file-alt"></i>
-                                        Weekly Reports
-                                    </p>
-
-
-                                    <!-- Messages -->
-                                    {% if messages %}
-                                    <div class="messages">
-
-                                        {% for message in messages %}
-
-                                        <div class="alert {{ message.tags }}">
-                                            {{ message }}
-                                        </div>
-
-                                        {% endfor %}
-
-                                    </div>
-                                    {% endif %}
-
-
-                                    <!-- Placement Information -->
-                                    <div class="des-103">
-
-                                        <h2>
-                                            {{ placement.organization }}
-                                        </h2>
-
-                                        <p>
-                                            <i class="fas fa-building"></i>
-                                            {{ placement.department }}
-                                        </p>
-
-                                    </div>
-
-
-                                    <!-- Placement Information Table -->
-                                    <table>
-
-                                        <tr>
-                                            <td>
-                                                <i class="fas fa-user-graduate"></i>
-                                                Student
-                                            </td>
-
-                                            <td>
-                                                {{ placement.student }}
-                                            </td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>
-                                                <i class="fas fa-building"></i>
-                                                Organization
-                                            </td>
-
-                                            <td>
-                                                {{ placement.organization }}
-                                            </td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>
-                                                <i class="fas fa-sitemap"></i>
-                                                Department
-                                            </td>
-
-                                            <td>
-                                                {{ placement.department }}
-                                            </td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>
-                                                <i class="fas fa-user-tie"></i>
-                                                Supervisor
-                                            </td>
-
-                                            <td>
-                                                {{ placement.supervisor_name }}
-                                            </td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>
-                                                <i class="fas fa-phone"></i>
-                                                Supervisor Phone
-                                            </td>
-
-                                            <td>
-                                                {{ placement.supervisor_phone }}
-                                            </td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>
-                                                <i class="fas fa-calendar-alt"></i>
-                                                Placement Period
-                                            </td>
-
-                                            <td>
-                                                {{ placement.start_date|date:"d M Y" }}
-                                                -
-                                                {{ placement.end_date|date:"d M Y" }}
-                                            </td>
-                                        </tr>
-
-                                    </table>
-
-
-                                    <!-- ================================= -->
-                                    <!-- WEEKLY REPORTS -->
-                                    <!-- ================================= -->
-
-                                    {% for week in weekly_reports %}
-
-                                    <div style="
-                    margin-top: 35px;
-                    padding: 15px;
-                    border-radius: 8px;
-                    background: #f5f5f5;
-                ">
-
-                                        <!-- Week Header -->
-
-                                        <p style="font-weight: bold; margin-bottom: 5px;">
-
-                                            <i class="fas fa-calendar-week"></i>
-
-                                            Week {{ forloop.counter }}
-
-                                        </p>
-
-
-                                        <p style="margin-top: 5px; color: #666;">
-
-                                            {{ week.week_start|date:"d M Y" }}
-
-                                            -
-
-                                            {{ week.week_end|date:"d M Y" }}
-
-                                        </p>
-
-                                    </div>
-
-
-                                    <!-- Daily Reports In This Week -->
-
-                                    {% for report in week.reports %}
-
-                                    <div style="
-                    margin-top: 25px;
-                    padding-bottom: 25px;
-                    border-bottom: 1px solid #ddd;
-                ">
-
-
-                                        <!-- Report Title -->
-
-                                        <div class="des-103">
-
-                                            <h2>
-                                                {{ report.title }}
-                                            </h2>
-
-                                        </div>
-
-
-                                        <!-- Report Information -->
-
-                                        <table>
-
-                                            <tr>
-                                                <td>
-                                                    <i class="fas fa-calendar-alt"></i>
-                                                    Report Date
-                                                </td>
-
-                                                <td>
-                                                    {{ report.date|date:"l, d M Y" }}
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td>
-                                                    <i class="fas fa-clock"></i>
-                                                    Submitted
-                                                </td>
-
-                                                <td>
-                                                    {{ report.created_at|date:"d M Y H:i" }}
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td>
-                                                    <i class="fas fa-sync-alt"></i>
-                                                    Last Updated
-                                                </td>
-
-                                                <td>
-                                                    {{ report.updated_at|date:"d M Y H:i" }}
-                                                </td>
-                                            </tr>
-
-
-                                        </table>
-
-
-                                        <!-- Activities -->
-
-                                        <div style="margin-top: 25px;">
-
-                                            <p style="font-weight: bold;">
-
-                                                <i class="fas fa-tasks"></i>
-
-                                                Activities Performed
-
-                                            </p>
-
-
-                                            <div class="des-103">
-
-                                                {{ report.activities|linebreaks }}
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <!-- Skills Learned -->
-
-                                        <div style="margin-top: 25px;">
-
-                                            <p style="font-weight: bold;">
-
-                                                <i class="fas fa-lightbulb"></i>
-
-                                                Skills & Knowledge Learned
-
-                                            </p>
-
-
-                                            <div class="des-103">
-
-                                                {% if report.skills_learned %}
-
-                                                {{ report.skills_learned|linebreaks }}
-
-                                                {% else %}
-
-                                                <span style="color: #888;">
-
-                                                    No skills or knowledge recorded.
-
-                                                </span>
-
-                                                {% endif %}
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <!-- Challenges -->
-
-                                        <div style="margin-top: 25px;">
-
-                                            <p style="font-weight: bold;">
-
-                                                <i class="fas fa-exclamation-triangle"></i>
-
-                                                Challenges Encountered
-
-                                            </p>
-
-
-                                            <div class="des-103">
-
-                                                {% if report.challenges %}
-
-                                                {{ report.challenges|linebreaks }}
-
-                                                {% else %}
-
-                                                <span style="color: #888;">
-
-                                                    No challenges recorded.
-
-                                                </span>
-
-                                                {% endif %}
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <!-- Solutions -->
-
-                                        <div style="margin-top: 25px;">
-
-                                            <p style="font-weight: bold;">
-
-                                                <i class="fas fa-tools"></i>
-
-                                                Solutions
-
-                                            </p>
-
-
-                                            <div class="des-103">
-
-                                                {% if report.solutions %}
-
-                                                {{ report.solutions|linebreaks }}
-
-                                                {% else %}
-
-                                                <span style="color: #888;">
-
-                                                    No solutions recorded.
-
-                                                </span>
-
-                                                {% endif %}
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <!-- Remarks -->
-
-                                        <div style="margin-top: 25px;">
-
-                                            <p style="font-weight: bold;">
-
-                                                <i class="fas fa-sticky-note"></i>
-
-                                                Remarks
-
-                                            </p>
-
-
-                                            <div class="des-103">
-
-                                                {% if report.remarks %}
-
-                                                {{ report.remarks|linebreaks }}
-
-                                                {% else %}
-
-                                                <span style="color: #888;">
-
-                                                    No remarks.
-
-                                                </span>
-
-                                                {% endif %}
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <!-- Supervisor Comment -->
-
-                                        <div style="margin-top: 25px;">
-
-                                            <p style="font-weight: bold;">
-
-                                                <i class="fas fa-user-tie"></i>
-
-                                                Supervisor Comment
-
-                                            </p>
-
-
-                                            <div class="des-103">
-
-                                                {% if report.supervisor_comment %}
-
-                                                {{ report.supervisor_comment|linebreaks }}
-
-                                                {% else %}
-
-                                                <span style="color: #888;">
-
-                                                    No supervisor comment yet.
-
-                                                </span>
-
-                                                {% endif %}
-
-                                            </div>
-
-                                        </div>
-
-
-                                    </div>
-
-                                    {% endfor %}
-
-
-                                    <!-- No reports in week -->
-
-                                    {% empty %}
-
-                                    <div style="
-                    margin-top: 25px;
-                    padding: 20px;
-                    text-align: center;
-                ">
-
-                                        <i class="fas fa-file-alt"></i>
-
-                                        <p>
-                                            No weekly reports available.
-                                        </p>
-
-                                    </div>
-
-                                    {% endfor %}
-
-
-                                    <!-- Actions -->
-
-                                    <div class="actions-holder-103">
-
-                                        <div>
-
-                                            <button type="button"
-                                                onclick="window.location.href=`{% url 'reports_list' placement.id %}`">
-
-                                                <i class="fas fa-arrow-left"></i>
-
-                                                Back to Reports
-
-                                            </button>
-
-                                        </div>
-
-
-                                    </div>
-
-
-                                </div>
-
-                            </div>
+                        <div class="weekly-card-title-501">
+
+                            <h2>
+                                {{ placement.organization }}
+                            </h2>
+
+                            <p>
+                                {{ placement.department }}
+                            </p>
 
                         </div>
 
                     </div>
 
 
+                    <div class="weekly-placement-body-501">
+
+
+                        <div class="weekly-placement-grid-501">
+
+
+                            <!-- Student -->
+
+                            <div class="weekly-info-item-501">
+
+                                <div class="weekly-info-icon-501">
+
+                                    <i class="fas fa-user-graduate"></i>
+
+                                </div>
+
+                                <div class="weekly-info-content-501">
+
+                                    <span>
+                                        Student
+                                    </span>
+
+                                    <strong>
+                                        {{ placement.student }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Organization -->
+
+                            <div class="weekly-info-item-501">
+
+                                <div class="weekly-info-icon-501">
+
+                                    <i class="fas fa-building"></i>
+
+                                </div>
+
+                                <div class="weekly-info-content-501">
+
+                                    <span>
+                                        Organization
+                                    </span>
+
+                                    <strong>
+                                        {{ placement.organization }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Department -->
+
+                            <div class="weekly-info-item-501">
+
+                                <div class="weekly-info-icon-501">
+
+                                    <i class="fas fa-sitemap"></i>
+
+                                </div>
+
+                                <div class="weekly-info-content-501">
+
+                                    <span>
+                                        Department
+                                    </span>
+
+                                    <strong>
+                                        {{ placement.department }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Supervisor -->
+
+                            <div class="weekly-info-item-501">
+
+                                <div class="weekly-info-icon-501">
+
+                                    <i class="fas fa-user-tie"></i>
+
+                                </div>
+
+                                <div class="weekly-info-content-501">
+
+                                    <span>
+                                        Supervisor
+                                    </span>
+
+                                    <strong>
+                                        {{ placement.supervisor_name }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Supervisor Phone -->
+
+                            <div class="weekly-info-item-501">
+
+                                <div class="weekly-info-icon-501">
+
+                                    <i class="fas fa-phone"></i>
+
+                                </div>
+
+                                <div class="weekly-info-content-501">
+
+                                    <span>
+                                        Supervisor Phone
+                                    </span>
+
+                                    <strong>
+                                        {{ placement.supervisor_phone }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Placement Period -->
+
+                            <div class="weekly-info-item-501">
+
+                                <div class="weekly-info-icon-501">
+
+                                    <i class="fas fa-calendar-alt"></i>
+
+                                </div>
+
+                                <div class="weekly-info-content-501">
+
+                                    <span>
+                                        Placement Period
+                                    </span>
+
+                                    <strong>
+
+                                        {{ placement.start_date|date:"d M Y" }}
+
+                                        -
+
+                                        {{ placement.end_date|date:"d M Y" }}
+
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
 
                 </div>
+
+
+                <!-- =================================================
+                     WEEKLY REPORTS
+                     ================================================= -->
+
+                {% for week in weekly_reports %}
+
+
+                <section class="weekly-section-501">
+
+
+                    <!-- WEEK HEADER -->
+
+                    <div class="weekly-section-header-501">
+
+
+                        <div class="weekly-section-title-501">
+
+                            <div class="weekly-section-title-icon-501">
+
+                                <i class="fas fa-calendar-week"></i>
+
+                            </div>
+
+                            <h3>
+                                Week {{ forloop.counter }}
+                            </h3>
+
+                        </div>
+
+
+                        <div class="weekly-section-date-501">
+
+                            {{ week.week_start|date:"d M Y" }}
+
+                            -
+
+                            {{ week.week_end|date:"d M Y" }}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =============================================
+                         DAILY REPORTS
+                         ============================================= -->
+
+                    {% for report in week.reports %}
+
+
+                    <article class="weekly-report-card-501">
+
+
+                        <!-- REPORT HEADER -->
+
+                        <div class="weekly-report-header-501">
+
+
+                            <div class="weekly-report-heading-501">
+
+                                <h3>
+                                    {{ report.title }}
+                                </h3>
+
+                                <p>
+
+                                    <i class="fas fa-calendar-alt"></i>
+
+                                    {{ report.date|date:"l, d M Y" }}
+
+                                </p>
+
+                            </div>
+
+
+                            <div class="weekly-report-badge-501">
+
+                                {% if report.supervisor_approved %}
+
+                                <i class="fas fa-check-circle"></i>
+
+                                Supervisor Approved
+
+                                {% else %}
+
+                                <i class="fas fa-clock"></i>
+
+                                Awaiting Approval
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- REPORT META -->
+
+                        <div class="weekly-report-meta-501">
+
+
+                            <div class="weekly-meta-item-501">
+
+                                <span>
+                                    Report Date
+                                </span>
+
+                                <strong>
+                                    {{ report.date|date:"d M Y" }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="weekly-meta-item-501">
+
+                                <span>
+                                    Submitted
+                                </span>
+
+                                <strong>
+                                    {{ report.created_at|date:"d M Y H:i" }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="weekly-meta-item-501">
+
+                                <span>
+                                    Last Updated
+                                </span>
+
+                                <strong>
+                                    {{ report.updated_at|date:"d M Y H:i" }}
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =========================================
+                             REPORT CONTENT
+                             ========================================= -->
+
+                        <div class="weekly-report-content-501">
+
+
+                            <!-- ACTIVITIES -->
+
+                            <div class="weekly-content-block-501">
+
+                                <div class="weekly-content-label-501">
+
+                                    <i class="fas fa-tasks"></i>
+
+                                    <span>
+                                        Activities Performed
+                                    </span>
+
+                                </div>
+
+
+                                <div class="weekly-content-text-501">
+
+                                    {{ report.activities|linebreaks }}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SKILLS -->
+
+                            <div class="weekly-content-block-501">
+
+                                <div class="weekly-content-label-501">
+
+                                    <i class="fas fa-lightbulb"></i>
+
+                                    <span>
+                                        Skills & Knowledge Learned
+                                    </span>
+
+                                </div>
+
+
+                                <div class="weekly-content-text-501">
+
+                                    {% if report.skills_learned %}
+
+                                    {{ report.skills_learned|linebreaks }}
+
+                                    {% else %}
+
+                                    <span class="weekly-empty-501">
+                                        No skills or knowledge recorded.
+                                    </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- CHALLENGES -->
+
+                            <div class="weekly-content-block-501">
+
+                                <div class="weekly-content-label-501">
+
+                                    <i class="fas fa-exclamation-triangle"></i>
+
+                                    <span>
+                                        Challenges Encountered
+                                    </span>
+
+                                </div>
+
+
+                                <div class="weekly-content-text-501">
+
+                                    {% if report.challenges %}
+
+                                    {{ report.challenges|linebreaks }}
+
+                                    {% else %}
+
+                                    <span class="weekly-empty-501">
+                                        No challenges recorded.
+                                    </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SOLUTIONS -->
+
+                            <div class="weekly-content-block-501">
+
+                                <div class="weekly-content-label-501">
+
+                                    <i class="fas fa-tools"></i>
+
+                                    <span>
+                                        Solutions
+                                    </span>
+
+                                </div>
+
+
+                                <div class="weekly-content-text-501">
+
+                                    {% if report.solutions %}
+
+                                    {{ report.solutions|linebreaks }}
+
+                                    {% else %}
+
+                                    <span class="weekly-empty-501">
+                                        No solutions recorded.
+                                    </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- REMARKS -->
+
+                            <div class="weekly-content-block-501">
+
+                                <div class="weekly-content-label-501">
+
+                                    <i class="fas fa-sticky-note"></i>
+
+                                    <span>
+                                        Remarks
+                                    </span>
+
+                                </div>
+
+
+                                <div class="weekly-content-text-501">
+
+                                    {% if report.remarks %}
+
+                                    {{ report.remarks|linebreaks }}
+
+                                    {% else %}
+
+                                    <span class="weekly-empty-501">
+                                        No remarks.
+                                    </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SUPERVISOR COMMENT -->
+
+                            <div class="weekly-supervisor-501">
+
+                                <div class="weekly-supervisor-label-501">
+
+                                    <i class="fas fa-user-tie"></i>
+
+                                    <span>
+                                        Supervisor Comment
+                                    </span>
+
+                                </div>
+
+
+                                <div class="weekly-supervisor-text-501">
+
+                                    {% if report.supervisor_comment %}
+
+                                    {{ report.supervisor_comment|linebreaks }}
+
+                                    {% else %}
+
+                                    <span class="weekly-empty-501">
+                                        No supervisor comment yet.
+                                    </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </article>
+
+
+                    {% empty %}
+
+
+                    <!-- NO REPORTS IN WEEK -->
+
+                    <div class="weekly-empty-state-501">
+
+                        <i class="fas fa-file-alt"></i>
+
+                        <p>
+                            No daily reports available for this week.
+                        </p>
+
+                    </div>
+
+
+                    {% endfor %}
+
+
+                </section>
+
+
+                {% empty %}
+
+
+                <!-- =================================================
+                     NO WEEKLY REPORTS
+                     ================================================= -->
+
+                <div class="weekly-empty-state-501">
+
+                    <i class="fas fa-calendar-times"></i>
+
+                    <p>
+                        No weekly reports available.
+                    </p>
+
+                </div>
+
+
+                {% endfor %}
+
+
+                <!-- =================================================
+                     ACTIONS
+                     ================================================= -->
+
+                <div class="weekly-actions-501">
+
+                    <button
+                        type="button"
+                        class="weekly-back-button-501"
+                        onclick="window.location.href=`{% url 'reports_list' placement.id %}`"
+                    >
+
+                        <i class="fas fa-arrow-left"></i>
+
+                        Back to Reports
+
+                    </button>
+
+                </div>
+
+
             </div>
 
-        </div>
+        </section>
 
-    </div>
+    </main>
+
+</div>
 
 
+<!-- =============================================================
+     SIDEBAR JAVASCRIPT
+     ============================================================= -->
 
-    <script>
-        function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
+<script>
 
-            if (click == 'open') {
-                menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
-            }
-            else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
-                nav.style.display = 'none';
-            }
+    function toggleSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        if (!sidebar) return;
+
+        sidebar.classList.toggle("sidebar-open");
+
+        if (overlay) {
+            overlay.classList.toggle("active");
         }
-    </script>
+
+    }
 
 
-    <script>
-        setTimeout(function () {
-            document.querySelectorAll(".alert").forEach(function (alert) {
-                alert.style.transition = "opacity 0.5s";
+    function closeSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        if (sidebar) {
+            sidebar.classList.remove("sidebar-open");
+        }
+
+        if (overlay) {
+            overlay.classList.remove("active");
+        }
+
+    }
+
+
+    /* Close sidebar after navigation on mobile */
+
+    document.querySelectorAll(
+        ".portal-sidebar .navigation-item"
+    ).forEach(function (item) {
+
+        item.addEventListener("click", function () {
+
+            if (window.innerWidth <= 900) {
+                closeSidebar();
+            }
+
+        });
+
+    });
+
+
+    /* Close sidebar when resizing to desktop */
+
+    window.addEventListener("resize", function () {
+
+        if (window.innerWidth > 900) {
+            closeSidebar();
+        }
+
+    });
+
+</script>
+
+
+<!-- =============================================================
+     MESSAGE AUTO HIDE
+     ============================================================= -->
+
+<script>
+
+    setTimeout(function () {
+
+        document
+            .querySelectorAll(".weekly-alert-501")
+            .forEach(function (alert) {
+
+                alert.style.transition =
+                    "opacity .5s, transform .5s";
+
                 alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 500);
-            });
-        }, 4000);
-    </script>
 
+                alert.style.transform =
+                    "translateY(-5px)";
+
+                setTimeout(function () {
+
+                    alert.remove();
+
+                }, 500);
+
+            });
+
+    }, 4000);
+
+</script>
 
 
 </body>

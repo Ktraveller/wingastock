@@ -1,1210 +1,1910 @@
 {% load static %}
 {% load humanize %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Field Report | Report preview</title>
-    <link rel="shortcut icon" href="{% static 'logo1.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css_re/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Field Training | Report Preview
+    </title>
+
+    <link
+        rel="shortcut icon"
+        href="{% static 'logo1.png' %}"
+        type="image/x-icon"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css_re/style.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
+
 
     <style>
-        .messages {
-            margin: 20px 0;
+
+        /* =========================================================
+           REPORT PREVIEW
+           PAGE-SPECIFIC STYLES
+        ========================================================= */
+
+        html,
+        body {
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
-        .alert {
-            padding: 12px 18px;
+        * {
+            box-sizing: border-box;
+        }
+
+
+        .report-preview-page-401 {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+
+        /* =========================================================
+           BACK LINK
+        ========================================================= */
+
+        .report-preview-back-401 {
+            margin-bottom: 18px;
+        }
+
+        .report-preview-back-401 a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            color: var(--portal-primary, #014162);
+
+            font-size: 14px;
+            font-weight: 700;
+
+            text-decoration: none;
+
+            transition:
+                transform 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .report-preview-back-401 a:hover {
+            transform: translateX(-3px);
+        }
+
+
+        /* =========================================================
+           PREVIEW HERO
+        ========================================================= */
+
+        .report-preview-hero-401 {
+            position: relative;
+
+            width: 100%;
+
+            min-height: 190px;
+
+            display: flex;
+            align-items: flex-end;
+
+            padding: 28px;
+
+            margin-bottom: 20px;
+
+            overflow: hidden;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #014162,
+                    #00658e
+                );
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .report-preview-hero-401::before {
+            content: "";
+
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            right: -70px;
+            top: -90px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.08);
+        }
+
+
+        .report-preview-hero-401::after {
+            content: "";
+
+            position: absolute;
+
+            width: 140px;
+            height: 140px;
+
+            left: 35%;
+            bottom: -90px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.06);
+        }
+
+
+        .report-preview-hero-content-401 {
+            position: relative;
+            z-index: 2;
+
+            width: 100%;
+        }
+
+
+        .report-preview-eyebrow-401 {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
             margin-bottom: 10px;
-            border-radius: 5px;
-            color: #fff;
-            font-weight: 500;
+
+            color: rgba(255, 255, 255, 0.78);
+
+            font-size: 11px;
+            font-weight: 800;
+
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
         }
 
-        .success {
-            background: #28a745;
+
+        .report-preview-hero-content-401 h1 {
+            max-width: 900px;
+
+            margin: 0;
+
+            color: #ffffff;
+
+            font-size: clamp(
+                24px,
+                4vw,
+                40px
+            );
+
+            line-height: 1.2;
+
+            overflow-wrap: anywhere;
+            word-break: break-word;
         }
 
-        .error {
-            background: #dc3545;
+
+        /* =========================================================
+           MESSAGES
+        ========================================================= */
+
+        .messages-container-401 {
+            width: 100%;
+            margin-bottom: 20px;
         }
 
-        .warning {
-            background: #ffc107;
-            color: #000;
+
+        .portal-alert-401 {
+            position: relative;
+
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+
+            width: 100%;
+
+            padding: 13px 42px 13px 15px;
+
+            margin-bottom: 10px;
+
+            border-radius: 10px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            border: 1px solid transparent;
+
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s ease;
         }
 
-        .info {
-            background: #17a2b8;
+
+        .portal-alert-401.success {
+            background: #ecfdf3;
+            color: #166534;
+            border-color: #bbf7d0;
         }
+
+
+        .portal-alert-401.error {
+            background: #fef2f2;
+            color: #991b1b;
+            border-color: #fecaca;
+        }
+
+
+        .portal-alert-401.warning {
+            background: #fffbeb;
+            color: #92400e;
+            border-color: #fde68a;
+        }
+
+
+        .portal-alert-401.info {
+            background: #eff6ff;
+            color: #1e40af;
+            border-color: #bfdbfe;
+        }
+
+
+        .portal-alert-close-401 {
+            position: absolute;
+
+            right: 12px;
+            top: 50%;
+
+            width: 28px;
+            height: 28px;
+
+            transform: translateY(-50%);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 0;
+
+            background: transparent;
+
+            color: inherit;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+        }
+
+
+        .portal-alert-close-401:hover {
+            background: rgba(0, 0, 0, 0.06);
+        }
+
+
+        /* =========================================================
+           REPORT CARD
+        ========================================================= */
+
+        .report-preview-card-401 {
+            width: 100%;
+
+            background: #ffffff;
+
+            border: 1px solid #e5ebef;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.05);
+        }
+
+
+        /* =========================================================
+           CARD HEADER
+        ========================================================= */
+
+        .report-preview-card-header-401 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 20px 22px;
+
+            border-bottom: 1px solid #edf1f4;
+
+            background: #fbfcfd;
+        }
+
+
+        .report-preview-card-heading-401 {
+            min-width: 0;
+        }
+
+
+        .report-preview-card-heading-401 span {
+            display: block;
+
+            margin-bottom: 4px;
+
+            color: #7a8994;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+
+        .report-preview-card-heading-401 h2 {
+            margin: 0;
+
+            color: #17212b;
+
+            font-size: 19px;
+
+            line-height: 1.35;
+
+            overflow-wrap: anywhere;
+        }
+
+
+        .report-status-401 {
+            flex-shrink: 0;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 8px 12px;
+
+            border-radius: 999px;
+
+            font-size: 11px;
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+
+        .report-status-approved-401 {
+            color: #166534;
+            background: #ecfdf3;
+            border: 1px solid #bbf7d0;
+        }
+
+
+        .report-status-pending-401 {
+            color: #92400e;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+        }
+
+
+        /* =========================================================
+           REPORT BODY
+        ========================================================= */
+
+        .report-preview-body-401 {
+            padding: 24px;
+        }
+
+
+        /* =========================================================
+           INFO TABLE
+        ========================================================= */
+
+        .report-info-grid-401 {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+
+            gap: 12px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .report-info-item-401 {
+            min-width: 0;
+
+            display: flex;
+            align-items: flex-start;
+
+            gap: 12px;
+
+            padding: 14px;
+
+            background: #f8fafb;
+
+            border: 1px solid #e8eef2;
+
+            border-radius: 12px;
+        }
+
+
+        .report-info-icon-401 {
+            width: 36px;
+            min-width: 36px;
+            height: 36px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: var(--portal-primary, #014162);
+
+            background:
+                var(
+                    --portal-primary-light,
+                    #eaf4f8
+                );
+
+            border-radius: 9px;
+
+            font-size: 14px;
+        }
+
+
+        .report-info-content-401 {
+            min-width: 0;
+        }
+
+
+        .report-info-content-401 span {
+            display: block;
+
+            margin-bottom: 3px;
+
+            color: #84919b;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+
+
+        .report-info-content-401 strong {
+            display: block;
+
+            color: #27343d;
+
+            font-size: 13px;
+            line-height: 1.5;
+
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+
+        /* =========================================================
+           REPORT SECTIONS
+        ========================================================= */
+
+        .report-section-401 {
+            width: 100%;
+
+            margin-top: 25px;
+        }
+
+
+        .report-section-heading-401 {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .report-section-heading-401 i {
+            color: var(--portal-primary, #014162);
+
+            font-size: 14px;
+        }
+
+
+        .report-section-heading-401 h3 {
+            margin: 0;
+
+            color: #26343d;
+
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+
+        .report-section-content-401 {
+            width: 100%;
+
+            padding: 16px 17px;
+
+            background: #fbfcfd;
+
+            border: 1px solid #e8eef2;
+
+            border-radius: 11px;
+
+            color: #46545d;
+
+            font-size: 13px;
+
+            line-height: 1.75;
+
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+
+        .report-section-content-401 p {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+
+        .report-section-content-401 p:last-child {
+            margin-bottom: 0;
+        }
+
+
+        .empty-report-content-401 {
+            color: #89959d;
+
+            font-style: italic;
+        }
+
+
+        /* =========================================================
+           ACTIONS
+        ========================================================= */
+
+        .report-preview-actions-401 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 12px;
+
+            padding-top: 25px;
+            margin-top: 28px;
+
+            border-top: 1px solid #edf1f4;
+        }
+
+
+        .report-preview-action-401 {
+            min-height: 44px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 8px;
+
+            padding: 10px 17px;
+
+            border-radius: 9px;
+
+            font-family: inherit;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        .report-preview-back-button-401 {
+            color: #52616b;
+
+            background: #f1f5f7;
+
+            border: 1px solid #e1e8ed;
+        }
+
+
+        .report-preview-back-button-401:hover {
+            background: #e7edf0;
+
+            transform: translateY(-1px);
+        }
+
+
+        .report-preview-edit-button-401 {
+            color: #ffffff;
+
+            background: var(--portal-primary, #014162);
+
+            border: 1px solid var(--portal-primary, #014162);
+        }
+
+
+        .report-preview-edit-button-401:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 7px 18px rgba(1, 65, 98, 0.18);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 768px) {
+
+            .report-preview-hero-401 {
+                min-height: 160px;
+
+                padding: 22px;
+
+                border-radius: 15px;
+            }
+
+
+            .report-preview-body-401 {
+                padding: 18px;
+            }
+
+
+            .report-info-grid-401 {
+                grid-template-columns: 1fr;
+            }
+
+
+            .report-preview-card-header-401 {
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .report-status-401 {
+                width: fit-content;
+            }
+
+
+            .report-preview-actions-401 {
+                flex-direction: column-reverse;
+
+                align-items: stretch;
+            }
+
+
+            .report-preview-action-401 {
+                width: 100%;
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .report-preview-hero-401 {
+                min-height: 140px;
+
+                padding: 18px;
+            }
+
+
+            .report-preview-hero-content-401 h1 {
+                font-size: 23px;
+            }
+
+
+            .report-preview-body-401 {
+                padding: 14px;
+            }
+
+
+            .report-preview-card-header-401 {
+                padding: 16px;
+            }
+
+
+            .report-info-item-401 {
+                padding: 12px;
+            }
+
+
+            .report-section-content-401 {
+                padding: 14px;
+
+                font-size: 12px;
+            }
+
+        }
+
+
+        @media (max-width: 360px) {
+
+            .report-preview-hero-401 {
+                padding: 15px;
+            }
+
+
+            .report-preview-body-401 {
+                padding: 11px;
+            }
+
+
+            .report-info-item-401 {
+                gap: 8px;
+            }
+
+
+            .report-info-icon-401 {
+                width: 32px;
+                min-width: 32px;
+                height: 32px;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <div class="row-holder">
 
-        <!-- Header -->
-        <div class="header-holder-100">
-            <div class="header-100">
-                <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-                            class="fas fa-times"></i></button>
+<div class="portal-wrapper">
+
+
+    <!-- =====================================================
+         SIDEBAR OVERLAY
+    ====================================================== -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="closeSidebar()"
+    ></div>
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside
+        class="portal-sidebar"
+        id="portalSidebar"
+    >
+
+
+        <!-- Brand -->
+
+        <div class="sidebar-brand">
+
+            <a href="{% url 'report_home' %}">
+
+                <div class="brand-logo">
+
+                    <img
+                        src="{% static 'logo1.png' %}"
+                        alt="Field Report"
+                    >
+
                 </div>
-                <div class="title-holder-101">
-                    <button type="button"><span>Report Preview</span></button>
+
+
+                <div class="brand-text">
+
+                    <strong>
+                        Field Training
+                    </strong>
+
+                    <span>
+                        Student Portal
+                    </span>
+
                 </div>
-                <div class="title-holder-101" style="float: right;">
-                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
-                </div>
-            </div>
+
+            </a>
+
         </div>
 
 
-        <!-- center content -->
-        <div class="center-content-200">
+        <!-- Navigation -->
 
-            <div class="left-holder-201" id="nav">
-                <div class="nav-bar-holder-202">
+        <nav class="sidebar-navigation">
 
-                    <ul>
-                        <a href="{% url 'report_home' %}">
-                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
-                        </a>
-                    </ul>
 
-                    <ul>
-                        <a href="{% url 'placements_list' %}">
-                            <li class="active-0">Reports <i class="fas fa-file-alt"></i></li>
-                        </a>
-                    </ul>
+            <!-- MAIN -->
 
-                    <ul>
-                        <a href="{% url 'user_account' %}">
-                            <li>Account <i class="fas fa-user"></i></li>
-                        </a>
-                    </ul>
+            <div class="navigation-section">
 
-                    <ul>
-                        <a href="{% url 'home' %}">
-                            <li>Back Wingastock <i class="fas fa-home"></i></li>
-                        </a>
-                    </ul>
-                </div>
+                <span class="navigation-label">
+                    MAIN
+                </span>
+
+
+                <a
+                    href="{% url 'report_home' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+
+                        <i class="fas fa-th-large"></i>
+
+                    </span>
+
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Dashboard
+                        </strong>
+
+                        <small>
+                            Overview of your training
+                        </small>
+
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{% url 'placements_list' %}"
+                    class="navigation-item active"
+                >
+
+                    <span class="navigation-icon">
+
+                        <i class="fas fa-file-alt"></i>
+
+                    </span>
+
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Field Reports
+                        </strong>
+
+                        <small>
+                            Daily and weekly reports
+                        </small>
+
+                    </span>
+
+                </a>
+
             </div>
 
-            <div class="right-holder-201">
-                <div class="products-202">
 
-                    <div class="preview-102">
+            <!-- ACCOUNT -->
 
-                        <!-- Report Header -->
-                        <div class="product-image-holder-103">
-                            <div class="product-image-103"
-                                style="background: linear-gradient(135deg, #1e90ff, #1565c0);">
+            <div class="navigation-section">
 
-                                <h1>{{ report.title }}</h1>
-
-                            </div>
-                        </div>
+                <span class="navigation-label">
+                    ACCOUNT
+                </span>
 
 
-                        <!-- Report Details -->
-                        <div class="product-details-holder-103">
+                <a
+                    href="{% url 'user_account' %}"
+                    class="navigation-item"
+                >
 
-                            <!-- Main Information -->
-                            <div>
-                                <div style="float: left;">
+                    <span class="navigation-icon">
 
-                                    <p style="font-weight: bold;">
-                                        <i class="fas fa-file-alt"></i>
-                                        Daily Field Report
-                                    </p>
+                        <i class="fas fa-user"></i>
 
-
-                                    <!-- Messages -->
-                                    {% if messages %}
-                                    <div class="messages">
-                                        {% for message in messages %}
-                                        <div class="alert {{ message.tags }}">
-                                            {{ message }}
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                    {% endif %}
+                    </span>
 
 
-                                    <!-- Report Title -->
-                                    <div class="des-103">
-                                        <h2>{{ report.title }}</h2>
-                                    </div>
+                    <span class="navigation-content">
+
+                        <strong>
+                            My Account
+                        </strong>
+
+                        <small>
+                            Manage your profile
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
 
 
-                                    <!-- Report Information -->
-                                    <table>
+            <!-- WEBSITE -->
 
-                                        <tr>
-                                            <td>
-                                                <i class="fas fa-calendar-alt"></i>
-                                                Report Date
-                                            </td>
-                                            <td>
-                                                {{ report.date|date:"d M Y" }}
-                                            </td>
-                                        </tr>
+            <div class="navigation-section">
 
-                                        <tr>
-                                            <td>
-                                                <i class="fas fa-user-graduate"></i>
-                                                Student
-                                            </td>
-                                            <td>
-                                                {{ report.placement.student }}
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <i class="fas fa-building"></i>
-                                                Placement
-                                            </td>
-                                            <td>
-                                                {{ report.placement.organization }}
-                                               - {{ report.placement.department }}
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <i class="fas fa-clock"></i>
-                                                Submitted
-                                            </td>
-                                            <td>
-                                                {{ report.created_at|date:"d M Y H:i" }}
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <i class="fas fa-sync-alt"></i>
-                                                Last Updated
-                                            </td>
-                                            <td>
-                                                {{ report.updated_at|date:"d M Y H:i" }}
-                                            </td>
-                                        </tr>
+                <span class="navigation-label">
+                    WEBSITE
+                </span>
 
 
-                                    </table>
+                <a
+                    href="{% url 'home' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+
+                        <i class="fas fa-external-link-alt"></i>
+
+                    </span>
 
 
-                                    <!-- Activities -->
-                                    <div style="margin-top: 25px;">
+                    <span class="navigation-content">
 
-                                        <p style="font-weight: bold;">
-                                            <i class="fas fa-tasks"></i>
-                                            Activities Performed
-                                        </p>
+                        <strong>
+                            Back to WingaStock
+                        </strong>
 
-                                        <div class="des-103">
-                                            {{ report.activities|linebreaks }}
-                                        </div>
+                        <small>
+                            Return to main website
+                        </small>
 
-                                    </div>
+                    </span>
 
+                </a>
 
-                                    <!-- Skills Learned -->
-                                    <div style="margin-top: 25px;">
-
-                                        <p style="font-weight: bold;">
-                                            <i class="fas fa-lightbulb"></i>
-                                            Skills & Knowledge Learned
-                                        </p>
-
-                                        <div class="des-103">
-                                            {% if report.skills_learned %}
-                                            {{ report.skills_learned|linebreaks }}
-                                            {% else %}
-                                            <span style="color: #888;">
-                                                No skills or knowledge recorded.
-                                            </span>
-                                            {% endif %}
-                                        </div>
-
-                                    </div>
+            </div>
 
 
-                                    <!-- Challenges -->
-                                    <div style="margin-top: 25px;">
-
-                                        <p style="font-weight: bold;">
-                                            <i class="fas fa-exclamation-triangle"></i>
-                                            Challenges Encountered
-                                        </p>
-
-                                        <div class="des-103">
-                                            {% if report.challenges %}
-                                            {{ report.challenges|linebreaks }}
-                                            {% else %}
-                                            <span style="color: #888;">
-                                                No challenges recorded.
-                                            </span>
-                                            {% endif %}
-                                        </div>
-
-                                    </div>
+        </nav>
 
 
-                                    <!-- Solutions -->
-                                    <div style="margin-top: 25px;">
+        <!-- Help -->
 
-                                        <p style="font-weight: bold;">
-                                            <i class="fas fa-tools"></i>
-                                            Solutions
-                                        </p>
+        <div class="sidebar-help">
 
-                                        <div class="des-103">
-                                            {% if report.solutions %}
-                                            {{ report.solutions|linebreaks }}
-                                            {% else %}
-                                            <span style="color: #888;">
-                                                No solutions recorded.
-                                            </span>
-                                            {% endif %}
-                                        </div>
+            <div class="sidebar-help-icon">
 
-                                    </div>
+                <i class="fas fa-info-circle"></i>
+
+            </div>
 
 
-                                    <!-- Remarks -->
-                                    <div style="margin-top: 25px;">
+            <div>
 
-                                        <p style="font-weight: bold;">
-                                            <i class="fas fa-sticky-note"></i>
-                                            Remarks
-                                        </p>
+                <strong>
+                    Need help?
+                </strong>
 
-                                        <div class="des-103">
-                                            {% if report.remarks %}
-                                            {{ report.remarks|linebreaks }}
-                                            {% else %}
-                                            <span style="color: #888;">
-                                                No remarks.
-                                            </span>
-                                            {% endif %}
-                                        </div>
+                <p>
+                    Complete your daily reports regularly
+                    to keep your field training record up to date.
+                </p>
 
-                                    </div>
+            </div>
+
+        </div>
 
 
-                                    <!-- Actions -->
-                                    <div class="actions-holder-103">
+        <!-- Footer -->
 
-                                        <div>
-                                            <button type="button"
-                                                onclick="window.location.href=`{% url 'reports_list' report.placement.id %}`">
+        <div class="sidebar-footer">
 
-                                                <i class="fas fa-arrow-left"></i>
-                                                Back to Reports
+            <span>
+                Field Practical Training
+            </span>
 
-                                            </button>
-                                        </div>
+            <small>
+                Student Reporting System
+            </small>
 
-                                        {% if not report.supervisor_approved %}
-                                        <div>
-                                            <button type="button" style="background: dodgerblue;"
-                                                onclick="window.location.href=`{% url 'edit_report' report.id %}`">
-
-                                                <i class="fas fa-edit"></i>
-                                                Edit Report
-
-                                            </button>
-                                        </div>
-                                        {% endif %}
-
-                                    </div>
-
-                                </div>
-                            </div>
+        </div>
 
 
-                        </div>
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="portal-main">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <header class="portal-header">
+
+
+            <div class="header-left">
+
+                <button
+                    type="button"
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    onclick="toggleSidebar()"
+                    aria-label="Open navigation"
+                >
+
+                    <i class="fas fa-bars"></i>
+
+                </button>
+
+
+                <div class="header-page-title">
+
+                    <span>
+                        Student Portal
+                    </span>
+
+                    <h1>
+                        Report Preview
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="header-user">
+
+                    <div class="header-user-icon">
+
+                        <i class="fas fa-user"></i>
 
                     </div>
 
 
+                    <div class="header-user-info">
+
+                        <strong>
+                            Student
+                        </strong>
+
+                        <span>
+                            {{ user.email }}
+                        </span>
+
+                    </div>
+
                 </div>
+
             </div>
 
-        </div>
 
-    </div>
-
+        </header>
 
 
-    <script>
-        function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
+        <!-- =================================================
+             CONTENT
+        ================================================== -->
 
-            if (click == 'open') {
-                menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
-            }
-            else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
-                nav.style.display = 'none';
-            }
+        <section class="portal-content">
+
+
+            <div class="report-preview-page-401">
+
+
+                <!-- Back -->
+
+                <div class="report-preview-back-401">
+
+                    <a
+                        href="{% url 'reports_list' report.placement.id %}"
+                    >
+
+                        <i class="fas fa-arrow-left"></i>
+
+                        Back to Reports
+
+                    </a>
+
+                </div>
+
+
+                <!-- =================================================
+                     HERO
+                ================================================== -->
+
+                <div class="report-preview-hero-401">
+
+                    <div class="report-preview-hero-content-401">
+
+                        <div class="report-preview-eyebrow-401">
+
+                            <i class="fas fa-file-alt"></i>
+
+                            Daily Field Report
+
+                        </div>
+
+
+                        <h1>
+                            {{ report.title }}
+                        </h1>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     MESSAGES
+                ================================================== -->
+
+                {% if messages %}
+
+                <div
+                    class="messages-container-401"
+                    id="messagesContainer"
+                >
+
+                    {% for message in messages %}
+
+                    <div
+                        class="portal-alert-401 {{ message.tags }}"
+                    >
+
+                        <i class="
+                            {% if message.tags == 'success' %}
+                                fas fa-check-circle
+                            {% elif message.tags == 'error' %}
+                                fas fa-times-circle
+                            {% elif message.tags == 'warning' %}
+                                fas fa-exclamation-triangle
+                            {% else %}
+                                fas fa-info-circle
+                            {% endif %}
+                        "></i>
+
+
+                        <span>
+                            {{ message }}
+                        </span>
+
+
+                        <button
+                            type="button"
+                            class="portal-alert-close-401"
+                            onclick="closeAlert(this)"
+                            aria-label="Close message"
+                        >
+
+                            <i class="fas fa-times"></i>
+
+                        </button>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     REPORT CARD
+                ================================================== -->
+
+                <div class="report-preview-card-401">
+
+
+                    <!-- Card Header -->
+
+                    <div class="report-preview-card-header-401">
+
+
+                        <div class="report-preview-card-heading-401">
+
+                            <span>
+                                Report Details
+                            </span>
+
+                            <h2>
+                                {{ report.title }}
+                            </h2>
+
+                        </div>
+
+
+                        {% if report.supervisor_approved %}
+
+                        <div
+                            class="
+                                report-status-401
+                                report-status-approved-401
+                            "
+                        >
+
+                            <i class="fas fa-check-circle"></i>
+
+                            Supervisor Approved
+
+                        </div>
+
+                        {% else %}
+
+                        <div
+                            class="
+                                report-status-401
+                                report-status-pending-401
+                            "
+                        >
+
+                            <i class="fas fa-clock"></i>
+
+                            Awaiting Approval
+
+                        </div>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                    <!-- Body -->
+
+                    <div class="report-preview-body-401">
+
+
+                        <!-- =================================================
+                             INFORMATION
+                        ================================================== -->
+
+                        <div class="report-info-grid-401">
+
+
+                            <!-- Date -->
+
+                            <div class="report-info-item-401">
+
+                                <div class="report-info-icon-401">
+
+                                    <i class="fas fa-calendar-alt"></i>
+
+                                </div>
+
+
+                                <div class="report-info-content-401">
+
+                                    <span>
+                                        Report Date
+                                    </span>
+
+                                    <strong>
+                                        {{ report.date|date:"d M Y" }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Student -->
+
+                            <div class="report-info-item-401">
+
+                                <div class="report-info-icon-401">
+
+                                    <i class="fas fa-user-graduate"></i>
+
+                                </div>
+
+
+                                <div class="report-info-content-401">
+
+                                    <span>
+                                        Student
+                                    </span>
+
+                                    <strong>
+                                        {{ report.placement.student }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Placement -->
+
+                            <div class="report-info-item-401">
+
+                                <div class="report-info-icon-401">
+
+                                    <i class="fas fa-building"></i>
+
+                                </div>
+
+
+                                <div class="report-info-content-401">
+
+                                    <span>
+                                        Placement
+                                    </span>
+
+                                    <strong>
+                                        {{ report.placement.organization }}
+                                        -
+                                        {{ report.placement.department }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Submitted -->
+
+                            <div class="report-info-item-401">
+
+                                <div class="report-info-icon-401">
+
+                                    <i class="fas fa-clock"></i>
+
+                                </div>
+
+
+                                <div class="report-info-content-401">
+
+                                    <span>
+                                        Submitted
+                                    </span>
+
+                                    <strong>
+                                        {{ report.created_at|date:"d M Y H:i" }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Updated -->
+
+                            <div class="report-info-item-401">
+
+                                <div class="report-info-icon-401">
+
+                                    <i class="fas fa-sync-alt"></i>
+
+                                </div>
+
+
+                                <div class="report-info-content-401">
+
+                                    <span>
+                                        Last Updated
+                                    </span>
+
+                                    <strong>
+                                        {{ report.updated_at|date:"d M Y H:i" }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =================================================
+                             ACTIVITIES
+                        ================================================== -->
+
+                        <div class="report-section-401">
+
+
+                            <div class="report-section-heading-401">
+
+                                <i class="fas fa-tasks"></i>
+
+                                <h3>
+                                    Activities Performed
+                                </h3>
+
+                            </div>
+
+
+                            <div class="report-section-content-401">
+
+                                {{ report.activities|linebreaks }}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             SKILLS
+                        ================================================== -->
+
+                        <div class="report-section-401">
+
+
+                            <div class="report-section-heading-401">
+
+                                <i class="fas fa-lightbulb"></i>
+
+                                <h3>
+                                    Skills & Knowledge Learned
+                                </h3>
+
+                            </div>
+
+
+                            <div class="report-section-content-401">
+
+                                {% if report.skills_learned %}
+
+                                    {{ report.skills_learned|linebreaks }}
+
+                                {% else %}
+
+                                    <span class="empty-report-content-401">
+
+                                        No skills or knowledge recorded.
+
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             CHALLENGES
+                        ================================================== -->
+
+                        <div class="report-section-401">
+
+
+                            <div class="report-section-heading-401">
+
+                                <i class="fas fa-exclamation-triangle"></i>
+
+                                <h3>
+                                    Challenges Encountered
+                                </h3>
+
+                            </div>
+
+
+                            <div class="report-section-content-401">
+
+                                {% if report.challenges %}
+
+                                    {{ report.challenges|linebreaks }}
+
+                                {% else %}
+
+                                    <span class="empty-report-content-401">
+
+                                        No challenges recorded.
+
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             SOLUTIONS
+                        ================================================== -->
+
+                        <div class="report-section-401">
+
+
+                            <div class="report-section-heading-401">
+
+                                <i class="fas fa-tools"></i>
+
+                                <h3>
+                                    Solutions
+                                </h3>
+
+                            </div>
+
+
+                            <div class="report-section-content-401">
+
+                                {% if report.solutions %}
+
+                                    {{ report.solutions|linebreaks }}
+
+                                {% else %}
+
+                                    <span class="empty-report-content-401">
+
+                                        No solutions recorded.
+
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             REMARKS
+                        ================================================== -->
+
+                        <div class="report-section-401">
+
+
+                            <div class="report-section-heading-401">
+
+                                <i class="fas fa-sticky-note"></i>
+
+                                <h3>
+                                    Remarks
+                                </h3>
+
+                            </div>
+
+
+                            <div class="report-section-content-401">
+
+                                {% if report.remarks %}
+
+                                    {{ report.remarks|linebreaks }}
+
+                                {% else %}
+
+                                    <span class="empty-report-content-401">
+
+                                        No remarks.
+
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             SUPERVISOR COMMENT
+                        ================================================== -->
+
+                        {% if report.supervisor_comment %}
+
+                        <div class="report-section-401">
+
+
+                            <div class="report-section-heading-401">
+
+                                <i class="fas fa-user-check"></i>
+
+                                <h3>
+                                    Supervisor Comment
+                                </h3>
+
+                            </div>
+
+
+                            <div class="report-section-content-401">
+
+                                {{ report.supervisor_comment|linebreaks }}
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        <!-- =================================================
+                             ACTIONS
+                        ================================================== -->
+
+                        <div class="report-preview-actions-401">
+
+
+                            <a
+                                href="{% url 'reports_list' report.placement.id %}"
+                                class="
+                                    report-preview-action-401
+                                    report-preview-back-button-401
+                                "
+                            >
+
+                                <i class="fas fa-arrow-left"></i>
+
+                                Back to Reports
+
+                            </a>
+
+
+                            {% if not report.supervisor_approved %}
+
+                            <a
+                                href="{% url 'edit_report' report.id %}"
+                                class="
+                                    report-preview-action-401
+                                    report-preview-edit-button-401
+                                "
+                            >
+
+                                <i class="fas fa-edit"></i>
+
+                                Edit Report
+
+                            </a>
+
+                            {% endif %}
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+    /* =========================================================
+       SIDEBAR
+    ========================================================= */
+
+    function toggleSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        if (!sidebar) {
+            return;
         }
-    </script>
+
+        sidebar.classList.toggle(
+            "sidebar-open"
+        );
+
+        if (overlay) {
+
+            overlay.classList.toggle(
+                "active"
+            );
+
+        }
+
+    }
 
 
-    <script>
-        setTimeout(function () {
-            document.querySelectorAll(".alert").forEach(function (alert) {
-                alert.style.transition = "opacity 0.5s";
-                alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 500);
-            });
-        }, 4000);
-    </script>
+    function closeSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        if (sidebar) {
+
+            sidebar.classList.remove(
+                "sidebar-open"
+            );
+
+        }
+
+        if (overlay) {
+
+            overlay.classList.remove(
+                "active"
+            );
+
+        }
+
+    }
 
 
+    /* =========================================================
+       CLOSE SIDEBAR ON NAVIGATION
+    ========================================================= */
 
-    <script>
-        const shareBtn = document.getElementById("shareBtn");
+    document
+        .querySelectorAll(".navigation-item")
+        .forEach(function (item) {
 
-        shareBtn.addEventListener("click", async () => {
-            try {
-                // =====================================================
-                // PRODUCT DATA
-                // =====================================================
+            item.addEventListener(
+                "click",
+                function () {
 
-                const imageUrl = "{{ product.image.url|escapejs }}"
-                    .replace(/^http:\/\//i, "https://");
-
-                const productTitle = "{{ product.title|escapejs }}";
-                const productPrice = "{{ product.price|floatformat:0|intcomma }}";
-
-                const sellerLocation =
-                    "{{ product.owner.seller.seller_address|escapejs }}";
-
-                const sellerPhone =
-                    "{{ product.owner.seller.seller_phone|escapejs }}";
-
-                // Direct product link
-                const productLink =
-                    "https://wingastock.onrender.com/p/{{ product.id }}";
-
-                // =====================================================
-                // COLORS
-                // =====================================================
-
-                const crimson = "#DC143C";
-                const darkCrimson = "#B01030";
-                const white = "#FFFFFF";
-                const softWhite = "#FFF5F7";
-                const transparentWhite =
-                    "rgba(255,255,255,0.18)";
-
-                // =====================================================
-                // LOAD PRODUCT IMAGE
-                // =====================================================
-
-                const productImage = new Image();
-
-                productImage.crossOrigin = "anonymous";
-                productImage.src = imageUrl;
-
-                await new Promise((resolve, reject) => {
-
-                    productImage.onload = resolve;
-
-                    productImage.onerror = () => reject(
-                        new Error(
-                            "Unable to load product image."
-                        )
-                    );
-                });
-
-                // =====================================================
-                // LOAD LOGO
-                // =====================================================
-
-                const logo = new Image();
-
-                logo.src = "{% static 'logo.png' %}";
-
-                await new Promise((resolve) => {
-
-                    logo.onload = resolve;
-                    logo.onerror = resolve;
-
-                });
-
-                // =====================================================
-                // CANVAS SETTINGS
-                // =====================================================
-
-                const canvas =
-                    document.createElement("canvas");
-
-                const width = 1080;
-
-                const headerHeight = 150;
-                const productHeight = 760;
-                const detailsHeight = 1050;
-
-                canvas.width = width;
-
-                canvas.height =
-                    headerHeight +
-                    productHeight +
-                    detailsHeight;
-
-                const ctx =
-                    canvas.getContext("2d");
-
-                // =====================================================
-                // HELPER: ROUNDED RECTANGLE
-                // =====================================================
-
-                function roundedRect(
-                    ctx,
-                    x,
-                    y,
-                    width,
-                    height,
-                    radius
-                ) {
-
-                    ctx.beginPath();
-
-                    ctx.moveTo(
-                        x + radius,
-                        y
-                    );
-
-                    ctx.lineTo(
-                        x + width - radius,
-                        y
-                    );
-
-                    ctx.quadraticCurveTo(
-                        x + width,
-                        y,
-                        x + width,
-                        y + radius
-                    );
-
-                    ctx.lineTo(
-                        x + width,
-                        y + height - radius
-                    );
-
-                    ctx.quadraticCurveTo(
-                        x + width,
-                        y + height,
-                        x + width - radius,
-                        y + height
-                    );
-
-                    ctx.lineTo(
-                        x + radius,
-                        y + height
-                    );
-
-                    ctx.quadraticCurveTo(
-                        x,
-                        y + height,
-                        x,
-                        y + height - radius
-                    );
-
-                    ctx.lineTo(
-                        x,
-                        y + radius
-                    );
-
-                    ctx.quadraticCurveTo(
-                        x,
-                        y,
-                        x + radius,
-                        y
-                    );
-
-                    ctx.closePath();
-                }
-
-                // =====================================================
-                // HELPER: WRAPPED TEXT
-                // =====================================================
-
-                function drawWrappedText(
-                    text,
-                    x,
-                    y,
-                    maxWidth,
-                    lineHeight,
-                    maxLines
-                ) {
-
-                    const words =
-                        text.split(" ");
-
-                    let line = "";
-                    const lines = [];
-
-                    for (
-                        let i = 0;
-                        i < words.length;
-                        i++
+                    if (
+                        window.innerWidth <= 991
                     ) {
 
-                        const testLine =
-                            line +
-                            words[i] +
-                            " ";
+                        closeSidebar();
 
-                        const metrics =
-                            ctx.measureText(testLine);
-
-                        if (
-                            metrics.width >
-                            maxWidth &&
-                            i > 0
-                        ) {
-
-                            lines.push(
-                                line.trim()
-                            );
-
-                            line =
-                                words[i] + " ";
-
-                        } else {
-
-                            line = testLine;
-                        }
                     }
 
-                    if (line.trim()) {
-                        lines.push(
-                            line.trim()
-                        );
-                    }
-
-                    lines
-                        .slice(0, maxLines)
-                        .forEach(
-                            (lineText, index) => {
-
-                                ctx.fillText(
-                                    lineText,
-                                    x,
-                                    y +
-                                    index *
-                                    lineHeight
-                                );
-                            }
-                        );
                 }
+            );
 
-                // =====================================================
-                // CRIMSON GRADIENT BACKGROUND
-                // =====================================================
-
-                const gradient =
-                    ctx.createLinearGradient(
-                        0,
-                        0,
-                        width,
-                        canvas.height
-                    );
-
-                gradient.addColorStop(
-                    0,
-                    crimson
-                );
-
-                gradient.addColorStop(
-                    0.5,
-                    darkCrimson
-                );
-
-                gradient.addColorStop(
-                    1,
-                    crimson
-                );
-
-                ctx.fillStyle = gradient;
-
-                ctx.fillRect(
-                    0,
-                    0,
-                    width,
-                    canvas.height
-                );
-
-                // =====================================================
-                // HEADER
-                // =====================================================
-
-                if (
-                    logo.complete &&
-                    logo.naturalWidth > 0
-                ) {
-
-                    const logoHeight = 90;
-
-                    const logoRatio =
-                        logo.width /
-                        logo.height;
-
-                    const logoWidth =
-                        logoHeight *
-                        logoRatio;
-
-                    ctx.drawImage(
-                        logo,
-                        55,
-                        30,
-                        logoWidth,
-                        logoHeight
-                    );
-
-                    ctx.fillStyle = white;
-
-                    ctx.font =
-                        "bold 48px Arial";
-
-                    ctx.fillText(
-                        "Wingastock",
-                        55 +
-                        logoWidth +
-                        25,
-                        88
-                    );
-
-                } else {
-
-                    ctx.fillStyle = white;
-
-                    ctx.font =
-                        "bold 50px Arial";
-
-                    ctx.fillText(
-                        "Wingastock",
-                        55,
-                        88
-                    );
-                }
-
-                ctx.fillStyle = softWhite;
-
-                ctx.font =
-                    "24px Arial";
-
-                ctx.textAlign = "right";
-
-                ctx.fillText(
-                    "Nunua • Uza • Fanya Biashara",
-                    width - 55,
-                    82
-                );
-
-                ctx.textAlign = "left";
-
-                // =====================================================
-                // PRODUCT IMAGE CARD
-                // =====================================================
-
-                const imageX = 40;
-                const imageY =
-                    headerHeight + 30;
-
-                const imageWidth =
-                    width - 80;
-
-                const imageCardHeight =
-                    productHeight - 60;
-
-                ctx.shadowColor =
-                    "rgba(0,0,0,0.25)";
-
-                ctx.shadowBlur = 25;
-                ctx.shadowOffsetY = 10;
-
-                roundedRect(
-                    ctx,
-                    imageX,
-                    imageY,
-                    imageWidth,
-                    imageCardHeight,
-                    35
-                );
-
-                ctx.fillStyle = white;
-                ctx.fill();
-
-                ctx.shadowColor =
-                    "transparent";
-
-                ctx.shadowBlur = 0;
-                ctx.shadowOffsetY = 0;
-
-                // =====================================================
-                // CROP PRODUCT IMAGE
-                // =====================================================
-
-                const imageRatio =
-                    productImage.width /
-                    productImage.height;
-
-                const cardRatio =
-                    imageWidth /
-                    imageCardHeight;
-
-                let sourceWidth =
-                    productImage.width;
-
-                let sourceHeight =
-                    productImage.height;
-
-                let sourceX = 0;
-                let sourceY = 0;
-
-                if (
-                    imageRatio >
-                    cardRatio
-                ) {
-
-                    sourceWidth =
-                        productImage.height *
-                        cardRatio;
-
-                    sourceX =
-                        (
-                            productImage.width -
-                            sourceWidth
-                        ) / 2;
-
-                } else {
-
-                    sourceHeight =
-                        productImage.width /
-                        cardRatio;
-
-                    sourceY =
-                        (
-                            productImage.height -
-                            sourceHeight
-                        ) / 2;
-                }
-
-                ctx.save();
-
-                roundedRect(
-                    ctx,
-                    imageX,
-                    imageY,
-                    imageWidth,
-                    imageCardHeight,
-                    35
-                );
-
-                ctx.clip();
-
-                ctx.drawImage(
-                    productImage,
-                    sourceX,
-                    sourceY,
-                    sourceWidth,
-                    sourceHeight,
-                    imageX,
-                    imageY,
-                    imageWidth,
-                    imageCardHeight
-                );
-
-                ctx.restore();
-
-                // =====================================================
-                // DETAILS SECTION
-                // =====================================================
-
-                const detailsY =
-                    headerHeight +
-                    productHeight;
-
-                ctx.fillStyle =
-                    transparentWhite;
-
-                ctx.fillRect(
-                    50,
-                    detailsY + 10,
-                    width - 100,
-                    3
-                );
-
-                // =====================================================
-                // PRODUCT TITLE
-                // =====================================================
-
-                ctx.fillStyle = white;
-
-                ctx.font =
-                    "bold 52px Arial";
-
-                let title = productTitle;
-
-                if (title.length > 42) {
-
-                    title =
-                        title.substring(
-                            0,
-                            42
-                        ) + "...";
-                }
-
-                ctx.fillText(
-                    title,
-                    55,
-                    detailsY + 85
-                );
-
-                // =====================================================
-                // PRICE
-                // =====================================================
-
-                const priceX = 55;
-
-                const priceY =
-                    detailsY + 120;
-
-                const priceWidth = 430;
-                const priceHeight = 85;
-
-                roundedRect(
-                    ctx,
-                    priceX,
-                    priceY,
-                    priceWidth,
-                    priceHeight,
-                    22
-                );
-
-                ctx.fillStyle = white;
-                ctx.fill();
-
-                ctx.fillStyle = crimson;
-
-                ctx.font =
-                    "bold 42px Arial";
-
-                ctx.fillText(
-                    productPrice +
-                    " Tsh",
-                    priceX + 30,
-                    priceY + 57
-                );
-
-                // =====================================================
-                // SELLER LOCATION
-                // =====================================================
-
-                ctx.fillStyle = white;
-
-                ctx.font =
-                    "bold 29px Arial";
-
-                ctx.fillText(
-                    "📍 Anuani ya muuzaji",
-                    55,
-                    detailsY + 255
-                );
-
-                ctx.font =
-                    "28px Arial";
-
-                drawWrappedText(
-                    sellerLocation ||
-                    "Haijawekwa",
-                    55,
-                    detailsY + 300,
-                    width - 110,
-                    38,
-                    2
-                );
-
-                // =====================================================
-                // SELLER PHONE
-                // =====================================================
-
-                ctx.fillStyle = white;
-
-                ctx.font =
-                    "bold 30px Arial";
-
-                ctx.fillText(
-                    "💬 WhatsApp / Simu",
-                    55,
-                    detailsY + 390
-                );
-
-                ctx.font =
-                    "bold 34px Arial";
-
-                ctx.fillText(
-                    sellerPhone ||
-                    "Haijawekwa",
-                    55,
-                    detailsY + 435
-                );
-
-                // =====================================================
-                // WINGASTOCK DESCRIPTION
-                // =====================================================
-
-                const aboutY =
-                    detailsY + 500;
-
-                roundedRect(
-                    ctx,
-                    45,
-                    aboutY,
-                    width - 90,
-                    375,
-                    28
-                );
-
-                ctx.fillStyle =
-                    "rgba(255,255,255,0.12)";
-
-                ctx.fill();
-
-                // Heading
-                ctx.fillStyle = white;
-
-                ctx.font =
-                    "bold 32px Arial";
-
-                ctx.fillText(
-                    "Kwa nini Wingastock?",
-                    75,
-                    aboutY + 55
-                );
-
-                // Kiswahili description
-                ctx.fillStyle = softWhite;
-
-                ctx.font =
-                    "24px Arial";
-
-                const wingastockDescription =
-                    "Nunua na uuze bidhaa za elektroniki kama " +
-                    "simu janja, laptop, TV, kompyuta, vifaa vya " +
-                    "ziada na vifaa vingine vya kielektroniki. " +
-                    "Gundua samani bora, vifaa vya nyumbani, vyumba, " +
-                    "nyumba na bidhaa mbalimbali kutoka kwa wauzaji " +
-                    "wanaoaminika kupitia Wingastock. Jukwaa letu " +
-                    "linarahisisha kutafuta, kutangaza, kununua na " +
-                    "kuuza bidhaa mtandaoni, likiwaunganisha " +
-                    "wateja na wafanyabiashara katika soko moja " +
-                    "rahisi na linaloaminika.";
-
-                drawWrappedText(
-                    wingastockDescription,
-                    75,
-                    aboutY + 105,
-                    width - 150,
-                    35,
-                    7
-                );
-
-                // =====================================================
-                // CALL TO ACTION
-                // =====================================================
-
-                const ctaY =
-                    aboutY + 405;
-
-                roundedRect(
-                    ctx,
-                    55,
-                    ctaY,
-                    width - 110,
-                    90,
-                    25
-                );
-
-                ctx.fillStyle = white;
-                ctx.fill();
-
-                ctx.fillStyle = crimson;
-
-                ctx.font =
-                    "bold 30px Arial";
-
-                ctx.textAlign = "center";
-
-                ctx.fillText(
-                    "🛒 TEMBELEA WINGASTOCK",
-                    width / 2,
-                    ctaY + 42
-                );
-
-                ctx.font =
-                    "bold 25px Arial";
-
-                ctx.fillText(
-                    "https://wingastock.onrender.com/",
-                    width / 2,
-                    ctaY + 75
-                );
-
-                // =====================================================
-                // SEARCH ENGINE MESSAGE
-                // =====================================================
-
-                ctx.fillStyle = white;
-
-                ctx.font =
-                    "bold 27px Arial";
-
-                ctx.textAlign = "center";
-
-                ctx.fillText(
-                    'Au tafuta "Wingastock" kwenye Google au Bing',
-                    width / 2,
-                    ctaY + 140
-                );
-
-                ctx.font =
-                    "23px Arial";
-
-                ctx.fillStyle = softWhite;
-
-                ctx.fillText(
-                    "Pata bidhaa zaidi • Tangaza bidhaa zako • Nunua kwa urahisi",
-                    width / 2,
-                    ctaY + 180
-                );
-
-                ctx.textAlign = "left";
-
-                // =====================================================
-                // CREATE FINAL IMAGE
-                // =====================================================
-
-                const combinedBlob =
-                    await new Promise(
-                        (resolve, reject) => {
-
-                            canvas.toBlob(
-                                (blob) => {
-
-                                    if (blob) {
-                                        resolve(blob);
-                                    } else {
-                                        reject(
-                                            new Error(
-                                                "Could not create image."
-                                            )
-                                        );
-                                    }
-
-                                },
-                                "image/jpeg",
-                                0.93
-                            );
-                        }
-                    );
-
-                // =====================================================
-                // CREATE SHARE FILE
-                // =====================================================
-
-                const file = new File(
-                    [combinedBlob],
-                    "wingastock-product.jpg",
-                    {
-                        type: "image/jpeg"
-                    }
-                );
-
-                // =====================================================
-                // SHARE
-                // =====================================================
-
-                if (
-                    navigator.share &&
-                    navigator.canShare &&
-                    navigator.canShare({
-                        files: [file]
-                    })
-                ) {
-
-                    await navigator.share({
-
-                        title: productTitle,
-
-                        // Caption contains ONLY the product link
-                        text: productLink,
-
-                        // Actual clickable product URL
-                        url: productLink,
-
-                        files: [file]
-                    });
-
-                } else if (navigator.share) {
-
-                    await navigator.share({
-
-                        title: productTitle,
-
-                        // ONLY the link
-                        text: productLink,
-
-                        url: productLink
-                    });
-
-                } else {
-
-                    alert(
-                        "Sharing is not supported on this browser."
-                    );
-                }
-
-            } catch (error) {
-
-                console.error(
-                    "Share failed:",
-                    error
-                );
-
-                if (
-                    error.name === "AbortError"
-                ) {
-                    return;
-                }
-
-                alert(
-                    "Unable to share this product. Please try again."
-                );
-            }
         });
-    </script>
+
+
+    /* =========================================================
+       ESCAPE KEY
+    ========================================================= */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closeSidebar();
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       RESIZE
+    ========================================================= */
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            if (
+                window.innerWidth > 991
+            ) {
+
+                closeSidebar();
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       ALERT CLOSE
+    ========================================================= */
+
+    function closeAlert(button) {
+
+        const alert =
+            button.closest(
+                ".portal-alert-401"
+            );
+
+        if (!alert) {
+            return;
+        }
+
+
+        alert.style.opacity = "0";
+
+        alert.style.transform =
+            "translateY(-5px)";
+
+
+        setTimeout(
+            function () {
+
+                alert.remove();
+
+            },
+            300
+        );
+
+    }
+
+
+    /* =========================================================
+       AUTO HIDE MESSAGES
+    ========================================================= */
+
+    setTimeout(
+        function () {
+
+            document
+                .querySelectorAll(
+                    ".portal-alert-401"
+                )
+                .forEach(
+                    function (alert) {
+
+                        alert.style.opacity =
+                            "0";
+
+                        alert.style.transform =
+                            "translateY(-5px)";
+
+
+                        setTimeout(
+                            function () {
+
+                                alert.remove();
+
+                            },
+                            300
+                        );
+
+                    }
+                );
+
+        },
+        5000
+    );
+
+</script>
+
 
 </body>
 

@@ -1,168 +1,2373 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Field Report | User account</title>
-    <link rel="shortcut icon" href="{% static 'logo1.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css_re/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Field Training | My Account
+    </title>
+
+    <link
+        rel="shortcut icon"
+        href="{% static 'logo1.png' %}"
+        type="image/x-icon"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css_re/style.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
 
     <style>
-        .messages {
-            margin: 20px 0;
+
+        /* ============================================================
+           USER ACCOUNT
+           USES THE SAME WIDTH LOGIC AS THE OTHER PORTAL PAGES
+        ============================================================ */
+
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
         }
 
-        .alert {
-            padding: 12px 18px;
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-width: 0;
+            overflow-x: hidden;
+        }
+
+
+        body {
+            min-height: 100vh;
+        }
+
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+
+        button,
+        input {
+            font: inherit;
+        }
+
+
+        /* ============================================================
+           IMPORTANT:
+           DO NOT CREATE ANOTHER DESKTOP WIDTH SYSTEM.
+           THE SHARED style.css CONTROLS portal-main/content.
+        ============================================================ */
+
+        .account-page-202 {
+
+            width: 100%;
+            min-width: 0;
+
+            margin: 0;
+            padding: 0;
+
+        }
+
+
+        .account-page-202 > * {
+            min-width: 0;
+        }
+
+
+        /* ============================================================
+           INTRO
+        ============================================================ */
+
+        .account-intro-202 {
+
+            width: 100%;
+            min-width: 0;
+
+            display: flex;
+            align-items: center;
+
+            gap: 20px;
+
+            padding: 26px 28px;
+
+            margin-bottom: 20px;
+
+            background: #ffffff;
+
+            border: 1px solid #e5eaf0;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 6px 22px rgba(0, 0, 0, 0.045);
+
+            overflow: hidden;
+
+        }
+
+
+        .account-intro-icon-202 {
+
+            width: 62px;
+            height: 62px;
+
+            min-width: 62px;
+            flex: 0 0 62px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 16px;
+
+            background:
+                var(
+                    --portal-primary-light,
+                    #eaf4f8
+                );
+
+            color:
+                var(
+                    --portal-primary,
+                    #014162
+                );
+
+            font-size: 27px;
+
+        }
+
+
+        .account-intro-content-202 {
+
+            min-width: 0;
+
+            flex: 1 1 auto;
+
+            overflow: hidden;
+
+        }
+
+
+        .account-eyebrow-202 {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color:
+                var(
+                    --portal-primary,
+                    #014162
+                );
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.4px;
+
+        }
+
+
+        .account-intro-content-202 h1 {
+
+            margin: 0;
+
+            color: #17232d;
+
+            font-size: 26px;
+
+            line-height: 1.25;
+
+            overflow-wrap: anywhere;
+
+        }
+
+
+        .account-intro-content-202 p {
+
+            margin: 7px 0 0;
+
+            color: #6d7b86;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            overflow-wrap: anywhere;
+
+            word-break: break-word;
+
+        }
+
+
+        /* ============================================================
+           QUICK CARDS
+        ============================================================ */
+
+        .account-quick-grid-202 {
+
+            width: 100%;
+            min-width: 0;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 16px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .account-quick-card-202 {
+
+            min-width: 0;
+
+            display: flex;
+            align-items: flex-start;
+
+            gap: 14px;
+
+            padding: 20px;
+
+            background: #ffffff;
+
+            border: 1px solid #e5eaf0;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 4px 18px rgba(0, 0, 0, 0.035);
+
+            overflow: hidden;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+
+        }
+
+
+        .account-quick-card-202:hover {
+
+            transform: translateY(-2px);
+
+            border-color: #d7e3e9;
+
+            box-shadow:
+                0 8px 24px rgba(0, 0, 0, 0.055);
+
+        }
+
+
+        .account-quick-icon-202 {
+
+            width: 44px;
+            height: 44px;
+
+            min-width: 44px;
+            flex: 0 0 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                var(
+                    --portal-primary-light,
+                    #eaf4f8
+                );
+
+            color:
+                var(
+                    --portal-primary,
+                    #014162
+                );
+
+            font-size: 17px;
+
+        }
+
+
+        .account-quick-content-202 {
+
+            min-width: 0;
+
+            flex: 1 1 auto;
+
+            overflow: hidden;
+
+        }
+
+
+        .account-quick-content-202 strong {
+
+            display: block;
+
+            margin-bottom: 4px;
+
+            color: #17232d;
+
+            font-size: 14px;
+
+            overflow-wrap: anywhere;
+
+        }
+
+
+        .account-quick-content-202 span {
+
+            display: block;
+
+            color: #74818c;
+
+            font-size: 12px;
+
+            line-height: 1.55;
+
+            overflow-wrap: anywhere;
+
+            word-break: break-word;
+
+        }
+
+
+        /* ============================================================
+           CONTENT CARD
+        ============================================================ */
+
+        .account-content-card-202 {
+
+            width: 100%;
+            min-width: 0;
+
+            margin-bottom: 20px;
+
+            background: #ffffff;
+
+            border: 1px solid #e5eaf0;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 6px 22px rgba(0, 0, 0, 0.045);
+
+            overflow: hidden;
+
+        }
+
+
+        /* ============================================================
+           CARD HEADER
+        ============================================================ */
+
+        .account-card-header-202 {
+
+            width: 100%;
+            min-width: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 18px;
+
+            padding: 24px 28px;
+
+            border-bottom: 1px solid #edf0f3;
+
+        }
+
+
+        .account-card-heading-202 {
+
+            min-width: 0;
+
+            flex: 1 1 auto;
+
+            overflow: hidden;
+
+        }
+
+
+        .account-section-label-202 {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color:
+                var(
+                    --portal-primary,
+                    #014162
+                );
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.2px;
+
+        }
+
+
+        .account-card-heading-202 h2 {
+
+            margin: 0;
+
+            color: #17232d;
+
+            font-size: 20px;
+
+            line-height: 1.35;
+
+            overflow-wrap: anywhere;
+
+        }
+
+
+        .account-card-heading-202 p {
+
+            margin: 6px 0 0;
+
+            color: #74818c;
+
+            font-size: 13px;
+
+            line-height: 1.55;
+
+            overflow-wrap: anywhere;
+
+            word-break: break-word;
+
+        }
+
+
+        .account-header-icon-202 {
+
+            width: 48px;
+            height: 48px;
+
+            min-width: 48px;
+
+            flex: 0 0 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background:
+                var(
+                    --portal-primary-light,
+                    #eaf4f8
+                );
+
+            color:
+                var(
+                    --portal-primary,
+                    #014162
+                );
+
+            font-size: 19px;
+
+        }
+
+
+        /* ============================================================
+           ACCOUNT DETAILS
+        ============================================================ */
+
+        .account-details-grid-202 {
+
+            width: 100%;
+            min-width: 0;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 16px;
+
+            padding: 24px 28px;
+
+        }
+
+
+        .account-detail-202 {
+
+            min-width: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            padding: 18px;
+
+            background: #fafbfd;
+
+            border: 1px solid #e9edf1;
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+        }
+
+
+        .account-detail-icon-202 {
+
+            width: 44px;
+            height: 44px;
+
+            min-width: 44px;
+
+            flex: 0 0 44px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: #ffffff;
+
+            border: 1px solid #e4ebef;
+
+            color:
+                var(
+                    --portal-primary,
+                    #014162
+                );
+
+            font-size: 16px;
+
+        }
+
+
+        .account-detail-text-202 {
+
+            min-width: 0;
+
+            flex: 1 1 auto;
+
+            overflow: hidden;
+
+        }
+
+
+        .account-detail-text-202 span {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: #7b8791;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .account-detail-text-202 strong {
+
+            display: block;
+
+            max-width: 100%;
+
+            color: #17232d;
+
+            font-size: 14px;
+
+            line-height: 1.45;
+
+            overflow-wrap: anywhere;
+
+            word-break: break-word;
+
+        }
+
+
+        /* ============================================================
+           EMAIL
+        ============================================================ */
+
+        .account-email-body-202 {
+
+            width: 100%;
+
+            min-width: 0;
+
+            padding: 24px 28px 28px;
+
+        }
+
+
+        .account-email-label-202 {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-bottom: 9px;
+
+            color: #34424d;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+        }
+
+
+        .account-email-label-202 i {
+
+            color:
+                var(
+                    --portal-primary,
+                    #014162
+                );
+
+        }
+
+
+        .account-email-wrapper-202 {
+
+            position: relative;
+
+            width: 100%;
+
+            min-width: 0;
+
+        }
+
+
+        .account-email-wrapper-202 > i {
+
+            position: absolute;
+
+            left: 16px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            z-index: 2;
+
+            color: #84909a;
+
+            font-size: 14px;
+
+            pointer-events: none;
+
+        }
+
+
+        .account-email-wrapper-202 input {
+
+            display: block;
+
+            width: 100%;
+
+            min-width: 0;
+
+            height: 50px;
+
+            padding: 0 130px 0 44px;
+
+            border: 1px solid #dce3e8;
+
+            border-radius: 12px;
+
+            background: #f8fafb;
+
+            color: #34424d;
+
+            font-size: 14px;
+
+            outline: none;
+
+            text-overflow: ellipsis;
+
+        }
+
+
+        .account-email-wrapper-202 input:disabled {
+
+            opacity: 1;
+
+            cursor: not-allowed;
+
+        }
+
+
+        .account-registered-202 {
+
+            position: absolute;
+
+            top: 50%;
+
+            right: 12px;
+
+            transform: translateY(-50%);
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            padding: 6px 9px;
+
+            border-radius: 8px;
+
+            background: #eaf7ef;
+
+            color: #218548;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            pointer-events: none;
+
+        }
+
+
+        /* ============================================================
+           NOTICE
+        ============================================================ */
+
+        .account-notice-202 {
+
+            width: 100%;
+
+            min-width: 0;
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 13px;
+
+            margin-bottom: 20px;
+
+            padding: 18px 20px;
+
+            border: 1px solid #dceaf0;
+
+            border-radius: 14px;
+
+            background: #f3f9fb;
+
+            overflow: hidden;
+
+        }
+
+
+        .account-notice-202 > i {
+
+            flex: 0 0 auto;
+
+            margin-top: 2px;
+
+            color:
+                var(
+                    --portal-primary,
+                    #014162
+                );
+
+            font-size: 17px;
+
+        }
+
+
+        .account-notice-content-202 {
+
+            min-width: 0;
+
+            flex: 1 1 auto;
+
+        }
+
+
+        .account-notice-content-202 strong {
+
+            display: block;
+
+            margin-bottom: 4px;
+
+            color: #263b48;
+
+            font-size: 13px;
+
+        }
+
+
+        .account-notice-content-202 p {
+
+            margin: 0;
+
+            color: #657680;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+            overflow-wrap: anywhere;
+
+            word-break: break-word;
+
+        }
+
+
+        /* ============================================================
+           ALERTS
+        ============================================================ */
+
+        .account-messages-202 {
+
+            width: 100%;
+
+            min-width: 0;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .account-alert-202 {
+
+            width: 100%;
+
+            min-width: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 13px 15px;
+
             margin-bottom: 10px;
-            border-radius: 5px;
-            color: #fff;
-            font-weight: 500;
+
+            border: 1px solid #e1e7eb;
+
+            border-radius: 12px;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 4px 14px rgba(0, 0, 0, 0.04);
+
+            overflow: hidden;
+
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s ease;
+
         }
 
-        .success {
-            background: #28a745;
+
+        .account-alert-icon-202 {
+
+            flex: 0 0 auto;
+
+            font-size: 17px;
+
         }
 
-        .error {
-            background: #dc3545;
+
+        .account-alert-message-202 {
+
+            min-width: 0;
+
+            flex: 1 1 auto;
+
+            color: #34424d;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+            overflow-wrap: anywhere;
+
+            word-break: break-word;
+
         }
 
-        .warning {
-            background: #ffc107;
-            color: #000;
+
+        .account-alert-close-202 {
+
+            width: 30px;
+            height: 30px;
+
+            min-width: 30px;
+
+            flex: 0 0 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border: 0;
+
+            border-radius: 8px;
+
+            background: transparent;
+
+            color: #89959d;
+
+            cursor: pointer;
+
         }
 
-        .info {
-            background: #17a2b8;
+
+        .account-alert-close-202:hover {
+
+            background: #f1f4f6;
+
+            color: #26343e;
+
         }
 
-        .mail-time-201 {
-            padding-left: 10px;
+
+        .account-alert-202.success {
+
+            background: #f1faf4;
+
+            border-color: #d5eedc;
+
         }
+
+
+        .account-alert-202.success
+        .account-alert-icon-202 {
+
+            color: #218548;
+
+        }
+
+
+        .account-alert-202.error {
+
+            background: #fff5f5;
+
+            border-color: #f3d4d4;
+
+        }
+
+
+        .account-alert-202.error
+        .account-alert-icon-202 {
+
+            color: #d33b3b;
+
+        }
+
+
+        .account-alert-202.warning {
+
+            background: #fffaf0;
+
+            border-color: #f0dfb5;
+
+        }
+
+
+        .account-alert-202.warning
+        .account-alert-icon-202 {
+
+            color: #c58a16;
+
+        }
+
+
+        .account-alert-202.info {
+
+            background: #f2f8fb;
+
+            border-color: #d7e8ef;
+
+        }
+
+
+        .account-alert-202.info
+        .account-alert-icon-202 {
+
+            color:
+                var(
+                    --portal-primary,
+                    #014162
+                );
+
+        }
+
+
+        /* ============================================================
+           TABLET
+        ============================================================ */
+
+        @media (max-width: 1100px) {
+
+            .account-quick-grid-202 {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+            }
+
+        }
+
+
+        /* ============================================================
+           MOBILE
+        ============================================================ */
+
+        @media (max-width: 900px) {
+
+            .account-intro-202 {
+
+                padding: 22px;
+
+            }
+
+
+            .account-card-header-202 {
+
+                padding: 22px;
+
+            }
+
+
+            .account-details-grid-202 {
+
+                padding: 20px 22px;
+
+            }
+
+
+            .account-email-body-202 {
+
+                padding: 20px 22px 24px;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .account-intro-202 {
+
+                padding: 18px;
+
+                gap: 14px;
+
+                border-radius: 15px;
+
+            }
+
+
+            .account-intro-icon-202 {
+
+                width: 50px;
+                height: 50px;
+
+                min-width: 50px;
+
+                flex-basis: 50px;
+
+                border-radius: 13px;
+
+                font-size: 22px;
+
+            }
+
+
+            .account-intro-content-202 h1 {
+
+                font-size: 21px;
+
+            }
+
+
+            .account-intro-content-202 p {
+
+                font-size: 12px;
+
+            }
+
+
+            .account-quick-grid-202 {
+
+                grid-template-columns:
+                    minmax(0, 1fr);
+
+                gap: 12px;
+
+            }
+
+
+            .account-quick-card-202 {
+
+                padding: 16px;
+
+            }
+
+
+            .account-content-card-202 {
+
+                border-radius: 15px;
+
+            }
+
+
+            .account-card-header-202 {
+
+                padding: 19px;
+
+                gap: 12px;
+
+            }
+
+
+            .account-card-heading-202 h2 {
+
+                font-size: 17px;
+
+            }
+
+
+            .account-card-heading-202 p {
+
+                font-size: 12px;
+
+            }
+
+
+            .account-header-icon-202 {
+
+                width: 40px;
+                height: 40px;
+
+                min-width: 40px;
+
+                flex-basis: 40px;
+
+                font-size: 16px;
+
+            }
+
+
+            .account-details-grid-202 {
+
+                grid-template-columns:
+                    minmax(0, 1fr);
+
+                padding: 16px;
+
+                gap: 11px;
+
+            }
+
+
+            .account-detail-202 {
+
+                padding: 15px;
+
+            }
+
+
+            .account-email-body-202 {
+
+                padding: 18px 16px 20px;
+
+            }
+
+
+            .account-email-wrapper-202 input {
+
+                height: 48px;
+
+                padding-left: 42px;
+
+                padding-right: 105px;
+
+                font-size: 13px;
+
+            }
+
+
+            .account-registered-202 {
+
+                right: 8px;
+
+                padding: 5px 7px;
+
+                font-size: 9px;
+
+            }
+
+
+            .account-notice-202 {
+
+                padding: 15px;
+
+                gap: 10px;
+
+            }
+
+
+            .account-notice-content-202 p {
+
+                font-size: 11px;
+
+            }
+
+        }
+
+
+        /* ============================================================
+           VERY SMALL
+        ============================================================ */
+
+        @media (max-width: 400px) {
+
+            .account-intro-202 {
+
+                padding: 15px;
+
+            }
+
+
+            .account-intro-icon-202 {
+
+                width: 44px;
+                height: 44px;
+
+                min-width: 44px;
+
+                flex-basis: 44px;
+
+                font-size: 19px;
+
+            }
+
+
+            .account-intro-content-202 h1 {
+
+                font-size: 19px;
+
+            }
+
+
+            .account-card-header-202 {
+
+                padding: 16px;
+
+            }
+
+
+            .account-details-grid-202 {
+
+                padding: 12px;
+
+            }
+
+
+            .account-detail-202 {
+
+                gap: 10px;
+
+                padding: 13px;
+
+            }
+
+
+            .account-detail-icon-202 {
+
+                width: 38px;
+                height: 38px;
+
+                min-width: 38px;
+
+                flex-basis: 38px;
+
+            }
+
+
+            .account-detail-text-202 strong {
+
+                font-size: 13px;
+
+            }
+
+
+            .account-email-wrapper-202 input {
+
+                padding-left: 39px;
+
+                padding-right: 92px;
+
+                font-size: 12px;
+
+            }
+
+
+            .account-registered-202 {
+
+                right: 6px;
+
+                padding: 4px 5px;
+
+                font-size: 8px;
+
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <div class="row-holder">
 
-        <!-- Header -->
-        <div class="header-holder-100">
-            <div class="header-100">
-                <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-                            class="fas fa-times"></i></button>
+<div class="portal-wrapper">
+
+
+    <!-- =========================================================
+         SIDEBAR OVERLAY
+    ========================================================== -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="closeSidebar()"
+    ></div>
+
+
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================== -->
+
+    <aside
+        class="portal-sidebar"
+        id="portalSidebar"
+    >
+
+
+        <div class="sidebar-brand">
+
+            <a href="{% url 'report_home' %}">
+
+                <div class="brand-logo">
+
+                    <img
+                        src="{% static 'logo1.png' %}"
+                        alt="Field Training"
+                    >
+
                 </div>
-                <div class="title-holder-101">
-                    <button type="button"><span>
-                            User account
-                        </span></button>
+
+
+                <div class="brand-text">
+
+                    <strong>
+                        Field Training
+                    </strong>
+
+                    <span>
+                        Student Portal
+                    </span>
+
                 </div>
-                <div class="title-holder-101" style="float: right;">
-                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
-                </div>
-            </div>
+
+            </a>
+
         </div>
 
 
-        <!-- center content -->
-        <div class="center-content-200">
+        <!-- =====================================================
+             NAVIGATION
+        ====================================================== -->
 
-            <div class="left-holder-201" id="nav">
-                <div class="nav-bar-holder-202">
+        <nav class="sidebar-navigation">
 
-                    <ul>
-                        <a href="{% url 'report_home' %}">
-                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
-                        </a>
-                    </ul>
 
-                    <ul>
-                        <a href="{% url 'placements_list' %}">
-                            <li>Reports <i class="fas fa-file-alt"></i></li>
-                        </a>
-                    </ul>
+            <div class="navigation-section">
 
-                    <ul>
-                        <a href="{% url 'user_account' %}">
-                            <li class="active-0">Account <i class="fas fa-user"></i></li>
-                        </a>
-                    </ul>
+                <span class="navigation-label">
+                    MAIN
+                </span>
 
-                    <ul>
-                        <a href="{% url 'home' %}">
-                            <li>Back Wingastock <i class="fas fa-home"></i></li>
-                        </a>
-                    </ul>
 
-                </div>
+                <a
+                    href="{% url 'report_home' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-th-large"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Dashboard
+                        </strong>
+
+                        <small>
+                            Overview of your training
+                        </small>
+
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{% url 'placements_list' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Field Reports
+                        </strong>
+
+                        <small>
+                            Daily and field reports
+                        </small>
+
+                    </span>
+
+                </a>
+
             </div>
 
-            <div class="right-holder-201" style="padding: 20px;">
 
-                <h1>User account informations</h1>
+            <div class="navigation-section">
 
-                {% if messages %}
-                <div class="messages">
-                    {% for message in messages %}
-                    <div class="alert {{ message.tags }}">
+                <span class="navigation-label">
+                    ACCOUNT
+                </span>
+
+
+                <a
+                    href="{% url 'user_account' %}"
+                    class="navigation-item active"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-user"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            My Account
+                        </strong>
+
+                        <small>
+                            Manage your account
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <div class="navigation-section">
+
+                <span class="navigation-label">
+                    WEBSITE
+                </span>
+
+
+                <a
+                    href="{% url 'home' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-external-link-alt"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Back to WingaStock
+                        </strong>
+
+                        <small>
+                            Return to main website
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+        </nav>
+
+
+        <!-- =====================================================
+             HELP
+        ====================================================== -->
+
+        <div class="sidebar-help">
+
+            <div class="sidebar-help-icon">
+
+                <i class="fas fa-info-circle"></i>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Account information
+                </strong>
+
+                <p>
+                    Keep your account information
+                    secure and up to date.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-footer">
+
+            <span>
+                Field Practical Training
+            </span>
+
+            <small>
+                Student Reporting System
+            </small>
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
+
+    <main class="portal-main">
+
+
+        <!-- =====================================================
+             HEADER
+        ====================================================== -->
+
+        <header class="portal-header">
+
+
+            <div class="header-left">
+
+
+                <button
+                    type="button"
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    onclick="toggleSidebar()"
+                    aria-label="Open navigation"
+                >
+
+                    <i class="fas fa-bars"></i>
+
+                </button>
+
+
+                <div class="header-page-title">
+
+                    <span>
+                        Student Portal
+                    </span>
+
+                    <h1>
+                        My Account
+                    </h1>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="header-user">
+
+                    <div class="header-user-icon">
+
+                        <i class="fas fa-user"></i>
+
+                    </div>
+
+
+                    <div class="header-user-info">
+
+                        <strong>
+                            Student
+                        </strong>
+
+                        <span>
+                            {{ user.email }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </header>
+
+
+        <!-- =====================================================
+             CONTENT
+        ====================================================== -->
+
+        <section class="portal-content">
+
+
+            <!-- =================================================
+                 MESSAGES
+            ================================================== -->
+
+            {% if messages %}
+
+            <div class="account-messages-202">
+
+                {% for message in messages %}
+
+                <div
+                    class="account-alert-202 {{ message.tags }}"
+                    role="alert"
+                >
+
+                    <div class="account-alert-icon-202">
+
+                        {% if message.tags == "success" %}
+
+                            <i class="fas fa-check-circle"></i>
+
+                        {% elif message.tags == "error" %}
+
+                            <i class="fas fa-exclamation-circle"></i>
+
+                        {% elif message.tags == "warning" %}
+
+                            <i class="fas fa-exclamation-triangle"></i>
+
+                        {% else %}
+
+                            <i class="fas fa-info-circle"></i>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="account-alert-message-202">
                         {{ message }}
                     </div>
-                    {% endfor %}
+
+
+                    <button
+                        type="button"
+                        class="account-alert-close-202"
+                        onclick="closeAlert(this)"
+                        aria-label="Close message"
+                    >
+
+                        <i class="fas fa-times"></i>
+
+                    </button>
+
                 </div>
-                {% endif %}
+
+                {% endfor %}
+
+            </div>
+
+            {% endif %}
 
 
-                <div class="input-holder-203">
-                    <p><i class="fas fa-envelope"></i>
-                        User email</p>
-                    <div>
-                        <input type="text" name="email" value="{{ user.email }}" disabled>
+            <!-- =================================================
+                 PAGE
+            ================================================== -->
+
+            <div class="account-page-202">
+
+
+                <!-- =================================================
+                     INTRO
+                ================================================== -->
+
+                <section class="account-intro-202">
+
+                    <div class="account-intro-icon-202">
+
+                        <i class="fas fa-user-circle"></i>
+
                     </div>
+
+
+                    <div class="account-intro-content-202">
+
+                        <span class="account-eyebrow-202">
+                            ACCOUNT
+                        </span>
+
+                        <h1>
+                            User Account
+                        </h1>
+
+                        <p>
+                            View your account information and
+                            manage your student portal details.
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     QUICK INFORMATION
+                ================================================== -->
+
+                <div class="account-quick-grid-202">
+
+
+                    <div class="account-quick-card-202">
+
+                        <div class="account-quick-icon-202">
+
+                            <i class="fas fa-user"></i>
+
+                        </div>
+
+
+                        <div class="account-quick-content-202">
+
+                            <strong>
+                                Account
+                            </strong>
+
+                            <span>
+                                Your student portal account
+                                information.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="account-quick-card-202">
+
+                        <div class="account-quick-icon-202">
+
+                            <i class="fas fa-envelope"></i>
+
+                        </div>
+
+
+                        <div class="account-quick-content-202">
+
+                            <strong>
+                                Email
+                            </strong>
+
+                            <span>
+                                Your registered email address.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="account-quick-card-202">
+
+                        <div class="account-quick-icon-202">
+
+                            <i class="fas fa-shield-alt"></i>
+
+                        </div>
+
+
+                        <div class="account-quick-content-202">
+
+                            <strong>
+                                Security
+                            </strong>
+
+                            <span>
+                                Keep your account information
+                                private and secure.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     ACCOUNT DETAILS
+                ================================================== -->
+
+                <section class="account-content-card-202">
+
+
+                    <div class="account-card-header-202">
+
+                        <div class="account-card-heading-202">
+
+                            <span class="account-section-label-202">
+                                ACCOUNT DETAILS
+                            </span>
+
+                            <h2>
+                                User Account Information
+                            </h2>
+
+                            <p>
+                                Your registered account information
+                                is shown below.
+                            </p>
+
+                        </div>
+
+
+                        <div class="account-header-icon-202">
+
+                            <i class="fas fa-user"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="account-details-grid-202">
+
+
+                        <!-- EMAIL -->
+
+                        <div class="account-detail-202">
+
+                            <div class="account-detail-icon-202">
+
+                                <i class="fas fa-envelope"></i>
+
+                            </div>
+
+
+                            <div class="account-detail-text-202">
+
+                                <span>
+                                    USER EMAIL
+                                </span>
+
+                                <strong>
+                                    {{ user.email }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- USERNAME -->
+
+                        {% if user.username %}
+
+                        <div class="account-detail-202">
+
+                            <div class="account-detail-icon-202">
+
+                                <i class="fas fa-user"></i>
+
+                            </div>
+
+
+                            <div class="account-detail-text-202">
+
+                                <span>
+                                    USERNAME
+                                </span>
+
+                                <strong>
+                                    {{ user.username }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        <!-- CREATED -->
+
+                        {% if user.date_joined %}
+
+                        <div class="account-detail-202">
+
+                            <div class="account-detail-icon-202">
+
+                                <i class="fas fa-calendar-alt"></i>
+
+                            </div>
+
+
+                            <div class="account-detail-text-202">
+
+                                <span>
+                                    ACCOUNT CREATED
+                                </span>
+
+                                <strong>
+                                    {{ user.date_joined|date:"F d, Y" }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        <!-- STATUS -->
+
+                        <div class="account-detail-202">
+
+                            <div class="account-detail-icon-202">
+
+                                <i class="fas fa-check-circle"></i>
+
+                            </div>
+
+
+                            <div class="account-detail-text-202">
+
+                                <span>
+                                    ACCOUNT STATUS
+                                </span>
+
+                                <strong>
+                                    Active
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </section>
+
+
+                <!-- =================================================
+                     EMAIL
+                ================================================== -->
+
+                <section class="account-content-card-202">
+
+
+                    <div class="account-card-header-202">
+
+                        <div class="account-card-heading-202">
+
+                            <span class="account-section-label-202">
+                                REGISTERED EMAIL
+                            </span>
+
+                            <h2>
+                                User Email
+                            </h2>
+
+                            <p>
+                                This is the email address associated
+                                with your student account.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="account-email-body-202">
+
+
+                        <label
+                            for="accountEmail"
+                            class="account-email-label-202"
+                        >
+
+                            <i class="fas fa-envelope"></i>
+
+                            Email Address
+
+                        </label>
+
+
+                        <div class="account-email-wrapper-202">
+
+                            <i class="fas fa-envelope"></i>
+
+
+                            <input
+                                type="email"
+                                id="accountEmail"
+                                name="email"
+                                value="{{ user.email }}"
+                                disabled
+                            >
+
+
+                            <span class="account-registered-202">
+
+                                <i class="fas fa-check-circle"></i>
+
+                                <span>
+                                    Registered
+                                </span>
+
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                </section>
+
+
+                <!-- =================================================
+                     NOTICE
+                ================================================== -->
+
+                <div class="account-notice-202">
+
+                    <i class="fas fa-info-circle"></i>
+
+
+                    <div class="account-notice-content-202">
+
+                        <strong>
+                            Account information
+                        </strong>
+
+                        <p>
+                            Your account email is currently displayed
+                            as registered information. If you need to
+                            change your account details, contact the
+                            system administrator.
+                        </p>
+
+                    </div>
+
                 </div>
 
 
             </div>
 
-        </div>
 
-    </div>
-
+        </section>
 
 
-    <script>
-        function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
+    </main>
 
-            if (click == 'open') {
-                menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
-            }
-            else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
-                nav.style.display = 'none';
-            }
+
+</div>
+
+
+<script>
+
+
+    /* ============================================================
+       SIDEBAR
+    ============================================================ */
+
+    function toggleSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+
+        if (!sidebar) {
+            return;
         }
-    </script>
 
-    <script>
-        setTimeout(function () {
-            document.querySelectorAll(".alert").forEach(function (alert) {
-                alert.style.transition = "opacity 0.5s";
-                alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 4000);
-            });
-        }, 4000);
-    </script>
+
+        sidebar.classList.toggle("sidebar-open");
+
+
+        if (overlay) {
+
+            overlay.classList.toggle(
+                "overlay-visible"
+            );
+
+        }
+
+    }
+
+
+    /* ============================================================
+       CLOSE SIDEBAR
+    ============================================================ */
+
+    function closeSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+
+        if (sidebar) {
+
+            sidebar.classList.remove(
+                "sidebar-open"
+            );
+
+        }
+
+
+        if (overlay) {
+
+            overlay.classList.remove(
+                "overlay-visible"
+            );
+
+        }
+
+    }
+
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+
+    document
+        .querySelectorAll(".navigation-item")
+        .forEach(function (item) {
+
+            item.addEventListener(
+                "click",
+                function () {
+
+                    if (window.innerWidth <= 900) {
+
+                        closeSidebar();
+
+                    }
+
+                }
+            );
+
+        });
+
+
+    /* ============================================================
+       ESCAPE
+    ============================================================ */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Escape") {
+
+                closeSidebar();
+
+            }
+
+        }
+    );
+
+
+    /* ============================================================
+       RESIZE
+    ============================================================ */
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            if (window.innerWidth > 900) {
+
+                closeSidebar();
+
+            }
+
+        }
+    );
+
+
+    /* ============================================================
+       CLOSE ALERT
+    ============================================================ */
+
+    function closeAlert(button) {
+
+        const alert =
+            button.closest(".account-alert-202");
+
+
+        if (!alert) {
+            return;
+        }
+
+
+        alert.style.opacity = "0";
+
+        alert.style.transform =
+            "translateY(-5px)";
+
+
+        setTimeout(
+            function () {
+
+                if (alert) {
+
+                    alert.remove();
+
+                }
+
+            },
+            300
+        );
+
+    }
+
+
+    /* ============================================================
+       AUTO HIDE ALERTS
+    ============================================================ */
+
+    setTimeout(
+        function () {
+
+            document
+                .querySelectorAll(
+                    ".account-alert-202"
+                )
+                .forEach(function (alert) {
+
+                    alert.style.opacity = "0";
+
+                    alert.style.transform =
+                        "translateY(-5px)";
+
+
+                    setTimeout(
+                        function () {
+
+                            if (alert) {
+
+                                alert.remove();
+
+                            }
+
+                        },
+                        500
+                    );
+
+                });
+
+        },
+        4000
+    );
+
+
+</script>
+
+
 </body>
 
 </html>

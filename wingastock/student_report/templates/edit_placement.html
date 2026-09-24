@@ -1,261 +1,2109 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wingastock | Edit product</title>
-    <link rel="shortcut icon" href="{% static 'logo1.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css_re/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Field Training | Edit Placement
+    </title>
+
+    <link
+        rel="shortcut icon"
+        href="{% static 'logo1.png' %}"
+        type="image/x-icon"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css_re/style.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
+
 
     <style>
-        .messages {
-            margin: 20px 0;
+
+        /* =====================================================
+           SAFE OVERFLOW
+           ===================================================== */
+
+        html,
+        body {
+
+            width: 100%;
+            max-width: 100%;
+
+            margin: 0;
+            padding: 0;
+
+            overflow-x: hidden;
+
         }
 
-        .alert {
-            padding: 12px 18px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            color: #fff;
-            font-weight: 500;
+
+        .portal-wrapper {
+
+            width: 100%;
+            max-width: 100%;
+
+            min-width: 0;
+
+            overflow-x: hidden;
+
         }
 
-        .success {
-            background: #28a745;
+
+        .portal-main {
+
+            min-width: 0;
+
+            max-width: 100%;
+
+            overflow-x: hidden;
+
         }
 
-        .error {
-            background: #dc3545;
+
+        .portal-content {
+
+            width: 100%;
+
+            min-width: 0;
+
+            max-width: 100%;
+
+            overflow-x: hidden;
+
         }
 
-        .warning {
-            background: #ffc107;
-            color: #000;
+
+        /* =====================================================
+           PAGE CONTAINER
+           ===================================================== */
+
+        .edit-placement-page-202 {
+
+            width: 100%;
+
+            max-width: 1500px;
+
+            min-width: 0;
+
+            margin: 0 auto;
+
         }
 
-        .info {
-            background: #17a2b8;
+
+        /* =====================================================
+           BACK LINK
+           ===================================================== */
+
+        .edit-placement-back-202 {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 15px;
+
+            color:
+                var(--portal-primary);
+
+            font-size: 10px;
+
+            font-weight: 650;
+
+            text-decoration: none;
+
+            transition:
+                var(--portal-transition);
+
         }
+
+
+        .edit-placement-back-202:hover {
+
+            color:
+                var(--portal-primary-dark);
+
+            transform:
+                translateX(-2px);
+
+        }
+
+
+        /* =====================================================
+           INTRO
+           ===================================================== */
+
+        .edit-placement-intro-202 {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            width: 100%;
+
+            min-width: 0;
+
+            margin-bottom: 20px;
+
+            padding: 20px 22px;
+
+            box-sizing: border-box;
+
+            background:
+                var(--portal-primary-light);
+
+            border:
+                1px solid
+                var(--portal-border);
+
+            border-radius:
+                var(--portal-radius-lg);
+
+            overflow: hidden;
+
+        }
+
+
+        .edit-placement-icon-202 {
+
+            width: 48px;
+
+            height: 48px;
+
+            min-width: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                var(--portal-primary);
+
+            color: white;
+
+            font-size: 17px;
+
+        }
+
+
+        .edit-placement-intro-content-202 {
+
+            min-width: 0;
+
+        }
+
+
+        .edit-placement-intro-content-202 span {
+
+            display: block;
+
+            margin-bottom: 4px;
+
+            color:
+                var(--portal-primary);
+
+            font-size: 8px;
+
+            font-weight: 750;
+
+            letter-spacing: 1.1px;
+
+        }
+
+
+        .edit-placement-intro-content-202 h1 {
+
+            margin: 0;
+
+            color:
+                var(--portal-text);
+
+            font-size: 19px;
+
+            font-weight: 750;
+
+            overflow-wrap: anywhere;
+
+        }
+
+
+        .edit-placement-intro-content-202 p {
+
+            margin: 5px 0 0;
+
+            color:
+                var(--portal-text-muted);
+
+            font-size: 10px;
+
+            line-height: 1.6;
+
+            overflow-wrap: anywhere;
+
+        }
+
+
+        /* =====================================================
+           MESSAGE
+           ===================================================== */
+
+        .messages-container-202 {
+
+            width: 100%;
+
+            min-width: 0;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        /* =====================================================
+           FORM CARD
+           ===================================================== */
+
+        .edit-placement-card-202 {
+
+            width: 100%;
+
+            min-width: 0;
+
+            background:
+                var(--portal-surface);
+
+            border:
+                1px solid
+                var(--portal-border);
+
+            border-radius:
+                var(--portal-radius-lg);
+
+            box-shadow:
+                var(--portal-shadow-sm);
+
+            overflow: hidden;
+
+        }
+
+
+        /* =====================================================
+           CARD HEADER
+           ===================================================== */
+
+        .edit-placement-header-202 {
+
+            padding: 20px 22px;
+
+            border-bottom:
+                1px solid
+                var(--portal-border);
+
+        }
+
+
+        .edit-placement-header-202 span {
+
+            display: block;
+
+            margin-bottom: 4px;
+
+            color:
+                var(--portal-primary);
+
+            font-size: 8px;
+
+            font-weight: 750;
+
+            letter-spacing: 1.1px;
+
+        }
+
+
+        .edit-placement-header-202 h2 {
+
+            margin: 0;
+
+            color:
+                var(--portal-text);
+
+            font-size: 17px;
+
+            font-weight: 750;
+
+        }
+
+
+        .edit-placement-header-202 p {
+
+            margin: 5px 0 0;
+
+            color:
+                var(--portal-text-muted);
+
+            font-size: 10px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           FORM
+           ===================================================== */
+
+        .edit-placement-form-202 {
+
+            width: 100%;
+
+            min-width: 0;
+
+        }
+
+
+        .edit-placement-fields-202 {
+
+            width: 100%;
+
+            min-width: 0;
+
+            box-sizing: border-box;
+
+            padding: 22px;
+
+        }
+
+
+        /* =====================================================
+           GRID
+           ===================================================== */
+
+        .edit-placement-grid-202 {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 18px 15px;
+
+            width: 100%;
+
+            min-width: 0;
+
+        }
+
+
+        .edit-placement-grid-202 > * {
+
+            min-width: 0;
+
+        }
+
+
+        /* =====================================================
+           FIELD
+           ===================================================== */
+
+        .edit-placement-field-202 {
+
+            min-width: 0;
+
+        }
+
+
+        /* =====================================================
+           LABEL
+           ===================================================== */
+
+        .edit-placement-field-202 label {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 7px;
+
+            color:
+                var(--portal-text);
+
+            font-size: 11px;
+
+            font-weight: 650;
+
+        }
+
+
+        .edit-placement-field-202 label i {
+
+            width: 15px;
+
+            min-width: 15px;
+
+            color:
+                var(--portal-primary);
+
+            font-size: 10px;
+
+            text-align: center;
+
+        }
+
+
+        /* =====================================================
+           INPUTS
+           ===================================================== */
+
+        .edit-placement-field-202 input {
+
+            display: block;
+
+            width: 100%;
+
+            max-width: 100%;
+
+            min-width: 0;
+
+            box-sizing: border-box;
+
+            height: 43px;
+
+            padding:
+                0 12px;
+
+            border:
+                1px solid
+                var(--portal-border);
+
+            border-radius: 8px;
+
+            outline: none;
+
+            background:
+                #fbfcfd;
+
+            color:
+                var(--portal-text);
+
+            font-family: inherit;
+
+            font-size: 10px;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                box-shadow 0.2s ease;
+
+        }
+
+
+        .edit-placement-field-202 input:hover {
+
+            background:
+                white;
+
+        }
+
+
+        .edit-placement-field-202 input:focus {
+
+            background:
+                white;
+
+            border-color:
+                #9dbdca;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(1, 65, 98, 0.07);
+
+        }
+
+
+        .edit-placement-field-202 input::placeholder {
+
+            color:
+                #a5afb6;
+
+        }
+
+
+        /* =====================================================
+           HELP TEXT
+           ===================================================== */
+
+        .edit-placement-help-202 {
+
+            margin-top: 5px;
+
+            color:
+                var(--portal-text-muted);
+
+            font-size: 8px;
+
+            line-height: 1.5;
+
+            overflow-wrap: anywhere;
+
+        }
+
+
+        /* =====================================================
+           ACTIONS
+           ===================================================== */
+
+        .edit-placement-actions-202 {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 12px;
+
+            padding:
+                18px 22px 22px;
+
+            border-top:
+                1px solid
+                var(--portal-border);
+
+        }
+
+
+        /* =====================================================
+           CANCEL
+           ===================================================== */
+
+        .edit-placement-cancel-202 {
+
+            min-height: 42px;
+
+            padding:
+                0 17px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            border:
+                1px solid
+                var(--portal-border);
+
+            border-radius: 9px;
+
+            background:
+                white;
+
+            color:
+                var(--portal-text-muted);
+
+            font-size: 11px;
+
+            font-weight: 650;
+
+            text-decoration: none;
+
+            transition:
+                var(--portal-transition);
+
+        }
+
+
+        .edit-placement-cancel-202:hover {
+
+            background:
+                #f8fafb;
+
+            color:
+                var(--portal-text);
+
+            border-color:
+                #b8c3ca;
+
+        }
+
+
+        /* =====================================================
+           UPDATE BUTTON
+           ===================================================== */
+
+        .edit-placement-submit-202 {
+
+            min-height: 42px;
+
+            padding:
+                0 18px;
+
+            border: 0;
+
+            border-radius: 9px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            background:
+                var(--portal-primary);
+
+            color: white;
+
+            font-size: 11px;
+
+            font-weight: 650;
+
+            cursor: pointer;
+
+            transition:
+                var(--portal-transition);
+
+        }
+
+
+        .edit-placement-submit-202:hover {
+
+            background:
+                var(--portal-primary-dark);
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 6px 15px
+                rgba(1, 65, 98, 0.16);
+
+        }
+
+
+        .edit-placement-submit-202:active {
+
+            transform:
+                translateY(0);
+
+        }
+
+
+        .edit-placement-submit-202:disabled {
+
+            opacity: 0.65;
+
+            cursor:
+                not-allowed;
+
+            transform:
+                none;
+
+            box-shadow:
+                none;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 768px) {
+
+            .edit-placement-intro-202 {
+
+                align-items: flex-start;
+
+                padding: 17px;
+
+            }
+
+
+            .edit-placement-icon-202 {
+
+                width: 42px;
+
+                height: 42px;
+
+                min-width: 42px;
+
+            }
+
+
+            .edit-placement-intro-content-202 h1 {
+
+                font-size: 17px;
+
+            }
+
+
+            .edit-placement-grid-202 {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .edit-placement-fields-202 {
+
+                padding: 18px;
+
+            }
+
+
+            .edit-placement-header-202 {
+
+                padding:
+                    17px 18px;
+
+            }
+
+
+            .edit-placement-actions-202 {
+
+                padding:
+                    16px 18px 18px;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           SMALL MOBILE
+           ===================================================== */
+
+        @media (max-width: 480px) {
+
+            .edit-placement-intro-202 {
+
+                gap: 11px;
+
+                padding: 15px;
+
+            }
+
+
+            .edit-placement-icon-202 {
+
+                width: 38px;
+
+                height: 38px;
+
+                min-width: 38px;
+
+            }
+
+
+            .edit-placement-intro-content-202 h1 {
+
+                font-size: 16px;
+
+            }
+
+
+            .edit-placement-intro-content-202 p {
+
+                font-size: 9px;
+
+            }
+
+
+            .edit-placement-fields-202 {
+
+                padding: 15px;
+
+            }
+
+
+            .edit-placement-header-202 {
+
+                padding:
+                    16px 15px;
+
+            }
+
+
+            .edit-placement-actions-202 {
+
+                flex-direction: column-reverse;
+
+                padding:
+                    15px;
+
+            }
+
+
+            .edit-placement-submit-202,
+            .edit-placement-cancel-202 {
+
+                width: 100%;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           VERY SMALL MOBILE
+           ===================================================== */
+
+        @media (max-width: 360px) {
+
+            .edit-placement-fields-202 {
+
+                padding: 12px;
+
+            }
+
+
+            .edit-placement-header-202 {
+
+                padding:
+                    14px 12px;
+
+            }
+
+
+            .edit-placement-actions-202 {
+
+                padding:
+                    13px 12px;
+
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <div class="row-holder">
 
-        <!-- Header -->
-        <div class="header-holder-100">
-            <div class="header-100">
-                <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-                            class="fas fa-times"></i></button>
+<div class="portal-wrapper">
+
+
+    <!-- =========================================================
+         SIDEBAR OVERLAY
+         ========================================================= -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="closeSidebar()"
+    ></div>
+
+
+    <!-- =========================================================
+         SIDEBAR
+         EXACT DASHBOARD NAVBAR
+         ========================================================= -->
+
+    <aside
+        class="portal-sidebar"
+        id="portalSidebar"
+    >
+
+
+        <!-- BRAND -->
+
+        <div class="sidebar-brand">
+
+            <a href="{% url 'report_home' %}">
+
+                <div class="brand-logo">
+
+                    <img
+                        src="{% static 'logo1.png' %}"
+                        alt="Field Report"
+                    >
+
                 </div>
-                <div class="title-holder-101">
-                    <button type="button"><span>Wingastock | Seller</span></button>
+
+
+                <div class="brand-text">
+
+                    <strong>
+                        Field Training
+                    </strong>
+
+                    <span>
+                        Student Portal
+                    </span>
+
                 </div>
-                <div class="title-holder-101" style="float: right;">
-                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
-                </div>
-            </div>
+
+            </a>
+
         </div>
 
 
-        <!-- center content -->
-        <div class="center-content-200">
+        <!-- NAVIGATION -->
 
-            <div class="left-holder-201" id="nav">
-                <div class="nav-bar-holder-202">
+        <nav class="sidebar-navigation">
 
-                    <ul>
-                        <a href="{% url 'report_home' %}">
-                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
-                        </a>
-                    </ul>
 
-                    <ul>
-                        <a href="{% url 'placements_list' %}">
-                            <li class="active-0">Reports <i class="fas fa-file-alt"></i></li>
-                        </a>
-                    </ul>
+            <!-- MAIN -->
 
-                    <ul>
-                        <a href="{% url 'user_account' %}">
-                            <li>Account <i class="fas fa-user"></i></li>
-                        </a>
-                    </ul>
+            <div class="navigation-section">
 
-                    <ul>
-                        <a href="{% url 'home' %}">
-                            <li>Back Wingastock <i class="fas fa-home"></i></li>
-                        </a>
-                    </ul>
+                <span class="navigation-label">
+                    MAIN
+                </span>
+
+
+                <!-- DASHBOARD -->
+
+                <a
+                    href="{% url 'report_home' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+
+                        <i class="fas fa-th-large"></i>
+
+                    </span>
+
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Dashboard
+                        </strong>
+
+                        <small>
+                            Overview of your training
+                        </small>
+
+                    </span>
+
+                </a>
+
+
+                <!-- FIELD REPORTS -->
+
+                <a
+                    href="{% url 'placements_list' %}"
+                    class="navigation-item active"
+                >
+
+                    <span class="navigation-icon">
+
+                        <i class="fas fa-file-alt"></i>
+
+                    </span>
+
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Field Reports
+                        </strong>
+
+                        <small>
+                            Daily and weekly reports
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- ACCOUNT -->
+
+            <div class="navigation-section">
+
+                <span class="navigation-label">
+                    ACCOUNT
+                </span>
+
+
+                <a
+                    href="{% url 'user_account' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+
+                        <i class="fas fa-user"></i>
+
+                    </span>
+
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            My Account
+                        </strong>
+
+                        <small>
+                            Manage your profile
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- WEBSITE -->
+
+            <div class="navigation-section">
+
+                <span class="navigation-label">
+                    WEBSITE
+                </span>
+
+
+                <a
+                    href="{% url 'home' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+
+                        <i class="fas fa-external-link-alt"></i>
+
+                    </span>
+
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Back to WingaStock
+                        </strong>
+
+                        <small>
+                            Return to main website
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+        </nav>
+
+
+        <!-- SIDEBAR HELP -->
+
+        <div class="sidebar-help">
+
+            <div class="sidebar-help-icon">
+
+                <i class="fas fa-info-circle"></i>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Need help?
+                </strong>
+
+                <p>
+                    Complete your daily reports regularly
+                    to keep your field training record up to date.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="sidebar-footer">
+
+            <span>
+                Field Practical Training
+            </span>
+
+            <small>
+                Student Reporting System
+            </small>
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- =========================================================
+         MAIN
+         ========================================================= -->
+
+    <main class="portal-main">
+
+
+        <!-- =====================================================
+             HEADER
+             ===================================================== -->
+
+        <header class="portal-header">
+
+
+            <div class="header-left">
+
+
+                <button
+                    type="button"
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    onclick="toggleSidebar()"
+                    aria-label="Open navigation"
+                    aria-controls="portalSidebar"
+                    aria-expanded="false"
+                >
+
+                    <i class="fas fa-bars"></i>
+
+                </button>
+
+
+                <div class="header-page-title">
+
+                    <span>
+                        Student Portal
+                    </span>
+
+                    <h1>
+                        Edit Field Placement
+                    </h1>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="header-right">
+
+
+                <div class="header-user">
+
+                    <div class="header-user-icon">
+
+                        <i class="fas fa-user"></i>
+
+                    </div>
+
+
+                    <div class="header-user-info">
+
+                        <strong>
+                            Student
+                        </strong>
+
+                        <span>
+                            {{ user.email }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+        <!-- =====================================================
+             CONTENT
+             ===================================================== -->
+
+        <div class="portal-content">
+
+
+            <div class="edit-placement-page-202">
+
+
+                <!-- BACK -->
+
+                <a
+                    href="{% url 'placements_list' %}"
+                    class="edit-placement-back-202"
+                >
+
+                    <i class="fas fa-arrow-left"></i>
+
+                    <span>
+                        Back to Field Reports
+                    </span>
+
+                </a>
+
+
+                <!-- INTRO -->
+
+                <div class="edit-placement-intro-202">
+
+
+                    <div class="edit-placement-icon-202">
+
+                        <i class="fas fa-building"></i>
+
+                    </div>
+
+
+                    <div class="edit-placement-intro-content-202">
+
+                        <span>
+                            FIELD PLACEMENT
+                        </span>
+
+                        <h1>
+                            Edit Placement
+                        </h1>
+
+                        <p>
+                            Update the information about your
+                            field practical training placement.
+                        </p>
+
+                    </div>
 
 
                 </div>
-            </div>
 
-            <div class="right-holder-201">
-                <div class="products-202">
 
-                    <p style="font-weight: bold;">Edit field placement</p>
+                <!-- =================================================
+                     MESSAGES
+                     ================================================= -->
 
-                    {% if messages %}
-                    <div class="messages">
-                        {% for message in messages %}
-                        <div class="alert {{ message.tags }}">
-                            {{ message }}
+                {% if messages %}
+
+                <div class="messages-container-202">
+
+                    {% for message in messages %}
+
+                    <div
+                        class="portal-alert {{ message.tags }}"
+                        role="alert"
+                    >
+
+                        <div class="alert-icon">
+
+                            {% if message.tags == "success" %}
+
+                                <i class="fas fa-check"></i>
+
+                            {% elif message.tags == "error" %}
+
+                                <i class="fas fa-times"></i>
+
+                            {% elif message.tags == "warning" %}
+
+                                <i class="fas fa-exclamation"></i>
+
+                            {% else %}
+
+                                <i class="fas fa-info"></i>
+
+                            {% endif %}
+
                         </div>
-                        {% endfor %}
+
+
+                        <div class="alert-message">
+
+                            {{ message }}
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="alert-close"
+                            onclick="closeAlert(this)"
+                            aria-label="Close message"
+                        >
+
+                            <i class="fas fa-times"></i>
+
+                        </button>
+
                     </div>
-                    {% endif %}
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
 
 
-                    <form action="{% url 'edit_placement' placement.id %}" method="post">
+                <!-- =================================================
+                     FORM CARD
+                     ================================================= -->
+
+                <div class="edit-placement-card-202">
+
+
+                    <!-- HEADER -->
+
+                    <div class="edit-placement-header-202">
+
+                        <span>
+                            PLACEMENT INFORMATION
+                        </span>
+
+                        <h2>
+                            Update Field Placement
+                        </h2>
+
+                        <p>
+                            Make the necessary changes to your
+                            placement information below.
+                        </p>
+
+                    </div>
+
+
+                    <!-- FORM -->
+
+                    <form
+                        action="{% url 'edit_placement' placement.id %}"
+                        method="post"
+                        class="edit-placement-form-202"
+                        id="editPlacementForm"
+                    >
+
                         {% csrf_token %}
 
-                        <div class="input-holder-203">
 
-                            <p>
-                                <i class="fas fa-building"></i>
-                                Organization
-                            </p>
+                        <div class="edit-placement-fields-202">
 
-                            <div>
-                                <input type="text" name="organization" value="{{ placement.organization }}"
-                                    placeholder="e.g. ABC Company Ltd" maxlength="255">
+
+                            <div class="edit-placement-grid-202">
+
+
+                                <!-- =================================================
+                                     ORGANIZATION
+                                     ================================================= -->
+
+                                <div class="edit-placement-field-202">
+
+                                    <label for="organization">
+
+                                        <i class="fas fa-building"></i>
+
+                                        <span>
+                                            Organization
+                                        </span>
+
+                                    </label>
+
+
+                                    <input
+                                        type="text"
+                                        name="organization"
+                                        id="organization"
+                                        value="{{ placement.organization }}"
+                                        placeholder="e.g. ABC Company Ltd"
+                                        maxlength="255"
+                                    >
+
+
+                                    <div class="edit-placement-help-202">
+
+                                        Name of the organization where
+                                        you are conducting your training.
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     DEPARTMENT
+                                     ================================================= -->
+
+                                <div class="edit-placement-field-202">
+
+                                    <label for="department">
+
+                                        <i class="fas fa-sitemap"></i>
+
+                                        <span>
+                                            Department
+                                        </span>
+
+                                    </label>
+
+
+                                    <input
+                                        type="text"
+                                        name="department"
+                                        id="department"
+                                        value="{{ placement.department }}"
+                                        placeholder="e.g. ICT Department"
+                                        maxlength="255"
+                                    >
+
+
+                                    <div class="edit-placement-help-202">
+
+                                        Enter the department where
+                                        you are assigned.
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     SUPERVISOR NAME
+                                     ================================================= -->
+
+                                <div class="edit-placement-field-202">
+
+                                    <label for="supervisor_name">
+
+                                        <i class="fas fa-user-tie"></i>
+
+                                        <span>
+                                            Supervisor Name
+                                        </span>
+
+                                    </label>
+
+
+                                    <input
+                                        type="text"
+                                        name="supervisor_name"
+                                        id="supervisor_name"
+                                        value="{{ placement.supervisor_name }}"
+                                        placeholder="Supervisor name"
+                                        maxlength="255"
+                                    >
+
+
+                                    <div class="edit-placement-help-202">
+
+                                        Enter your field supervisor's
+                                        full name.
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     SUPERVISOR PHONE
+                                     ================================================= -->
+
+                                <div class="edit-placement-field-202">
+
+                                    <label for="supervisor_phone">
+
+                                        <i class="fas fa-phone"></i>
+
+                                        <span>
+                                            Supervisor Phone
+                                        </span>
+
+                                    </label>
+
+
+                                    <input
+                                        type="tel"
+                                        name="supervisor_phone"
+                                        id="supervisor_phone"
+                                        value="{{ placement.supervisor_phone }}"
+                                        placeholder="Supervisor phone"
+                                    >
+
+
+                                    <div class="edit-placement-help-202">
+
+                                        Enter the supervisor's contact
+                                        telephone number.
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     START DATE
+                                     ================================================= -->
+
+                                <div class="edit-placement-field-202">
+
+                                    <label for="start_date">
+
+                                        <i class="fas fa-calendar-alt"></i>
+
+                                        <span>
+                                            Start Date
+                                        </span>
+
+                                    </label>
+
+
+                                    <input
+                                        type="date"
+                                        name="start_date"
+                                        id="start_date"
+                                        value="{{ placement.start_date|date:'Y-m-d' }}"
+                                    >
+
+
+                                    <div class="edit-placement-help-202">
+
+                                        Date when your field training
+                                        started.
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     END DATE
+                                     ================================================= -->
+
+                                <div class="edit-placement-field-202">
+
+                                    <label for="end_date">
+
+                                        <i class="fas fa-calendar-check"></i>
+
+                                        <span>
+                                            End Date
+                                        </span>
+
+                                    </label>
+
+
+                                    <input
+                                        type="date"
+                                        name="end_date"
+                                        id="end_date"
+                                        value="{{ placement.end_date|date:'Y-m-d' }}"
+                                    >
+
+
+                                    <div class="edit-placement-help-202">
+
+                                        Expected date when your field
+                                        training will finish.
+
+                                    </div>
+
+                                </div>
+
+
                             </div>
+
 
                         </div>
 
 
-                        <div class="input-holder-203">
+                        <!-- =================================================
+                             ACTIONS
+                             ================================================= -->
 
-                            <p>
-                                <i class="fas fa-sitemap"></i>
-                                Department
-                            </p>
+                        <div class="edit-placement-actions-202">
 
-                            <div>
-                                <input type="text" name="department" value="{{ placement.department }}"
-                                    placeholder="e.g. ICT Department" maxlength="255">
-                            </div>
+
+                            <a
+                                href="{% url 'placements_list' %}"
+                                class="edit-placement-cancel-202"
+                            >
+
+                                <i class="fas fa-times"></i>
+
+                                <span>
+                                    Cancel
+                                </span>
+
+                            </a>
+
+
+                            <button
+                                type="submit"
+                                class="edit-placement-submit-202"
+                                id="updatePlacementButton"
+                            >
+
+                                <i class="fas fa-save"></i>
+
+                                <span>
+                                    Update Placement
+                                </span>
+
+                            </button>
+
 
                         </div>
 
-
-                        <div class="input-holder-203">
-
-                            <p>
-                                <i class="fas fa-user-tie"></i>
-                                Supervisor name
-                            </p>
-
-                            <div>
-                                <input type="text" name="supervisor_name" value="{{ placement.supervisor_name }}"
-                                    placeholder="Supervisor name" maxlength="255">
-                            </div>
-
-                        </div>
-
-
-                        <div class="input-holder-203">
-
-                            <p>
-                                <i class="fas fa-phone"></i>
-                                Supervisor phone
-                            </p>
-
-                            <div>
-                                <input type="tel" name="supervisor_phone" value="{{ placement.supervisor_phone }}"
-                                    placeholder="Supervisor phone">
-                            </div>
-
-                        </div>
-
-
-                        <div class="input-holder-203">
-
-                            <p>
-                                <i class="fas fa-calendar-alt"></i>
-                                Start date
-                            </p>
-
-                            <div>
-                                <input type="date" name="start_date" value="{{ placement.start_date|date:'Y-m-d' }}">
-                            </div>
-
-                        </div>
-
-
-                        <div class="input-holder-203">
-
-                            <p>
-                                <i class="fas fa-calendar-check"></i>
-                                End date
-                            </p>
-
-                            <div>
-                                <input type="date" name="end_date" value="{{ placement.end_date|date:'Y-m-d' }}">
-                            </div>
-
-                        </div>
-
-
-                        <div class="input-holder-203 submit-203">
-
-                            <div>
-
-                                <button type="submit">
-                                    <i class="fas fa-save"></i>
-                                    Update placement
-                                </button>
-
-                            </div>
-
-                        </div>
 
                     </form>
 
+
                 </div>
+
+
             </div>
+
 
         </div>
 
-    </div>
+
+    </main>
 
 
+</div>
 
-    <script>
-        function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
 
-            if (click == 'open') {
-                menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
-            }
-            else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
-                nav.style.display = 'none';
-            }
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+
+    /* =========================================================
+       SIDEBAR TOGGLE
+       ========================================================= */
+
+    function toggleSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        const button =
+            document.getElementById("mobileMenuButton");
+
+
+        if (!sidebar) {
+
+            return;
+
         }
-    </script>
-    <script>
-        setTimeout(function () {
-            document.querySelectorAll(".alert").forEach(function (alert) {
-                alert.style.transition = "opacity 0.5s";
-                alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 500);
-            });
-        }, 4000);
-    </script>
+
+
+        const isOpen =
+            sidebar.classList.contains("sidebar-open");
+
+
+        if (isOpen) {
+
+            closeSidebar();
+
+            return;
+
+        }
+
+
+        sidebar.classList.add(
+            "sidebar-open"
+        );
+
+
+        if (overlay) {
+
+            overlay.classList.add(
+                "overlay-visible"
+            );
+
+        }
+
+
+        if (button) {
+
+            button.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+            button.setAttribute(
+                "aria-label",
+                "Close navigation"
+            );
+
+
+            const icon =
+                button.querySelector("i");
+
+
+            if (icon) {
+
+                icon.className =
+                    "fas fa-times";
+
+            }
+
+        }
+
+    }
+
+
+    /* =========================================================
+       CLOSE SIDEBAR
+       ========================================================= */
+
+    function closeSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        const button =
+            document.getElementById("mobileMenuButton");
+
+
+        if (sidebar) {
+
+            sidebar.classList.remove(
+                "sidebar-open"
+            );
+
+        }
+
+
+        if (overlay) {
+
+            overlay.classList.remove(
+                "overlay-visible"
+            );
+
+        }
+
+
+        if (button) {
+
+            button.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            button.setAttribute(
+                "aria-label",
+                "Open navigation"
+            );
+
+
+            const icon =
+                button.querySelector("i");
+
+
+            if (icon) {
+
+                icon.className =
+                    "fas fa-bars";
+
+            }
+
+        }
+
+    }
+
+
+    /* =========================================================
+       NAVIGATION CLICK
+       ========================================================= */
+
+    document
+        .querySelectorAll(".navigation-item")
+        .forEach(function (item) {
+
+            item.addEventListener(
+                "click",
+                function () {
+
+                    if (window.innerWidth <= 991) {
+
+                        closeSidebar();
+
+                    }
+
+                }
+            );
+
+        });
+
+
+    /* =========================================================
+       ESCAPE
+       ========================================================= */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Escape") {
+
+                closeSidebar();
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       RESIZE
+       ========================================================= */
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            if (window.innerWidth > 991) {
+
+                closeSidebar();
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       CLOSE ALERT
+       ========================================================= */
+
+    function closeAlert(button) {
+
+        const alert =
+            button.closest(".portal-alert");
+
+
+        if (!alert) {
+
+            return;
+
+        }
+
+
+        alert.style.opacity =
+            "0";
+
+        alert.style.transform =
+            "translateY(-5px)";
+
+
+        setTimeout(
+            function () {
+
+                alert.remove();
+
+            },
+            300
+        );
+
+    }
+
+
+    /* =========================================================
+       AUTO HIDE ALERTS
+       ========================================================= */
+
+    setTimeout(
+        function () {
+
+            document
+                .querySelectorAll(".portal-alert")
+                .forEach(function (alert) {
+
+                    alert.style.opacity =
+                        "0";
+
+                    alert.style.transform =
+                        "translateY(-5px)";
+
+
+                    setTimeout(
+                        function () {
+
+                            if (alert) {
+
+                                alert.remove();
+
+                            }
+
+                        },
+                        300
+                    );
+
+                });
+
+        },
+        4000
+    );
+
+
+    /* =========================================================
+       PREVENT DOUBLE SUBMISSION
+       ========================================================= */
+
+    const editForm =
+        document.getElementById(
+            "editPlacementForm"
+        );
+
+
+    if (editForm) {
+
+        editForm.addEventListener(
+            "submit",
+            function () {
+
+                const button =
+                    document.getElementById(
+                        "updatePlacementButton"
+                    );
+
+
+                if (!button) {
+
+                    return;
+
+                }
+
+
+                button.disabled =
+                    true;
+
+
+                button.innerHTML = `
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span>Updating...</span>
+                `;
+
+            }
+        );
+
+    }
+
+
+    /* =========================================================
+       DATE VALIDATION
+       END DATE SHOULD NOT BE BEFORE START DATE
+       ========================================================= */
+
+    const startDate =
+        document.getElementById(
+            "start_date"
+        );
+
+    const endDate =
+        document.getElementById(
+            "end_date"
+        );
+
+
+    function validateDates() {
+
+        if (
+            !startDate ||
+            !endDate
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            startDate.value &&
+            endDate.value
+        ) {
+
+            if (
+                endDate.value <
+                startDate.value
+            ) {
+
+                endDate.setCustomValidity(
+                    "End date cannot be before start date."
+                );
+
+            } else {
+
+                endDate.setCustomValidity("");
+
+            }
+
+        } else {
+
+            endDate.setCustomValidity("");
+
+        }
+
+    }
+
+
+    if (startDate) {
+
+        startDate.addEventListener(
+            "change",
+            validateDates
+        );
+
+    }
+
+
+    if (endDate) {
+
+        endDate.addEventListener(
+            "change",
+            validateDates
+        );
+
+    }
+
+
+</script>
+
+
 </body>
 
 </html>

@@ -1,320 +1,1586 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wingastock | Edit product</title>
-    <link rel="shortcut icon" href="{% static 'logo1.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css_re/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Field Training | Edit Daily Report</title>
+
+    <link
+        rel="shortcut icon"
+        href="{% static 'logo1.png' %}"
+        type="image/x-icon"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css_re/style.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
 
     <style>
-        .messages {
-            margin: 20px 0;
+
+        /* =========================================================
+           EDIT DAILY REPORT
+           PAGE-SPECIFIC STYLES
+        ========================================================= */
+
+        html,
+        body {
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
-        .alert {
-            padding: 12px 18px;
+        * {
+            box-sizing: border-box;
+        }
+
+        .edit-report-page-301 {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* =========================================================
+           BACK BUTTON
+        ========================================================= */
+
+        .edit-report-back-301 {
+            margin-bottom: 18px;
+        }
+
+        .edit-report-back-301 a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            text-decoration: none;
+
+            color: var(--portal-primary, #014162);
+
+            font-size: 14px;
+            font-weight: 700;
+
+            transition: all 0.2s ease;
+        }
+
+        .edit-report-back-301 a:hover {
+            transform: translateX(-3px);
+        }
+
+        /* =========================================================
+           INTRO
+        ========================================================= */
+
+        .edit-report-intro-301 {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            gap: 18px;
+
+            padding: 22px;
+
+            margin-bottom: 20px;
+
+            background: #ffffff;
+
+            border: 1px solid #e7edf2;
+
+            border-radius: 16px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+        }
+
+        .edit-report-icon-301 {
+            width: 58px;
+            min-width: 58px;
+            height: 58px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: var(--portal-primary-light, #eaf4f8);
+
+            color: var(--portal-primary, #014162);
+
+            font-size: 23px;
+        }
+
+        .edit-report-intro-content-301 {
+            min-width: 0;
+        }
+
+        .edit-report-intro-content-301 .eyebrow {
+            display: block;
+
+            margin-bottom: 4px;
+
+            color: #718096;
+
+            font-size: 11px;
+            font-weight: 800;
+
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .edit-report-intro-content-301 h2 {
+            margin: 0 0 5px;
+
+            color: #17212b;
+
+            font-size: 23px;
+            line-height: 1.25;
+        }
+
+        .edit-report-intro-content-301 p {
+            margin: 0;
+
+            color: #718096;
+
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           MESSAGES
+        ========================================================= */
+
+        .messages-container-301 {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .portal-alert-301 {
+            position: relative;
+
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+
+            width: 100%;
+
+            padding: 13px 42px 13px 15px;
+
             margin-bottom: 10px;
-            border-radius: 5px;
-            color: #fff;
-            font-weight: 500;
+
+            border-radius: 10px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            border: 1px solid transparent;
+
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s ease;
         }
 
-        .success {
-            background: #28a745;
+        .portal-alert-301.success {
+            background: #ecfdf3;
+            color: #166534;
+            border-color: #bbf7d0;
         }
 
-        .error {
-            background: #dc3545;
+        .portal-alert-301.error {
+            background: #fef2f2;
+            color: #991b1b;
+            border-color: #fecaca;
         }
 
-        .warning {
-            background: #ffc107;
-            color: #000;
+        .portal-alert-301.warning {
+            background: #fffbeb;
+            color: #92400e;
+            border-color: #fde68a;
         }
 
-        .info {
-            background: #17a2b8;
+        .portal-alert-301.info {
+            background: #eff6ff;
+            color: #1e40af;
+            border-color: #bfdbfe;
         }
+
+        .portal-alert-close-301 {
+            position: absolute;
+
+            right: 12px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 28px;
+            height: 28px;
+
+            border: 0;
+            background: transparent;
+
+            color: inherit;
+
+            cursor: pointer;
+
+            border-radius: 7px;
+        }
+
+        .portal-alert-close-301:hover {
+            background: rgba(0, 0, 0, 0.06);
+        }
+
+        /* =========================================================
+           FORM CARD
+        ========================================================= */
+
+        .edit-report-card-301 {
+            width: 100%;
+
+            background: #ffffff;
+
+            border: 1px solid #e7edf2;
+
+            border-radius: 16px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+
+            overflow: hidden;
+        }
+
+        .edit-report-card-header-301 {
+            padding: 20px 22px;
+
+            border-bottom: 1px solid #edf1f5;
+
+            background: #fbfcfd;
+        }
+
+        .edit-report-card-header-301 h3 {
+            margin: 0 0 5px;
+
+            color: #17212b;
+
+            font-size: 17px;
+        }
+
+        .edit-report-card-header-301 p {
+            margin: 0;
+
+            color: #718096;
+
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* =========================================================
+           FORM
+        ========================================================= */
+
+        .edit-report-form-301 {
+            padding: 22px;
+        }
+
+        .edit-report-field-301 {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .edit-report-field-301 label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-bottom: 8px;
+
+            color: #263238;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .edit-report-field-301 label i {
+            color: var(--portal-primary, #014162);
+        }
+
+        .edit-report-field-301 input,
+        .edit-report-field-301 select,
+        .edit-report-field-301 textarea {
+            width: 100%;
+
+            border: 1px solid #dce4ea;
+
+            border-radius: 10px;
+
+            background: #ffffff;
+
+            color: #263238;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .edit-report-field-301 input,
+        .edit-report-field-301 select {
+            min-height: 46px;
+
+            padding: 11px 13px;
+        }
+
+        .edit-report-field-301 textarea {
+            min-height: 190px;
+
+            padding: 13px;
+
+            line-height: 1.65;
+
+            resize: vertical;
+        }
+
+        .edit-report-field-301 input:focus,
+        .edit-report-field-301 select:focus,
+        .edit-report-field-301 textarea:focus {
+            border-color: var(--portal-primary, #014162);
+
+            box-shadow:
+                0 0 0 3px rgba(1, 65, 98, 0.08);
+        }
+
+        .edit-report-field-301 input::placeholder,
+        .edit-report-field-301 textarea::placeholder {
+            color: #a0aec0;
+        }
+
+        .edit-report-help-301 {
+            margin-top: 6px;
+
+            color: #8a98a5;
+
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        /* =========================================================
+           TEXTAREA SECTIONS
+        ========================================================= */
+
+        .report-textarea-section-301 {
+            padding-top: 2px;
+        }
+
+        .report-textarea-meta-301 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-top: 6px;
+
+            color: #8a98a5;
+
+            font-size: 11px;
+        }
+
+        .character-count-301 {
+            white-space: nowrap;
+        }
+
+        /* =========================================================
+           ACTIONS
+        ========================================================= */
+
+        .edit-report-actions-301 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 12px;
+
+            padding-top: 6px;
+
+            margin-top: 5px;
+
+            border-top: 1px solid #edf1f5;
+        }
+
+        .edit-report-cancel-301,
+        .edit-report-submit-301 {
+            min-height: 45px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 8px;
+
+            padding: 10px 18px;
+
+            border-radius: 9px;
+
+            font-family: inherit;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .edit-report-cancel-301 {
+            color: #52616b;
+
+            background: #f1f5f7;
+
+            border: 1px solid #e1e8ed;
+        }
+
+        .edit-report-cancel-301:hover {
+            background: #e8eef2;
+            transform: translateY(-1px);
+        }
+
+        .edit-report-submit-301 {
+            color: #ffffff;
+
+            background: var(--portal-primary, #014162);
+
+            border: 1px solid var(--portal-primary, #014162);
+        }
+
+        .edit-report-submit-301:hover {
+            transform: translateY(-1px);
+
+            box-shadow: 0 7px 18px rgba(1, 65, 98, 0.18);
+        }
+
+        .edit-report-submit-301:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 768px) {
+
+            .edit-report-intro-301 {
+                padding: 18px;
+            }
+
+            .edit-report-form-301 {
+                padding: 18px;
+            }
+
+            .edit-report-actions-301 {
+                flex-direction: column-reverse;
+                align-items: stretch;
+            }
+
+            .edit-report-cancel-301,
+            .edit-report-submit-301 {
+                width: 100%;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .edit-report-intro-301 {
+                align-items: flex-start;
+
+                gap: 12px;
+
+                padding: 15px;
+
+                border-radius: 13px;
+            }
+
+            .edit-report-icon-301 {
+                width: 46px;
+                min-width: 46px;
+                height: 46px;
+
+                font-size: 18px;
+
+                border-radius: 11px;
+            }
+
+            .edit-report-intro-content-301 h2 {
+                font-size: 19px;
+            }
+
+            .edit-report-intro-content-301 p {
+                font-size: 12px;
+            }
+
+            .edit-report-card {
+                border-radius: 13px;
+            }
+
+            .edit-report-form-301 {
+                padding: 15px;
+            }
+
+            .edit-report-card-header-301 {
+                padding: 16px;
+            }
+
+            .edit-report-field-301 textarea {
+                min-height: 170px;
+            }
+
+        }
+
+        @media (max-width: 360px) {
+
+            .edit-report-intro-301 {
+                display: block;
+            }
+
+            .edit-report-icon-301 {
+                margin-bottom: 12px;
+            }
+
+            .edit-report-form-301 {
+                padding: 12px;
+            }
+
+            .edit-report-card-header-301 {
+                padding: 14px;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <div class="row-holder">
+<div class="portal-wrapper">
 
-        <!-- Header -->
-        <div class="header-holder-100">
-            <div class="header-100">
-                <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-                            class="fas fa-times"></i></button>
+    <!-- =====================================================
+         SIDEBAR OVERLAY
+    ====================================================== -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="closeSidebar()"
+    ></div>
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside
+        class="portal-sidebar"
+        id="portalSidebar"
+    >
+
+        <!-- Brand -->
+
+        <div class="sidebar-brand">
+
+            <a href="{% url 'report_home' %}">
+
+                <div class="brand-logo">
+                    <img
+                        src="{% static 'logo1.png' %}"
+                        alt="Field Report"
+                    >
                 </div>
-                <div class="title-holder-101">
-                    <button type="button"><span>Wingastock | Seller</span></button>
+
+                <div class="brand-text">
+
+                    <strong>
+                        Field Training
+                    </strong>
+
+                    <span>
+                        Student Portal
+                    </span>
+
                 </div>
-                <div class="title-holder-101" style="float: right;">
-                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
-                </div>
-            </div>
+
+            </a>
+
         </div>
 
 
-        <!-- center content -->
-        <div class="center-content-200">
+        <!-- Navigation -->
 
-            <div class="left-holder-201" id="nav">
-                <div class="nav-bar-holder-202">
+        <nav class="sidebar-navigation">
 
-                    <ul>
-                        <a href="{% url 'report_home' %}">
-                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
-                        </a>
-                    </ul>
+            <!-- MAIN -->
 
-                    <ul>
-                        <a href="{% url 'placements_list' %}">
-                            <li class="active-0">Reports <i class="fas fa-file-alt"></i></li>
-                        </a>
-                    </ul>
+            <div class="navigation-section">
 
-                    <ul>
-                        <a href="{% url 'user_account' %}">
-                            <li>Account <i class="fas fa-user"></i></li>
-                        </a>
-                    </ul>
-
-                    <ul>
-                        <a href="{% url 'home' %}">
-                            <li>Back Wingastock <i class="fas fa-home"></i></li>
-                        </a>
-                    </ul>
+                <span class="navigation-label">
+                    MAIN
+                </span>
 
 
-                </div>
+                <a
+                    href="{% url 'report_home' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-th-large"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Dashboard
+                        </strong>
+
+                        <small>
+                            Overview of your training
+                        </small>
+
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{% url 'placements_list' %}"
+                    class="navigation-item active"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Field Reports
+                        </strong>
+
+                        <small>
+                            Daily and weekly reports
+                        </small>
+
+                    </span>
+
+                </a>
+
             </div>
 
-            <div class="right-holder-201">
-                <div class="products-202">
 
-                    <p style="font-weight: bold;">Edit report</p>
+            <!-- ACCOUNT -->
 
-                    {% if messages %}
-                    <div class="messages">
-                        {% for message in messages %}
-                        <div class="alert {{ message.tags }}">
-                            {{ message }}
-                        </div>
-                        {% endfor %}
+            <div class="navigation-section">
+
+                <span class="navigation-label">
+                    ACCOUNT
+                </span>
+
+                <a
+                    href="{% url 'user_account' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-user"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            My Account
+                        </strong>
+
+                        <small>
+                            Manage your profile
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- WEBSITE -->
+
+            <div class="navigation-section">
+
+                <span class="navigation-label">
+                    WEBSITE
+                </span>
+
+                <a
+                    href="{% url 'home' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-external-link-alt"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Back to WingaStock
+                        </strong>
+
+                        <small>
+                            Return to main website
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+        </nav>
+
+
+        <!-- Help -->
+
+        <div class="sidebar-help">
+
+            <div class="sidebar-help-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+
+            <div>
+
+                <strong>
+                    Need help?
+                </strong>
+
+                <p>
+                    Complete your daily reports regularly
+                    to keep your field training record up to date.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <div class="sidebar-footer">
+
+            <span>
+                Field Practical Training
+            </span>
+
+            <small>
+                Student Reporting System
+            </small>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="portal-main">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <header class="portal-header">
+
+            <div class="header-left">
+
+                <button
+                    type="button"
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    onclick="toggleSidebar()"
+                    aria-label="Open navigation"
+                >
+                    <i class="fas fa-bars"></i>
+                </button>
+
+
+                <div class="header-page-title">
+
+                    <span>
+                        Student Portal
+                    </span>
+
+                    <h1>
+                        Edit Daily Report
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="header-user">
+
+                    <div class="header-user-icon">
+                        <i class="fas fa-user"></i>
                     </div>
-                    {% endif %}
 
-                    <form action="" enctype="multipart/form-data"
-                        method="post">
+                    <div class="header-user-info">
+
+                        <strong>
+                            Student
+                        </strong>
+
+                        <span>
+                            {{ user.email }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             CONTENT
+        ================================================== -->
+
+        <section class="portal-content">
+
+
+            <div class="edit-report-page-301">
+
+
+                <!-- Back -->
+
+                <div class="edit-report-back-301">
+
+                    <a href="{% url 'placements_list' %}">
+
+                        <i class="fas fa-arrow-left"></i>
+
+                        Back to Field Reports
+
+                    </a>
+
+                </div>
+
+
+                <!-- Intro -->
+
+                <div class="edit-report-intro-301">
+
+                    <div class="edit-report-icon-301">
+
+                        <i class="fas fa-edit"></i>
+
+                    </div>
+
+
+                    <div class="edit-report-intro-content-301">
+
+                        <span class="eyebrow">
+                            DAILY FIELD REPORT
+                        </span>
+
+                        <h2>
+                            Edit Report
+                        </h2>
+
+                        <p>
+                            Update the information recorded in your
+                            daily field training report.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Messages -->
+
+                {% if messages %}
+
+                <div
+                    class="messages-container-301"
+                    id="messagesContainer"
+                >
+
+                    {% for message in messages %}
+
+                    <div class="portal-alert-301 {{ message.tags }}">
+
+                        <i class="
+                            {% if message.tags == 'success' %}
+                                fas fa-check-circle
+                            {% elif message.tags == 'error' %}
+                                fas fa-times-circle
+                            {% elif message.tags == 'warning' %}
+                                fas fa-exclamation-triangle
+                            {% else %}
+                                fas fa-info-circle
+                            {% endif %}
+                        "></i>
+
+                        <span>
+                            {{ message }}
+                        </span>
+
+                        <button
+                            type="button"
+                            class="portal-alert-close-301"
+                            onclick="closeAlert(this)"
+                            aria-label="Close message"
+                        >
+                            <i class="fas fa-times"></i>
+                        </button>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- Form Card -->
+
+                <div class="edit-report-card-301">
+
+
+                    <div class="edit-report-card-header-301">
+
+                        <h3>
+                            Report Information
+                        </h3>
+
+                        <p>
+                            Make the necessary changes and save
+                            your updated daily report.
+                        </p>
+
+                    </div>
+
+
+                    <form
+                        action=""
+                        method="post"
+                        enctype="multipart/form-data"
+                        class="edit-report-form-301"
+                        id="editReportForm"
+                    >
+
                         {% csrf_token %}
 
-                        <!-- Report Date -->
-                        <div class="input-holder-203">
 
-                            <p>
+                        <!-- =================================
+                             REPORT DATE
+                        ================================== -->
+
+                        <div class="edit-report-field-301">
+
+                            <label for="reportDate">
+
                                 <i class="fas fa-calendar-day"></i>
-                                Report date
-                            </p>
 
-                            <div>
+                                Report Date
 
-                                <select name="date" required>
+                            </label>
 
-                                    <option value="">
-                                        Choose date
-                                    </option>
 
-                                    {% for date in available_dates %}
+                            <select
+                                name="date"
+                                id="reportDate"
+                                required
+                            >
 
-                                    <option value="{{ date|date:'Y-m-d' }}" {% if form_data %} 
-                                        {% if form_data.date == date|date:'Y-m-d' %} selected {% endif %} 
-                                        {% elif report.date == date %} selected {% endif %}>
-                                        {{ date|date:'D, d M Y' }}
-                                    </option>
+                                <option value="">
+                                    Choose date
+                                </option>
 
-                                    {% endfor %}
 
-                                </select>
+                                {% for date in available_dates %}
+
+                                <option
+                                    value="{{ date|date:'Y-m-d' }}"
+
+                                    {% if form_data %}
+
+                                        {% if form_data.date == date|date:'Y-m-d' %}
+                                            selected
+                                        {% endif %}
+
+                                    {% elif report.date == date %}
+
+                                        selected
+
+                                    {% endif %}
+                                >
+
+                                    {{ date|date:'D, d M Y' }}
+
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+
+                            <div class="edit-report-help-301">
+
+                                Select the date corresponding to
+                                this field training activity.
 
                             </div>
 
                         </div>
 
 
-                        <!-- Report Title -->
-                        <div class="input-holder-203">
+                        <!-- =================================
+                             TITLE
+                        ================================== -->
 
-                            <p>
+                        <div class="edit-report-field-301">
+
+                            <label for="reportTitle">
+
                                 <i class="fas fa-heading"></i>
-                                Report title
-                            </p>
 
-                            <div>
+                                Report Title
 
-                                <input type="text" name="title" placeholder="e.g. Database design and development"
-                                    value="{% if form_data %}{{ form_data.title }}{% else %}{{ report.title }}{% endif %}"
-                                    maxlength="255" required>
+                            </label>
+
+
+                            <input
+                                type="text"
+                                name="title"
+                                id="reportTitle"
+
+                                placeholder="e.g. Database design and development"
+
+                                value="{% if form_data %}{{ form_data.title }}{% else %}{{ report.title }}{% endif %}"
+
+                                maxlength="255"
+
+                                required
+                            >
+
+
+                            <div class="edit-report-help-301">
+
+                                Give the report a short and clear
+                                description of the main activity.
 
                             </div>
 
                         </div>
 
 
-                        <!-- Activities -->
-                        <div class="input-holder-203" style="height: 250px;">
+                        <!-- =================================
+                             ACTIVITIES
+                        ================================== -->
 
-                            <p>
+                        <div class="edit-report-field-301 report-textarea-section-301">
+
+                            <label for="activities">
+
                                 <i class="fas fa-tasks"></i>
-                                Activities performed
-                            </p>
 
-                            <div style="height: 200px;">
+                                Activities Performed
 
-                                <textarea name="activities" required
-                                    placeholder="Describe the activities you performed today...">
-                                    {% if form_data %}{{ form_data.activities }}{% else %}{{ report.activities }}{% endif %}</textarea>
+                            </label>
+
+
+                            <textarea
+                                name="activities"
+                                id="activities"
+                                required
+                                placeholder="Describe the activities you performed today..."
+                                maxlength="5000"
+                            >{% if form_data %}{{ form_data.activities }}{% else %}{{ report.activities }}{% endif %}</textarea>
+
+
+                            <div class="report-textarea-meta-301">
+
+                                <span>
+                                    Describe the work you performed
+                                    during the selected date.
+                                </span>
+
+                                <span
+                                    class="character-count-301"
+                                    data-for="activities"
+                                >
+                                    0 / 5000
+                                </span>
 
                             </div>
 
                         </div>
 
 
-                        <!-- Skills Learned -->
-                        <div class="input-holder-203" style="height: 250px;">
+                        <!-- =================================
+                             SKILLS
+                        ================================== -->
 
-                            <p>
+                        <div class="edit-report-field-301 report-textarea-section-301">
+
+                            <label for="skillsLearned">
+
                                 <i class="fas fa-lightbulb"></i>
-                                Skills learned
-                            </p>
 
-                            <div style="height: 200px;">
+                                Skills Learned
 
-                                <textarea name="skills_learned"
-                                    placeholder="Describe the skills or knowledge you gained today...">
-                                    {% if form_data %}{{ form_data.skills_learned }}{% else %}{{ report.skills_learned }}{% endif %}</textarea>
+                            </label>
+
+
+                            <textarea
+                                name="skills_learned"
+                                id="skillsLearned"
+                                placeholder="Describe the skills or knowledge you gained today..."
+                                maxlength="5000"
+                            >{% if form_data %}{{ form_data.skills_learned }}{% else %}{{ report.skills_learned }}{% endif %}</textarea>
+
+
+                            <div class="report-textarea-meta-301">
+
+                                <span>
+                                    Mention technical knowledge,
+                                    practical skills, or experience gained.
+                                </span>
+
+                                <span
+                                    class="character-count-301"
+                                    data-for="skillsLearned"
+                                >
+                                    0 / 5000
+                                </span>
 
                             </div>
 
                         </div>
 
 
-                        <!-- Challenges -->
-                        <div class="input-holder-203" style="height: 250px;">
+                        <!-- =================================
+                             CHALLENGES
+                        ================================== -->
 
-                            <p>
+                        <div class="edit-report-field-301 report-textarea-section-301">
+
+                            <label for="challenges">
+
                                 <i class="fas fa-exclamation-triangle"></i>
+
                                 Challenges
-                            </p>
 
-                            <div style="height: 200px;">
+                            </label>
 
-                                <textarea name="challenges" placeholder="Describe any challenges you encountered...">
-                                    {% if form_data %}{{ form_data.challenges }}{% else %}{{ report.challenges }}{% endif %}</textarea>
+
+                            <textarea
+                                name="challenges"
+                                id="challenges"
+                                placeholder="Describe any challenges you encountered..."
+                                maxlength="5000"
+                            >{% if form_data %}{{ form_data.challenges }}{% else %}{{ report.challenges }}{% endif %}</textarea>
+
+
+                            <div class="report-textarea-meta-301">
+
+                                <span>
+                                    Describe difficulties or problems
+                                    experienced during the activity.
+                                </span>
+
+                                <span
+                                    class="character-count-301"
+                                    data-for="challenges"
+                                >
+                                    0 / 5000
+                                </span>
 
                             </div>
 
                         </div>
 
 
-                        <!-- Solutions -->
-                        <div class="input-holder-203" style="height: 250px;">
+                        <!-- =================================
+                             SOLUTIONS
+                        ================================== -->
 
-                            <p>
+                        <div class="edit-report-field-301 report-textarea-section-301">
+
+                            <label for="solutions">
+
                                 <i class="fas fa-tools"></i>
+
                                 Solutions
-                            </p>
 
-                            <div style="height: 200px;">
+                            </label>
 
-                                <textarea name="solutions" placeholder="Explain how you solved the challenges...">
-                                    {% if form_data %}{{ form_data.solutions }}{% else %}{{ report.solutions }}{% endif %}</textarea>
+
+                            <textarea
+                                name="solutions"
+                                id="solutions"
+                                placeholder="Explain how you solved the challenges..."
+                                maxlength="5000"
+                            >{% if form_data %}{{ form_data.solutions }}{% else %}{{ report.solutions }}{% endif %}</textarea>
+
+
+                            <div class="report-textarea-meta-301">
+
+                                <span>
+                                    Explain the approach used to
+                                    solve the challenges.
+                                </span>
+
+                                <span
+                                    class="character-count-301"
+                                    data-for="solutions"
+                                >
+                                    0 / 5000
+                                </span>
 
                             </div>
 
                         </div>
 
 
-                        <!-- Remarks -->
-                        <div class="input-holder-203" style="height: 250px;">
+                        <!-- =================================
+                             REMARKS
+                        ================================== -->
 
-                            <p>
+                        <div class="edit-report-field-301 report-textarea-section-301">
+
+                            <label for="remarks">
+
                                 <i class="fas fa-comment"></i>
+
                                 Remarks
-                            </p>
 
-                            <div style="height: 200px;">
+                            </label>
 
-                                <textarea name="remarks" placeholder="Add any additional remarks...">
-                                    {% if form_data %}{{ form_data.remarks }}{% else %}{{ report.remarks }}{% endif %}</textarea>
+
+                            <textarea
+                                name="remarks"
+                                id="remarks"
+                                placeholder="Add any additional remarks..."
+                                maxlength="5000"
+                            >{% if form_data %}{{ form_data.remarks }}{% else %}{{ report.remarks }}{% endif %}</textarea>
+
+
+                            <div class="report-textarea-meta-301">
+
+                                <span>
+                                    Add any other useful information
+                                    about the day's training.
+                                </span>
+
+                                <span
+                                    class="character-count-301"
+                                    data-for="remarks"
+                                >
+                                    0 / 5000
+                                </span>
 
                             </div>
 
                         </div>
 
 
-                        <!-- Submit / Update -->
-                        <div class="input-holder-203 submit-203">
+                        <!-- =================================
+                             ACTIONS
+                        ================================== -->
 
-                            <div>
+                        <div class="edit-report-actions-301">
 
-                                <button type="submit">
-                                    <i class="fas fa-save"></i>
-                                    Update daily report
-                                </button>
+                            <a
+                                href="{% url 'placements_list' %}"
+                                class="edit-report-cancel-301"
+                            >
 
-                            </div>
+                                <i class="fas fa-arrow-left"></i>
+
+                                Cancel
+
+                            </a>
+
+
+                            <button
+                                type="submit"
+                                class="edit-report-submit-301"
+                                id="updateReportButton"
+                            >
+
+                                <i class="fas fa-save"></i>
+
+                                Update Daily Report
+
+                            </button>
 
                         </div>
 
 
                     </form>
 
-
                 </div>
+
             </div>
 
-        </div>
+        </section>
 
-    </div>
+    </main>
+
+</div>
 
 
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
-    <script>
-        function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
+<script>
 
-            if (click == 'open') {
-                menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
-            }
-            else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
-                nav.style.display = 'none';
-            }
+    /* =========================================================
+       SIDEBAR
+    ========================================================= */
+
+    function toggleSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        if (!sidebar) return;
+
+        sidebar.classList.toggle("sidebar-open");
+
+        if (overlay) {
+            overlay.classList.toggle("active");
         }
-    </script>
-    <script>
+
+    }
+
+
+    function closeSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        if (sidebar) {
+            sidebar.classList.remove("sidebar-open");
+        }
+
+        if (overlay) {
+            overlay.classList.remove("active");
+        }
+
+    }
+
+
+    /* Close sidebar when navigation item is clicked */
+
+    document.querySelectorAll(".navigation-item").forEach(function (item) {
+
+        item.addEventListener("click", function () {
+
+            if (window.innerWidth <= 991) {
+                closeSidebar();
+            }
+
+        });
+
+    });
+
+
+    /* Escape key */
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+            closeSidebar();
+        }
+
+    });
+
+
+    /* Resize */
+
+    window.addEventListener("resize", function () {
+
+        if (window.innerWidth > 991) {
+            closeSidebar();
+        }
+
+    });
+
+
+    /* =========================================================
+       ALERTS
+    ========================================================= */
+
+    function closeAlert(button) {
+
+        const alert =
+            button.closest(".portal-alert-301");
+
+        if (!alert) return;
+
+        alert.style.opacity = "0";
+        alert.style.transform = "translateY(-5px)";
+
         setTimeout(function () {
-            document.querySelectorAll(".alert").forEach(function (alert) {
-                alert.style.transition = "opacity 0.5s";
+
+            alert.remove();
+
+        }, 300);
+
+    }
+
+
+    /* Auto hide Django messages */
+
+    setTimeout(function () {
+
+        document
+            .querySelectorAll(".portal-alert-301")
+            .forEach(function (alert) {
+
                 alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 500);
+                alert.style.transform = "translateY(-5px)";
+
+                setTimeout(function () {
+
+                    alert.remove();
+
+                }, 300);
+
             });
-        }, 4000);
-    </script>
+
+    }, 5000);
+
+
+    /* =========================================================
+       CHARACTER COUNTERS
+    ========================================================= */
+
+    document
+        .querySelectorAll(".character-count-301")
+        .forEach(function (counter) {
+
+            const textareaId =
+                counter.getAttribute("data-for");
+
+            const textarea =
+                document.getElementById(textareaId);
+
+            if (!textarea) return;
+
+
+            function updateCounter() {
+
+                const currentLength =
+                    textarea.value.length;
+
+                const maxLength =
+                    textarea.getAttribute("maxlength") || 5000;
+
+                counter.textContent =
+                    currentLength + " / " + maxLength;
+
+            }
+
+
+            textarea.addEventListener(
+                "input",
+                updateCounter
+            );
+
+            updateCounter();
+
+        });
+
+
+    /* =========================================================
+       PREVENT DOUBLE SUBMISSION
+    ========================================================= */
+
+    const editReportForm =
+        document.getElementById("editReportForm");
+
+    const updateReportButton =
+        document.getElementById("updateReportButton");
+
+
+    if (editReportForm && updateReportButton) {
+
+        editReportForm.addEventListener(
+            "submit",
+            function () {
+
+                if (
+                    updateReportButton.disabled
+                ) {
+                    return;
+                }
+
+
+                updateReportButton.disabled = true;
+
+                updateReportButton.innerHTML =
+                    '<i class="fas fa-spinner fa-spin"></i> Updating...';
+
+            }
+        );
+
+    }
+
+</script>
+
 </body>
 
 </html>

@@ -6,16 +6,39 @@ const productData =
     document.getElementById("productData");
 
 
+/* =========================================================
+   NORMALIZE IMAGE URL
+   Converts HTTP image URLs to HTTPS
+========================================================= */
+
+function normalizeImageUrl(url) {
+
+    if (!url) {
+        return "";
+    }
+
+    return url.replace(
+        /^http:\/\//i,
+        "https://"
+    );
+}
+
+
+/* =========================================================
+   GET PRODUCT DATA
+========================================================= */
+
 function getProductData() {
 
     if (!productData) {
+        console.error("Product data element not found.");
         return null;
     }
 
     return {
 
         reactUrl:
-            productData.dataset.reactUrl,
+            productData.dataset.reactUrl || "",
 
         title:
             productData.dataset.title || "",
@@ -39,141 +62,40 @@ function getProductData() {
             productData.dataset.uploaded || "",
 
         image:
-            productData.dataset.image || ""
+            normalizeImageUrl(
+                productData.dataset.image || ""
+            ),
 
+        url:
+            productData.dataset.url ||
+            window.location.href
     };
-
 }
 
 
-
-
-
-
 /* =========================================================
-   SEND PRODUCT TO WHATSAPP
-========================================================= */
-
-function sendWhatsApp() {
-
-    const productData = document.getElementById("productData");
-
-    if (!productData) {
-        console.error("Product data not found.");
-        return;
-    }
-
-    const phone = productData.dataset.phone || "";
-    const title = productData.dataset.title || "";
-    const description = productData.dataset.description || "";
-    const price = productData.dataset.price || "";
-    const seller = productData.dataset.seller || "";
-    const location = productData.dataset.location || "";
-    const uploaded = productData.dataset.uploaded || "";
-    const productUrl = productData.dataset.url || window.location.href;
-
-
-    /* ---------------------------------------------------------
-       CHECK PHONE NUMBER
-    --------------------------------------------------------- */
-
-    if (!phone.trim()) {
-        alert("Seller phone number is not available.");
-        return;
-    }
-
-
-    /* ---------------------------------------------------------
-       CLEAN TANZANIA PHONE NUMBER
-    --------------------------------------------------------- */
-
-    let cleanPhone = phone.replace(/\D/g, "");
-
-    // 0622652290 -> 255622652290
-    if (cleanPhone.startsWith("0")) {
-        cleanPhone = "255" + cleanPhone.substring(1);
-    }
-
-    // +255622652290 -> 255622652290
-    if (cleanPhone.startsWith("255")) {
-        // Already correct
-    }
-
-
-    /* ---------------------------------------------------------
-       CREATE WHATSAPP MESSAGE
-    --------------------------------------------------------- */
-
-    const message =
-        `Hello ${seller},
-
-        I am interested in this product on WingaStock.
-
-        Product: ${title}
-
-        Price: ${price} TSh
-
-        Description:
-        ${description}
-
-        View product:
-        ${productUrl}`;
-
-
-    /* ---------------------------------------------------------
-       OPEN WHATSAPP
-    --------------------------------------------------------- */
-
-    const whatsappUrl =
-        "https://wa.me/" +
-        cleanPhone +
-        "?text=" +
-        encodeURIComponent(message);
-
-    window.open(whatsappUrl, "_blank");
-}
-
-
-
-
-
-
-
-
-/* =========================================================
-   GET CSRF COOKIE
+   GET CSRF TOKEN
 ========================================================= */
 
 function getCookie(name) {
 
     let cookieValue = null;
 
-
-    if (
-        document.cookie &&
-        document.cookie !== ""
-    ) {
+    if (document.cookie && document.cookie !== "") {
 
         const cookies =
             document.cookie.split(";");
 
-
-        for (
-            let i = 0;
-            i < cookies.length;
-            i++
-        ) {
+        for (let i = 0; i < cookies.length; i++) {
 
             const cookie =
                 cookies[i].trim();
-
 
             if (
                 cookie.substring(
                     0,
                     name.length + 1
-                ) ===
-                (name + "=")
+                ) === name + "="
             ) {
 
                 cookieValue =
@@ -184,206 +106,61 @@ function getCookie(name) {
                     );
 
                 break;
-
             }
-
         }
-
     }
-
 
     return cookieValue;
-
 }
 
 
-
 /* =========================================================
-   REACTION / LIKE / DISLIKE
-========================================================= */
-
-function reactToProduct(reaction) {
-
-    const data =
-        getProductData();
-
-
-    if (!data || !data.reactUrl) {
-
-        console.error(
-            "Product reaction URL is missing."
-        );
-
-        return;
-
-    }
-
-
-    fetch(
-        data.reactUrl,
-        {
-
-            method: "POST",
-
-            headers: {
-
-                "Content-Type":
-                    "application/x-www-form-urlencoded",
-
-                "X-CSRFToken":
-                    getCookie("csrftoken"),
-
-                "X-Requested-With":
-                    "XMLHttpRequest"
-
-            },
-
-            body:
-                `reaction=${encodeURIComponent(
-                    reaction
-                )}`
-
-        }
-    )
-
-        .then(function (response) {
-
-            return response.json();
-
-        })
-
-        .then(function (result) {
-
-            if (!result.success) {
-
-                alert(
-                    result.message ||
-                    "Unable to react."
-                );
-
-                return;
-
-            }
-
-
-            const likeCount =
-                document.getElementById(
-                    "like-count"
-                );
-
-
-            const dislikeCount =
-                document.getElementById(
-                    "dislike-count"
-                );
-
-
-            const likeButton =
-                document.getElementById(
-                    "like-btn"
-                );
-
-
-            const dislikeButton =
-                document.getElementById(
-                    "dislike-btn"
-                );
-
-
-            if (likeCount) {
-
-                likeCount.textContent =
-                    result.likes;
-
-            }
-
-
-            if (dislikeCount) {
-
-                dislikeCount.textContent =
-                    result.dislikes;
-
-            }
-
-
-            if (likeButton) {
-
-                likeButton.classList.remove(
-                    "active"
-                );
-
-            }
-
-
-            if (dislikeButton) {
-
-                dislikeButton.classList.remove(
-                    "active"
-                );
-
-            }
-
-
-            if (
-                result.reaction === "like" &&
-                likeButton
-            ) {
-
-                likeButton.classList.add(
-                    "active"
-                );
-
-            }
-
-
-            if (
-                result.reaction === "dislike" &&
-                dislikeButton
-            ) {
-
-                dislikeButton.classList.add(
-                    "active"
-                );
-
-            }
-
-        })
-
-        .catch(function (error) {
-
-            console.error(
-                "Reaction error:",
-                error
-            );
-
-        });
-
-}
-
-
-
-/* =========================================================
-   PRODUCT IMAGE
+   DOM READY
 ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
 
+
+        /* =====================================================
+           GET ELEMENTS
+        ===================================================== */
+
         const mainImage =
             document.getElementById(
                 "mainProductImage"
             );
-
 
         const thumbnails =
             document.querySelectorAll(
                 ".product-thumbnail"
             );
 
+        const favoriteButton =
+            document.getElementById(
+                "favoriteButton"
+            );
 
-        if (!mainImage) return;
+        const shareButton =
+            document.getElementById(
+                "shareButton"
+            );
 
+        const likeButton =
+            document.getElementById(
+                "like-btn"
+            );
+
+        const dislikeButton =
+            document.getElementById(
+                "dislike-btn"
+            );
+
+
+        /* =====================================================
+           PRODUCT THUMBNAILS
+        ===================================================== */
 
         thumbnails.forEach(
             function (thumbnail) {
@@ -392,16 +169,25 @@ document.addEventListener(
                     "click",
                     function () {
 
-                        const image =
-                            this.dataset.image;
+                        if (!mainImage) {
+                            return;
+                        }
 
+                        const imageUrl =
+                            normalizeImageUrl(
+                                this.dataset.image || ""
+                            );
 
-                        if (!image) return;
-
+                        if (!imageUrl) {
+                            return;
+                        }
 
                         mainImage.src =
-                            image;
+                            imageUrl;
 
+
+                        /* Remove active class
+                           from all thumbnails */
 
                         thumbnails.forEach(
                             function (item) {
@@ -414,266 +200,703 @@ document.addEventListener(
                         );
 
 
+                        /* Add active class
+                           to selected thumbnail */
+
                         this.classList.add(
+                            "active"
+                        );
+                    }
+                );
+            }
+        );
+
+
+        /* =====================================================
+           FAVORITE BUTTON
+           Client-side favorite toggle
+        ===================================================== */
+
+        if (favoriteButton) {
+
+            favoriteButton.addEventListener(
+                "click",
+                function () {
+
+                    const icon =
+                        favoriteButton.querySelector(
+                            "i"
+                        );
+
+                    if (!icon) {
+                        return;
+                    }
+
+
+                    /* Currently not favorite */
+
+                    if (
+                        icon.classList.contains(
+                            "far"
+                        )
+                    ) {
+
+                        icon.classList.remove(
+                            "far"
+                        );
+
+                        icon.classList.add(
+                            "fas"
+                        );
+
+                        favoriteButton.classList.add(
                             "active"
                         );
 
                     }
+
+                    /* Currently favorite */
+
+                    else {
+
+                        icon.classList.remove(
+                            "fas"
+                        );
+
+                        icon.classList.add(
+                            "far"
+                        );
+
+                        favoriteButton.classList.remove(
+                            "active"
+                        );
+                    }
+                }
+            );
+        }
+
+
+        /* =====================================================
+           REACTION FUNCTION
+        ===================================================== */
+
+        async function reactToProduct(
+            reaction
+        ) {
+
+            const data =
+                getProductData();
+
+            if (!data) {
+                return;
+            }
+
+            if (!data.reactUrl) {
+
+                console.error(
+                    "Reaction URL is missing."
                 );
 
+                return;
             }
-        );
-
-    }
-);
 
 
+            try {
 
-/* =========================================================
-   SHARE PRODUCT
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        const shareButton =
-            document.getElementById(
-                "shareButton"
-            );
+                const csrfToken =
+                    getCookie("csrftoken");
 
 
-        if (!shareButton) return;
+                const response =
+                    await fetch(
+                        data.reactUrl,
+                        {
+                            method: "POST",
 
+                            headers: {
 
-        shareButton.addEventListener(
-            "click",
-            async function () {
+                                "Content-Type":
+                                    "application/x-www-form-urlencoded",
 
-                const data =
-                    getProductData();
+                                "X-CSRFToken":
+                                    csrfToken || "",
 
+                                "X-Requested-With":
+                                    "XMLHttpRequest"
+                            },
 
-                if (!data) {
-
-                    console.error(
-                        "Product data is missing."
+                            body:
+                                "reaction=" +
+                                encodeURIComponent(
+                                    reaction
+                                )
+                        }
                     );
 
-                    return;
 
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Reaction request failed: HTTP " +
+                        response.status
+                    );
                 }
 
 
-                const productUrl =
-                    window.location.href;
+                const result =
+                    await response.json();
 
 
-                const shareText =
+                /* =============================================
+                   UPDATE LIKE COUNT
+                ============================================= */
 
-                    `${data.title}\n\n` +
+                const likeCount =
+                    document.getElementById(
+                        "like-count"
+                    );
 
-                    `Price: ${data.price}\n` +
+                if (
+                    likeCount &&
+                    result.likes !== undefined
+                ) {
 
-                    `Description: ${data.description}\n\n` +
-
-                    `Seller: ${data.seller}\n` +
-
-                    `Phone: ${data.phone}\n` +
-
-                    `Location: ${data.location}\n` +
-
-                    `Uploaded: ${data.uploaded}\n\n` +
-
-                    `View product:\n${productUrl}`;
-
-
-                try {
+                    likeCount.textContent =
+                        result.likes;
+                }
 
 
-                    /* =====================================
-                       SHARE ACTUAL PRODUCT IMAGE
-                    ====================================== */
+                /* =============================================
+                   UPDATE DISLIKE COUNT
+                ============================================= */
 
-                    if (data.image) {
+                const dislikeCount =
+                    document.getElementById(
+                        "dislike-count"
+                    );
 
-                        const response =
-                            await fetch(
-                                data.image
+                if (
+                    dislikeCount &&
+                    result.dislikes !== undefined
+                ) {
+
+                    dislikeCount.textContent =
+                        result.dislikes;
+                }
+
+
+                /* =============================================
+                   UPDATE BUTTON STATES
+                ============================================= */
+
+                if (likeButton) {
+
+                    if (
+                        reaction === "like"
+                    ) {
+
+                        likeButton.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                    else {
+
+                        likeButton.classList.remove(
+                            "active"
+                        );
+                    }
+                }
+
+
+                if (dislikeButton) {
+
+                    if (
+                        reaction === "dislike"
+                    ) {
+
+                        dislikeButton.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                    else {
+
+                        dislikeButton.classList.remove(
+                            "active"
+                        );
+                    }
+                }
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Reaction failed:",
+                    error
+                );
+            }
+        }
+
+
+        /* =====================================================
+           LIKE BUTTON
+        ===================================================== */
+
+        if (likeButton) {
+
+            likeButton.addEventListener(
+                "click",
+                function () {
+
+                    reactToProduct(
+                        "like"
+                    );
+
+                }
+            );
+        }
+
+
+        /* =====================================================
+           DISLIKE BUTTON
+        ===================================================== */
+
+        if (dislikeButton) {
+
+            dislikeButton.addEventListener(
+                "click",
+                function () {
+
+                    reactToProduct(
+                        "dislike"
+                    );
+
+                }
+            );
+        }
+
+
+        /* =====================================================
+           SHARE PRODUCT
+        ===================================================== */
+
+        if (shareButton) {
+
+            shareButton.addEventListener(
+                "click",
+                async function () {
+
+                    const data =
+                        getProductData();
+
+
+                    if (!data) {
+
+                        console.error(
+                            "Product data is missing."
+                        );
+
+                        return;
+                    }
+
+
+                    const productUrl =
+                        data.url ||
+                        window.location.href;
+
+
+                    /* =========================================
+                       SHARE TEXT
+                    ========================================= */
+
+                    const shareText =
+                        `${data.title}\n\n` +
+
+                        `Price: ${data.price}\n\n` +
+
+                        `Description:\n` +
+                        `${data.description}\n\n` +
+
+                        `Seller: ${data.seller}\n` +
+
+                        `Phone: ${data.phone}\n` +
+
+                        `Location: ${data.location}\n` +
+
+                        `Uploaded: ${data.uploaded}\n\n` +
+
+                        `View product:\n` +
+                        `${productUrl}`;
+
+
+                    /* =========================================
+                       TRY TO SHARE ACTUAL PRODUCT IMAGE
+                    ========================================= */
+
+                    try {
+
+                        if (data.image) {
+
+                            const imageUrl =
+                                normalizeImageUrl(
+                                    data.image
+                                );
+
+
+                            console.log(
+                                "Product image URL:",
+                                imageUrl
                             );
 
 
-                        const blob =
-                            await response.blob();
+                            const response =
+                                await fetch(
+                                    imageUrl,
+                                    {
+                                        method: "GET"
+                                    }
+                                );
 
 
-                        const file =
-                            new File(
-                                [blob],
-                                "wingastock-product.jpg",
+                            if (!response.ok) {
+
+                                throw new Error(
+                                    "Image request failed: HTTP " +
+                                    response.status
+                                );
+                            }
+
+
+                            const blob =
+                                await response.blob();
+
+
+                            const file =
+                                new File(
+                                    [
+                                        blob
+                                    ],
+
+                                    "wingastock-product.jpg",
+
+                                    {
+                                        type:
+                                            blob.type ||
+                                            "image/jpeg"
+                                    }
+                                );
+
+
+                            /* =====================================
+                               CHECK FILE SHARING SUPPORT
+                            ===================================== */
+
+                            if (
+                                navigator.share &&
+                                navigator.canShare &&
+                                navigator.canShare(
+                                    {
+                                        files: [
+                                            file
+                                        ]
+                                    }
+                                )
+                            ) {
+
+                                await navigator.share(
+                                    {
+                                        title:
+                                            data.title,
+
+                                        text:
+                                            shareText,
+
+                                        files: [
+                                            file
+                                        ]
+                                    }
+                                );
+
+                                return;
+                            }
+                        }
+
+
+                        /* =========================================
+                           NORMAL WEB SHARE FALLBACK
+                        ========================================= */
+
+                        if (
+                            navigator.share
+                        ) {
+
+                            await navigator.share(
                                 {
-                                    type:
-                                        blob.type ||
-                                        "image/jpeg"
+                                    title:
+                                        data.title,
+
+                                    text:
+                                        shareText,
+
+                                    url:
+                                        productUrl
                                 }
                             );
 
-
-                        if (
-                            navigator.share &&
-                            navigator.canShare &&
-                            navigator.canShare({
-                                files: [file]
-                            })
-                        ) {
-
-                            await navigator.share({
-
-                                title:
-                                    data.title,
-
-                                text:
-                                    shareText,
-
-                                files: [
-                                    file
-                                ]
-
-                            });
-
-
                             return;
-
                         }
 
-                    }
+
+                        /* =========================================
+                           CLIPBOARD FALLBACK
+                        ========================================= */
+
+                        if (
+                            navigator.clipboard &&
+                            navigator.clipboard.writeText
+                        ) {
+
+                            await navigator.clipboard.writeText(
+                                shareText
+                            );
 
 
+                            alert(
+                                "Product information copied."
+                            );
 
-                    /* =====================================
-                       NORMAL SHARE
-                    ====================================== */
-
-                    if (navigator.share) {
-
-                        await navigator.share({
-
-                            title:
-                                data.title,
-
-                            text:
-                                shareText,
-
-                            url:
-                                productUrl
-
-                        });
-
-
-                        return;
-
-                    }
-
-
-
-                    /* =====================================
-                       CLIPBOARD FALLBACK
-                    ====================================== */
-
-                    if (navigator.clipboard) {
-
-                        await navigator.clipboard.writeText(
-                            shareText
-                        );
+                            return;
+                        }
 
 
                         alert(
-                            "Product information copied."
+                            "Sharing is not supported on this browser."
                         );
 
                     }
 
+                    catch (error) {
+
+
+                        /* =====================================
+                           USER CANCELLED SHARE
+                        ===================================== */
+
+                        if (
+                            error &&
+                            error.name ===
+                                "AbortError"
+                        ) {
+
+                            console.log(
+                                "Share cancelled."
+                            );
+
+                            return;
+                        }
+
+
+                        console.error(
+                            "Share failed:",
+                            error
+                        );
+
+
+                        /* =====================================
+                           NORMAL SHARE FALLBACK
+                        ===================================== */
+
+                        try {
+
+                            if (
+                                navigator.share
+                            ) {
+
+                                await navigator.share(
+                                    {
+                                        title:
+                                            data.title,
+
+                                        text:
+                                            shareText,
+
+                                        url:
+                                            productUrl
+                                    }
+                                );
+
+                                return;
+                            }
+
+                        }
+
+                        catch (fallbackError) {
+
+                            if (
+                                fallbackError &&
+                                fallbackError.name ===
+                                    "AbortError"
+                            ) {
+
+                                return;
+                            }
+
+
+                            console.error(
+                                "Normal share failed:",
+                                fallbackError
+                            );
+                        }
+
+
+                        /* =====================================
+                           CLIPBOARD FALLBACK
+                        ===================================== */
+
+                        try {
+
+                            if (
+                                navigator.clipboard &&
+                                navigator.clipboard.writeText
+                            ) {
+
+                                await navigator.clipboard.writeText(
+                                    shareText
+                                );
+
+
+                                alert(
+                                    "Product information copied."
+                                );
+                            }
+
+                        }
+
+                        catch (clipboardError) {
+
+                            console.error(
+                                "Clipboard fallback failed:",
+                                clipboardError
+                            );
+
+                        }
+                    }
                 }
-
-                catch (error) {
-
-                    console.error(
-                        "Share failed:",
-                        error
-                    );
-
-                }
-
-            }
-        );
-
-    }
-);
+            );
+        }
 
 
+        /* =====================================================
+           WHATSAPP SHARE
+        ===================================================== */
 
-/* =========================================================
-   FAVORITE BUTTON
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        const favoriteButton =
+        const whatsappButton =
             document.getElementById(
-                "favoriteButton"
+                "whatsappButton"
             );
 
 
-        if (!favoriteButton) return;
+        if (whatsappButton) {
+
+            whatsappButton.addEventListener(
+                "click",
+                function () {
+
+                    const data =
+                        getProductData();
 
 
-        favoriteButton.addEventListener(
-            "click",
-            function () {
-
-                const icon =
-                    this.querySelector("i");
+                    if (!data) {
+                        return;
+                    }
 
 
-                if (!icon) return;
+                    let phone =
+                        data.phone || "";
 
 
-                if (
-                    icon.classList.contains("far")
-                ) {
+                    /* =========================================
+                       CLEAN TANZANIA PHONE NUMBER
+                    ========================================= */
 
-                    icon.classList.remove(
-                        "far"
+                    phone =
+                        phone.replace(
+                            /\D/g,
+                            ""
+                        );
+
+
+                    if (
+                        phone.startsWith(
+                            "0"
+                        )
+                    ) {
+
+                        phone =
+                            "255" +
+                            phone.substring(
+                                1
+                            );
+                    }
+
+
+                    if (
+                        phone.startsWith(
+                            "+"
+                        )
+                    ) {
+
+                        phone =
+                            phone.substring(
+                                1
+                            );
+                    }
+
+
+                    /* =========================================
+                       WHATSAPP MESSAGE
+                    ========================================= */
+
+                    const message =
+                        `${data.title}\n\n` +
+
+                        `Price: ${data.price}\n\n` +
+
+                        `Description:\n` +
+                        `${data.description}\n\n` +
+
+                        `Seller: ${data.seller}\n` +
+
+                        `Phone: ${data.phone}\n` +
+
+                        `Location: ${data.location}\n` +
+
+                        `Uploaded: ${data.uploaded}\n\n` +
+
+                        `View product:\n` +
+                        `${data.url || window.location.href}`;
+
+
+                    const whatsappUrl =
+                        "https://wa.me/" +
+                        phone +
+                        "?text=" +
+                        encodeURIComponent(
+                            message
+                        );
+
+
+                    window.open(
+                        whatsappUrl,
+                        "_blank"
                     );
-
-                    icon.classList.add(
-                        "fas"
-                    );
-
-                    this.classList.add(
-                        "active"
-                    );
-
-                } else {
-
-                    icon.classList.remove(
-                        "fas"
-                    );
-
-                    icon.classList.add(
-                        "far"
-                    );
-
-                    this.classList.remove(
-                        "active"
-                    );
-
                 }
-
-            }
-        );
+            );
+        }
 
     }
 );

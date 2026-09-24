@@ -1,235 +1,2555 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Field Report | Add new report</title>
-    <link rel="shortcut icon" href="{% static 'logo1.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css_re/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Field Report | Add New Report</title>
+
+    <link
+        rel="shortcut icon"
+        href="{% static 'logo1.png' %}"
+        type="image/x-icon"
+    >
+
+    <!-- MAIN SHARED FIELD TRAINING CSS -->
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css_re/style.css' %}"
+    >
+
+    <!-- FONT AWESOME -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
+
+
+    <!-- =========================================================
+         ADD REPORT PAGE CSS
+         ========================================================= -->
 
     <style>
-        .messages {
-            margin: 20px 0;
+
+        /* =====================================================
+           SAFE GLOBAL OVERFLOW
+           ===================================================== */
+
+        html,
+        body {
+
+            width: 100%;
+            max-width: 100%;
+
+            margin: 0;
+            padding: 0;
+
+            overflow-x: hidden;
+
         }
 
-        .alert {
-            padding: 12px 18px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            color: #fff;
-            font-weight: 500;
+
+        .portal-wrapper {
+
+            width: 100%;
+            max-width: 100%;
+
+            min-width: 0;
+
+            overflow-x: hidden;
+
         }
 
-        .success {
-            background: #28a745;
+
+        .portal-main {
+
+            min-width: 0;
+
+            max-width: 100%;
+
+            overflow-x: hidden;
+
         }
 
-        .error {
-            background: #dc3545;
+
+        .portal-content {
+
+            width: 100%;
+
+            min-width: 0;
+
+            max-width: 100%;
+
+            overflow-x: hidden;
+
         }
 
-        .warning {
-            background: #ffc107;
-            color: #000;
+
+        /* =====================================================
+           PAGE CONTAINER
+           ===================================================== */
+
+        .add-report-page-202 {
+
+            width: 100%;
+
+            max-width: 1500px;
+
+            min-width: 0;
+
+            margin: 0 auto;
+
         }
 
-        .info {
-            background: #17a2b8;
+
+        /* =====================================================
+           BACK LINK
+           ===================================================== */
+
+        .add-report-back-202 {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 14px;
+
+            color:
+                var(--portal-primary);
+
+            font-size: 10px;
+
+            font-weight: 650;
+
+            text-decoration: none;
+
+            transition:
+                var(--portal-transition);
+
         }
+
+
+        .add-report-back-202:hover {
+
+            color:
+                var(--portal-primary-dark);
+
+            transform:
+                translateX(-2px);
+
+        }
+
+
+        /* =====================================================
+           INTRO CARD
+           ===================================================== */
+
+        .add-report-intro-202 {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 16px;
+
+            width: 100%;
+
+            min-width: 0;
+
+            margin-bottom: 20px;
+
+            padding: 20px 22px;
+
+            box-sizing: border-box;
+
+            background:
+                var(--portal-primary-light);
+
+            border:
+                1px solid
+                var(--portal-border);
+
+            border-radius:
+                var(--portal-radius-lg);
+
+            overflow: hidden;
+
+        }
+
+
+        .add-report-intro-icon-202 {
+
+            width: 48px;
+
+            height: 48px;
+
+            min-width: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                var(--portal-primary);
+
+            color: white;
+
+            font-size: 18px;
+
+        }
+
+
+        .add-report-intro-content-202 {
+
+            min-width: 0;
+
+        }
+
+
+        .add-report-intro-content-202 span {
+
+            display: block;
+
+            margin-bottom: 4px;
+
+            color:
+                var(--portal-primary);
+
+            font-size: 8px;
+
+            font-weight: 750;
+
+            letter-spacing: 1.1px;
+
+        }
+
+
+        .add-report-intro-content-202 h1 {
+
+            margin: 0;
+
+            color:
+                var(--portal-text);
+
+            font-size: 20px;
+
+            font-weight: 750;
+
+            overflow-wrap: anywhere;
+
+        }
+
+
+        .add-report-intro-content-202 p {
+
+            margin: 5px 0 0;
+
+            color:
+                var(--portal-text-muted);
+
+            font-size: 10px;
+
+            line-height: 1.6;
+
+            overflow-wrap: anywhere;
+
+        }
+
+
+        /* =====================================================
+           MESSAGES
+           ===================================================== */
+
+        .messages-container {
+
+            width: 100%;
+
+            min-width: 0;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        /* =====================================================
+           MAIN FORM CARD
+           ===================================================== */
+
+        .add-report-content-202 {
+
+            width: 100%;
+
+            min-width: 0;
+
+            background:
+                var(--portal-surface);
+
+            border:
+                1px solid
+                var(--portal-border);
+
+            border-radius:
+                var(--portal-radius-lg);
+
+            box-shadow:
+                var(--portal-shadow-sm);
+
+            overflow: hidden;
+
+        }
+
+
+        /* =====================================================
+           FORM HEADER
+           ===================================================== */
+
+        .add-report-header-202 {
+
+            padding: 20px 22px;
+
+            border-bottom:
+                1px solid
+                var(--portal-border);
+
+        }
+
+
+        .add-report-header-202 span {
+
+            display: block;
+
+            margin-bottom: 4px;
+
+            color:
+                var(--portal-primary);
+
+            font-size: 8px;
+
+            font-weight: 750;
+
+            letter-spacing: 1.1px;
+
+        }
+
+
+        .add-report-header-202 h2 {
+
+            margin: 0;
+
+            color:
+                var(--portal-text);
+
+            font-size: 17px;
+
+            font-weight: 750;
+
+        }
+
+
+        .add-report-header-202 p {
+
+            margin: 5px 0 0;
+
+            color:
+                var(--portal-text-muted);
+
+            font-size: 10px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           FORM
+           ===================================================== */
+
+        .add-report-form-202 {
+
+            width: 100%;
+
+            min-width: 0;
+
+        }
+
+
+        .add-report-fields-202 {
+
+            width: 100%;
+
+            min-width: 0;
+
+            box-sizing: border-box;
+
+            padding: 22px;
+
+        }
+
+
+        /* =====================================================
+           FORM GRID
+           ===================================================== */
+
+        .add-report-grid-202 {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 18px 15px;
+
+            width: 100%;
+
+            min-width: 0;
+
+        }
+
+
+        .add-report-grid-202 > * {
+
+            min-width: 0;
+
+        }
+
+
+        /* =====================================================
+           FORM FIELD
+           ===================================================== */
+
+        .add-report-field-202 {
+
+            min-width: 0;
+
+        }
+
+
+        .add-report-field-202.full-width {
+
+            grid-column:
+                1 / -1;
+
+        }
+
+
+        /* =====================================================
+           LABEL
+           ===================================================== */
+
+        .add-report-field-202 label {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 7px;
+
+            color:
+                var(--portal-text);
+
+            font-size: 11px;
+
+            font-weight: 650;
+
+        }
+
+
+        .add-report-field-202 label i {
+
+            width: 15px;
+
+            min-width: 15px;
+
+            color:
+                var(--portal-primary);
+
+            font-size: 10px;
+
+            text-align: center;
+
+        }
+
+
+        .required-mark-202 {
+
+            color:
+                #dc2626;
+
+            font-size: 10px;
+
+        }
+
+
+        /* =====================================================
+           INPUT / SELECT / TEXTAREA
+           ===================================================== */
+
+        .add-report-field-202 input,
+        .add-report-field-202 select,
+        .add-report-field-202 textarea {
+
+            display: block;
+
+            width: 100%;
+
+            max-width: 100%;
+
+            min-width: 0;
+
+            box-sizing: border-box;
+
+            border:
+                1px solid
+                var(--portal-border);
+
+            border-radius: 8px;
+
+            outline: none;
+
+            background:
+                #fbfcfd;
+
+            color:
+                var(--portal-text);
+
+            font-family: inherit;
+
+            font-size: 10px;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                box-shadow 0.2s ease;
+
+        }
+
+
+        .add-report-field-202 input,
+        .add-report-field-202 select {
+
+            height: 43px;
+
+            padding:
+                0 12px;
+
+        }
+
+
+        .add-report-field-202 textarea {
+
+            min-height: 155px;
+
+            padding: 12px;
+
+            resize: vertical;
+
+            line-height: 1.65;
+
+        }
+
+
+        /* =====================================================
+           PLACEHOLDER
+           ===================================================== */
+
+        .add-report-field-202 input::placeholder,
+        .add-report-field-202 textarea::placeholder {
+
+            color:
+                #a5afb6;
+
+        }
+
+
+        /* =====================================================
+           HOVER
+           ===================================================== */
+
+        .add-report-field-202 input:hover,
+        .add-report-field-202 select:hover,
+        .add-report-field-202 textarea:hover {
+
+            background:
+                white;
+
+        }
+
+
+        /* =====================================================
+           FOCUS
+           ===================================================== */
+
+        .add-report-field-202 input:focus,
+        .add-report-field-202 select:focus,
+        .add-report-field-202 textarea:focus {
+
+            background:
+                white;
+
+            border-color:
+                #9dbdca;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(1, 65, 98, 0.07);
+
+        }
+
+
+        /* =====================================================
+           HELP TEXT
+           ===================================================== */
+
+        .add-report-field-help-202 {
+
+            margin-top: 5px;
+
+            color:
+                var(--portal-text-muted);
+
+            font-size: 8px;
+
+            line-height: 1.5;
+
+            overflow-wrap: anywhere;
+
+        }
+
+
+        /* =====================================================
+           CHARACTER COUNT
+           ===================================================== */
+
+        .textarea-footer-202 {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            margin-top: 5px;
+
+        }
+
+
+        .textarea-count-202 {
+
+            color:
+                var(--portal-text-muted);
+
+            font-size: 8px;
+
+        }
+
+
+        /* =====================================================
+           SUBMIT AREA
+           ===================================================== */
+
+        .add-report-actions-202 {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 12px;
+
+            padding:
+                18px 22px 22px;
+
+            border-top:
+                1px solid
+                var(--portal-border);
+
+        }
+
+
+        /* =====================================================
+           CANCEL BUTTON
+           ===================================================== */
+
+        .add-report-cancel-202 {
+
+            min-height: 42px;
+
+            padding:
+                0 17px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            border:
+                1px solid
+                var(--portal-border);
+
+            border-radius: 9px;
+
+            background:
+                white;
+
+            color:
+                var(--portal-text-muted);
+
+            font-size: 11px;
+
+            font-weight: 650;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            transition:
+                var(--portal-transition);
+
+        }
+
+
+        .add-report-cancel-202:hover {
+
+            border-color:
+                #b8c3ca;
+
+            color:
+                var(--portal-text);
+
+            background:
+                #f8fafb;
+
+        }
+
+
+        /* =====================================================
+           SUBMIT BUTTON
+           ===================================================== */
+
+        .add-report-submit-202 {
+
+            min-height: 42px;
+
+            padding:
+                0 17px;
+
+            border: 0;
+
+            border-radius: 9px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            background:
+                var(--portal-primary);
+
+            color: white;
+
+            font-size: 11px;
+
+            font-weight: 650;
+
+            cursor: pointer;
+
+            transition:
+                var(--portal-transition);
+
+        }
+
+
+        .add-report-submit-202:hover {
+
+            background:
+                var(--portal-primary-dark);
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 6px 15px
+                rgba(1, 65, 98, 0.16);
+
+        }
+
+
+        .add-report-submit-202:active {
+
+            transform:
+                translateY(0);
+
+        }
+
+
+        .add-report-submit-202:disabled {
+
+            opacity: 0.65;
+
+            cursor:
+                not-allowed;
+
+            transform:
+                none;
+
+            box-shadow:
+                none;
+
+        }
+
+
+        /* =====================================================
+           TIPS CARD
+           ===================================================== */
+
+        .add-report-tips-202 {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 12px;
+
+            margin-top: 18px;
+
+            padding: 15px 17px;
+
+            background:
+                #f8fafb;
+
+            border:
+                1px solid
+                var(--portal-border);
+
+            border-radius: 10px;
+
+        }
+
+
+        .add-report-tips-icon-202 {
+
+            width: 30px;
+
+            height: 30px;
+
+            min-width: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background:
+                var(--portal-primary-light);
+
+            color:
+                var(--portal-primary);
+
+            font-size: 12px;
+
+        }
+
+
+        .add-report-tips-content-202 {
+
+            min-width: 0;
+
+        }
+
+
+        .add-report-tips-content-202 strong {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color:
+                var(--portal-text);
+
+            font-size: 10px;
+
+        }
+
+
+        .add-report-tips-content-202 ul {
+
+            margin: 0;
+
+            padding-left: 17px;
+
+            color:
+                var(--portal-text-muted);
+
+            font-size: 9px;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =====================================================
+           HEADER EMAIL OVERFLOW
+           ===================================================== */
+
+        .header-user {
+
+            min-width: 0;
+
+        }
+
+
+        .header-user-info {
+
+            min-width: 0;
+
+            max-width: 240px;
+
+        }
+
+
+        .header-user-info span {
+
+            display: block;
+
+            max-width: 100%;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 768px) {
+
+            .add-report-intro-202 {
+
+                align-items: flex-start;
+
+                padding: 17px;
+
+            }
+
+
+            .add-report-intro-icon-202 {
+
+                width: 42px;
+
+                height: 42px;
+
+                min-width: 42px;
+
+            }
+
+
+            .add-report-intro-content-202 h1 {
+
+                font-size: 17px;
+
+            }
+
+
+            .add-report-grid-202 {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .add-report-field-202.full-width {
+
+                grid-column: auto;
+
+            }
+
+
+            .add-report-fields-202 {
+
+                padding: 18px;
+
+            }
+
+
+            .add-report-header-202 {
+
+                padding:
+                    17px 18px;
+
+            }
+
+
+            .add-report-actions-202 {
+
+                padding:
+                    16px 18px 18px;
+
+            }
+
+
+            .add-report-submit-202,
+            .add-report-cancel-202 {
+
+                flex: 1;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           SMALL MOBILE
+           ===================================================== */
+
+        @media (max-width: 480px) {
+
+            .add-report-intro-202 {
+
+                gap: 11px;
+
+                padding: 15px;
+
+            }
+
+
+            .add-report-intro-icon-202 {
+
+                width: 38px;
+
+                height: 38px;
+
+                min-width: 38px;
+
+                font-size: 14px;
+
+            }
+
+
+            .add-report-intro-content-202 h1 {
+
+                font-size: 16px;
+
+            }
+
+
+            .add-report-intro-content-202 p {
+
+                font-size: 9px;
+
+            }
+
+
+            .add-report-fields-202 {
+
+                padding: 15px;
+
+            }
+
+
+            .add-report-header-202 {
+
+                padding:
+                    16px 15px;
+
+            }
+
+
+            .add-report-actions-202 {
+
+                padding:
+                    15px;
+
+            }
+
+
+            .add-report-actions-202 {
+
+                flex-direction: column-reverse;
+
+            }
+
+
+            .add-report-submit-202,
+            .add-report-cancel-202 {
+
+                width: 100%;
+
+                flex: none;
+
+            }
+
+
+            .add-report-field-202 textarea {
+
+                min-height:
+                    145px;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           VERY SMALL MOBILE
+           ===================================================== */
+
+        @media (max-width: 360px) {
+
+            .add-report-fields-202 {
+
+                padding: 12px;
+
+            }
+
+
+            .add-report-header-202 {
+
+                padding:
+                    14px 12px;
+
+            }
+
+
+            .add-report-actions-202 {
+
+                padding:
+                    13px 12px;
+
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <div class="row-holder">
 
-        <!-- Header -->
-        <div class="header-holder-100">
-            <div class="header-100">
-                <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-                            class="fas fa-times"></i></button>
+<div class="portal-wrapper">
+
+
+    <!-- =========================================================
+         SIDEBAR OVERLAY
+         ========================================================= -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="closeSidebar()"
+    ></div>
+
+
+    <!-- =========================================================
+         SIDEBAR
+         EXACT DASHBOARD NAVBAR
+         ========================================================= -->
+
+    <aside
+        class="portal-sidebar"
+        id="portalSidebar"
+    >
+
+
+        <!-- BRAND -->
+
+        <div class="sidebar-brand">
+
+            <a href="{% url 'report_home' %}">
+
+                <div class="brand-logo">
+
+                    <img
+                        src="{% static 'logo1.png' %}"
+                        alt="Field Report"
+                    >
+
                 </div>
-                <div class="title-holder-101">
-                    <button type="button"><span>Add Report</span></button>
+
+                <div class="brand-text">
+
+                    <strong>
+                        Field Training
+                    </strong>
+
+                    <span>
+                        Student Portal
+                    </span>
+
                 </div>
-                <div class="title-holder-101" style="float: right;">
-                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
-                </div>
-            </div>
+
+            </a>
+
         </div>
 
 
-        <!-- center content -->
-        <div class="center-content-200">
+        <!-- NAVIGATION -->
 
-            <div class="left-holder-201" id="nav">
-                <div class="nav-bar-holder-202">
+        <nav class="sidebar-navigation">
 
-                    <ul>
-                        <a href="{% url 'report_home' %}">
-                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
-                        </a>
-                    </ul>
 
-                    <ul>
-                        <a href="{% url 'placements_list' %}">
-                            <li class="active-0">Reports <i class="fas fa-file-alt"></i></li>
-                        </a>
-                    </ul>
+            <!-- MAIN -->
 
-                    <ul>
-                        <a href="{% url 'user_account' %}">
-                            <li>Account <i class="fas fa-user"></i></li>
-                        </a>
-                    </ul>
+            <div class="navigation-section">
 
-                    <ul>
-                        <a href="{% url 'home' %}">
-                            <li>Back Wingastock <i class="fas fa-home"></i></li>
-                        </a>
-                    </ul>
+                <span class="navigation-label">
+                    MAIN
+                </span>
 
-                </div>
+
+                <!-- DASHBOARD -->
+
+                <a
+                    href="{% url 'report_home' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+
+                        <i class="fas fa-th-large"></i>
+
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Dashboard
+                        </strong>
+
+                        <small>
+                            Overview of your training
+                        </small>
+
+                    </span>
+
+                </a>
+
+
+                <!-- FIELD REPORTS -->
+
+                <a
+                    href="{% url 'placements_list' %}"
+                    class="navigation-item active"
+                >
+
+                    <span class="navigation-icon">
+
+                        <i class="fas fa-file-alt"></i>
+
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Field Reports
+                        </strong>
+
+                        <small>
+                            Daily and weekly reports
+                        </small>
+
+                    </span>
+
+                </a>
+
             </div>
 
-            <div class="right-holder-201">
-                <div class="products-202">
 
-                    <p style="font-weight: bold;">Add new report</p>
+            <!-- ACCOUNT -->
 
-                    {% if messages %}
-                    <div class="messages">
-                        {% for message in messages %}
-                        <div class="alert {{ message.tags }}">
-                            {{ message }}
-                        </div>
-                        {% endfor %}
+            <div class="navigation-section">
+
+                <span class="navigation-label">
+                    ACCOUNT
+                </span>
+
+
+                <a
+                    href="{% url 'user_account' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+
+                        <i class="fas fa-user"></i>
+
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            My Account
+                        </strong>
+
+                        <small>
+                            Manage your profile
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- WEBSITE -->
+
+            <div class="navigation-section">
+
+                <span class="navigation-label">
+                    WEBSITE
+                </span>
+
+
+                <a
+                    href="{% url 'home' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+
+                        <i class="fas fa-external-link-alt"></i>
+
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Back to WingaStock
+                        </strong>
+
+                        <small>
+                            Return to main website
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+        </nav>
+
+
+        <!-- SIDEBAR HELP -->
+
+        <div class="sidebar-help">
+
+            <div class="sidebar-help-icon">
+
+                <i class="fas fa-info-circle"></i>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Need help?
+                </strong>
+
+                <p>
+                    Complete your daily reports regularly
+                    to keep your field training record up to date.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- SIDEBAR FOOTER -->
+
+        <div class="sidebar-footer">
+
+            <span>
+                Field Practical Training
+            </span>
+
+            <small>
+                Student Reporting System
+            </small>
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- =========================================================
+         MAIN
+         ========================================================= -->
+
+    <main class="portal-main">
+
+
+        <!-- =====================================================
+             HEADER
+             ===================================================== -->
+
+        <header class="portal-header">
+
+
+            <div class="header-left">
+
+
+                <button
+                    type="button"
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    onclick="toggleSidebar()"
+                    aria-label="Open navigation"
+                    aria-controls="portalSidebar"
+                    aria-expanded="false"
+                >
+
+                    <i class="fas fa-bars"></i>
+
+                </button>
+
+
+                <div class="header-page-title">
+
+                    <span>
+                        Student Portal
+                    </span>
+
+                    <h1>
+                        Add Daily Report
+                    </h1>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="header-right">
+
+
+                <div class="header-user">
+
+                    <div class="header-user-icon">
+
+                        <i class="fas fa-user"></i>
+
                     </div>
-                    {% endif %}
 
-                    <form method="POST" action="" enctype="multipart/form-data">
+
+                    <div class="header-user-info">
+
+                        <strong>
+                            Student
+                        </strong>
+
+                        <span>
+                            {{ user.email }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+        <!-- =====================================================
+             PAGE CONTENT
+             ===================================================== -->
+
+        <div class="portal-content">
+
+
+            <div class="add-report-page-202">
+
+
+                <!-- =================================================
+                     BACK
+                     ================================================= -->
+
+                <a
+                    href="{% url 'placements_list' %}"
+                    class="add-report-back-202"
+                >
+
+                    <i class="fas fa-arrow-left"></i>
+
+                    <span>
+                        Back to Field Reports
+                    </span>
+
+                </a>
+
+
+                <!-- =================================================
+                     INTRO
+                     ================================================= -->
+
+                <div class="add-report-intro-202">
+
+
+                    <div class="add-report-intro-icon-202">
+
+                        <i class="fas fa-file-medical"></i>
+
+                    </div>
+
+
+                    <div class="add-report-intro-content-202">
+
+                        <span>
+                            DAILY FIELD REPORT
+                        </span>
+
+                        <h1>
+                            Add New Report
+                        </h1>
+
+                        <p>
+                            Record the activities, skills, challenges,
+                            solutions and remarks from your field
+                            practical training.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     DJANGO MESSAGES
+                     ================================================= -->
+
+                {% if messages %}
+
+                <div class="messages-container">
+
+                    {% for message in messages %}
+
+                    <div
+                        class="portal-alert {{ message.tags }}"
+                        role="alert"
+                    >
+
+                        <div class="alert-icon">
+
+                            {% if message.tags == "success" %}
+
+                                <i class="fas fa-check"></i>
+
+                            {% elif message.tags == "error" %}
+
+                                <i class="fas fa-times"></i>
+
+                            {% elif message.tags == "warning" %}
+
+                                <i class="fas fa-exclamation"></i>
+
+                            {% else %}
+
+                                <i class="fas fa-info"></i>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="alert-message">
+
+                            {{ message }}
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="alert-close"
+                            onclick="closeAlert(this)"
+                            aria-label="Close message"
+                        >
+
+                            <i class="fas fa-times"></i>
+
+                        </button>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     FORM CARD
+                     ================================================= -->
+
+                <div class="add-report-content-202">
+
+
+                    <!-- FORM HEADER -->
+
+                    <div class="add-report-header-202">
+
+                        <span>
+                            REPORT INFORMATION
+                        </span>
+
+                        <h2>
+                            Daily Training Report
+                        </h2>
+
+                        <p>
+                            Enter the information below to record
+                            today's field training activities.
+                        </p>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         FORM
+                         ================================================= -->
+
+                    <form
+                        method="POST"
+                        action=""
+                        class="add-report-form-202"
+                        id="addReportForm"
+                    >
+
                         {% csrf_token %}
 
-                        <div class="input-holder-203">
-                            <p><i class="fas fa-calendar-day"></i> Report date</p>
-                            <div>
-                                <select name="date" required>
-                                    <option value="">Choose date</option>
 
-                                    {% for date in available_dates %}
-                                    <option value="{{ date|date:'Y-m-d' }}">
-                                        {{ date|date:'D, d M Y' }}
-                                    </option>
-                                    {% endfor %}
-                                </select>
+                        <div class="add-report-fields-202">
+
+
+                            <div class="add-report-grid-202">
+
+
+                                <!-- =================================================
+                                     PLACEMENT
+                                     ================================================= -->
+
+                                <div class="add-report-field-202">
+
+                                    <label for="placement">
+
+                                        <i class="fas fa-building"></i>
+
+                                        <span>
+                                            Field Placement
+                                        </span>
+
+                                        <span class="required-mark-202">
+                                            *
+                                        </span>
+
+                                    </label>
+
+
+                                    <select
+                                        name="placement"
+                                        id="placement"
+                                        required
+                                    >
+
+                                        <option value="">
+                                            Select your placement
+                                        </option>
+
+
+                                        {% if placement %}
+
+                                        <option
+                                            value="{{ placement.id }}"
+                                            selected
+                                        >
+
+                                            {{ placement.organization }}
+
+                                            {% if placement.location %}
+                                                — {{ placement.location }}
+                                            {% endif %}
+
+                                        </option>
+
+                                        {% elif placements %}
+
+                                            {% for item in placements %}
+
+                                            <option
+                                                value="{{ item.id }}"
+                                            >
+
+                                                {{ item.organization }}
+
+                                                {% if item.location %}
+                                                    — {{ item.location }}
+                                                {% endif %}
+
+                                            </option>
+
+                                            {% endfor %}
+
+                                        {% endif %}
+
+
+                                    </select>
+
+
+                                    <div class="add-report-field-help-202">
+
+                                        Select the field placement where
+                                        you completed this activity.
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     DATE
+                                     ================================================= -->
+
+                                <div class="add-report-field-202">
+
+                                    <label for="reportDate">
+
+                                        <i class="fas fa-calendar-day"></i>
+
+                                        <span>
+                                            Report Date
+                                        </span>
+
+                                        <span class="required-mark-202">
+                                            *
+                                        </span>
+
+                                    </label>
+
+
+                                    <input
+                                        type="date"
+                                        name="date"
+                                        id="reportDate"
+                                        required
+                                    >
+
+
+                                    <div class="add-report-field-help-202">
+
+                                        Select the date when the activity
+                                        was performed.
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     TITLE
+                                     ================================================= -->
+
+                                <div class="add-report-field-202 full-width">
+
+                                    <label for="reportTitle">
+
+                                        <i class="fas fa-heading"></i>
+
+                                        <span>
+                                            Report Title
+                                        </span>
+
+                                        <span class="required-mark-202">
+                                            *
+                                        </span>
+
+                                    </label>
+
+
+                                    <input
+                                        type="text"
+                                        name="title"
+                                        id="reportTitle"
+                                        placeholder="e.g. Database Management"
+                                        autocomplete="off"
+                                        required
+                                    >
+
+
+                                    <div class="add-report-field-help-202">
+
+                                        Use a short and descriptive title
+                                        for today's report.
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     ACTIVITIES
+                                     ================================================= -->
+
+                                <div class="add-report-field-202 full-width">
+
+                                    <label for="activities">
+
+                                        <i class="fas fa-tasks"></i>
+
+                                        <span>
+                                            Activities Performed
+                                        </span>
+
+                                        <span class="required-mark-202">
+                                            *
+                                        </span>
+
+                                    </label>
+
+
+                                    <textarea
+                                        name="activities"
+                                        id="activities"
+                                        required
+                                        placeholder="Describe clearly the activities you performed today..."
+                                    ></textarea>
+
+
+                                    <div class="textarea-footer-202">
+
+                                        <span
+                                            class="textarea-count-202"
+                                            data-counter-for="activities"
+                                        >
+                                            0 characters
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     SKILLS LEARNED
+                                     ================================================= -->
+
+                                <div class="add-report-field-202 full-width">
+
+                                    <label for="skillsLearned">
+
+                                        <i class="fas fa-lightbulb"></i>
+
+                                        <span>
+                                            Skills Learned
+                                        </span>
+
+                                    </label>
+
+
+                                    <textarea
+                                        name="skills_learned"
+                                        id="skillsLearned"
+                                        placeholder="Describe the skills, knowledge or experience you gained..."
+                                    ></textarea>
+
+
+                                    <div class="textarea-footer-202">
+
+                                        <span
+                                            class="textarea-count-202"
+                                            data-counter-for="skillsLearned"
+                                        >
+                                            0 characters
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     CHALLENGES
+                                     ================================================= -->
+
+                                <div class="add-report-field-202 full-width">
+
+                                    <label for="challenges">
+
+                                        <i class="fas fa-exclamation-triangle"></i>
+
+                                        <span>
+                                            Challenges
+                                        </span>
+
+                                    </label>
+
+
+                                    <textarea
+                                        name="challenges"
+                                        id="challenges"
+                                        placeholder="Describe any challenges or difficulties you encountered..."
+                                    ></textarea>
+
+
+                                    <div class="textarea-footer-202">
+
+                                        <span
+                                            class="textarea-count-202"
+                                            data-counter-for="challenges"
+                                        >
+                                            0 characters
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     SOLUTIONS
+                                     ================================================= -->
+
+                                <div class="add-report-field-202 full-width">
+
+                                    <label for="solutions">
+
+                                        <i class="fas fa-tools"></i>
+
+                                        <span>
+                                            Solutions
+                                        </span>
+
+                                    </label>
+
+
+                                    <textarea
+                                        name="solutions"
+                                        id="solutions"
+                                        placeholder="Explain how the challenges were solved or addressed..."
+                                    ></textarea>
+
+
+                                    <div class="textarea-footer-202">
+
+                                        <span
+                                            class="textarea-count-202"
+                                            data-counter-for="solutions"
+                                        >
+                                            0 characters
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     REMARKS
+                                     ================================================= -->
+
+                                <div class="add-report-field-202 full-width">
+
+                                    <label for="remarks">
+
+                                        <i class="fas fa-comment"></i>
+
+                                        <span>
+                                            Remarks
+                                        </span>
+
+                                    </label>
+
+
+                                    <textarea
+                                        name="remarks"
+                                        id="remarks"
+                                        placeholder="Add any additional remarks about today's training..."
+                                    ></textarea>
+
+
+                                    <div class="textarea-footer-202">
+
+                                        <span
+                                            class="textarea-count-202"
+                                            data-counter-for="remarks"
+                                        >
+                                            0 characters
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
                             </div>
+
+
                         </div>
 
 
-                        <div class="input-holder-203">
-                            <p><i class="fas fa-heading"></i> Report title</p>
-                            <div>
-                                <input type="text" name="title" placeholder="e.g. Database design and development"
-                                    required>
-                            </div>
+                        <!-- =================================================
+                             ACTIONS
+                             ================================================= -->
+
+                        <div class="add-report-actions-202">
+
+
+                            <a
+                                href="{% url 'placements_list' %}"
+                                class="add-report-cancel-202"
+                            >
+
+                                <i class="fas fa-times"></i>
+
+                                <span>
+                                    Cancel
+                                </span>
+
+                            </a>
+
+
+                            <button
+                                type="submit"
+                                class="add-report-submit-202"
+                                id="submitReportButton"
+                            >
+
+                                <i class="fas fa-save"></i>
+
+                                <span>
+                                    Submit Daily Report
+                                </span>
+
+                            </button>
+
+
                         </div>
 
 
-                        <div class="input-holder-203" style="height: 250px;">
-                            <p><i class="fas fa-tasks"></i> Activities performed</p>
-                            <div style="height: 200px;">
-                                <textarea name="activities" required
-                                    placeholder="Describe the activities you performed today..."></textarea>
-                            </div>
-                        </div>
-
-
-                        <div class="input-holder-203" style="height: 250px;">
-                            <p><i class="fas fa-lightbulb"></i> Skills learned</p>
-                            <div style="height: 200px;">
-                                <textarea name="skills_learned"
-                                    placeholder="Describe the skills or knowledge you gained today..."></textarea>
-                            </div>
-                        </div>
-
-
-                        <div class="input-holder-203" style="height: 250px;">
-                            <p><i class="fas fa-exclamation-triangle"></i> Challenges</p>
-                            <div style="height: 200px;">
-                                <textarea name="challenges"
-                                    placeholder="Describe any challenges you encountered..."></textarea>
-                            </div>
-                        </div>
-
-
-                        <div class="input-holder-203" style="height: 250px;">
-                            <p><i class="fas fa-tools"></i> Solutions</p>
-                            <div style="height: 200px;">
-                                <textarea name="solutions"
-                                    placeholder="Explain how you solved the challenges..."></textarea>
-                            </div>
-                        </div>
-
-
-                        <div class="input-holder-203" style="height: 250px;">
-                            <p><i class="fas fa-comment"></i> Remarks</p>
-                            <div style="height: 200px;">
-                                <textarea name="remarks" placeholder="Add any additional remarks..."></textarea>
-                            </div>
-                        </div>
-
-
-                        <div class="input-holder-203 submit-203">
-                            <div>
-                                <button type="submit">
-                                    <i class="fas fa-save"></i> Submit daily report
-                                </button>
-                            </div>
-                        </div>
-                        
                     </form>
 
+
                 </div>
+
+
+                <!-- =================================================
+                     TIPS
+                     ================================================= -->
+
+                <div class="add-report-tips-202">
+
+
+                    <div class="add-report-tips-icon-202">
+
+                        <i class="fas fa-lightbulb"></i>
+
+                    </div>
+
+
+                    <div class="add-report-tips-content-202">
+
+                        <strong>
+                            Tips for a good daily report
+                        </strong>
+
+
+                        <ul>
+
+                            <li>
+                                Describe the actual activities you performed.
+                            </li>
+
+                            <li>
+                                Mention the practical skills or knowledge you gained.
+                            </li>
+
+                            <li>
+                                Explain challenges and how they were addressed.
+                            </li>
+
+                            <li>
+                                Keep your report clear, accurate and professional.
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                </div>
+
+
             </div>
+
 
         </div>
 
-    </div>
+
+    </main>
 
 
+</div>
 
-    <script>
-        function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
 
-            if (click == 'open') {
-                menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
-            }
-            else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
-                nav.style.display = 'none';
-            }
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+
+    /* =========================================================
+       SIDEBAR
+       ========================================================= */
+
+    function toggleSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        const button =
+            document.getElementById("mobileMenuButton");
+
+
+        if (!sidebar) {
+
+            return;
+
         }
-    </script>
-    <script>
-        setTimeout(function () {
-            document.querySelectorAll(".alert").forEach(function (alert) {
-                alert.style.transition = "opacity 0.5s";
-                alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 500);
-            });
-        }, 4000);
-    </script>
+
+
+        const isOpen =
+            sidebar.classList.contains("sidebar-open");
+
+
+        if (isOpen) {
+
+            closeSidebar();
+
+            return;
+
+        }
+
+
+        sidebar.classList.add("sidebar-open");
+
+
+        if (overlay) {
+
+            overlay.classList.add("overlay-visible");
+
+        }
+
+
+        if (button) {
+
+            button.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+            button.setAttribute(
+                "aria-label",
+                "Close navigation"
+            );
+
+
+            const icon =
+                button.querySelector("i");
+
+
+            if (icon) {
+
+                icon.className =
+                    "fas fa-times";
+
+            }
+
+        }
+
+    }
+
+
+    /* =========================================================
+       CLOSE SIDEBAR
+       ========================================================= */
+
+    function closeSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        const button =
+            document.getElementById("mobileMenuButton");
+
+
+        if (sidebar) {
+
+            sidebar.classList.remove(
+                "sidebar-open"
+            );
+
+        }
+
+
+        if (overlay) {
+
+            overlay.classList.remove(
+                "overlay-visible"
+            );
+
+        }
+
+
+        if (button) {
+
+            button.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            button.setAttribute(
+                "aria-label",
+                "Open navigation"
+            );
+
+
+            const icon =
+                button.querySelector("i");
+
+
+            if (icon) {
+
+                icon.className =
+                    "fas fa-bars";
+
+            }
+
+        }
+
+    }
+
+
+    /* =========================================================
+       NAVIGATION CLICK
+       ========================================================= */
+
+    document
+        .querySelectorAll(".navigation-item")
+        .forEach(function (item) {
+
+            item.addEventListener(
+                "click",
+                function () {
+
+                    if (window.innerWidth <= 991) {
+
+                        closeSidebar();
+
+                    }
+
+                }
+            );
+
+        });
+
+
+    /* =========================================================
+       ESCAPE KEY
+       ========================================================= */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Escape") {
+
+                closeSidebar();
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       RESIZE
+       ========================================================= */
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            if (window.innerWidth > 991) {
+
+                closeSidebar();
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       CLOSE ALERT
+       ========================================================= */
+
+    function closeAlert(button) {
+
+        const alert =
+            button.closest(".portal-alert");
+
+
+        if (!alert) {
+
+            return;
+
+        }
+
+
+        alert.style.opacity = "0";
+
+        alert.style.transform =
+            "translateY(-5px)";
+
+
+        setTimeout(
+            function () {
+
+                alert.remove();
+
+            },
+            300
+        );
+
+    }
+
+
+    /* =========================================================
+       AUTO HIDE ALERTS
+       ========================================================= */
+
+    setTimeout(
+        function () {
+
+            document
+                .querySelectorAll(".portal-alert")
+                .forEach(function (alert) {
+
+                    alert.style.opacity = "0";
+
+                    alert.style.transform =
+                        "translateY(-5px)";
+
+
+                    setTimeout(
+                        function () {
+
+                            if (alert) {
+
+                                alert.remove();
+
+                            }
+
+                        },
+                        300
+                    );
+
+                });
+
+        },
+        4000
+    );
+
+
+    /* =========================================================
+       DEFAULT DATE = TODAY
+       ========================================================= */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const dateInput =
+                document.getElementById("reportDate");
+
+
+            if (
+                dateInput &&
+                !dateInput.value
+            ) {
+
+                const today =
+                    new Date();
+
+
+                const year =
+                    today.getFullYear();
+
+
+                const month =
+                    String(
+                        today.getMonth() + 1
+                    ).padStart(
+                        2,
+                        "0"
+                    );
+
+
+                const day =
+                    String(
+                        today.getDate()
+                    ).padStart(
+                        2,
+                        "0"
+                    );
+
+
+                dateInput.value =
+                    `${year}-${month}-${day}`;
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       TEXTAREA CHARACTER COUNTERS
+       ========================================================= */
+
+    document
+        .querySelectorAll("textarea[data-counter-for]")
+        .forEach(function (textarea) {
+
+            const counter =
+                document.querySelector(
+                    `[data-counter-for="${textarea.id}"]`
+                );
+
+
+            function updateCounter() {
+
+                if (!counter) {
+
+                    return;
+
+                }
+
+
+                const length =
+                    textarea.value.length;
+
+
+                counter.textContent =
+                    `${length} character${length === 1 ? "" : "s"}`;
+
+            }
+
+
+            textarea.addEventListener(
+                "input",
+                updateCounter
+            );
+
+
+            updateCounter();
+
+        });
+
+
+    /* =========================================================
+       PREVENT DOUBLE SUBMISSION
+       ========================================================= */
+
+    const reportForm =
+        document.getElementById("addReportForm");
+
+
+    if (reportForm) {
+
+        reportForm.addEventListener(
+            "submit",
+            function () {
+
+                const submitButton =
+                    document.getElementById(
+                        "submitReportButton"
+                    );
+
+
+                if (!submitButton) {
+
+                    return;
+
+                }
+
+
+                submitButton.disabled =
+                    true;
+
+
+                submitButton.innerHTML = `
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span>Saving Report...</span>
+                `;
+
+            }
+        );
+
+    }
+
+
+</script>
+
+
 </body>
 
 </html>

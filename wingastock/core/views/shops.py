@@ -22,7 +22,8 @@ def shop_preview(request, id):
 
     # Seller products
     products = Product.objects.filter(
-        owner=shop.user
+        owner=shop.user,
+        status='visible'
     )
 
     # Seller location

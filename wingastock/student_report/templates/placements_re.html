@@ -1,696 +1,1897 @@
 {% load static %}
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Field Report | Placements</title>
+
     <link rel="shortcut icon" href="{% static 'logo1.png' %}" type="image/x-icon">
+
     <link rel="stylesheet" href="{% static 'css_re/style.css' %}">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <style>
-        .messages {
-            margin: 20px 0;
-        }
-
-        .alert {
-            padding: 12px 18px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            color: #fff;
-            font-weight: 500;
-        }
-
-        .success {
-            background: #28a745;
-        }
-
-        .error {
-            background: #dc3545;
-        }
-
-        .warning {
-            background: #ffc107;
-            color: #000;
-        }
-
-        .info {
-            background: #17a2b8;
-        }
-
-        /* =========================================
-   PLACEMENT LIST
-   ========================================= */
-
-        #placementList {
-            width: 100%;
-            float: left;
-            padding: 0;
-            margin: 0;
-            list-style: none;
-        }
-
-
-        /* Individual placement */
-
-        #placementList .placement-item {
-            position: relative;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            width: 100%;
-            min-height: 75px;
-
-            padding: 15px 115px 15px 18px;
-
-            margin-bottom: 10px;
-
-            box-sizing: border-box;
-
-            border-radius: 5px;
-
-            cursor: pointer;
-
-            transition:
-                background-color 0.2s ease,
-                transform 0.2s ease;
-        }
-
-
-        /* Placement information */
-
-        #placementList .placement-content {
-            flex: 1;
-            min-width: 0;
-
-            display: flex;
-            flex-direction: column;
-
-            gap: 4px;
-
-            padding-right: 10px;
-        }
-
-
-        /* Actions container */
-
-        #placementList .placement-actions {
-
-            position: absolute;
-
-            right: 15px;
-            top: 50%;
-
-            transform: translateY(-50%);
-
-            display: flex;
-            align-items: center;
-
-            gap: 6px;
-        }
-
-
-        /* Common button */
-
-        #placementList .placement-actions button {
-
-            width: 36px;
-            height: 36px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border: none;
-            border-radius: 50%;
-
-            background: transparent;
-
-            cursor: pointer;
-
-            font-size: 14px;
-
-            transition:
-                background-color 0.2s ease,
-                color 0.2s ease,
-                transform 0.2s ease;
-        }
-
-
-        /* Edit button */
-
-        #placementList .edit-placement-btn {
-            color: #555;
-        }
-
-        #placementList .edit-placement-btn:hover {
-            background: rgba(0, 0, 0, 0.07);
-            color: #222;
-        }
-
-
-        /* Delete button */
-
-        #placementList .delete-placement-btn {
-            color: #dc143c;
-        }
-
-        #placementList .delete-placement-btn:hover {
-            background: rgba(220, 20, 60, 0.10);
-            color: #b01030;
-        }
-
-
-        /* Button click */
-
-        #placementList .placement-actions button:active {
-            transform: scale(0.9);
-        }
-
-
-        /* Disabled delete button */
-
-        #placementList .delete-placement-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-
-        /* =========================================
-   MOBILE
-   ========================================= */
-
-        @media (max-width: 600px) {
-
-            #placementList .placement-item {
-
-                min-height: 70px;
-
-                padding:
-                    12px 105px 12px 14px;
-            }
-
-
-            #placementList .placement-actions {
-
-                right: 8px;
-
-                gap: 3px;
-            }
-
-
-            #placementList .placement-actions button {
-
-                width: 34px;
-                height: 34px;
-
-                font-size: 13px;
-            }
-
-        }
-
-        .placement-item:hover {
-            border: 1px solid rgba(1, 66, 98, 0.435);
-            background: rgba(1, 66, 98, 0.031);
-        }
-    </style>
 </head>
 
 <body>
 
-    <div class="row-holder">
+    <!-- =========================================================
+     PAGE WRAPPER
+========================================================= -->
 
-        <!-- Header -->
-        <div class="header-holder-100">
-            <div class="header-100">
-                <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-                            class="fas fa-times"></i></button>
-                </div>
-                <div class="title-holder-101">
-                    <button type="button"><span>Placements</span></button>
-                </div>
-                <div class="title-holder-101" style="float: right;">
-                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
-                </div>
-            </div>
-        </div>
+    <div class="portal-wrapper">
+
+        ```
+        <!-- =====================================================
+     MOBILE OVERLAY
+====================================================== -->
+
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
 
-        <!-- center content -->
-        <div class="center-content-200">
 
-            <div class="left-holder-201" id="nav">
-                <div class="nav-bar-holder-202">
+        <!-- =====================================================
+     SIDEBAR
+====================================================== -->
 
-                    <ul>
-                        <a href="{% url 'report_home' %}">
-                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
-                        </a>
-                    </ul>
+        <aside class="portal-sidebar" id="portalSidebar">
 
-                    <ul>
-                        <a href="{% url 'placements_list' %}">
-                            <li class="active-0">Reports <i class="fas fa-file-alt"></i></li>
-                        </a>
-                    </ul>
 
-                    <ul>
-                        <a href="{% url 'user_account' %}">
-                            <li>Account <i class="fas fa-user"></i></li>
-                        </a>
-                    </ul>
+            <!-- Brand -->
 
-                    <ul>
-                        <a href="{% url 'home' %}">
-                            <li>Back Wingastock <i class="fas fa-home"></i></li>
-                        </a>
-                    </ul>
+            <div class="sidebar-brand">
 
-                </div>
+                <a href="{% url 'report_home' %}">
+
+                    <div class="brand-logo">
+
+                        <img src="{% static 'logo1.png' %}" alt="Field Report">
+
+                    </div>
+
+
+                    <div class="brand-text">
+
+                        <strong>
+                            Field Training
+                        </strong>
+
+                        <span>
+                            Student Portal
+                        </span>
+
+                    </div>
+
+                </a>
+
             </div>
 
-            <div class="right-holder-201">
-                <div class="card-holder-201 products-202">
 
 
-                    <button type="button" class="close-205" onclick="open_placement_modal(1)">
-                        <i class="fas fa-plus"></i>
-                        Add new placement
+            <!-- Navigation -->
+
+            <nav class="sidebar-navigation">
+
+
+                <!-- Main -->
+
+                <div class="navigation-section">
+
+                    <span class="navigation-label">
+                        MAIN
+                    </span>
+
+
+                    <!-- Dashboard -->
+
+                    <a href="{% url 'report_home' %}" class="navigation-item">
+
+                        <span class="navigation-icon">
+                            <i class="fas fa-th-large"></i>
+                        </span>
+
+                        <span class="navigation-content">
+
+                            <strong>
+                                Dashboard
+                            </strong>
+
+                            <small>
+                                Overview of your training
+                            </small>
+
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- Field Reports -->
+
+                    <a href="{% url 'placements_list' %}" class="navigation-item active">
+
+                        <span class="navigation-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </span>
+
+                        <span class="navigation-content">
+
+                            <strong>
+                                Field Reports
+                            </strong>
+
+                            <small>
+                                Daily and weekly reports
+                            </small>
+
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- Account -->
+
+                <div class="navigation-section">
+
+                    <span class="navigation-label">
+                        ACCOUNT
+                    </span>
+
+
+                    <a href="{% url 'user_account' %}" class="navigation-item">
+
+                        <span class="navigation-icon">
+                            <i class="fas fa-user"></i>
+                        </span>
+
+                        <span class="navigation-content">
+
+                            <strong>
+                                My Account
+                            </strong>
+
+                            <small>
+                                Manage your profile
+                            </small>
+
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- Website -->
+
+                <div class="navigation-section">
+
+                    <span class="navigation-label">
+                        WEBSITE
+                    </span>
+
+
+                    <a href="{% url 'home' %}" class="navigation-item">
+
+                        <span class="navigation-icon">
+                            <i class="fas fa-external-link-alt"></i>
+                        </span>
+
+                        <span class="navigation-content">
+
+                            <strong>
+                                Back to WingaStock
+                            </strong>
+
+                            <small>
+                                Return to main website
+                            </small>
+
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+            </nav>
+
+
+
+            <!-- Sidebar Help -->
+
+            <div class="sidebar-help">
+
+                <div class="sidebar-help-icon">
+
+                    <i class="fas fa-info-circle"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        Need help?
+                    </strong>
+
+                    <p>
+                        Complete your daily reports regularly
+                        to keep your field training record
+                        up to date.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Sidebar Footer -->
+
+            <div class="sidebar-footer">
+
+                <span>
+                    Field Practical Training
+                </span>
+
+                <small>
+                    Student Reporting System
+                </small>
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- =====================================================
+     MAIN AREA
+====================================================== -->
+
+        <main class="portal-main">
+
+
+            <!-- =================================================
+         TOP HEADER
+    ================================================== -->
+
+            <header class="portal-header">
+
+
+                <div class="header-left">
+
+
+                    <!-- Mobile menu -->
+
+                    <button type="button" class="mobile-menu-button" id="mobileMenuButton" onclick="toggleSidebar()"
+                        aria-label="Open navigation">
+
+                        <i class="fas fa-bars"></i>
+
                     </button>
 
 
-                    {% if messages %}
-                    <div class="messages">
-                        {% for message in messages %}
-                        <div class="alert {{ message.tags }}">
-                            {{ message }}
-                        </div>
-                        {% endfor %}
+
+                    <!-- Page title -->
+
+                    <div class="header-page-title">
+
+                        <span>
+                            Student Portal
+                        </span>
+
+                        <h1>
+                            Field Placements
+                        </h1>
+
                     </div>
-                    {% endif %}
 
 
-                    <div class="table-holder-100" style="width: 100%;">
+                </div>
 
-                        <!-- Search -->
-                        <div class="filter-holder-202">
+
+
+                <!-- User -->
+
+                <div class="header-right">
+
+                    <div class="header-user">
+
+                        <div class="header-user-icon">
+
+                            <i class="fas fa-user"></i>
+
+                        </div>
+
+
+                        <div class="header-user-info">
+
+                            <strong>
+                                Student
+                            </strong>
+
+                            <span>
+                                {{ user.email }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </header>
+
+
+
+            <!-- =================================================
+         PAGE CONTENT
+    ================================================== -->
+
+            <section class="portal-content">
+
+
+                <!-- =================================================
+             DJANGO MESSAGES
+        ================================================== -->
+
+                {% if messages %}
+
+                <div class="messages-container">
+
+                    {% for message in messages %}
+
+                    <div class="portal-alert {{ message.tags }}" role="alert">
+
+                        <div class="alert-icon">
+
+                            {% if message.tags == "success" %}
+
+                            <i class="fas fa-check-circle"></i>
+
+                            {% elif message.tags == "error" %}
+
+                            <i class="fas fa-exclamation-circle"></i>
+
+                            {% elif message.tags == "warning" %}
+
+                            <i class="fas fa-exclamation-triangle"></i>
+
+                            {% else %}
+
+                            <i class="fas fa-info-circle"></i>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="alert-message">
+
+                            {{ message }}
+
+                        </div>
+
+
+                        <button type="button" class="alert-close" onclick="closeAlert(this)" aria-label="Close message">
+
+                            <i class="fas fa-times"></i>
+
+                        </button>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+
+
+                <!-- =================================================
+             PAGE CONTAINER
+        ================================================== -->
+
+                <div class="page-container-202">
+
+
+                    <!-- =================================================
+                 PAGE INTRODUCTION
+            ================================================== -->
+
+                    <section class="page-intro-card-202">
+
+
+                        <div class="page-intro-icon-202">
+
+                            <i class="fas fa-building"></i>
+
+                        </div>
+
+
+
+                        <div class="page-intro-content-202">
+
+                            <span class="page-eyebrow-202">
+                                FIELD PRACTICAL TRAINING
+                            </span>
+
+                            <h1>
+                                Your Field Placements
+                            </h1>
+
+                            <p>
+                                Add and manage the organizations where
+                                you are completing your field practical
+                                training. Select a placement to view
+                                its daily reports and generate your
+                                final field training report.
+                            </p>
+
+                        </div>
+
+
+
+                        <div class="page-intro-action-202">
+
+                            <button type="button" class="primary-action-202" onclick="open_placement_modal(1)">
+
+                                <i class="fas fa-plus"></i>
+
+                                <span>
+                                    Add Placement
+                                </span>
+
+                            </button>
+
+                            <small>
+                                Start a new field training placement
+                            </small>
+
+                        </div>
+
+
+                    </section>
+
+
+
+                    <!-- =================================================
+                 QUICK INFORMATION BOXES
+            ================================================== -->
+
+                    <div class="info-box-grid-202">
+
+
+                        <!-- Placement -->
+
+                        <div class="info-box-202">
+
+                            <div class="info-box-icon-202">
+
+                                <i class="fas fa-building"></i>
+
+                            </div>
 
                             <div>
-                                <input type="text" id="searchInput" placeholder="Search placement..."
-                                    autocomplete="off">
+
+                                <strong>
+                                    Placements
+                                </strong>
+
+                                <span>
+                                    Add the organization where
+                                    your training takes place.
+                                </span>
+
                             </div>
 
                         </div>
 
 
-                        <!-- Placement List -->
-                        <ul id="placementList">
+
+                        <!-- Daily Reports -->
+
+                        <div class="info-box-202">
+
+                            <div class="info-box-icon-202">
+
+                                <i class="fas fa-book"></i>
+
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Daily Reports
+                                </strong>
+
+                                <span>
+                                    Record your activities,
+                                    skills and challenges.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- Final Report -->
+
+                        <div class="info-box-202">
+
+                            <div class="info-box-icon-202">
+
+                                <i class="fas fa-file-word"></i>
+
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Final Report
+                                </strong>
+
+                                <span>
+                                    Prepare and download your
+                                    complete field report.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                 PLACEMENTS SECTION
+            ================================================== -->
+
+                    <section class="content-box-202">
+
+
+                        <!-- Section header -->
+
+                        <div class="content-box-header-202">
+
+                            <div>
+
+                                <span class="section-label-202">
+                                    MY TRAINING
+                                </span>
+
+                                <h2>
+                                    Saved Placements
+                                </h2>
+
+                                <p>
+                                    Select a placement to continue
+                                    working on its field reports.
+                                </p>
+
+                            </div>
+
+
+
+                            <button type="button" class="secondary-action-202" onclick="open_placement_modal(1)">
+
+                                <i class="fas fa-plus"></i>
+
+                                Add new placement
+
+                            </button>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                     SEARCH
+                ================================================== -->
+
+                        <div class="search-box-202">
+
+                            <i class="fas fa-search"></i>
+
+                            <input type="text" id="searchInput"
+                                placeholder="Search organization, department or placement..." autocomplete="off">
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                     PLACEMENT LIST
+                ================================================== -->
+
+                        <div id="placementList" class="placement-grid-202">
+
 
                             {% for placement_list in placement %}
 
-                            <li class="placement-item" data-placement-id="{{ placement_list.id }}"
-                                onclick="window.location.href=`{% url 'reports_list' placement_list.id %}`">
 
-                                <!-- Placement information -->
-                                <div class="placement-content">
+                            <article class="placement-card-202" data-placement-id="{{ placement_list.id }}"
+                                onclick="openPlacementReports({{ placement_list.id }})">
 
-                                    <span class="list-title-201">
-                                        <strong>
-                                            {{ placement_list.organization }}
-                                        </strong>
+
+                                <!-- Card top -->
+
+                                <div class="placement-card-top-202">
+
+
+                                    <div class="placement-organization-icon-202">
+
+                                        <i class="fas fa-building"></i>
+
+                                    </div>
+
+
+                                    <div class="placement-status-202">
+
+                                        <i class="fas fa-check-circle"></i>
+
+                                        Active
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <!-- Card content -->
+
+                                <div class="placement-card-content-202">
+
+
+                                    <span class="placement-label-202">
+                                        TRAINING ORGANIZATION
                                     </span>
+
+
+                                    <h3>
+                                        {{ placement_list.organization }}
+                                    </h3>
+
+
+                                    <div class="placement-detail-202">
+
+                                        <i class="fas fa-sitemap"></i>
+
+                                        <span>
+                                            {{ placement_list.department }}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="placement-card-description-202">
+
+                                        <i class="fas fa-info-circle"></i>
+
+                                        <span>
+                                            Open this placement to view
+                                            and manage your field reports.
+                                        </span>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <!-- Card footer -->
+
+                                <div class="placement-card-footer-202">
+
 
                                     <span>
-                                        {{ placement_list.department }}
+
+                                        <i class="fas fa-arrow-right"></i>
+
+                                        Open reports
+
                                     </span>
 
+
+
+                                    <div class="placement-actions-202">
+
+
+                                        <!-- Edit -->
+
+                                        <button type="button" class="placement-edit-action-202" title="Edit placement"
+                                            aria-label="Edit placement"
+                                            onclick="editPlacement(event, '{% url 'edit_placement' placement_list.id %}')">
+
+                                            <i class="fas fa-edit"></i>
+
+                                        </button>
+
+
+
+                                        <!-- Delete -->
+
+                                        <button type="button" class="placement-delete-action-202"
+                                            title="Delete placement" aria-label="Delete placement" onclick="deletePlacement(
+                                        event,
+                                        {{ placement_list.id }},
+                                        '{% url 'delete_placement' placement_list.id %}'
+                                    )">
+
+                                            <i class="fas fa-trash-alt"></i>
+
+                                        </button>
+
+
+                                    </div>
+
+
                                 </div>
 
 
-                                <!-- Placement actions -->
-                                <div class="placement-actions">
+                            </article>
 
-                                    <!-- Edit -->
-                                    <button type="button" class="edit-placement-btn" title="Edit placement" onclick="
-                                        event.stopPropagation();
-                                        window.location.href=`{% url 'edit_placement' placement_list.id %}`;
-                                    ">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-
-
-                                    <!-- Delete -->
-                                    <button type="button" class="delete-placement-btn" title="Delete placement" onclick="
-                                        event.stopPropagation();
-                                        deletePlacement(
-                                            {{ placement_list.id }},
-                                            `{% url 'delete_placement' placement_list.id %}` ); ">
-                                        <i class=" fas fa-trash-alt"></i>
-                                    </button>
-
-                                </div>
-
-                            </li>
 
                             {% empty %}
 
-                            <p>
-                                No saved placements!
-                            </p>
+
+                            <!-- Empty state -->
+
+                            <div class="empty-state-202">
+
+                                <div class="empty-state-icon-202">
+
+                                    <i class="fas fa-folder-open"></i>
+
+                                </div>
+
+
+                                <h3>
+                                    No field placements yet
+                                </h3>
+
+
+                                <p>
+                                    Start by adding the organization
+                                    where you are completing your field
+                                    practical training.
+                                </p>
+
+
+                                <button type="button" class="primary-action-202" onclick="open_placement_modal(1)">
+
+                                    <i class="fas fa-plus"></i>
+
+                                    Add your first placement
+
+                                </button>
+
+                            </div>
+
 
                             {% endfor %}
 
-                        </ul>
+
+                        </div>
 
 
-                        <!-- No Search Results -->
-                        <p id="noSearchResults" style="display: none; text-align: center;">
-                            No placement found.
-                        </p>
+
+                        <!-- =================================================
+                     NO SEARCH RESULTS
+                ================================================== -->
+
+                        <div id="noSearchResults" class="search-empty-state-202" style="display:none;">
+
+                            <i class="fas fa-search"></i>
+
+                            <h3>
+                                No placement found
+                            </h3>
+
+                            <p>
+                                Try searching with another organization
+                                or department name.
+                            </p>
+
+                        </div>
+
+
+                    </section>
+
+
+                </div>
+
+
+                <!-- =================================================
+             ADD PLACEMENT MODAL
+        ================================================== -->
+
+                <div class="placement-holder-100" id="add_placement">
+
+
+                    <div class="placement-100 modern-modal-202">
+
+
+                        <!-- Modal header -->
+
+                        <div class="modal-header-202">
+
+                            <div>
+
+                                <span class="modal-label-202">
+                                    FIELD TRAINING
+                                </span>
+
+                                <h2>
+                                    Add Field Placement
+                                </h2>
+
+                                <p>
+                                    Enter the details of the organization
+                                    where you will complete your practical
+                                    training.
+                                </p>
+
+                            </div>
+
+
+                            <button type="button" class="modal-close-202" onclick="open_placement_modal(0)"
+                                aria-label="Close">
+
+                                <i class="fas fa-times"></i>
+
+                            </button>
+
+                        </div>
+
+
+
+                        <!-- Message -->
+
+                        <div id="placement_message" class="modal-message-202" style="display:none;"></div>
+
+
+
+                        <!-- Form -->
+
+                        <form id="placement_form" method="post" novalidate>
+
+                            {% csrf_token %}
+
+
+                            <div class="placement-form-grid-202">
+
+
+                                <!-- Organization -->
+
+                                <div class="form-field-202">
+
+                                    <label for="organization">
+
+                                        <i class="fas fa-building"></i>
+
+                                        Organization
+
+                                    </label>
+
+                                    <small>
+                                        Name of the organization or company
+                                        where you are training.
+                                    </small>
+
+                                    <input type="text" name="organization" id="organization"
+                                        placeholder="e.g. ABC Company Ltd" required>
+
+                                </div>
+
+
+
+                                <!-- Department -->
+
+                                <div class="form-field-202">
+
+                                    <label for="department">
+
+                                        <i class="fas fa-sitemap"></i>
+
+                                        Department
+
+                                    </label>
+
+                                    <small>
+                                        Department or section where you
+                                        are assigned.
+                                    </small>
+
+                                    <input type="text" name="department" id="department"
+                                        placeholder="e.g. ICT Department" required>
+
+                                </div>
+
+
+
+                                <!-- Supervisor -->
+
+                                <div class="form-field-202">
+
+                                    <label for="supervisor_name">
+
+                                        <i class="fas fa-user-tie"></i>
+
+                                        Supervisor Name
+
+                                    </label>
+
+                                    <small>
+                                        Name of your organization supervisor.
+                                    </small>
+
+                                    <input type="text" name="supervisor_name" id="supervisor_name"
+                                        placeholder="e.g. John Michael" required>
+
+                                </div>
+
+
+
+                                <!-- Supervisor phone -->
+
+                                <div class="form-field-202">
+
+                                    <label for="supervisor_phone">
+
+                                        <i class="fas fa-phone"></i>
+
+                                        Supervisor Phone
+
+                                    </label>
+
+                                    <small>
+                                        Phone number used to contact your
+                                        field supervisor.
+                                    </small>
+
+                                    <input type="tel" name="supervisor_phone" id="supervisor_phone"
+                                        placeholder="e.g. 0712 345 678" required>
+
+                                </div>
+
+
+
+                                <!-- Start -->
+
+                                <div class="form-field-202">
+
+                                    <label for="start_date">
+
+                                        <i class="fas fa-calendar-alt"></i>
+
+                                        Training Start Date
+
+                                    </label>
+
+                                    <small>
+                                        The date your field training begins.
+                                    </small>
+
+                                    <input type="date" name="start_date" id="start_date" required>
+
+                                </div>
+
+
+
+                                <!-- End -->
+
+                                <div class="form-field-202">
+
+                                    <label for="end_date">
+
+                                        <i class="fas fa-calendar-check"></i>
+
+                                        Training End Date
+
+                                    </label>
+
+                                    <small>
+                                        The expected date your field training
+                                        ends.
+                                    </small>
+
+                                    <input type="date" name="end_date" id="end_date" required>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <!-- Form information -->
+
+                            <div class="form-help-box-202">
+
+                                <i class="fas fa-lightbulb"></i>
+
+                                <div>
+
+                                    <strong>
+                                        Before saving
+                                    </strong>
+
+                                    <p>
+                                        Make sure the organization,
+                                        department, supervisor and training
+                                        dates are correct. This information
+                                        will be used throughout your field
+                                        training reports.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- Actions -->
+
+                            <div class="modal-actions-202">
+
+                                <button type="button" class="modal-cancel-202" onclick="open_placement_modal(0)">
+
+                                    <i class="fas fa-times"></i>
+
+                                    Cancel
+
+                                </button>
+
+
+                                <button type="submit" class="modal-save-202" id="placement_submit">
+
+                                    <i class="fas fa-save"></i>
+
+                                    Save Placement
+
+                                </button>
+
+                            </div>
+
+
+                        </form>
+
 
                     </div>
 
                 </div>
-            </div>
 
 
-            <!-- Add placement modal -->
-            <div class="placement-holder-100" id="add_placement">
-                <div class="placement-100">
+            </section>
 
-                    <h1>Add field placement</h1>
-
-                    <!-- Message displayed inside modal -->
-                    <div id="placement_message" style="display: none;"></div>
-
-                    <form id="placement_form" method="post">
-                        {% csrf_token %}
-
-                        <div class="placement-inputs-holder-100">
-
-                            <div>
-                                <label for="organization">Organization</label>
-                                <input type="text" name="organization" id="organization" required>
-                            </div>
-
-                            <div>
-                                <label for="department">Department</label>
-                                <input type="text" name="department" id="department" required>
-                            </div>
-
-                            <div>
-                                <label for="supervisor_name">Supervisor name</label>
-                                <input type="text" name="supervisor_name" id="supervisor_name" required>
-                            </div>
-
-                            <div>
-                                <label for="supervisor_phone">Supervisor phone</label>
-                                <input type="tel" name="supervisor_phone" id="supervisor_phone" required>
-                            </div>
-
-                            <div>
-                                <label for="start_date">Start date</label>
-                                <input type="date" name="start_date" id="start_date" required>
-                            </div>
-
-                            <div>
-                                <label for="end_date">End date</label>
-                                <input type="date" name="end_date" id="end_date" required>
-                            </div>
-
-                            <div class="button-place-100">
-                                <button type="button" class="b100" onclick="open_placement_modal(0)">Close</button>
-
-                                <button type="submit" class="b101" id="placement_submit">
-                                    Save information
-                                </button>
-                            </div>
-
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-
-        </div>
+        </main>
+        ```
 
     </div>
 
-
-
-    <script>
-        function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
-
-            if (click == 'open') {
-                menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
-            }
-            else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
-                nav.style.display = 'none';
-            }
-        }
-    </script>
-
+    <!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
     <script>
-        setTimeout(function () {
-            document.querySelectorAll(".alert").forEach(function (alert) {
-                alert.style.transition = "opacity 0.5s";
-                alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 500);
-            });
-        }, 4000);
-    </script>
 
-    <script>
-        function open_placement_modal(click) {
-            placement_modal = document.getElementById('add_placement');
+        /* ============================================================
+           SIDEBAR
+        ============================================================ */
 
-            if (click == 1) {
-                placement_modal.style.display = 'inline-block';
+        function toggleSidebar() {
+
+            const sidebar =
+                document.getElementById("portalSidebar");
+
+            const overlay =
+                document.getElementById("sidebarOverlay");
+
+            if (!sidebar) return;
+
+            sidebar.classList.toggle("sidebar-open");
+
+            if (overlay) {
+
+                overlay.classList.toggle(
+                    "overlay-visible"
+                );
+
             }
-            else {
-                placement_modal.style.display = 'none';
-            }
+
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
 
-            const form = document.getElementById("placement_form");
-            const messageBox = document.getElementById("placement_message");
-            const submitButton = document.getElementById("placement_submit");
+        function closeSidebar() {
 
-            form.addEventListener("submit", async function (event) {
+            const sidebar =
+                document.getElementById("portalSidebar");
 
-                // Prevent normal page reload
-                event.preventDefault();
+            const overlay =
+                document.getElementById("sidebarOverlay");
 
-                // Clear previous message
-                messageBox.style.display = "none";
-                messageBox.textContent = "";
+            if (sidebar) {
 
-                // Get CSRF token
-                const csrfToken = document.querySelector(
-                    '[name="csrfmiddlewaretoken"]'
-                ).value;
+                sidebar.classList.remove(
+                    "sidebar-open"
+                );
 
-                // Get form values
-                const data = {
-                    organization: document.getElementById("organization").value.trim(),
-                    department: document.getElementById("department").value.trim(),
-                    supervisor_name: document.getElementById("supervisor_name").value.trim(),
-                    supervisor_phone: document.getElementById("supervisor_phone").value.trim(),
-                    start_date: document.getElementById("start_date").value,
-                    end_date: document.getElementById("end_date").value
-                };
+            }
 
-                // Disable button while submitting
-                submitButton.disabled = true;
-                submitButton.textContent = "Saving...";
+            if (overlay) {
 
-                try {
+                overlay.classList.remove(
+                    "overlay-visible"
+                );
 
-                    const response = await fetch("{% url 'add_placement' %}", {
-                        method: "POST",
+            }
 
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRFToken": csrfToken,
-                            "X-Requested-With": "XMLHttpRequest"
-                        },
+        }
 
-                        body: JSON.stringify(data)
-                    });
 
-                    const result = await response.json();
 
-                    // Display message inside modal
-                    messageBox.textContent = result.message || "Something went wrong.";
-                    messageBox.style.display = "block";
+        /* ============================================================
+           CLOSE SIDEBAR AFTER NAVIGATION
+        ============================================================ */
 
-                    // Success
-                    if (response.ok && result.success) {
+        document
+            .querySelectorAll(".navigation-item")
+            .forEach(function (item) {
 
-                        messageBox.style.color = "green";
+                item.addEventListener(
+                    "click",
+                    function () {
 
-                        // Optional: clear form
-                        form.reset();
+                        if (
+                            window.innerWidth < 992
+                        ) {
 
-                        /*
-                         * Redirect after successful save.
-                         * Remove this if you don't want a redirect.
-                         */
-                        setTimeout(function () {
-                            window.location.href = "{% url 'placements_list' %}";
-                        }, 1000);
+                            closeSidebar();
 
-                    } else {
+                        }
 
-                        // Error
-                        messageBox.style.color = "red";
                     }
+                );
 
-                } catch (error) {
+            });
 
-                    console.error("Error:", error);
 
-                    messageBox.textContent =
-                        "Something went wrong. Please try again.";
 
-                    messageBox.style.color = "red";
-                    messageBox.style.display = "block";
+        /* ============================================================
+           ESCAPE
+        ============================================================ */
 
-                } finally {
+        document.addEventListener(
+            "keydown",
+            function (event) {
 
-                    submitButton.disabled = false;
-                    submitButton.textContent = "Save information";
+                if (event.key === "Escape") {
+
+                    closeSidebar();
+
                 }
-            });
 
-        });
-    </script>
-
-    <script>
-
-        document.addEventListener("DOMContentLoaded", function () {
-
-            const searchInput = document.getElementById("searchInput");
-            const placementItems = document.querySelectorAll(
-                "#placementList .placement-item"
-            );
-
-            const noSearchResults = document.getElementById(
-                "noSearchResults"
-            );
+            }
+        );
 
 
-            searchInput.addEventListener("input", function () {
 
-                const filter = this.value
-                    .toLowerCase()
-                    .trim();
+        /* ============================================================
+           RESET SIDEBAR ON DESKTOP
+        ============================================================ */
 
-                let visibleItems = 0;
+        window.addEventListener(
+            "resize",
+            function () {
 
+                if (window.innerWidth >= 992) {
 
-                placementItems.forEach(function (item) {
+                    closeSidebar();
 
-                    /*
-                     * Search the entire placement item.
-                     *
-                     * This means the user can search:
-                     * - Organization
-                     * - Department
-                     * - Start date
-                     */
+                }
 
-                    const text = item.textContent
-                        .toLowerCase()
-                        .trim();
+            }
+        );
 
 
-                    if (text.includes(filter)) {
 
-                        item.style.display = "";
+        /* ============================================================
+           ALERT CLOSE
+        ============================================================ */
 
-                        visibleItems++;
+        function closeAlert(button) {
 
-                    } else {
+            const alert =
+                button.closest(".portal-alert");
 
-                        item.style.display = "none";
+            if (!alert) return;
 
-                    }
+            alert.style.opacity = "0";
+
+            alert.style.transform =
+                "translateY(-5px)";
+
+            setTimeout(function () {
+
+                alert.remove();
+
+            }, 300);
+
+        }
+
+
+
+        /* ============================================================
+           AUTOMATIC ALERT DISMISS
+        ============================================================ */
+
+        setTimeout(function () {
+
+            document
+                .querySelectorAll(".portal-alert")
+                .forEach(function (alert) {
+
+                    alert.style.opacity = "0";
+
+                    alert.style.transform =
+                        "translateY(-5px)";
+
+                    setTimeout(function () {
+
+                        if (alert) {
+
+                            alert.remove();
+
+                        }
+
+                    }, 300);
 
                 });
 
+        }, 5000);
 
-                /*
-                 * Show "No placement found"
-                 * only when there are placements but
-                 * none match the search.
-                 */
+
+
+        /* ============================================================
+           OPEN / CLOSE PLACEMENT MODAL
+        ============================================================ */
+
+        function open_placement_modal(click) {
+
+            const placementModal =
+                document.getElementById("add_placement");
+
+            if (!placementModal) return;
+
+
+            if (click === 1) {
+
+                placementModal.style.display =
+                    "flex";
+
+                document.body.classList.add(
+                    "modal-open"
+                );
+
+
+                setTimeout(function () {
+
+                    const firstInput =
+                        document.getElementById(
+                            "organization"
+                        );
+
+                    if (firstInput) {
+
+                        firstInput.focus();
+
+                    }
+
+                }, 150);
+
+
+            } else {
+
+                placementModal.style.display =
+                    "none";
+
+                document.body.classList.remove(
+                    "modal-open"
+                );
+
+            }
+
+        }
+
+
+
+        /* ============================================================
+           OPEN PLACEMENT REPORTS
+        ============================================================ */
+
+        function openPlacementReports(
+            placementId
+        ) {
+
+            if (!placementId) return;
+
+            window.location.href =
+                "{% url 'reports_list' 0 %}"
+                    .replace("/0/", "/" + placementId + "/");
+
+        }
+
+
+
+        /* ============================================================
+           EDIT PLACEMENT
+        ============================================================ */
+
+        function editPlacement(
+            event,
+            editUrl
+        ) {
+
+            event.stopPropagation();
+
+            if (!editUrl) return;
+
+            window.location.href =
+                editUrl;
+
+        }
+
+
+
+        /* ============================================================
+           ADD PLACEMENT
+        ============================================================ */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                const form =
+                    document.getElementById(
+                        "placement_form"
+                    );
+
+                const messageBox =
+                    document.getElementById(
+                        "placement_message"
+                    );
+
+                const submitButton =
+                    document.getElementById(
+                        "placement_submit"
+                    );
+
 
                 if (
-                    filter !== "" &&
-                    visibleItems === 0 &&
-                    placementItems.length > 0
+                    !form ||
+                    !messageBox ||
+                    !submitButton
                 ) {
 
-                    noSearchResults.style.display = "block";
-
-                } else {
-
-                    noSearchResults.style.display = "none";
+                    return;
 
                 }
 
-            });
 
-        });
+                form.addEventListener(
+                    "submit",
+                    async function (event) {
 
-    </script>
+                        event.preventDefault();
 
-    <script>
 
-        function deletePlacement(placementId, deleteUrl) {
+                        messageBox.style.display =
+                            "none";
 
-            const confirmed = confirm(
-                "Are you sure you want to delete this placement?"
-            );
+                        messageBox.textContent =
+                            "";
 
-            if (!confirmed) {
+
+                        const csrfInput =
+                            form.querySelector(
+                                "[name='csrfmiddlewaretoken']"
+                            );
+
+
+                        if (!csrfInput) {
+
+                            messageBox.textContent =
+                                "Security token is missing. Please refresh the page and try again.";
+
+                            messageBox.className =
+                                "modal-message-202 error-message-202";
+
+                            messageBox.style.display =
+                                "block";
+
+                            return;
+
+                        }
+
+
+                        const csrfToken =
+                            csrfInput.value;
+
+
+                        const organization =
+                            document
+                                .getElementById(
+                                    "organization"
+                                )
+                                .value
+                                .trim();
+
+
+                        const department =
+                            document
+                                .getElementById(
+                                    "department"
+                                )
+                                .value
+                                .trim();
+
+
+                        const supervisorName =
+                            document
+                                .getElementById(
+                                    "supervisor_name"
+                                )
+                                .value
+                                .trim();
+
+
+                        const supervisorPhone =
+                            document
+                                .getElementById(
+                                    "supervisor_phone"
+                                )
+                                .value
+                                .trim();
+
+
+                        const startDate =
+                            document
+                                .getElementById(
+                                    "start_date"
+                                )
+                                .value;
+
+
+                        const endDate =
+                            document
+                                .getElementById(
+                                    "end_date"
+                                )
+                                .value;
+
+
+
+                        /* Basic validation */
+
+                        if (
+                            !organization ||
+                            !department ||
+                            !supervisorName ||
+                            !supervisorPhone ||
+                            !startDate ||
+                            !endDate
+                        ) {
+
+                            messageBox.textContent =
+                                "Please complete all required fields.";
+
+                            messageBox.className =
+                                "modal-message-202 error-message-202";
+
+                            messageBox.style.display =
+                                "block";
+
+                            return;
+
+                        }
+
+
+                        if (
+                            endDate < startDate
+                        ) {
+
+                            messageBox.textContent =
+                                "Training end date cannot be earlier than the start date.";
+
+                            messageBox.className =
+                                "modal-message-202 error-message-202";
+
+                            messageBox.style.display =
+                                "block";
+
+                            return;
+
+                        }
+
+
+
+                        const data = {
+
+                            organization:
+                                organization,
+
+                            department:
+                                department,
+
+                            supervisor_name:
+                                supervisorName,
+
+                            supervisor_phone:
+                                supervisorPhone,
+
+                            start_date:
+                                startDate,
+
+                            end_date:
+                                endDate
+
+                        };
+
+
+
+                        submitButton.disabled =
+                            true;
+
+
+                        submitButton.innerHTML =
+                            '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+
+
+                        try {
+
+                            const response =
+                                await fetch(
+                                    "{% url 'add_placement' %}",
+                                    {
+
+                                        method:
+                                            "POST",
+
+                                        headers: {
+
+                                            "Content-Type":
+                                                "application/json",
+
+                                            "X-CSRFToken":
+                                                csrfToken,
+
+                                            "X-Requested-With":
+                                                "XMLHttpRequest"
+
+                                        },
+
+                                        body:
+                                            JSON.stringify(
+                                                data
+                                            )
+
+                                    }
+                                );
+
+
+
+                            let result = null;
+
+
+                            try {
+
+                                result =
+                                    await response.json();
+
+                            } catch (jsonError) {
+
+                                result = null;
+
+                            }
+
+
+
+                            if (
+                                response.ok &&
+                                result &&
+                                result.success
+                            ) {
+
+                                messageBox.textContent =
+                                    result.message ||
+                                    "Field placement saved successfully.";
+
+                                messageBox.className =
+                                    "modal-message-202 success-message-202";
+
+                                messageBox.style.display =
+                                    "block";
+
+
+                                form.reset();
+
+
+                                setTimeout(
+                                    function () {
+
+                                        window.location.href =
+                                            "{% url 'placements_list' %}";
+
+                                    },
+                                    800
+                                );
+
+
+                            } else {
+
+                                messageBox.textContent =
+                                    (
+                                        result &&
+                                        result.message
+                                    )
+                                        ? result.message
+                                        : "Unable to save the field placement. Please try again.";
+
+                                messageBox.className =
+                                    "modal-message-202 error-message-202";
+
+                                messageBox.style.display =
+                                    "block";
+
+                            }
+
+
+                        } catch (error) {
+
+                            console.error(
+                                "Placement error:",
+                                error
+                            );
+
+
+                            messageBox.textContent =
+                                "Something went wrong. Please check your connection and try again.";
+
+                            messageBox.className =
+                                "modal-message-202 error-message-202";
+
+                            messageBox.style.display =
+                                "block";
+
+
+                        } finally {
+
+                            submitButton.disabled =
+                                false;
+
+                            submitButton.innerHTML =
+                                '<i class="fas fa-save"></i> Save Placement';
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* ============================================================
+           SEARCH PLACEMENTS
+        ============================================================ */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                const searchInput =
+                    document.getElementById(
+                        "searchInput"
+                    );
+
+
+                const placementList =
+                    document.getElementById(
+                        "placementList"
+                    );
+
+
+                const noSearchResults =
+                    document.getElementById(
+                        "noSearchResults"
+                    );
+
+
+                if (
+                    !searchInput ||
+                    !placementList
+                ) {
+
+                    return;
+
+                }
+
+
+                searchInput.addEventListener(
+                    "input",
+                    function () {
+
+                        const filter =
+                            this.value
+                                .toLowerCase()
+                                .trim();
+
+
+                        const placementItems =
+                            placementList.querySelectorAll(
+                                ".placement-card-202"
+                            );
+
+
+                        let visibleItems = 0;
+
+
+                        placementItems.forEach(
+                            function (item) {
+
+                                const text =
+                                    item.textContent
+                                        .toLowerCase()
+                                        .trim();
+
+
+                                if (
+                                    text.includes(filter)
+                                ) {
+
+                                    item.style.display =
+                                        "";
+
+                                    visibleItems++;
+
+                                } else {
+
+                                    item.style.display =
+                                        "none";
+
+                                }
+
+                            }
+                        );
+
+
+
+                        if (
+                            filter !== "" &&
+                            visibleItems === 0 &&
+                            placementItems.length > 0
+                        ) {
+
+                            if (noSearchResults) {
+
+                                noSearchResults.style.display =
+                                    "flex";
+
+                            }
+
+                        } else {
+
+                            if (noSearchResults) {
+
+                                noSearchResults.style.display =
+                                    "none";
+
+                            }
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* ============================================================
+           DELETE PLACEMENT
+        ============================================================ */
+
+        function deletePlacement(
+            event,
+            placementId,
+            deleteUrl
+        ) {
+
+            event.stopPropagation();
+
+
+            if (!placementId || !deleteUrl) {
+
                 return;
+
             }
 
 
-            const csrfToken = "{{ csrf_token }}";
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete this field placement?"
+                );
 
 
-            const placementItem = document.querySelector(
-                `[data-placement-id="${placementId}"]`
-            );
+            if (!confirmed) {
+
+                return;
+
+            }
 
 
-            const deleteButton = placementItem
-                ? placementItem.querySelector(".delete-placement-btn")
-                : null;
+            const csrfInput =
+                document.querySelector(
+                    "[name='csrfmiddlewaretoken']"
+                );
+
+
+            if (!csrfInput) {
+
+                alert(
+                    "Security token is missing. Please refresh the page and try again."
+                );
+
+                return;
+
+            }
+
+
+            const csrfToken =
+                csrfInput.value;
+
+
+            const placementItem =
+                document.querySelector(
+                    `[data-placement-id="${placementId}"]`
+                );
+
+
+            const deleteButton =
+                placementItem
+                    ? placementItem.querySelector(
+                        ".placement-delete-action-202"
+                    )
+                    : null;
+
 
 
             if (deleteButton) {
 
-                deleteButton.disabled = true;
+                deleteButton.disabled =
+                    true;
 
                 deleteButton.innerHTML =
                     '<i class="fas fa-spinner fa-spin"></i>';
@@ -698,82 +1899,186 @@
             }
 
 
-            fetch(deleteUrl, {
 
-                method: "POST",
+            fetch(
+                deleteUrl,
+                {
 
-                headers: {
+                    method:
+                        "POST",
 
-                    "X-CSRFToken": csrfToken,
+                    headers: {
 
-                    "X-Requested-With":
-                        "XMLHttpRequest"
+                        "X-CSRFToken":
+                            csrfToken,
 
-                }
-
-            })
-
-                .then(response => {
-
-                    if (!response.ok) {
-
-                        throw new Error(
-                            "HTTP error: " + response.status
-                        );
+                        "X-Requested-With":
+                            "XMLHttpRequest"
 
                     }
 
-                    return response.json();
+                }
+            )
 
-                })
+                .then(
+                    async function (response) {
 
-                .then(data => {
+                        let data = null;
 
-                    if (data.success) {
 
-                        /*
-                         * Remove placement from page
-                         */
+                        try {
 
-                        if (placementItem) {
-                            placementItem.remove();
+                            data =
+                                await response.json();
+
+                        } catch (error) {
+
+                            data = null;
+
                         }
 
 
-                        /*
-                         * Show empty message
-                         */
+                        if (!response.ok) {
 
-                        const placementList =
-                            document.getElementById(
-                                "placementList"
+                            throw new Error(
+                                (
+                                    data &&
+                                    data.message
+                                )
+                                    ? data.message
+                                    : "HTTP error: " +
+                                    response.status
                             );
+
+                        }
+
+
+                        return data;
+
+                    }
+                )
+
+                .then(
+                    function (data) {
 
 
                         if (
-                            placementList &&
-                            placementList.querySelectorAll(
-                                ".placement-item"
-                            ).length === 0
+                            data &&
+                            data.success
                         ) {
 
-                            placementList.innerHTML =
-                                "<p>No saved placements!</p>";
+
+                            if (placementItem) {
+
+                                placementItem.remove();
+
+                            }
+
+
+                            const placementList =
+                                document.getElementById(
+                                    "placementList"
+                                );
+
+
+                            const remaining =
+                                placementList
+                                    ? placementList.querySelectorAll(
+                                        ".placement-card-202"
+                                    )
+                                    : [];
+
+
+                            if (
+                                remaining.length === 0
+                            ) {
+
+                                placementList.innerHTML = `
+
+                        <div class="empty-state-202">
+
+                            <div class="empty-state-icon-202">
+
+                                <i class="fas fa-folder-open"></i>
+
+                            </div>
+
+                            <h3>
+                                No field placements yet
+                            </h3>
+
+                            <p>
+                                Start by adding the organization
+                                where you are completing your field
+                                practical training.
+                            </p>
+
+                            <button
+                                type="button"
+                                class="primary-action-202"
+                                onclick="open_placement_modal(1)"
+                            >
+
+                                <i class="fas fa-plus"></i>
+
+                                Add your first placement
+
+                            </button>
+
+                        </div>
+
+                    `;
+
+                            }
+
+
+                            alert(
+                                data.message ||
+                                "Field placement deleted successfully."
+                            );
+
+
+                        } else {
+
+
+                            if (deleteButton) {
+
+                                deleteButton.disabled =
+                                    false;
+
+                                deleteButton.innerHTML =
+                                    '<i class="fas fa-trash-alt"></i>';
+
+                            }
+
+
+                            alert(
+                                (
+                                    data &&
+                                    data.message
+                                )
+                                    ? data.message
+                                    : "Failed to delete placement."
+                            );
 
                         }
 
+                    }
+                )
 
-                        alert(
-                            data.message ||
-                            "Field placement deleted successfully."
+                .catch(
+                    function (error) {
+
+                        console.error(
+                            "Delete placement error:",
+                            error
                         );
 
 
-                    } else {
-
                         if (deleteButton) {
 
-                            deleteButton.disabled = false;
+                            deleteButton.disabled =
+                                false;
 
                             deleteButton.innerHTML =
                                 '<i class="fas fa-trash-alt"></i>';
@@ -782,41 +2087,82 @@
 
 
                         alert(
-                            data.message ||
-                            "Failed to delete placement."
+                            error.message ||
+                            "Something went wrong while deleting the placement."
                         );
 
                     }
-
-                })
-
-                .catch(error => {
-
-                    console.error(
-                        "Delete placement error:",
-                        error
-                    );
-
-
-                    if (deleteButton) {
-
-                        deleteButton.disabled = false;
-
-                        deleteButton.innerHTML =
-                            '<i class="fas fa-trash-alt"></i>';
-
-                    }
-
-
-                    alert(
-                        "Something went wrong while deleting the placement."
-                    );
-
-                });
+                );
 
         }
 
+
+
+        /* ============================================================
+           CLOSE MODAL WHEN CLICKING OUTSIDE
+        ============================================================ */
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                const modal =
+                    document.getElementById(
+                        "add_placement"
+                    );
+
+
+                if (
+                    modal &&
+                    event.target === modal
+                ) {
+
+                    open_placement_modal(0);
+
+                }
+
+            }
+        );
+
+
+
+        /* ============================================================
+           ESC CLOSES PLACEMENT MODAL
+        ============================================================ */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key !== "Escape"
+                ) {
+
+                    return;
+
+                }
+
+
+                const modal =
+                    document.getElementById(
+                        "add_placement"
+                    );
+
+
+                if (
+                    modal &&
+                    modal.style.display === "flex"
+                ) {
+
+                    open_placement_modal(0);
+
+                }
+
+            }
+        );
+
     </script>
+
 </body>
 
 </html>

@@ -1,449 +1,1297 @@
 {% load static %}
 {% load humanize %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Field Report | Summary</title>
-    <link rel="shortcut icon" href="{% static 'logo1.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css_re/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Field Training | Report Summary</title>
+
+    <link
+        rel="shortcut icon"
+        href="{% static 'logo1.png' %}"
+        type="image/x-icon"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css_re/style.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
 
     <style>
-        .messages {
-            margin: 20px 0;
+
+        /* =========================================================
+           REPORT SUMMARY PAGE
+        ========================================================= */
+
+        .summary-page-501 {
+            width: 100%;
+            max-width: none;
+            min-width: 0;
+            margin: 0;
+            padding: 0;
         }
 
-        .alert {
-            padding: 12px 18px;
+        .summary-page-501 *,
+        .summary-page-501 *::before,
+        .summary-page-501 *::after {
+            box-sizing: border-box;
+        }
+
+        .summary-header-501 {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+            width: 100%;
+            min-width: 0;
+            margin-bottom: 24px;
+        }
+
+        .summary-heading-501 {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .summary-eyebrow-501 {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 7px;
+            color: #014162;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .summary-heading-501 h2 {
+            margin: 0;
+            color: #172033;
+            font-size: clamp(22px, 3vw, 30px);
+            line-height: 1.2;
+            font-weight: 800;
+            word-break: break-word;
+        }
+
+        .summary-heading-501 p {
+            max-width: 760px;
+            margin: 8px 0 0;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.65;
+        }
+
+        .summary-actions-501 {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .summary-action-btn-501 {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 42px;
+            padding: 10px 15px;
+            border: 1px solid #dbe3ea;
+            border-radius: 10px;
+            background: #ffffff;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .summary-action-btn-501:hover {
+            border-color: #014162;
+            color: #014162;
+            transform: translateY(-1px);
+        }
+
+        .summary-action-btn-primary-501 {
+            background: #014162;
+            border-color: #014162;
+            color: #ffffff;
+        }
+
+        .summary-action-btn-primary-501:hover {
+            background: #00344f;
+            border-color: #00344f;
+            color: #ffffff;
+        }
+
+
+        /* =========================================================
+           PLACEMENT INFORMATION
+        ========================================================= */
+
+        .placement-card-501 {
+            width: 100%;
+            min-width: 0;
+            margin-bottom: 22px;
+            padding: 20px;
+            border: 1px solid #e5eaf0;
+            border-radius: 16px;
+            background: #ffffff;
+            box-shadow: 0 6px 24px rgba(15, 23, 42, .05);
+        }
+
+        .placement-card-top-501 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            min-width: 0;
+            margin-bottom: 17px;
+        }
+
+        .placement-title-501 {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-width: 0;
+        }
+
+        .placement-title-icon-501 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
+            border-radius: 11px;
+            background: #eaf4f8;
+            color: #014162;
+        }
+
+        .placement-title-text-501 {
+            min-width: 0;
+        }
+
+        .placement-title-text-501 strong {
+            display: block;
+            color: #172033;
+            font-size: 15px;
+            font-weight: 800;
+            word-break: break-word;
+        }
+
+        .placement-title-text-501 span {
+            display: block;
+            margin-top: 3px;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .placement-grid-501 {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            width: 100%;
+        }
+
+        .placement-info-501 {
+            min-width: 0;
+            padding: 13px;
+            border: 1px solid #edf1f5;
+            border-radius: 11px;
+            background: #f8fafc;
+        }
+
+        .placement-info-501 small {
+            display: block;
+            margin-bottom: 5px;
+            color: #94a3b8;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+
+        .placement-info-501 strong {
+            display: block;
+            color: #334155;
+            font-size: 13px;
+            line-height: 1.45;
+            overflow-wrap: anywhere;
+        }
+
+
+        /* =========================================================
+           SECTION CARD
+        ========================================================= */
+
+        .report-summary-card-501 {
+            width: 100%;
+            min-width: 0;
+            margin-bottom: 20px;
+            padding: 22px;
+            border: 1px solid #e5eaf0;
+            border-radius: 16px;
+            background: #ffffff;
+            box-shadow: 0 6px 24px rgba(15, 23, 42, .05);
+        }
+
+        .report-section-head-501 {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 15px;
+            min-width: 0;
+            margin-bottom: 16px;
+        }
+
+        .report-section-heading-501 {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .report-section-number-501 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 39px;
+            height: 39px;
+            flex: 0 0 39px;
+            border-radius: 10px;
+            background: #eaf4f8;
+            color: #014162;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .report-section-title-501 {
+            min-width: 0;
+        }
+
+        .report-section-title-501 h3 {
+            margin: 0;
+            color: #172033;
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 1.35;
+            word-break: break-word;
+        }
+
+        .report-section-title-501 p {
+            margin: 4px 0 0;
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .saved-summary-label-501 {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            flex-shrink: 0;
+            padding: 6px 9px;
+            border-radius: 999px;
+            background: #ecfdf5;
+            color: #047857;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .saved-summary-label-501 i {
+            font-size: 10px;
+        }
+
+
+        /* =========================================================
+           TEXTAREA
+        ========================================================= */
+
+        .report-section-textarea-501 {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            min-height: 220px;
+            padding: 15px 16px;
+            border: 1px solid #dbe3ea;
+            border-radius: 12px;
+            outline: none;
+            resize: vertical;
+            background: #fbfcfe;
+            color: #334155;
+            font-family: inherit;
+            font-size: 14px;
+            line-height: 1.75;
+            transition: .2s ease;
+        }
+
+        .report-section-textarea-501:focus {
+            border-color: #014162;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(1, 65, 98, .08);
+        }
+
+        .report-section-textarea-501::placeholder {
+            color: #94a3b8;
+        }
+
+        .summary-counter-501 {
+            margin-top: 8px;
+            color: #94a3b8;
+            font-size: 11px;
+            text-align: right;
+        }
+
+
+        /* =========================================================
+           AI HELPER
+        ========================================================= */
+
+        .ai-helper-501 {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            width: 100%;
+            min-width: 0;
+            margin-bottom: 14px;
+            padding: 13px 14px;
+            border: 1px solid #dcecf3;
+            border-radius: 11px;
+            background: #f4fafc;
+        }
+
+        .ai-helper-icon-501 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            flex: 0 0 34px;
+            border-radius: 9px;
+            background: #eaf4f8;
+            color: #014162;
+        }
+
+        .ai-helper-text-501 {
+            min-width: 0;
+        }
+
+        .ai-helper-text-501 strong {
+            display: block;
+            margin-bottom: 2px;
+            color: #334155;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .ai-helper-text-501 p {
+            margin: 0;
+            color: #64748b;
+            font-size: 11px;
+            line-height: 1.55;
+        }
+
+
+        /* =========================================================
+           SECTION BUTTONS
+        ========================================================= */
+
+        .section-controls-501 {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 13px;
+        }
+
+        .section-control-btn-501 {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            min-height: 38px;
+            padding: 8px 13px;
+            border: 1px solid #dbe3ea;
+            border-radius: 9px;
+            background: #ffffff;
+            color: #475569;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .section-control-btn-501:hover {
+            border-color: #014162;
+            color: #014162;
+        }
+
+        .section-control-btn-501:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .section-control-btn-primary-501 {
+            border-color: #014162;
+            background: #014162;
+            color: #ffffff;
+        }
+
+        .section-control-btn-primary-501:hover {
+            background: #00344f;
+            color: #ffffff;
+        }
+
+
+        /* =========================================================
+           STATUS
+        ========================================================= */
+
+        .section-status-501 {
+            min-height: 20px;
+            margin-top: 9px;
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .section-status-501.success {
+            color: #047857;
+        }
+
+        .section-status-501.error {
+            color: #dc2626;
+        }
+
+        .section-status-501.loading {
+            color: #014162;
+        }
+
+
+        /* =========================================================
+           DAILY RECORDS SOURCE
+        ========================================================= */
+
+        .daily-source-card-501 {
+            margin-top: 18px;
+            padding: 14px;
+            border: 1px solid #edf1f5;
+            border-radius: 11px;
+            background: #f8fafc;
+        }
+
+        .daily-source-title-501 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            color: #334155;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .daily-source-title-501 i {
+            color: #014162;
+        }
+
+        .daily-source-text-501 {
+            margin: 0;
+            color: #64748b;
+            font-size: 11px;
+            line-height: 1.55;
+        }
+
+        .daily-records-wrapper-501 {
+            width: 100%;
+            min-width: 0;
+            margin-top: 12px;
+        }
+
+        .daily-record-card-501 {
+            width: 100%;
+            min-width: 0;
+            margin-bottom: 13px;
+            padding: 16px;
+            border: 1px solid #e5eaf0;
+            border-radius: 12px;
+            background: #fbfcfe;
+        }
+
+        .daily-record-card-501:last-child {
+            margin-bottom: 0;
+        }
+
+        .daily-record-top-501 {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            min-width: 0;
             margin-bottom: 10px;
-            border-radius: 5px;
-            color: #fff;
-            font-weight: 500;
         }
 
-        .success {
-            background: #28a745;
+        .daily-record-title-501 {
+            min-width: 0;
+            flex: 1;
         }
 
-        .error {
-            background: #dc3545;
+        .daily-record-title-501 strong {
+            display: block;
+            color: #172033;
+            font-size: 14px;
+            font-weight: 800;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
         }
 
-        .warning {
-            background: #ffc107;
-            color: #000;
+        .daily-record-date-501 {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 4px;
+            color: #64748b;
+            font-size: 11px;
         }
 
-        .info {
-            background: #17a2b8;
+        .daily-record-date-501 i {
+            color: #014162;
         }
+
+        .daily-record-content-501 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .daily-record-item-501 {
+            min-width: 0;
+            padding: 11px;
+            border-radius: 9px;
+            background: #ffffff;
+            border: 1px solid #edf1f5;
+        }
+
+        .daily-record-item-501.full-501 {
+            grid-column: 1 / -1;
+        }
+
+        .daily-record-item-501 small {
+            display: block;
+            margin-bottom: 5px;
+            color: #94a3b8;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+
+        .daily-record-item-501 p {
+            margin: 0;
+            color: #475569;
+            font-size: 12px;
+            line-height: 1.65;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .empty-records-501 {
+            padding: 30px 20px;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            background: #f8fafc;
+            text-align: center;
+        }
+
+        .empty-records-501 i {
+            margin-bottom: 9px;
+            color: #94a3b8;
+            font-size: 25px;
+        }
+
+        .empty-records-501 strong {
+            display: block;
+            color: #475569;
+            font-size: 13px;
+        }
+
+        .empty-records-501 p {
+            margin: 5px 0 0;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           CHAPTER TWO GUIDE
+        ========================================================= */
+
+        .chapter-guide-501 {
+            margin-bottom: 20px;
+            padding: 18px;
+            border: 1px solid #dcecf3;
+            border-radius: 14px;
+            background: #f4fafc;
+        }
+
+        .chapter-guide-title-501 {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 12px;
+            color: #172033;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .chapter-guide-title-501 i {
+            color: #014162;
+        }
+
+        .chapter-guide-grid-501 {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 9px;
+        }
+
+        .chapter-guide-item-501 {
+            min-width: 0;
+            padding: 11px;
+            border: 1px solid #e0ebf0;
+            border-radius: 10px;
+            background: #ffffff;
+        }
+
+        .chapter-guide-item-501 strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #014162;
+            font-size: 11px;
+        }
+
+        .chapter-guide-item-501 span {
+            display: block;
+            color: #64748b;
+            font-size: 10px;
+            line-height: 1.45;
+        }
+
+
+        /* =========================================================
+           COMPLETE SUMMARY
+        ========================================================= */
+
+        .complete-summary-card-501 {
+            border-color: #dcecf3;
+        }
+
+        .complete-summary-top-501 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .complete-summary-description-501 {
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+
+        /* =========================================================
+           ALERTS
+        ========================================================= */
+
+        .page-alerts-501 {
+            width: 100%;
+            min-width: 0;
+            margin-bottom: 18px;
+        }
+
+        .page-alert-501 {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            margin-bottom: 8px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .page-alert-501:last-child {
+            margin-bottom: 0;
+        }
+
+        .page-alert-501.success {
+            background: #ecfdf5;
+            color: #047857;
+        }
+
+        .page-alert-501.error {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        .page-alert-501.warning {
+            background: #fffbeb;
+            color: #b45309;
+        }
+
+        .page-alert-501.info {
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1100px) {
+
+            .placement-grid-501 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .chapter-guide-grid-501 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+        }
+
+
+        @media (max-width: 900px) {
+
+            .summary-header-501 {
+                flex-direction: column;
+            }
+
+            .summary-actions-501 {
+                width: 100%;
+            }
+
+            .summary-action-btn-501 {
+                flex: 1;
+            }
+
+            .chapter-guide-grid-501 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .report-summary-card-501,
+            .placement-card-501 {
+                padding: 16px;
+                border-radius: 13px;
+            }
+
+            .placement-grid-501 {
+                grid-template-columns: 1fr;
+            }
+
+            .daily-record-content-501 {
+                grid-template-columns: 1fr;
+            }
+
+            .daily-record-item-501.full-501 {
+                grid-column: auto;
+            }
+
+            .report-section-head-501 {
+                flex-direction: column;
+            }
+
+            .saved-summary-label-501 {
+                align-self: flex-start;
+            }
+
+            .section-controls-501 {
+                justify-content: stretch;
+            }
+
+            .section-control-btn-501 {
+                flex: 1;
+            }
+
+            .chapter-guide-grid-501 {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .summary-heading-501 h2 {
+                font-size: 22px;
+            }
+
+            .summary-action-btn-501 {
+                width: 100%;
+                flex: none;
+            }
+
+            .report-section-textarea-501 {
+                min-height: 190px;
+                font-size: 13px;
+            }
+
+            .report-section-number-501 {
+                width: 35px;
+                height: 35px;
+                flex-basis: 35px;
+            }
+
+        }
+
     </style>
 </head>
 
+
 <body>
 
-    <div class="row-holder">
+<div class="portal-wrapper">
 
-        <!-- Header -->
-        <div class="header-holder-100">
-            <div class="header-100">
-                <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-                            class="fas fa-times"></i></button>
+    <!-- =========================================================
+         SIDEBAR OVERLAY
+    ========================================================== -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="closeSidebar()"
+    ></div>
+
+
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================== -->
+
+    <aside
+        class="portal-sidebar"
+        id="portalSidebar"
+    >
+
+        <div class="sidebar-brand">
+
+            <a href="{% url 'report_home' %}">
+
+                <div class="brand-logo">
+
+                    <img
+                        src="{% static 'logo1.png' %}"
+                        alt="Field Report"
+                    >
+
                 </div>
-                <div class="title-holder-101">
-                    <button type="button"><span>Report Summary</span></button>
+
+
+                <div class="brand-text">
+
+                    <strong>
+                        Field Training
+                    </strong>
+
+                    <span>
+                        Student Portal
+                    </span>
+
                 </div>
-                <div class="title-holder-101" style="float: right;">
-                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
-                </div>
-            </div>
+
+            </a>
+
         </div>
 
 
-        <!-- center content -->
-        <div class="center-content-200">
+        <nav class="sidebar-navigation">
 
-            <div class="left-holder-201" id="nav">
-                <div class="nav-bar-holder-202">
+            <div class="navigation-section">
 
-                    <ul>
-                        <a href="{% url 'report_home' %}">
-                            <li>Dashboard <i class="fas fa-tachometer-alt"></i></li>
-                        </a>
-                    </ul>
+                <span class="navigation-label">
+                    MAIN
+                </span>
 
-                    <ul>
-                        <a href="{% url 'placements_list' %}">
-                            <li class="active-0">Reports <i class="fas fa-file-alt"></i></li>
-                        </a>
-                    </ul>
 
-                    <ul>
-                        <a href="{% url 'user_account' %}">
-                            <li>Account <i class="fas fa-user"></i></li>
-                        </a>
-                    </ul>
+                <a
+                    href="{% url 'report_home' %}"
+                    class="navigation-item"
+                >
 
-                    <ul>
-                        <a href="{% url 'home' %}">
-                            <li>Back Wingastock <i class="fas fa-home"></i></li>
-                        </a>
-                    </ul>
-                </div>
+                    <span class="navigation-icon">
+                        <i class="fas fa-th-large"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Dashboard
+                        </strong>
+
+                        <small>
+                            Overview of your training
+                        </small>
+
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{% url 'placements_list' %}"
+                    class="navigation-item active"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Field Reports
+                        </strong>
+
+                        <small>
+                            Daily and weekly reports
+                        </small>
+
+                    </span>
+
+                </a>
+
             </div>
 
-            <div class="right-holder-201">
-                <div class="products-202">
 
-                    <div class="preview-102">
+            <div class="navigation-section">
 
-                        <!-- Report Header -->
-                        <div class="product-image-holder-103">
-                            <div class="product-image-103"
-                                style="background: linear-gradient(135deg, #1e90ff, #1565c0);">
+                <span class="navigation-label">
+                    ACCOUNT
+                </span>
 
-                                <h1>Reports Summary</h1>
+
+                <a
+                    href="{% url 'user_account' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-user"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            My Account
+                        </strong>
+
+                        <small>
+                            Manage your profile
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <div class="navigation-section">
+
+                <span class="navigation-label">
+                    WEBSITE
+                </span>
+
+
+                <a
+                    href="{% url 'home' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-external-link-alt"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Back to WingaStock
+                        </strong>
+
+                        <small>
+                            Return to main website
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+        </nav>
+
+
+        <div class="sidebar-help">
+
+            <div class="sidebar-help-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Need help?
+                </strong>
+
+                <p>
+                    Complete your daily reports regularly
+                    to keep your field training record up to date.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-footer">
+
+            <span>
+                Field Practical Training
+            </span>
+
+            <small>
+                Student Reporting System
+            </small>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
+
+    <main class="portal-main">
+
+        <!-- =====================================================
+             HEADER
+        ====================================================== -->
+
+        <header class="portal-header">
+
+            <div class="header-left">
+
+                <button
+                    type="button"
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    onclick="toggleSidebar()"
+                    aria-label="Open navigation"
+                >
+                    <i class="fas fa-bars"></i>
+                </button>
+
+
+                <div class="header-page-title">
+
+                    <span>
+                        Student Portal
+                    </span>
+
+                    <h1>
+                        Report Summary
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="header-user">
+
+                    <div class="header-user-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+
+
+                    <div class="header-user-info">
+
+                        <strong>
+                            Student
+                        </strong>
+
+                        <span>
+                            {{ user.email }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             CONTENT
+        ====================================================== -->
+
+        <section class="portal-content">
+
+            <div class="summary-page-501">
+
+
+                <!-- =================================================
+                     DJANGO MESSAGES
+                ================================================== -->
+
+                {% if messages %}
+
+                <div class="page-alerts-501">
+
+                    {% for message in messages %}
+
+                    <div
+                        class="page-alert-501
+                        {% if message.tags %}
+                            {{ message.tags }}
+                        {% else %}
+                            info
+                        {% endif %}"
+                    >
+
+                        <i class="fas fa-info-circle"></i>
+
+                        <span>
+                            {{ message }}
+                        </span>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     PAGE HEADER
+                ================================================== -->
+
+                <div class="summary-header-501">
+
+                    <div class="summary-heading-501">
+
+                        <span class="summary-eyebrow-501">
+
+                            <i class="fas fa-file-signature"></i>
+
+                            Chapter Two
+
+                        </span>
+
+
+                        <h2>
+                            Training Report Summary
+                        </h2>
+
+
+                        <p>
+                            Review, edit, generate and save each section
+                            of Chapter Two using information recorded
+                            in your daily field training reports.
+                        </p>
+
+                    </div>
+
+
+                    <div class="summary-actions-501">
+
+                        <a
+                            href="{% url 'reports_list' placement.id %}"
+                            class="summary-action-btn-501"
+                        >
+
+                            <i class="fas fa-arrow-left"></i>
+
+                            Back to Reports
+
+                        </a>
+
+
+                        <a
+                            href="{% url 'generate_field_report' placement.id %}"
+                            class="summary-action-btn-501 summary-action-btn-primary-501"
+                        >
+
+                            <i class="fas fa-file-alt"></i>
+
+                            Full Report
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     PLACEMENT INFORMATION
+                ================================================== -->
+
+                <div class="placement-card-501">
+
+                    <div class="placement-card-top-501">
+
+                        <div class="placement-title-501">
+
+                            <div class="placement-title-icon-501">
+
+                                <i class="fas fa-building"></i>
 
                             </div>
-                        </div>
 
 
-                        <!-- Report Details -->
-                        <div class="product-details-holder-103">
+                            <div class="placement-title-text-501">
 
-                            <div>
+                                <strong>
+                                    {{ placement.organization }}
+                                </strong>
 
-                                <div style="float: left; width: 100%;">
-
-                                    <!-- Page Title -->
-                                    <p style="font-weight: bold;">
-                                        <i class="fas fa-file-alt"></i>
-                                        Weekly Reports
-                                    </p>
-
-
-                                    <!-- Messages -->
-                                    {% if messages %}
-                                    <div class="messages">
-
-                                        {% for message in messages %}
-
-                                        <div class="alert {{ message.tags }}">
-                                            {{ message }}
-                                        </div>
-
-                                        {% endfor %}
-
-                                    </div>
-                                    {% endif %}
-
-
-
-                                    <!-- ================================= -->
-                                    <!-- WEEKLY REPORTS -->
-                                    <!-- ================================= -->
-
-                                    {% for week in weekly_reports %}
-
-                                    <div style="
-                    margin-top: 35px;
-                    padding: 15px;
-                    border-radius: 8px;
-                    background: #f5f5f5;
-                ">
-
-                                        <!-- Week Header -->
-
-                                        <p style="font-weight: bold; margin-bottom: 5px;">
-
-                                            <i class="fas fa-calendar-week"></i>
-
-                                            Week {{ forloop.counter }}
-
-                                        </p>
-
-
-                                        <p style="margin-top: 5px; color: #666;">
-
-                                            {{ week.week_start|date:"d M Y" }}
-
-                                            -
-
-                                            {{ week.week_end|date:"d M Y" }}
-
-                                        </p>
-
-                                    </div>
-
-
-                                    <!-- Daily Reports In This Week -->
-
-                                    {% for report in week.reports %}
-
-                                    <div style="
-                    margin-top: 25px;
-                    padding-bottom: 25px;
-                    border-bottom: 1px solid #ddd;
-                ">
-
-
-                                        <!-- Report Title -->
-
-                                        <div class="des-103">
-
-                                            <h2>
-                                                {{ report.title }}
-                                            </h2>
-
-                                        </div>
-
-
-                                        <!-- Activities -->
-
-                                        <div style="margin-top: 25px;">
-
-                                            <p style="font-weight: bold;">
-
-                                                <i class="fas fa-tasks"></i>
-
-                                                Activities Performed
-
-                                            </p>
-
-
-                                            <div class="des-103">
-
-                                                {{ report.activities|linebreaks }}
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <!-- Skills Learned -->
-
-                                        <div style="margin-top: 25px;">
-
-                                            <p style="font-weight: bold;">
-
-                                                <i class="fas fa-lightbulb"></i>
-
-                                                Skills & Knowledge Learned
-
-                                            </p>
-
-
-                                            <div class="des-103">
-
-                                                {% if report.skills_learned %}
-
-                                                {{ report.skills_learned|linebreaks }}
-
-                                                {% else %}
-
-                                                <span style="color: #888;">
-
-                                                    No skills or knowledge recorded.
-
-                                                </span>
-
-                                                {% endif %}
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <!-- Challenges -->
-
-                                        <div style="margin-top: 25px;">
-
-                                            <p style="font-weight: bold;">
-
-                                                <i class="fas fa-exclamation-triangle"></i>
-
-                                                Challenges Encountered
-
-                                            </p>
-
-
-                                            <div class="des-103">
-
-                                                {% if report.challenges %}
-
-                                                {{ report.challenges|linebreaks }}
-
-                                                {% else %}
-
-                                                <span style="color: #888;">
-
-                                                    No challenges recorded.
-
-                                                </span>
-
-                                                {% endif %}
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <!-- Solutions -->
-
-                                        <div style="margin-top: 25px;">
-
-                                            <p style="font-weight: bold;">
-
-                                                <i class="fas fa-tools"></i>
-
-                                                Solutions
-
-                                            </p>
-
-
-                                            <div class="des-103">
-
-                                                {% if report.solutions %}
-
-                                                {{ report.solutions|linebreaks }}
-
-                                                {% else %}
-
-                                                <span style="color: #888;">
-
-                                                    No solutions recorded.
-
-                                                </span>
-
-                                                {% endif %}
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <!-- Remarks -->
-
-                                        <div style="margin-top: 25px;">
-
-                                            <p style="font-weight: bold;">
-
-                                                <i class="fas fa-sticky-note"></i>
-
-                                                Remarks
-
-                                            </p>
-
-
-                                            <div class="des-103">
-
-                                                {% if report.remarks %}
-
-                                                {{ report.remarks|linebreaks }}
-
-                                                {% else %}
-
-                                                <span style="color: #888;">
-
-                                                    No remarks.
-
-                                                </span>
-
-                                                {% endif %}
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <!-- Supervisor Comment -->
-
-                                        <div style="margin-top: 25px;">
-
-                                            <p style="font-weight: bold;">
-
-                                                <i class="fas fa-user-tie"></i>
-
-                                                Supervisor Comment
-
-                                            </p>
-
-
-                                            <div class="des-103">
-
-                                                {% if report.supervisor_comment %}
-
-                                                {{ report.supervisor_comment|linebreaks }}
-
-                                                {% else %}
-
-                                                <span style="color: #888;">
-
-                                                    No supervisor comment yet.
-
-                                                </span>
-
-                                                {% endif %}
-
-                                            </div>
-
-                                        </div>
-
-
-                                    </div>
-
-                                    {% endfor %}
-
-
-                                    <!-- No reports in week -->
-
-                                    {% empty %}
-
-                                    <div style="
-                    margin-top: 25px;
-                    padding: 20px;
-                    text-align: center;
-                ">
-
-                                        <i class="fas fa-file-alt"></i>
-
-                                        <p>
-                                            No reports summary available.
-                                        </p>
-
-                                    </div>
-
-                                    {% endfor %}
-
-
-                                    <!-- Actions -->
-
-                                    <div class="actions-holder-103">
-
-                                        <div>
-
-                                            <button type="button"
-                                                onclick="window.location.href=`{% url 'reports_list' placement.id %}`">
-
-                                                <i class="fas fa-arrow-left"></i>
-
-                                                Back to Reports
-
-                                            </button>
-
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
+                                <span>
+                                    Field Placement Information
+                                </span>
 
                             </div>
 
@@ -452,48 +1300,2805 @@
                     </div>
 
 
+                    <div class="placement-grid-501">
+
+                        <div class="placement-info-501">
+
+                            <small>
+                                Department
+                            </small>
+
+                            <strong>
+                                {{ placement.department|default:"Not provided" }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="placement-info-501">
+
+                            <small>
+                                Supervisor
+                            </small>
+
+                            <strong>
+                                {{ placement.supervisor_name|default:"Not provided" }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="placement-info-501">
+
+                            <small>
+                                Start Date
+                            </small>
+
+                            <strong>
+                                {{ placement.start_date|date:"d M Y" }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="placement-info-501">
+
+                            <small>
+                                End Date
+                            </small>
+
+                            <strong>
+                                {{ placement.end_date|date:"d M Y" }}
+                            </strong>
+
+                        </div>
+
+                    </div>
 
                 </div>
+
+
+                <!-- =================================================
+                     CHAPTER TWO GUIDE
+                ================================================== -->
+
+                <div class="chapter-guide-501">
+
+                    <div class="chapter-guide-title-501">
+
+                        <i class="fas fa-list-alt"></i>
+
+                        Chapter Two Structure
+
+                    </div>
+
+
+                    <div class="chapter-guide-grid-501">
+
+                        <div class="chapter-guide-item-501">
+
+                            <strong>
+                                2.1
+                            </strong>
+
+                            <span>
+                                Brief Overview of Undertaken
+                            </span>
+
+                        </div>
+
+
+                        <div class="chapter-guide-item-501">
+
+                            <strong>
+                                2.2
+                            </strong>
+
+                            <span>
+                                Activities Performed
+                            </span>
+
+                        </div>
+
+
+                        <div class="chapter-guide-item-501">
+
+                            <strong>
+                                2.3
+                            </strong>
+
+                            <span>
+                                General Observation
+                            </span>
+
+                        </div>
+
+
+                        <div class="chapter-guide-item-501">
+
+                            <strong>
+                                2.4
+                            </strong>
+
+                            <span>
+                                Challenges / Problems Faced
+                            </span>
+
+                        </div>
+
+
+                        <div class="chapter-guide-item-501">
+
+                            <strong>
+                                2.5
+                            </strong>
+
+                            <span>
+                                How Student Solved the Challenges
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     2.1 BRIEF OVERVIEW OF UNDERTAKEN
+                ================================================== -->
+
+                <div class="report-summary-card-501">
+
+                    <div class="report-section-head-501">
+
+                        <div class="report-section-heading-501">
+
+                            <div class="report-section-number-501">
+                                2.1
+                            </div>
+
+
+                            <div class="report-section-title-501">
+
+                                <h3>
+                                    Brief Overview of Undertaken
+                                </h3>
+
+                                <p>
+                                    Brief overview of the field practical
+                                    training undertaken by the student.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        {% if generated_report.section_21_brief_overview %}
+
+                        <span class="saved-summary-label-501">
+
+                            <i class="fas fa-check-circle"></i>
+
+                            Saved
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="ai-helper-501">
+
+                        <div class="ai-helper-icon-501">
+
+                            <i class="fas fa-robot"></i>
+
+                        </div>
+
+
+                        <div class="ai-helper-text-501">
+
+                            <strong>
+                                AI Writing Assistance
+                            </strong>
+
+                            <p>
+                                Generate a formal brief overview based
+                                strictly on the submitted daily reports.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <textarea
+                        id="section21"
+                        class="report-section-textarea-501"
+                        placeholder="Enter or generate the brief overview of the training undertaken..."
+                    >{{ generated_report.section_21_brief_overview|default:"" }}</textarea>
+
+
+                    <div
+                        class="summary-counter-501"
+                        id="counter21"
+                    >
+                        0 characters • 0 words
+                    </div>
+
+
+                    <div class="section-controls-501">
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="generateSection('2.1')"
+                        >
+
+                            <i class="fas fa-robot"></i>
+
+                            Generate
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="copySection('section21')"
+                        >
+
+                            <i class="far fa-copy"></i>
+
+                            Copy
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="clearSection('section21')"
+                        >
+
+                            <i class="fas fa-eraser"></i>
+
+                            Clear
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="save21"
+                            class="section-control-btn-501 section-control-btn-primary-501"
+                            onclick="saveSection('2.1', 'section21')"
+                        >
+
+                            <i class="fas fa-save"></i>
+
+                            Save
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="status21"
+                        class="section-status-501"
+                    ></div>
+
+                </div>
+
+
+                <!-- =================================================
+                     2.2 ACTIVITIES PERFORMED
+                ================================================== -->
+
+                <div class="report-summary-card-501">
+
+                    <div class="report-section-head-501">
+
+                        <div class="report-section-heading-501">
+
+                            <div class="report-section-number-501">
+                                2.2
+                            </div>
+
+
+                            <div class="report-section-title-501">
+
+                                <h3>
+                                    Activities Performed
+                                </h3>
+
+                                <p>
+                                    Activities performed by the student
+                                    during the field practical training.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        {% if generated_report.section_22_activities_performed %}
+
+                        <span class="saved-summary-label-501">
+
+                            <i class="fas fa-check-circle"></i>
+
+                            Saved
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="ai-helper-501">
+
+                        <div class="ai-helper-icon-501">
+
+                            <i class="fas fa-robot"></i>
+
+                        </div>
+
+
+                        <div class="ai-helper-text-501">
+
+                            <strong>
+                                AI Writing Assistance
+                            </strong>
+
+                            <p>
+                                Organize the activities from the daily
+                                reports into formal academic paragraphs.
+                                Do not add activities that are not recorded.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <textarea
+                        id="section22"
+                        class="report-section-textarea-501"
+                        placeholder="Enter or generate the activities performed during training..."
+                    >{{ generated_report.section_22_activities_performed|default:"" }}</textarea>
+
+
+                    <div
+                        class="summary-counter-501"
+                        id="counter22"
+                    >
+                        0 characters • 0 words
+                    </div>
+
+
+                    <div class="section-controls-501">
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="generateSection('2.2')"
+                        >
+
+                            <i class="fas fa-robot"></i>
+
+                            Generate
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="copySection('section22')"
+                        >
+
+                            <i class="far fa-copy"></i>
+
+                            Copy
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="clearSection('section22')"
+                        >
+
+                            <i class="fas fa-eraser"></i>
+
+                            Clear
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="save22"
+                            class="section-control-btn-501 section-control-btn-primary-501"
+                            onclick="saveSection('2.2', 'section22')"
+                        >
+
+                            <i class="fas fa-save"></i>
+
+                            Save
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="status22"
+                        class="section-status-501"
+                    ></div>
+
+                </div>
+
+
+                <!-- =================================================
+                     2.3 GENERAL OBSERVATION
+                ================================================== -->
+
+                <div class="report-summary-card-501">
+
+                    <div class="report-section-head-501">
+
+                        <div class="report-section-heading-501">
+
+                            <div class="report-section-number-501">
+                                2.3
+                            </div>
+
+
+                            <div class="report-section-title-501">
+
+                                <h3>
+                                    General Observation
+                                </h3>
+
+                                <p>
+                                    General observations made during
+                                    the field practical training.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        {% if generated_report.section_23_general_observation %}
+
+                        <span class="saved-summary-label-501">
+
+                            <i class="fas fa-check-circle"></i>
+
+                            Saved
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="ai-helper-501">
+
+                        <div class="ai-helper-icon-501">
+
+                            <i class="fas fa-robot"></i>
+
+                        </div>
+
+
+                        <div class="ai-helper-text-501">
+
+                            <strong>
+                                AI Writing Assistance
+                            </strong>
+
+                            <p>
+                                Generate general observations based
+                                only on information contained in the
+                                submitted daily training reports.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <textarea
+                        id="section23"
+                        class="report-section-textarea-501"
+                        placeholder="Enter or generate the general observations from the training..."
+                    >{{ generated_report.section_23_general_observation|default:"" }}</textarea>
+
+
+                    <div
+                        class="summary-counter-501"
+                        id="counter23"
+                    >
+                        0 characters • 0 words
+                    </div>
+
+
+                    <div class="section-controls-501">
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="generateSection('2.3')"
+                        >
+
+                            <i class="fas fa-robot"></i>
+
+                            Generate
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="copySection('section23')"
+                        >
+
+                            <i class="far fa-copy"></i>
+
+                            Copy
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="clearSection('section23')"
+                        >
+
+                            <i class="fas fa-eraser"></i>
+
+                            Clear
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="save23"
+                            class="section-control-btn-501 section-control-btn-primary-501"
+                            onclick="saveSection('2.3', 'section23')"
+                        >
+
+                            <i class="fas fa-save"></i>
+
+                            Save
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="status23"
+                        class="section-status-501"
+                    ></div>
+
+                </div>
+
+
+                <!-- =================================================
+                     2.4 CHALLENGES / PROBLEMS FACED
+                ================================================== -->
+
+                <div class="report-summary-card-501">
+
+                    <div class="report-section-head-501">
+
+                        <div class="report-section-heading-501">
+
+                            <div class="report-section-number-501">
+                                2.4
+                            </div>
+
+
+                            <div class="report-section-title-501">
+
+                                <h3>
+                                    Challenges / Problems Faced
+                                </h3>
+
+                                <p>
+                                    Challenges or problems encountered
+                                    by the student during training.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        {% if generated_report.section_24_challenges %}
+
+                        <span class="saved-summary-label-501">
+
+                            <i class="fas fa-check-circle"></i>
+
+                            Saved
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="ai-helper-501">
+
+                        <div class="ai-helper-icon-501">
+
+                            <i class="fas fa-robot"></i>
+
+                        </div>
+
+
+                        <div class="ai-helper-text-501">
+
+                            <strong>
+                                AI Writing Assistance
+                            </strong>
+
+                            <p>
+                                Identify challenges or problems that
+                                are actually recorded in the daily
+                                training reports.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <textarea
+                        id="section24"
+                        class="report-section-textarea-501"
+                        placeholder="Enter or generate the challenges or problems faced during training..."
+                    >{{ generated_report.section_24_challenges|default:"" }}</textarea>
+
+
+                    <div
+                        class="summary-counter-501"
+                        id="counter24"
+                    >
+                        0 characters • 0 words
+                    </div>
+
+
+                    <div class="section-controls-501">
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="generateSection('2.4')"
+                        >
+
+                            <i class="fas fa-robot"></i>
+
+                            Generate
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="copySection('section24')"
+                        >
+
+                            <i class="far fa-copy"></i>
+
+                            Copy
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="clearSection('section24')"
+                        >
+
+                            <i class="fas fa-eraser"></i>
+
+                            Clear
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="save24"
+                            class="section-control-btn-501 section-control-btn-primary-501"
+                            onclick="saveSection('2.4', 'section24')"
+                        >
+
+                            <i class="fas fa-save"></i>
+
+                            Save
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="status24"
+                        class="section-status-501"
+                    ></div>
+
+                </div>
+
+
+                <!-- =================================================
+                     2.5 HOW STUDENT SOLVED THE CHALLENGES
+                ================================================== -->
+
+                <div class="report-summary-card-501">
+
+                    <div class="report-section-head-501">
+
+                        <div class="report-section-heading-501">
+
+                            <div class="report-section-number-501">
+                                2.5
+                            </div>
+
+
+                            <div class="report-section-title-501">
+
+                                <h3>
+                                    How Student Solved the Challenges
+                                </h3>
+
+                                <p>
+                                    Solutions or actions used by the
+                                    student to address the challenges
+                                    encountered during training.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        {% if generated_report.section_25_solutions %}
+
+                        <span class="saved-summary-label-501">
+
+                            <i class="fas fa-check-circle"></i>
+
+                            Saved
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="ai-helper-501">
+
+                        <div class="ai-helper-icon-501">
+
+                            <i class="fas fa-robot"></i>
+
+                        </div>
+
+
+                        <div class="ai-helper-text-501">
+
+                            <strong>
+                                AI Writing Assistance
+                            </strong>
+
+                            <p>
+                                Describe only the solutions or actions
+                                supported by the submitted daily reports.
+                                Do not invent solutions.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <textarea
+                        id="section25"
+                        class="report-section-textarea-501"
+                        placeholder="Enter or generate how the student solved the challenges..."
+                    >{{ generated_report.section_25_solutions|default:"" }}</textarea>
+
+
+                    <div
+                        class="summary-counter-501"
+                        id="counter25"
+                    >
+                        0 characters • 0 words
+                    </div>
+
+
+                    <div class="section-controls-501">
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="generateSection('2.5')"
+                        >
+
+                            <i class="fas fa-robot"></i>
+
+                            Generate
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="copySection('section25')"
+                        >
+
+                            <i class="far fa-copy"></i>
+
+                            Copy
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="section-control-btn-501"
+                            onclick="clearSection('section25')"
+                        >
+
+                            <i class="fas fa-eraser"></i>
+
+                            Clear
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="save25"
+                            class="section-control-btn-501 section-control-btn-primary-501"
+                            onclick="saveSection('2.5', 'section25')"
+                        >
+
+                            <i class="fas fa-save"></i>
+
+                            Save
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="status25"
+                        class="section-status-501"
+                    ></div>
+
+                </div>
+
+
+                <!-- =================================================
+                     DAILY REPORTS — SOURCE INFORMATION
+                ================================================== -->
+
+                <div class="report-summary-card-501">
+
+                    <div class="report-section-head-501">
+
+                        <div class="report-section-heading-501">
+
+                            <div class="report-section-number-501">
+
+                                <i class="fas fa-clipboard-list"></i>
+
+                            </div>
+
+
+                            <div class="report-section-title-501">
+
+                                <h3>
+                                    Daily Training Reports
+                                </h3>
+
+                                <p>
+                                    Submitted daily reports used as
+                                    the source for preparing Chapter Two.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="daily-source-card-501">
+
+                        <div class="daily-source-title-501">
+
+                            <i class="fas fa-info-circle"></i>
+
+                            Source Records
+
+                        </div>
+
+
+                        <p class="daily-source-text-501">
+
+                            The records below provide the factual
+                            information used when generating the
+                            Chapter Two sections. They are not
+                            themselves Chapter Two sections.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="daily-records-wrapper-501">
+
+                        {% if reports %}
+
+                            {% for report in reports %}
+
+                            <div class="daily-record-card-501">
+
+                                <div class="daily-record-top-501">
+
+                                    <div class="daily-record-title-501">
+
+                                        <strong>
+                                            {{ report.title|default:"Daily Training Report" }}
+                                        </strong>
+
+
+                                        <span class="daily-record-date-501">
+
+                                            <i class="far fa-calendar-alt"></i>
+
+                                            {{ report.date|date:"d M Y" }}
+
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="daily-record-content-501">
+
+                                    {% if report.activities %}
+
+                                    <div class="daily-record-item-501 full-501">
+
+                                        <small>
+                                            Activities
+                                        </small>
+
+                                        <p>
+                                            {{ report.activities }}
+                                        </p>
+
+                                    </div>
+
+                                    {% endif %}
+
+
+                                    {% if report.skills_learned %}
+
+                                    <div class="daily-record-item-501">
+
+                                        <small>
+                                            Skills Learned
+                                        </small>
+
+                                        <p>
+                                            {{ report.skills_learned }}
+                                        </p>
+
+                                    </div>
+
+                                    {% endif %}
+
+
+                                    {% if report.challenges %}
+
+                                    <div class="daily-record-item-501">
+
+                                        <small>
+                                            Challenges
+                                        </small>
+
+                                        <p>
+                                            {{ report.challenges }}
+                                        </p>
+
+                                    </div>
+
+                                    {% endif %}
+
+
+                                    {% if report.solutions %}
+
+                                    <div class="daily-record-item-501">
+
+                                        <small>
+                                            Solutions
+                                        </small>
+
+                                        <p>
+                                            {{ report.solutions }}
+                                        </p>
+
+                                    </div>
+
+                                    {% endif %}
+
+
+                                    {% if report.remarks %}
+
+                                    <div class="daily-record-item-501">
+
+                                        <small>
+                                            Remarks
+                                        </small>
+
+                                        <p>
+                                            {{ report.remarks }}
+                                        </p>
+
+                                    </div>
+
+                                    {% endif %}
+
+
+                                    {% if report.supervisor_comment %}
+
+                                    <div class="daily-record-item-501 full-501">
+
+                                        <small>
+                                            Supervisor Comment
+                                        </small>
+
+                                        <p>
+                                            {{ report.supervisor_comment }}
+                                        </p>
+
+                                    </div>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                            {% endfor %}
+
+                        {% else %}
+
+                        <div class="empty-records-501">
+
+                            <i class="fas fa-clipboard-list"></i>
+
+                            <strong>
+                                No daily training records found
+                            </strong>
+
+                            <p>
+                                Submit daily field reports first.
+                            </p>
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                <!-- =========================================================
+                    COMPLETE CHAPTER TWO
+                ========================================================== -->
+
+                <div class="report-summary-card-501 complete-summary-card-501">
+
+                    <!-- =====================================================
+                        HEADER
+                    ====================================================== -->
+
+                    <div class="complete-summary-top-501">
+
+                        <div class="report-section-heading-501">
+
+                            <div class="report-section-number-501">
+
+                                <i class="fas fa-file-alt"></i>
+
+                            </div>
+
+
+                            <div class="report-section-title-501">
+
+                                <h3>
+                                    Complete Chapter Two
+                                </h3>
+
+                                <p>
+                                    Read-only view of Sections 2.1 to 2.5.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =====================================================
+                        READ ONLY INFORMATION
+                    ====================================================== -->
+
+                    <div class="ai-helper-501">
+
+                        <div class="ai-helper-icon-501">
+
+                            <i class="fas fa-lock"></i>
+
+                        </div>
+
+
+                        <div class="ai-helper-text-501">
+
+                            <strong>
+                                Read Only
+                            </strong>
+
+                            <p>
+                                This section displays the saved Chapter Two
+                                content. To make changes, edit the individual
+                                sections above.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =====================================================
+                        2.1 BRIEF OVERVIEW OF UNDERTAKEN
+                    ====================================================== -->
+
+                    <div class="complete-chapter-section-501">
+
+                        <div class="complete-chapter-section-heading-501">
+
+                            <h4>
+                                2.1 Brief Overview of Undertaken
+                            </h4>
+
+                        </div>
+
+
+                        <div class="complete-chapter-text-501">
+
+                            {% if generated_report and generated_report.section_21_brief_overview %}
+
+                                {{ generated_report.section_21_brief_overview|linebreaksbr }}
+
+                            {% else %}
+
+                                <span class="complete-chapter-empty-501">
+                                    No content saved for Section 2.1.
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =====================================================
+                        2.2 ACTIVITIES PERFORMED
+                    ====================================================== -->
+
+                    <div class="complete-chapter-section-501">
+
+                        <div class="complete-chapter-section-heading-501">
+
+                            <h4>
+                                2.2 Activities Performed
+                            </h4>
+
+                        </div>
+
+
+                        <div class="complete-chapter-text-501">
+
+                            {% if generated_report and generated_report.section_22_activities_performed %}
+
+                                {{ generated_report.section_22_activities_performed|linebreaksbr }}
+
+                            {% else %}
+
+                                <span class="complete-chapter-empty-501">
+                                    No content saved for Section 2.2.
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =====================================================
+                        2.3 GENERAL OBSERVATION
+                    ====================================================== -->
+
+                    <div class="complete-chapter-section-501">
+
+                        <div class="complete-chapter-section-heading-501">
+
+                            <h4>
+                                2.3 General Observation
+                            </h4>
+
+                        </div>
+
+
+                        <div class="complete-chapter-text-501">
+
+                            {% if generated_report and generated_report.section_23_general_observation %}
+
+                                {{ generated_report.section_23_general_observation|linebreaksbr }}
+
+                            {% else %}
+
+                                <span class="complete-chapter-empty-501">
+                                    No content saved for Section 2.3.
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =====================================================
+                        2.4 CHALLENGES / PROBLEMS FACED
+                    ====================================================== -->
+
+                    <div class="complete-chapter-section-501">
+
+                        <div class="complete-chapter-section-heading-501">
+
+                            <h4>
+                                2.4 Challenges / Problems Faced
+                            </h4>
+
+                        </div>
+
+
+                        <div class="complete-chapter-text-501">
+
+                            {% if generated_report and generated_report.section_24_challenges %}
+
+                                {{ generated_report.section_24_challenges|linebreaksbr }}
+
+                            {% else %}
+
+                                <span class="complete-chapter-empty-501">
+                                    No content saved for Section 2.4.
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =====================================================
+                        2.5 HOW STUDENT SOLVED THE CHALLENGES
+                    ====================================================== -->
+
+                    <div class="complete-chapter-section-501">
+
+                        <div class="complete-chapter-section-heading-501">
+
+                            <h4>
+                                2.5 How Student Solved the Challenges
+                            </h4>
+
+                        </div>
+
+
+                        <div class="complete-chapter-text-501">
+
+                            {% if generated_report and generated_report.section_25_solutions %}
+
+                                {{ generated_report.section_25_solutions|linebreaksbr }}
+
+                            {% else %}
+
+                                <span class="complete-chapter-empty-501">
+                                    No content saved for Section 2.5.
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =====================================================
+                        STATUS
+                    ====================================================== -->
+
+                    <div
+                        id="completeStatus"
+                        class="section-status-501"
+                    ></div>
+
+                </div>
+
+
             </div>
 
-        </div>
+        </section>
 
-    </div>
+    </main>
+
+</div>
 
 
+<!-- =============================================================
+     GPT REPORT DATA
+============================================================= -->
 
-    <script>
-        function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
+{{ gpt_reports|json_script:"gptReportsData" }}
 
-            if (click == 'open') {
-                menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
-            }
-            else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
-                nav.style.display = 'none';
-            }
+
+<script>
+
+    /* =============================================================
+       SIDEBAR
+    ============================================================= */
+
+    function toggleSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        if (!sidebar || !overlay) {
+            return;
         }
-    </script>
+
+        sidebar.classList.toggle("open");
+        overlay.classList.toggle("show");
+    }
 
 
-    <script>
-        setTimeout(function () {
-            document.querySelectorAll(".alert").forEach(function (alert) {
-                alert.style.transition = "opacity 0.5s";
-                alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 500);
-            });
-        }, 4000);
-    </script>
+    function closeSidebar() {
 
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        if (!sidebar || !overlay) {
+            return;
+        }
+
+        sidebar.classList.remove("open");
+        overlay.classList.remove("show");
+    }
+
+
+    document
+        .querySelectorAll(".navigation-item")
+        .forEach(item => {
+
+            item.addEventListener(
+                "click",
+                closeSidebar
+            );
+
+        });
+
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            if (window.innerWidth > 900) {
+                closeSidebar();
+            }
+
+        }
+    );
+
+
+    /* =============================================================
+       CSRF
+    ============================================================= */
+
+    function getCSRFToken() {
+
+        const name = "csrftoken=";
+
+        const cookies =
+            document.cookie.split(";");
+
+        for (let cookie of cookies) {
+
+            cookie = cookie.trim();
+
+            if (cookie.indexOf(name) === 0) {
+
+                return decodeURIComponent(
+                    cookie.substring(name.length)
+                );
+
+            }
+
+        }
+
+        return "";
+
+    }
+
+
+    /* =============================================================
+       REPORT DATA
+    ============================================================= */
+
+    function getReports() {
+
+        const element =
+            document.getElementById(
+                "gptReportsData"
+            );
+
+        if (!element) {
+            return [];
+        }
+
+        try {
+
+            return JSON.parse(
+                element.textContent
+            ) || [];
+
+        } catch (error) {
+
+            console.error(
+                "Unable to parse report data:",
+                error
+            );
+
+            return [];
+
+        }
+
+    }
+
+
+    /* =============================================================
+       BUILD REPORT TEXT FOR AI
+    ============================================================= */
+
+    function buildReportText() {
+
+        const reports =
+            getReports();
+
+        if (!reports.length) {
+
+            return "No daily field reports are available.";
+
+        }
+
+
+        return reports.map(
+            (report, index) => {
+
+                return `
+DAILY REPORT ${index + 1}
+
+Date:
+${report.date || ""}
+
+Title:
+${report.title || ""}
+
+Activities:
+${report.activities || ""}
+
+Skills Learned:
+${report.skills_learned || report.skills || ""}
+
+Challenges:
+${report.challenges || ""}
+
+Solutions:
+${report.solutions || ""}
+
+Remarks:
+${report.remarks || ""}
+
+Supervisor Comment:
+${report.supervisor_comment || ""}
+                `.trim();
+
+            }
+        ).join(
+            "\n\n--------------------------------\n\n"
+        );
+
+    }
+
+
+    /* =============================================================
+       BASE AI PROMPT
+    ============================================================= */
+
+    function getBasePrompt() {
+
+        return `
+You are helping a college student prepare a Field Practical Training Report.
+
+The following information comes ONLY from the student's submitted
+daily field training reports.
+
+IMPORTANT RULES:
+
+1. Do not invent organizations, activities, technologies,
+   responsibilities, dates, people, skills or events.
+
+2. Use only information contained in the supplied reports.
+
+3. Do not add unsupported facts.
+
+4. Write in formal academic English suitable for a college
+   field practical training report.
+
+5. Use clear academic paragraphs.
+
+6. Maintain factual consistency.
+
+7. Do not mention that AI was used.
+
+8. Do not create fake references.
+
+9. If information is not available in the daily reports,
+   do not invent it.
+
+DAILY FIELD REPORTS:
+
+${buildReportText()}
+        `.trim();
+
+    }
+
+
+    /* =============================================================
+       SECTION PROMPTS
+    ============================================================= */
+
+    function getSectionPrompt(section) {
+
+        const base =
+            getBasePrompt();
+
+
+        const prompts = {
+
+            /* =====================================================
+               2.1
+            ===================================================== */
+
+            "2.1": `
+${base}
+
+Write Section 2.1: Brief Overview of Undertaken.
+
+Provide a formal academic overview of the field practical
+training undertaken by the student.
+
+Summarize the general nature of the training based strictly
+on the information contained in the daily reports.
+
+Do not invent the organization's activities, responsibilities,
+technologies, people, dates or other facts.
+
+Use clear academic paragraphs.
+            `,
+
+
+            /* =====================================================
+               2.2
+            ===================================================== */
+
+            "2.2": `
+${base}
+
+Write Section 2.2: Activities Performed.
+
+Identify and organize the activities that the student actually
+performed during the field practical training.
+
+Combine related activities into coherent academic paragraphs.
+
+The section should focus specifically on activities performed.
+
+Do not invent activities.
+
+Do not add technologies or responsibilities that are not contained
+in the daily reports.
+
+Do not simply copy every daily report word-for-word.
+            `,
+
+
+            /* =====================================================
+               2.3
+            ===================================================== */
+
+            "2.3": `
+${base}
+
+Write Section 2.3: General Observation.
+
+Prepare a formal academic discussion of the general observations
+that can reasonably be derived from the student's field training
+experience.
+
+Base the observations strictly on information contained in the
+submitted daily reports.
+
+The observations may synthesize repeated patterns or experiences
+recorded in the reports, but must not introduce unsupported facts.
+
+Do not invent opinions, technologies, activities, responsibilities,
+people or events.
+
+Use clear formal academic paragraphs.
+            `,
+
+
+            /* =====================================================
+               2.4
+            ===================================================== */
+
+            "2.4": `
+${base}
+
+Write Section 2.4: Challenges / Problems Faced.
+
+Identify and discuss the challenges or problems that the student
+actually encountered during field practical training.
+
+Use only challenges recorded in the daily reports.
+
+Organize related challenges into clear academic paragraphs.
+
+Do not invent challenges.
+
+Do not create problems that are not supported by the submitted
+daily reports.
+            `,
+
+
+            /* =====================================================
+               2.5
+            ===================================================== */
+
+            "2.5": `
+${base}
+
+Write Section 2.5: How Student Solved the Challenges.
+
+Describe how the student actually addressed or solved the
+challenges identified in the daily field reports.
+
+Use only solutions or actions that are supported by the
+submitted reports.
+
+Clearly connect solutions to the relevant challenges where
+the reports provide enough information.
+
+Do not invent solutions.
+
+If a challenge has no recorded solution, do not create one.
+
+Use formal academic English.
+            `
+
+        };
+
+
+        return prompts[section] || base;
+
+    }
+
+
+    /* =============================================================
+       GENERATE SECTION
+    ============================================================= */
+
+    function generateSection(section) {
+
+        const reports =
+            getReports();
+
+        if (!reports.length) {
+
+            showSectionStatus(
+                section,
+                '<i class="fas fa-exclamation-circle"></i> ' +
+                'No daily field reports are available.',
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const prompt =
+            getSectionPrompt(section);
+
+
+        const url =
+            "https://chatgpt.com/?q=" +
+            encodeURIComponent(prompt);
+
+
+        window.open(
+            url,
+            "_blank"
+        );
+
+
+        showSectionStatus(
+            section,
+            '<i class="fas fa-info-circle"></i> ' +
+            'ChatGPT has been opened. Generate the content, copy it, then paste it into the textarea.',
+            "loading"
+        );
+
+    }
+
+
+    /* =============================================================
+       GENERATE COMPLETE CHAPTER TWO
+    ============================================================= */
+
+    function generateCompleteSummary() {
+
+        const reports =
+            getReports();
+
+        if (!reports.length) {
+
+            showCompleteStatus(
+                '<i class="fas fa-exclamation-circle"></i> ' +
+                'No daily field reports are available.',
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const prompt = `
+${getBasePrompt()}
+
+Prepare a complete Chapter Two of the Field Practical Training Report.
+
+Use exactly the following structure:
+
+2.1 Brief Overview of Undertaken
+
+2.2 Activities Performed
+
+2.3 General Observation
+
+2.4 Challenges / Problems Faced
+
+2.5 How Student Solved the Challenges
+
+For Section 2.1:
+Provide a brief formal overview of the training undertaken.
+
+For Section 2.2:
+Describe the activities actually performed by the student.
+
+For Section 2.3:
+Present general observations derived from the training records.
+
+For Section 2.4:
+Present the challenges or problems actually faced by the student.
+
+For Section 2.5:
+Explain how the student solved or addressed the challenges,
+using only solutions recorded in the daily reports.
+
+IMPORTANT:
+
+Use only information supplied in the daily reports.
+
+Do not invent information.
+
+Do not invent activities, technologies, responsibilities,
+people, dates, skills, challenges or solutions.
+
+If information is not available, do not create it.
+
+Use formal academic English.
+
+Organize the chapter clearly using the five section headings.
+        `.trim();
+
+
+        const url =
+            "https://chatgpt.com/?q=" +
+            encodeURIComponent(prompt);
+
+
+        window.open(
+            url,
+            "_blank"
+        );
+
+
+        showCompleteStatus(
+            '<i class="fas fa-info-circle"></i> ' +
+            'ChatGPT has been opened. Copy the completed chapter and paste it into the textarea.',
+            "loading"
+        );
+
+    }
+
+
+    /* =============================================================
+       STATUS HELPERS
+    ============================================================= */
+
+    function showSectionStatus(
+        section,
+        message,
+        type = ""
+    ) {
+
+        const number =
+            section.replace(".", "");
+
+        const element =
+            document.getElementById(
+                "status" + number
+            );
+
+        if (!element) {
+            return;
+        }
+
+        element.className =
+            "section-status-501 " +
+            type;
+
+        element.innerHTML =
+            message;
+
+    }
+
+
+    function showCompleteStatus(
+        message,
+        type = ""
+    ) {
+
+        const element =
+            document.getElementById(
+                "completeStatus"
+            );
+
+        if (!element) {
+            return;
+        }
+
+        element.className =
+            "section-status-501 " +
+            type;
+
+        element.innerHTML =
+            message;
+
+    }
+
+
+    /* =============================================================
+       SAVE CHAPTER TWO SECTION
+    ============================================================= */
+
+    async function saveSection(
+        section,
+        textareaId
+    ) {
+
+        const textarea =
+            document.getElementById(
+                textareaId
+            );
+
+        const number =
+            section.replace(".", "");
+
+        const button =
+            document.getElementById(
+                "save" + number
+            );
+
+
+        if (!textarea) {
+            return;
+        }
+
+
+        const content =
+            textarea.value.trim();
+
+
+        if (!content) {
+
+            showSectionStatus(
+                section,
+                '<i class="fas fa-exclamation-circle"></i> ' +
+                'Please enter or paste content before saving.',
+                "error"
+            );
+
+            textarea.focus();
+
+            return;
+
+        }
+
+
+        if (button) {
+
+            button.disabled = true;
+
+            button.innerHTML =
+                '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+        }
+
+
+        showSectionStatus(
+            section,
+            '<i class="fas fa-spinner fa-spin"></i> Saving...',
+            "loading"
+        );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "{% url 'save_report_summary' placement.id %}",
+                    {
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            "X-CSRFToken":
+                                getCSRFToken(),
+
+                            "X-Requested-With":
+                                "XMLHttpRequest"
+
+                        },
+
+                        credentials:
+                            "same-origin",
+
+                        body:
+                            JSON.stringify({
+
+                                section:
+                                    section,
+
+                                content:
+                                    content
+
+                            })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok || !data.success) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to save the section."
+                );
+
+            }
+
+
+            showSectionStatus(
+                section,
+                '<i class="fas fa-check-circle"></i> ' +
+                (
+                    data.message ||
+                    "Section saved successfully."
+                ),
+                "success"
+            );
+
+
+            addSavedBadge(
+                section
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showSectionStatus(
+                section,
+                '<i class="fas fa-exclamation-circle"></i> ' +
+                error.message,
+                "error"
+            );
+
+        } finally {
+
+            if (button) {
+
+                button.disabled = false;
+
+                button.innerHTML =
+                    '<i class="fas fa-save"></i> Save';
+
+            }
+
+        }
+
+    }
+
+
+    /* =============================================================
+       ADD SAVED BADGE
+    ============================================================= */
+
+    function addSavedBadge(section) {
+
+        const number =
+            section.replace(".", "");
+
+
+        const button =
+            document.getElementById(
+                "save" + number
+            );
+
+
+        if (!button) {
+            return;
+        }
+
+
+        const card =
+            button.closest(
+                ".report-summary-card-501"
+            );
+
+
+        if (!card) {
+            return;
+        }
+
+
+        const heading =
+            card.querySelector(
+                ".report-section-head-501"
+            );
+
+
+        if (!heading) {
+            return;
+        }
+
+
+        if (
+            heading.querySelector(
+                ".saved-summary-label-501"
+            )
+        ) {
+            return;
+        }
+
+
+        const badge =
+            document.createElement("span");
+
+
+        badge.className =
+            "saved-summary-label-501";
+
+
+        badge.innerHTML =
+            '<i class="fas fa-check-circle"></i> Saved';
+
+
+        heading.appendChild(
+            badge
+        );
+
+    }
+
+
+    /* =============================================================
+       SAVE COMPLETE CHAPTER
+    ============================================================= */
+
+    async function saveSummary() {
+
+        const textarea =
+            document.getElementById(
+                "completeSummary"
+            );
+
+        const button =
+            document.getElementById(
+                "saveCompleteSummary"
+            );
+
+
+        if (!textarea) {
+            return;
+        }
+
+
+        const summary =
+            textarea.value.trim();
+
+
+        if (!summary) {
+
+            showCompleteStatus(
+                '<i class="fas fa-exclamation-circle"></i> ' +
+                'Please enter or paste the complete Chapter Two before saving.',
+                "error"
+            );
+
+            textarea.focus();
+
+            return;
+
+        }
+
+
+        if (button) {
+
+            button.disabled = true;
+
+            button.innerHTML =
+                '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+        }
+
+
+        showCompleteStatus(
+            '<i class="fas fa-spinner fa-spin"></i> Saving complete chapter...',
+            "loading"
+        );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "{% url 'save_report_summary' placement.id %}",
+                    {
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            "X-CSRFToken":
+                                getCSRFToken(),
+
+                            "X-Requested-With":
+                                "XMLHttpRequest"
+
+                        },
+
+                        credentials:
+                            "same-origin",
+
+                        body:
+                            JSON.stringify({
+
+                                summary:
+                                    summary
+
+                            })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok || !data.success) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to save the complete chapter."
+                );
+
+            }
+
+
+            showCompleteStatus(
+                '<i class="fas fa-check-circle"></i> ' +
+                (
+                    data.message ||
+                    "Complete Chapter Two saved successfully."
+                ),
+                "success"
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showCompleteStatus(
+                '<i class="fas fa-exclamation-circle"></i> ' +
+                error.message,
+                "error"
+            );
+
+        } finally {
+
+            if (button) {
+
+                button.disabled = false;
+
+                button.innerHTML =
+                    '<i class="fas fa-save"></i> Save Chapter';
+
+            }
+
+        }
+
+    }
+
+
+    /* =============================================================
+       COPY SECTION
+    ============================================================= */
+
+    async function copySection(textareaId) {
+
+        const textarea =
+            document.getElementById(
+                textareaId
+            );
+
+
+        if (!textarea) {
+            return;
+        }
+
+
+        const content =
+            textarea.value.trim();
+
+
+        if (!content) {
+            return;
+        }
+
+
+        try {
+
+            await navigator.clipboard.writeText(
+                content
+            );
+
+
+            showTemporaryButtonMessage(
+                textareaId,
+                "Copied!"
+            );
+
+
+        } catch (error) {
+
+            textarea.select();
+
+            document.execCommand(
+                "copy"
+            );
+
+
+            showTemporaryButtonMessage(
+                textareaId,
+                "Copied!"
+            );
+
+        }
+
+    }
+
+
+    /* =============================================================
+       COPY COMPLETE SUMMARY
+    ============================================================= */
+
+    async function copySummary() {
+
+        const textarea =
+            document.getElementById(
+                "completeSummary"
+            );
+
+
+        if (!textarea) {
+            return;
+        }
+
+
+        const content =
+            textarea.value.trim();
+
+
+        if (!content) {
+            return;
+        }
+
+
+        try {
+
+            await navigator.clipboard.writeText(
+                content
+            );
+
+
+            showCompleteStatus(
+                '<i class="fas fa-check-circle"></i> ' +
+                'Chapter copied to clipboard.',
+                "success"
+            );
+
+
+        } catch (error) {
+
+            textarea.select();
+
+            document.execCommand(
+                "copy"
+            );
+
+
+            showCompleteStatus(
+                '<i class="fas fa-check-circle"></i> ' +
+                'Chapter copied to clipboard.',
+                "success"
+            );
+
+        }
+
+    }
+
+
+    /* =============================================================
+       CLEAR SECTION
+    ============================================================= */
+
+    function clearSection(textareaId) {
+
+        const textarea =
+            document.getElementById(
+                textareaId
+            );
+
+
+        if (!textarea) {
+            return;
+        }
+
+
+        if (!textarea.value.trim()) {
+            return;
+        }
+
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to clear this content?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        textarea.value = "";
+
+
+        updateCounter(
+            textarea
+        );
+
+
+        textarea.focus();
+
+    }
+
+
+    /* =============================================================
+       CLEAR COMPLETE SUMMARY
+    ============================================================= */
+
+    function clearSummary() {
+
+        const textarea =
+            document.getElementById(
+                "completeSummary"
+            );
+
+
+        if (!textarea) {
+            return;
+        }
+
+
+        if (!textarea.value.trim()) {
+            return;
+        }
+
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to clear the complete Chapter Two?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        textarea.value = "";
+
+
+        updateCounter(
+            textarea
+        );
+
+
+        textarea.focus();
+
+    }
+
+
+    /* =============================================================
+       TEMPORARY BUTTON MESSAGE
+    ============================================================= */
+
+    function showTemporaryButtonMessage(
+        textareaId,
+        message
+    ) {
+
+        const textarea =
+            document.getElementById(
+                textareaId
+            );
+
+
+        if (!textarea) {
+            return;
+        }
+
+
+        const card =
+            textarea.closest(
+                ".report-summary-card-501"
+            );
+
+
+        if (!card) {
+            return;
+        }
+
+
+        const status =
+            card.querySelector(
+                ".section-status-501"
+            );
+
+
+        if (!status) {
+            return;
+        }
+
+
+        const oldHTML =
+            status.innerHTML;
+
+
+        const oldClass =
+            status.className;
+
+
+        status.className =
+            "section-status-501 success";
+
+
+        status.innerHTML =
+            '<i class="fas fa-check-circle"></i> ' +
+            message;
+
+
+        setTimeout(
+            () => {
+
+                status.className =
+                    oldClass;
+
+                status.innerHTML =
+                    oldHTML;
+
+            },
+            1800
+        );
+
+    }
+
+
+    /* =============================================================
+       COUNTERS
+    ============================================================= */
+
+    function updateCounter(textarea) {
+
+        if (!textarea) {
+            return;
+        }
+
+
+        const id =
+            textarea.id;
+
+
+        const counter =
+            document.getElementById(
+                getCounterId(id)
+            );
+
+
+        if (!counter) {
+            return;
+        }
+
+
+        const text =
+            textarea.value.trim();
+
+
+        const characters =
+            text.length;
+
+
+        const words =
+            text
+                ? text.split(/\s+/).length
+                : 0;
+
+
+        counter.textContent =
+            `${characters} characters • ${words} words`;
+
+    }
+
+
+    function getCounterId(textareaId) {
+
+        const map = {
+
+            "section21":
+                "counter21",
+
+            "section22":
+                "counter22",
+
+            "section23":
+                "counter23",
+
+            "section24":
+                "counter24",
+
+            "section25":
+                "counter25",
+
+            "completeSummary":
+                "completeCounter"
+
+        };
+
+
+        return map[textareaId] || "";
+
+    }
+
+
+    /* =============================================================
+       INITIALIZE COUNTERS
+    ============================================================= */
+
+    function initializeCounters() {
+
+        const textareaIds = [
+
+            "section21",
+
+            "section22",
+
+            "section23",
+
+            "section24",
+
+            "section25",
+
+            "completeSummary"
+
+        ];
+
+
+        textareaIds.forEach(
+            id => {
+
+                const textarea =
+                    document.getElementById(id);
+
+
+                if (!textarea) {
+                    return;
+                }
+
+
+                updateCounter(
+                    textarea
+                );
+
+
+                textarea.addEventListener(
+                    "input",
+                    () => {
+
+                        updateCounter(
+                            textarea
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =============================================================
+       AUTO HIDE DJANGO ALERTS
+    ============================================================= */
+
+    setTimeout(
+        () => {
+
+            document
+                .querySelectorAll(
+                    ".page-alert-501"
+                )
+                .forEach(
+                    alert => {
+
+                        alert.style.transition =
+                            "opacity .4s ease";
+
+                        alert.style.opacity =
+                            "0";
+
+
+                        setTimeout(
+                            () => {
+
+                                alert.remove();
+
+                            },
+                            450
+                        );
+
+                    }
+                );
+
+        },
+        5000
+    );
+
+
+    /* =============================================================
+       INITIALIZE PAGE
+    ============================================================= */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        () => {
+
+            initializeCounters();
+
+        }
+    );
+
+</script>
 
 
 </body>
-
 </html>

@@ -1,776 +1,5458 @@
-* {
+/* ============================================================
+   FIELD PRACTICAL TRAINING
+   SHARED WEBSITE STYLESHEET
+   PAGE 1 — STUDENT DASHBOARD
+   ============================================================ */
+
+
+/* ============================================================
+   1. GLOBAL / SAFE RESET
+   ============================================================ */
+
+:root {
+
+    --portal-primary: #014162;
+    --portal-primary-dark: #00344f;
+    --portal-primary-light: #eaf4f8;
+
+    --portal-accent: #0b7285;
+
+    --portal-success: #16803c;
+    --portal-warning: #b77900;
+    --portal-danger: #c62828;
+    --portal-info: #087f9c;
+
+    --portal-bg: #f5f7fa;
+    --portal-surface: #ffffff;
+
+    --portal-text: #17212b;
+    --portal-text-soft: #5f6b76;
+    --portal-text-muted: #84909b;
+
+    --portal-border: #e5e9ed;
+
+    --portal-sidebar-width: 280px;
+    --portal-header-height: 76px;
+
+    --portal-radius-sm: 8px;
+    --portal-radius-md: 12px;
+    --portal-radius-lg: 16px;
+
+    --portal-shadow-sm:
+        0 2px 8px rgba(15, 35, 50, 0.05);
+
+    --portal-shadow-md:
+        0 8px 25px rgba(15, 35, 50, 0.07);
+
+    --portal-transition:
+        all 0.25s ease;
+
+}
+
+
+.portal-wrapper,
+.portal-wrapper *,
+.portal-wrapper *::before,
+.portal-wrapper *::after {
     box-sizing: border-box;
-    font-size: 12px;
-    font-family: "Segoe UI", sans-serif;
 }
 
-html,
-body {
-    margin: 0;
-    padding: 0;
-    background: white;
-}
 
-.row-holder {
+.portal-wrapper {
     width: 100%;
-    height: auto;
-}
-
-.header-holder-100 {
-    width: 100%;
-    height: 50px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-
-.header-100 {
-    width: 100%;
-    height: 100%;
-    background: white;
-}
-
-.header-100>div {
-    float: left;
-}
-
-.action-holder-101 {
-    padding: 10px;
-    width: 50px;
-    height: 50px;
-    background: transparent;
-}
-
-.action-holder-101>button {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border-radius: 5px;
-    outline: none;
-    color: rgb(1, 65, 98);
-    text-align: center;
-    border-style: none;
-    font-size: 18px;
-}
-
-.action-holder-101>button>i {
-    font-size: inherit;
+    min-height: 100vh;
+    background: var(--portal-bg);
+    color: var(--portal-text);
+    font-family:
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 
-.title-holder-101 {
-    width: auto;
-    padding: 5px;
-    background: transparent;
-    height: 50px;
-}
-
-.title-holder-101>button {
-    width: auto;
-    height: 40px;
-    border-style: none;
-    outline: none;
-    background: transparent;
-    font-weight: bold;
-}
-
-.title-holder-101>button>span {
-    font-size: 15px;
-    color: rgb(1, 65, 98);
-}
-
-.title-holder-101>button>i {
-    background: rgb(1, 65, 98);
-    padding: 10px;
-    font-size: 12px;
-    border-radius: 50%;
-    color: white;
-}
-
-.center-content-200 {
-    width: 100%;
-    height: auto;
-    margin-top: 50px;
-}
-
-.center-content-200>div {
-    float: left;
-}
-
-.left-holder-201 {
-    width: 100%;
-    height: auto;
-    display: none;
-}
-
-.nav-bar-holder-202 {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    padding: 10px;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-ul>a {
+.portal-wrapper a {
     text-decoration: none;
-    color: black;
-}
-
-ul>a>li {
-    width: 100%;
-    height: auto;
-    padding: 15px;
-}
-
-ul>a>li>i {
-    float: right;
-}
-
-.active-0 {
-    background: rgb(1, 65, 98);
-    border-radius: 50px;
-    padding: 15px;
-    color: white;
-}
-
-ul>a>li:hover {
-    background: whitesmoke;
-    border: 1px solid rgba(1, 66, 98, 0.233);
-    border-radius: 50px;
-    padding: 15px;
-    color: rgb(1, 65, 98);
-}
-
-.right-holder-201 {
-    width: 100%;
-    height: 100vh;
-    overflow-y: scroll;
-}
-
-.card-holder-201 {
-    width: 100%;
-    height: auto;
-}
-
-.card-holder-201>div {
-    float: left;
-    width: 50%;
-    height: auto;
-    padding: 10px;
-}
-
-.card-holder-201>.full-201 {
-    width: 100%;
-    max-height: 500px;
 }
 
 
-.full-201>button>ul>a>li {
-    border-radius: 5px;
-    margin-bottom: 2px;
+.portal-wrapper button,
+.portal-wrapper input,
+.portal-wrapper textarea,
+.portal-wrapper select {
+    font-family: inherit;
 }
 
-.list-title-201 {
-    font-weight: 500;
-    display: block;
-}
 
-.mail-time-201 {
-    float: right;
-}
+/* ============================================================
+   2. SIDEBAR
+   ============================================================ */
 
-.card-holder-201>div>button {
-    width: 100%;
-    height: 100%;
-    border-style: none;
-    background: transparent;
-    text-align: left;
-    padding: 10px;
-    color: white;
-    background: rgb(1, 65, 98);
-    border-radius: 5px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.211);
-}
+.portal-sidebar {
 
-.table-holder-100 {
-    width: 100%;
-    height: 100vh;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.233);
-    border-radius: 5px;
-}
-
-table {
-    width: 100%;
-    height: auto;
-    border-collapse: collapse;
-}
-
-.id {
-    width: 40px;
-}
-
-th,
-td {
-    height: 40px;
-    width: auto;
-    padding: 10px;
-}
-
-.btn-edit {
-    background: rgba(0, 128, 0, 0.57);
-    padding: 5px;
-    border-style: none;
-    outline: none;
-    border-radius: 5px;
-    border: 2px solid green;
-    cursor: pointer;
-    width: auto;
-    height: auto;
-}
-
-.btn-edit:hover {
-    background: green;
-    border: 2px solid rgba(0, 128, 0, 0.753);
-}
-
-.btn-delete {
-    background: rgba(255, 0, 0, 0.6);
-    padding: 5px;
-    border-style: none;
-    outline: none;
-    border-radius: 5px;
-    border: 2px solid red;
-    cursor: pointer;
-    width: auto;
-    height: auto;
-}
-
-.btn-delete:hover {
-    background: red;
-    border: 2px solid rgba(255, 0, 0, 0.707);
-}
-
-.delete-product-modal-106 {
     position: fixed;
+
     top: 0;
     left: 0;
-    right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.307);
-    z-index: 999;
-    display: none;
+
+    width: var(--portal-sidebar-width);
+
+    background: var(--portal-surface);
+
+    border-right: 1px solid var(--portal-border);
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 1100;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
 }
 
-.delete-product-modal-106>div {
-    width: 300px;
-    height: 120px;
-    background: white;
-    border-radius: 5px;
-    margin: auto;
-    margin-top: 10%;
-    padding: 15px;
-    text-align: left;
+
+/* Scrollbar */
+
+.portal-sidebar::-webkit-scrollbar {
+    width: 5px;
 }
 
-.delete-product-modal-106>div>button {
-    width: auto;
-    height: 40px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-style: none;
-    outline: none;
-    border-radius: 5px;
-    background: whitesmoke;
-    color: rgb(1, 65, 98);
-    margin-left: 5px;
-    float: right;
-    cursor: pointer;
-}
-
-.delete-product-modal-106>div>button:hover {
-    opacity: 0.7;
-    background: rgba(1, 66, 98, 0.493);
-}
-
-.view-103 {
-    padding: 5px;
-    border-radius: 5px;
-    color: white;
-    background: lightseagreen;
-    float: right;
-}
-
-.view-104 {
-    padding: 5px;
-    border-radius: 5px;
-    color: white;
-    background: rgb(1, 65, 98);
-    cursor: pointer;
-}
-
-.view-104:hover {
-    opacity: 0.7;
-}
-
-.filter-holder-202 {
-    width: 100%;
-    height: 50px;
-}
-
-.filter-holder-202>div {
-    width: 50%;
-    float: left;
-    height: 40px;
-}
-
-.filter-holder-202>div>input {
-    width: 100%;
-    height: 100%;
-    padding-left: 10px;
-    border-style: none;
-    outline: none;
+.portal-sidebar::-webkit-scrollbar-track {
     background: transparent;
-    border-bottom: 2px solid rgb(1, 65, 98);
 }
 
-.filter-holder-202>div>input:hover {
-    border: 1px solid rgba(0, 0, 0, 0.271);
-    border-radius: 5px;
-    border-bottom: 2px solid rgb(1, 65, 98);
-}
-
-.products-202 {
-    padding: 10px;
+.portal-sidebar::-webkit-scrollbar-thumb {
+    background: #ccd5db;
+    border-radius: 20px;
 }
 
 
-.preview-102 {
-    width: 100%;
-    height: auto;
-    float: left;
+/* ============================================================
+   3. SIDEBAR BRAND
+   ============================================================ */
+
+.sidebar-brand {
+
+    padding: 24px 20px;
+
+    border-bottom: 1px solid var(--portal-border);
+
 }
 
 
-.product-image-holder-103 {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    padding: 10px;
+.sidebar-brand a {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: var(--portal-text);
+
 }
 
-.product-image-103>h1 {
+
+.brand-logo {
+
+    width: 44px;
+    height: 44px;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    background:
+        var(--portal-primary-light);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+}
+
+
+.brand-logo img {
+
+    width: 34px;
+    height: 34px;
+
+    object-fit: contain;
+
+}
+
+
+.brand-text {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+}
+
+
+.brand-text strong {
+
+    color: var(--portal-primary);
+
     font-size: 15px;
-    color: rgb(1, 65, 98);
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
 }
 
-.product-image-103 {
+
+.brand-text span {
+
+    color: var(--portal-text-muted);
+
+    font-size: 11px;
+
+    margin-top: 2px;
+
+}
+
+
+/* ============================================================
+   4. SIDEBAR NAVIGATION
+   ============================================================ */
+
+.sidebar-navigation {
+
+    padding: 22px 14px;
+
+    flex: 1;
+
+}
+
+
+.navigation-section {
+
+    margin-bottom: 25px;
+
+}
+
+
+.navigation-label {
+
+    display: block;
+
+    padding: 0 12px;
+
+    margin-bottom: 9px;
+
+    color: #9aa4ad;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+
+}
+
+
+.navigation-item {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
     width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% auto;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.203);
+
+    min-height: 58px;
+
+    padding: 9px 11px;
+
+    margin-bottom: 4px;
+
+    border-radius: 11px;
+
+    color: var(--portal-text-soft);
+
+    transition: var(--portal-transition);
+
 }
 
 
-.product-details-holder-103 {
-    width: 100%;
-    height: auto;
-    margin-bottom: 50px;
-    float: left;
-}
+.navigation-item:hover {
 
-.product-details-holder-103>div {
-    width: 100%;
-    height: auto;
-    padding: 10px;
-    float: left;
+    background: #f3f7f9;
+
+    color: var(--portal-primary);
+
 }
 
 
-.product-details-holder-103>div>div {
-    width: 100%;
-    height: auto;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.189);
-    padding: 10px;
-    border-radius: 5px;
-}
+.navigation-item.active {
 
-.des-103 {
-    border-style: none;
-    outline: none;
-    width: 100%;
-    max-height: 300px;
-    background: whitesmoke;
-    border-radius: 5px;
-    border-style: none;
-    outline: none;
-    padding: 10px;
-    text-align: left;
-}
+    background:
+        var(--portal-primary-light);
 
-.other-103 {
-    width: 100%;
-    height: auto;
-}
+    color: var(--portal-primary);
 
-.other-103>button {
-    width: auto;
-    height: 50px;
-    border-style: none;
-    border-radius: 5px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.255);
-    margin-right: 10px;
-    background: white;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.comments-holder-103 {
-    width: 100%;
-    max-height: 400px;
-    padding: 10px;
-    overflow-y: scroll;
-}
-
-.comments-holder-103>ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.comments-holder-103>ul>li {
-    width: 100%;
-    height: auto;
-    background: whitesmoke;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 5px;
-}
-
-.actions-holder-103 {
-    width: 100%;
-    height: auto;
-    margin-top: 20px;
-}
-
-.actions-holder-103>div {
-    width: 50%;
-    height: auto;
-    float: left;
-    padding: 10px;
-}
-
-.actions-holder-103>div>button {
-    width: 100%;
-    height: 40px;
-    border-style: none;
-    outline: none;
-    background: rgb(1, 65, 98);
-    color: white;
-    font-weight: bold;
-    border-radius: 50px;
-    cursor: pointer;
-}
-
-.actions-holder-103>div>button:hover {
-    opacity: 0.7;
-}
-
-.close-205 {
-    width: 150px;
-    height: 40px;
-    background: rgb(1, 65, 98);
-    outline: none;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.202);
-    border-style: none;
-    position: fixed;
-    right: 10px;
-    bottom: 15px;
-    color: white;
-}
-
-.close-205:hover {
-    background: rgb(1, 65, 98);
-}
-
-.input-holder-203 {
-    width: 100%;
-    height: 85px;
-    padding: 5px;
-    background: transparent;
-}
-
-.input-holder-203>div {
-    width: 100%;
-    height: 35px;
 }
 
 
+.navigation-item.active::before {
 
-.input-holder-203>div>input,
-select,
-textarea,
-button {
-    width: 100%;
-    height: 100%;
-    padding-left: 10px;
-    border-style: none;
-    outline: none;
-    border: 1px solid rgba(0, 0, 0, 0.267);
-    border-radius: 5px;
-}
+    content: "";
 
-.input-holder-203>div>input:hover {
-    border: 1px solid rgba(0, 0, 0, 0.219);
-    border-bottom: 2px solid rgb(1, 65, 98);
-    border-radius: 5px;
-}
+    position: absolute;
 
-.input-holder-203>div>select:hover {
-    border: 1px solid rgba(0, 0, 0, 0.219);
-    border-bottom: 2px solid rgb(1, 65, 98);
-    border-radius: 5px;
-}
-
-.input-holder-203>div>textarea {
-    border: 1px solid rgba(0, 0, 0, 0.151);
-    border-radius: 5px;
-}
-
-.input-holder-203>div>textarea:hover {
-    border: 1px solid rgba(0, 0, 0, 0.219);
-    border-bottom: 2px solid rgb(1, 65, 98);
-    border-radius: 5px;
-}
-
-.submit-203 {
-    margin-top: 20px;
-}
-
-.submit-203>div>button {
-    background: rgb(1, 65, 98);
-    color: white;
-    font-weight: bold;
-}
-
-.submit-203>div>button:hover {
-    opacity: 0.7;
-    cursor: pointer;
-}
-
-
-/* Terms, conditions and declarations */
-.terms-holder-202 {
-    width: 100%;
-    height: auto;
-}
-
-.terms-holder-202>div {
-    width: 100%;
-    height: auto;
-    padding: 10px;
-}
-
-
-.next-holder-202 {
-    width: 100%;
-    height: 50px;
-    text-align: right;
-}
-
-.next-holder-202>button {
-    width: auto;
-    height: 40px;
-    padding-left: 15px;
-    padding-right: 15px;
-    background: rgb(1, 65, 98);
-    color: white;
-    border-style: none;
-    outline: none;
-    border-radius: 50px;
-    cursor: pointer;
-}
-
-.next-holder-202>button:hover {
-    background: rgba(1, 66, 98, 0.459);
-}
-
-.seller-summary {
-    width: 100%;
-    height: auto;
-}
-
-.notify-card-201 {
-    width: 100%;
-    height: auto;
-    padding: 20px;
-}
-
-.notify-card-201>div {
-    width: 100%;
-    height: auto;
-    background: rgb(1, 65, 98);
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-
-/* Placement add */
-.placement-holder-100 {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.267);
-    display: none;
+
+    top: 13px;
+    bottom: 13px;
+
+    width: 3px;
+
+    background: var(--portal-primary);
+
+    border-radius: 0 4px 4px 0;
+
 }
 
-.placement-100 {
-    width: 80%;
-    margin: auto;
-    margin-top: 50px;
+
+.navigation-icon {
+
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #f4f6f8;
+
+    color: #66727d;
+
+    transition: var(--portal-transition);
+
+}
+
+
+.navigation-icon i {
+
+    font-size: 15px;
+
+}
+
+
+.navigation-item:hover .navigation-icon,
+.navigation-item.active .navigation-icon {
+
+    background: var(--portal-primary);
+
+    color: white;
+
+}
+
+
+.navigation-content {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.navigation-content strong {
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    line-height: 1.3;
+
+}
+
+
+.navigation-content small {
+
+    margin-top: 2px;
+
+    color: #929da6;
+
+    font-size: 10px;
+
+    line-height: 1.3;
+
+}
+
+
+.navigation-item.active
+.navigation-content small {
+
+    color: #607f8c;
+
+}
+
+
+/* ============================================================
+   5. SIDEBAR HELP
+   ============================================================ */
+
+.sidebar-help {
+
+    margin: 0 14px 18px;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #edf7fa,
+            #f7fbfc
+        );
+
+    border: 1px solid #dcecf1;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+}
+
+
+.sidebar-help-icon {
+
+    width: 31px;
+    height: 31px;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: var(--portal-primary);
+
+    color: white;
+
+}
+
+
+.sidebar-help-icon i {
+
+    font-size: 13px;
+
+}
+
+
+.sidebar-help strong {
+
+    display: block;
+
+    color: var(--portal-primary);
+
+    font-size: 12px;
+
+    margin-bottom: 3px;
+
+}
+
+
+.sidebar-help p {
+
+    margin: 0;
+
+    color: var(--portal-text-soft);
+
+    font-size: 10px;
+
+    line-height: 1.5;
+
+}
+
+
+/* ============================================================
+   6. SIDEBAR FOOTER
+   ============================================================ */
+
+.sidebar-footer {
+
+    padding: 15px 20px 20px;
+
+    border-top: 1px solid var(--portal-border);
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.sidebar-footer span {
+
+    color: var(--portal-text-soft);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+}
+
+
+.sidebar-footer small {
+
+    color: #a0a9b1;
+
+    font-size: 9px;
+
+    margin-top: 2px;
+
+}
+
+
+/* ============================================================
+   7. SIDEBAR MOBILE OVERLAY
+   ============================================================ */
+
+.sidebar-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(5, 20, 30, 0.45);
+
+    z-index: 1050;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+
+}
+
+
+.sidebar-overlay.overlay-visible {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+
+}
+
+
+/* ============================================================
+   8. MAIN CONTENT AREA
+   ============================================================ */
+
+.portal-main {
+
+    width: calc(
+        100% - var(--portal-sidebar-width)
+    );
+
+    min-height: 100vh;
+
+    margin-left: var(--portal-sidebar-width);
+
+}
+
+
+.portal-content {
+
+    width: 100%;
+
+    max-width: 1500px;
+
+    margin: 0 auto;
+
+    padding: 28px 32px 45px;
+
+}
+
+
+/* ============================================================
+   9. HEADER
+   ============================================================ */
+
+.portal-header {
+
+    height: var(--portal-header-height);
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 900;
+
+    background:
+        rgba(255, 255, 255, 0.96);
+
+    border-bottom:
+        1px solid var(--portal-border);
+
+    backdrop-filter:
+        blur(10px);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 32px;
+
+}
+
+
+.header-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+}
+
+
+.header-page-title {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.header-page-title span {
+
+    color: #89949e;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+
+}
+
+
+.header-page-title h1 {
+
+    margin: 1px 0 0;
+
+    color: var(--portal-primary);
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+}
+
+
+/* ============================================================
+   10. MOBILE MENU BUTTON
+   ============================================================ */
+
+.mobile-menu-button {
+
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid var(--portal-border);
+
     background: white;
+
+    color: var(--portal-primary);
+
+    border-radius: 9px;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: var(--portal-transition);
+
+}
+
+
+.mobile-menu-button:hover {
+
+    background: var(--portal-primary);
+
+    color: white;
+
+}
+
+
+.mobile-menu-button i {
+
+    font-size: 16px;
+
+}
+
+
+/* ============================================================
+   11. HEADER USER
+   ============================================================ */
+
+.header-user {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.header-user-icon {
+
+    width: 39px;
+    height: 39px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        var(--portal-primary-light);
+
+    color: var(--portal-primary);
+
+}
+
+
+.header-user-icon i {
+
+    font-size: 14px;
+
+}
+
+
+.header-user-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    max-width: 240px;
+
+}
+
+
+.header-user-info strong {
+
+    color: var(--portal-text);
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+}
+
+
+.header-user-info span {
+
+    color: var(--portal-text-muted);
+
+    font-size: 10px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+/* ============================================================
+   12. MESSAGES
+   ============================================================ */
+
+.messages-container {
+
+    width: 100%;
+
+    margin-bottom: 22px;
+
+}
+
+
+.portal-alert {
+
+    width: 100%;
+
+    min-height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 11px 14px;
+
+    margin-bottom: 9px;
+
     border-radius: 10px;
-    padding: 40px;
+
+    border: 1px solid transparent;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+
 }
 
-.placement-inputs-holder-100 {
+
+.alert-icon {
+
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+}
+
+
+.alert-message {
+
+    flex: 1;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+}
+
+
+.alert-close {
+
+    width: 28px;
+    height: 28px;
+
+    flex-shrink: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    color: inherit;
+
+    cursor: pointer;
+
+    border-radius: 6px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.alert-close:hover {
+
+    background:
+        rgba(0, 0, 0, 0.07);
+
+}
+
+
+/* Success */
+
+.portal-alert.success {
+
+    background: #edf9f1;
+
+    color: #176b34;
+
+    border-color: #cdebd7;
+
+}
+
+
+.portal-alert.success .alert-icon {
+
+    background: #d6f1df;
+
+}
+
+
+/* Error */
+
+.portal-alert.error {
+
+    background: #fff0f0;
+
+    color: #a52222;
+
+    border-color: #f1cccc;
+
+}
+
+
+.portal-alert.error .alert-icon {
+
+    background: #f9dada;
+
+}
+
+
+/* Warning */
+
+.portal-alert.warning {
+
+    background: #fff8e8;
+
+    color: #8a6200;
+
+    border-color: #f1dfad;
+
+}
+
+
+.portal-alert.warning .alert-icon {
+
+    background: #ffedbd;
+
+}
+
+
+/* Info */
+
+.portal-alert.info {
+
+    background: #edf8fb;
+
+    color: #08647a;
+
+    border-color: #cbe8ef;
+
+}
+
+
+.portal-alert.info .alert-icon {
+
+    background: #d5eef4;
+
+}
+
+
+/* ============================================================
+   13. WELCOME PANEL
+   ============================================================ */
+
+.welcome-panel {
+
+    position: relative;
+
     width: 100%;
-    height: auto;
+
+    min-height: 245px;
+
+    padding: 34px 38px;
+
+    margin-bottom: 30px;
+
+    overflow: hidden;
+
+    border-radius: var(--portal-radius-lg);
+
+    background:
+        linear-gradient(
+            120deg,
+            #014162 0%,
+            #07516f 58%,
+            #0a647e 100%
+        );
+
+    color: white;
+
+    box-shadow:
+        0 12px 30px
+        rgba(1, 65, 98, 0.14);
+
 }
 
-.placement-inputs-holder-100>div {
+
+.welcome-panel::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 330px;
+    height: 330px;
+
+    right: -130px;
+    top: -190px;
+
+    border-radius: 50%;
+
+    border:
+        55px solid
+        rgba(255, 255, 255, 0.045);
+
+}
+
+
+.welcome-panel::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 230px;
+    height: 230px;
+
+    right: 90px;
+    bottom: -190px;
+
+    border-radius: 50%;
+
+    border:
+        45px solid
+        rgba(255, 255, 255, 0.04);
+
+}
+
+
+.welcome-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 730px;
+
+}
+
+
+.welcome-label {
+
+    display: inline-block;
+
+    color: #b8d9e4;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.4px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.welcome-content h2 {
+
+    margin: 0 0 10px;
+
+    font-size: 28px;
+
+    line-height: 1.2;
+
+    font-weight: 700;
+
+}
+
+
+.welcome-content p {
+
+    max-width: 650px;
+
+    margin: 0;
+
+    color: #dcebf0;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+}
+
+
+.welcome-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 22px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.primary-action,
+.secondary-action {
+
+    min-height: 42px;
+
+    padding: 0 16px;
+
+    border-radius: 9px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    font-size: 11px;
+
+    font-weight: 650;
+
+    transition: var(--portal-transition);
+
+}
+
+
+.primary-action {
+
+    background: white;
+
+    color: var(--portal-primary);
+
+}
+
+
+.primary-action:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 15px
+        rgba(0, 0, 0, 0.15);
+
+}
+
+
+.secondary-action {
+
+    color: white;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.35);
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+}
+
+
+.secondary-action:hover {
+
+    background:
+        rgba(255, 255, 255, 0.16);
+
+}
+
+
+.action-arrow {
+
+    margin-left: 5px;
+
+    font-size: 9px;
+
+}
+
+
+/* ============================================================
+   14. WELCOME ILLUSTRATION
+   ============================================================ */
+
+.welcome-illustration {
+
+    position: absolute;
+
+    right: 70px;
+    top: 50%;
+
+    width: 190px;
+    height: 190px;
+
+    transform:
+        translateY(-50%);
+
+    z-index: 1;
+
+}
+
+
+.illustration-circle {
+
+    position: absolute;
+
+    left: 25px;
+    top: 20px;
+
+    width: 145px;
+    height: 145px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.10);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.12);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.illustration-circle i {
+
+    color:
+        rgba(255, 255, 255, 0.86);
+
+    font-size: 65px;
+
+}
+
+
+.illustration-document {
+
+    position: absolute;
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 11px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+
+    color: var(--portal-primary);
+
+    box-shadow:
+        0 8px 20px
+        rgba(0, 0, 0, 0.12);
+
+}
+
+
+.illustration-document i {
+
+    font-size: 17px;
+
+}
+
+
+.document-one {
+
+    top: 5px;
+    right: 2px;
+
+    transform: rotate(8deg);
+
+}
+
+
+.document-two {
+
+    right: 5px;
+    bottom: 10px;
+
+    transform: rotate(-8deg);
+
+}
+
+
+/* ============================================================
+   15. DASHBOARD SECTION
+   ============================================================ */
+
+.dashboard-section {
+
     width: 100%;
-    height: auto;
-    margin-top: 10px;
+
+    margin-bottom: 30px;
+
 }
 
-.placement-inputs-holder-100>div>input {
+
+.section-heading {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+
+}
+
+
+.section-eyebrow {
+
+    display: block;
+
+    color: var(--portal-primary);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.1px;
+
+    margin-bottom: 4px;
+
+}
+
+
+.section-heading h2 {
+
+    margin: 0;
+
+    color: var(--portal-text);
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+}
+
+
+.section-heading p {
+
+    margin: 5px 0 0;
+
+    color: var(--portal-text-muted);
+
+    font-size: 11px;
+
+}
+
+
+/* ============================================================
+   16. STATISTICS
+   ============================================================ */
+
+.statistics-grid {
+
     width: 100%;
-    height: 40px;
-    outline: none;
-    border: 1px solid rgba(0, 0, 0, 0.522);
-    border-radius: 5px;
-    padding: 10px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 16px;
+
 }
 
-.placement-inputs-holder-100>div>input:hover {
-    border: 1px solid rgb(1, 65, 98);
+
+.stat-card {
+
+    position: relative;
+
+    background: white;
+
+    border:
+        1px solid
+        var(--portal-border);
+
+    border-radius:
+        var(--portal-radius-md);
+
+    padding: 20px;
+
+    box-shadow:
+        var(--portal-shadow-sm);
+
+    transition: var(--portal-transition);
+
+    overflow: hidden;
+
 }
 
-.button-place-100 {
+
+.stat-card:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        var(--portal-shadow-md);
+
+    border-color: #d6e0e5;
+
+}
+
+
+.stat-card-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+
+.stat-icon {
+
+    width: 43px;
+    height: 43px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.stat-icon i {
+
+    font-size: 17px;
+
+}
+
+
+.stat-icon.daily {
+
+    background: #eaf4f8;
+
+    color: var(--portal-primary);
+
+}
+
+
+.stat-icon.weekly {
+
+    background: #eef5f0;
+
+    color: #277344;
+
+}
+
+
+.stat-status {
+
+    padding: 4px 8px;
+
+    border-radius: 20px;
+
+    background: #f3f6f7;
+
+    color: #74818b;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+}
+
+
+.stat-number {
+
+    margin-top: 18px;
+
+    color: var(--portal-primary);
+
+    font-size: 31px;
+
+    font-weight: 750;
+
+    line-height: 1;
+
+}
+
+
+.stat-card h3 {
+
+    margin: 8px 0 4px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+
+.stat-card p {
+
+    margin: 0;
+
+    color: var(--portal-text-muted);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+}
+
+
+.stat-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 16px;
+
+    color: var(--portal-primary);
+
+    font-size: 10px;
+
+    font-weight: 650;
+
+}
+
+
+.stat-link i {
+
+    font-size: 8px;
+
+    transition: var(--portal-transition);
+
+}
+
+
+.stat-link:hover i {
+
+    transform:
+        translateX(3px);
+
+}
+
+
+/* ============================================================
+   17. QUICK ACTIONS
+   ============================================================ */
+
+.quick-actions-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 15px;
+
+}
+
+
+.quick-action-card {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 14px;
+
+    min-height: 150px;
+
+    padding: 20px;
+
+    background: white;
+
+    border:
+        1px solid
+        var(--portal-border);
+
+    border-radius:
+        var(--portal-radius-md);
+
+    box-shadow:
+        var(--portal-shadow-sm);
+
+    transition: var(--portal-transition);
+
+}
+
+
+.quick-action-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        #cbdde5;
+
+    box-shadow:
+        var(--portal-shadow-md);
+
+}
+
+
+.quick-action-icon {
+
+    width: 44px;
+    height: 44px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        var(--portal-primary-light);
+
+    color:
+        var(--portal-primary);
+
+}
+
+
+.quick-action-icon i {
+
+    font-size: 17px;
+
+}
+
+
+.quick-action-content {
+
+    min-width: 0;
+
+}
+
+
+.quick-action-content h3 {
+
+    margin: 0 0 6px;
+
+    color: var(--portal-text);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.quick-action-content p {
+
+    margin: 0;
+
+    color: var(--portal-text-muted);
+
+    font-size: 10px;
+
+    line-height: 1.6;
+
+}
+
+
+.quick-action-content span {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-top: 13px;
+
+    color: var(--portal-primary);
+
+    font-size: 10px;
+
+    font-weight: 650;
+
+}
+
+
+.quick-action-content span i {
+
+    font-size: 8px;
+
+    transition: var(--portal-transition);
+
+}
+
+
+.quick-action-card:hover
+.quick-action-content span i {
+
+    transform:
+        translateX(3px);
+
+}
+
+
+/* ============================================================
+   18. TWO-COLUMN DASHBOARD BOXES
+   ============================================================ */
+
+.dashboard-columns {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(320px, 0.85fr);
+
+    gap: 18px;
+
+    margin-bottom: 30px;
+
+}
+
+
+.dashboard-box {
+
+    background: white;
+
+    border:
+        1px solid
+        var(--portal-border);
+
+    border-radius:
+        var(--portal-radius-md);
+
+    box-shadow:
+        var(--portal-shadow-sm);
+
+    overflow: hidden;
+
+}
+
+
+.box-header {
+
+    min-height: 76px;
+
+    padding: 17px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom:
+        1px solid
+        var(--portal-border);
+
+}
+
+
+.box-eyebrow {
+
+    display: block;
+
+    color: var(--portal-primary);
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 3px;
+
+}
+
+
+.box-header h2 {
+
+    margin: 0;
+
+    color: var(--portal-text);
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+}
+
+
+.box-view-link {
+
+    color: var(--portal-primary);
+
+    font-size: 10px;
+
+    font-weight: 650;
+
+}
+
+
+.box-view-link:hover {
+
+    text-decoration: underline;
+
+}
+
+
+.guide-icon {
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background:
+        var(--portal-primary-light);
+
+    color:
+        var(--portal-primary);
+
+}
+
+
+/* ============================================================
+   19. RECENT REPORTS
+   ============================================================ */
+
+.reports-list {
+
+    width: 100%;
+
+}
+
+
+.report-list-item {
+
+    min-height: 68px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px 20px;
+
+    border-bottom:
+        1px solid
+        #eef1f3;
+
+    transition: var(--portal-transition);
+
+}
+
+
+.report-list-item:last-child {
+
+    border-bottom: 0;
+
+}
+
+
+.report-list-item:hover {
+
+    background:
+        #f8fafb;
+
+}
+
+
+.report-list-icon {
+
+    width: 37px;
+    height: 37px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background:
+        #eef5f8;
+
+    color:
+        var(--portal-primary);
+
+}
+
+
+.report-list-icon i {
+
+    font-size: 13px;
+
+}
+
+
+.report-list-content {
+
+    min-width: 0;
+
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.report-list-content strong {
+
+    color: var(--portal-text);
+
+    font-size: 11px;
+
+    font-weight: 650;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.report-list-content span {
+
+    margin-top: 2px;
+
+    color: var(--portal-text-muted);
+
+    font-size: 9px;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.report-list-date {
+
+    flex-shrink: 0;
+
+    color: var(--portal-text-muted);
+
+    font-size: 9px;
+
+    white-space: nowrap;
+
+}
+
+
+.report-list-date i {
+
+    margin-right: 3px;
+
+}
+
+
+.report-list-arrow {
+
+    width: 20px;
+
+    flex-shrink: 0;
+
+    color: #b3bcc3;
+
     text-align: right;
+
 }
 
-.button-place-100>button {
-    height: 40px;
-    border-style: none;
-    outline: none;
+
+.report-list-arrow i {
+
+    font-size: 8px;
+
+}
+
+
+/* ============================================================
+   20. EMPTY REPORT STATE
+   ============================================================ */
+
+.empty-reports {
+
+    min-height: 245px;
+
+    padding: 30px 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+}
+
+
+.empty-icon {
+
+    width: 54px;
+    height: 54px;
+
+    margin-bottom: 12px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        #f1f5f7;
+
+    color:
+        #84929c;
+
+}
+
+
+.empty-icon i {
+
+    font-size: 19px;
+
+}
+
+
+.empty-reports h3 {
+
+    margin: 0 0 4px;
+
+    color: var(--portal-text);
+
+    font-size: 13px;
+
+}
+
+
+.empty-reports p {
+
+    max-width: 280px;
+
+    margin: 0;
+
+    color: var(--portal-text-muted);
+
+    font-size: 10px;
+
+    line-height: 1.6;
+
+}
+
+
+.empty-action {
+
+    margin-top: 13px;
+
+    padding: 8px 13px;
+
+    border-radius: 7px;
+
+    background:
+        var(--portal-primary);
+
     color: white;
-    font-weight: bold;
-    width: auto;
-    padding-left: 20px;
-    padding-right: 20px;
-}
 
-.button-place-100>button:hover {
-    background: rgba(1, 66, 98, 0.53);
-    cursor: pointer;
-}
+    font-size: 10px;
 
-.b100 {
-    background: red;
-}
+    font-weight: 650;
 
-.b101 {
-    background: rgb(1, 65, 98);
 }
 
 
-.actions-holder-1001 {
-    width: 100%;
-    height: auto;
+.empty-action:hover {
+
+    background:
+        var(--portal-primary-dark);
+
 }
 
-.actions-holder-1001>div {
-    float: left;
-    width: 50%;
-    padding: 5px;
+
+/* ============================================================
+   21. GETTING STARTED GUIDE
+   ============================================================ */
+
+.guide-steps {
+
+    padding: 18px 20px 5px;
+
 }
 
-.actions-1001>button {
-    width: 100%;
-    height: 40px;
-    background: rgb(1, 65, 98);
-    color: white;
-    font-weight: bold;
-    border-style: none;
-    outline: none;
-    cursor: pointer;
+
+.guide-step {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding-bottom: 17px;
+
 }
 
-.actions-1001>button:hover {
-    background: rgba(1, 66, 98, 0.455);
+
+.guide-step:not(:last-child)::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 15px;
+
+    top: 31px;
+
+    bottom: 0;
+
+    width: 1px;
+
+    background:
+        #dfe7eb;
+
 }
 
-@media only screen and (min-width: 768px) {
-    .action-holder-101 {
+
+.step-number {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 31px;
+    height: 31px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        var(--portal-primary-light);
+
+    color:
+        var(--portal-primary);
+
+    font-size: 8px;
+
+    font-weight: 750;
+
+}
+
+
+.guide-step h3 {
+
+    margin: 2px 0 3px;
+
+    color: var(--portal-text);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+.guide-step p {
+
+    margin: 0;
+
+    color: var(--portal-text-muted);
+
+    font-size: 9px;
+
+    line-height: 1.5;
+
+}
+
+
+.guide-note {
+
+    margin: 5px 20px 20px;
+
+    padding: 11px 12px;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 9px;
+
+    border-radius: 8px;
+
+    background:
+        #fff9e9;
+
+    border:
+        1px solid
+        #f2e2b8;
+
+}
+
+
+.guide-note > i {
+
+    margin-top: 2px;
+
+    color:
+        #ae7800;
+
+    font-size: 12px;
+
+}
+
+
+.guide-note p {
+
+    margin: 0;
+
+    color:
+        #7e641f;
+
+    font-size: 9px;
+
+    line-height: 1.55;
+
+}
+
+
+.guide-note strong {
+
+    color:
+        #6e530e;
+
+}
+
+
+/* ============================================================
+   22. FOOTER
+   ============================================================ */
+
+.portal-footer {
+
+    padding: 20px 0 5px;
+
+    border-top:
+        1px solid
+        var(--portal-border);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+}
+
+
+.portal-footer > div:first-child {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.portal-footer strong {
+
+    color:
+        var(--portal-text-soft);
+
+    font-size: 10px;
+
+    font-weight: 650;
+
+}
+
+
+.portal-footer span {
+
+    margin-top: 2px;
+
+    color:
+        #a0a9b1;
+
+    font-size: 9px;
+
+}
+
+
+.footer-links {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+}
+
+
+.footer-links a {
+
+    color:
+        #7d8992;
+
+    font-size: 9px;
+
+}
+
+
+.footer-links a:hover {
+
+    color:
+        var(--portal-primary);
+
+}
+
+
+/* ============================================================
+   23. DESKTOP LARGE SCREENS
+   ============================================================ */
+
+@media (min-width: 1200px) {
+
+    .portal-content {
+
+        padding-left: 40px;
+        padding-right: 40px;
+
+    }
+
+
+    .welcome-panel {
+
+        padding-left: 42px;
+        padding-right: 42px;
+
+    }
+
+}
+
+
+/* ============================================================
+   24. TABLET
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+    :root {
+
+        --portal-sidebar-width: 245px;
+
+    }
+
+
+    .portal-content {
+
+        padding:
+            25px 22px 40px;
+
+    }
+
+
+    .portal-header {
+
+        padding:
+            0 22px;
+
+    }
+
+
+    .welcome-illustration {
+
+        right: 20px;
+
+        opacity: 0.7;
+
+    }
+
+
+    .welcome-content {
+
+        max-width: 70%;
+
+    }
+
+
+    .quick-actions-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+
+    .dashboard-columns {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+/* ============================================================
+   25. MOBILE / SMALL TABLET
+   ============================================================ */
+
+@media (max-width: 991px) {
+
+    :root {
+
+        --portal-sidebar-width: 280px;
+
+    }
+
+
+    .portal-sidebar {
+
+        transform:
+            translateX(-100%);
+
+        box-shadow: none;
+
+    }
+
+
+    .portal-sidebar.sidebar-open {
+
+        transform:
+            translateX(0);
+
+        box-shadow:
+            8px 0 30px
+            rgba(0, 0, 0, 0.12);
+
+    }
+
+
+    .portal-main {
+
+        width: 100%;
+
+        margin-left: 0;
+
+    }
+
+
+    .mobile-menu-button {
+
+        display: flex;
+
+    }
+
+
+    .portal-header {
+
+        height: 68px;
+
+        padding:
+            0 18px;
+
+    }
+
+
+    .portal-content {
+
+        padding:
+            20px 18px 35px;
+
+    }
+
+
+    .header-user-info {
+
         display: none;
+
     }
 
-    .left-holder-201 {
-        width: 20%;
-        height: 100vh;
-        display: inline-block;
+
+    .welcome-panel {
+
+        min-height: auto;
+
+        padding:
+            28px 25px;
+
     }
 
-    .right-holder-201 {
-        width: 80%;
-        height: 100vh;
-        padding: 10px;
+
+    .welcome-content {
+
+        max-width: 100%;
+
     }
 
-    .card-holder-201>div {
-        width: 50%;
+
+    .welcome-content h2 {
+
+        font-size: 23px;
+
     }
 
-    .card-holder-201>.full-201 {
-        width: 50%;
+
+    .welcome-illustration {
+
+        display: none;
+
     }
 
-    .filter-holder-202>div {
-        width: 30%;
+
+    .statistics-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
     }
 
-    .small-image-103 {
-        width: 200px;
-        height: 200px;
-        margin-top: 140px;
-        margin-left: 20px;
+
+    .dashboard-columns {
+
+        grid-template-columns:
+            1fr;
+
     }
 
-    .placement-100 {
-        width: 50%;
-    }
-
-    .actions-holder-1001>div {
-        width: 25%;
-        padding: 10px;
-    }
 }
+
+
+/* ============================================================
+   26. MOBILE
+   ============================================================ */
+
+@media (max-width: 650px) {
+
+    .portal-content {
+
+        padding:
+            15px 12px 30px;
+
+    }
+
+
+    .portal-header {
+
+        padding:
+            0 12px;
+
+    }
+
+
+    .header-page-title span {
+
+        display: none;
+
+    }
+
+
+    .header-page-title h1 {
+
+        font-size: 16px;
+
+    }
+
+
+    .welcome-panel {
+
+        padding:
+            24px 20px;
+
+        margin-bottom: 23px;
+
+        border-radius: 13px;
+
+    }
+
+
+    .welcome-label {
+
+        font-size: 8px;
+
+    }
+
+
+    .welcome-content h2 {
+
+        font-size: 21px;
+
+        line-height: 1.3;
+
+    }
+
+
+    .welcome-content p {
+
+        font-size: 11px;
+
+        line-height: 1.65;
+
+    }
+
+
+    .welcome-actions {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .primary-action,
+    .secondary-action {
+
+        width: 100%;
+
+    }
+
+
+    .section-heading {
+
+        margin-bottom: 12px;
+
+    }
+
+
+    .section-heading h2 {
+
+        font-size: 16px;
+
+    }
+
+
+    .section-heading p {
+
+        font-size: 10px;
+
+    }
+
+
+    .statistics-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 12px;
+
+    }
+
+
+    .stat-card {
+
+        padding: 17px;
+
+    }
+
+
+    .stat-number {
+
+        font-size: 28px;
+
+    }
+
+
+    .quick-actions-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 11px;
+
+    }
+
+
+    .quick-action-card {
+
+        min-height: auto;
+
+        padding: 17px;
+
+    }
+
+
+    .dashboard-box {
+
+        border-radius: 11px;
+
+    }
+
+
+    .box-header {
+
+        padding:
+            14px 15px;
+
+    }
+
+
+    .box-header h2 {
+
+        font-size: 13px;
+
+    }
+
+
+    .report-list-item {
+
+        padding:
+            11px 14px;
+
+        gap: 9px;
+
+    }
+
+
+    .report-list-icon {
+
+        width: 34px;
+        height: 34px;
+
+    }
+
+
+    .report-list-date {
+
+        display: none;
+
+    }
+
+
+    .report-list-content strong {
+
+        font-size: 10px;
+
+    }
+
+
+    .report-list-content span {
+
+        font-size: 8px;
+
+    }
+
+
+    .guide-steps {
+
+        padding:
+            16px 15px 4px;
+
+    }
+
+
+    .guide-note {
+
+        margin:
+            5px 15px 15px;
+
+    }
+
+
+    .portal-footer {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding-top: 18px;
+
+    }
+
+
+    .footer-links {
+
+        flex-wrap: wrap;
+
+        gap: 10px 15px;
+
+    }
+
+}
+
+
+/* ============================================================
+   27. VERY SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 380px) {
+
+    .portal-content {
+
+        padding-left: 9px;
+        padding-right: 9px;
+
+    }
+
+
+    .portal-header {
+
+        padding-left: 9px;
+        padding-right: 9px;
+
+    }
+
+
+    .welcome-panel {
+
+        padding:
+            21px 16px;
+
+    }
+
+
+    .welcome-content h2 {
+
+        font-size: 19px;
+
+    }
+
+
+    .quick-action-card {
+
+        padding:
+            14px;
+
+    }
+
+
+    .quick-action-icon {
+
+        width: 39px;
+        height: 39px;
+
+    }
+
+
+    .quick-action-content h3 {
+
+        font-size: 12px;
+
+    }
+
+}
+
+
+/* ============================================================
+   28. ACCESSIBILITY / MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .portal-wrapper *,
+    .portal-wrapper *::before,
+    .portal-wrapper *::after {
+
+        scroll-behavior: auto !important;
+
+        transition-duration: 0.01ms !important;
+
+        animation-duration: 0.01ms !important;
+
+    }
+
+}
+
+
+/* ============================================================
+   29. PRINT
+   ============================================================ */
+
+@media print {
+
+    .portal-sidebar,
+    .portal-header,
+    .sidebar-overlay,
+    .mobile-menu-button,
+    .welcome-actions,
+    .footer-links {
+
+        display: none !important;
+
+    }
+
+
+    .portal-main {
+
+        width: 100%;
+
+        margin: 0;
+
+    }
+
+
+    .portal-content {
+
+        padding: 0;
+
+        max-width: none;
+
+    }
+
+
+    .portal-wrapper {
+
+        background: white;
+
+    }
+
+
+    .welcome-panel,
+    .stat-card,
+    .quick-action-card,
+    .dashboard-box {
+
+        box-shadow: none;
+
+    }
+
+}
+
+
+/* ============================================================
+   PAGE 2 — FIELD PLACEMENTS
+   MODERN PLACEMENT MANAGEMENT
+   ============================================================ */
+
+
+/* ============================================================
+   30. PLACEMENT PAGE CONTAINER
+   ============================================================ */
+
+.page-container-202 {
+
+    width: 100%;
+
+    max-width: 1500px;
+
+    margin: 0 auto;
+
+}
+
+
+/* ============================================================
+   31. PLACEMENT PAGE INTRODUCTION
+   ============================================================ */
+
+.page-intro-card-202 {
+
+    position: relative;
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        auto minmax(0, 1fr) auto;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 24px 26px;
+
+    margin-bottom: 20px;
+
+    background: var(--portal-surface);
+
+    border: 1px solid var(--portal-border);
+
+    border-radius: var(--portal-radius-lg);
+
+    box-shadow: var(--portal-shadow-sm);
+
+}
+
+
+.page-intro-icon-202 {
+
+    width: 58px;
+    height: 58px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        var(--portal-primary-light);
+
+    color:
+        var(--portal-primary);
+
+}
+
+
+.page-intro-icon-202 i {
+
+    font-size: 23px;
+
+}
+
+
+.page-intro-content-202 {
+
+    min-width: 0;
+
+}
+
+
+.page-eyebrow-202 {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: var(--portal-primary);
+
+    font-size: 9px;
+
+    font-weight: 750;
+
+    letter-spacing: 1.2px;
+
+}
+
+
+.page-intro-content-202 h1 {
+
+    margin: 0 0 5px;
+
+    color: var(--portal-text);
+
+    font-size: 22px;
+
+    font-weight: 750;
+
+    line-height: 1.25;
+
+}
+
+
+.page-intro-content-202 p {
+
+    max-width: 720px;
+
+    margin: 0;
+
+    color: var(--portal-text-soft);
+
+    font-size: 11px;
+
+    line-height: 1.65;
+
+}
+
+
+.page-intro-action-202 {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    gap: 6px;
+
+}
+
+
+.page-intro-action-202 small {
+
+    color: var(--portal-text-muted);
+
+    font-size: 9px;
+
+    text-align: right;
+
+}
+
+
+/* ============================================================
+   32. PRIMARY ACTION BUTTON
+   ============================================================ */
+
+.primary-action-202 {
+
+    min-height: 42px;
+
+    padding: 0 17px;
+
+    border: 0;
+
+    border-radius: 9px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    background: var(--portal-primary);
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition: var(--portal-transition);
+
+}
+
+
+.primary-action-202 i {
+
+    font-size: 11px;
+
+}
+
+
+.primary-action-202:hover {
+
+    background:
+        var(--portal-primary-dark);
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 6px 15px
+        rgba(1, 65, 98, 0.16);
+
+}
+
+
+.primary-action-202:active {
+
+    transform:
+        translateY(0);
+
+}
+
+
+.primary-action-202:disabled {
+
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+/* ============================================================
+   33. SECONDARY ACTION
+   ============================================================ */
+
+.secondary-action-202 {
+
+    min-height: 38px;
+
+    padding: 0 13px;
+
+    border:
+        1px solid
+        #d8e2e7;
+
+    border-radius: 8px;
+
+    background: white;
+
+    color: var(--portal-primary);
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    font-size: 10px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition: var(--portal-transition);
+
+}
+
+
+.secondary-action-202:hover {
+
+    background:
+        var(--portal-primary-light);
+
+    border-color:
+        #c7dce4;
+
+}
+
+
+/* ============================================================
+   34. INFORMATION BOXES
+   ============================================================ */
+
+.info-box-grid-202 {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 13px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.info-box-202 {
+
+    min-height: 86px;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding: 15px;
+
+    background: white;
+
+    border:
+        1px solid
+        var(--portal-border);
+
+    border-radius:
+        var(--portal-radius-md);
+
+    box-shadow:
+        var(--portal-shadow-sm);
+
+    transition:
+        var(--portal-transition);
+
+}
+
+
+.info-box-202:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        var(--portal-shadow-md);
+
+}
+
+
+.info-box-icon-202 {
+
+    width: 37px;
+    height: 37px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background:
+        var(--portal-primary-light);
+
+    color:
+        var(--portal-primary);
+
+}
+
+
+.info-box-icon-202 i {
+
+    font-size: 14px;
+
+}
+
+
+.info-box-202 strong {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: var(--portal-text);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+.info-box-202 span {
+
+    display: block;
+
+    color: var(--portal-text-muted);
+
+    font-size: 9px;
+
+    line-height: 1.5;
+
+}
+
+
+/* ============================================================
+   35. CONTENT BOX
+   ============================================================ */
+
+.content-box-202 {
+
+    width: 100%;
+
+    background: white;
+
+    border:
+        1px solid
+        var(--portal-border);
+
+    border-radius:
+        var(--portal-radius-lg);
+
+    box-shadow:
+        var(--portal-shadow-sm);
+
+    overflow: hidden;
+
+}
+
+
+/* ============================================================
+   36. CONTENT BOX HEADER
+   ============================================================ */
+
+.content-box-header-202 {
+
+    min-height: 88px;
+
+    padding: 18px 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    border-bottom:
+        1px solid
+        var(--portal-border);
+
+}
+
+
+.section-label-202 {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: var(--portal-primary);
+
+    font-size: 8px;
+
+    font-weight: 750;
+
+    letter-spacing: 1.1px;
+
+}
+
+
+.content-box-header-202 h2 {
+
+    margin: 0;
+
+    color: var(--portal-text);
+
+    font-size: 17px;
+
+    font-weight: 750;
+
+}
+
+
+.content-box-header-202 p {
+
+    margin: 4px 0 0;
+
+    color: var(--portal-text-muted);
+
+    font-size: 10px;
+
+}
+
+
+/* ============================================================
+   37. SEARCH BOX
+   ============================================================ */
+
+.search-box-202 {
+
+    position: relative;
+
+    width: calc(100% - 44px);
+
+    margin: 18px 22px;
+
+}
+
+
+.search-box-202 > i {
+
+    position: absolute;
+
+    left: 14px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    color: #8d9aa3;
+
+    font-size: 12px;
+
+    pointer-events: none;
+
+}
+
+
+.search-box-202 input {
+
+    width: 100%;
+
+    height: 43px;
+
+    padding:
+        0 14px 0 38px;
+
+    border:
+        1px solid
+        var(--portal-border);
+
+    border-radius: 9px;
+
+    outline: none;
+
+    background: #fafcfd;
+
+    color: var(--portal-text);
+
+    font-size: 11px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+
+}
+
+
+.search-box-202 input::placeholder {
+
+    color: #a1abb3;
+
+}
+
+
+.search-box-202 input:hover {
+
+    background: white;
+
+}
+
+
+.search-box-202 input:focus {
+
+    background: white;
+
+    border-color:
+        #a9c8d4;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(1, 65, 98, 0.07);
+
+}
+
+
+/* ============================================================
+   38. PLACEMENT GRID
+   ============================================================ */
+
+.placement-grid-202 {
+
+    width: 100%;
+
+    padding:
+        0 22px 22px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 15px;
+
+}
+
+
+/* ============================================================
+   39. PLACEMENT CARD
+   ============================================================ */
+
+.placement-card-202 {
+
+    position: relative;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-height: 225px;
+
+    padding: 18px;
+
+    background: white;
+
+    border:
+        1px solid
+        var(--portal-border);
+
+    border-radius:
+        var(--portal-radius-md);
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+
+}
+
+
+.placement-card-202::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        var(--portal-primary);
+
+    opacity: 0;
+
+    transition:
+        opacity 0.25s ease;
+
+}
+
+
+.placement-card-202:hover {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        #cbdde5;
+
+    box-shadow:
+        var(--portal-shadow-md);
+
+}
+
+
+.placement-card-202:hover::before {
+
+    opacity: 1;
+
+}
+
+
+/* ============================================================
+   40. PLACEMENT CARD TOP
+   ============================================================ */
+
+.placement-card-top-202 {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 17px;
+
+}
+
+
+.placement-organization-icon-202 {
+
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background:
+        var(--portal-primary-light);
+
+    color:
+        var(--portal-primary);
+
+}
+
+
+.placement-organization-icon-202 i {
+
+    font-size: 17px;
+
+}
+
+
+.placement-status-202 {
+
+    min-height: 25px;
+
+    padding: 0 9px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    border-radius: 20px;
+
+    background: #edf8f1;
+
+    color: #267244;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+}
+
+
+.placement-status-202 i {
+
+    font-size: 8px;
+
+}
+
+
+/* ============================================================
+   41. PLACEMENT CARD CONTENT
+   ============================================================ */
+
+.placement-card-content-202 {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+.placement-label-202 {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    color:
+        #9aa5ad;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.9px;
+
+}
+
+
+.placement-card-content-202 h3 {
+
+    margin: 0 0 9px;
+
+    color:
+        var(--portal-text);
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    line-height: 1.35;
+
+    overflow-wrap: anywhere;
+
+}
+
+
+.placement-detail-202 {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color:
+        var(--portal-text-soft);
+
+    font-size: 10px;
+
+}
+
+
+.placement-detail-202 i {
+
+    width: 20px;
+
+    color:
+        var(--portal-primary);
+
+    font-size: 10px;
+
+    text-align: center;
+
+}
+
+
+.placement-card-description-202 {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 7px;
+
+    margin-top: 15px;
+
+    padding: 9px 10px;
+
+    border-radius: 7px;
+
+    background:
+        #f7fafb;
+
+    color:
+        var(--portal-text-muted);
+
+    font-size: 9px;
+
+    line-height: 1.45;
+
+}
+
+
+.placement-card-description-202 i {
+
+    flex-shrink: 0;
+
+    margin-top: 1px;
+
+    color:
+        #8c9ba4;
+
+}
+
+
+/* ============================================================
+   42. PLACEMENT CARD FOOTER
+   ============================================================ */
+
+.placement-card-footer-202 {
+
+    min-height: 40px;
+
+    margin-top: 16px;
+
+    padding-top: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    border-top:
+        1px solid
+        #edf0f2;
+
+}
+
+
+.placement-card-footer-202 > span {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color:
+        var(--portal-primary);
+
+    font-size: 9px;
+
+    font-weight: 650;
+
+}
+
+
+.placement-card-footer-202 > span i {
+
+    font-size: 8px;
+
+    transition:
+        transform 0.2s ease;
+
+}
+
+
+.placement-card-202:hover
+.placement-card-footer-202 > span i {
+
+    transform:
+        translateX(3px);
+
+}
+
+
+/* ============================================================
+   43. PLACEMENT ACTION BUTTONS
+   ============================================================ */
+
+.placement-actions-202 {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+}
+
+
+.placement-actions-202 button {
+
+    width: 31px;
+    height: 31px;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 7px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.placement-actions-202 button i {
+
+    font-size: 10px;
+
+}
+
+
+.placement-edit-action-202 {
+
+    color:
+        #66737d;
+
+}
+
+
+.placement-edit-action-202:hover {
+
+    background:
+        #edf3f6;
+
+    color:
+        var(--portal-primary);
+
+}
+
+
+.placement-delete-action-202 {
+
+    color:
+        #c34a4a;
+
+}
+
+
+.placement-delete-action-202:hover {
+
+    background:
+        #fff0f0;
+
+    color:
+        #a52222;
+
+}
+
+
+.placement-actions-202 button:active {
+
+    transform:
+        scale(0.9);
+
+}
+
+
+.placement-actions-202 button:disabled {
+
+    opacity: 0.5;
+
+    cursor:
+        not-allowed;
+
+}
+
+
+/* ============================================================
+   44. EMPTY STATE
+   ============================================================ */
+
+.empty-state-202 {
+
+    grid-column:
+        1 / -1;
+
+    min-height: 300px;
+
+    padding: 40px 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    border:
+        1px dashed
+        #d6e0e5;
+
+    border-radius:
+        var(--portal-radius-md);
+
+    background:
+        #fbfcfd;
+
+}
+
+
+.empty-state-icon-202 {
+
+    width: 65px;
+    height: 65px;
+
+    margin-bottom: 14px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        var(--portal-primary-light);
+
+    color:
+        var(--portal-primary);
+
+}
+
+
+.empty-state-icon-202 i {
+
+    font-size: 24px;
+
+}
+
+
+.empty-state-202 h3 {
+
+    margin: 0 0 5px;
+
+    color:
+        var(--portal-text);
+
+    font-size: 15px;
+
+}
+
+
+.empty-state-202 p {
+
+    max-width: 400px;
+
+    margin: 0 0 16px;
+
+    color:
+        var(--portal-text-muted);
+
+    font-size: 10px;
+
+    line-height: 1.65;
+
+}
+
+
+/* ============================================================
+   45. SEARCH EMPTY STATE
+   ============================================================ */
+
+.search-empty-state-202 {
+
+    min-height: 190px;
+
+    margin:
+        0 22px 22px;
+
+    padding: 30px;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    border:
+        1px dashed
+        #d7e0e5;
+
+    border-radius:
+        var(--portal-radius-md);
+
+    background:
+        #fbfcfd;
+
+}
+
+
+.search-empty-state-202 > i {
+
+    width: 43px;
+    height: 43px;
+
+    margin-bottom: 10px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        #f0f4f6;
+
+    color:
+        #81909a;
+
+    font-size: 15px;
+
+}
+
+
+.search-empty-state-202 h3 {
+
+    margin: 0 0 4px;
+
+    color:
+        var(--portal-text);
+
+    font-size: 13px;
+
+}
+
+
+.search-empty-state-202 p {
+
+    margin: 0;
+
+    color:
+        var(--portal-text-muted);
+
+    font-size: 9px;
+
+}
+
+
+/* ============================================================
+   46. MODAL BACKDROP
+   ============================================================ */
+
+.placement-holder-100 {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 3000;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(5, 22, 32, 0.58);
+
+    backdrop-filter:
+        blur(4px);
+
+    -webkit-backdrop-filter:
+        blur(4px);
+
+}
+
+
+body.modal-open {
+
+    overflow: hidden;
+
+}
+
+
+/* ============================================================
+   47. MODERN PLACEMENT MODAL
+   ============================================================ */
+
+.modern-modal-202 {
+
+    width: 100%;
+
+    max-width: 720px;
+
+    max-height:
+        calc(100vh - 40px);
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    overflow-y: auto;
+
+    background:
+        white !important;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.5);
+
+    border-radius:
+        17px !important;
+
+    box-shadow:
+        0 25px 70px
+        rgba(0, 0, 0, 0.20);
+
+    animation:
+        placementModalIn 0.22s ease;
+
+}
+
+
+@keyframes placementModalIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(12px)
+            scale(0.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* Modal scrollbar */
+
+.modern-modal-202::-webkit-scrollbar {
+
+    width: 5px;
+
+}
+
+
+.modern-modal-202::-webkit-scrollbar-track {
+
+    background:
+        transparent;
+
+}
+
+
+.modern-modal-202::-webkit-scrollbar-thumb {
+
+    background:
+        #cbd5da;
+
+    border-radius:
+        20px;
+
+}
+
+
+/* ============================================================
+   48. MODAL HEADER
+   ============================================================ */
+
+.modal-header-202 {
+
+    position: relative;
+
+    padding:
+        24px 25px 20px;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    border-bottom:
+        1px solid
+        var(--portal-border);
+
+}
+
+
+.modal-label-202 {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    color:
+        var(--portal-primary);
+
+    font-size: 8px;
+
+    font-weight: 750;
+
+    letter-spacing: 1.1px;
+
+}
+
+
+.modal-header-202 h2 {
+
+    margin: 0 0 5px;
+
+    color:
+        var(--portal-text);
+
+    font-size: 19px;
+
+    font-weight: 750;
+
+}
+
+
+.modal-header-202 p {
+
+    max-width: 500px;
+
+    margin: 0;
+
+    color:
+        var(--portal-text-muted);
+
+    font-size: 10px;
+
+    line-height: 1.6;
+
+}
+
+
+.modal-close-202 {
+
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    border: 0;
+
+    border-radius: 8px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        #f2f5f6;
+
+    color:
+        #6d7982;
+
+    cursor: pointer;
+
+    transition:
+        var(--portal-transition);
+
+}
+
+
+.modal-close-202:hover {
+
+    background:
+        #e9eef0;
+
+    color:
+        var(--portal-primary);
+
+}
+
+
+/* ============================================================
+   49. MODAL MESSAGE
+   ============================================================ */
+
+.modal-message-202 {
+
+    margin:
+        16px 25px 0;
+
+    padding:
+        10px 12px;
+
+    border-radius:
+        8px;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+
+}
+
+
+.success-message-202 {
+
+    background:
+        #edf9f1;
+
+    border:
+        1px solid
+        #cdebd7;
+
+    color:
+        #176b34;
+
+}
+
+
+.error-message-202 {
+
+    background:
+        #fff0f0;
+
+    border:
+        1px solid
+        #f1cccc;
+
+    color:
+        #a52222;
+
+}
+
+
+/* ============================================================
+   50. PLACEMENT FORM GRID
+   ============================================================ */
+
+.placement-form-grid-202 {
+
+    padding:
+        22px 25px 0;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap:
+        17px 15px;
+
+}
+
+
+/* ============================================================
+   51. FORM FIELD
+   ============================================================ */
+
+.form-field-202 {
+
+    min-width: 0;
+
+}
+
+
+.form-field-202 label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 4px;
+
+    color:
+        var(--portal-text);
+
+    font-size: 11px;
+
+    font-weight: 650;
+
+}
+
+
+.form-field-202 label i {
+
+    width: 15px;
+
+    color:
+        var(--portal-primary);
+
+    font-size: 10px;
+
+    text-align: center;
+
+}
+
+
+.form-field-202 small {
+
+    display: block;
+
+    min-height: 26px;
+
+    margin-bottom: 6px;
+
+    color:
+        var(--portal-text-muted);
+
+    font-size: 8px;
+
+    line-height: 1.4;
+
+}
+
+
+.form-field-202 input {
+
+    width: 100%;
+
+    height: 43px;
+
+    padding:
+        0 12px;
+
+    border:
+        1px solid
+        var(--portal-border);
+
+    border-radius:
+        8px;
+
+    outline: none;
+
+    background:
+        #fbfcfd;
+
+    color:
+        var(--portal-text);
+
+    font-size: 10px;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.form-field-202 input::placeholder {
+
+    color:
+        #a5afb6;
+
+}
+
+
+.form-field-202 input:hover {
+
+    background:
+        white;
+
+}
+
+
+.form-field-202 input:focus {
+
+    background:
+        white;
+
+    border-color:
+        #9dbdca;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(1, 65, 98, 0.07);
+
+}
+
+
+.form-field-202 input:invalid:not(:placeholder-shown) {
+
+    border-color:
+        #e2aaaa;
+
+}
+
+
+/* ============================================================
+   52. FORM HELP BOX
+   ============================================================ */
+
+.form-help-box-202 {
+
+    margin:
+        20px 25px 0;
+
+    padding:
+        12px 13px;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    border:
+        1px solid
+        #e8dfc5;
+
+    border-radius:
+        9px;
+
+    background:
+        #fffaf0;
+
+}
+
+
+.form-help-box-202 > i {
+
+    width: 28px;
+    height: 28px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background:
+        #fff0c9;
+
+    color:
+        #a67400;
+
+    font-size: 11px;
+
+}
+
+
+.form-help-box-202 strong {
+
+    display: block;
+
+    margin-bottom: 2px;
+
+    color:
+        #72580f;
+
+    font-size: 10px;
+
+}
+
+
+.form-help-box-202 p {
+
+    margin: 0;
+
+    color:
+        #806f42;
+
+    font-size: 9px;
+
+    line-height: 1.55;
+
+}
+
+
+/* ============================================================
+   53. MODAL ACTIONS
+   ============================================================ */
+
+.modal-actions-202 {
+
+    padding:
+        20px 25px 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 9px;
+
+}
+
+
+.modal-cancel-202,
+.modal-save-202 {
+
+    min-height: 40px;
+
+    padding:
+        0 15px;
+
+    border-radius:
+        8px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    font-size: 10px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        var(--portal-transition);
+
+}
+
+
+.modal-cancel-202 {
+
+    border:
+        1px solid
+        var(--portal-border);
+
+    background:
+        white;
+
+    color:
+        var(--portal-text-soft);
+
+}
+
+
+.modal-cancel-202:hover {
+
+    background:
+        #f5f7f8;
+
+    color:
+        var(--portal-text);
+
+}
+
+
+.modal-save-202 {
+
+    border:
+        1px solid
+        var(--portal-primary);
+
+    background:
+        var(--portal-primary);
+
+    color:
+        white;
+
+}
+
+
+.modal-save-202:hover {
+
+    background:
+        var(--portal-primary-dark);
+
+    border-color:
+        var(--portal-primary-dark);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.modal-save-202:disabled {
+
+    opacity:
+        0.65;
+
+    cursor:
+        not-allowed;
+
+    transform:
+        none;
+
+}
+
+
+/* ============================================================
+   54. OLD PLACEMENT CLASSES — SAFE COMPATIBILITY
+   ============================================================ */
+
+/*
+   These rules keep the older placement template
+   compatible with the new shared stylesheet.
+*/
+
+
+#placementList {
+
+    width: 100%;
+
+    padding: 0;
+
+    margin: 0;
+
+    list-style: none;
+
+}
+
+
+#placementList .placement-item {
+
+    position: relative;
+
+    width: 100%;
+
+    cursor: pointer;
+
+}
+
+
+/* Prevent old styles from breaking new cards */
+
+#placementList .placement-item:hover {
+
+    background:
+        transparent;
+
+    border:
+        0;
+
+}
+
+
+/* ============================================================
+   55. TABLET PLACEMENT RESPONSIVENESS
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+    .page-intro-card-202 {
+
+        grid-template-columns:
+            auto minmax(0, 1fr);
+
+    }
+
+
+    .page-intro-action-202 {
+
+        grid-column:
+            2;
+
+        align-items:
+            flex-start;
+
+    }
+
+
+    .page-intro-action-202 small {
+
+        text-align:
+            left;
+
+    }
+
+
+    .placement-grid-202 {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+}
+
+
+/* ============================================================
+   56. MOBILE PLACEMENT
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+    .page-intro-card-202 {
+
+        grid-template-columns:
+            auto minmax(0, 1fr);
+
+        padding:
+            19px;
+
+        gap:
+            14px;
+
+    }
+
+
+    .page-intro-icon-202 {
+
+        width: 48px;
+        height: 48px;
+
+        border-radius:
+            11px;
+
+    }
+
+
+    .page-intro-icon-202 i {
+
+        font-size:
+            18px;
+
+    }
+
+
+    .page-intro-content-202 h1 {
+
+        font-size:
+            18px;
+
+    }
+
+
+    .page-intro-content-202 p {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .page-intro-action-202 {
+
+        grid-column:
+            1 / -1;
+
+        width:
+            100%;
+
+        align-items:
+            stretch;
+
+    }
+
+
+    .page-intro-action-202 .primary-action-202 {
+
+        width:
+            100%;
+
+    }
+
+
+    .page-intro-action-202 small {
+
+        text-align:
+            center;
+
+    }
+
+
+    .info-box-grid-202 {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .content-box-header-202 {
+
+        padding:
+            16px;
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .secondary-action-202 {
+
+        width:
+            100%;
+
+    }
+
+
+    .search-box-202 {
+
+        width:
+            calc(100% - 32px);
+
+        margin:
+            15px 16px;
+
+    }
+
+
+    .placement-grid-202 {
+
+        padding:
+            0 16px 16px;
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            12px;
+
+    }
+
+
+    .placement-card-202 {
+
+        min-height:
+            210px;
+
+    }
+
+
+    .modern-modal-202 {
+
+        max-height:
+            calc(100vh - 24px);
+
+    }
+
+
+    .placement-form-grid-202 {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            15px;
+
+        padding:
+            18px 18px 0;
+
+    }
+
+
+    .form-field-202 small {
+
+        min-height:
+            auto;
+
+    }
+
+
+    .modal-header-202 {
+
+        padding:
+            20px 18px 17px;
+
+    }
+
+
+    .modal-message-202 {
+
+        margin-left:
+            18px;
+
+        margin-right:
+            18px;
+
+    }
+
+
+    .form-help-box-202 {
+
+        margin-left:
+            18px;
+
+        margin-right:
+            18px;
+
+    }
+
+
+    .modal-actions-202 {
+
+        padding:
+            18px;
+
+    }
+
+}
+
+
+/* ============================================================
+   57. SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+    .page-intro-card-202 {
+
+        grid-template-columns:
+            1fr;
+
+        text-align:
+            center;
+
+    }
+
+
+    .page-intro-icon-202 {
+
+        margin:
+            0 auto;
+
+    }
+
+
+    .page-intro-action-202 {
+
+        grid-column:
+            auto;
+
+    }
+
+
+    .page-intro-action-202 small {
+
+        text-align:
+            center;
+
+    }
+
+
+    .placement-card-202 {
+
+        padding:
+            15px;
+
+    }
+
+
+    .placement-card-content-202 h3 {
+
+        font-size:
+            14px;
+
+    }
+
+
+    .placement-card-description-202 {
+
+        font-size:
+            8px;
+
+    }
+
+
+    .placement-card-footer-202 > span {
+
+        font-size:
+            8px;
+
+    }
+
+
+    .placement-actions-202 button {
+
+        width:
+            29px;
+
+        height:
+            29px;
+
+    }
+
+
+    .empty-state-202 {
+
+        min-height:
+            260px;
+
+        padding:
+            30px 18px;
+
+    }
+
+
+    .modal-header-202 h2 {
+
+        font-size:
+            17px;
+
+    }
+
+
+    .modal-header-202 p {
+
+        font-size:
+            9px;
+
+    }
+
+
+    .modal-actions-202 {
+
+        flex-direction:
+            column-reverse;
+
+        align-items:
+            stretch;
+
+    }
+
+
+    .modal-cancel-202,
+    .modal-save-202 {
+
+        width:
+            100%;
+
+    }
+
+}
+
+
+/* ============================================================
+   58. VERY SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 360px) {
+
+    .placement-card-top-202 {
+
+        margin-bottom:
+            13px;
+
+    }
+
+
+    .placement-organization-icon-202 {
+
+        width:
+            38px;
+
+        height:
+            38px;
+
+    }
+
+
+    .placement-status-202 {
+
+        padding:
+            0 7px;
+
+        font-size:
+            7px;
+
+    }
+
+
+    .placement-card-content-202 h3 {
+
+        font-size:
+            13px;
+
+    }
+
+
+    .placement-card-description-202 {
+
+        padding:
+            8px;
+
+    }
+
+
+    .page-intro-content-202 h1 {
+
+        font-size:
+            17px;
+
+    }
+
+}
+
+
+/* ============================================================
+   59. PLACEMENT PRINT
+   ============================================================ */
+
+@media print {
+
+    .page-intro-action-202,
+    .secondary-action-202,
+    .search-box-202,
+    .placement-actions-202 {
+
+        display:
+            none !important;
+
+    }
+
+
+    .placement-grid-202 {
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+
+    .placement-card-202 {
+
+        box-shadow:
+            none;
+
+        break-inside:
+            avoid;
+
+    }
+
+
+    .content-box-202,
+    .page-intro-card-202,
+    .info-box-202 {
+
+        box-shadow:
+            none;
+
+    }
+
+}
+
+
+
+
+
+
+

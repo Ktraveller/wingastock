@@ -1,224 +1,1272 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Field Report | Home</title>
-    <link rel="shortcut icon" href="{% static 'logo1.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css_re/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <style>
-        .messages {
-            margin: 20px 0;
-        }
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-        .alert {
-            padding: 12px 18px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            color: #fff;
-            font-weight: 500;
-        }
+    <title>Field Practical Training | Dashboard</title>
 
-        .success {
-            background: #28a745;
-        }
+    <link
+        rel="shortcut icon"
+        href="{% static 'logo1.png' %}"
+        type="image/x-icon"
+    >
 
-        .error {
-            background: #dc3545;
-        }
+    <link
+        rel="stylesheet"
+        href="{% static 'css_re/style.css' %}"
+    >
 
-        .warning {
-            background: #ffc107;
-            color: #000;
-        }
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    >
 
-        .info {
-            background: #17a2b8;
-        }
-
-        .mail-time-201 {
-            padding-left: 10px;
-        }
-    </style>
 </head>
+
 
 <body>
 
-    <div class="row-holder">
 
-        <!-- Header -->
-        <div class="header-holder-100">
-            <div class="header-100">
-                <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')"><i class="fas fa-bars"></i></button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')"><i
-                            class="fas fa-times"></i></button>
+<!-- =========================================================
+     PAGE WRAPPER
+========================================================= -->
+
+<div class="portal-wrapper">
+
+
+    <!-- =====================================================
+         MOBILE OVERLAY
+    ====================================================== -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="closeSidebar()"
+    ></div>
+
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside
+        class="portal-sidebar"
+        id="portalSidebar"
+    >
+
+        <!-- Brand -->
+        <div class="sidebar-brand">
+
+            <a href="{% url 'report_home' %}">
+
+                <div class="brand-logo">
+                    <img
+                        src="{% static 'logo1.png' %}"
+                        alt="Field Report"
+                    >
                 </div>
-                <div class="title-holder-101">
-                    <button type="button"><span>
-                            Dashboard
-                        </span></button>
+
+                <div class="brand-text">
+
+                    <strong>
+                        Field Training
+                    </strong>
+
+                    <span>
+                        Student Portal
+                    </span>
+
                 </div>
-                <div class="title-holder-101" style="float: right;">
-                    <button type="button"><i class="fas fa-user"></i> {{ user.email }}</button>
-                </div>
-            </div>
+
+            </a>
+
         </div>
 
 
-        <!-- center content -->
-        <div class="center-content-200">
+        <!-- Navigation -->
+        <nav class="sidebar-navigation">
 
-            <div class="left-holder-201" id="nav">
-                <div class="nav-bar-holder-202">
 
-                    <ul>
-                        <a href="{% url 'report_home' %}">
-                            <li class="active-0">Dashboard <i class="fas fa-tachometer-alt"></i></li>
-                        </a>
-                    </ul>
+            <!-- Main -->
+            <div class="navigation-section">
 
-                    <ul>
-                        <a href="{% url 'placements_list' %}">
-                            <li>Reports <i class="fas fa-file-alt"></i></li>
-                        </a>
-                    </ul>
+                <span class="navigation-label">
+                    MAIN
+                </span>
 
-                    <ul>
-                        <a href="{% url 'user_account' %}">
-                            <li>Account <i class="fas fa-user"></i></li>
-                        </a>
-                    </ul>
 
-                    <ul>
-                        <a href="{% url 'home' %}">
-                            <li>Back Wingastock <i class="fas fa-home"></i></li>
-                        </a>
-                    </ul>
+                <a
+                    href="{% url 'report_home' %}"
+                    class="navigation-item active"
+                >
 
-                </div>
+                    <span class="navigation-icon">
+                        <i class="fas fa-th-large"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Dashboard
+                        </strong>
+
+                        <small>
+                            Overview of your training
+                        </small>
+
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{% url 'placements_list' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Field Reports
+                        </strong>
+
+                        <small>
+                            Daily and weekly reports
+                        </small>
+
+                    </span>
+
+                </a>
+
             </div>
 
-            <div class="right-holder-201">
 
-                <!-- Login message -->
-                {% if messages %}
-                <div class="messages">
-                    {% for message in messages %}
-                    <div class="alert {{ message.tags }}">
+
+            <!-- Account -->
+            <div class="navigation-section">
+
+                <span class="navigation-label">
+                    ACCOUNT
+                </span>
+
+
+                <a
+                    href="{% url 'user_account' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-user"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            My Account
+                        </strong>
+
+                        <small>
+                            Manage your profile
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- External -->
+            <div class="navigation-section">
+
+                <span class="navigation-label">
+                    WEBSITE
+                </span>
+
+
+                <a
+                    href="{% url 'home' %}"
+                    class="navigation-item"
+                >
+
+                    <span class="navigation-icon">
+                        <i class="fas fa-external-link-alt"></i>
+                    </span>
+
+                    <span class="navigation-content">
+
+                        <strong>
+                            Back to WingaStock
+                        </strong>
+
+                        <small>
+                            Return to main website
+                        </small>
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+        </nav>
+
+
+
+        <!-- Sidebar Help -->
+        <div class="sidebar-help">
+
+            <div class="sidebar-help-icon">
+
+                <i class="fas fa-info-circle"></i>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    Need help?
+                </strong>
+
+                <p>
+                    Complete your daily reports regularly to keep your field training record up to date.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Sidebar Footer -->
+        <div class="sidebar-footer">
+
+            <span>
+                Field Practical Training
+            </span>
+
+            <small>
+                Student Reporting System
+            </small>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN AREA
+    ====================================================== -->
+
+    <main class="portal-main">
+
+
+        <!-- =================================================
+             TOP HEADER
+        ================================================== -->
+
+        <header class="portal-header">
+
+
+            <div class="header-left">
+
+                <!-- Mobile menu -->
+                <button
+                    type="button"
+                    class="mobile-menu-button"
+                    id="mobileMenuButton"
+                    onclick="toggleSidebar()"
+                    aria-label="Open navigation"
+                >
+
+                    <i class="fas fa-bars"></i>
+
+                </button>
+
+
+                <div class="header-page-title">
+
+                    <span>
+                        Student Portal
+                    </span>
+
+                    <h1>
+                        Dashboard
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="header-right">
+
+
+                <!-- User -->
+                <div class="header-user">
+
+                    <div class="header-user-icon">
+
+                        <i class="fas fa-user"></i>
+
+                    </div>
+
+                    <div class="header-user-info">
+
+                        <strong>
+                            Student
+                        </strong>
+
+                        <span>
+                            {{ user.email }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             PAGE CONTENT
+        ================================================== -->
+
+        <section class="portal-content">
+
+
+            <!-- =================================================
+                 DJANGO MESSAGES
+            ================================================== -->
+
+            {% if messages %}
+
+            <div class="messages-container">
+
+                {% for message in messages %}
+
+                <div
+                    class="portal-alert {{ message.tags }}"
+                    role="alert"
+                >
+
+                    <div class="alert-icon">
+
+                        {% if message.tags == "success" %}
+
+                        <i class="fas fa-check-circle"></i>
+
+                        {% elif message.tags == "error" %}
+
+                        <i class="fas fa-exclamation-circle"></i>
+
+                        {% elif message.tags == "warning" %}
+
+                        <i class="fas fa-exclamation-triangle"></i>
+
+                        {% else %}
+
+                        <i class="fas fa-info-circle"></i>
+
+                        {% endif %}
+
+                    </div>
+
+                    <div class="alert-message">
                         {{ message }}
                     </div>
-                    {% endfor %}
-                </div>
-                {% endif %}
 
-                <div class="card-holder-201">
+                    <button
+                        type="button"
+                        class="alert-close"
+                        onclick="closeAlert(this)"
+                        aria-label="Close message"
+                    >
 
-                    <div class="card-201">
-                        <button type="button">
-                            <span><i class="fas fa-calendar-day"></i> Daily reports</span><br>
-                            <b style="font-size: 30px;">{{ total_daily_reports }}</b>
-                            <br>
-                            <p>Total daily report</p>
-                        </button>
-                    </div>
+                        <i class="fas fa-times"></i>
 
-
-                    <div class="card-201">
-                        <button type="button">
-                            <span><i class="fas fa-calendar-week"></i> Weekly reports</span><br>
-                            <b style="font-size: 30px;">{{ total_weekly_reports }}</b>
-                            <br>
-                            <p>Total weekly reports</p>
-                        </button>
-                    </div>
-
-                    <!-- recently saved reports -->
-                    <div class="card-201 full-201" style="width: 100%;">
-                        <button type="button" style="background: white; color: black;">
-
-                            <p style="font-weight: bold;">
-                                <i class="fas fa-bookmark"></i>
-                                This week's reports
-                            </p>
-
-                            <ul>
-
-                                {% for report in this_week_reports %}
-
-                                <a href="{% url 'report_preview' report.id %}">
-                                    <li>
-
-                                        <span class="list-title-201">
-                                            <strong>
-                                                {{ report.title }}
-                                            </strong>
-                                        </span>
-
-                                        <span>
-                                            {{ report.placement.organization }}
-                                        </span>
-
-                                        <span class="mail-time-201">
-                                            <i class="fas fa-clock"></i>
-                                            {{ report.date|date:"d M Y" }}
-                                        </span>
-
-                                    </li>
-                                </a>
-
-                                {% empty %}
-
-                                <p>No reports saved this week!</p>
-
-                                {% endfor %}
-
-                            </ul>
-
-                        </button>
-                    </div>
+                    </button>
 
                 </div>
+
+                {% endfor %}
+
             </div>
 
-        </div>
-
-    </div>
+            {% endif %}
 
 
 
-    <script>
-        function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
+            <!-- =================================================
+                 WELCOME BOX
+            ================================================== -->
 
-            if (click == 'open') {
-                menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
-            }
-            else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
-                nav.style.display = 'none';
-            }
+            <section class="welcome-panel">
+
+
+                <div class="welcome-content">
+
+                    <span class="welcome-label">
+                        FIELD PRACTICAL TRAINING
+                    </span>
+
+                    <h2>
+                        Welcome to your Student Dashboard
+                    </h2>
+
+                    <p>
+                        Use this portal to record your field training
+                        activities, manage your daily and weekly reports,
+                        and prepare your final Field Practical Training Report.
+                    </p>
+
+
+                    <div class="welcome-actions">
+
+                        <a
+                            href="{% url 'placements_list' %}"
+                            class="primary-action"
+                        >
+
+                            <i class="fas fa-file-alt"></i>
+
+                            <span>
+                                Manage My Reports
+                            </span>
+
+                            <i class="fas fa-arrow-right action-arrow"></i>
+
+                        </a>
+
+
+                        <a
+                            href="{% url 'user_account' %}"
+                            class="secondary-action"
+                        >
+
+                            <i class="fas fa-user"></i>
+
+                            <span>
+                                View My Account
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="welcome-illustration">
+
+                    <div class="illustration-circle">
+
+                        <i class="fas fa-graduation-cap"></i>
+
+                    </div>
+
+                    <div class="illustration-document document-one">
+
+                        <i class="fas fa-file-alt"></i>
+
+                    </div>
+
+                    <div class="illustration-document document-two">
+
+                        <i class="fas fa-check"></i>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 STATISTICS
+            ================================================== -->
+
+            <section class="dashboard-section">
+
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            YOUR PROGRESS
+                        </span>
+
+                        <h2>
+                            Training Report Overview
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="statistics-grid">
+
+
+                    <!-- Daily -->
+                    <div class="stat-card">
+
+                        <div class="stat-card-top">
+
+                            <div class="stat-icon daily">
+
+                                <i class="fas fa-calendar-day"></i>
+
+                            </div>
+
+                            <span class="stat-status">
+                                Recorded
+                            </span>
+
+                        </div>
+
+                        <div class="stat-number">
+                            {{ total_daily_reports }}
+                        </div>
+
+                        <h3>
+                            Daily Reports
+                        </h3>
+
+                        <p>
+                            Daily activities and experiences recorded during your field training.
+                        </p>
+
+                        <a
+                            href="{% url 'placements_list' %}"
+                            class="stat-link"
+                        >
+
+                            View daily reports
+
+                            <i class="fas fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+
+
+                    <!-- Weekly -->
+                    <div class="stat-card">
+
+                        <div class="stat-card-top">
+
+                            <div class="stat-icon weekly">
+
+                                <i class="fas fa-calendar-week"></i>
+
+                            </div>
+
+                            <span class="stat-status">
+                                Organized
+                            </span>
+
+                        </div>
+
+                        <div class="stat-number">
+                            {{ total_weekly_reports }}
+                        </div>
+
+                        <h3>
+                            Weekly Reports
+                        </h3>
+
+                        <p>
+                            Weekly summaries that organize your field training progress.
+                        </p>
+
+                        <a
+                            href="{% url 'placements_list' %}"
+                            class="stat-link"
+                        >
+
+                            View weekly reports
+
+                            <i class="fas fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 QUICK ACTIONS
+            ================================================== -->
+
+            <section class="dashboard-section">
+
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            QUICK ACTIONS
+                        </span>
+
+                        <h2>
+                            What would you like to do?
+                        </h2>
+
+                        <p>
+                            Choose an option below to continue managing your field training.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="quick-actions-grid">
+
+
+                    <!-- Reports -->
+                    <a
+                        href="{% url 'placements_list' %}"
+                        class="quick-action-card"
+                    >
+
+                        <div class="quick-action-icon">
+
+                            <i class="fas fa-clipboard-list"></i>
+
+                        </div>
+
+                        <div class="quick-action-content">
+
+                            <h3>
+                                Manage Field Reports
+                            </h3>
+
+                            <p>
+                                Add, review, edit and manage your daily field training reports.
+                            </p>
+
+                            <span>
+                                Open reports
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <!-- Account -->
+                    <a
+                        href="{% url 'user_account' %}"
+                        class="quick-action-card"
+                    >
+
+                        <div class="quick-action-icon">
+
+                            <i class="fas fa-user-circle"></i>
+
+                        </div>
+
+                        <div class="quick-action-content">
+
+                            <h3>
+                                Manage My Account
+                            </h3>
+
+                            <p>
+                                View and manage your student account information.
+                            </p>
+
+                            <span>
+                                Open account
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <!-- Website -->
+                    <a
+                        href="{% url 'home' %}"
+                        class="quick-action-card"
+                    >
+
+                        <div class="quick-action-icon">
+
+                            <i class="fas fa-globe"></i>
+
+                        </div>
+
+                        <div class="quick-action-content">
+
+                            <h3>
+                                Visit WingaStock
+                            </h3>
+
+                            <p>
+                                Return to the main WingaStock website.
+                            </p>
+
+                            <span>
+                                Visit website
+                                <i class="fas fa-external-link-alt"></i>
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RECENT REPORTS + GETTING STARTED
+            ================================================== -->
+
+            <section class="dashboard-columns">
+
+
+                <!-- Recent Reports -->
+                <div class="dashboard-box recent-reports-box">
+
+
+                    <div class="box-header">
+
+                        <div>
+
+                            <span class="box-eyebrow">
+                                RECENT ACTIVITY
+                            </span>
+
+                            <h2>
+                                This Week's Reports
+                            </h2>
+
+                        </div>
+
+                        <a
+                            href="{% url 'placements_list' %}"
+                            class="box-view-link"
+                        >
+                            View all
+                        </a>
+
+                    </div>
+
+
+
+                    <div class="reports-list">
+
+
+                        {% for report in this_week_reports %}
+
+                        <a
+                            href="{% url 'report_preview' report.id %}"
+                            class="report-list-item"
+                        >
+
+                            <div class="report-list-icon">
+
+                                <i class="fas fa-file-alt"></i>
+
+                            </div>
+
+
+                            <div class="report-list-content">
+
+                                <strong>
+                                    {{ report.title }}
+                                </strong>
+
+                                <span>
+                                    {{ report.placement.organization }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="report-list-date">
+
+                                <i class="far fa-calendar-alt"></i>
+
+                                {{ report.date|date:"d M Y" }}
+
+                            </div>
+
+
+                            <div class="report-list-arrow">
+
+                                <i class="fas fa-chevron-right"></i>
+
+                            </div>
+
+                        </a>
+
+                        {% empty %}
+
+
+                        <div class="empty-reports">
+
+                            <div class="empty-icon">
+
+                                <i class="fas fa-folder-open"></i>
+
+                            </div>
+
+                            <h3>
+                                No reports yet
+                            </h3>
+
+                            <p>
+                                Your reports saved during this week will appear here.
+                            </p>
+
+                            <a
+                                href="{% url 'placements_list' %}"
+                                class="empty-action"
+                            >
+                                Start a report
+                            </a>
+
+                        </div>
+
+
+                        {% endfor %}
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Getting Started -->
+                <div class="dashboard-box getting-started-box">
+
+
+                    <div class="box-header">
+
+                        <div>
+
+                            <span class="box-eyebrow">
+                                STUDENT GUIDE
+                            </span>
+
+                            <h2>
+                                Getting Started
+                            </h2>
+
+                        </div>
+
+                        <div class="guide-icon">
+
+                            <i class="fas fa-compass"></i>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="guide-steps">
+
+
+                        <div class="guide-step">
+
+                            <div class="step-number">
+                                01
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Add your placement
+                                </h3>
+
+                                <p>
+                                    Enter the organization and field training information.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="guide-step">
+
+                            <div class="step-number">
+                                02
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Record daily activities
+                                </h3>
+
+                                <p>
+                                    Document the work, skills and experience gained each day.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="guide-step">
+
+                            <div class="step-number">
+                                03
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Prepare your final report
+                                </h3>
+
+                                <p>
+                                    Organize your field training information into a complete report.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="guide-step">
+
+                            <div class="step-number">
+                                04
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Review before submission
+                                </h3>
+
+                                <p>
+                                    Check your report carefully before submitting it to your lecturer.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="guide-note">
+
+                        <i class="fas fa-lightbulb"></i>
+
+                        <p>
+                            <strong>Tip:</strong>
+                            Keep your daily reports updated throughout your training period.
+                            This makes preparing the final report easier.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 FOOTER INFORMATION
+            ================================================== -->
+
+            <footer class="portal-footer">
+
+                <div>
+
+                    <strong>
+                        Field Practical Training Student Portal
+                    </strong>
+
+                    <span>
+                        Manage your academic field training records in one place.
+                    </span>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <a href="{% url 'user_account' %}">
+                        My Account
+                    </a>
+
+                    <a href="{% url 'placements_list' %}">
+                        My Reports
+                    </a>
+
+                    <a href="{% url 'home' %}">
+                        WingaStock
+                    </a>
+
+                </div>
+
+            </footer>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+    /*
+    ============================================================
+    SIDEBAR
+    ============================================================
+    */
+
+    function toggleSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        if (!sidebar) return;
+
+        sidebar.classList.toggle("sidebar-open");
+
+        if (overlay) {
+
+            overlay.classList.toggle(
+                "overlay-visible"
+            );
+
         }
-    </script>
 
-    <script>
+    }
+
+
+
+    function closeSidebar() {
+
+        const sidebar =
+            document.getElementById("portalSidebar");
+
+        const overlay =
+            document.getElementById("sidebarOverlay");
+
+        if (sidebar) {
+
+            sidebar.classList.remove(
+                "sidebar-open"
+            );
+
+        }
+
+        if (overlay) {
+
+            overlay.classList.remove(
+                "overlay-visible"
+            );
+
+        }
+
+    }
+
+
+
+    /*
+    ============================================================
+    CLOSE SIDEBAR WHEN NAVIGATION ITEM IS CLICKED
+    ============================================================
+    */
+
+    document
+        .querySelectorAll(".navigation-item")
+        .forEach(function (item) {
+
+            item.addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        window.innerWidth < 992
+                    ) {
+
+                        closeSidebar();
+
+                    }
+
+                }
+            );
+
+        });
+
+
+
+    /*
+    ============================================================
+    ALERT CLOSE
+    ============================================================
+    */
+
+    function closeAlert(button) {
+
+        const alert =
+            button.closest(".portal-alert");
+
+        if (!alert) return;
+
+        alert.style.opacity = "0";
+
+        alert.style.transform =
+            "translateY(-5px)";
+
         setTimeout(function () {
-            document.querySelectorAll(".alert").forEach(function (alert) {
-                alert.style.transition = "opacity 0.5s";
+
+            alert.remove();
+
+        }, 300);
+
+    }
+
+
+
+    /*
+    ============================================================
+    AUTOMATICALLY HIDE MESSAGES
+    ============================================================
+    */
+
+    setTimeout(function () {
+
+        document
+            .querySelectorAll(".portal-alert")
+            .forEach(function (alert) {
+
                 alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 4000);
+
+                alert.style.transform =
+                    "translateY(-5px)";
+
+                setTimeout(function () {
+
+                    if (alert) {
+                        alert.remove();
+                    }
+
+                }, 300);
+
             });
-        }, 4000);
-    </script>
+
+    }, 5000);
+
+
+
+    /*
+    ============================================================
+    CLOSE SIDEBAR WITH ESCAPE
+    ============================================================
+    */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closeSidebar();
+
+            }
+
+        }
+    );
+
+
+
+    /*
+    ============================================================
+    RESET SIDEBAR WHEN SCREEN BECOMES DESKTOP
+    ============================================================
+    */
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            if (
+                window.innerWidth >= 992
+            ) {
+
+                closeSidebar();
+
+            }
+
+        }
+    );
+
+</script>
+
+
 </body>
 
 </html>
