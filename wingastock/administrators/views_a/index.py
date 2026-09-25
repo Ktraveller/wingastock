@@ -40,6 +40,9 @@ def admin_home(request):
     )
 
     # Total mails
+    messages = Mails.objects.filter(receiver_id=request.user.email, status='sent')
+    messages.update(status='unread')
+    
     mails = Mails.objects.filter(
             receiver_id=request.user.email,
             status='unread'
