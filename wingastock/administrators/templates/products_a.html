@@ -1,184 +1,1138 @@
 {% load static %}
+{% load humanize %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Wingastock | Products</title>
-    <link rel="stylesheet" href="{% static 'admin_css/admin_style.css' %}?v=20260910">
+
+    <link rel="stylesheet" href="{% static 'admin_css/admin_style.css' %}?v=20260925">
 
     <style>
-        .messages {
-            margin: 20px 0;
+        /* =========================================================
+           PRODUCTS PAGE
+        ========================================================= */
+
+        .products-page {
+            width: 100%;
+            max-width: 100%;
         }
 
-        .alert {
-            padding: 12px 18px;
-            margin-bottom: 10px;
-            border-radius: 5px;
+        .products-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 22px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--admin-border-soft);
+        }
+
+        .products-header-info {
+            min-width: 0;
+        }
+
+        .products-eyebrow {
+            margin: 0 0 6px;
+            color: var(--admin-brand);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .products-header h1 {
+            margin: 0;
+            color: var(--admin-text);
+            font-size: 25px;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        .products-header p {
+            margin: 7px 0 0;
+            color: var(--admin-muted);
+            font-size: 13px;
+        }
+
+        .products-total {
+            min-width: 90px;
+            padding: 11px 15px;
+            border: 1px solid var(--admin-border);
+            border-radius: 11px;
+            background: var(--admin-surface-soft);
+            text-align: center;
+        }
+
+        .products-total strong {
+            display: block;
+            color: var(--admin-text);
+            font-size: 20px;
+            line-height: 1;
+            font-weight: 800;
+        }
+
+        .products-total span {
+            display: block;
+            margin-top: 5px;
+            color: var(--admin-muted);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* =========================================================
+           MESSAGES
+        ========================================================= */
+
+        .products-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .products-alert {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-height: 46px;
+            padding: 10px 42px 10px 13px;
+            border: 1px solid;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .products-alert-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 27px;
+            height: 27px;
+            flex: 0 0 27px;
+            border-radius: 50%;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .products-alert-close {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            width: 28px;
+            height: 28px;
+            transform: translateY(-50%);
+            border: 0;
+            background: transparent;
+            color: inherit;
+            cursor: pointer;
+            border-radius: 7px;
+            font-size: 17px;
+        }
+
+        .products-alert-close:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .products-alert.success {
+            border-color: #bbf7d0;
+            background: var(--admin-green-soft);
+            color: #166534;
+        }
+
+        .products-alert.success .products-alert-icon {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .products-alert.error {
+            border-color: #fecaca;
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        .products-alert.error .products-alert-icon {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .products-alert.warning {
+            border-color: #fed7aa;
+            background: var(--admin-orange-soft);
+            color: #9a3412;
+        }
+
+        .products-alert.warning .products-alert-icon {
+            background: #ffedd5;
+            color: #ea580c;
+        }
+
+        .products-alert.info {
+            border-color: #bfdbfe;
+            background: var(--admin-blue-soft);
+            color: #1d4ed8;
+        }
+
+        .products-alert.info .products-alert-icon {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        /* =========================================================
+           TOOLBAR
+        ========================================================= */
+
+        .products-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .products-search {
+            position: relative;
+            width: min(100%, 520px);
+        }
+
+        .products-search input {
+            width: 100%;
+            height: 44px;
+            padding: 0 42px 0 40px;
+            border: 1px solid var(--admin-border);
+            border-radius: 10px;
+            outline: none;
+            background: var(--admin-surface);
+            color: var(--admin-text);
+            font-family: inherit;
+            font-size: 13px;
+            transition: var(--admin-transition);
+        }
+
+        .products-search input:focus {
+            border-color: rgba(225, 29, 72, 0.5);
+            box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.08);
+        }
+
+        .products-search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--admin-muted);
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        .products-clear-search {
+            position: absolute;
+            right: 9px;
+            top: 50%;
+            width: 28px;
+            height: 28px;
+            transform: translateY(-50%);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            border-radius: 7px;
+            background: transparent;
+            color: var(--admin-muted);
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .products-clear-search:hover {
+            background: var(--admin-surface-soft);
+            color: var(--admin-text);
+        }
+
+        .products-result {
+            color: var(--admin-muted);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        /* =========================================================
+           TABLE
+        ========================================================= */
+
+        .products-table-box {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid var(--admin-border);
+            border-radius: 12px;
+            background: var(--admin-surface);
+            box-shadow: var(--admin-shadow-sm);
+        }
+
+        .products-table {
+            width: 100%;
+            min-width: 820px;
+            border-collapse: separate;
+            border-spacing: 0;
+            text-align: left;
+        }
+
+        .products-table thead th {
+            height: 46px;
+            padding: 0 15px;
+            border-bottom: 1px solid var(--admin-border);
+            background: var(--admin-surface-soft);
+            color: var(--admin-muted);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .products-table thead th:first-child {
+            border-top-left-radius: 12px;
+        }
+
+        .products-table thead th:last-child {
+            border-top-right-radius: 12px;
+        }
+
+        .products-table tbody td {
+            height: 62px;
+            padding: 9px 15px;
+            border-bottom: 1px solid var(--admin-border-soft);
+            color: var(--admin-text-2);
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        .products-table tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .products-table tbody tr {
+            transition: background 0.15s ease;
+        }
+
+        .products-table tbody tr:hover {
+            background: #fafbfc;
+        }
+
+        .products-id {
+            color: var(--admin-muted);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .products-name {
+            color: var(--admin-text);
+            font-weight: 700;
+            max-width: 250px;
+        }
+
+        .products-category {
+            display: inline-flex;
+            align-items: center;
+            min-height: 27px;
+            padding: 4px 9px;
+            border: 1px solid var(--admin-border);
+            border-radius: 7px;
+            background: var(--admin-surface-soft);
+            color: var(--admin-text-2);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .products-price {
+            color: var(--admin-text);
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .products-currency {
+            margin-left: 3px;
+            color: var(--admin-muted);
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .products-location {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--admin-muted);
+            white-space: nowrap;
+        }
+
+        .products-location-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--admin-brand);
+            flex: 0 0 7px;
+        }
+
+        .products-actions {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .products-preview {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 0 11px;
+            border: 1px solid var(--admin-border);
+            border-radius: 8px;
+            background: white;
+            color: var(--admin-text-2);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            transition: var(--admin-transition);
+        }
+
+        .products-preview:hover {
+            border-color: #cbd5e1;
+            background: var(--admin-surface-soft);
+            color: var(--admin-text);
+        }
+
+        .products-delete {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            margin-left: 5px;
+            padding: 0 11px;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            background: #fff;
+            color: #dc2626;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            transition: var(--admin-transition);
+        }
+
+        .products-delete:hover {
+            border-color: #fca5a5;
+            background: #fef2f2;
+        }
+
+        /* =========================================================
+           EMPTY STATE
+        ========================================================= */
+
+        .products-empty {
+            padding: 65px 20px;
+            text-align: center;
+        }
+
+        .products-empty-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 15px;
+            border-radius: 16px;
+            background: var(--admin-brand-soft);
+            color: var(--admin-brand);
+            font-size: 25px;
+        }
+
+        .products-empty h3 {
+            margin: 0;
+            color: var(--admin-text);
+            font-size: 17px;
+        }
+
+        .products-empty p {
+            max-width: 420px;
+            margin: 7px auto 0;
+            color: var(--admin-muted);
+            font-size: 13px;
+        }
+
+        /* =========================================================
+           DELETE CONFIRMATION MODAL
+        ========================================================= */
+
+        .delete-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .delete-modal-overlay.show {
+            display: flex;
+            animation: deleteOverlayIn 0.18s ease-out;
+        }
+
+        .delete-modal {
+            width: min(100%, 430px);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 18px;
+            background: #fff;
+            box-shadow: 0 25px 70px rgba(15, 23, 42, 0.22);
+            animation: deleteModalIn 0.2s ease-out;
+        }
+
+        .delete-modal-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 22px 22px 17px;
+        }
+
+        .delete-modal-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            flex: 0 0 48px;
+            border-radius: 14px;
+            background: #fef2f2;
+            color: #dc2626;
+            font-size: 22px;
+        }
+
+        .delete-modal-title {
+            min-width: 0;
+        }
+
+        .delete-modal-title h2 {
+            margin: 0;
+            color: var(--admin-text);
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .delete-modal-title p {
+            margin: 4px 0 0;
+            color: var(--admin-muted);
+            font-size: 12px;
+        }
+
+        .delete-modal-body {
+            padding: 0 22px 20px;
+        }
+
+        .delete-modal-message {
+            margin: 0;
+            color: var(--admin-text-2);
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .delete-product-name {
+            display: block;
+            margin-top: 11px;
+            padding: 11px 12px;
+            overflow: hidden;
+            border: 1px solid #fee2e2;
+            border-radius: 9px;
+            background: #fff7f7;
+            color: #991b1b;
+            font-size: 13px;
+            font-weight: 800;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .delete-modal-warning {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 10px 11px;
+            border-radius: 8px;
+            background: #fff7ed;
+            color: #9a3412;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .delete-modal-warning-icon {
+            flex: 0 0 auto;
+            font-weight: 800;
+        }
+
+        .delete-modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 9px;
+            padding: 15px 22px 20px;
+            border-top: 1px solid var(--admin-border-soft);
+            background: #fafbfc;
+        }
+
+        .delete-modal-btn {
+            min-height: 40px;
+            padding: 0 16px;
+            border-radius: 9px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--admin-transition);
+        }
+
+        .delete-modal-cancel {
+            border: 1px solid var(--admin-border);
+            background: #fff;
+            color: var(--admin-text-2);
+        }
+
+        .delete-modal-cancel:hover {
+            background: var(--admin-surface-soft);
+        }
+
+        .delete-modal-confirm {
+            border: 1px solid #dc2626;
+            background: #dc2626;
             color: #fff;
-            font-weight: 500;
         }
 
-        .success {
-            background: #28a745;
+        .delete-modal-confirm:hover {
+            border-color: #b91c1c;
+            background: #b91c1c;
         }
 
-        .error {
-            background: #dc3545;
+        .delete-modal-confirm:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
         }
 
-        .warning {
-            background: #ffc107;
-            color: #000;
+        @keyframes deleteOverlayIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
-        .info {
-            background: #17a2b8;
+        @keyframes deleteModalIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 767px) {
+
+            .products-header {
+                align-items: flex-start;
+            }
+
+            .products-total {
+                min-width: 75px;
+            }
+
+            .products-toolbar {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .products-search {
+                width: 100%;
+            }
+
+            .products-result {
+                text-align: right;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .products-header {
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .products-total {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                text-align: left;
+            }
+
+            .products-total strong,
+            .products-total span {
+                display: inline;
+                margin: 0;
+            }
+
+            .products-total span {
+                margin-left: 7px;
+            }
+
+            .delete-modal-top {
+                padding: 18px 18px 15px;
+            }
+
+            .delete-modal-body {
+                padding: 0 18px 18px;
+            }
+
+            .delete-modal-actions {
+                padding: 13px 18px 17px;
+            }
+
+            .delete-modal-btn {
+                flex: 1;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="row-holder">
+<div class="row-holder">
 
-        <!-- Header -->
-        <div class="header-holder-100">
-            <div class="header-100">
-                <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')">m</button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')">c</button>
-                </div>
-                <div class="title-holder-101">
-                    <button type="button">Wingastock | Admin</button>
-                </div>
-                <div class="title-holder-101" style="float: right;">
-                    <button type="button">{{ user.username }}</button>
-                </div>
+    <!-- =========================================================
+         HEADER
+    ========================================================= -->
+
+    <div class="header-holder-100">
+        <div class="header-100">
+
+            <div class="action-holder-101">
+
+                <button
+                    type="button"
+                    id="menu1"
+                    onclick="open_menu('open')"
+                    aria-label="Open menu"
+                >
+                    ☰
+                </button>
+
+                <button
+                    type="button"
+                    id="menu2"
+                    style="display: none;"
+                    onclick="open_menu('close')"
+                    aria-label="Close menu"
+                >
+                    ✕
+                </button>
+
             </div>
+
+            <div class="title-holder-101">
+                <button type="button">
+                    Products
+                </button>
+            </div>
+
+            <div class="title-holder-101 admin-user-holder">
+                <button type="button">
+                    {{ user.username }}
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =========================================================
+         MAIN ADMIN AREA
+    ========================================================= -->
+
+    <div class="center-content-200">
+
+        <!-- =====================================================
+             SIDEBAR
+        ===================================================== -->
+
+        <div class="left-holder-201" id="nav">
+
+            <div class="nav-bar-holder-202">
+
+                <p>Options</p>
+
+                <ul>
+                    <a href="{% url 'admin_home' %}">
+                        <li>Dashboard</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_products' %}">
+                        <li class="active-0">Products</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_sellers' %}">
+                        <li>Sellers</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_customers' %}">
+                        <li>Customers</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_payment_requests' %}">
+                        <li>Payment reviews</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_delivery_requests' %}">
+                        <li>Delivery requests</li>
+                    </a>
+                </ul>
+
+                <!-- STUDENT REPORTS -->
+                <ul>
+                    <a href="{% url 'field_report_list' %}">
+                        <li>
+                            Student reports
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'mail_home_a' %}">
+                        <li>Mail</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'logout_admin' %}">
+                        <li>Exit</li>
+                    </a>
+                </ul>
+
+            </div>
+
         </div>
 
 
-        <!-- center content -->
-        <div class="center-content-200">
+        <!-- =====================================================
+             CONTENT
+        ===================================================== -->
 
-            <div class="left-holder-201" id="nav">
-                <div class="nav-bar-holder-202">
-                    <p style="text-align: center; font-weight: bold;">Options</p>
+        <div class="right-holder-201">
 
-                    <ul>
-                        <a href="{% url 'admin_home' %}">
-                            <li>Dashboard</li>
-                        </a>
-                    </ul>
+            <div class="products-page">
 
-                    <ul>
-                        <a href="{% url 'admin_products' %}">
-                            <li class="active-0">Products</li>
-                        </a>
-                    </ul>
+                <!-- PAGE HEADER -->
 
-                    <ul>
-                        <a href="{% url 'admin_sellers' %}">
-                            <li>Sellers</li>
-                        </a>
-                    </ul>
+                <div class="products-header">
 
-                                        <ul>
-                        <a href="{% url 'admin_customers' %}">
-                            <li>Customers</li>
-                        </a>
-                    </ul>
+                    <div class="products-header-info">
 
-                    <ul>
-                        <a href="{% url 'admin_payment_requests' %}">
-                            <li>Payment reviews</li>
-                        </a>
-                    </ul>
+                        <p class="products-eyebrow">
+                            Marketplace management
+                        </p>
 
-                    <ul>
-                        <a href="{% url 'admin_delivery_requests' %}">
-                            <li>Delivery requests</li>
-                        </a>
-                    </ul>
+                        <h1>
+                            Products
+                        </h1>
 
-                    <ul>
-                        <a href="{% url 'mail_home_a' %}">
-                            <li>Mail</li>
-                        </a>
-                    </ul>
+                        <p>
+                            Manage products listed on the Wingastock marketplace.
+                        </p>
 
-                    <ul>
-                        <a href="{% url 'logout_admin' %}">
-                            <li>Exit</li>
-                        </a>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="right-holder-201">
-                <div class="card-holder-201 products-202">
-
-                    <p style="font-weight: bold;">Products list</p>
-
-                    {% if messages %}
-                    <div class="messages">
-                        {% for message in messages %}
-                        <div class="alert {{ message.tags }}">
-                            {{ message }}
-                        </div>
-                        {% endfor %}
                     </div>
+
+                    <div class="products-total">
+                        <strong>{{ total_products }}</strong>
+                        <span>Products</span>
+                    </div>
+
+                </div>
+
+
+                <!-- DJANGO MESSAGES -->
+
+                {% if messages %}
+
+                    <div class="products-messages">
+
+                        {% for message in messages %}
+
+                            <div class="products-alert
+                                {% if message.tags == 'success' %}
+                                    success
+                                {% elif message.tags == 'error' %}
+                                    error
+                                {% elif message.tags == 'warning' %}
+                                    warning
+                                {% else %}
+                                    info
+                                {% endif %}
+                            ">
+
+                                <span class="products-alert-icon">
+
+                                    {% if message.tags == 'success' %}
+                                        ✓
+                                    {% elif message.tags == 'error' %}
+                                        !
+                                    {% elif message.tags == 'warning' %}
+                                        !
+                                    {% else %}
+                                        i
+                                    {% endif %}
+
+                                </span>
+
+                                <span>
+                                    {{ message }}
+                                </span>
+
+                                <button
+                                    type="button"
+                                    class="products-alert-close"
+                                    onclick="this.parentElement.remove()"
+                                    aria-label="Close message"
+                                >
+                                    ×
+                                </button>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- TOOLBAR -->
+
+                <div class="products-toolbar">
+
+                    <div class="products-search">
+
+                        <span class="products-search-icon">
+                            ⌕
+                        </span>
+
+                        <input
+                            type="search"
+                            id="productSearch"
+                            placeholder="Search products, categories, sellers..."
+                            autocomplete="off"
+                        >
+
+                        <button
+                            type="button"
+                            id="clearProductSearch"
+                            class="products-clear-search"
+                            onclick="clearProductSearch()"
+                            aria-label="Clear search"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+                    <div
+                        class="products-result"
+                        id="productResult"
+                    >
+                        Showing {{ products|length }} product{{ products|length|pluralize }}
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     PRODUCTS TABLE
+                ================================================= -->
+
+                <div class="products-table-box">
+
+                    {% if products %}
+
+                        <table class="products-table">
+
+                            <thead>
+
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Product</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Location</th>
+                                    <th style="text-align:right;">Actions</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="productsTableBody">
+
+                                {% for product_data in products %}
+
+                                    <tr
+                                        class="product-row"
+                                        data-product-id="{{ product_data.id }}"
+                                        data-product-name="{{ product_data.title|escape }}"
+                                    >
+
+                                        <td>
+                                            <span class="products-id">
+                                                #{{ product_data.id }}
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <div class="products-name">
+                                                {{ product_data.title }}
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <span class="products-category">
+                                                {{ product_data.category }}
+                                            </span>
+                                        </td>
+
+                                        <td>
+
+                                            <span class="products-price">
+                                                {{ product_data.price|intcomma }}
+                                            </span>
+
+                                            <span class="products-currency">
+                                                TZS
+                                            </span>
+
+                                        </td>
+
+                                        <td>
+
+                                            <div class="products-location">
+
+                                                <span class="products-location-dot"></span>
+
+                                                <span>
+                                                    {{ product_data.owner.seller.seller_address|default:"Not specified" }}
+                                                </span>
+
+                                            </div>
+
+                                        </td>
+
+                                        <td class="products-actions">
+
+                                            <!-- PREVIEW -->
+
+                                            <a
+                                                href="{% url 'admin_preview_p' product_data.id %}"
+                                                class="products-preview"
+                                            >
+                                                View
+                                            </a>
+
+
+                                            <!-- DELETE -->
+
+                                            <button
+                                                type="button"
+                                                class="products-delete"
+                                                onclick="openDeleteModal(
+                                                    '{{ product_data.id }}',
+                                                    '{{ product_data.title|escapejs }}',
+                                                    '{% url 'delete_product' product_data.id %}'
+                                                )"
+                                            >
+                                                Delete
+                                            </button>
+
+                                        </td>
+
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                        <!-- EMPTY SEARCH RESULT -->
+
+                        <div
+                            class="products-empty"
+                            id="noSearchResults"
+                            style="display:none;"
+                        >
+
+                            <div class="products-empty-icon">
+                                ⌕
+                            </div>
+
+                            <h3>
+                                No products found
+                            </h3>
+
+                            <p>
+                                No product matches your current search.
+                                Try another product name, category or location.
+                            </p>
+
+                        </div>
+
+                    {% else %}
+
+                        <!-- NO PRODUCTS -->
+
+                        <div class="products-empty">
+
+                            <div class="products-empty-icon">
+                                □
+                            </div>
+
+                            <h3>
+                                No products yet
+                            </h3>
+
+                            <p>
+                                There are currently no products available
+                                in the marketplace.
+                            </p>
+
+                        </div>
+
                     {% endif %}
 
-                    <div class="filter-holder-202" style="width: 100%;">
-                        <div><input type="text" id="searchInput" placeholder="Search products..."
-                                onkeyup="searchProducts()"></div>
-                    </div>
-
-
-                    <table style="text-align: left;">
-                        <thead>
-                            <tr>
-                                <th class="id">ID</th>
-                                <th>Product Name</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Location</th>
-                                <th style="text-align: right;">Actions</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="productTable">
-
-                            {% for product_data in products %}
-
-                            <tr>
-                                <td class="id">{{ product_data.id }}</td>
-                                <td>
-                                    <a href="{% url 'admin_preview_p' product_data.id %}"
-                                        style="text-decoration: none;">{{ product_data.title }}</a>
-                                </td>
-                                <td>{{ product_data.category }}</td>
-                                <td>{{ product_data.price }} Tsh</td>
-                                <td style="text-align: left;">
-                                    <span class="active">
-                                        {{ product_data.owner.seller.seller_address }}
-                                    </span>
-                                </td>
-                                <td style="text-align: right;">
-                                    <button class="btn delete"
-                                        onclick="window.location.href=`{% url 'delete_product' product_data.id %}`">Delete</button>
-                                </td>
-                            </tr>
-
-                            {% endfor %}
-
-                        </tbody>
-                    </table>
                 </div>
+
             </div>
 
         </div>
@@ -186,56 +1140,531 @@
     </div>
 
 
+    <!-- =========================================================
+         DELETE CONFIRMATION MODAL
+    ========================================================= -->
 
-    <script>
-        function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
+    <div
+        class="delete-modal-overlay"
+        id="deleteModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="deleteModalTitle"
+    >
 
-            if (click == 'open') {
-                menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
-            }
-            else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
+        <div class="delete-modal">
+
+            <!-- MODAL HEADER -->
+
+            <div class="delete-modal-top">
+
+                <div class="delete-modal-icon">
+                    🗑
+                </div>
+
+                <div class="delete-modal-title">
+
+                    <h2 id="deleteModalTitle">
+                        Delete product?
+                    </h2>
+
+                    <p>
+                        This action requires confirmation.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- MODAL BODY -->
+
+            <div class="delete-modal-body">
+
+                <p class="delete-modal-message">
+                    Are you sure you want to delete this product?
+                    Please confirm before continuing.
+                </p>
+
+                <span
+                    class="delete-product-name"
+                    id="deleteProductName"
+                >
+                    Product name
+                </span>
+
+                <div class="delete-modal-warning">
+
+                    <span class="delete-modal-warning-icon">
+                        ⚠
+                    </span>
+
+                    <span>
+                        This action cannot be undone. The product will be
+                        permanently removed from the marketplace.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- MODAL ACTIONS -->
+
+            <div class="delete-modal-actions">
+
+                <button
+                    type="button"
+                    class="delete-modal-btn delete-modal-cancel"
+                    onclick="closeDeleteModal()"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="delete-modal-btn delete-modal-confirm"
+                    id="confirmDeleteButton"
+                    onclick="confirmProductDelete()"
+                >
+                    Delete product
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- =============================================================
+     JAVASCRIPT
+============================================================= -->
+
+<script>
+
+    /* =========================================================
+       MOBILE MENU
+    ========================================================= */
+
+    function open_menu(click) {
+
+        const menu1 = document.getElementById('menu1');
+        const menu2 = document.getElementById('menu2');
+        const nav = document.getElementById('nav');
+
+        if (click === 'open') {
+
+            menu1.style.display = 'none';
+            menu2.style.display = 'inline-flex';
+            nav.style.display = 'block';
+
+        } else {
+
+            menu1.style.display = 'inline-flex';
+            menu2.style.display = 'none';
+
+            if (window.innerWidth <= 767) {
                 nav.style.display = 'none';
             }
+
         }
-    </script>
+    }
 
-    <script>
-        document.getElementById("searchInput").addEventListener("input", function () {
-            const filter = this.value.toLowerCase();
-            const rows = document.querySelectorAll("#productTable tr");
 
-            rows.forEach(row => {
-                const id = row.cells[0].textContent.toLowerCase();
-                const product = row.cells[1].textContent.toLowerCase();
-                const seller = row.cells[2].textContent.toLowerCase();
-                const status = row.cells[4].textContent.toLowerCase();
+    /* =========================================================
+       PRODUCT SEARCH
+    ========================================================= */
 
-                const match =
-                    id.includes(filter) ||
-                    product.includes(filter) ||
-                    seller.includes(filter) ||
-                    status.includes(filter);
+    const productSearch = document.getElementById('productSearch');
+    const clearProductSearchButton =
+        document.getElementById('clearProductSearch');
 
-                row.style.display = match ? "" : "none";
-            });
+    const productResult =
+        document.getElementById('productResult');
+
+    const noSearchResults =
+        document.getElementById('noSearchResults');
+
+    function searchProducts() {
+
+        if (!productSearch) {
+            return;
+        }
+
+        const searchValue =
+            productSearch.value.trim().toLowerCase();
+
+        const rows =
+            document.querySelectorAll('.product-row');
+
+        let visibleCount = 0;
+
+        rows.forEach(function(row) {
+
+            const rowText =
+                row.textContent.toLowerCase();
+
+            const matches =
+                rowText.includes(searchValue);
+
+            if (matches) {
+
+                row.style.display = '';
+                visibleCount++;
+
+            } else {
+
+                row.style.display = 'none';
+
+            }
+
         });
-    </script>
-    <script>
-        setTimeout(function () {
-            document.querySelectorAll(".alert").forEach(function (alert) {
-                alert.style.transition = "opacity 0.5s";
-                alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 500);
-            });
-        }, 4000);
-    </script>
-</body>
 
+
+        /* CLEAR BUTTON */
+
+        if (clearProductSearchButton) {
+
+            clearProductSearchButton.style.display =
+                searchValue ? 'flex' : 'none';
+
+        }
+
+
+        /* RESULT TEXT */
+
+        if (productResult) {
+
+            if (searchValue) {
+
+                productResult.textContent =
+                    'Showing ' +
+                    visibleCount +
+                    ' matching product' +
+                    (visibleCount === 1 ? '' : 's');
+
+            } else {
+
+                productResult.textContent =
+                    'Showing ' +
+                    rows.length +
+                    ' product' +
+                    (rows.length === 1 ? '' : 's');
+
+            }
+
+        }
+
+
+        /* EMPTY SEARCH STATE */
+
+        if (noSearchResults) {
+
+            if (searchValue && visibleCount === 0) {
+
+                noSearchResults.style.display = 'block';
+
+            } else {
+
+                noSearchResults.style.display = 'none';
+
+            }
+
+        }
+
+    }
+
+
+    if (productSearch) {
+
+        productSearch.addEventListener(
+            'input',
+            searchProducts
+        );
+
+    }
+
+
+    function clearProductSearch() {
+
+        if (!productSearch) {
+            return;
+        }
+
+        productSearch.value = '';
+
+        searchProducts();
+
+        productSearch.focus();
+
+    }
+
+
+    /* =========================================================
+       DELETE MODAL
+    ========================================================= */
+
+    let deleteProductUrl = null;
+
+
+    function openDeleteModal(productId, productName, deleteUrl) {
+
+        deleteProductUrl = deleteUrl;
+
+        const modal =
+            document.getElementById('deleteModal');
+
+        const productNameElement =
+            document.getElementById('deleteProductName');
+
+        if (!modal) {
+            return;
+        }
+
+        if (productNameElement) {
+
+            productNameElement.textContent =
+                productName || ('Product #' + productId);
+
+        }
+
+        modal.classList.add('show');
+
+        document.body.style.overflow = 'hidden';
+
+
+        /* Focus confirmation button */
+
+        setTimeout(function() {
+
+            const confirmButton =
+                document.getElementById('confirmDeleteButton');
+
+            if (confirmButton) {
+                confirmButton.focus();
+            }
+
+        }, 50);
+
+    }
+
+
+    function closeDeleteModal() {
+
+        const modal =
+            document.getElementById('deleteModal');
+
+        if (!modal) {
+            return;
+        }
+
+        modal.classList.remove('show');
+
+        document.body.style.overflow = '';
+
+        deleteProductUrl = null;
+
+    }
+
+
+    function confirmProductDelete() {
+
+        if (!deleteProductUrl) {
+            return;
+        }
+
+        const confirmButton =
+            document.getElementById('confirmDeleteButton');
+
+        if (confirmButton) {
+
+            confirmButton.disabled = true;
+            confirmButton.textContent = 'Deleting...';
+
+        }
+
+        /*
+         * Use the existing Django delete URL.
+         * No URL is changed or generated here.
+         */
+
+        window.location.href = deleteProductUrl;
+
+    }
+
+
+    /* =========================================================
+       CLOSE MODAL WHEN CLICKING OUTSIDE
+    ========================================================= */
+
+    const deleteModal =
+        document.getElementById('deleteModal');
+
+    if (deleteModal) {
+
+        deleteModal.addEventListener(
+            'click',
+            function(event) {
+
+                if (event.target === deleteModal) {
+
+                    closeDeleteModal();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================================================
+       ESCAPE KEY
+    ========================================================= */
+
+    document.addEventListener(
+        'keydown',
+        function(event) {
+
+            if (event.key === 'Escape') {
+
+                const modal =
+                    document.getElementById('deleteModal');
+
+                if (
+                    modal &&
+                    modal.classList.contains('show')
+                ) {
+
+                    closeDeleteModal();
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       AUTO-HIDE DJANGO MESSAGES
+    ========================================================= */
+
+    setTimeout(function() {
+
+        const messages =
+            document.querySelectorAll('.products-alert');
+
+        messages.forEach(function(message) {
+
+            message.style.transition =
+                'opacity 0.3s ease, transform 0.3s ease';
+
+            message.style.opacity = '0';
+            message.style.transform = 'translateY(-4px)';
+
+            setTimeout(function() {
+
+                message.remove();
+
+            }, 300);
+
+        });
+
+    }, 4000);
+
+
+    /* =========================================================
+       RESPONSIVE SIDEBAR
+    ========================================================= */
+
+    window.addEventListener(
+        'resize',
+        function() {
+
+            const nav =
+                document.getElementById('nav');
+
+            const menu1 =
+                document.getElementById('menu1');
+
+            const menu2 =
+                document.getElementById('menu2');
+
+            if (!nav || !menu1 || !menu2) {
+                return;
+            }
+
+            if (window.innerWidth > 767) {
+
+                nav.style.display = 'block';
+
+                menu1.style.display = 'none';
+                menu2.style.display = 'none';
+
+            } else {
+
+                /*
+                 * On mobile the sidebar starts closed.
+                 * Do not force it open during every resize.
+                 */
+
+                if (
+                    menu2.style.display !== 'inline-flex'
+                ) {
+
+                    nav.style.display = 'none';
+                    menu1.style.display = 'inline-flex';
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       INITIAL MOBILE STATE
+    ========================================================= */
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function() {
+
+            if (window.innerWidth <= 767) {
+
+                const nav =
+                    document.getElementById('nav');
+
+                const menu1 =
+                    document.getElementById('menu1');
+
+                const menu2 =
+                    document.getElementById('menu2');
+
+                if (nav) {
+                    nav.style.display = 'none';
+                }
+
+                if (menu1) {
+                    menu1.style.display = 'inline-flex';
+                }
+
+                if (menu2) {
+                    menu2.style.display = 'none';
+                }
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
 </html>

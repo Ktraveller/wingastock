@@ -6,6 +6,7 @@ from administrators.views_a.sellers import sellers, delete_seller, customers, de
 from administrators.views_a.payments import payment_requests, review_payment_request
 from administrators.views_a.delivery import delivery_requests, review_delivery_request
 from administrators.views_a.mail import admin_mail
+from administrators.views_a.field_report_a import field_report_a, report_preview_a
 
 urlpatterns = [
     path('', admin_home, name='admin_home'),
@@ -22,6 +23,14 @@ urlpatterns = [
 
     path('customers-a/', customers, name="admin_customers"),
     path('delete-customer/<int:id>/', delete_customer, name="delete_customer"),
+
+    # Report
+    path('field-report-list/', field_report_a, name='field_report_list'),
+    path(
+        "report-preview/<int:id>/",
+        report_preview_a,
+        name="report_preview_a",
+    ),
 
     # Authentications
     path('login_a/', admin_login, name='login_admin'),

@@ -1,0 +1,2008 @@
+{% load static %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Wingastock | Student Reports</title>
+
+    <link rel="stylesheet"
+          href="{% static 'admin_css/admin_style.css' %}?v=20260925">
+
+
+    <style>
+
+        /* =========================================================
+           STUDENT REPORTS PAGE
+        ========================================================= */
+
+        .reports-page {
+            width: 100%;
+            max-width: 100%;
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .reports-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+
+            margin-bottom: 22px;
+            padding-bottom: 20px;
+
+            border-bottom: 1px solid var(--admin-border-soft);
+        }
+
+
+        .reports-header-info {
+            min-width: 0;
+        }
+
+
+        .reports-eyebrow {
+            margin: 0 0 6px;
+
+            color: var(--admin-brand);
+
+            font-size: 11px;
+            font-weight: 800;
+
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+
+        .reports-header h1 {
+            margin: 0;
+
+            color: var(--admin-text);
+
+            font-size: 25px;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+
+        .reports-header p {
+            margin: 7px 0 0;
+
+            color: var(--admin-muted);
+
+            font-size: 13px;
+        }
+
+
+        .reports-total {
+            min-width: 100px;
+
+            padding: 11px 15px;
+
+            border: 1px solid var(--admin-border);
+            border-radius: 11px;
+
+            background: var(--admin-surface-soft);
+
+            text-align: center;
+        }
+
+
+        .reports-total strong {
+            display: block;
+
+            color: var(--admin-text);
+
+            font-size: 20px;
+            line-height: 1;
+            font-weight: 800;
+        }
+
+
+        .reports-total span {
+            display: block;
+
+            margin-top: 5px;
+
+            color: var(--admin-muted);
+
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           MESSAGES
+        ========================================================= */
+
+        .reports-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .reports-alert {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            min-height: 46px;
+
+            padding: 10px 42px 10px 13px;
+
+            border: 1px solid;
+            border-radius: 10px;
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+
+        .reports-alert-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 27px;
+            height: 27px;
+
+            flex: 0 0 27px;
+
+            border-radius: 50%;
+
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+
+        .reports-alert-close {
+            position: absolute;
+
+            top: 50%;
+            right: 10px;
+
+            width: 28px;
+            height: 28px;
+
+            transform: translateY(-50%);
+
+            border: 0;
+            border-radius: 7px;
+
+            background: transparent;
+
+            color: inherit;
+
+            cursor: pointer;
+
+            font-size: 17px;
+        }
+
+
+        .reports-alert-close:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+
+        .reports-alert.success {
+            border-color: #bbf7d0;
+
+            background: var(--admin-green-soft);
+
+            color: #166534;
+        }
+
+
+        .reports-alert.success .reports-alert-icon {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+
+        .reports-alert.error {
+            border-color: #fecaca;
+
+            background: #fef2f2;
+
+            color: #991b1b;
+        }
+
+
+        .reports-alert.error .reports-alert-icon {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+
+        .reports-alert.warning {
+            border-color: #fed7aa;
+
+            background: var(--admin-orange-soft);
+
+            color: #9a3412;
+        }
+
+
+        .reports-alert.warning .reports-alert-icon {
+            background: #ffedd5;
+            color: #ea580c;
+        }
+
+
+        .reports-alert.info {
+            border-color: #bfdbfe;
+
+            background: var(--admin-blue-soft);
+
+            color: #1d4ed8;
+        }
+
+
+        .reports-alert.info .reports-alert-icon {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+
+        /* =========================================================
+           TOOLBAR
+        ========================================================= */
+
+        .reports-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .reports-search {
+            position: relative;
+
+            width: min(100%, 540px);
+        }
+
+
+        .reports-search input {
+            width: 100%;
+            height: 44px;
+
+            padding: 0 42px 0 40px;
+
+            border: 1px solid var(--admin-border);
+            border-radius: 10px;
+
+            outline: none;
+
+            background: var(--admin-surface);
+            color: var(--admin-text);
+
+            font-family: inherit;
+            font-size: 13px;
+
+            transition: var(--admin-transition);
+        }
+
+
+        .reports-search input:focus {
+            border-color: rgba(225, 29, 72, 0.5);
+
+            box-shadow:
+                0 0 0 3px rgba(225, 29, 72, 0.08);
+        }
+
+
+        .reports-search-icon {
+            position: absolute;
+
+            left: 14px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: var(--admin-muted);
+
+            font-size: 16px;
+
+            pointer-events: none;
+        }
+
+
+        .reports-clear-search {
+            position: absolute;
+
+            right: 9px;
+            top: 50%;
+
+            width: 28px;
+            height: 28px;
+
+            transform: translateY(-50%);
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+
+            border: 0;
+            border-radius: 7px;
+
+            background: transparent;
+
+            color: var(--admin-muted);
+
+            cursor: pointer;
+
+            font-size: 17px;
+        }
+
+
+        .reports-clear-search:hover {
+            background: var(--admin-surface-soft);
+
+            color: var(--admin-text);
+        }
+
+
+        .reports-result {
+            color: var(--admin-muted);
+
+            font-size: 12px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================================================
+           TABLE
+        ========================================================= */
+
+        .reports-table-box {
+            width: 100%;
+
+            overflow-x: auto;
+
+            border: 1px solid var(--admin-border);
+            border-radius: 12px;
+
+            background: var(--admin-surface);
+
+            box-shadow: var(--admin-shadow-sm);
+        }
+
+
+        .reports-table {
+            width: 100%;
+
+            min-width: 1250px;
+
+            border-collapse: separate;
+            border-spacing: 0;
+
+            text-align: left;
+        }
+
+
+        .reports-table thead th {
+            height: 47px;
+
+            padding: 0 14px;
+
+            border-bottom: 1px solid var(--admin-border);
+
+            background: var(--admin-surface-soft);
+
+            color: var(--admin-muted);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+
+            white-space: nowrap;
+        }
+
+
+        .reports-table thead th:first-child {
+            border-top-left-radius: 12px;
+        }
+
+
+        .reports-table thead th:last-child {
+            border-top-right-radius: 12px;
+        }
+
+
+        .reports-table tbody td {
+            min-height: 65px;
+
+            padding: 10px 14px;
+
+            border-bottom: 1px solid var(--admin-border-soft);
+
+            color: var(--admin-text-2);
+
+            font-size: 12px;
+
+            vertical-align: middle;
+        }
+
+
+        .reports-table tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+
+        .reports-table tbody tr {
+            transition: background 0.15s ease;
+        }
+
+
+        .reports-table tbody tr:hover {
+            background: #fafbfc;
+        }
+
+
+        /* =========================================================
+           STUDENT
+        ========================================================= */
+
+        .report-student {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            min-width: 190px;
+        }
+
+
+        .report-student-avatar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 38px;
+            height: 38px;
+
+            flex: 0 0 38px;
+
+            border-radius: 11px;
+
+            background: var(--admin-brand-soft);
+
+            color: var(--admin-brand-dark);
+
+            font-size: 13px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+        }
+
+
+        .report-student-info {
+            min-width: 0;
+        }
+
+
+        .report-student-name {
+            display: block;
+
+            max-width: 220px;
+
+            overflow: hidden;
+
+            color: var(--admin-text);
+
+            font-size: 12px;
+            font-weight: 800;
+
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+
+        .report-student-username {
+            display: block;
+
+            margin-top: 3px;
+
+            color: var(--admin-muted);
+
+            font-size: 10px;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+
+        /* =========================================================
+           EMAIL
+        ========================================================= */
+
+        .report-email {
+            color: var(--admin-muted);
+
+            font-size: 11px;
+
+            overflow-wrap: anywhere;
+        }
+
+
+        /* =========================================================
+           ORGANIZATION
+        ========================================================= */
+
+        .report-organization {
+            min-width: 160px;
+        }
+
+
+        .report-organization-name {
+            display: block;
+
+            color: var(--admin-text);
+
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+
+        .report-department {
+            display: block;
+
+            margin-top: 4px;
+
+            color: var(--admin-muted);
+
+            font-size: 10px;
+        }
+
+
+        /* =========================================================
+           SUPERVISOR
+        ========================================================= */
+
+        .report-supervisor {
+            min-width: 150px;
+        }
+
+
+        .report-supervisor-name {
+            display: block;
+
+            color: var(--admin-text-2);
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+
+        .report-supervisor-phone {
+            display: block;
+
+            margin-top: 4px;
+
+            color: var(--admin-muted);
+
+            font-size: 10px;
+        }
+
+
+        /* =========================================================
+           DATES
+        ========================================================= */
+
+        .report-date {
+            display: inline-flex;
+            align-items: center;
+
+            min-height: 27px;
+
+            padding: 4px 8px;
+
+            border: 1px solid var(--admin-border);
+
+            border-radius: 7px;
+
+            background: var(--admin-surface-soft);
+
+            color: var(--admin-text-2);
+
+            font-size: 10px;
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+
+        .report-date-range {
+            display: flex;
+            flex-direction: column;
+
+            gap: 5px;
+        }
+
+
+        .report-date-label {
+            color: var(--admin-muted);
+
+            font-size: 9px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =========================================================
+           DAILY REPORT COUNT
+        ========================================================= */
+
+        .daily-report-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 38px;
+            height: 30px;
+
+            padding: 0 9px;
+
+            border-radius: 8px;
+
+            background: var(--admin-blue-soft);
+
+            color: var(--admin-blue);
+
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+
+        /* =========================================================
+           GENERATED REPORT STATUS
+        ========================================================= */
+
+        .generated-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+
+            min-height: 28px;
+
+            padding: 4px 9px;
+
+            border-radius: 999px;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+
+        .generated-status::before {
+            content: "";
+
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: currentColor;
+        }
+
+
+        .generated-status.available {
+            background: var(--admin-green-soft);
+
+            color: var(--admin-green);
+        }
+
+
+        .generated-status.pending {
+            background: var(--admin-orange-soft);
+
+            color: var(--admin-orange);
+        }
+
+
+        /* =========================================================
+           ACTION
+        ========================================================= */
+
+        .report-actions {
+            text-align: right;
+
+            white-space: nowrap;
+        }
+
+
+        .report-view-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 34px;
+
+            padding: 0 12px;
+
+            border: 1px solid var(--admin-border);
+
+            border-radius: 8px;
+
+            background: #fff;
+
+            color: var(--admin-text-2);
+
+            text-decoration: none;
+
+            font-size: 11px;
+            font-weight: 800;
+
+            transition: var(--admin-transition);
+        }
+
+
+        .report-view-button:hover {
+            border-color: rgba(225, 29, 72, 0.3);
+
+            background: var(--admin-brand-soft);
+
+            color: var(--admin-brand-dark);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================================================
+           EMPTY STATE
+        ========================================================= */
+
+        .reports-empty {
+            padding: 65px 20px;
+
+            text-align: center;
+        }
+
+
+        .reports-empty-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 58px;
+            height: 58px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 16px;
+
+            background: var(--admin-brand-soft);
+
+            color: var(--admin-brand);
+
+            font-size: 24px;
+        }
+
+
+        .reports-empty h3 {
+            margin: 0;
+
+            color: var(--admin-text);
+
+            font-size: 17px;
+        }
+
+
+        .reports-empty p {
+            max-width: 440px;
+
+            margin: 7px auto 0;
+
+            color: var(--admin-muted);
+
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 767px) {
+
+            .reports-header {
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .reports-total {
+                width: 100%;
+
+                display: flex;
+
+                align-items: center;
+                justify-content: space-between;
+
+                text-align: left;
+            }
+
+
+            .reports-total strong,
+            .reports-total span {
+                display: inline;
+            }
+
+
+            .reports-total span {
+                margin-left: 7px;
+            }
+
+
+            .reports-toolbar {
+                align-items: stretch;
+
+                flex-direction: column;
+            }
+
+
+            .reports-search {
+                width: 100%;
+            }
+
+
+            .reports-result {
+                text-align: right;
+            }
+
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="row-holder">
+
+
+    <!-- =========================================================
+         HEADER
+    ========================================================= -->
+
+    <div class="header-holder-100">
+
+        <div class="header-100">
+
+
+            <div class="action-holder-101">
+
+                <button
+                    type="button"
+                    id="menu1"
+                    onclick="open_menu('open')"
+                    aria-label="Open menu"
+                >
+                    ☰
+                </button>
+
+
+                <button
+                    type="button"
+                    id="menu2"
+                    style="display:none;"
+                    onclick="open_menu('close')"
+                    aria-label="Close menu"
+                >
+                    ✕
+                </button>
+
+            </div>
+
+
+            <div class="title-holder-101">
+
+                <button type="button">
+                    Student Reports
+                </button>
+
+            </div>
+
+
+            <div class="title-holder-101 admin-user-holder">
+
+                <button type="button">
+                    {{ user.username }}
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         CENTER CONTENT
+    ========================================================= -->
+
+    <div class="center-content-200">
+
+
+        <!-- =====================================================
+             SIDEBAR
+        ====================================================== -->
+
+        <div class="left-holder-201" id="nav">
+
+            <div class="nav-bar-holder-202">
+
+
+                <p>
+                    Options
+                </p>
+
+
+                <ul>
+                    <a href="{% url 'admin_home' %}">
+                        <li>
+                            Dashboard
+                        </li>
+                    </a>
+                </ul>
+
+
+                <ul>
+                    <a href="{% url 'admin_products' %}">
+                        <li>
+                            Products
+                        </li>
+                    </a>
+                </ul>
+
+
+                <ul>
+                    <a href="{% url 'admin_sellers' %}">
+                        <li>
+                            Sellers
+                        </li>
+                    </a>
+                </ul>
+
+
+                <ul>
+                    <a href="{% url 'admin_customers' %}">
+                        <li>
+                            Customers
+                        </li>
+                    </a>
+                </ul>
+
+
+                <ul>
+                    <a href="{% url 'admin_payment_requests' %}">
+                        <li>
+                            Payment reviews
+                        </li>
+                    </a>
+                </ul>
+
+
+                <ul>
+                    <a href="{% url 'admin_delivery_requests' %}">
+                        <li>
+                            Delivery requests
+                        </li>
+                    </a>
+                </ul>
+
+
+                <!-- STUDENT REPORTS -->
+
+                <ul>
+                    <a href="{% url 'field_report_list' %}">
+                        <li class="active-0">
+                            Student reports
+                        </li>
+                    </a>
+                </ul>
+
+
+                <ul>
+                    <a href="{% url 'mail_home_a' %}">
+                        <li>
+                            Mail
+                        </li>
+                    </a>
+                </ul>
+
+
+                <ul>
+                    <a href="{% url 'logout_admin' %}">
+                        <li>
+                            Exit
+                        </li>
+                    </a>
+                </ul>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             MAIN CONTENT
+        ====================================================== -->
+
+        <div class="right-holder-201">
+
+
+            <div class="reports-page">
+
+
+                <!-- =================================================
+                     PAGE HEADER
+                ================================================== -->
+
+                <div class="reports-header">
+
+
+                    <div class="reports-header-info">
+
+                        <p class="reports-eyebrow">
+                            Field practical training
+                        </p>
+
+
+                        <h1>
+                            Student Reports
+                        </h1>
+
+
+                        <p>
+                            Manage student field placements and submitted
+                            field training reports.
+                        </p>
+
+                    </div>
+
+
+                    <div class="reports-total">
+
+                        <strong>
+                            {{ total_field_reports }}
+                        </strong>
+
+                        <span>
+                            Student{{ total_field_reports|pluralize }}
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     DJANGO MESSAGES
+                ================================================== -->
+
+                {% if messages %}
+
+                    <div class="reports-messages">
+
+                        {% for message in messages %}
+
+                            <div class="
+                                reports-alert
+                                {% if message.tags == 'success' %}
+                                    success
+                                {% elif message.tags == 'error' %}
+                                    error
+                                {% elif message.tags == 'warning' %}
+                                    warning
+                                {% else %}
+                                    info
+                                {% endif %}
+                            ">
+
+
+                                <span class="reports-alert-icon">
+
+                                    {% if message.tags == 'success' %}
+                                        ✓
+                                    {% elif message.tags == 'error' %}
+                                        !
+                                    {% elif message.tags == 'warning' %}
+                                        !
+                                    {% else %}
+                                        i
+                                    {% endif %}
+
+                                </span>
+
+
+                                <span>
+                                    {{ message }}
+                                </span>
+
+
+                                <button
+                                    type="button"
+                                    class="reports-alert-close"
+                                    onclick="this.parentElement.remove()"
+                                    aria-label="Close message"
+                                >
+                                    ×
+                                </button>
+
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+
+
+                <!-- =================================================
+                     SEARCH
+                ================================================== -->
+
+                <div class="reports-toolbar">
+
+
+                    <div class="reports-search">
+
+                        <span class="reports-search-icon">
+                            ⌕
+                        </span>
+
+
+                        <input
+                            type="search"
+                            id="reportSearch"
+                            placeholder="Search students, organizations, departments, supervisors..."
+                            autocomplete="off"
+                        >
+
+
+                        <button
+                            type="button"
+                            id="clearReportSearch"
+                            class="reports-clear-search"
+                            onclick="clearReportSearch()"
+                            aria-label="Clear search"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="reports-result"
+                        id="reportResult"
+                    >
+                        Showing
+                        {{ field_reports|length }}
+                        student{{ field_reports|length|pluralize }}
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     TABLE
+                ================================================== -->
+
+                <div class="reports-table-box">
+
+
+                    {% if field_reports %}
+
+
+                        <table class="reports-table">
+
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Student
+                                    </th>
+
+                                    <th>
+                                        Email
+                                    </th>
+
+                                    <th>
+                                        Organization
+                                    </th>
+
+                                    <th>
+                                        Supervisor
+                                    </th>
+
+                                    <th>
+                                        Training period
+                                    </th>
+
+                                    <th>
+                                        Daily reports
+                                    </th>
+
+                                    <th>
+                                        Generated report
+                                    </th>
+
+                                    <th style="text-align:right;">
+                                        Action
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="reportsTableBody">
+
+
+                                {% for placement in field_reports %}
+
+
+                                    <tr class="report-row">
+
+
+                                        <!-- =================================
+                                             STUDENT
+                                        ================================== -->
+
+                                        <td>
+
+                                            <div class="report-student">
+
+
+                                                <div class="report-student-avatar">
+
+                                                    {{ placement.student.username|slice:":1" }}
+
+                                                </div>
+
+
+                                                <div class="report-student-info">
+
+                                                    <span class="report-student-name">
+
+                                                        {% if placement.student.get_full_name %}
+
+                                                            {{ placement.student.get_full_name }}
+
+                                                        {% else %}
+
+                                                            {{ placement.student.username }}
+
+                                                        {% endif %}
+
+                                                    </span>
+
+
+                                                    <span class="report-student-username">
+
+                                                        @{{ placement.student.username }}
+
+                                                    </span>
+
+                                                </div>
+
+
+                                            </div>
+
+                                        </td>
+
+
+
+                                        <!-- =================================
+                                             EMAIL
+                                        ================================== -->
+
+                                        <td>
+
+                                            <span class="report-email">
+
+                                                {{ placement.student.email|default:"No email" }}
+
+                                            </span>
+
+                                        </td>
+
+
+
+                                        <!-- =================================
+                                             ORGANIZATION
+                                        ================================== -->
+
+                                        <td>
+
+                                            <div class="report-organization">
+
+
+                                                <span class="report-organization-name">
+
+                                                    {{ placement.organization }}
+
+                                                </span>
+
+
+                                                <span class="report-department">
+
+                                                    {% if placement.department %}
+
+                                                        {{ placement.department }}
+
+                                                    {% else %}
+
+                                                        Department not specified
+
+                                                    {% endif %}
+
+                                                </span>
+
+
+                                            </div>
+
+                                        </td>
+
+
+
+                                        <!-- =================================
+                                             SUPERVISOR
+                                        ================================== -->
+
+                                        <td>
+
+                                            <div class="report-supervisor">
+
+
+                                                <span class="report-supervisor-name">
+
+                                                    {{ placement.supervisor_name }}
+
+                                                </span>
+
+
+                                                <span class="report-supervisor-phone">
+
+                                                    {% if placement.supervisor_phone %}
+
+                                                        {{ placement.supervisor_phone }}
+
+                                                    {% else %}
+
+                                                        No phone provided
+
+                                                    {% endif %}
+
+                                                </span>
+
+
+                                            </div>
+
+                                        </td>
+
+
+
+                                        <!-- =================================
+                                             TRAINING PERIOD
+                                        ================================== -->
+
+                                        <td>
+
+                                            <div class="report-date-range">
+
+
+                                                <span class="report-date-label">
+                                                    Start
+                                                </span>
+
+                                                <span class="report-date">
+                                                    {{ placement.start_date|date:"d M Y" }}
+                                                </span>
+
+
+                                                <span class="report-date-label">
+                                                    End
+                                                </span>
+
+                                                <span class="report-date">
+                                                    {{ placement.end_date|date:"d M Y" }}
+                                                </span>
+
+
+                                            </div>
+
+                                        </td>
+
+
+
+                                        <!-- =================================
+                                             DAILY REPORTS
+                                        ================================== -->
+
+                                        <td>
+
+                                            <span class="daily-report-count">
+
+                                                {{ placement.daily_reports.count }}
+
+                                            </span>
+
+                                        </td>
+
+
+
+                                        <!-- =================================
+                                             GENERATED REPORT
+                                        ================================== -->
+
+                                        <td>
+
+                                            {% if placement.generated_report %}
+
+                                                <span class="generated-status available">
+
+                                                    Available
+
+                                                </span>
+
+                                            {% else %}
+
+                                                <span class="generated-status pending">
+
+                                                    Not generated
+
+                                                </span>
+
+                                            {% endif %}
+
+                                        </td>
+
+
+
+                                        <!-- =================================
+                                             ACTION
+                                        ================================== -->
+
+                                        <td class="report-actions">
+
+                                            {% if placement.generated_report %}
+
+                                                <a
+                                                    href="{% url 'report_preview_a' placement.id %}"
+                                                    class="report-view-button"
+                                                >
+                                                    View report
+                                                </a>
+
+                                            {% else %}
+
+                                                <span
+                                                    class="generated-status pending"
+                                                >
+                                                    No report
+                                                </span>
+
+                                            {% endif %}
+
+                                        </td>
+
+
+                                    </tr>
+
+
+                                {% endfor %}
+
+
+                            </tbody>
+
+
+                        </table>
+
+
+
+                        <!-- SEARCH EMPTY STATE -->
+
+                        <div
+                            class="reports-empty"
+                            id="noReportSearchResults"
+                            style="display:none;"
+                        >
+
+                            <div class="reports-empty-icon">
+                                ⌕
+                            </div>
+
+
+                            <h3>
+                                No students found
+                            </h3>
+
+
+                            <p>
+                                No student report matches your current
+                                search. Try searching by student name,
+                                email, organization, department or supervisor.
+                            </p>
+
+                        </div>
+
+
+                    {% else %}
+
+
+                        <!-- =================================================
+                             NO REPORTS
+                        ================================================== -->
+
+                        <div class="reports-empty">
+
+
+                            <div class="reports-empty-icon">
+                                ▣
+                            </div>
+
+
+                            <h3>
+                                No student reports yet
+                            </h3>
+
+
+                            <p>
+                                There are currently no field placement
+                                records available.
+                            </p>
+
+
+                        </div>
+
+
+                    {% endif %}
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =============================================================
+     JAVASCRIPT
+============================================================= -->
+
+<script>
+
+
+    /* =========================================================
+       MOBILE MENU
+    ========================================================= */
+
+    function open_menu(click) {
+
+        const menu1 =
+            document.getElementById('menu1');
+
+        const menu2 =
+            document.getElementById('menu2');
+
+        const nav =
+            document.getElementById('nav');
+
+
+        if (!menu1 || !menu2 || !nav) {
+            return;
+        }
+
+
+        if (click === 'open') {
+
+            menu1.style.display = 'none';
+
+            menu2.style.display = 'inline-flex';
+
+            nav.style.display = 'block';
+
+        } else {
+
+            menu1.style.display = 'inline-flex';
+
+            menu2.style.display = 'none';
+
+            if (window.innerWidth <= 767) {
+
+                nav.style.display = 'none';
+
+            }
+
+        }
+
+    }
+
+
+
+    /* =========================================================
+       REPORT SEARCH
+    ========================================================= */
+
+    const reportSearch =
+        document.getElementById('reportSearch');
+
+
+    const clearReportSearchButton =
+        document.getElementById('clearReportSearch');
+
+
+    const reportResult =
+        document.getElementById('reportResult');
+
+
+    const noReportSearchResults =
+        document.getElementById('noReportSearchResults');
+
+
+
+    function searchReports() {
+
+
+        if (!reportSearch) {
+            return;
+        }
+
+
+        const filter =
+            reportSearch.value
+                .trim()
+                .toLowerCase();
+
+
+        const rows =
+            document.querySelectorAll('.report-row');
+
+
+        let visibleCount = 0;
+
+
+        rows.forEach(function(row) {
+
+
+            /*
+             * Search the complete row.
+             *
+             * This includes:
+             * student name
+             * username
+             * email
+             * organization
+             * department
+             * supervisor
+             * dates
+             * daily report count
+             * generated report status
+             */
+
+            const rowText =
+                row.textContent.toLowerCase();
+
+
+            const matches =
+                rowText.includes(filter);
+
+
+            if (matches) {
+
+                row.style.display = '';
+
+                visibleCount++;
+
+            } else {
+
+                row.style.display = 'none';
+
+            }
+
+        });
+
+
+
+        /* =====================================================
+           CLEAR BUTTON
+        ===================================================== */
+
+        if (clearReportSearchButton) {
+
+            clearReportSearchButton.style.display =
+                filter ? 'flex' : 'none';
+
+        }
+
+
+
+        /* =====================================================
+           RESULT COUNT
+        ===================================================== */
+
+        if (reportResult) {
+
+            if (filter) {
+
+                reportResult.textContent =
+                    'Showing ' +
+                    visibleCount +
+                    ' matching student' +
+                    (visibleCount === 1 ? '' : 's');
+
+            } else {
+
+                reportResult.textContent =
+                    'Showing ' +
+                    rows.length +
+                    ' student' +
+                    (rows.length === 1 ? '' : 's');
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           EMPTY SEARCH STATE
+        ===================================================== */
+
+        if (noReportSearchResults) {
+
+            if (filter && visibleCount === 0) {
+
+                noReportSearchResults.style.display =
+                    'block';
+
+            } else {
+
+                noReportSearchResults.style.display =
+                    'none';
+
+            }
+
+        }
+
+    }
+
+
+
+    if (reportSearch) {
+
+        reportSearch.addEventListener(
+            'input',
+            searchReports
+        );
+
+    }
+
+
+
+    function clearReportSearch() {
+
+        if (!reportSearch) {
+            return;
+        }
+
+
+        reportSearch.value = '';
+
+        searchReports();
+
+        reportSearch.focus();
+
+    }
+
+
+
+    /* =========================================================
+       AUTO-HIDE DJANGO MESSAGES
+    ========================================================= */
+
+    setTimeout(function() {
+
+
+        const messages =
+            document.querySelectorAll(
+                '.reports-alert'
+            );
+
+
+        messages.forEach(function(message) {
+
+
+            message.style.transition =
+                'opacity 0.3s ease, transform 0.3s ease';
+
+
+            message.style.opacity = '0';
+
+            message.style.transform =
+                'translateY(-4px)';
+
+
+            setTimeout(function() {
+
+                message.remove();
+
+            }, 300);
+
+
+        });
+
+
+    }, 4000);
+
+
+
+    /* =========================================================
+       RESPONSIVE SIDEBAR
+    ========================================================= */
+
+    window.addEventListener(
+        'resize',
+        function() {
+
+
+            const nav =
+                document.getElementById('nav');
+
+
+            const menu1 =
+                document.getElementById('menu1');
+
+
+            const menu2 =
+                document.getElementById('menu2');
+
+
+            if (!nav || !menu1 || !menu2) {
+                return;
+            }
+
+
+            if (window.innerWidth > 767) {
+
+                nav.style.display = 'block';
+
+                menu1.style.display = 'none';
+
+                menu2.style.display = 'none';
+
+            } else {
+
+
+                if (
+                    menu2.style.display !==
+                    'inline-flex'
+                ) {
+
+                    nav.style.display = 'none';
+
+                    menu1.style.display =
+                        'inline-flex';
+
+                }
+
+            }
+
+        }
+    );
+
+
+
+    /* =========================================================
+       INITIAL MOBILE STATE
+    ========================================================= */
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function() {
+
+
+            if (window.innerWidth <= 767) {
+
+
+                const nav =
+                    document.getElementById('nav');
+
+
+                const menu1 =
+                    document.getElementById('menu1');
+
+
+                const menu2 =
+                    document.getElementById('menu2');
+
+
+                if (nav) {
+
+                    nav.style.display = 'none';
+
+                }
+
+
+                if (menu1) {
+
+                    menu1.style.display =
+                        'inline-flex';
+
+                }
+
+
+                if (menu2) {
+
+                    menu2.style.display = 'none';
+
+                }
+
+            }
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>

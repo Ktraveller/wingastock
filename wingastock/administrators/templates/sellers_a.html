@@ -5,139 +5,731 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wingastock | Sellers</title>
-    <link rel="stylesheet" href="{% static 'admin_css/admin_style.css' %}?v=20260910">
 
+    <title>Wingastock | Sellers</title>
+
+    <link rel="stylesheet" href="{% static 'admin_css/admin_style.css' %}?v=20260925">
+
+    <style>
+        /* =========================================================
+           SELLERS PAGE
+        ========================================================= */
+
+        .sellers-page {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .sellers-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 22px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--admin-border-soft);
+        }
+
+        .sellers-header-info {
+            min-width: 0;
+        }
+
+        .sellers-eyebrow {
+            margin: 0 0 6px;
+            color: var(--admin-brand);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .sellers-header h1 {
+            margin: 0;
+            color: var(--admin-text);
+            font-size: 25px;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        .sellers-header p {
+            margin: 7px 0 0;
+            color: var(--admin-muted);
+            font-size: 13px;
+        }
+
+        .sellers-total {
+            min-width: 90px;
+            padding: 11px 15px;
+            border: 1px solid var(--admin-border);
+            border-radius: 11px;
+            background: var(--admin-surface-soft);
+            text-align: center;
+        }
+
+        .sellers-total strong {
+            display: block;
+            color: var(--admin-text);
+            font-size: 20px;
+            line-height: 1;
+            font-weight: 800;
+        }
+
+        .sellers-total span {
+            display: block;
+            margin-top: 5px;
+            color: var(--admin-muted);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* =========================================================
+           MESSAGES
+        ========================================================= */
+
+        .sellers-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .sellers-alert {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-height: 46px;
+            padding: 10px 42px 10px 13px;
+            border: 1px solid;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .sellers-alert-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 27px;
+            height: 27px;
+            flex: 0 0 27px;
+            border-radius: 50%;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .sellers-alert-close {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            width: 28px;
+            height: 28px;
+            transform: translateY(-50%);
+            border: 0;
+            background: transparent;
+            color: inherit;
+            cursor: pointer;
+            border-radius: 7px;
+            font-size: 17px;
+        }
+
+        .sellers-alert-close:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .sellers-alert.success {
+            border-color: #bbf7d0;
+            background: var(--admin-green-soft);
+            color: #166534;
+        }
+
+        .sellers-alert.success .sellers-alert-icon {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .sellers-alert.error {
+            border-color: #fecaca;
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        .sellers-alert.error .sellers-alert-icon {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .sellers-alert.warning {
+            border-color: #fed7aa;
+            background: var(--admin-orange-soft);
+            color: #9a3412;
+        }
+
+        .sellers-alert.warning .sellers-alert-icon {
+            background: #ffedd5;
+            color: #ea580c;
+        }
+
+        .sellers-alert.info {
+            border-color: #bfdbfe;
+            background: var(--admin-blue-soft);
+            color: #1d4ed8;
+        }
+
+        .sellers-alert.info .sellers-alert-icon {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        /* =========================================================
+           TOOLBAR
+        ========================================================= */
+
+        .sellers-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .sellers-search {
+            position: relative;
+            width: min(100%, 520px);
+        }
+
+        .sellers-search input {
+            width: 100%;
+            height: 44px;
+            padding: 0 42px 0 40px;
+            border: 1px solid var(--admin-border);
+            border-radius: 10px;
+            outline: none;
+            background: var(--admin-surface);
+            color: var(--admin-text);
+            font-family: inherit;
+            font-size: 13px;
+            transition: var(--admin-transition);
+        }
+
+        .sellers-search input:focus {
+            border-color: rgba(225, 29, 72, 0.5);
+            box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.08);
+        }
+
+        .sellers-search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--admin-muted);
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        .sellers-clear-search {
+            position: absolute;
+            right: 9px;
+            top: 50%;
+            width: 28px;
+            height: 28px;
+            transform: translateY(-50%);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            border-radius: 7px;
+            background: transparent;
+            color: var(--admin-muted);
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .sellers-clear-search:hover {
+            background: var(--admin-surface-soft);
+            color: var(--admin-text);
+        }
+
+        .sellers-result {
+            color: var(--admin-muted);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        /* =========================================================
+           TABLE
+        ========================================================= */
+
+        .sellers-table-box {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid var(--admin-border);
+            border-radius: 12px;
+            background: var(--admin-surface);
+            box-shadow: var(--admin-shadow-sm);
+        }
+
+        .sellers-table {
+            width: 100%;
+            min-width: 850px;
+            border-collapse: separate;
+            border-spacing: 0;
+            text-align: left;
+        }
+
+        .sellers-table thead th {
+            height: 46px;
+            padding: 0 15px;
+            border-bottom: 1px solid var(--admin-border);
+            background: var(--admin-surface-soft);
+            color: var(--admin-muted);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .sellers-table thead th:first-child {
+            border-top-left-radius: 12px;
+        }
+
+        .sellers-table thead th:last-child {
+            border-top-right-radius: 12px;
+        }
+
+        .sellers-table tbody td {
+            height: 62px;
+            padding: 9px 15px;
+            border-bottom: 1px solid var(--admin-border-soft);
+            color: var(--admin-text-2);
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        .sellers-table tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .sellers-table tbody tr {
+            transition: background 0.15s ease;
+        }
+
+        .sellers-table tbody tr:hover {
+            background: #fafbfc;
+        }
+
+        .seller-id {
+            color: var(--admin-muted);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seller-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--admin-text);
+            font-weight: 700;
+        }
+
+        .seller-avatar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            flex: 0 0 35px;
+            border-radius: 10px;
+            background: var(--admin-brand-soft);
+            color: var(--admin-brand);
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .seller-phone {
+            color: var(--admin-text-2);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .seller-address {
+            max-width: 250px;
+            overflow: hidden;
+            color: var(--admin-muted);
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .seller-date {
+            color: var(--admin-muted);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .seller-actions {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .seller-delete {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 0 11px;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            background: #fff;
+            color: #dc2626;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            transition: var(--admin-transition);
+        }
+
+        .seller-delete:hover {
+            border-color: #fca5a5;
+            background: #fef2f2;
+        }
+
+        /* =========================================================
+           EMPTY STATE
+        ========================================================= */
+
+        .sellers-empty {
+            padding: 65px 20px;
+            text-align: center;
+        }
+
+        .sellers-empty-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 15px;
+            border-radius: 16px;
+            background: var(--admin-brand-soft);
+            color: var(--admin-brand);
+            font-size: 25px;
+        }
+
+        .sellers-empty h3 {
+            margin: 0;
+            color: var(--admin-text);
+            font-size: 17px;
+        }
+
+        .sellers-empty p {
+            max-width: 420px;
+            margin: 7px auto 0;
+            color: var(--admin-muted);
+            font-size: 13px;
+        }
+
+        /* =========================================================
+           DELETE MODAL
+        ========================================================= */
+
+        .seller-delete-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .seller-delete-modal-overlay.show {
+            display: flex;
+            animation: sellerOverlayIn 0.18s ease-out;
+        }
+
+        .seller-delete-modal {
+            width: min(100%, 430px);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 18px;
+            background: #fff;
+            box-shadow: 0 25px 70px rgba(15, 23, 42, 0.22);
+            animation: sellerModalIn 0.2s ease-out;
+        }
+
+        .seller-delete-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 22px 22px 17px;
+        }
+
+        .seller-delete-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            flex: 0 0 48px;
+            border-radius: 14px;
+            background: #fef2f2;
+            color: #dc2626;
+            font-size: 22px;
+        }
+
+        .seller-delete-title {
+            min-width: 0;
+        }
+
+        .seller-delete-title h2 {
+            margin: 0;
+            color: var(--admin-text);
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .seller-delete-title p {
+            margin: 4px 0 0;
+            color: var(--admin-muted);
+            font-size: 12px;
+        }
+
+        .seller-delete-body {
+            padding: 0 22px 20px;
+        }
+
+        .seller-delete-message {
+            margin: 0;
+            color: var(--admin-text-2);
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .seller-delete-name {
+            display: block;
+            margin-top: 11px;
+            padding: 11px 12px;
+            overflow: hidden;
+            border: 1px solid #fee2e2;
+            border-radius: 9px;
+            background: #fff7f7;
+            color: #991b1b;
+            font-size: 13px;
+            font-weight: 800;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .seller-delete-warning {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 10px 11px;
+            border-radius: 8px;
+            background: #fff7ed;
+            color: #9a3412;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .seller-delete-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 9px;
+            padding: 15px 22px 20px;
+            border-top: 1px solid var(--admin-border-soft);
+            background: #fafbfc;
+        }
+
+        .seller-modal-btn {
+            min-height: 40px;
+            padding: 0 16px;
+            border-radius: 9px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--admin-transition);
+        }
+
+        .seller-modal-cancel {
+            border: 1px solid var(--admin-border);
+            background: #fff;
+            color: var(--admin-text-2);
+        }
+
+        .seller-modal-cancel:hover {
+            background: var(--admin-surface-soft);
+        }
+
+        .seller-modal-confirm {
+            border: 1px solid #dc2626;
+            background: #dc2626;
+            color: #fff;
+        }
+
+        .seller-modal-confirm:hover {
+            border-color: #b91c1c;
+            background: #b91c1c;
+        }
+
+        .seller-modal-confirm:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        @keyframes sellerOverlayIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes sellerModalIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 767px) {
+
+            .sellers-header {
+                align-items: flex-start;
+            }
+
+            .sellers-total {
+                min-width: 75px;
+            }
+
+            .sellers-toolbar {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .sellers-search {
+                width: 100%;
+            }
+
+            .sellers-result {
+                text-align: right;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .sellers-header {
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .sellers-total {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                text-align: left;
+            }
+
+            .sellers-total strong,
+            .sellers-total span {
+                display: inline;
+                margin: 0;
+            }
+
+            .sellers-total span {
+                margin-left: 7px;
+            }
+
+            .seller-delete-top {
+                padding: 18px 18px 15px;
+            }
+
+            .seller-delete-body {
+                padding: 0 18px 18px;
+            }
+
+            .seller-delete-actions {
+                padding: 13px 18px 17px;
+            }
+
+            .seller-modal-btn {
+                flex: 1;
+            }
+        }
+    </style>
 </head>
+
 
 <body>
 
-    <div class="row-holder">
+<div class="row-holder">
 
-        <!-- Header -->
-        <div class="header-holder-100">
-            <div class="header-100">
-                <div class="action-holder-101">
-                    <button type="button" id="menu1" onclick="open_menu('open')">m</button>
-                    <button type="button" id="menu2" style="display: none;" onclick="open_menu('close')">c</button>
-                </div>
-                <div class="title-holder-101">
-                    <button type="button">Wingastock | Admin</button>
-                </div>
-                <div class="title-holder-101" style="float: right;">
-                    <button type="button">{{ user.username }}</button>
-                </div>
-            </div>
-        </div>
+    <!-- =========================================================
+         HEADER
+    ========================================================= -->
 
+    <div class="header-holder-100">
 
-        <!-- center content -->
-        <div class="center-content-200">
+        <div class="header-100">
 
-            <div class="left-holder-201" id="nav">
-                <div class="nav-bar-holder-202">
-                    <p style="text-align: center; font-weight: bold;">Options</p>
+            <div class="action-holder-101">
 
-                    <ul>
-                        <a href="{% url 'admin_home' %}">
-                            <li>Dashboard</li>
-                        </a>
-                    </ul>
+                <button
+                    type="button"
+                    id="menu1"
+                    onclick="open_menu('open')"
+                    aria-label="Open menu"
+                >
+                    ☰
+                </button>
 
-                    <ul>
-                        <a href="{% url 'admin_products' %}">
-                            <li>Products</li>
-                        </a>
-                    </ul>
+                <button
+                    type="button"
+                    id="menu2"
+                    style="display:none;"
+                    onclick="open_menu('close')"
+                    aria-label="Close menu"
+                >
+                    ✕
+                </button>
 
-                    <ul>
-                        <a href="{% url 'admin_sellers' %}">
-                            <li class="active-0">Sellers</li>
-                        </a>
-                    </ul>
-
-                    <ul>
-                        <a href="{% url 'admin_customers' %}">
-                            <li>Customers</li>
-                        </a>
-                    </ul>
-
-                    <ul>
-                        <a href="{% url 'admin_payment_requests' %}">
-                            <li>Payment reviews</li>
-                        </a>
-                    </ul>
-
-                    <ul>
-                        <a href="{% url 'admin_delivery_requests' %}">
-                            <li>Delivery requests</li>
-                        </a>
-                    </ul>
-
-                    <ul>
-                        <a href="{% url 'mail_home_a' %}">
-                            <li>Mail</li>
-                        </a>
-                    </ul>
-
-                    <ul>
-                        <a href="{% url 'logout_admin' %}">
-                            <li>Exit</li>
-                        </a>
-                    </ul>
-                </div>
             </div>
 
-            <div class="right-holder-201">
-                <div class="card-holder-201 products-202">
+
+            <div class="title-holder-101">
+
+                <button type="button">
+                    Sellers
+                </button>
+
+            </div>
 
 
-                    {% if messages %}
-                    <div class="messages">
-                        {% for message in messages %}
-                        <div class="alert {{ message.tags }}">
-                            {{ message }}
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
+            <div class="title-holder-101 admin-user-holder">
 
-                    <p style="font-weight: bold;">Sellers list</p>
-                    <div class="filter-holder-202" style="width: 100%;">
-                        <div><input type="text" id="searchInput" placeholder="Search sellers ..."></div>
-                    </div>
+                <button type="button">
+                    {{ user.username }}
+                </button>
 
-                    <table style="width: auto;">
-                        <thead>
-                            <th class="id">#</th>
-                            <th>Seller</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Reg_date</th>
-                            <th>Actions</th>
-                        </thead>
-
-                        <tbody id="productTable">
-                            {% for sellers in sellers_list %}
-                            <tr>
-                                <td class="id">{{ sellers.id }}</td>
-                                <td>{{ sellers.seller_name }}</td>
-                                <td>{{ sellers.seller_phone }}</td>
-                                <td>{{ sellers.seller_address }}</td>
-                                <td>{{ sellers.reg_date }}</td>
-
-                                <td style="text-align: right;">
-                                    <button class="btn delete"
-                                        onclick="window.location.href=`{% url 'delete_seller' sellers.id %}`">Delete
-                                        Seller</button>
-                                </td>
-                            </tr>
-
-                            {% endfor %}
-                        </tbody>
-
-                    </table>
-                </div>
             </div>
 
         </div>
@@ -145,54 +737,989 @@
     </div>
 
 
+    <!-- =========================================================
+         MAIN CONTENT
+    ========================================================= -->
 
-    <script>
-        function open_menu(click) {
-            let menu1 = document.getElementById('menu1');
-            let menu2 = document.getElementById('menu2');
-            let nav = document.getElementById('nav');
+    <div class="center-content-200">
 
-            if (click == 'open') {
-                menu1.style.display = 'none';
-                menu2.style.display = 'inline-block';
-                nav.style.display = 'inline-block';
-            }
-            else {
-                menu1.style.display = 'inline-block';
-                menu2.style.display = 'none';
+
+        <!-- =====================================================
+             SIDEBAR
+        ===================================================== -->
+
+        <div class="left-holder-201" id="nav">
+
+            <div class="nav-bar-holder-202">
+
+                <p>Options</p>
+
+
+                <ul>
+                    <a href="{% url 'admin_home' %}">
+                        <li>Dashboard</li>
+                    </a>
+                </ul>
+
+
+                <ul>
+                    <a href="{% url 'admin_products' %}">
+                        <li>Products</li>
+                    </a>
+                </ul>
+
+
+                <ul>
+                    <a href="{% url 'admin_sellers' %}">
+                        <li class="active-0">Sellers</li>
+                    </a>
+                </ul>
+
+
+                <ul>
+                    <a href="{% url 'admin_customers' %}">
+                        <li>Customers</li>
+                    </a>
+                </ul>
+
+
+                <ul>
+                    <a href="{% url 'admin_payment_requests' %}">
+                        <li>Payment reviews</li>
+                    </a>
+                </ul>
+
+
+                <ul>
+                    <a href="{% url 'admin_delivery_requests' %}">
+                        <li>Delivery requests</li>
+                    </a>
+                </ul>
+
+                <!-- STUDENT REPORTS -->
+                <ul>
+                    <a href="{% url 'field_report_list' %}">
+                        <li>
+                            Student reports
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'mail_home_a' %}">
+                        <li>Mail</li>
+                    </a>
+                </ul>
+
+
+                <ul>
+                    <a href="{% url 'logout_admin' %}">
+                        <li>Exit</li>
+                    </a>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             PAGE
+        ===================================================== -->
+
+        <div class="right-holder-201">
+
+            <div class="sellers-page">
+
+
+                <!-- =================================================
+                     PAGE HEADER
+                ================================================= -->
+
+                <div class="sellers-header">
+
+                    <div class="sellers-header-info">
+
+                        <p class="sellers-eyebrow">
+                            Marketplace management
+                        </p>
+
+                        <h1>
+                            Sellers
+                        </h1>
+
+                        <p>
+                            Manage registered sellers and their marketplace information.
+                        </p>
+
+                    </div>
+
+
+                    <div class="sellers-total">
+
+                        <strong>
+                            {{ sellers_list|length }}
+                        </strong>
+
+                        <span>
+                            Sellers
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     DJANGO MESSAGES
+                ================================================= -->
+
+                {% if messages %}
+
+                <div class="sellers-messages">
+
+                    {% for message in messages %}
+
+                    <div class="sellers-alert
+                        {% if message.tags == 'success' %}
+                            success
+                        {% elif message.tags == 'error' %}
+                            error
+                        {% elif message.tags == 'warning' %}
+                            warning
+                        {% else %}
+                            info
+                        {% endif %}
+                    ">
+
+                        <span class="sellers-alert-icon">
+
+                            {% if message.tags == 'success' %}
+                                ✓
+                            {% elif message.tags == 'error' %}
+                                !
+                            {% elif message.tags == 'warning' %}
+                                !
+                            {% else %}
+                                i
+                            {% endif %}
+
+                        </span>
+
+
+                        <span>
+                            {{ message }}
+                        </span>
+
+
+                        <button
+                            type="button"
+                            class="sellers-alert-close"
+                            onclick="this.parentElement.remove()"
+                            aria-label="Close message"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     SEARCH TOOLBAR
+                ================================================= -->
+
+                <div class="sellers-toolbar">
+
+                    <div class="sellers-search">
+
+                        <span class="sellers-search-icon">
+                            ⌕
+                        </span>
+
+
+                        <input
+                            type="search"
+                            id="searchInput"
+                            placeholder="Search sellers, phone, address..."
+                            autocomplete="off"
+                        >
+
+
+                        <button
+                            type="button"
+                            id="clearSearch"
+                            class="sellers-clear-search"
+                            onclick="clearSellerSearch()"
+                            aria-label="Clear search"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="sellers-result"
+                        id="sellerResult"
+                    >
+                        Showing
+                        {{ sellers_list|length }}
+                        seller{{ sellers_list|length|pluralize }}
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     SELLERS TABLE
+                ================================================= -->
+
+                <div class="sellers-table-box">
+
+                    {% if sellers_list %}
+
+                    <table class="sellers-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Seller</th>
+
+                                <th>Phone</th>
+
+                                <th>Address</th>
+
+                                <th>Reg. date</th>
+
+                                <th style="text-align:right;">
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="sellerTable">
+
+                            {% for sellers in sellers_list %}
+
+                            <tr class="seller-row">
+
+
+                                <!-- ID -->
+
+                                <td>
+
+                                    <span class="seller-id">
+                                        #{{ sellers.id }}
+                                    </span>
+
+                                </td>
+
+
+                                <!-- SELLER -->
+
+                                <td>
+
+                                    <div class="seller-name">
+
+                                        <span class="seller-avatar">
+                                            {{ sellers.seller_name|slice:":1" }}
+                                        </span>
+
+                                        <span>
+                                            {{ sellers.seller_name }}
+                                        </span>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- PHONE -->
+
+                                <td>
+
+                                    <span class="seller-phone">
+                                        {{ sellers.seller_phone|default:"Not specified" }}
+                                    </span>
+
+                                </td>
+
+
+                                <!-- ADDRESS -->
+
+                                <td>
+
+                                    <div
+                                        class="seller-address"
+                                        title="{{ sellers.seller_address }}"
+                                    >
+                                        {{ sellers.seller_address|default:"Not specified" }}
+                                    </div>
+
+                                </td>
+
+
+                                <!-- DATE -->
+
+                                <td>
+
+                                    <span class="seller-date">
+                                        {{ sellers.reg_date }}
+                                    </span>
+
+                                </td>
+
+
+                                <!-- ACTIONS -->
+
+                                <td class="seller-actions">
+
+                                    <button
+                                        type="button"
+                                        class="seller-delete"
+                                        onclick="openSellerDeleteModal(
+                                            '{{ sellers.id }}',
+                                            '{{ sellers.seller_name|escapejs }}',
+                                            '{% url 'delete_seller' sellers.id %}'
+                                        )"
+                                    >
+                                        Delete seller
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+
+                    <!-- NO SEARCH RESULTS -->
+
+                    <div
+                        class="sellers-empty"
+                        id="noSellerResults"
+                        style="display:none;"
+                    >
+
+                        <div class="sellers-empty-icon">
+                            ⌕
+                        </div>
+
+                        <h3>
+                            No sellers found
+                        </h3>
+
+                        <p>
+                            No seller matches your current search.
+                            Try another name, phone number or address.
+                        </p>
+
+                    </div>
+
+
+                    {% else %}
+
+                    <!-- NO SELLERS -->
+
+                    <div class="sellers-empty">
+
+                        <div class="sellers-empty-icon">
+                            ♙
+                        </div>
+
+                        <h3>
+                            No sellers yet
+                        </h3>
+
+                        <p>
+                            There are currently no registered sellers
+                            in the marketplace.
+                        </p>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         DELETE SELLER CONFIRMATION MODAL
+    ========================================================= -->
+
+    <div
+        class="seller-delete-modal-overlay"
+        id="sellerDeleteModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="sellerDeleteModalTitle"
+    >
+
+        <div class="seller-delete-modal">
+
+
+            <!-- MODAL HEADER -->
+
+            <div class="seller-delete-top">
+
+                <div class="seller-delete-icon">
+                    🗑
+                </div>
+
+
+                <div class="seller-delete-title">
+
+                    <h2 id="sellerDeleteModalTitle">
+                        Delete seller?
+                    </h2>
+
+                    <p>
+                        Please confirm this action.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- MODAL BODY -->
+
+            <div class="seller-delete-body">
+
+                <p class="seller-delete-message">
+
+                    Are you sure you want to delete this seller?
+
+                </p>
+
+
+                <span
+                    class="seller-delete-name"
+                    id="sellerDeleteName"
+                >
+                    Seller name
+                </span>
+
+
+                <div class="seller-delete-warning">
+
+                    <span>
+                        ⚠
+                    </span>
+
+                    <span>
+                        This action cannot be undone. Make sure you want
+                        to permanently remove this seller before continuing.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- MODAL BUTTONS -->
+
+            <div class="seller-delete-actions">
+
+                <button
+                    type="button"
+                    class="seller-modal-btn seller-modal-cancel"
+                    onclick="closeSellerDeleteModal()"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="button"
+                    class="seller-modal-btn seller-modal-confirm"
+                    id="confirmSellerDelete"
+                    onclick="confirmSellerDeleteAction()"
+                >
+                    Delete seller
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* =========================================================
+       MOBILE MENU
+    ========================================================= */
+
+    function open_menu(click) {
+
+        const menu1 = document.getElementById('menu1');
+        const menu2 = document.getElementById('menu2');
+        const nav = document.getElementById('nav');
+
+        if (click === 'open') {
+
+            menu1.style.display = 'none';
+            menu2.style.display = 'inline-flex';
+            nav.style.display = 'block';
+
+        } else {
+
+            menu1.style.display = 'inline-flex';
+            menu2.style.display = 'none';
+
+            if (window.innerWidth <= 767) {
                 nav.style.display = 'none';
             }
+
         }
-    </script>
-
-    <script>
-        document.getElementById("searchInput").addEventListener("input", function () {
-            const filter = this.value.toLowerCase();
-            const rows = document.querySelectorAll("#productTable tr");
-
-            rows.forEach(row => {
-                const id = row.cells[0].textContent.toLowerCase();
-                const phone = row.cells[1].textContent.toLowerCase();
+    }
 
 
-                const match =
-                    id.includes(filter) ||
-                    phone.includes(filter);
+    /* =========================================================
+       SELLER SEARCH
+    ========================================================= */
 
-                row.style.display = match ? "" : "none";
-            });
+    const searchInput =
+        document.getElementById('searchInput');
+
+    const clearSearch =
+        document.getElementById('clearSearch');
+
+    const sellerResult =
+        document.getElementById('sellerResult');
+
+    const noSellerResults =
+        document.getElementById('noSellerResults');
+
+
+    function searchSellers() {
+
+        if (!searchInput) {
+            return;
+        }
+
+        const filter =
+            searchInput.value.trim().toLowerCase();
+
+        const rows =
+            document.querySelectorAll('.seller-row');
+
+        let visibleCount = 0;
+
+
+        rows.forEach(function(row) {
+
+            /*
+             * Search the complete row:
+             * ID
+             * Seller name
+             * Phone
+             * Address
+             * Registration date
+             */
+
+            const rowText =
+                row.textContent.toLowerCase();
+
+            const match =
+                rowText.includes(filter);
+
+
+            if (match) {
+
+                row.style.display = '';
+                visibleCount++;
+
+            } else {
+
+                row.style.display = 'none';
+
+            }
+
         });
-    </script>
 
-    <script>
-        setTimeout(function () {
-            document.querySelectorAll(".alert").forEach(function (alert) {
-                alert.style.transition = "opacity 0.5s";
-                alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 500);
-            });
-        }, 4000);
-    </script>
+
+        /* Clear button */
+
+        if (clearSearch) {
+
+            clearSearch.style.display =
+                filter ? 'flex' : 'none';
+
+        }
+
+
+        /* Result count */
+
+        if (sellerResult) {
+
+            if (filter) {
+
+                sellerResult.textContent =
+                    'Showing ' +
+                    visibleCount +
+                    ' matching seller' +
+                    (visibleCount === 1 ? '' : 's');
+
+            } else {
+
+                sellerResult.textContent =
+                    'Showing ' +
+                    rows.length +
+                    ' seller' +
+                    (rows.length === 1 ? '' : 's');
+
+            }
+
+        }
+
+
+        /* Empty search state */
+
+        if (noSellerResults) {
+
+            if (filter && visibleCount === 0) {
+
+                noSellerResults.style.display = 'block';
+
+            } else {
+
+                noSellerResults.style.display = 'none';
+
+            }
+
+        }
+
+    }
+
+
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            'input',
+            searchSellers
+        );
+
+    }
+
+
+    function clearSellerSearch() {
+
+        if (!searchInput) {
+            return;
+        }
+
+        searchInput.value = '';
+
+        searchSellers();
+
+        searchInput.focus();
+
+    }
+
+
+    /* =========================================================
+       DELETE SELLER MODAL
+    ========================================================= */
+
+    let sellerDeleteUrl = null;
+
+
+    function openSellerDeleteModal(
+        sellerId,
+        sellerName,
+        deleteUrl
+    ) {
+
+        sellerDeleteUrl = deleteUrl;
+
+
+        const modal =
+            document.getElementById('sellerDeleteModal');
+
+        const sellerNameElement =
+            document.getElementById('sellerDeleteName');
+
+
+        if (!modal) {
+            return;
+        }
+
+
+        if (sellerNameElement) {
+
+            sellerNameElement.textContent =
+                sellerName || ('Seller #' + sellerId);
+
+        }
+
+
+        modal.classList.add('show');
+
+        document.body.style.overflow = 'hidden';
+
+
+        setTimeout(function() {
+
+            const confirmButton =
+                document.getElementById('confirmSellerDelete');
+
+            if (confirmButton) {
+                confirmButton.focus();
+            }
+
+        }, 50);
+
+    }
+
+
+    function closeSellerDeleteModal() {
+
+        const modal =
+            document.getElementById('sellerDeleteModal');
+
+        if (!modal) {
+            return;
+        }
+
+
+        modal.classList.remove('show');
+
+        document.body.style.overflow = '';
+
+        sellerDeleteUrl = null;
+
+    }
+
+
+    function confirmSellerDeleteAction() {
+
+        if (!sellerDeleteUrl) {
+            return;
+        }
+
+
+        const confirmButton =
+            document.getElementById('confirmSellerDelete');
+
+
+        if (confirmButton) {
+
+            confirmButton.disabled = true;
+            confirmButton.textContent = 'Deleting...';
+
+        }
+
+
+        /*
+         * Preserve your existing Django URL.
+         */
+
+        window.location.href =
+            sellerDeleteUrl;
+
+    }
+
+
+    /* =========================================================
+       CLOSE MODAL WHEN CLICKING OUTSIDE
+    ========================================================= */
+
+    const sellerDeleteModal =
+        document.getElementById('sellerDeleteModal');
+
+
+    if (sellerDeleteModal) {
+
+        sellerDeleteModal.addEventListener(
+            'click',
+            function(event) {
+
+                if (event.target === sellerDeleteModal) {
+
+                    closeSellerDeleteModal();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================================================
+       ESCAPE KEY
+    ========================================================= */
+
+    document.addEventListener(
+        'keydown',
+        function(event) {
+
+            if (event.key === 'Escape') {
+
+                const modal =
+                    document.getElementById(
+                        'sellerDeleteModal'
+                    );
+
+
+                if (
+                    modal &&
+                    modal.classList.contains('show')
+                ) {
+
+                    closeSellerDeleteModal();
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       AUTO HIDE MESSAGES
+    ========================================================= */
+
+    setTimeout(function() {
+
+        const messages =
+            document.querySelectorAll('.sellers-alert');
+
+
+        messages.forEach(function(alert) {
+
+            alert.style.transition =
+                'opacity 0.3s ease, transform 0.3s ease';
+
+            alert.style.opacity = '0';
+            alert.style.transform =
+                'translateY(-4px)';
+
+
+            setTimeout(function() {
+
+                alert.remove();
+
+            }, 300);
+
+        });
+
+    }, 4000);
+
+
+    /* =========================================================
+       RESPONSIVE SIDEBAR
+    ========================================================= */
+
+    window.addEventListener(
+        'resize',
+        function() {
+
+            const nav =
+                document.getElementById('nav');
+
+            const menu1 =
+                document.getElementById('menu1');
+
+            const menu2 =
+                document.getElementById('menu2');
+
+
+            if (!nav || !menu1 || !menu2) {
+                return;
+            }
+
+
+            if (window.innerWidth > 767) {
+
+                nav.style.display = 'block';
+
+                menu1.style.display = 'none';
+                menu2.style.display = 'none';
+
+            } else {
+
+                if (
+                    menu2.style.display !== 'inline-flex'
+                ) {
+
+                    nav.style.display = 'none';
+                    menu1.style.display = 'inline-flex';
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       INITIAL MOBILE STATE
+    ========================================================= */
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function() {
+
+            if (window.innerWidth <= 767) {
+
+                const nav =
+                    document.getElementById('nav');
+
+                const menu1 =
+                    document.getElementById('menu1');
+
+                const menu2 =
+                    document.getElementById('menu2');
+
+
+                if (nav) {
+                    nav.style.display = 'none';
+                }
+
+                if (menu1) {
+                    menu1.style.display = 'inline-flex';
+                }
+
+                if (menu2) {
+                    menu2.style.display = 'none';
+                }
+
+            }
+
+        }
+    );
+
+</script>
+
 </body>
-
 </html>

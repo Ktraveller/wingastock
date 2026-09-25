@@ -65,3 +65,12 @@ def admin_home(request):
         "total_customers": total_customers,
     })
 
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1208 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% if placement %}
+            {{ placement.student.get_full_name|default:placement.student.username }}
+            | Student Report
+        {% else %}
+            Student Report
+        {% endif %}
+    </title>
+
+    <link rel="stylesheet" href="{% static 'admin_css/admin_style.css' %}?v=20260925">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f7fb;
+            color: #172033;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* =========================================================
+           PAGE
+        ========================================================= */
+
+        .report-preview-page {
+            min-height: 100vh;
+            padding: 92px 30px 40px;
+        }
+
+        .report-preview-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* =========================================================
+           TOP BAR
+        ========================================================= */
+
+        .preview-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .preview-heading {
+            min-width: 0;
+        }
+
+        .preview-eyebrow {
+            margin: 0 0 5px;
+            color: #e11d48;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .preview-heading h1 {
+            margin: 0;
+            color: #172033;
+            font-size: 26px;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        .preview-heading p {
+            margin: 7px 0 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .preview-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .preview-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 0 16px;
+            border: 1px solid #e4e8ef;
+            border-radius: 10px;
+            background: #fff;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .preview-button:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+
+        .preview-button.primary {
+            border-color: #e11d48;
+            background: #e11d48;
+            color: #fff;
+        }
+
+        .preview-button.primary:hover {
+            border-color: #be123c;
+            background: #be123c;
+        }
+
+        /* =========================================================
+           STUDENT INFORMATION
+        ========================================================= */
+
+        .student-info-card {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+            gap: 0;
+            margin-bottom: 24px;
+            overflow: hidden;
+            border: 1px solid #e4e8ef;
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, .05);
+        }
+
+        .student-main-info {
+            padding: 22px;
+        }
+
+        .student-name {
+            margin: 0;
+            color: #172033;
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .student-email {
+            margin: 6px 0 0;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .student-details {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px 20px;
+            margin-top: 20px;
+        }
+
+        .student-detail {
+            min-width: 0;
+        }
+
+        .student-detail-label {
+            display: block;
+            margin-bottom: 4px;
+            color: #94a3b8;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+
+        .student-detail-value {
+            color: #334155;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .report-status-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 22px;
+            border-left: 1px solid #edf0f4;
+            background: #f8fafc;
+        }
+
+        .status-label {
+            margin-bottom: 7px;
+            color: #94a3b8;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            min-height: 30px;
+            padding: 0 11px;
+            border-radius: 999px;
+            background: #f0fdf4;
+            color: #15803d;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .status-badge.pending {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .report-updated {
+            margin-top: 13px;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        /* =========================================================
+           REPORT PAPER
+        ========================================================= */
+
+        .report-paper {
+            overflow: hidden;
+            border: 1px solid #e4e8ef;
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 12px 35px rgba(15, 23, 42, .08);
+        }
+
+        .report-paper-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid #edf0f4;
+            background: #fff;
+        }
+
+        .report-paper-header h2 {
+            margin: 0;
+            color: #172033;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 24px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .report-paper-body {
+            padding: 42px 55px 55px;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12pt;
+            line-height: 1.65;
+            color: #111827;
+        }
+
+        /* =========================================================
+           REPORT CONTENT
+        ========================================================= */
+
+        .report-section {
+            margin-bottom: 34px;
+            page-break-inside: avoid;
+        }
+
+        .report-section-title {
+            margin: 0 0 18px;
+            color: #111827;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .report-subsection-title {
+            margin: 22px 0 10px;
+            color: #111827;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .report-content {
+            color: #111827;
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+
+        .report-content p {
+            margin: 0 0 12px;
+            text-align: justify;
+        }
+
+        .report-content ul,
+        .report-content ol {
+            margin-top: 8px;
+            margin-bottom: 12px;
+            padding-left: 30px;
+        }
+
+        .report-content li {
+            margin-bottom: 6px;
+        }
+
+        .report-content strong {
+            font-weight: 700;
+        }
+
+        .report-content em {
+            font-style: italic;
+        }
+
+        .report-content img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+            border: 1px solid #dfe4ea;
+        }
+
+        /* =========================================================
+           COVER INFORMATION
+        ========================================================= */
+
+        .cover-block {
+            margin-bottom: 45px;
+            text-align: center;
+        }
+
+        .cover-block h3 {
+            margin: 0 0 18px;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+
+        .cover-line {
+            margin: 8px 0;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .cover-label {
+            font-weight: 700;
+        }
+
+        /* =========================================================
+           IMAGES
+        ========================================================= */
+
+        .report-image-wrapper {
+            margin: 25px auto;
+            text-align: center;
+        }
+
+        .report-image-wrapper img {
+            display: block;
+            max-width: 100%;
+            max-height: 600px;
+            margin: 0 auto;
+            object-fit: contain;
+            border: 1px solid #d9dee7;
+        }
+
+        .report-image-caption {
+            margin-top: 8px;
+            color: #64748b;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+        }
+
+        /* =========================================================
+           EMPTY REPORT
+        ========================================================= */
+
+        .empty-report {
+            padding: 70px 30px;
+            text-align: center;
+        }
+
+        .empty-report-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: #fff7ed;
+            color: #ea580c;
+            font-size: 25px;
+        }
+
+        .empty-report h2 {
+            margin: 0;
+            color: #172033;
+            font-size: 20px;
+        }
+
+        .empty-report p {
+            max-width: 480px;
+            margin: 8px auto 0;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           PRINT
+        ========================================================= */
+
+        @media print {
+
+            @page {
+                size: A4;
+                margin: 25mm 22mm;
+            }
+
+            body {
+                background: #fff;
+            }
+
+            .report-preview-page {
+                padding: 0;
+            }
+
+            .preview-topbar,
+            .student-info-card,
+            .report-paper-header,
+            .admin-header,
+            .left-holder-201,
+            .header-holder-100 {
+                display: none !important;
+            }
+
+            .report-preview-container {
+                max-width: none;
+            }
+
+            .report-paper {
+                border: 0;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .report-paper-body {
+                padding: 0;
+            }
+
+            .report-section {
+                page-break-inside: avoid;
+            }
+
+            .report-content img {
+                max-width: 100%;
+            }
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .report-preview-page {
+                padding: 85px 18px 30px;
+            }
+
+            .student-info-card {
+                grid-template-columns: 1fr;
+            }
+
+            .report-status-panel {
+                border-top: 1px solid #edf0f4;
+                border-left: 0;
+            }
+
+            .report-paper-body {
+                padding: 35px 30px 40px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .preview-topbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .preview-actions {
+                width: 100%;
+            }
+
+            .preview-button {
+                flex: 1;
+            }
+
+            .student-details {
+                grid-template-columns: 1fr;
+            }
+
+            .report-paper-body {
+                padding: 28px 20px 35px;
+            }
+
+            .report-paper-header {
+                padding: 20px;
+            }
+
+            .report-paper-header h2 {
+                font-size: 19px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="report-preview-page">
+
+    <div class="report-preview-container">
+
+        <!-- =====================================================
+             TOP BAR
+        ====================================================== -->
+
+        <div class="preview-topbar">
+
+            <div class="preview-heading">
+
+                <p class="preview-eyebrow">
+                    Field practical training
+                </p>
+
+                <h1>
+                    Student Report Preview
+                </h1>
+
+                {% if placement %}
+                    <p>
+                        {{ placement.organization }}
+                        {% if placement.department %}
+                            · {{ placement.department }}
+                        {% endif %}
+                    </p>
+                {% endif %}
+
+            </div>
+
+            <div class="preview-actions">
+
+                <a
+                    href="{% url 'field_report_list' %}"
+                    class="preview-button"
+                >
+                    ← Back
+                </a>
+
+                {% if report %}
+                    <button
+                        type="button"
+                        class="preview-button primary"
+                        onclick="window.print()"
+                    >
+                        Print Report
+                    </button>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        {% if placement %}
+
+        <!-- =====================================================
+             STUDENT INFORMATION
+        ====================================================== -->
+
+        <section class="student-info-card">
+
+            <div class="student-main-info">
+
+                <h2 class="student-name">
+                    {% if placement.student.get_full_name %}
+                        {{ placement.student.get_full_name }}
+                    {% else %}
+                        {{ placement.student.username }}
+                    {% endif %}
+                </h2>
+
+                {% if placement.student.email %}
+                    <p class="student-email">
+                        {{ placement.student.email }}
+                    </p>
+                {% endif %}
+
+                <div class="student-details">
+
+                    <div class="student-detail">
+                        <span class="student-detail-label">
+                            Organization
+                        </span>
+
+                        <span class="student-detail-value">
+                            {{ placement.organization }}
+                        </span>
+                    </div>
+
+
+                    <div class="student-detail">
+                        <span class="student-detail-label">
+                            Department
+                        </span>
+
+                        <span class="student-detail-value">
+                            {% if placement.department %}
+                                {{ placement.department }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </span>
+                    </div>
+
+
+                    <div class="student-detail">
+                        <span class="student-detail-label">
+                            Supervisor
+                        </span>
+
+                        <span class="student-detail-value">
+                            {{ placement.supervisor_name }}
+                        </span>
+                    </div>
+
+
+                    <div class="student-detail">
+                        <span class="student-detail-label">
+                            Supervisor Phone
+                        </span>
+
+                        <span class="student-detail-value">
+                            {% if placement.supervisor_phone %}
+                                {{ placement.supervisor_phone }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </span>
+                    </div>
+
+
+                    <div class="student-detail">
+                        <span class="student-detail-label">
+                            Training Start
+                        </span>
+
+                        <span class="student-detail-value">
+                            {{ placement.start_date|date:"d M Y" }}
+                        </span>
+                    </div>
+
+
+                    <div class="student-detail">
+                        <span class="student-detail-label">
+                            Training End
+                        </span>
+
+                        <span class="student-detail-value">
+                            {{ placement.end_date|date:"d M Y" }}
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="report-status-panel">
+
+                <span class="status-label">
+                    Report status
+                </span>
+
+                {% if report %}
+                    <span class="status-badge">
+                        Report generated
+                    </span>
+
+                    <div class="report-updated">
+                        Saved report content is available for preview.
+                    </div>
+                {% else %}
+                    <span class="status-badge pending">
+                        Not generated
+                    </span>
+
+                    <div class="report-updated">
+                        This student has not saved a generated report yet.
+                    </div>
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             REPORT
+        ====================================================== -->
+
+        <section class="report-paper">
+
+            <div class="report-paper-header">
+
+                <h2>
+                    Field Practical Training Report
+                </h2>
+
+            </div>
+
+
+            {% if report %}
+
+            <div class="report-paper-body">
+
+
+                <!-- =================================================
+                     COVER / STUDENT INFORMATION
+                ================================================== -->
+
+                <section class="report-section">
+
+                    <div class="cover-block">
+
+                        <h3>
+                            Field Practical Training Report
+                        </h3>
+
+                        <div class="cover-line">
+                            <span class="cover-label">
+                                Student:
+                            </span>
+
+                            {% if placement.student.get_full_name %}
+                                {{ placement.student.get_full_name }}
+                            {% else %}
+                                {{ placement.student.username }}
+                            {% endif %}
+                        </div>
+
+                        <div class="cover-line">
+                            <span class="cover-label">
+                                Organization:
+                            </span>
+
+                            {{ placement.organization }}
+                        </div>
+
+                        {% if placement.department %}
+                        <div class="cover-line">
+                            <span class="cover-label">
+                                Department:
+                            </span>
+
+                            {{ placement.department }}
+                        </div>
+                        {% endif %}
+
+                        <div class="cover-line">
+                            <span class="cover-label">
+                                Supervisor:
+                            </span>
+
+                            {{ placement.supervisor_name }}
+                        </div>
+
+                        <div class="cover-line">
+                            <span class="cover-label">
+                                Training Period:
+                            </span>
+
+                            {{ placement.start_date|date:"d M Y" }}
+                            –
+                            {{ placement.end_date|date:"d M Y" }}
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     DECLARATION
+                ================================================== -->
+
+                {% if report.declaration %}
+
+                <section class="report-section">
+
+                    <h2 class="report-section-title">
+                        Declaration
+                    </h2>
+
+                    <div class="report-content">
+                        {{ report.declaration|linebreaks }}
+                    </div>
+
+                </section>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     ABBREVIATIONS
+                ================================================== -->
+
+                {% if report.abbreviations %}
+
+                <section class="report-section">
+
+                    <h2 class="report-section-title">
+                        Abbreviations
+                    </h2>
+
+                    <div class="report-content">
+                        {{ report.abbreviations|linebreaks }}
+                    </div>
+
+                </section>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     CHAPTER ONE
+                ================================================== -->
+
+                {% if report.historical_background or report.organization_structure or report.vision or report.mission or report.objectives %}
+
+                <section class="report-section">
+
+                    <h2 class="report-section-title">
+                        Chapter One
+                    </h2>
+
+
+                    {% if report.historical_background %}
+
+                    <h3 class="report-subsection-title">
+                        1.1 Historical Background
+                    </h3>
+
+                    <div class="report-content">
+                        {{ report.historical_background|linebreaks }}
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if report.historical_background_image %}
+
+                    <div class="report-image-wrapper">
+
+                        <img
+                            src="{{ report.historical_background_image.url }}"
+                            alt="Historical background"
+                        >
+
+                        <div class="report-image-caption">
+                            Historical Background
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if report.organization_structure %}
+
+                    <h3 class="report-subsection-title">
+                        1.2 Organization Structure
+                    </h3>
+
+                    <div class="report-content">
+                        {{ report.organization_structure|linebreaks }}
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if report.organization_structure_image %}
+
+                    <div class="report-image-wrapper">
+
+                        <img
+                            src="{{ report.organization_structure_image.url }}"
+                            alt="Organization structure"
+                        >
+
+                        <div class="report-image-caption">
+                            Organization Structure
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if report.vision %}
+
+                    <h3 class="report-subsection-title">
+                        1.3 Vision
+                    </h3>
+
+                    <div class="report-content">
+                        {{ report.vision|linebreaks }}
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if report.mission %}
+
+                    <h3 class="report-subsection-title">
+                        1.4 Mission
+                    </h3>
+
+                    <div class="report-content">
+                        {{ report.mission|linebreaks }}
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if report.objectives %}
+
+                    <h3 class="report-subsection-title">
+                        1.5 Objectives
+                    </h3>
+
+                    <div class="report-content">
+                        {{ report.objectives|linebreaks }}
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if report.organization_image %}
+
+                    <div class="report-image-wrapper">
+
+                        <img
+                            src="{{ report.organization_image.url }}"
+                            alt="Organization"
+                        >
+
+                        <div class="report-image-caption">
+                            Organization
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+                </section>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     CHAPTER TWO
+                ================================================== -->
+
+                {% if report.section_21_brief_overview or report.section_22_activities_performed or report.section_23_general_observation or report.section_24_challenges or report.section_25_solutions %}
+
+                <section class="report-section">
+
+                    <h2 class="report-section-title">
+                        Chapter Two
+                    </h2>
+
+
+                    {% if report.section_21_brief_overview %}
+
+                    <h3 class="report-subsection-title">
+                        2.1 Brief Overview
+                    </h3>
+
+                    <div class="report-content">
+                        {{ report.section_21_brief_overview|linebreaks }}
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if report.section_22_activities_performed %}
+
+                    <h3 class="report-subsection-title">
+                        2.2 Activities Performed
+                    </h3>
+
+                    <div class="report-content">
+                        {{ report.section_22_activities_performed|linebreaks }}
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if report.activity_image %}
+
+                    <div class="report-image-wrapper">
+
+                        <img
+                            src="{{ report.activity_image.url }}"
+                            alt="Field training activity"
+                        >
+
+                        <div class="report-image-caption">
+                            Field Training Activity
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if report.section_23_general_observation %}
+
+                    <h3 class="report-subsection-title">
+                        2.3 General Observation
+                    </h3>
+
+                    <div class="report-content">
+                        {{ report.section_23_general_observation|linebreaks }}
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if report.section_24_challenges %}
+
+                    <h3 class="report-subsection-title">
+                        2.4 Challenges
+                    </h3>
+
+                    <div class="report-content">
+                        {{ report.section_24_challenges|linebreaks }}
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if report.section_25_solutions %}
+
+                    <h3 class="report-subsection-title">
+                        2.5 Solutions
+                    </h3>
+
+                    <div class="report-content">
+                        {{ report.section_25_solutions|linebreaks }}
+                    </div>
+
+                    {% endif %}
+
+                </section>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     CONCLUSION
+                ================================================== -->
+
+                {% if report.conclusion %}
+
+                <section class="report-section">
+
+                    <h2 class="report-section-title">
+                        Conclusion
+                    </h2>
+
+                    <div class="report-content">
+                        {{ report.conclusion|linebreaks }}
+                    </div>
+
+                </section>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     RECOMMENDATIONS
+                ================================================== -->
+
+                {% if report.recommendations %}
+
+                <section class="report-section">
+
+                    <h2 class="report-section-title">
+                        Recommendations
+                    </h2>
+
+                    <div class="report-content">
+                        {{ report.recommendations|linebreaks }}
+                    </div>
+
+                </section>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     REFERENCES
+                ================================================== -->
+
+                {% if report.references_bibliography %}
+
+                <section class="report-section">
+
+                    <h2 class="report-section-title">
+                        References / Bibliography
+                    </h2>
+
+                    <div class="report-content">
+                        {{ report.references_bibliography|linebreaks }}
+                    </div>
+
+                </section>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     APPENDIX IMAGE
+                ================================================== -->
+
+                {% if report.appendix_image %}
+
+                <section class="report-section">
+
+                    <h2 class="report-section-title">
+                        Appendix
+                    </h2>
+
+                    <div class="report-image-wrapper">
+
+                        <img
+                            src="{{ report.appendix_image.url }}"
+                            alt="Appendix"
+                        >
+
+                        <div class="report-image-caption">
+                            Appendix
+                        </div>
+
+                    </div>
+
+                </section>
+
+                {% endif %}
+
+
+            </div>
+
+            {% else %}
+
+            <!-- =================================================
+                 NO REPORT
+            ================================================== -->
+
+            <div class="empty-report">
+
+                <div class="empty-report-icon">
+                    !
+                </div>
+
+                <h2>
+                    No generated report available
+                </h2>
+
+                <p>
+                    The student has a field placement record, but
+                    no generated report has been saved for this
+                    placement yet.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

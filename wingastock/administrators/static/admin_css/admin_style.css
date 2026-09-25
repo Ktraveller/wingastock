@@ -1,917 +1,1302 @@
+/* =========================================================
+   WINGASTOCK ADMIN PANEL
+   MAIN ADMIN DESIGN SYSTEM
+   Replace the entire old admin_style.css with this file.
+========================================================= */
+
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+    --admin-bg: #f5f7fb;
+    --admin-surface: #ffffff;
+    --admin-surface-soft: #f8fafc;
+
+    --admin-text: #172033;
+    --admin-text-2: #334155;
+    --admin-muted: #64748b;
+    --admin-muted-2: #94a3b8;
+
+    --admin-border: #e4e8ef;
+    --admin-border-soft: #edf0f4;
+
+    --admin-brand: #e11d48;
+    --admin-brand-dark: #be123c;
+    --admin-brand-soft: #fff1f2;
+
+    --admin-green: #16a34a;
+    --admin-green-soft: #f0fdf4;
+
+    --admin-blue: #2563eb;
+    --admin-blue-soft: #eff6ff;
+
+    --admin-orange: #ea580c;
+    --admin-orange-soft: #fff7ed;
+
+    --admin-purple: #7c3aed;
+    --admin-purple-soft: #f5f3ff;
+
+    --admin-sidebar: 250px;
+    --admin-header: 68px;
+
+    --admin-radius-sm: 8px;
+    --admin-radius: 12px;
+    --admin-radius-lg: 16px;
+
+    --admin-shadow-sm:
+        0 1px 2px rgba(15, 23, 42, 0.04);
+
+    --admin-shadow:
+        0 6px 20px rgba(15, 23, 42, 0.06);
+
+    --admin-shadow-lg:
+        0 12px 35px rgba(15, 23, 42, 0.09);
+
+    --admin-transition: 0.2s ease;
+}
+
+
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+
 * {
     box-sizing: border-box;
-    font-size: 12px;
-    font-family: "Segoe UI", sans-serif;
 }
 
-/* Final application type scale */
-html body,
-html body p,
-html body span,
-html body a,
-html body label,
-html body li,
-html body td,
-html body th,
-html body input,
-html body textarea,
-html body select,
-html body small {
-    font-size: 12px;
+html {
+    width: 100%;
+    min-height: 100%;
+    scroll-behavior: smooth;
 }
 
-html body h1,
-html body h2,
-html body h3,
-html body h4,
-html body h5,
-html body h6,
-html body strong,
-html body b,
-html body button,
-html body .admin-brand,
-html body .admin-page-title {
-    font-size: 15px;
-}
-
-html,
 body {
+    width: 100%;
+    min-height: 100vh;
+
     margin: 0;
     padding: 0;
+
+    background: var(--admin-bg);
+    color: var(--admin-text);
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+/* =========================================================
+   MAIN WRAPPER
+========================================================= */
 
 .row-holder {
     width: 100%;
-    height: auto;
+    min-height: 100vh;
 }
 
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 .header-holder-100 {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
     width: 100%;
-    height: 50px;
+    height: var(--admin-header);
+
+    z-index: 2000;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    border-bottom: 1px solid var(--admin-border);
+
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    box-shadow:
+        0 2px 12px rgba(15, 23, 42, 0.04);
 }
+
 
 .header-100 {
     width: 100%;
     height: 100%;
-    background: crimson;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 24px;
 }
 
-.header-100>div {
-    float: left;
-}
+
+/* =========================================================
+   HEADER MENU BUTTON
+========================================================= */
 
 .action-holder-101 {
-    padding: 10px;
-    width: 50px;
-    height: 50px;
-    background: transparent;
+    display: flex;
+    align-items: center;
+
+    width: 42px;
+    flex: 0 0 42px;
 }
 
-.action-holder-101>button {
-    width: 30px;
-    height: 30px;
-    background: transparent;
-    border: 1px solid white;
-    border-radius: 5px;
-    outline: none;
-    color: white;
+
+.action-holder-101 button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    padding: 0;
+
+    border: 1px solid var(--admin-border);
+    border-radius: 10px;
+
+    background: var(--admin-surface);
+    color: var(--admin-text);
+
+    font-size: 19px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background var(--admin-transition),
+        border-color var(--admin-transition),
+        color var(--admin-transition),
+        transform var(--admin-transition);
 }
+
+
+.action-holder-101 button:hover {
+    border-color: #cbd5e1;
+    background: var(--admin-surface-soft);
+
+    transform: translateY(-1px);
+}
+
+
+.action-holder-101 button:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   HEADER BRAND
+========================================================= */
 
 .title-holder-101 {
-    width: auto;
-    padding: 5px;
-    background: transparent;
-    height: 50px;
+    display: flex;
+    align-items: center;
 }
 
-.title-holder-101>button {
-    width: auto;
-    height: 40px;
-    border-style: none;
-    outline: none;
-    background: transparent;
-    font-weight: bold;
-    color: white;
+
+.title-holder-101:first-of-type {
+    margin-left: 4px;
 }
+
+
+.title-holder-101 button {
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+    color: var(--admin-text);
+
+    font-size: 17px;
+    font-weight: 800;
+
+    letter-spacing: -0.02em;
+
+    cursor: default;
+}
+
+
+.title-holder-101 button span {
+    color: var(--admin-muted);
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   ADMIN USER
+========================================================= */
+
+.admin-user-holder {
+    margin-left: auto;
+}
+
+
+.admin-user-holder button {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 38px;
+
+    padding: 0 14px;
+
+    border: 1px solid var(--admin-border);
+    border-radius: 10px;
+
+    background: var(--admin-surface-soft);
+
+    color: var(--admin-text-2);
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: default;
+}
+
+
+/* =========================================================
+   MAIN CONTENT AREA
+========================================================= */
 
 .center-content-200 {
     width: 100%;
-    height: auto;
+    min-height: 100vh;
+
+    padding-top: var(--admin-header);
 }
 
-.center-content-200>div {
-    float: left;
-}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
 .left-holder-201 {
-    width: 100%;
-    height: 100vh;
-    display: none;
+    position: fixed;
+
+    top: var(--admin-header);
+    left: 0;
+    bottom: 0;
+
+    width: var(--admin-sidebar);
+    height: calc(100vh - var(--admin-header));
+
+    z-index: 1500;
+
+    padding: 18px 14px;
+
+    background: var(--admin-surface);
+
+    border-right: 1px solid var(--admin-border);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-width: thin;
 }
+
+
+.left-holder-201::-webkit-scrollbar {
+    width: 5px;
+}
+
+
+.left-holder-201::-webkit-scrollbar-thumb {
+    background: #d7dce5;
+    border-radius: 20px;
+}
+
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+========================================================= */
 
 .nav-bar-holder-202 {
     width: 100%;
-    height: 100%;
-    background: rgb(52, 52, 52);
-    padding: 10px;
-    color: white;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+
+.nav-bar-holder-202 p {
+    margin: 5px 10px 12px;
+
+    color: var(--admin-muted-2);
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+
+    text-align: left !important;
 }
 
-ul>a {
-    text-decoration: none;
-    color: white;
-}
 
-ul>a>li {
+/* =========================================================
+   NAV LIST
+========================================================= */
+
+.nav-bar-holder-202 ul {
     width: 100%;
-    height: 45px;
-    padding: 15px;
+
+    margin: 3px 0;
+    padding: 0;
+
+    list-style: none;
 }
 
-.active-0 {
-    background: crimson;
+
+.nav-bar-holder-202 ul a {
+    display: block;
+
+    width: 100%;
+
+    color: inherit;
+    text-decoration: none;
 }
 
-ul>a>li:hover {
-    background: crimson;
+
+.nav-bar-holder-202 ul li {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-height: 44px;
+
+    margin: 0;
+    padding: 0 13px;
+
+    border-radius: 10px;
+
+    color: var(--admin-text-2);
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition:
+        background var(--admin-transition),
+        color var(--admin-transition),
+        transform var(--admin-transition);
 }
+
+
+.nav-bar-holder-202 ul li:hover {
+    background: var(--admin-surface-soft);
+    color: var(--admin-brand);
+
+    transform: translateX(2px);
+}
+
+
+/* =========================================================
+   ACTIVE NAV
+========================================================= */
+
+.nav-bar-holder-202 ul li.active-0 {
+    background: var(--admin-brand-soft);
+    color: var(--admin-brand);
+
+    font-weight: 750;
+}
+
+
+.nav-bar-holder-202 ul li.active-0::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+
+    width: 3px;
+
+    border-radius: 0 5px 5px 0;
+
+    background: var(--admin-brand);
+}
+
+
+/* =========================================================
+   EXIT
+========================================================= */
+
+.nav-bar-holder-202 ul:last-child {
+    margin-top: 18px;
+
+    padding-top: 14px;
+
+    border-top: 1px solid var(--admin-border-soft);
+}
+
+
+.nav-bar-holder-202 ul:last-child li:hover {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+
+/* =========================================================
+   RIGHT CONTENT
+========================================================= */
 
 .right-holder-201 {
-    width: 100%;
-    height: 100vh;
-    overflow-y: scroll;
+    width: calc(100% - var(--admin-sidebar));
+
+    min-height: calc(100vh - var(--admin-header));
+
+    margin-left: var(--admin-sidebar);
+
+    padding: 28px;
+
+    overflow: hidden;
 }
+
+
+/* =========================================================
+   DASHBOARD CARD GRID
+========================================================= */
 
 .card-holder-201 {
-    width: 100%;
-    height: auto;
-}
+    display: grid;
 
-.card-holder-201>div {
-    float: left;
-    width: 50%;
-    height: auto;
-    padding: 10px;
-}
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
-.card-holder-201>.full-201 {
+    gap: 18px;
+
     width: 100%;
 }
 
-.card-holder-201>div>button {
+
+/* =========================================================
+   DASHBOARD CARD
+========================================================= */
+
+.card-201 {
+    position: relative;
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius-lg);
+
+    background: var(--admin-surface);
+
+    box-shadow: var(--admin-shadow-sm);
+
+    transition:
+        transform var(--admin-transition),
+        box-shadow var(--admin-transition),
+        border-color var(--admin-transition);
+}
+
+
+.card-201::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 3px;
+
+    background: var(--admin-brand);
+}
+
+
+.card-201:hover {
+    border-color: #d9dee7;
+
+    box-shadow: var(--admin-shadow);
+
+    transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   DASHBOARD CARD BUTTON
+========================================================= */
+
+.card-201 > button {
+    position: relative;
+
+    display: block;
+
     width: 100%;
-    height: 100%;
-    border-style: none;
+    min-height: 190px;
+
+    padding: 25px 23px;
+
+    border: 0;
+
     background: transparent;
+
+    color: var(--admin-text);
+
     text-align: left;
-    padding: 10px;
-    color: white;
-    background: crimson;
+
+    cursor: pointer;
 }
+
+
+.card-201 > button::after {
+    content: "→";
+
+    position: absolute;
+
+    right: 20px;
+    bottom: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: 8px;
+
+    background: var(--admin-surface-soft);
+
+    color: var(--admin-muted);
+
+    font-size: 16px;
+
+    transition:
+        background var(--admin-transition),
+        color var(--admin-transition),
+        transform var(--admin-transition);
+}
+
+
+.card-201:hover > button::after {
+    background: var(--admin-brand-soft);
+    border-color: #fecdd3;
+
+    color: var(--admin-brand);
+
+    transform: translateX(2px);
+}
+
+
+.card-201 > button span {
+    display: block;
+
+    margin-bottom: 11px;
+
+    color: var(--admin-muted);
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.05em;
+}
+
+
+.card-201 > button b {
+    display: block;
+
+    margin: 0 !important;
+
+    color: var(--admin-text);
+
+    font-size: 32px !important;
+    line-height: 1.1;
+
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+
+.card-201 > button br {
+    display: none;
+}
+
+
+.card-201 > button p {
+    margin: 12px 0 0;
+
+    color: var(--admin-muted);
+
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   DIFFERENT DASHBOARD CARD ACCENTS
+========================================================= */
+
+.card-201:nth-child(1)::before {
+    background: var(--admin-brand);
+}
+
+.card-201:nth-child(2)::before {
+    background: var(--admin-blue);
+}
+
+.card-201:nth-child(3)::before {
+    background: var(--admin-green);
+}
+
+.card-201:nth-child(4)::before {
+    background: var(--admin-orange);
+}
+
+.card-201:nth-child(5)::before {
+    background: var(--admin-purple);
+}
+
+.card-201:nth-child(6)::before {
+    background: #0891b2;
+}
+
+
+/* =========================================================
+   GENERIC ADMIN CARD
+========================================================= */
+
+.admin-card {
+    width: 100%;
+
+    padding: 22px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius-lg);
+
+    background: var(--admin-surface);
+
+    box-shadow: var(--admin-shadow-sm);
+}
+
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+.admin-page-title {
+    margin: 0 0 20px;
+
+    color: var(--admin-text);
+
+    font-size: 24px;
+    font-weight: 800;
+
+    letter-spacing: -0.03em;
+}
+
+
+.admin-page-subtitle {
+    margin: -12px 0 22px;
+
+    color: var(--admin-muted);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   FORMS
+========================================================= */
+
+input,
+select,
+textarea {
+    max-width: 100%;
+
+    border: 1px solid var(--admin-border);
+    border-radius: 9px;
+
+    outline: none;
+
+    background: var(--admin-surface);
+    color: var(--admin-text);
+
+    transition:
+        border-color var(--admin-transition),
+        box-shadow var(--admin-transition);
+}
+
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--admin-brand);
+
+    box-shadow:
+        0 0 0 3px var(--admin-brand-soft);
+}
+
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--admin-muted-2);
+}
+
+
+/* =========================================================
+   GENERIC BUTTONS
+========================================================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 36px;
+
+    padding: 0 14px;
+
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background var(--admin-transition),
+        border-color var(--admin-transition),
+        color var(--admin-transition),
+        transform var(--admin-transition);
+}
+
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+
+.btn:active {
+    transform: translateY(0);
+}
+
+
+.btn.delete,
+.delete {
+    border-color: #fecdd3;
+
+    background: var(--admin-brand-soft);
+    color: var(--admin-brand);
+}
+
+
+.btn.delete:hover,
+.delete:hover {
+    border-color: #fda4af;
+
+    background: #ffe4e6;
+
+    color: var(--admin-brand-dark);
+}
+
+
+/* =========================================================
+   GENERIC TABLE
+========================================================= */
 
 table {
     width: 100%;
-    height: auto;
-    border-collapse: collapse;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: var(--admin-surface);
+
+    text-align: left;
 }
 
-.id {
-    width: 40px;
+
+table th {
+    padding: 13px 15px;
+
+    border-bottom: 1px solid var(--admin-border);
+
+    background: var(--admin-surface-soft);
+
+    color: var(--admin-muted);
+
+    font-size: 11px;
+    font-weight: 750;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.04em;
 }
 
-th,
-td {
-    height: 40px;
-    width: auto;
-    padding: 10px;
-    border-bottom: 1px solid rgba(75, 73, 73, 0.093);
+
+table td {
+    padding: 14px 15px;
+
+    border-bottom: 1px solid var(--admin-border-soft);
+
+    color: var(--admin-text-2);
+
+    font-size: 13px;
+
+    vertical-align: middle;
 }
 
-.view-103 {
-    padding: 5px;
-    border-radius: 5px;
-    color: white;
-    background: lightseagreen;
-    float: right;
+
+table tbody tr {
+    transition: background var(--admin-transition);
 }
 
-.view-104 {
-    padding: 5px;
-    border-radius: 5px;
-    color: white;
-    background: crimson;
-    cursor: pointer;
+
+table tbody tr:hover {
+    background: #fafbfc;
 }
 
-.view-104:hover {
-    opacity: 0.7;
+
+table tbody tr:last-child td {
+    border-bottom: 0;
 }
+
+
+/* =========================================================
+   SEARCH / FILTER
+========================================================= */
 
 .filter-holder-202 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
     width: 100%;
-    height: 50px;
+
+    margin-bottom: 18px;
 }
 
-.filter-holder-202>div {
-    width: 50%;
-    float: left;
-    height: 40px;
-}
 
-.filter-holder-202>div>input,
-select {
+.filter-holder-202 input {
     width: 100%;
-    height: 100%;
-    padding-left: 10px;
-    border-style: none;
-    outline: none;
-    background: transparent;
-    border: 1px solid rgba(0, 0, 0, 0.279);
+
+    min-height: 44px;
+
+    padding: 0 14px;
 }
 
-.products-202 {
-    padding: 10px;
-}
+
+/* =========================================================
+   IMAGE PREVIEW
+========================================================= */
 
 .image-preview-203 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 100%;
-    height: auto;
-    padding: 10px;
+
+    min-height: 180px;
+
+    padding: 12px;
+
+    border: 1px dashed var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: var(--admin-surface-soft);
+
+    overflow: hidden;
 }
 
-.image-preview-203>img {
-    width: 300px;
-    height: 300px;
+
+.image-preview-203 img {
+    max-width: 100%;
+    max-height: 280px;
+
+    object-fit: contain;
+
+    border-radius: 9px;
 }
+
+
+/* =========================================================
+   DETAIL SECTIONS
+========================================================= */
 
 .details-203 {
-    width: 100%;
-    height: auto;
-    margin-top: 20px;
+    padding: 20px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: var(--admin-surface);
 }
 
+
+.input-holder-203 {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    margin-bottom: 16px;
+}
+
+
+.input-holder-203 label {
+    color: var(--admin-text-2);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.input-holder-203 input,
+.input-holder-203 select,
+.input-holder-203 textarea {
+    width: 100%;
+
+    padding: 11px 12px;
+}
+
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+.submit-203 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+
+    padding: 0 18px;
+
+    border: 0;
+    border-radius: 9px;
+
+    background: var(--admin-brand);
+
+    color: #fff;
+
+    font-size: 12px;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition:
+        background var(--admin-transition),
+        transform var(--admin-transition),
+        box-shadow var(--admin-transition);
+}
+
+
+.submit-203:hover {
+    background: var(--admin-brand-dark);
+
+    box-shadow:
+        0 5px 14px rgba(225, 29, 72, 0.18);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
 .close-205 {
-    width: 100px;
-    height: 30px;
-    background: crimson;
-    color: white;
-    margin-top: 50px;
-    border-style: none;
-    outline: none;
-    border-radius: 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+
+    background: var(--admin-surface-soft);
+
+    color: var(--admin-muted);
+
     cursor: pointer;
 }
 
+
 .close-205:hover {
-    opacity: 0.7;
+    background: var(--admin-brand-soft);
+    color: var(--admin-brand);
 }
 
-.input-holder-203 {
-    width: 100%;
-    height: 85px;
-    padding: 5px;
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+}
+
+
+*::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+
+*::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.input-holder-203>div {
-    width: 100%;
-    height: 35px;
-}
 
-.input-holder-203>div>input, textarea {
-    width: 100%;
-    height: 100%;
-    padding-left: 10px;
-    border-style: none;
-    outline: none;
-    border: 1px solid rgba(0, 0, 0, 0.267);
-}
+*::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
 
-.submit-203 {
-    margin-top: 20px;
-}
-
-.submit-203>div>input {
-    background: crimson;
-    color: white;
-    font-weight: bold;
-}
-
-.submit-203>div>input:hover {
-    opacity: 0.7;
-    cursor: pointer;
+    border-radius: 20px;
 }
 
 
-@media only screen and (min-width: 768px) {
-    .action-holder-101 {
-        display: none;
+*::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .card-holder-201 {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .right-holder-201 {
+        padding: 22px;
     }
 
 }
 
-/* Modern administrator workspace */
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
     :root {
-        --admin-bg: #f5f7fb;
-        --admin-panel: #ffffff;
-        --admin-text: #172033;
-        --admin-muted: #64748b;
-        --admin-border: #e5eaf1;
-        --admin-brand: #e11d48;
-        --admin-brand-soft: #fff1f2;
-        --admin-blue: #2563eb;
-}
-
-html,
-body {
-        width: 100%;
-        min-height: 100%;
-        overflow-x: hidden;
+        --admin-sidebar: 250px;
+        --admin-header: 62px;
     }
 
-    body {
-        background: var(--admin-bg);
-        color: var(--admin-text);
-    }
 
-    .header-holder-100 {
-        position: fixed;
-        inset: 0 0 auto;
-        z-index: 30;
-        height: 64px;
-        border-bottom: 1px solid var(--admin-border);
-        background: rgba(255, 255, 255, .94);
-        box-shadow: 0 4px 18px rgba(15, 23, 42, .04);
-        backdrop-filter: blur(14px);
-    }
+    /* Header */
 
     .header-100 {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        height: 100%;
-        padding: 0 22px;
-        background: transparent;
+        padding: 0 14px;
     }
 
-    .header-100 > div {
-        float: none !important;
+
+    .title-holder-101 button {
+        font-size: 15px;
     }
 
-    .action-holder-101 {
-        display: none;
-        width: 38px;
-        height: 38px;
-        padding: 0;
-    }
 
-    .action-holder-101 > button {
-        width: 38px;
-        height: 38px;
-        border: 1px solid var(--admin-border);
-        border-radius: 10px;
-        color: var(--admin-brand);
-        background: white;
-        cursor: pointer;
-    }
+    .admin-user-holder button {
+        max-width: 120px;
 
-    .title-holder-101 {
-        display: flex;
-        align-items: center;
-        min-width: 0;
-        height: 64px;
-        padding: 0;
-    }
-
-    .title-holder-101:first-of-type {
-        flex: 1 1 auto;
-    }
-
-    .title-holder-101 > button {
-        max-width: 100%;
         overflow: hidden;
-        border: 0;
-        color: var(--admin-text);
+
         text-overflow: ellipsis;
         white-space: nowrap;
     }
 
-    .title-holder-101:first-of-type > button {
-        font-size: 15px;
-        letter-spacing: -.02em;
-    }
 
-    .title-holder-101:last-child {
-        flex: 0 1 auto;
-        max-width: 280px;
-    }
-
-    .title-holder-101:last-child > button {
-        padding: 8px 12px;
-        border: 1px solid var(--admin-border);
-        border-radius: 10px;
-        color: var(--admin-muted);
-        background: white;
-    }
+    /* Main */
 
     .center-content-200 {
-        display: block;
-        min-height: 100vh;
-        padding-top: 64px;
-    }
-
-    .left-holder-201 {
-        position: fixed;
-        inset: 64px auto 0 0;
-        z-index: 20;
-        display: block;
-        width: 236px;
-        height: auto;
-        background: var(--admin-panel);
-        border-right: 1px solid var(--admin-border);
-    }
-
-    .nav-bar-holder-202 {
-        height: 100%;
-        padding: 24px 14px;
-        color: var(--admin-muted);
-        background: var(--admin-panel);
-    }
-
-    .nav-bar-holder-202 > p {
-        margin: 0 8px 14px;
-        color: #94a3b8;
-        font-size: 11px;
-        letter-spacing: .12em;
-        text-align: left !important;
-        text-transform: uppercase;
-    }
-
-    .nav-bar-holder-202 ul {
-        margin: 4px 0;
-    }
-
-    .nav-bar-holder-202 ul > a {
-        color: inherit;
-        text-decoration: none;
-    }
-
-    .nav-bar-holder-202 ul > a > li {
-        display: flex;
-        align-items: center;
-        min-height: 42px;
-        padding: 11px 12px;
-        border: 1px solid transparent;
-        border-radius: 10px;
-        color: var(--admin-muted);
-        transition: .2s ease;
-    }
-
-    .nav-bar-holder-202 ul > a > li:hover,
-    .nav-bar-holder-202 ul > a > li.active-0 {
-        border-color: #fecdd3;
-        color: var(--admin-brand);
-        background: var(--admin-brand-soft);
-    }
-
-    .right-holder-201 {
-        width: calc(100% - 236px);
-        min-height: calc(100vh - 64px);
-        margin-left: 236px;
-        padding: 28px;
-        overflow: visible;
-    }
-
-    .card-holder-201,
-    .products-202,
-    .payment-review-page {
-        width: min(1180px, 100%);
-        margin: 0 auto;
-    }
-
-    .card-holder-201 {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px;
-    }
-
-    .card-holder-201 > div {
-        float: none;
-        width: auto;
-        padding: 0;
-    }
-
-    .card-holder-201 > .full-201 {
-        grid-column: 1 / -1;
-        width: auto;
-    }
-
-    .card-holder-201 > div > button {
-        min-height: 180px;
-        padding: 24px;
-        border: 1px solid var(--admin-border);
-        border-radius: 18px;
-        color: var(--admin-text);
-        background: var(--admin-panel);
-        box-shadow: 0 10px 28px rgba(15, 23, 42, .05);
-    }
-
-    .card-holder-201 > div > button span,
-    .card-holder-201 > div > button p {
-        color: var(--admin-muted);
-    }
-
-    .card-holder-201 > div > button b {
-        display: block;
-        margin: 12px 0;
-        color: var(--admin-brand);
-        font-size: 30px !important;
-    }
-
-    .products-202 {
-        padding: 0;
-    }
-
-    .products-202 > p,
-    .payment-review-heading h1 {
-        margin: 0 0 6px;
-        font-size: 22px;
-    }
-
-    .products-202 > p::before {
-        content: "ADMINISTRATION / ";
-        display: block;
-        margin-bottom: 7px;
-        color: var(--admin-brand);
-        font-size: 11px;
-        letter-spacing: .12em;
-    }
-
-    .filter-holder-202 {
-        height: auto;
-        margin: 18px 0;
-    }
-
-    .filter-holder-202 > div {
-        float: none;
-        width: min(420px, 100%);
-        height: 44px;
-    }
-
-    .filter-holder-202 > div > input {
-        width: 100%;
-        border: 1px solid var(--admin-border);
-        border-radius: 12px;
-        background: white;
-    }
-
-    .products-202 > table {
-        display: table;
-        overflow: hidden;
-        border: 1px solid var(--admin-border);
-        border-radius: 16px;
-        background: white;
-        box-shadow: 0 10px 28px rgba(15, 23, 42, .04);
-    }
-
-    .products-202 th {
-        color: var(--admin-muted);
-        background: #f8fafc;
-        font-size: 11px;
-        text-transform: uppercase;
-    }
-
-    .products-202 td {
-        color: #334155;
-    }
-
-    .products-202 tr:last-child td {
-        border-bottom: 0;
-    }
-
-    .products-202 a {
-        color: var(--admin-blue);
-        font-weight: 600;
-    }
-
-    .btn.delete,
-    .delete {
-        padding: 8px 11px;
-        border: 0;
-        border-radius: 8px;
-        color: #be123c;
-        background: var(--admin-brand-soft);
-        cursor: pointer;
-    }
-
-    .payment-review-page {
-        padding: 0;
-    }
-
-    .payment-review-heading span {
-        color: var(--admin-brand);
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: .12em;
-    }
-
-    .payment-review-heading p {
-        margin: 0 0 22px;
-        color: var(--admin-muted);
-    }
-
-    .payment-review-list {
-        display: grid;
-        gap: 16px;
-    }
-
-    .payment-review-card {
-        padding: 20px;
-        border: 1px solid var(--admin-border);
-        border-radius: 16px;
-        background: white;
-        box-shadow: 0 10px 28px rgba(15, 23, 42, .05);
-    }
-
-    .payment-review-meta,
-    .payment-review-details,
-    .payment-review-form {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        flex-wrap: wrap;
-    }
-
-    .payment-review-meta span,
-    .payment-review-details small {
-        color: var(--admin-muted);
-    }
-
-    .payment-review-status {
-        margin-left: auto;
-        padding: 5px 10px;
-        border-radius: 999px;
-    }
-
-    .payment-review-details {
-        margin: 18px 0;
-    }
-
-    .payment-review-details div {
-        display: grid;
-        gap: 4px;
-        min-width: 150px;
-    }
-
-    .payment-review-image {
-        display: inline-grid;
-        gap: 6px;
-        color: var(--admin-blue);
-        text-decoration: none;
-    }
-
-    .payment-review-image img {
-        width: 150px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 10px;
-    }
-
-    .payment-review-form {
-        margin-top: 16px;
-    }
-
-    .payment-review-form textarea {
-        flex: 1 1 260px;
-        min-height: 54px;
-        padding: 10px;
-        border: 1px solid var(--admin-border);
-        border-radius: 10px;
-        resize: vertical;
-    }
-
-    .payment-review-form button {
-        padding: 10px 13px;
-        border: 0;
-        border-radius: 9px;
-        color: white;
-        cursor: pointer;
-    }
-
-    .payment-approve { background: #15803d; }
-    .payment-reject { background: #b91c1c; }
-
-    .image-preview-203 {
-        display: grid;
-        place-items: center;
-        min-height: 300px;
-        padding: 20px;
-        border: 1px solid var(--admin-border);
-        border-radius: 18px;
-        background: white;
-    }
-
-    .image-preview-203 > img {
-        width: min(420px, 100%);
-        max-height: 420px;
-        object-fit: contain;
-        border-radius: 12px;
-    }
-
-    .details-203 {
-        padding: 20px 0;
-    }
-
-    .details-203 table {
-        overflow: hidden;
-        border: 1px solid var(--admin-border);
-        border-radius: 14px;
-        background: white;
-    }
-
-    .close-205 {
-        width: auto;
-        height: auto;
-        margin-top: 18px;
-        padding: 10px 16px;
-        border-radius: 9px;
-        background: var(--admin-brand);
+        padding-top: var(--admin-header);
     }
 
 
-    @media (max-width: 767px) {
-        .header-100 {
-            padding: 0 12px;
-        }
-
-        .action-holder-101 {
-            display: block;
-            flex: 0 0 38px;
-        }
-
-        .title-holder-101:last-child {
-            display: none;
-        }
-
-        .center-content-200 {
-            padding-top: 64px;
-        }
-
-        .left-holder-201 {
-            inset: 64px auto 0 0;
-            display: none;
-            width: min(280px, 86vw);
-            box-shadow: 10px 0 30px rgba(15, 23, 42, .14);
-        }
-
-        .right-holder-201 {
-            width: 100%;
-            margin-left: 0;
-            padding: 22px 14px 36px;
-        }
-
-        .card-holder-201 {
-            grid-template-columns: 1fr;
-        }
-
-        .card-holder-201 > .full-201 {
-            grid-column: auto;
-        }
-
-        .products-202 > table {
-            display: block;
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-
-        .payment-review-meta,
-        .payment-review-details,
-        .payment-review-form {
-            align-items: stretch;
-            flex-direction: column;
-        }
-
-        .payment-review-status {
-            align-self: flex-start;
-            margin-left: 0;
-        }
-
-        .payment-review-form textarea,
-        .payment-review-form button {
-            width: 100%;
-        }
-
-        .image-preview-203 {
-            min-height: 220px;
-        }
-    }
-
-    .payment-review-page { padding: 24px; }
-    .payment-review-heading span { color: crimson; font-size: 11px; font-weight: 700; letter-spacing: .12em; }
-    .payment-review-heading h1 { margin: 6px 0; font-size: 28px; }
-    .payment-review-heading p { color: #64748b; }
-    .payment-review-list { display: grid; gap: 16px; }
-    .payment-review-card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 14px; background: #fff; box-shadow: 0 4px 18px rgba(15,23,42,.06); }
-    .payment-review-meta, .payment-review-details, .payment-review-form { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .payment-review-meta span, .payment-review-details small { color: #64748b; }
-    .payment-review-status { margin-left: auto; padding: 5px 10px; border-radius: 999px; font-size: 11px; }
-    .status-pending { background: #fef3c7; color: #92400e; }
-    .status-approved { background: #dcfce7; color: #166534; }
-    .status-rejected { background: #fee2e2; color: #991b1b; }
-    .payment-review-details { margin: 18px 0; }
-    .payment-review-details div { display: grid; gap: 4px; min-width: 150px; }
-    .payment-review-image { display: inline-grid; gap: 6px; color: crimson; text-decoration: none; }
-    .payment-review-image img { width: 150px; height: 100px; object-fit: cover; border-radius: 10px; }
-    .payment-review-form { margin-top: 16px; }
-    .payment-review-form textarea { flex: 1 1 260px; min-height: 54px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; resize: vertical; }
-    .payment-review-form button { padding: 10px 13px; border: 0; border-radius: 8px; color: white; cursor: pointer; }
-    .payment-approve { background: #15803d; }
-    .payment-reject { background: #b91c1c; }
-    .payment-review-message { margin: 12px 0; padding: 12px; border-radius: 8px; background: #ecfdf5; color: #166534; }
-    .payment-review-empty { padding: 36px; text-align: center; color: #64748b; background: #f8fafc; border-radius: 12px; }
-
-    .left-holder-201 {
-        width: 20%;
-        height: 100vh;
-        display: inline-block;
-    }
-
-    .right-holder-201 {
-        width: 80%;
-        height: 100vh;
-        padding: 10px;
-    }
-
-    .card-holder-201>.full-201 {
-        width: 50%;
-    }
-
-    .filter-holder-202>div {
-        width: 30%;
-    }
-
-/* Final mobile overrides after legacy desktop declarations. */
-@media (max-width: 767px) {
-    .header-holder-100 {
-        height: 64px;
-    }
-
-    .header-100 {
-        height: 64px;
-    }
+    /* Sidebar */
 
     .left-holder-201 {
         display: none;
-        width: min(280px, 86vw) !important;
-        height: auto !important;
-        float: none !important;
+
+        top: var(--admin-header);
+
+        width: min(var(--admin-sidebar), 86vw);
+
+        box-shadow:
+            8px 0 30px rgba(15, 23, 42, 0.12);
     }
+
+
+    /* Content */
 
     .right-holder-201 {
-        display: block;
-        width: 100% !important;
-        height: auto !important;
-        min-height: calc(100vh - 64px);
-        margin-left: 0 !important;
-        padding: 22px 14px 36px !important;
-        float: none !important;
+        width: 100%;
+
+        margin-left: 0;
+
+        padding: 18px;
     }
+
+
+    /* Cards */
 
     .card-holder-201 {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        width: 100% !important;
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 13px;
     }
 
-    .card-holder-201 > div,
-    .card-holder-201 > .full-201 {
-        width: 100% !important;
-        float: none !important;
+
+    .card-201 > button {
+        min-height: 165px;
+
+        padding: 20px 17px;
     }
+
+
+    .card-201 > button b {
+        font-size: 27px !important;
+    }
+
+
+    .card-201 > button p {
+        font-size: 11px;
+    }
+
 }
 
 
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
 
-    @media only screen and (min-width: 768px) {
-        .center-content-200 {
-            width: 100%;
-            float: left;
-        }
-        .left-holder-201 {
-            width: 20%;
-            background: transparent;
-        }
-        .right-holder-201 {
-            width: 100%;
-            position: unset;
-            padding: 20px;
-            padding-right: 340px;
-            margin-left: 20%;
-        }
+@media (max-width: 480px) {
+
+    .header-100 {
+        padding: 0 11px;
     }
+
+
+    .action-holder-101 {
+        width: 38px;
+        flex-basis: 38px;
+    }
+
+
+    .action-holder-101 button {
+        width: 35px;
+        height: 35px;
+    }
+
+
+    .title-holder-101 button {
+        font-size: 14px;
+    }
+
+
+    .admin-user-holder button {
+        padding: 0 9px;
+
+        font-size: 11px;
+    }
+
+
+    .right-holder-201 {
+        padding: 13px;
+    }
+
+
+    .card-holder-201 {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+
+    .card-201 > button {
+        min-height: 145px;
+    }
+
+
+    .card-201 > button b {
+        font-size: 29px !important;
+    }
+
+}
+
+
+/* =========================================================
+   EXTRA SMALL
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .title-holder-101 button {
+        font-size: 13px;
+    }
+
+
+    .admin-user-holder {
+        display: none;
+    }
+
+
+    .right-holder-201 {
+        padding: 10px;
+    }
+
+}

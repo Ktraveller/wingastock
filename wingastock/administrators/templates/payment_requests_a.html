@@ -4,92 +4,1550 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Wingastock | Payment reviews</title>
-    <link rel="stylesheet" href="{% static 'admin_css/admin_style.css' %}?v=20260910">
+
+    <link rel="stylesheet"
+          href="{% static 'admin_css/admin_style.css' %}?v=20260925">
+
+    <style>
+        /* =========================================================
+           PAYMENT REVIEWS PAGE
+        ========================================================= */
+
+        .payment-review-page {
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+
+        /* =========================
+           PAGE HEADER
+        ========================= */
+
+        .payment-review-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .payment-review-header-info {
+            min-width: 0;
+        }
+
+        .payment-review-eyebrow {
+            margin: 0 0 7px;
+            color: var(--admin-brand);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .payment-review-header h1 {
+            margin: 0;
+            color: var(--admin-text);
+            font-size: 30px;
+            line-height: 1.15;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+
+        .payment-review-header p {
+            margin: 8px 0 0;
+            color: var(--admin-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .payment-review-total {
+            flex: 0 0 auto;
+            min-width: 115px;
+            padding: 15px 18px;
+            border: 1px solid var(--admin-border);
+            border-radius: var(--admin-radius);
+            background: var(--admin-surface);
+            box-shadow: var(--admin-shadow-sm);
+            text-align: center;
+        }
+
+        .payment-review-total strong {
+            display: block;
+            color: var(--admin-text);
+            font-size: 24px;
+            line-height: 1;
+            font-weight: 800;
+        }
+
+        .payment-review-total span {
+            display: block;
+            margin-top: 6px;
+            color: var(--admin-muted);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           MESSAGES
+        ========================= */
+
+        .payment-review-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .payment-review-message {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 46px;
+            padding: 12px 15px;
+            border: 1px solid #bbf7d0;
+            border-radius: 10px;
+            background: #f0fdf4;
+            color: #166534;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: var(--admin-shadow-sm);
+        }
+
+        .payment-review-message::before {
+            content: "✓";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            flex: 0 0 24px;
+            border-radius: 50%;
+            background: #dcfce7;
+            color: #15803d;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        /* =========================
+           PAYMENT LIST
+        ========================= */
+
+        .payment-review-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* =========================
+           PAYMENT CARD
+        ========================= */
+
+        .payment-review-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--admin-border);
+            border-radius: var(--admin-radius-lg);
+            background: var(--admin-surface);
+            box-shadow: var(--admin-shadow-sm);
+            transition:
+                transform var(--admin-transition),
+                box-shadow var(--admin-transition),
+                border-color var(--admin-transition);
+        }
+
+        .payment-review-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--admin-brand);
+        }
+
+        .payment-review-card:hover {
+            transform: translateY(-2px);
+            border-color: #d9dee7;
+            box-shadow: var(--admin-shadow);
+        }
+
+        /* =========================
+           CARD TOP
+        ========================= */
+
+        .payment-review-meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px 14px;
+            padding: 19px 20px 16px 24px;
+            border-bottom: 1px solid var(--admin-border-soft);
+        }
+
+        .payment-review-seller {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-width: 0;
+            margin-right: auto;
+        }
+
+        .payment-review-avatar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            flex: 0 0 38px;
+            border-radius: 10px;
+            background: var(--admin-brand-soft);
+            color: var(--admin-brand-dark);
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .payment-review-seller-info {
+            min-width: 0;
+        }
+
+        .payment-review-seller-info strong {
+            display: block;
+            overflow: hidden;
+            color: var(--admin-text);
+            font-size: 14px;
+            font-weight: 750;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .payment-review-seller-info small {
+            display: block;
+            margin-top: 3px;
+            color: var(--admin-muted);
+            font-size: 11px;
+        }
+
+        .payment-review-date {
+            color: var(--admin-muted);
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .payment-review-status {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 28px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .payment-review-status.status-pending {
+            background: var(--admin-orange-soft);
+            color: var(--admin-orange);
+        }
+
+        .payment-review-status.status-approved {
+            background: var(--admin-green-soft);
+            color: var(--admin-green);
+        }
+
+        .payment-review-status.status-rejected {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .payment-review-status.status-processing {
+            background: var(--admin-blue-soft);
+            color: var(--admin-blue);
+        }
+
+        /* =========================
+           DETAILS
+        ========================= */
+
+        .payment-review-details {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            padding: 18px 20px 18px 24px;
+        }
+
+        .payment-review-detail {
+            min-width: 0;
+            padding: 13px 14px;
+            border: 1px solid var(--admin-border-soft);
+            border-radius: 10px;
+            background: var(--admin-surface-soft);
+        }
+
+        .payment-review-detail small {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--admin-muted);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .payment-review-detail strong {
+            display: block;
+            overflow: hidden;
+            color: var(--admin-text);
+            font-size: 14px;
+            font-weight: 750;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .payment-review-detail.amount strong {
+            color: var(--admin-brand-dark);
+        }
+
+        /* =========================
+           SCREENSHOT
+        ========================= */
+
+        .payment-review-screenshot {
+            margin: 0 20px 18px 24px;
+            border: 1px solid var(--admin-border);
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8fafc;
+        }
+
+        .payment-review-image {
+            position: relative;
+            display: block;
+            min-height: 190px;
+            max-height: 430px;
+            overflow: hidden;
+            background:
+                linear-gradient(
+                    135deg,
+                    #f8fafc,
+                    #eef2f7
+                );
+            text-decoration: none;
+        }
+
+        .payment-review-image img {
+            display: block;
+            width: 100%;
+            max-height: 430px;
+            object-fit: contain;
+            margin: 0 auto;
+        }
+
+        .payment-review-image-label {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 11px;
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.78);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            backdrop-filter: blur(8px);
+        }
+
+        .payment-review-no-screenshot {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 90px;
+            margin: 0 20px 18px 24px;
+            border: 1px dashed var(--admin-border);
+            border-radius: 10px;
+            background: var(--admin-surface-soft);
+            color: var(--admin-muted);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* =========================
+           REVIEW FORM
+        ========================= */
+
+        .payment-review-form {
+            padding: 18px 20px 20px 24px;
+            border-top: 1px solid var(--admin-border-soft);
+            background: #fcfdff;
+        }
+
+        .payment-review-form textarea {
+            display: block;
+            width: 100%;
+            min-height: 82px;
+            resize: vertical;
+            padding: 12px 13px;
+            border: 1px solid var(--admin-border);
+            border-radius: 10px;
+            outline: none;
+            background: #fff;
+            color: var(--admin-text);
+            font-family: inherit;
+            font-size: 13px;
+            line-height: 1.5;
+            transition:
+                border-color var(--admin-transition),
+                box-shadow var(--admin-transition);
+            box-sizing: border-box;
+        }
+
+        .payment-review-form textarea::placeholder {
+            color: var(--admin-muted-2);
+        }
+
+        .payment-review-form textarea:focus {
+            border-color: rgba(225, 29, 72, 0.45);
+            box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.08);
+        }
+
+        .payment-review-form-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 9px;
+            margin-top: 12px;
+        }
+
+        .payment-review-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            padding: 0 15px;
+            border: 1px solid transparent;
+            border-radius: 9px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 750;
+            cursor: pointer;
+            transition:
+                transform var(--admin-transition),
+                box-shadow var(--admin-transition),
+                background var(--admin-transition);
+        }
+
+        .payment-review-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .payment-review-btn:active {
+            transform: translateY(0);
+        }
+
+        .payment-approve {
+            background: var(--admin-green);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.16);
+        }
+
+        .payment-approve:hover {
+            background: #15803d;
+        }
+
+        .payment-reject {
+            background: #fff;
+            border-color: #fecaca;
+            color: #dc2626;
+        }
+
+        .payment-reject:hover {
+            background: #fef2f2;
+        }
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .payment-review-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 260px;
+            padding: 35px 20px;
+            border: 1px solid var(--admin-border);
+            border-radius: var(--admin-radius-lg);
+            background: var(--admin-surface);
+            color: var(--admin-muted);
+            text-align: center;
+            box-shadow: var(--admin-shadow-sm);
+        }
+
+        .payment-review-empty-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            margin-bottom: 13px;
+            border-radius: 14px;
+            background: var(--admin-surface-soft);
+            color: var(--admin-muted);
+            font-size: 22px;
+        }
+
+        .payment-review-empty h3 {
+            margin: 0;
+            color: var(--admin-text);
+            font-size: 16px;
+            font-weight: 750;
+        }
+
+        .payment-review-empty p {
+            max-width: 390px;
+            margin: 7px 0 0;
+            color: var(--admin-muted);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           CONFIRMATION MODAL
+        ========================================================= */
+
+        .payment-confirm-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.48);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition:
+                opacity 0.2s ease,
+                visibility 0.2s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .payment-confirm-overlay.show {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .payment-confirm-modal {
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            border-radius: 17px;
+            background: #fff;
+            box-shadow: 0 24px 70px rgba(15, 23, 42, 0.22);
+            transform: translateY(12px) scale(0.98);
+            transition: transform 0.2s ease;
+        }
+
+        .payment-confirm-overlay.show .payment-confirm-modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .payment-confirm-top {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 20px 20px 17px;
+            border-bottom: 1px solid var(--admin-border-soft);
+        }
+
+        .payment-confirm-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            flex: 0 0 44px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .payment-confirm-icon.approve {
+            background: var(--admin-green-soft);
+            color: var(--admin-green);
+        }
+
+        .payment-confirm-icon.reject {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .payment-confirm-title {
+            min-width: 0;
+        }
+
+        .payment-confirm-title h2 {
+            margin: 0;
+            color: var(--admin-text);
+            font-size: 17px;
+            line-height: 1.25;
+            font-weight: 800;
+        }
+
+        .payment-confirm-title p {
+            margin: 4px 0 0;
+            color: var(--admin-muted);
+            font-size: 12px;
+        }
+
+        .payment-confirm-body {
+            padding: 19px 20px;
+        }
+
+        .payment-confirm-message {
+            margin: 0;
+            color: var(--admin-text-2);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .payment-confirm-seller {
+            display: block;
+            margin-top: 12px;
+            padding: 10px 12px;
+            border: 1px solid var(--admin-border-soft);
+            border-radius: 9px;
+            background: var(--admin-surface-soft);
+            color: var(--admin-text);
+            font-size: 12px;
+            font-weight: 750;
+        }
+
+        .payment-confirm-warning {
+            display: flex;
+            gap: 9px;
+            margin-top: 13px;
+            padding: 11px 12px;
+            border-radius: 9px;
+            background: #fff7ed;
+            color: #9a3412;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .payment-confirm-warning span:first-child {
+            flex: 0 0 auto;
+            font-weight: 900;
+        }
+
+        .payment-confirm-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 9px;
+            padding: 15px 20px 19px;
+            border-top: 1px solid var(--admin-border-soft);
+            background: #fcfdff;
+        }
+
+        .payment-modal-btn {
+            min-height: 38px;
+            padding: 0 15px;
+            border-radius: 9px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 750;
+            cursor: pointer;
+        }
+
+        .payment-modal-cancel {
+            border: 1px solid var(--admin-border);
+            background: #fff;
+            color: var(--admin-text-2);
+        }
+
+        .payment-modal-cancel:hover {
+            background: var(--admin-surface-soft);
+        }
+
+        .payment-modal-confirm {
+            border: 1px solid transparent;
+            color: #fff;
+        }
+
+        .payment-modal-confirm.approve {
+            background: var(--admin-green);
+        }
+
+        .payment-modal-confirm.approve:hover {
+            background: #15803d;
+        }
+
+        .payment-modal-confirm.reject {
+            background: #dc2626;
+        }
+
+        .payment-modal-confirm.reject:hover {
+            background: #b91c1c;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+            .payment-review-page {
+                max-width: none;
+            }
+
+            .payment-review-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .payment-review-header {
+                align-items: stretch;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .payment-review-total {
+                align-self: flex-start;
+            }
+
+            .payment-review-header h1 {
+                font-size: 26px;
+            }
+
+            .payment-review-meta {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .payment-review-seller {
+                width: 100%;
+                margin-right: 0;
+            }
+
+            .payment-review-date {
+                padding-left: 49px;
+            }
+
+            .payment-review-details {
+                padding: 15px 16px 15px 20px;
+            }
+
+            .payment-review-screenshot {
+                margin: 0 16px 16px 20px;
+            }
+
+            .payment-review-form {
+                padding: 16px 16px 18px 20px;
+            }
+
+            .payment-review-form-actions {
+                align-items: stretch;
+                flex-direction: column-reverse;
+            }
+
+            .payment-review-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .payment-review-header h1 {
+                font-size: 23px;
+            }
+
+            .payment-review-header p {
+                font-size: 13px;
+            }
+
+            .payment-review-total {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .payment-review-card {
+                border-radius: 13px;
+            }
+
+            .payment-review-meta {
+                padding: 16px 14px 14px 19px;
+            }
+
+            .payment-review-details {
+                padding: 13px 13px 13px 19px;
+            }
+
+            .payment-review-screenshot {
+                margin-left: 19px;
+                margin-right: 13px;
+            }
+
+            .payment-review-form {
+                padding-left: 19px;
+                padding-right: 13px;
+            }
+
+            .payment-confirm-overlay {
+                padding: 13px;
+            }
+
+            .payment-confirm-actions {
+                flex-direction: column-reverse;
+            }
+
+            .payment-modal-btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
+
 <body>
+
 <div class="row-holder">
+
+    <!-- =========================
+         HEADER
+    ========================== -->
     <div class="header-holder-100">
         <div class="header-100">
+
             <div class="action-holder-101">
-                <button type="button" id="menu1" onclick="open_menu('open')">m</button>
-                <button type="button" id="menu2" style="display:none" onclick="open_menu('close')">c</button>
+                <button type="button"
+                        id="menu1"
+                        onclick="open_menu('open')"
+                        aria-label="Open menu">
+                    ☰
+                </button>
+
+                <button type="button"
+                        id="menu2"
+                        style="display:none;"
+                        onclick="open_menu('close')"
+                        aria-label="Close menu">
+                    ✕
+                </button>
             </div>
-            <div class="title-holder-101"><button type="button">Wingastock | Admin</button></div>
-            <div class="title-holder-101" style="float:right"><button type="button">{{ user.username }}</button></div>
+
+            <div class="title-holder-101">
+                <button type="button">
+                    Payments
+                </button>
+            </div>
+
+            <div class="title-holder-101 admin-user-holder">
+                <button type="button">
+                    {{ user.username }}
+                </button>
+            </div>
+
         </div>
     </div>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
     <div class="center-content-200">
+
+        <!-- =========================
+             SIDEBAR
+        ========================== -->
         <div class="left-holder-201" id="nav">
+
             <div class="nav-bar-holder-202">
-                <p style="text-align:center;font-weight:bold">Options</p>
-                <ul><a href="{% url 'admin_home' %}"><li>Dashboard</li></a></ul>
-                <ul><a href="{% url 'admin_products' %}"><li>Products</li></a></ul>
-                <ul><a href="{% url 'admin_sellers' %}"><li>Sellers</li></a></ul>
-                                    <ul>
-                        <a href="{% url 'admin_customers' %}">
-                            <li>Customers</li>
-                        </a>
-                    </ul>
-                <ul><a href="{% url 'admin_payment_requests' %}"><li class="active-0">Payment reviews</li></a></ul>
-                <ul><a href="{% url 'admin_delivery_requests' %}"><li>Delivery requests</li></a></ul>
-                <ul><a href="{% url 'mail_home_a' %}"><li>Mail</li></a></ul>
-                <ul><a href="{% url 'logout_admin' %}"><li>Exit</li></a></ul>
+
+                <p>Options</p>
+
+                <ul>
+                    <a href="{% url 'admin_home' %}">
+                        <li>Dashboard</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_products' %}">
+                        <li>Products</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_sellers' %}">
+                        <li>Sellers</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_customers' %}">
+                        <li>Customers</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_payment_requests' %}">
+                        <li class="active-0">Payment reviews</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'admin_delivery_requests' %}">
+                        <li>Delivery requests</li>
+                    </a>
+                </ul>
+
+                <!-- STUDENT REPORTS -->
+                <ul>
+                    <a href="{% url 'field_report_list' %}">
+                        <li>
+                            Student reports
+                        </li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'mail_home_a' %}">
+                        <li>Mail</li>
+                    </a>
+                </ul>
+
+                <ul>
+                    <a href="{% url 'logout_admin' %}">
+                        <li>Exit</li>
+                    </a>
+                </ul>
+
             </div>
         </div>
+
+
+        <!-- =========================
+             PAGE CONTENT
+        ========================== -->
         <div class="right-holder-201">
+
             <div class="payment-review-page">
-                <div class="payment-review-heading">
-                    <span>SELLER PAYMENTS</span>
-                    <h1>Payment reviews</h1>
-                    <p>Review payment screenshots and unlock product posting space.</p>
+
+                <!-- PAGE HEADER -->
+                <div class="payment-review-header">
+
+                    <div class="payment-review-header-info">
+
+                        <p class="payment-review-eyebrow">
+                            Seller payments
+                        </p>
+
+                        <h1>
+                            Payment reviews
+                        </h1>
+
+                        <p>
+                            Review payment screenshots and unlock product
+                            posting space.
+                        </p>
+
+                    </div>
+
+                    <div class="payment-review-total">
+
+                        <strong>
+                            {{ payment_requests|length }}
+                        </strong>
+
+                        <span>
+                            Payment requests
+                        </span>
+
+                    </div>
+
                 </div>
+
+
+                <!-- =========================
+                     MESSAGES
+                ========================== -->
                 {% if messages %}
-                    {% for message in messages %}<div class="payment-review-message">{{ message }}</div>{% endfor %}
-                {% endif %}
-                <div class="payment-review-list">
-                    {% for payment in payment_requests %}
-                    <article class="payment-review-card">
-                        <div class="payment-review-meta">
-                            <strong>{{ payment.seller.email }}</strong>
-                            <span>{{ payment.created_at|date:"d M Y, H:i" }}</span>
-                            <b class="payment-review-status status-{{ payment.status }}">{{ payment.get_status_display }}</b>
-                        </div>
-                        <div class="payment-review-details">
-                            <div><small>Requested space</small><strong>{{ payment.requested_products }} products</strong></div>
-                            <div><small>Amount</small><strong>{{ payment.amount }} TSh</strong></div>
-                            <div><small>Reference</small><strong>{{ payment.payment_reference|default:"Not provided" }}</strong></div>
-                        </div>
-                        {% if payment.screenshot %}
-                            <a class="payment-review-image" href="{{ payment.screenshot.url }}" target="_blank" rel="noopener">
-                                <img src="{{ payment.screenshot.url }}" alt="Payment screenshot">
-                                <span>Open screenshot</span>
-                            </a>
-                        {% endif %}
-                        <form method="post" action="{% url 'admin_review_payment' payment.id %}" class="payment-review-form">
-                            {% csrf_token %}
-                            <textarea name="admin_note" placeholder="Optional note for seller">{{ payment.admin_note }}</textarea>
-                            <div>
-                                <button name="status" value="approved" class="payment-approve">Approve & unlock</button>
-                                <button name="status" value="rejected" class="payment-reject">Reject</button>
+                    <div class="payment-review-messages">
+
+                        {% for message in messages %}
+
+                            <div class="payment-review-message">
+                                {{ message }}
                             </div>
-                        </form>
-                    </article>
+
+                        {% endfor %}
+
+                    </div>
+                {% endif %}
+
+
+                <!-- =========================
+                     PAYMENT REQUESTS
+                ========================== -->
+                <div class="payment-review-list">
+
+                    {% for payment in payment_requests %}
+
+                        <article class="payment-review-card"
+                                 data-payment-id="{{ payment.id }}">
+
+                            <!-- CARD HEADER -->
+                            <div class="payment-review-meta">
+
+                                <div class="payment-review-seller">
+
+                                    <span class="payment-review-avatar">
+                                        {{ payment.seller.email|slice:":1" }}
+                                    </span>
+
+                                    <div class="payment-review-seller-info">
+
+                                        <strong>
+                                            {{ payment.seller.email }}
+                                        </strong>
+
+                                        <small>
+                                            Payment request #{{ payment.id }}
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                                <span class="payment-review-date">
+                                    {{ payment.created_at|date:"d M Y, H:i" }}
+                                </span>
+
+                                <b class="payment-review-status status-{{ payment.status }}">
+                                    {{ payment.get_status_display }}
+                                </b>
+
+                            </div>
+
+
+                            <!-- PAYMENT DETAILS -->
+                            <div class="payment-review-details">
+
+                                <div class="payment-review-detail">
+
+                                    <small>
+                                        Requested space
+                                    </small>
+
+                                    <strong>
+                                        {{ payment.requested_products }}
+                                        products
+                                    </strong>
+
+                                </div>
+
+                                <div class="payment-review-detail amount">
+
+                                    <small>
+                                        Amount
+                                    </small>
+
+                                    <strong>
+                                        {{ payment.amount }} TSh
+                                    </strong>
+
+                                </div>
+
+                                <div class="payment-review-detail">
+
+                                    <small>
+                                        Reference
+                                    </small>
+
+                                    <strong>
+                                        {{ payment.payment_reference|default:"Not provided" }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SCREENSHOT -->
+                            {% if payment.screenshot %}
+
+                                <div class="payment-review-screenshot">
+
+                                    <a class="payment-review-image"
+                                       href="{{ payment.screenshot.url }}"
+                                       target="_blank"
+                                       rel="noopener">
+
+                                        <img src="{{ payment.screenshot.url }}"
+                                             alt="Payment screenshot">
+
+                                        <span class="payment-review-image-label">
+                                            ↗ Open screenshot
+                                        </span>
+
+                                    </a>
+
+                                </div>
+
+                            {% else %}
+
+                                <div class="payment-review-no-screenshot">
+                                    No payment screenshot was uploaded.
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- REVIEW FORM -->
+                            <form method="post"
+                                  action="{% url 'admin_review_payment' payment.id %}"
+                                  class="payment-review-form"
+                                  data-payment-id="{{ payment.id }}"
+                                  data-seller="{{ payment.seller.email|escapejs }}">
+
+                                {% csrf_token %}
+
+                                <textarea
+                                    name="admin_note"
+                                    placeholder="Optional note for seller">{{ payment.admin_note }}</textarea>
+
+                                <div class="payment-review-form-actions">
+
+                                    <button type="button"
+                                            class="payment-review-btn payment-reject"
+                                            onclick="openPaymentConfirm(
+                                                'rejected',
+                                                this.closest('form'),
+                                                '{{ payment.seller.email|escapejs }}'
+                                            )">
+                                        Reject
+                                    </button>
+
+                                    <button type="button"
+                                            class="payment-review-btn payment-approve"
+                                            onclick="openPaymentConfirm(
+                                                'approved',
+                                                this.closest('form'),
+                                                '{{ payment.seller.email|escapejs }}'
+                                            )">
+                                        Approve & unlock
+                                    </button>
+
+                                </div>
+
+                            </form>
+
+                        </article>
+
                     {% empty %}
-                    <div class="payment-review-empty">No payment requests yet.</div>
+
+                        <div class="payment-review-empty">
+
+                            <div class="payment-review-empty-icon">
+                                $
+                            </div>
+
+                            <h3>
+                                No payment requests
+                            </h3>
+
+                            <p>
+                                There are currently no seller payment requests
+                                waiting for review.
+                            </p>
+
+                        </div>
+
                     {% endfor %}
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
+
+
+<!-- =========================================================
+     PAYMENT CONFIRMATION MODAL
+========================================================= -->
+
+<div class="payment-confirm-overlay"
+     id="paymentConfirmModal"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="paymentConfirmTitle">
+
+    <div class="payment-confirm-modal">
+
+        <div class="payment-confirm-top">
+
+            <div class="payment-confirm-icon"
+                 id="paymentConfirmIcon">
+                ?
+            </div>
+
+            <div class="payment-confirm-title">
+
+                <h2 id="paymentConfirmTitle">
+                    Confirm action
+                </h2>
+
+                <p id="paymentConfirmSubtitle">
+                    Please confirm this payment review.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="payment-confirm-body">
+
+            <p class="payment-confirm-message"
+               id="paymentConfirmMessage">
+                Are you sure you want to continue?
+            </p>
+
+            <span class="payment-confirm-seller"
+                  id="paymentConfirmSeller">
+                Seller
+            </span>
+
+            <div class="payment-confirm-warning"
+                 id="paymentConfirmWarning">
+
+                <span>⚠</span>
+
+                <span id="paymentConfirmWarningText">
+                    Please make sure the payment information has been
+                    reviewed before continuing.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="payment-confirm-actions">
+
+            <button type="button"
+                    class="payment-modal-btn payment-modal-cancel"
+                    onclick="closePaymentConfirm()">
+                Cancel
+            </button>
+
+            <button type="button"
+                    class="payment-modal-btn payment-modal-confirm"
+                    id="paymentConfirmButton"
+                    onclick="submitPaymentReview()">
+                Confirm
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 <script>
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
 function open_menu(click) {
+
     const nav = document.getElementById("nav");
-    document.getElementById("menu1").style.display = click === "open" ? "none" : "inline-block";
-    document.getElementById("menu2").style.display = click === "open" ? "inline-block" : "none";
-    nav.style.display = click === "open" ? "inline-block" : "none";
+    const menu1 = document.getElementById("menu1");
+    const menu2 = document.getElementById("menu2");
+
+    if (!nav || !menu1 || !menu2) {
+        return;
+    }
+
+    if (click === "open") {
+
+        nav.style.display = "inline-block";
+
+        menu1.style.display = "none";
+        menu2.style.display = "inline-block";
+
+        document.body.classList.add("admin-menu-open");
+
+    } else {
+
+        nav.style.display = "none";
+
+        menu1.style.display = "inline-block";
+        menu2.style.display = "none";
+
+        document.body.classList.remove("admin-menu-open");
+    }
 }
+
+
+/* =========================================================
+   PAYMENT CONFIRMATION
+========================================================= */
+
+let selectedPaymentForm = null;
+let selectedPaymentStatus = null;
+
+
+/*
+ * Open confirmation modal.
+ */
+function openPaymentConfirm(status, form, sellerEmail) {
+
+    if (!form) {
+        return;
+    }
+
+    selectedPaymentForm = form;
+    selectedPaymentStatus = status;
+
+    const modal = document.getElementById("paymentConfirmModal");
+    const icon = document.getElementById("paymentConfirmIcon");
+    const title = document.getElementById("paymentConfirmTitle");
+    const subtitle = document.getElementById("paymentConfirmSubtitle");
+    const message = document.getElementById("paymentConfirmMessage");
+    const seller = document.getElementById("paymentConfirmSeller");
+    const warning = document.getElementById("paymentConfirmWarningText");
+    const confirmButton = document.getElementById("paymentConfirmButton");
+
+    if (!modal) {
+        return;
+    }
+
+    seller.textContent = sellerEmail || "Seller";
+
+    icon.classList.remove("approve", "reject");
+    confirmButton.classList.remove("approve", "reject");
+
+    if (status === "approved") {
+
+        icon.classList.add("approve");
+        icon.textContent = "✓";
+
+        title.textContent = "Approve payment?";
+        subtitle.textContent = "Confirm seller payment approval.";
+
+        message.textContent =
+            "Are you sure you want to approve this payment and unlock the requested product posting space?";
+
+        warning.textContent =
+            "Only approve this request after confirming that the payment information is valid.";
+
+        confirmButton.textContent = "Approve & unlock";
+        confirmButton.classList.add("approve");
+
+    } else {
+
+        icon.classList.add("reject");
+        icon.textContent = "×";
+
+        title.textContent = "Reject payment?";
+        subtitle.textContent = "Confirm seller payment rejection.";
+
+        message.textContent =
+            "Are you sure you want to reject this payment request?";
+
+        warning.textContent =
+            "The seller will not receive the requested product posting space from this request.";
+
+        confirmButton.textContent = "Reject payment";
+        confirmButton.classList.add("reject");
+    }
+
+    modal.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+
+    setTimeout(function () {
+
+        if (confirmButton) {
+            confirmButton.focus();
+        }
+
+    }, 50);
+}
+
+
+/*
+ * Close confirmation modal.
+ */
+function closePaymentConfirm() {
+
+    const modal = document.getElementById("paymentConfirmModal");
+
+    if (!modal) {
+        return;
+    }
+
+    modal.classList.remove("show");
+
+    document.body.style.overflow = "";
+
+    selectedPaymentForm = null;
+    selectedPaymentStatus = null;
+}
+
+
+/*
+ * Submit the original Django form.
+ *
+ * This preserves:
+ * - csrf_token
+ * - admin_review_payment URL
+ * - admin_note
+ * - status
+ */
+function submitPaymentReview() {
+
+    if (!selectedPaymentForm || !selectedPaymentStatus) {
+        return;
+    }
+
+    const form = selectedPaymentForm;
+
+    /*
+     * Add the status value dynamically so the original
+     * Django endpoint receives exactly:
+     *
+     * status=approved
+     * or
+     * status=rejected
+     */
+    let statusInput = form.querySelector(
+        'input[name="status"][data-payment-status="true"]'
+    );
+
+    if (!statusInput) {
+
+        statusInput = document.createElement("input");
+
+        statusInput.type = "hidden";
+        statusInput.name = "status";
+        statusInput.setAttribute(
+            "data-payment-status",
+            "true"
+        );
+
+        form.appendChild(statusInput);
+    }
+
+    statusInput.value = selectedPaymentStatus;
+
+    const confirmButton =
+        document.getElementById("paymentConfirmButton");
+
+    if (confirmButton) {
+
+        confirmButton.disabled = true;
+
+        confirmButton.textContent =
+            selectedPaymentStatus === "approved"
+                ? "Approving..."
+                : "Rejecting...";
+    }
+
+    form.submit();
+}
+
+
+/* =========================================================
+   MODAL INTERACTIONS
+========================================================= */
+
+/*
+ * Close when clicking the dark background.
+ */
+document.addEventListener("click", function(event) {
+
+    const modal =
+        document.getElementById("paymentConfirmModal");
+
+    if (!modal) {
+        return;
+    }
+
+    if (event.target === modal) {
+        closePaymentConfirm();
+    }
+});
+
+
+/*
+ * Escape closes the modal.
+ */
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+
+        const modal =
+            document.getElementById("paymentConfirmModal");
+
+        if (
+            modal &&
+            modal.classList.contains("show")
+        ) {
+            closePaymentConfirm();
+        }
+    }
+});
+
+
+/* =========================================================
+   AUTO-HIDE DJANGO MESSAGES
+========================================================= */
+
+setTimeout(function() {
+
+    const messages =
+        document.querySelectorAll(
+            ".payment-review-message"
+        );
+
+    messages.forEach(function(message) {
+
+        message.style.transition =
+            "opacity 0.3s ease, transform 0.3s ease";
+
+        message.style.opacity = "0";
+        message.style.transform = "translateY(-5px)";
+
+        setTimeout(function() {
+
+            if (message.parentNode) {
+                message.parentNode.removeChild(message);
+            }
+
+        }, 350);
+
+    });
+
+}, 4000);
 </script>
+
 </body>
 </html>
