@@ -40,9 +40,12 @@ def admin_home(request):
     )
 
     # Total mails
-    mail_t = Mails.objects.aggregate(
-        total=Count("id")
-    )
+    mails = Mails.objects.filter(
+            receiver_id=request.user.email,
+            status='unread'
+        ).order_by('-id')
+
+    mail_t = mails.aggregate(total=Count('id'))
 
     # Total normal customers
     total_customers = User.objects.filter(
