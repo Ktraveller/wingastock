@@ -89,7 +89,7 @@ class Product(models.Model):
         max_length=50,
         choices=CATEGORY_CHOICES
     )
-    status = models.CharField(max_length=100, default="saved")
+    status = models.CharField(max_length=100, default="visible")
     image = CloudinaryField("image", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
